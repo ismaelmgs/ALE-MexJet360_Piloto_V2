@@ -1,0 +1,9 @@
+/* .wrap */
+
+.site_wrap {
+	width: 82%;
+	/*max-width: 60rem;*/
+	/*min-width: 292px;*/
+    margin-left: 7%;
+    margin-top: 50px;
+}

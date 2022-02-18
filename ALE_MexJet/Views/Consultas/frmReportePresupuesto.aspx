@@ -1,0 +1,1 @@
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/ALE_Main.Master" AutoEventWireup="true" CodeBehind="frmReportePresupuesto.aspx.cs" Inherits="ALE_MexJet.Views.Consultas.frmReportePresupuesto" EnableEventValidation="false" UICulture="es" Culture="es-MX" %>

@@ -1,0 +1,293 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="MasterALE.master.cs" Inherits="ALE_MexJet.MasterALE" %>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head runat="server">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>Aerolineas Ejecutivas</title>
+
+    <link rel="shortcut icon" href="img/colors/blue/logo-ale.png">
+    <meta name="description" content="">
+
+    <!-- CSS -->
+    <link href="Styles/css/preload.css" rel="stylesheet" media="screen" />
+    <link href="Styles/css/bootstrap.css" rel="stylesheet" media="screen" />
+    <link href="Styles/css/font-awesome.min.css" rel="stylesheet" media="screen" />
+    <link href="Styles/css/animate.min.css" rel="stylesheet" media="screen" />
+    <link href="Styles/css/slidebars.css" rel="stylesheet" media="screen" />
+    <link href="Styles/css/lightbox.css" rel="stylesheet" media="screen" />
+    <link href="Styles/css/jquery.bxslider.css" rel="stylesheet" />
+    <link href="Styles/css/syntaxhighlighter/shCore.css" rel="stylesheet" media="screen" />
+    <link href="Styles/css/style-blue.css" rel="stylesheet" media="screen" title="default" />
+    <link href="Styles/css/width-full.css" rel="stylesheet" media="screen" title="default" />
+    <link href="Styles/css/buttons.css" rel="stylesheet" media="screen" />
+
+
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+
+<!-- Preloader -->
+<div id="preloader">
+    <div id="status">&nbsp;</div>
+</div>
+
+<body>
+
+
+    <form id="form1" runat="server">
+        <div id="sb-site">
+            <div class="boxed">
+
+                <header id="header-full-top" class="hidden-xs header-full-dark">
+                    <div class="container">
+                        <div class="header-full-title" style="height: auto;">
+                            <h1 class="animated fadeInRight"><span style="margin-left: 100px;"></span></h1>
+                            <p class="animated fadeInRight"></p>
+                        </div>
+                        <nav class="top-nav">
+                            <ul class="top-nav-social hidden-sm">
+                                <li><a href="#" class="animated fadeIn animation-delay-6 rss"><i class="fa fa-rss"></i></a></li>
+                                <li><a href="#" class="animated fadeIn animation-delay-7 twitter"><i class="fa fa-twitter"></i></a></li>
+                                <li><a href="#" class="animated fadeIn animation-delay-8 facebook"><i class="fa fa-facebook"></i></a></li>
+                                <li><a href="#" class="animated fadeIn animation-delay-9 googleplus"><i class="fa fa-google-plus"></i></a></li>
+                                <li><a href="#" class="animated fadeIn animation-delay-9 instagram"><i class="fa fa-instagram"></i></a></li>
+                                <li><a href="#" class="animated fadeIn animation-delay-8 vine"><i class="fa fa-vine"></i></a></li>
+                                <li><a href="#" class="animated fadeIn animation-delay-7 linkedin"><i class="fa fa-linkedin"></i></a></li>
+                                <li><a href="#" class="animated fadeIn animation-delay-6 flickr"><i class="fa fa-flickr"></i></a></li>
+                            </ul>
+
+                            <div class="dropdown animated fadeInDown animation-delay-11">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i>Login</a>
+                                <div class="dropdown-menu dropdown-menu-right dropdown-login-box animated fadeInUp">
+                                    <form role="form">
+                                        <h4>Acceso</h4>
+
+                                        <div class="form-group">
+                                            <div class="input-group login-input">
+                                                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                                <input type="text" class="form-control" placeholder="Usuario">
+                                            </div>
+                                            <br>
+                                            <div class="input-group login-input">
+                                                <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                                                <input type="password" class="form-control" placeholder="Contraseña">
+                                            </div>
+                                            <div class="checkbox pull-left">
+                                                <label>
+                                                    <input type="checkbox">
+                                                    Recordarme
+                                                </label>
+                                            </div>
+                                            <button type="submit" class="btn btn-ar btn-primary pull-right">Entrar</button>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <!-- dropdown -->
+
+                            <div class="dropdown animated fadeInDown animation-delay-13">
+                                <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-search"></i></a>-->
+                                <div class="dropdown-menu dropdown-menu-right dropdown-search-box animated fadeInUp">
+                                    <form role="form">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" placeholder="Buscar...">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-ar btn-primary" type="button">Ir!</button>
+                                            </span>
+                                        </div>
+                                        <!-- /input-group -->
+                                    </form>
+                                </div>
+                            </div>
+                            <!-- dropdown -->
+                        </nav>
+                    </div>
+                    <!-- container -->
+                </header>
+                <!-- header-full -->
+
+                <nav class="navbar navbar-static-top navbar-default navbar-header-full navbar-inverse" role="navigation" id="header">
+                    <div class="container">
+                        <!-- Brand and toggle get grouped for better mobile display -->
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                                <span class="sr-only">Toggle navigation</span>
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <span class="navbar-brand hidden-lg hidden-md hidden-sm active"></span>
+                        </div>
+                        <!-- navbar-header -->
+
+                        <!-- Collect the nav links, forms, and other content for toggling -->
+                        <div class="pull-right">
+                            <a href="javascript:void(0);" class="sb-icon-navbar sb-toggle-right"><i class="fa fa-bars"></i></a>
+                        </div>
+                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                            <ul class="nav navbar-nav">
+                                <li>
+                                    <a href="index.html" class="dropdown-toggle">Inicio</a>
+                                </li>
+                                <li>
+                                    <a href="frmContratos.html" class="dropdown-toggle">Contratos</a>
+                                </li>
+                                <li class="dropdown">
+                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">Reportes</a>
+                                    <ul class="dropdown-menu dropdown-menu-left">
+                                        <li><a href="frmEstadoCuenta.html">Estado de Cuenta</a></li>
+                                    </ul>
+                                </li>
+                                <li class="dropdown">
+                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">Clientes</a>
+                                    <ul class="dropdown-menu dropdown-menu-left">
+                                        <li><a href="frmUsuarios.html">Alta de Clientes</a></li>
+                                        <li><a href="frmConsultaClientes.html">Consulta de Clientes</a></li>
+                                    </ul>
+                                </li>
+                                <li class="dropdown">
+                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">Administración</a>
+                                    <ul class="dropdown-menu dropdown-menu-left">
+                                        <li><a href="#">Usuarios</a></li>
+                                        <li><a href="#">Clientes</a></li>
+                                        <li><a href="#">Productos</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- navbar-collapse -->
+                    </div>
+                    <!-- container -->
+                </nav>
+                <div>
+
+                    <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                    </asp:ContentPlaceHolder>
+
+                </div>
+                <section class="margin-bottom">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-3 col-sm-6">
+                                <div class="content-box box-default animated fadeInUp animation-delay-10">
+                                    <span class="icon-ar icon-ar-lg icon-ar-round icon-ar-inverse"><i class="fa fa-html5"></i></span>
+                                    <h4 class="content-box-title">Clientes</h4>
+                                    <p>Consectetur adipisicing elit vritatis dolor rem officia molestiae atque eveniet inventore earum quas voluptates cumque</p>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-6">
+                                <div class="content-box box-default animated fadeInUp animation-delay-14">
+                                    <span class="icon-ar icon-ar-lg icon-ar-round icon-ar-inverse"><i class="fa fa-css3"></i></span>
+                                    <h4 class="content-box-title">Contratos</h4>
+                                    <p>Consectetur adipisicing elit vritatis dolor rem officia molestiae atque eveniet inventore earum quas voluptates cumque</p>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-6">
+                                <div class="content-box box-default animated fadeInUp animation-delay-16">
+                                    <span class="icon-ar icon-ar-lg icon-ar-round icon-ar-inverse"><i class="fa fa-desktop"></i></span>
+                                    <h4 class="content-box-title">Administración</h4>
+                                    <p>Consectetur adipisicing elit vritatis dolor rem officia molestiae atque eveniet inventore earum quas voluptates cumque</p>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-6">
+                                <div class="content-box box-default animated fadeInUp animation-delay-12">
+                                    <span class="icon-ar icon-ar-lg icon-ar-round icon-ar-inverse"><i class="fa fa-flag"></i></span>
+                                    <h4 class="content-box-title">Configuración</h4>
+                                    <p>Consectetur adipisicing elit vritatis dolor rem officia molestiae atque eveniet inventore earum quas voluptates cumque</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <aside id="footer-widgets">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h3 class="footer-widget-title">Sitemap</h3>
+                                <ul class="list-unstyled three_cols">
+                                    <li><a href="index.html" class="active">Home</a></li>
+                                    <li><a href="#">Blog</a></li>
+                                    <li><a href="#">Portafolio</a></li>
+                                    <li><a href="#">Works</a></li>
+                                    <li><a href="#">Timeline</a></li>
+                                    <li><a href="#">Pricing</a></li>
+                                    <li><a href="#">About Us</a></li>
+                                    <li><a href="#">Our Team</a></li>
+                                    <li><a href="#">Services</a></li>
+                                    <li><a href="#">FAQ</a></li>
+                                    <li><a href="#">Login</a></li>
+                                    <li><a href="#">Contact</a></li>
+                                </ul>
+                            </div>
+
+                        </div>
+                        <!-- row -->
+                    </div>
+                    <!-- container -->
+                </aside>
+                <!-- footer-widgets -->
+                <footer id="footer">
+                    <p>México DF: +52 (55) 4209 0200 Av. Paseo de la Reforma 2608 piso 20</p>
+                    <p>&copy; 2015 <a href="http://www.aerolineasejecutivas.com/" target="_blank">Aerolineas Ejecutivas</a>, Todos los derechos reservados.</p>
+                </footer>
+            </div>
+            <!-- boxed -->
+
+        </div>
+        <!-- sb-site -->
+
+        <div class="sb-slidebar sb-right">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Buscar...">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
+                </span>
+            </div>
+            <!-- /input-group -->
+
+            <h2 class="slidebar-header no-margin-bottom">Principal</h2>
+            <ul class="slidebar-menu">
+                <li><a href="index.html" class="active">Inicio</a></li>
+                <li><a href="frmContratos.html">Contratos</a></li>
+                <li><a href="frmEstadoCuenta">Estados de Cuenta</a></li>
+                <li><a href="#">Administración</a></li>
+                <li><a href="#">Configuración</a></li>
+            </ul>
+
+        </div>
+        <!-- sb-slidebar sb-right -->
+
+        <div id="back-top">
+            <a href="#header"><i class="fa fa-chevron-up"></i></a>
+        </div>
+
+
+
+    </form>
+
+    <!-- Scripts -->
+    <script src="<%= ResolveClientUrl("~/js/jquery.min.js") %>"></script>
+    <script src="<%= ResolveClientUrl("~/js/jquery.cookie.js") %>"></script>
+    <script src="<%= ResolveClientUrl("~/js/bootstrap.min.js") %>"></script>
+    <script src="<%= ResolveClientUrl("~/js/wow.min.js") %>"></script>
+    <script src="<%= ResolveClientUrl("~/js/slidebars.js") %>"></script>
+    <script src="<%= ResolveClientUrl("~/js/jquery.bxslider.min.js") %>"></script>
+    <script src="<%= ResolveClientUrl("~/js/buttons.js") %>"></script>
+    <script src="<%= ResolveClientUrl("~/js/styleswitcher.js") %>"></script>
+    <script src="<%= ResolveClientUrl("~/js/jquery.mixitup.min.js") %>"></script>
+    <script src="<%= ResolveClientUrl("~/js/circles.min.js") %>"></script>
+
+    <!-- Syntaxhighlighter -->
+    <script src="<%= ResolveClientUrl("~/js/syntaxhighlighter/shCore.js") %>"></script>
+    <script src="<%= ResolveClientUrl("~/js/syntaxhighlighter/shBrushXml.js") %>"></script>
+    <script src="<%= ResolveClientUrl("~/js/syntaxhighlighter/shBrushJScript.js") %>"></script>
+
+    <script src="<%= ResolveClientUrl("~/js/app.js") %>"></script>
+    <script src="<%= ResolveClientUrl("~/js/index.js") %>"></script>
+
+</body>
+</html>

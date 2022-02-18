@@ -1,0 +1,29 @@
+﻿body {
+}
+
+.FTitulo {
+    /*color: #ffffff; font-family: Helvetica, Arial,sans-serif; font-size: 25px;*/
+    color: #ffffff; font-family: Helvetica, Arial,sans-serif; font-size: 27px;
+}
+
+.FGrid {    
+    /*font-size:small;*/
+    font-size: 14px;    
+}
+
+.FExport {
+   /* */font-size: 12px;
+}
+
+/*Todos los botones*/
+.FBotton {
+    /**/font-size: 14px;
+}
+
+.FNumPag {
+    font-size:12px;
+}
+
+.FFecha {
+    font-size:small;
+}

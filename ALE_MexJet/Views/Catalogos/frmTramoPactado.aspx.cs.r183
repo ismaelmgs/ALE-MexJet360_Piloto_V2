@@ -1,0 +1,338 @@
+﻿using ALE_MexJet.DomainModel;
+using ALE_MexJet.Interfaces;
+using ALE_MexJet.Objetos;
+using ALE_MexJet.Presenter;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using NucleoBase.Core;
+
+using DevExpress.Export;
+using DevExpress.XtraPrinting;
+using System.ComponentModel;
+using ALE_MexJet.ControlesUsuario;
+using DevExpress.Web.Data;
+using DevExpress.Web;
+using ALE_MexJet.Clases;
+using DevExpress.Utils;
+
+namespace ALE_MexJet.Views.Catalogos
+{
+    public partial class frmTramoPactado : System.Web.UI.Page, IViewTramoPactado
+    {
+        #region EVENTOS
+
+        protected void Page_Load(object sender, EventArgs e)
+        {
+
+            gvTramoPactado.Columns["Status"].Visible = true;
+            oPresenter = new TramoPactado_Presenter(this, new DBTramoPactado());
+            gvTramoPactado.SettingsPager.Position = PagerPosition.TopAndBottom;
+            gvTramoPactado.SettingsPager.ShowDisabledButtons = true;
+            gvTramoPactado.SettingsPager.ShowNumericButtons = true;
+            gvTramoPactado.SettingsPager.ShowSeparators = true;
+            gvTramoPactado.SettingsPager.Summary.Visible = true;
+            gvTramoPactado.SettingsPager.PageSizeItemSettings.Visible = true;
+            gvTramoPactado.SettingsPager.PageSizeItemSettings.Position = PagerPageSizePosition.Right;
+            gvTramoPactado.SettingsText.SearchPanelEditorNullText = "Ingresa la información a buscar:";
+
+            ObtieneValores();
+            if (!IsPostBack)
+            {
+                if (gvTramoPactado.VisibleRowCount < 1)
+                {
+                    gvTramoPactado.SettingsText.PopupEditFormCaption = "Fomulario de Creación";
+                    gvTramoPactado.Columns["Status"].Visible = false;
+                    gvTramoPactado.AddNewRow();
+                }
+            }
+
+
+        }
+
+        protected void gvTramoPactado_CancelRowEditing(object sender, ASPxStartRowEditingEventArgs e)
+        {
+            gvTramoPactado.Columns["Status"].Visible = true;
+
+        }
+
+        protected void gvTramoPactado_CellEditorInitialize(object sender, ASPxGridViewEditorEventArgs e)
+        {
+
+            e.Editor.ReadOnly = false;
+
+            ASPxGridView gridView = (ASPxGridView)sender;
+
+            if (gridView.IsNewRowEditing)
+            {
+                eCrud = Enumeraciones.TipoOperacion.Insertar;
+                gvTramoPactado.Columns["Status"].Visible = false;
+
+            }
+            else
+            {
+                eCrud = Enumeraciones.TipoOperacion.Actualizar;
+            }
+
+            if (e.Column.FieldName == "IdOrigen")
+            {
+                if (eGetAeropuerto != null)
+                    eGetAeropuerto(this, e);
+                ASPxComboBox cmb = e.Editor as ASPxComboBox;
+                cmb.DataSource = (DataTable)ViewState["Aeropuerto"];
+                cmb.ValueField = "idAeropuert";
+                cmb.ValueType = typeof(Int32);
+                cmb.TextField = "AeropuertoIATA";
+                cmb.DataBindItems();
+
+            }
+
+
+            if (e.Column.FieldName == "IdDestino")
+            {
+                if (eGetAeropuerto != null)
+                    eGetAeropuerto(this, e);
+                ASPxComboBox cmb = e.Editor as ASPxComboBox;
+                cmb.DataSource = (DataTable)ViewState["Aeropuerto"];
+                cmb.ValueField = "idAeropuert";
+                cmb.ValueType = typeof(Int32);
+                cmb.TextField = "AeropuertoIATA";
+                cmb.DataBindItems();
+
+            }
+
+            if (e.Column.FieldName == "IdGrupoModelo")
+            {
+                if (eGetGrupoModelo != null)
+                    eGetGrupoModelo(this, e);
+                ASPxComboBox cmb = e.Editor as ASPxComboBox;
+                cmb.DataSource = (DataTable)ViewState["GrupoModelo"];
+                cmb.ValueField = "GrupoModeloId";
+                cmb.ValueType = typeof(Int32);
+                cmb.TextField = "Descripcion";
+                cmb.DataBindItems();
+
+            }
+
+        }
+
+        protected void gvTramoPactado_RowDeleting(object sender, ASPxDataDeletingEventArgs e)
+        {
+            try
+            {
+                eCrud = Enumeraciones.TipoOperacion.Eliminar;
+                oCrud = e;
+                CancelEditing(e);
+
+                if (eDeleteObj != null)
+                    eDeleteObj(sender, e);
+            }
+            catch (Exception ex)
+            {
+                MostrarMensaje("Folio:", "Se presentó un error");
+                //Utils.SaveErrorEnBitacora(mpeMensaje, ex.Message, sPagina, sClase, "gvTramoPactado_RowDeleting", "Se presentó un error");
+            }
+        }
+
+        protected void gvTramoPactado_RowInserting(object sender, ASPxDataInsertingEventArgs e)
+        {
+            eCrud = Enumeraciones.TipoOperacion.Insertar;
+            oCrud = e;
+
+
+            if (eNewObj != null)
+                eNewObj(sender, e);
+
+            CancelEditing(e);
+            gvTramoPactado.Columns["Status"].Visible = true;
+
+        }
+
+        protected void gvTramoPactado_RowUpdating(object sender, ASPxDataUpdatingEventArgs e)
+        {
+            eCrud = Enumeraciones.TipoOperacion.Actualizar;
+            oCrud = e;
+
+            if (eSaveObj != null)
+                eSaveObj(sender, e);
+
+            CancelEditing(e);
+
+
+        }
+
+        protected void gvTramoPactado_StartRowEditing(object sender, ASPxStartRowEditingEventArgs e)
+        {
+            gvTramoPactado.SettingsText.PopupEditFormCaption = "Fomulario de Edición";
+
+        }
+
+        protected void gvTramoPactado_RowValidating(object sender, ASPxDataValidationEventArgs e)
+        {
+            oCrud = e;
+
+            if (eObjSelected != null)
+                eObjSelected(sender, e);
+
+            if (bDuplicado)
+            {
+                AddError(e.Errors, gvTramoPactado.Columns["TramoPactadoDescripcion"], "Este TramoPactado ya existe, favor de validarlo.");
+            }
+        }
+
+        protected void btnBuscar_Click(object sender, EventArgs e)
+        {
+            ObtieneValores();
+        }
+
+        protected void btnNuevo_Click(object sender, EventArgs e)
+        {
+            gvTramoPactado.SettingsText.PopupEditFormCaption = "Fomulario de Creación";
+            gvTramoPactado.Columns["Status"].Visible = false;
+            gvTramoPactado.AddNewRow();
+
+        }
+
+        protected void btnExportar_Click(object sender, EventArgs e)
+        {
+            Exporter.WriteXlsToResponse(new XlsExportOptionsEx() { ExportType = ExportType.DataAware });
+        }
+
+
+        #endregion
+
+        #region "METODOS"
+
+        public void ObtieneValores()
+        {
+            if (eSearchObj != null)
+                eSearchObj(null, EventArgs.Empty);
+            if (eGetGrupoModelo != null)
+                eGetGrupoModelo(null, EventArgs.Empty);
+        }
+        public void LoadObjects(DataTable dtObject)
+        {
+            gvTramoPactado.DataSource = null;
+            ViewState["oDatos"] = null;
+
+            gvTramoPactado.DataSource = dtObject;
+            ViewState["oDatos"] = dtObject;
+
+            gvTramoPactado.DataBind();
+
+        }
+        public void MostrarMensaje(string sMensaje, string sCaption)
+        {
+            popup.HeaderText = sCaption;
+            gvTramoPactado.JSProperties["cpCaption"] = sCaption;
+            gvTramoPactado.JSProperties["cpText"] = sMensaje;
+            gvTramoPactado.JSProperties["cpShowPopup"] = true;
+
+
+        }
+        protected void CancelEditing(CancelEventArgs e)
+        {
+            e.Cancel = true;
+            gvTramoPactado.CancelEdit();
+        }
+        void AddError(Dictionary<GridViewColumn, string> errors, GridViewColumn column, string errorText)
+        {
+            if (errors.ContainsKey(column)) return;
+            errors[column] = errorText;
+        }
+        public void LoadCatalogoAeropuertos(DataTable dtObjCat)
+        {
+            ViewState["Aeropuerto"] = dtObjCat;
+        }
+
+        public void LoadCatalogoGrupoModelo(DataTable dtObjCat)
+        {
+            ViewState["GrupoModelo"] = dtObjCat;
+            ddlBusqueda.DataSource = dtObjCat;
+            ddlBusqueda.ValueField = "GrupoModeloId";
+            ddlBusqueda.TextField = "Descripcion";
+        }
+        #endregion
+
+        #region "Vars y Propiedades"
+        TramoPactado_Presenter oPresenter;
+        public event EventHandler eNewObj;
+        public event EventHandler eObjSelected;
+        public event EventHandler eSaveObj;
+        public event EventHandler eDeleteObj;
+        public event EventHandler eSearchObj;
+        public event EventHandler eGetAeropuerto;
+        public event EventHandler eGetGrupoModelo;
+
+        public object oCrud
+        {
+            get { return ViewState["CrudPiloto"]; }
+            set { ViewState["CrudPiloto"] = value; }
+        }
+
+        public bool bDuplicado
+        {
+            get
+            {
+                return (bool)ViewState["RegistroDuplicado"];
+            }
+            set
+            {
+                ViewState["RegistroDuplicado"] = value;
+            }
+        }
+
+        public ALE_MexJet.Objetos.Enumeraciones.TipoOperacion eCrud
+        {
+            get { return (ALE_MexJet.Objetos.Enumeraciones.TipoOperacion)ViewState["eCrud"]; }
+            set { ViewState["eCrud"] = value; }
+        }
+
+        public object[] oArrFiltros
+        {
+            get
+            {
+                int iEstatus = -1;
+                int iGrupoModelo = -1;
+                string sDescripcion = string.Empty;
+
+                switch (ddlTipoBusqueda.Value.S())
+                {
+                    case "1":
+                        iEstatus = -1;
+                        iGrupoModelo = ddlBusqueda.Value.S().I();
+                        break;
+                    case "2":
+                        iEstatus = 1;
+                        iGrupoModelo = -1;
+                        break;
+                    case "3":
+                        iEstatus = 0;
+                        iGrupoModelo = -1;
+                        break;
+
+                }
+
+                return new object[]{
+                                        "@IdGrupoModelo", iGrupoModelo,
+                                        "@estatus", iEstatus
+                                    };
+            }
+        }
+
+       
+
+        private const string sPagina = "frmTramoPactado.aspx";
+        private const string sClase = "frmTramoPactado.aspx.cs";
+
+        #endregion
+
+        
+
+        
+    }
+}

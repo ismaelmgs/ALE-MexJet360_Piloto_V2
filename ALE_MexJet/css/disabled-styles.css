@@ -1,0 +1,14 @@
+﻿/* Estilos para hacer mas legibles los campos deshabilitados */
+.dxeEditArea_Office2010Black.dxeDisabled_Office2010Black, .dxeEditArea_Office2010Black.dxeDisabled_Office2010Black td.exe,
+.dxeDisabled_Office2010Black, .dxeDisabled_Office2010Black td.exe, 
+.dxeDisabled_Office2003Blue, .dxeDisabled_Office2003Blue td.dxe, 
+.dxeEditArea.dxeDisabled, .dxeEditArea.dxeDisabled td.exe, 
+.dxeDisabled .dxeMemoEditArea, .dxeDisabled .dxeMemoEditArea td.exe,
+.dxeTextBox, .dxeTextBox td.exe {
+    background-color: #EEEEEE;
+	color: black;
+	opacity: 0.8;
+}
+.dxeMemo_Office2003Blue, .dxeMemo_Office2003Blue td.exe{
+	border: 1px solid #6a6a6a;
+}

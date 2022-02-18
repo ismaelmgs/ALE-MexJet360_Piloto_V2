@@ -1,0 +1,255 @@
+﻿using ALE_MexJet.DomainModel;
+using ALE_MexJet.Interfaces;
+using ALE_MexJet.Objetos;
+using ALE_MexJet.Presenter;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using NucleoBase.Core;
+
+using DevExpress.Export;
+using DevExpress.XtraPrinting;
+using System.ComponentModel;
+using ALE_MexJet.ControlesUsuario;
+using DevExpress.Web.Data;
+using DevExpress.Web;
+
+namespace ALE_MexJet.Views.Catalogos
+{
+    public partial class frmTipoCliente : System.Web.UI.Page, IviewTipoCliente
+    {
+        #region EVENTOS
+        protected void Page_Load(object sender, EventArgs e)
+        {
+
+            gvTipoCliente.Columns["Status"].Visible = true;            
+            oPresenter = new TipoCliente_Presenter(this, new DBTipoCliente());
+            gvTipoCliente.SettingsPager.Position = PagerPosition.TopAndBottom;
+            gvTipoCliente.SettingsPager.ShowDisabledButtons = true;
+            gvTipoCliente.SettingsPager.ShowNumericButtons = true;
+            gvTipoCliente.SettingsPager.ShowSeparators = true;
+            gvTipoCliente.SettingsPager.Summary.Visible = true;
+            gvTipoCliente.SettingsPager.PageSizeItemSettings.Visible = true;
+            gvTipoCliente.SettingsPager.PageSizeItemSettings.Position = PagerPageSizePosition.Right;
+            gvTipoCliente.SettingsText.SearchPanelEditorNullText = "Ingresa la información a buscar.";
+
+            ObtieneValores();
+
+            if (!IsPostBack)
+            {
+                if (gvTipoCliente.VisibleRowCount < 1)
+                {
+
+                    gvTipoCliente.SettingsText.PopupEditFormCaption = "Fomulario de Creaciòn";
+                    gvTipoCliente.Columns["Status"].Visible = false;
+                    gvTipoCliente.AddNewRow();
+                }
+            }
+
+        }
+
+        protected void gvTipoCliente_CellEditorInitialize(object sender, ASPxGridViewEditorEventArgs e)
+        {
+            e.Editor.ReadOnly = false;
+            if (e.Column.FieldName == "CodigoDeUnidad4")
+            {
+                if (eGetTipCliente != null)
+                    eGetTipCliente(sender, e);
+                ASPxComboBox cmb = e.Editor as ASPxComboBox;
+                cmb.DataSource = (DataTable)ViewState["CodUnidadCuatro"];
+                cmb.ValueField = "unit4";
+                cmb.ValueType = typeof(string);
+                cmb.TextField = "description";
+                cmb.DataBindItems();
+                
+            }
+        }
+
+        protected void gvTipoCliente_RowDeleting(object sender, ASPxDataDeletingEventArgs e)
+        {
+            eCrud = Enumeraciones.TipoOperacion.Eliminar;
+            oCrud = e;
+            CancelEditing(e);
+
+            if (eDeleteObj != null)
+                eDeleteObj(sender, e);
+        }
+
+        protected void gvTipoCliente_RowInserting(object sender, ASPxDataInsertingEventArgs e)
+        {
+            eCrud = Enumeraciones.TipoOperacion.Insertar;
+            oCrud = e;
+
+            if (eNewObj != null)
+                eNewObj(sender, e);
+
+            CancelEditing(e);
+            gvTipoCliente.Columns["Status"].Visible = true;
+
+        }
+
+        protected void gvTipoCliente_RowUpdating(object sender, ASPxDataUpdatingEventArgs e)
+        {
+            eCrud = Enumeraciones.TipoOperacion.Actualizar;
+            oCrud = e;
+
+            if (eSaveObj != null)
+                eSaveObj(sender, e);
+
+            CancelEditing(e);
+
+
+        }
+
+        protected void gvTipoCliente_StartRowEditing(object sender, ASPxStartRowEditingEventArgs e)
+        {
+            gvTipoCliente.SettingsText.PopupEditFormCaption = "Fomulario de Ediciòn";
+        }
+
+
+        protected void gvTipoCliente_RowValidating(object sender, ASPxDataValidationEventArgs e)
+        {
+
+            oCrud = e;
+
+            if (eObjSelected != null)
+                eObjSelected(sender, e);
+
+            if (bDuplicado)
+            {
+                AddError(e.Errors, gvTipoCliente.Columns["TipoClienteDescripcion"], "Esta descripcion de cliente ya existe, favor de validarlo.");
+            }
+        }
+
+        protected void btnBuscar_Click(object sender, EventArgs e)
+        {
+            ObtieneValores();
+        }
+
+        protected void btnNuevo_Click(object sender, EventArgs e)
+        {
+            gvTipoCliente.SettingsText.PopupEditFormCaption = "Fomulario de Creaciòn";
+            gvTipoCliente.Columns["Status"].Visible = false;
+            gvTipoCliente.AddNewRow();
+
+        }
+
+        protected void btnExportar_Click(object sender, EventArgs e)
+        {
+            Exporter.WriteXlsToResponse(new XlsExportOptionsEx() { ExportType = ExportType.DataAware });
+        }
+
+
+        #endregion
+
+        #region "METODOS"
+
+        public void ObtieneValores()
+        {
+            if (eSearchObj != null)
+                eSearchObj(null, EventArgs.Empty);
+        }
+        public void LoadObjects(DataTable dtObject)
+        {
+            gvTipoCliente.DataSource = null;
+            ViewState["oDatos"] = null;
+
+            gvTipoCliente.DataSource = dtObject;
+            ViewState["oDatos"] = dtObject;
+
+            gvTipoCliente.DataBind();
+
+        }
+        public void MostrarMensaje(string sMensaje, string sCaption)
+        {
+            popup.HeaderText = sCaption;
+            gvTipoCliente.JSProperties["cpText"] = sMensaje;
+            gvTipoCliente.JSProperties["cpShowPopup"] = true;
+        }
+        protected void CancelEditing(CancelEventArgs e)
+        {
+            e.Cancel = true;
+            gvTipoCliente.CancelEdit();
+        }
+
+        void AddError(Dictionary<GridViewColumn, string> errors, GridViewColumn column, string errorText)
+        {
+            if (errors.ContainsKey(column)) return;
+            errors[column] = errorText;
+        }
+
+        public void LoadCatalogoTipocliente(DataTable dtObjCat)
+        {
+            ViewState["CodUnidadCuatro"] = dtObjCat;
+        }
+        #endregion
+
+        #region "Vars y Propiedades"
+        TipoCliente_Presenter oPresenter;
+        public event EventHandler eNewObj;
+        public event EventHandler eObjSelected;
+        public event EventHandler eSaveObj;
+        public event EventHandler eDeleteObj;
+        public event EventHandler eSearchObj;
+        public event EventHandler eGetTipCliente;
+
+        public bool bDuplicado
+        {
+            get
+            {
+                return (bool)ViewState["RegistroDuplicado"];
+            }
+            set
+            {
+                ViewState["RegistroDuplicado"] = value;
+            }
+        }
+
+        public object oCrud
+        {
+            get { return ViewState["CrudPiloto"]; }
+            set { ViewState["CrudPiloto"] = value; }
+        }
+
+        public ALE_MexJet.Objetos.Enumeraciones.TipoOperacion eCrud
+        {
+            get { return (ALE_MexJet.Objetos.Enumeraciones.TipoOperacion)ViewState["eCrud"]; }
+            set { ViewState["eCrud"] = value; }
+        }
+
+        public object[] oArrFiltros
+        {
+            get
+            {
+               
+                int iEstatus = -1;
+                string sDescripcion = string.Empty;
+
+                switch (ddlTipoBusqueda.Value.S())
+                {
+                   case "2":
+                        iEstatus = -1;
+                        sDescripcion = txtTextoBusqueda.Text.S();
+                        break;
+                    case "3":
+                        iEstatus = 1;
+                        sDescripcion = string.Empty;
+                        break;
+
+                }
+
+                return new object[]{
+                                        "@TipoClienteDescripcion", "%" + sDescripcion + "%",
+                                        "@estatus", iEstatus
+                                    };
+            }
+        }
+
+        #endregion
+        
+    }
+}

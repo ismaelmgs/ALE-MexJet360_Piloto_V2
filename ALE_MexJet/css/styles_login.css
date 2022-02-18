@@ -1,0 +1,124 @@
+﻿@charset "utf-8";
+/* CSS Document */
+* {
+	margin: 0;
+}
+html, body {
+	height: 100%;
+}
+.dvCentro{
+	position:absolute;
+	height:250px;
+	width:400px;
+	top:50%;
+	left:50%;
+	margin-left:-200px;
+	margin-top:-115px;
+	background-image:url(../img/Login_Negro.png);
+	background-repeat:no-repeat;
+}
+body {
+	background-color: #FFF;
+	background-image:url(../img/background.png);
+	background-repeat:repeat;
+	color:#FFFFFF;
+}
+.titulo {
+	font-family:'FuturaLight';
+	font-weight:500;
+	font-size: 24pt;
+}
+.logo{
+	position:absolute;
+	left:50%;
+	top:50%;
+	margin-left:-90px;
+	margin-top:-220px;
+	background-repeat:no-repeat;
+}
+.textUser{
+	position:absolute; 
+	top:100px; 
+	left:160px; 
+	width:180px; 
+	height:22px; 
+	font-size:12pt; 
+	font-family:'FuturaLight';
+	-moz-border-radius:3px;
+	-webkit-border-radius:3px;
+	border-radius:3px;
+	text-align:center;
+}
+.textPassword{
+	position:absolute; 
+	top:140px; 
+	left:160px; 
+	width:180px; 
+	height:22px; 
+	font-size:12pt;
+	font-family:'FuturaLight';
+	-moz-border-radius:3px;
+	-webkit-border-radius:3px;
+	border-radius:3px;
+	text-align:center;
+}
+.textToken {
+	position: absolute;
+	top: 100px;
+	left: 160px;
+	width: 180px;
+	height: 22px;
+	font-size: 12pt;
+	font-family: 'FuturaLight';
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	text-align: center;
+}
+.botLog{
+	position:absolute; 
+	top:173px; 
+	left:233px; 
+	width:110px; 
+	height:30px; 
+	background-repeat:no-repeat; 
+	font-family:'FuturaLight'; 
+	font-size:12pt; 
+	font-weight:bold; 
+	border-width: 0;
+}
+.bienvenido{
+	position:absolute; 
+	top:25px; 
+	left:125px;
+}
+.userLabel{
+	position:absolute; 
+	top:103px; 
+	left:50px; 
+	font-size:14pt; 
+	font-family:'FuturaLight';
+}
+.passLabel{
+	position:absolute; 
+	top:143px; 
+	left:50px; 
+	font-family:'FuturaLight'; 
+	font-size:14pt;
+}
+.rememberLabel{
+	position:absolute; 
+	top:190px; 
+	left:50px; 
+	font-family:'FuturaLight'; 
+	font-size:14px; 
+	cursor:pointer;
+}
+
+.tokenLabel{
+	position: absolute;
+	top: 150px;
+	left: 50px;
+	font-size: 14pt;
+	font-family: 'FuturaLight';
+}

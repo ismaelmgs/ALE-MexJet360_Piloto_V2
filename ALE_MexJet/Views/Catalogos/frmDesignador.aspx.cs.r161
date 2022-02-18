@@ -1,0 +1,254 @@
+﻿using ALE_MexJet.DomainModel;
+using ALE_MexJet.Interfaces;
+using ALE_MexJet.Objetos;
+using ALE_MexJet.Presenter;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using NucleoBase.Core;
+
+using DevExpress.Export;
+using DevExpress.XtraPrinting;
+using System.ComponentModel;
+using ALE_MexJet.ControlesUsuario;
+using DevExpress.Web.Data;
+using DevExpress.Web;
+
+namespace ALE_MexJet.Views.Catalogos
+{
+    public partial class frmDesignador : System.Web.UI.Page, IViewCat
+    {
+        #region EVENTOS
+        protected void Page_Load(object sender, EventArgs e)
+        {
+
+            gvDesignador.Columns["Status"].Visible = true;
+            oPresenter = new Designador_Presenter(this, new DBDesignador());
+            gvDesignador.SettingsPager.Position = PagerPosition.TopAndBottom;
+            gvDesignador.SettingsPager.ShowDisabledButtons = true;
+            gvDesignador.SettingsPager.ShowNumericButtons = true;
+            gvDesignador.SettingsPager.ShowSeparators = true;
+            gvDesignador.SettingsPager.Summary.Visible = true;
+            gvDesignador.SettingsPager.PageSizeItemSettings.Visible = true;
+            gvDesignador.SettingsPager.PageSizeItemSettings.Position = PagerPageSizePosition.Right;
+            gvDesignador.SettingsText.SearchPanelEditorNullText = "Ingresa la información a buscar.";
+
+            ObtieneValores();
+
+            if (!IsPostBack)
+            {
+                if (gvDesignador.VisibleRowCount < 1)
+                {
+
+                    gvDesignador.SettingsText.PopupEditFormCaption = "Fomulario de Creacion";
+                    gvDesignador.Columns["Status"].Visible = false;
+                    gvDesignador.AddNewRow();
+                }
+            }
+
+        }
+
+        protected void gvDesignador_CellEditorInitialize(object sender, ASPxGridViewEditorEventArgs e)
+        {
+            e.Editor.ReadOnly = false;
+            ASPxGridView gridView = (ASPxGridView)sender;
+
+            if (gridView.IsNewRowEditing)
+            {
+                eCrud = Enumeraciones.TipoOperacion.Insertar;
+                gvDesignador.Columns["Status"].Visible = false;
+
+            }
+            else
+            {
+                eCrud = Enumeraciones.TipoOperacion.Actualizar;
+            }
+        }
+
+        protected void gvDesignador_RowDeleting(object sender, ASPxDataDeletingEventArgs e)
+        {
+            eCrud = Enumeraciones.TipoOperacion.Eliminar;
+            oCrud = e;
+            CancelEditing(e);
+
+            if (eDeleteObj != null)
+                eDeleteObj(sender, e);
+        }
+
+        protected void gvDesignador_RowInserting(object sender, ASPxDataInsertingEventArgs e)
+        {
+            eCrud = Enumeraciones.TipoOperacion.Insertar;
+            oCrud = e;
+
+
+            if (eNewObj != null)
+                eNewObj(sender, e);
+
+            CancelEditing(e);
+            gvDesignador.Columns["Status"].Visible = true;
+
+        }
+
+        protected void gvDesignador_RowUpdating(object sender, ASPxDataUpdatingEventArgs e)
+        {
+            eCrud = Enumeraciones.TipoOperacion.Actualizar;
+            oCrud = e;
+
+            if (eSaveObj != null)
+                eSaveObj(sender, e);
+
+            CancelEditing(e);
+
+
+        }
+
+        protected void gvDesignador_StartRowEditing(object sender, ASPxStartRowEditingEventArgs e)
+        {
+            gvDesignador.SettingsText.PopupEditFormCaption = "Fomulario de Ediciòn";
+        }
+
+
+        protected void gvDesignador_RowValidating(object sender, ASPxDataValidationEventArgs e)
+        {
+            
+            
+        }
+
+        protected void btnBuscar_Click(object sender, EventArgs e)
+        {
+            ObtieneValores();
+        }
+
+        protected void btnNuevo_Click(object sender, EventArgs e)
+        {
+            gvDesignador.SettingsText.PopupEditFormCaption = "Fomulario de Creaciòn";
+            gvDesignador.Columns["Status"].Visible = false;
+            gvDesignador.AddNewRow();
+
+        }
+
+        protected void btnExportar_Click(object sender, EventArgs e)
+        {
+            Exporter.WriteXlsToResponse(new XlsExportOptionsEx() { ExportType = ExportType.DataAware });
+        }
+
+
+        #endregion
+
+        #region "METODOS"
+
+        public void ObtieneValores()
+        {
+            if (eSearchObj != null)
+                eSearchObj(null, EventArgs.Empty);
+        }
+        public void LoadObjects(DataTable dtObject)
+        {
+            gvDesignador.DataSource = null;
+            ViewState["oDatos"] = null;
+
+            gvDesignador.DataSource = dtObject;
+            ViewState["oDatos"] = dtObject;
+
+            gvDesignador.DataBind();
+
+        }
+        public void MostrarMensaje(string sMensaje, string sCaption)
+        {
+            popup.HeaderText = sCaption;
+            gvDesignador.JSProperties["cpText"] = sMensaje;
+            gvDesignador.JSProperties["cpShowPopup"] = true;
+        }
+        protected void CancelEditing(CancelEventArgs e)
+        {
+            e.Cancel = true;
+            gvDesignador.CancelEdit();
+        }
+
+        void AddError(Dictionary<GridViewColumn, string> errors, GridViewColumn column, string errorText)
+        {
+            if (errors.ContainsKey(column)) return;
+            errors[column] = errorText;
+        }
+
+        #endregion
+
+        #region "Vars y Propiedades"
+        Designador_Presenter oPresenter;
+        public event EventHandler eNewObj;
+        public event EventHandler eObjSelected;
+        public event EventHandler eSaveObj;
+        public event EventHandler eDeleteObj;
+        public event EventHandler eSearchObj;
+
+        public bool bDuplicado
+        {
+            get
+            {
+                return (bool)ViewState["RegistroDuplicado"];
+            }
+            set
+            {
+                ViewState["RegistroDuplicado"] = value;
+            }
+        }
+        public object oCrud
+        {
+            get { return ViewState["CrudPiloto"]; }
+            set { ViewState["CrudPiloto"] = value; }
+        }
+
+        public ALE_MexJet.Objetos.Enumeraciones.TipoOperacion eCrud
+        {
+            get { return (ALE_MexJet.Objetos.Enumeraciones.TipoOperacion)ViewState["eCrud"]; }
+            set { ViewState["eCrud"] = value; }
+        }
+
+        public object[] oArrFiltros
+        {
+            get
+            {
+                int iIdDesignador = 0;
+                int iEstatus = -1;
+                string sDescripcion = string.Empty;
+
+                switch (ddlTipoBusqueda.Value.S())
+                {
+                    case "1":
+                        iIdDesignador = txtTextoBusqueda.Text.S().I();
+                        iEstatus = -1;
+                        sDescripcion = string.Empty;
+                        break;
+                    case "2":
+                        iIdDesignador = 0;
+                        iEstatus = -1;
+                        sDescripcion = txtTextoBusqueda.Text.S();
+                        break;
+                    case "3":
+                        iIdDesignador = 0;
+                        iEstatus = 1;
+                        sDescripcion = string.Empty;
+                        break;
+                    case "4":
+                        iEstatus = 0;
+                        sDescripcion = string.Empty;
+                        break;
+
+                }
+
+                return new object[]{
+                                        "@Descripcion", "%" + sDescripcion + "%",
+                                        "@Clave", "%" + sDescripcion + "%",
+                                        "@estatus", iEstatus
+                                    };
+            }
+        }
+
+        #endregion
+
+    }
+}

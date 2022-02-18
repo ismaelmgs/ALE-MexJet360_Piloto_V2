@@ -1,0 +1,205 @@
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/ALE_Main.Master" AutoEventWireup="true" CodeBehind="frmConsultaExtensiones.aspx.cs" Inherits="ALE_MexJet.Views.Consultas.frmConsultaExtensiones" %>
+
+<%@ Register Assembly="DevExpress.Web.v20.1, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" Namespace="DevExpress.Web" TagPrefix="dx" %>
+<%@ Register Src="~/ControlesUsuario/ucModalMensaje.ascx" TagPrefix="uc1" TagName="ucModalMensaje" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+            <dx:ASPxPanel ID="ASPxPanel1" runat="server" Width="100%" BackColor="White" Style="border-radius: 21px;">
+                <PanelCollection>
+                    <dx:PanelContent>
+                        <div class="row header1">
+                            <div class="col-md-12">
+                                <span class="FTitulo">&nbsp;&nbsp;Extensiones de servicios</span>
+                            </div>
+                        </div>
+                        <uc1:ucModalMensaje ID="mpeMensaje" runat="server" />
+                        <div class="well-g">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <fieldset class="Personal">
+                                        <legend>
+                                            <span style="font-family: Helvetica, Arial,sans-serif; text-align: center;">Búsqueda General</span>
+                                        </legend>
+                                        <div class="col-sm-12">
+                                            <table style="width: 100%">
+                                                <tr>
+                                                    <td style="width: 25%"></td>
+                                                    <td style="width: 25%"></td>
+                                                    <td style="width: 25%"></td>
+                                                    <td style="width: 25%"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <dx:ASPxLabel ID="lblTipoOperacion" Text="Tipo de Operación:" Theme="Office2010Black" runat="server"></dx:ASPxLabel>
+                                                    </td>
+                                                    <td>
+                                                        <dx:ASPxComboBox ID="ddlTipoOperacion" runat="server" Theme="Office2010Black" NullText="Seleccione una opción">
+                                                            <Items>
+                                                                <dx:ListEditItem Text="Todos" Value="0" Selected="true" />
+                                                                <dx:ListEditItem Text="Llegada" Value="1" />
+                                                                <dx:ListEditItem Text="Salida" Value="2" />
+                                                            </Items>
+                                                        </dx:ASPxComboBox>
+                                                    </td>
+                                                    <td rowspan="3" colspan="2">
+                                                        <table style="width: 100%">
+                                                            <tr>
+                                                                <td colspan="5">
+                                                                    <dx:ASPxLabel ID="lblRangoFechas" Theme="Office2010Black" runat="server" Text="Rango de Fechas" Font-Bold="True" Font-Size="Small"></dx:ASPxLabel>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="text-align: left;">
+                                                                    <dx:ASPxLabel runat="server" ID="lblFechaDesde" Text="Desde" Theme="Office2010Black"></dx:ASPxLabel>
+                                                                </td>
+                                                                <td style="text-align: left;">
+                                                                    <dx:ASPxDateEdit runat="server" ID="dtFechaDesde" NullText="Seleccione" Theme="Office2010Black">
+                                                                        <DropDownButton>
+                                                                            <Image IconID="scheduling_calendar_16x16"></Image>
+                                                                        </DropDownButton>
+                                                                    </dx:ASPxDateEdit>
+                                                                </td>
+                                                                <td></td>
+                                                                <td style="text-align: left;">
+                                                                    <dx:ASPxLabel runat="server" ID="lblHasta" Text="Hasta" Theme="Office2010Black"></dx:ASPxLabel>
+                                                                </td>
+                                                                <td style="text-align: left;">
+                                                                    <dx:ASPxDateEdit runat="server" ID="dtFechaHasta" NullText="Seleccione" Theme="Office2010Black">
+                                                                        <DateRangeSettings StartDateEditID="dtFechaDesde"></DateRangeSettings>
+                                                                        <DropDownButton>
+                                                                            <Image IconID="scheduling_calendar_16x16"></Image>
+                                                                        </DropDownButton>
+                                                                    </dx:ASPxDateEdit>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <dx:ASPxLabel ID="lblTipoSolicitud" Text="Tipo de Solicitud:" Theme="Office2010Black" runat="server"></dx:ASPxLabel>
+                                                    </td>
+                                                    <td>
+                                                        <dx:ASPxComboBox ID="ddlTipoSolicitud" runat="server" Theme="Office2010Black" NullText="Seleccione una opción">
+                                                            <Items>
+                                                                <dx:ListEditItem Text="Todos" Value="0" Selected="true" />
+                                                                <dx:ListEditItem Text="Extensión" Value="1" />
+                                                                <dx:ListEditItem Text="Antelación" Value="2" />
+                                                            </Items>
+                                                        </dx:ASPxComboBox>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <dx:ASPxLabel ID="lblEstatus" Text="Estatus:" Theme="Office2010Black" runat="server"></dx:ASPxLabel>
+                                                    </td>
+                                                    <td>
+                                                        <dx:ASPxComboBox ID="ddlEstatus" runat="server" Theme="Office2010Black" NullText="Seleccione una opción">
+                                                            <Items>
+                                                                <dx:ListEditItem Text="Todos" Value="-1" Selected="true" />
+                                                                <dx:ListEditItem Text="Activa" Value="1" />
+                                                                <dx:ListEditItem Text="Modificada" Value="2" />
+                                                                <dx:ListEditItem Text="Cancelada" Value="0" />
+                                                            </Items>
+                                                        </dx:ASPxComboBox>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                        <div>
+                                            <dx:ASPxButton ID="btnBuscar" Text="Buscar" OnClick="btnBuscar_Click" Theme="Office2010Black" runat="server">
+                                            </dx:ASPxButton>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row">
+                                <div class="col-md-6">
+                                </div>
+                                <div class="col-md-6" style="text-align: right;">
+                                    <dx:ASPxLabel Theme="Office2010Black" Text="Exportar a:" runat="server"></dx:ASPxLabel>
+                                    &nbsp;&nbsp;
+			                        <dx:ASPxButton ID="btnExcel" Text="Excel" Theme="Office2010Black" OnClick="btnExcel_Click" runat="server">
+                                    </dx:ASPxButton>
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <asp:Panel ID="pnlExtensiones" runat="server" Width="100%">
+                                        <dx:ASPxGridView ID="gvExtensiones" ClientInstanceName="gvExtensiones" AutoGenerateColumns="False" runat="server"
+                                            Font-Size="Small" EnableTheming="True" Theme="Office2010Black" Width="100%" KeyFieldName="Folio"
+                                            SettingsText-SearchPanelEditorNullText="Ingrese la información a buscar" OnStartRowEditing="gvExtensiones_StartRowEditing">
+                                            <Styles Header-HorizontalAlign="Center" Header-VerticalAlign="Middle">
+                                                <Header HorizontalAlign="Center" VerticalAlign="Middle"></Header>
+                                            </Styles>
+                                            <ClientSideEvents
+                                                EndCallback="function (s, e) {
+												if (s.cpShowPopup)
+												{
+													delete s.cpShowPopup;
+													lbl.SetText(s.cpText);
+													popup.Show();
+												}
+											}" />
+
+                                            <SettingsText SearchPanelEditorNullText="Ingrese la informaci&#243;n a buscar"></SettingsText>
+                                            <Columns>
+                                                <dx:GridViewDataTextColumn VisibleIndex="0" Visible="true" FieldName="Folio" Caption="Folio" Width="50px"></dx:GridViewDataTextColumn>
+                                                <dx:GridViewDataTextColumn VisibleIndex="1" Visible="true" FieldName="TipoSolicitud" Caption="Tipo Solicitud" Width="115px"></dx:GridViewDataTextColumn>
+                                                <dx:GridViewDataTextColumn VisibleIndex="2" Visible="true" FieldName="TipoOperacion" Caption="Tipo Operación" Width="115px"></dx:GridViewDataTextColumn>
+                                                <dx:GridViewDataTextColumn VisibleIndex="3" Visible="true" FieldName="FechaOperacion" Caption="Fecha Operación" Width="130px"></dx:GridViewDataTextColumn>
+                                                <dx:GridViewDataTextColumn VisibleIndex="4" Visible="true" FieldName="Aeronave" Caption="Matricula" Width="80px"></dx:GridViewDataTextColumn>
+                                                <dx:GridViewDataTextColumn VisibleIndex="5" Visible="true" FieldName="Estacion" Caption="Estación" Width="70px"></dx:GridViewDataTextColumn>
+                                                <dx:GridViewDataTextColumn VisibleIndex="6" Visible="true" FieldName="Procedencia" Caption="Procedencia" Width="90px"></dx:GridViewDataTextColumn>
+                                                <dx:GridViewDataTextColumn VisibleIndex="7" Visible="true" FieldName="Destino" Caption="Destino" Width="70px"></dx:GridViewDataTextColumn>
+                                                <dx:GridViewDataTextColumn VisibleIndex="8" Visible="true" FieldName="Llegada" Caption="Llegada" Width="70px"></dx:GridViewDataTextColumn>
+                                                <dx:GridViewDataTextColumn VisibleIndex="9" Visible="true" FieldName="Salida" Caption="Salida" Width="70px"></dx:GridViewDataTextColumn>
+                                                <dx:GridViewDataTextColumn VisibleIndex="10" Visible="true" FieldName="Minutos" Caption="Minutos" Width="70px"></dx:GridViewDataTextColumn>
+                                                <dx:GridViewDataTextColumn VisibleIndex="11" Visible="true" FieldName="Operador" Caption="Operador" Width="200px"></dx:GridViewDataTextColumn>
+                                                <dx:GridViewDataTextColumn VisibleIndex="12" Visible="true" FieldName="Estatus" Caption="Estatus" Width="70px"></dx:GridViewDataTextColumn>
+                                                <dx:GridViewCommandColumn VisibleIndex="13" ShowEditButton="true" ButtonType="Button" Caption="Acciones" Width="110px" 
+													ShowInCustomizationForm="True">
+												</dx:GridViewCommandColumn>
+                                            </Columns>
+                                            <Settings ShowGroupPanel="true" HorizontalScrollBarMode="Auto" />
+                                            <SettingsSearchPanel Visible="true" />
+                                            <SettingsPager Position="TopAndBottom" PageSize="30">
+                                                <PageSizeItemSettings Items="1, 10, 20, 30, 50, 100" Visible="true"></PageSizeItemSettings>
+                                            </SettingsPager>
+                                            <SettingsCommandButton>
+                                                <EditButton Text="Editar">
+                                                    <Image Height="20px" ToolTip="Editar" Width="20px"></Image>
+                                                </EditButton>
+                                            </SettingsCommandButton>
+                                        </dx:ASPxGridView>
+                                        <dx:ASPxGridViewExporter ID="Exporter" runat="server" GridViewID="gvExtensiones"></dx:ASPxGridViewExporter>
+                                    </asp:Panel>
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row">
+                                <div class="col-md-6">
+                                </div>
+                                <div class="col-md-6" style="text-align: right;">
+                                    <dx:ASPxLabel Theme="Office2010Black" Text="Exportar a:" runat="server"></dx:ASPxLabel>
+                                    &nbsp;&nbsp;
+			                        <dx:ASPxButton ID="btnExcel2" Text="Excel" Theme="Office2010Black" OnClick="btnExcel_Click" runat="server">
+                                    </dx:ASPxButton>
+                                </div>
+                            </div>
+                        </div>
+                    </dx:PanelContent>
+                </PanelCollection>
+            </dx:ASPxPanel>
+</asp:Content>

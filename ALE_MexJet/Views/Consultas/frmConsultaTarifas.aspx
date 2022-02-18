@@ -1,0 +1,315 @@
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/ALE_Main.Master" AutoEventWireup="true" CodeBehind="frmConsultaTarifas.aspx.cs" Inherits="ALE_MexJet.Views.Consultas.frmConsultaTarifas" UICulture="es" Culture="es-MX"%>
+
+<%@ Register Assembly="DevExpress.Web.v18.1, Version=18.1.15.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" Namespace="DevExpress.Web" TagPrefix="dx" %>
+<%@ Register Src="~/ControlesUsuario/ucModalMensaje.ascx" TagPrefix="uc1" TagName="ucModalMensaje" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+
+
+    <dx:ASPxPanel ID="ASPxPanel1" runat="server" Width="100%" BackColor="White" Style="border-radius: 21px;">
+
+        <PanelCollection>
+            <dx:PanelContent>
+                <div class="row header1">
+                    <div class="col-md-12">
+                        <span style="color: #ffffff; font-family: Helvetica, Arial,sans-serif; font-size: 20px;">&nbsp;&nbsp;Tarifas Actuales</span>
+                    </div>
+                </div>
+                <uc1:ucModalMensaje ID="mpeMensaje" runat="server" />
+                <div class="row">
+                    <div class="col-md-12">
+                        <br />
+                        <fieldset class="Personal">
+                            <legend>
+                                <span style="font-family: Helvetica, Arial,sans-serif; text-align: center;">Búsqueda por Cliente</span>
+                            </legend>
+
+                            <div class="col-sm-12">
+
+                                <table width="100%" style="text-align: left;">
+                                    <tr>
+                                        <td>Cliente:<dx:ASPxComboBox ID="ddlCliente" runat="server" Theme="Office2010Black" EnableTheming="True"
+                                            NullText="Cliente" DropDownStyle="DropDownList" IncrementalFilteringMode="StartsWith" EnableSynchronization="False"
+                                            OnSelectedIndexChanged="ddlCliente_SelectedIndexChanged" AutoPostBack="true">
+                                        </dx:ASPxComboBox>
+                                        </td>
+                                        <td>Contrato:<dx:ASPxComboBox ID="ddlContrato" runat="server" Theme="Office2010Black" EnableTheming="True" AutoPostBack="true" NullText="Contrato"
+                                            ClientInstanceName="cmdContrato" DropDownStyle="DropDown" IncrementalFilteringMode="StartsWith" EnableSynchronization="False"
+                                            OnSelectedIndexChanged="ddlContrato_SelectedIndexChanged">
+                                        </dx:ASPxComboBox>
+                                        </td>
+
+
+                                    </tr>
+                                </table>
+
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+
+
+
+                    <div class="col-md-6" style="text-align: right;">
+                        <%--dx:ASPxLabel runat="server" Theme="Office2010Black" Text="Exportar a:"></dx:ASPxLabel>
+                            &nbsp;<dx:ASPxButton ID="btnExcel" runat="server" Text="Excel" Theme="Office2010Black" OnClick="btnExcel_Click" ></dx:ASPxButton>--%>
+                    </div>
+                </div>
+
+
+                <br />
+                <div class="row">
+                    <div class="col-md-12" style="margin-left: -15px; width: 103%;">
+                        <asp:UpdatePanel runat="server" UpdateMode="Always" OnUnload="Unnamed_Unload">
+                            <ContentTemplate>
+                                <div class="col-sm-12">
+                                    <div>
+                                        <div id="dvInfo" runat="server">
+                                            <br />
+                                            <center>
+                                                <asp:Panel ID="pnlExport" runat="server" Width="60%">
+                                                    <table style="width:100%">
+                                                        <tr>
+                                                            <td>
+                                                            </td>
+                                                            <td>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                    <div class="bs-example" data-example-id="simple-responsive-table">
+                                                    <div class="table-responsive">
+                                                    <table width="100%" class="table" style="border-top: 1px solid #484848; border-left: 1px solid #484848;border-right: 1px solid #484848; border-bottom: 1px solid #484848;">
+                                                        <tr>
+                                                            <td class="celda2" style="width:50%;">
+                                                                <dx:ASPxLabel ID="ASPxLabel1" runat="server" Text="Concepto" Font-Bold="true" Font-Size="Medium" Theme="Office2010Black" />
+                                                            </td>
+                                                            <td class="celda2" style="width:50%;">
+                                                                <dx:ASPxLabel ID="ASPxLabel2" runat="server" Text="Valor" Font-Bold="true" Font-Size="Medium"/>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="celda6">
+                                                                <dx:ASPxLabel ID="lblClienteId" runat="server" Text="Cliente Id:" Theme="Office2010Black" />
+                                                            </td>
+                                                           <td class="celda6">
+                                                                <dx:ASPxLabel ID="lblRespClienteId" runat="server" />
+                                                            </td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <td class="celda6">
+                                                                <dx:ASPxLabel ID="lblContratoId" runat="server" Text="Contrato Id:" Theme="Office2010Black" />
+                                                            </td>
+                                                            <td class="celda6">
+                                                                <dx:ASPxLabel ID="lblRespContratoId" runat="server" />
+                                                            </td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <td class="celda6">
+                                                                <dx:ASPxLabel ID="lblTipodepaquete" runat="server" Text="Tipo de Paquete:" Theme="Office2010Black" />
+                                                            </td>
+                                                            <td class="celda6">
+                                                                <dx:ASPxLabel ID="lblRespTipodepaquete" runat="server" />
+                                                            </td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <td class="celda6">
+                                                                <dx:ASPxLabel ID="lblstatus" runat="server" Text="Estatus" Theme="Office2010Black" />
+                                                            </td>
+                                                            <td class="celda6">
+                                                                <dx:ASPxLabel ID="lblRespstatus" runat="server" />
+                                                            </td>
+                                                       </tr>
+
+                                                        <tr>
+                                                            <td class="celda6">
+                                                                <dx:ASPxLabel ID="lblModeloContratado" runat="server" Text="Modelo Contratado:" Theme="Office2010Black" />
+                                                            </td>
+                                                            <td class="celda6">
+                                                                <dx:ASPxLabel ID="lblRespModeloContratado" runat="server" />
+                                                            </td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <td class="celda6">
+                                                                <dx:ASPxLabel ID="lblCostoDirectoNacional" runat="server" Text="Costo Directo Nacional:" Theme="Office2010Black" />
+                                                            </td>
+                                                            <td class="celda6">
+                                                                <dx:ASPxLabel ID="lblRespCostodirectonacional" runat="server" />
+                                                            </td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <td class="celda6">
+                                                                <dx:ASPxLabel ID="lblCostodirectointernacional" runat="server" Text="Costo Directo Internacional:" Theme="Office2010Black" />
+                                                            </td>
+                                                            <td class="celda6">
+                                                                <dx:ASPxLabel ID="lblRespCostodirectointernacional" runat="server" />
+                                                            </td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <td class="celda6">
+                                                                <dx:ASPxLabel ID="lblCobrocombustible" runat="server" Text="Cobro Combustible:" Theme="Office2010Black" />
+                                                            </td>
+                                                            <td class="celda6">
+                                                                <dx:ASPxLabel ID="lblRespCobrocombustible" runat="server" />
+                                                            </td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <td class="celda6">
+                                                                <dx:ASPxLabel ID="lblTipocobrocombustible" runat="server" Text="Tipo de Cobro Combustible:" Theme="Office2010Black" />
+                                                            </td>
+                                                            <td class="celda6">
+                                                                <dx:ASPxLabel ID="lblRespTipocobrocombustible" runat="server" />
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="celda6">
+                                                                <dx:ASPxLabel ID="lblPreciodecombustibleporgalon" runat="server" Text="Precio de Combustible por Galón:" Theme="Office2010Black" />
+                                                            </td>
+                                                            <td class="celda6">
+                                                                <dx:ASPxLabel ID="lblRespPreciodecombustibleporgalon" runat="server" />
+                                                            </td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <td class="celda6">
+                                                                <dx:ASPxLabel ID="lblConsumogalonesporhora" runat="server" Text="Consumo Galones por Hora:" Theme="Office2010Black" />
+                                                            </td>
+                                                            <td class="celda6">
+                                                                <dx:ASPxLabel ID="lblRespConsumogalonesporhora" runat="server" />
+                                                            </td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <td class="celda6">
+                                                                <dx:ASPxLabel ID="lblTarifadevuelonacional" runat="server" Text="Tarifa de Vuelo Nacional:" Theme="Office2010Black" />
+                                                            </td>
+                                                            <td class="celda6">
+                                                                <dx:ASPxLabel ID="lblRespTarifadevuelonacional" runat="server"/>
+                                                            </>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <td class="celda6">
+                                                                <dx:ASPxLabel ID="lblTarifadevuelointernacional" runat="server" Text="Tarifa de Vuelo Internacional:" Theme="Office2010Black" />
+                                                            </td>
+                                                            <td class="celda6">
+                                                                <dx:ASPxLabel ID="lblRespTarifadevuelointernacional" runat="server" />
+                                                            </td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <td class="celda6">
+                                                                <dx:ASPxLabel ID="lblTarifadeesperanacional" runat="server" Text="Tarifa de Espera Nacional:" Theme="Office2010Black" />
+                                                            </td>
+                                                            <td class="celda6">
+                                                                <dx:ASPxLabel ID="lblRespTarifadeesperanacional" runat="server" />
+                                                            </td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <td class="celda6">
+                                                                <dx:ASPxLabel ID="lblTarifadeesperainternacional" runat="server" Text="Tarifa de Espera Internacional:" Theme="Office2010Black" />
+                                                            </td>
+                                                            <td class="celda6">
+                                                                <dx:ASPxLabel ID="lblRespTarifadeesperainternacional" runat="server" />
+                                                            </td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <td class="celda6">
+                                                                <dx:ASPxLabel ID="lblTarifadepernoctanacional" runat="server" Text="Tarifa de Pernocta Nacional:" Theme="Office2010Black" />
+                                                            </td>
+                                                            <td class="celda6">
+                                                                <dx:ASPxLabel ID="lblRespTarifadepernoctanacional" runat="server" />
+                                                            </td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <td class="celda6">
+                                                                <dx:ASPxLabel ID="lblTarifadepernoctainternacional" runat="server" Text="Tarifa de Pernocta Internacional:" Theme="Office2010Black" />
+                                                            </td>
+                                                            <td class="celda6">
+                                                                <dx:ASPxLabel ID="lblRespTarifapernoctaternacional" runat="server" />
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+
+                                                    </div></div>
+                                                </asp:Panel>
+                                            </center>
+                                        </div>
+                                        <center>
+                                        <asp:Button ID="Button2" runat="server" Theme="Office2010Black" Style="height: 30px;" OnClick="Button2_Click" Text="Exportar" />
+                                    </center>
+
+                                    </div>
+                            </ContentTemplate>
+                            <Triggers>
+                                <asp:PostBackTrigger ControlID="Button2" />
+                            </Triggers>
+                        </asp:UpdatePanel>
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+
+                    <div class="col-sm-6" style="text-align: right;">
+                        <%--<dx:ASPxLabel runat="server" Theme="Office2010Black" Text="Exportar a:"></dx:ASPxLabel>
+                            &nbsp;<dx:ASPxButton ID="btnExportar" runat="server" Text="Excel" Theme="Office2010Black" OnClick="btnExcel_Click"></dx:ASPxButton>--%>
+                    </div>
+                </div>
+                <br />
+            </dx:PanelContent>
+
+        </PanelCollection>
+
+    </dx:ASPxPanel>
+
+    <dx:ASPxPopupControl ID="popup" runat="server" ClientInstanceName="popup" CloseAction="CloseButton" CloseOnEscape="true" Modal="True"
+        PopupHorizontalAlign="WindowCenter" PopupVerticalAlign="Above" HeaderText="Aviso" AllowDragging="true" ShowCloseButton="true" Width="300">
+        <ClientSideEvents PopUp="function(s, e) { tbLogin.Focus(); }" />
+        <ContentCollection>
+            <dx:PopupControlContentControl runat="server">
+                <dx:ASPxPanel ID="ASPxPanel2" runat="server" DefaultButton="btOK">
+                    <PanelCollection>
+                        <dx:PanelContent runat="server">
+                            <table>
+                                <tr>
+                                    <td>
+                                        <dx:ASPxImage ID="ASPxImage2" runat="server" ShowLoadingImage="true" ImageUrl="~/img/iconos/Information2.ico"></dx:ASPxImage>
+                                        <dx:ASPxTextBox ID="tbLogin" ReadOnly="true" Border-BorderStyle="None" Height="1px" runat="server" Width="1px" ClientInstanceName="tbLogin"></dx:ASPxTextBox>
+                                    </td>
+                                    <td>
+                                        <dx:ASPxLabel ID="lbl" runat="server" ClientInstanceName="lbl" Text="ASPxLabel"></dx:ASPxLabel>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <dx:ASPxButton ID="btOK" runat="server" Text="OK" Width="80px" AutoPostBack="false" Style="float: left; margin-right: 8px" TabIndex="0">
+                                            <ClientSideEvents Click="function(s, e) {popup.Hide(); }" />
+                                        </dx:ASPxButton>
+                                    </td>
+                                </tr>
+                            </table>
+                            <div>
+                            </div>
+                        </dx:PanelContent>
+                    </PanelCollection>
+                </dx:ASPxPanel>
+            </dx:PopupControlContentControl>
+        </ContentCollection>
+    </dx:ASPxPopupControl>
+</asp:Content>
+

@@ -1,0 +1,2101 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{03F4B027-47B4-4EF8-B280-5C51F9B9FE69}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ALE_MexJet</RootNamespace>
+    <AssemblyName>ALE_MexJet</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <Use64BitIISExpress />
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <FilesToIncludeForPublish>OnlyFilesToRunTheApp</FilesToIncludeForPublish>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AjaxControlToolkit, Version=1.0.10920.32880, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\MexJet360_Produccion_Respaldo\ALE_MexJet\bin\AjaxControlToolkit.dll</HintPath>
+    </Reference>
+    <Reference Include="CrystalDecisions.CrystalReports.Design, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="CrystalDecisions.ReportAppServer.CommLayer, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="CrystalDecisions.ReportSource, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="CrystalDecisions.Shared, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="CrystalDecisions.Web, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Data.v18.1, Version=18.1.15.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.PivotGrid.v18.1.Core, Version=18.1.15.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Pdf.v18.1.Core, Version=18.1.15.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.RichEdit.v18.1.Export, Version=18.1.15.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Printing.v18.1.Core, Version=18.1.15.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Office.v18.1.Core, Version=18.1.15.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.RichEdit.v18.1.Core, Version=18.1.15.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Utils.v18.1, Version=18.1.15.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Web.ASPxThemes.v18.1, Version=18.1.15.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Web.ASPxTreeList.v18.1, Version=18.1.15.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Web.Bootstrap.v18.1, Version=18.1.15.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Web.Resources.v18.1, Version=18.1.15.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Web.v18.1, Version=18.1.15.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraPrinting.v18.1, Version=18.1.15.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="itextsharp, Version=5.0.1.1, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\MexJet360_Produccion_Respaldo\ALE_MexJet\bin\itextsharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Microsoft Visual Studio 12.0\Blend\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NucleoBase">
+      <HintPath>..\..\..\MexJet360_Produccion_Respaldo\ALE_MexJet\bin\NucleoBase.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="AleMain.Master" />
+    <Content Include="bin\itextsharp.dll" />
+    <Content Include="bin\Newtonsoft.Json.dll" />
+    <Content Include="bin\NucleoBase.dll" />
+    <Content Include="ControlesUsuario\ucClienteContrato.ascx" />
+    <Content Include="ControlesUsuario\ucModalMensaje.ascx" />
+    <Content Include="ControlesUsuario\ucPizarraElectronica.ascx" />
+    <Content Include="css\animate.css" />
+    <Content Include="css\bootstrap-theme.css" />
+    <Content Include="css\bootstrap-theme.min.css" />
+    <Content Include="css\bootstrap.css" />
+    <Content Include="css\bootstrap.min.css" />
+    <Content Include="css\component.css" />
+    <Content Include="css\default.css" />
+    <Content Include="css\font-awesome.min.css" />
+    <Content Include="css\prettify.css" />
+    <Content Include="css\slidebars.css" />
+    <Content Include="css\style-blue.css" />
+    <Content Include="css\styles-main.css" />
+    <Content Include="css\styles_login.css" />
+    <Content Include="img\2.png" />
+    <Content Include="img\3.png" />
+    <Content Include="img\4.png" />
+    <Content Include="img\6.png" />
+    <Content Include="img\ALE.png" />
+    <Content Include="img\AleAzul.PNG" />
+    <Content Include="img\AleAzul2.PNG" />
+    <Content Include="img\bkg_01.jpg" />
+    <Content Include="img\bkg_01.png" />
+    <Content Include="img\colors\blue\logo_ale_mexjet_bco.png" />
+    <Content Include="img\coming_back2.jpg" />
+    <Content Include="img\iconos\Accept.png" />
+    <Content Include="img\iconos\add_blue.png" />
+    <Content Include="img\iconos\add_green.png" />
+    <Content Include="img\iconos\challenger605.jpg" />
+    <Content Include="img\iconos\delete.png" />
+    <Content Include="img\iconos\edit.png" />
+    <Content Include="img\iconos\en.gif" />
+    <Content Include="img\iconos\es.gif" />
+    <Content Include="img\iconos\find.png" />
+    <Content Include="img\iconos\flecha.png" />
+    <Content Include="img\iconos\flecha_abre1.png" />
+    <Content Include="img\iconos\flecha_cierra.png" />
+    <Content Include="img\iconos\h800.jpg" />
+    <Content Include="img\iconos\hawker400xp.jpg" />
+    <Content Include="img\iconos\hawker750_800xp_900xp.jpg" />
+    <Content Include="img\iconos\icon_actividades.png" />
+    <Content Include="img\iconos\icon_openWeather.png" />
+    <Content Include="img\iconos\icon_restaurante.png" />
+    <Content Include="img\iconos\ico_amarillo.png" />
+    <Content Include="img\iconos\ico_naranja.png" />
+    <Content Include="img\iconos\learjet45.jpg" />
+    <Content Include="img\iconos\learjet75.jpg" />
+    <Content Include="img\iconos\MailMexJetHeadEn.png" />
+    <Content Include="img\iconos\MailMexJetHeadEs.png" />
+    <Content Include="img\iconos\max.png" />
+    <Content Include="img\iconos\min.png" />
+    <Content Include="img\iconos\palomita.png" />
+    <Content Include="img\iconos\PiePagina.jpg" />
+    <Content Include="img\iconos\pie_pagina.jpg" />
+    <Content Include="img\iconos\poweredBy.jpg" />
+    <Content Include="img\iconos\premier.jpg" />
+    <Content Include="img\iconos\tache.png" />
+    <Content Include="img\logo-ale2.jpg" />
+    <Content Include="img\logo-ale3.jpg" />
+    <Content Include="img\logoALE.png" />
+    <Content Include="img\logo_100ipx.jpg" />
+    <Content Include="img\logo_100px.jpg" />
+    <Content Include="img\MexJet2.PNG" />
+    <Content Include="img\mexjet_p.png" />
+    <Content Include="Objetos\fonts\fontawesome-webfont.svg">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Objetos\fonts\fontawesome-webfont862f.svg" />
+    <Content Include="Objetos\fonts\FuturaLight.svg" />
+    <Content Include="Objetos\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Objetos\fonts\socialglyphs-webfont.svg" />
+    <Content Include="img\headers\ajax_loader.gif" />
+    <Content Include="img\iconos\add-notes.png" />
+    <Content Include="img\iconos\cancel-notes.png" />
+    <Content Include="img\iconos\delete-notes.png" />
+    <Content Include="img\iconos\edit-notes.png" />
+    <Content Include="img\iconos\engrane.png" />
+    <Content Include="img\iconos\Excel.png" />
+    <Content Include="img\iconos\file_add.png" />
+    <Content Include="img\iconos\file_delete.png" />
+    <Content Include="img\iconos\file_edit.png" />
+    <Content Include="img\iconos\ico_rojo.png" />
+    <Content Include="img\iconos\ico_verde.png" />
+    <Content Include="img\iconos\Information2.ico" />
+    <Content Include="img\iconos\save-notes.png" />
+    <Content Include="img\iconos\user.png" />
+    <Content Include="img\images\search.png" />
+    <Content Include="img\images\stars\1.png" />
+    <Content Include="img\images\stars\2.png" />
+    <Content Include="img\images\stars\3.png" />
+    <Content Include="img\images\stars\4.png" />
+    <Content Include="img\images\stars\5.png" />
+    <Content Include="img\images\tables\back_disabled.jpg" />
+    <Content Include="img\images\tables\back_enabled.jpg" />
+    <Content Include="img\images\tables\forward_disabled.jpg" />
+    <Content Include="img\images\tables\forward_enabled.jpg" />
+    <Content Include="img\images\tables\sort_asc.gif" />
+    <Content Include="img\images\tables\sort_both.gif" />
+    <Content Include="img\images\tables\sort_desc.gif" />
+    <Content Include="Objetos\fonts\fontawesome-webfont.eot" />
+    <Content Include="Objetos\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Objetos\fonts\fontawesome-webfont.woff" />
+    <Content Include="Objetos\fonts\FontAwesome.otf" />
+    <Content Include="Objetos\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Objetos\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Objetos\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Objetos\fonts\socialglyphs-webfont.eot" />
+    <Content Include="Objetos\fonts\socialglyphs-webfont.ttf" />
+    <Content Include="Objetos\fonts\socialglyphs-webfont.woff" />
+    <Content Include="Objetos\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="css\bootstrap-theme.css.map" />
+    <Content Include="css\bootstrap.css.map" />
+    <Content Include="ALE_Main.Master" />
+    <Content Include="img\Login_Negro.png" />
+    <Content Include="Properties\DataSources\System.Data.DataSet.datasource" />
+    <Content Include="Objetos\fonts\FuturaLight.eot" />
+    <Content Include="Objetos\fonts\FuturaLight.ttf" />
+    <Content Include="Objetos\fonts\FuturaLight.woff" />
+    <None Include="Properties\PublishProfiles\WebNoe.pubxml" />
+    <Content Include="ReferenciasDll\CrystalDecisions.CrystalReports.Design.dll" />
+    <Content Include="ReferenciasDll\CrystalDecisions.CrystalReports.Engine.dll" />
+    <Content Include="ReferenciasDll\CrystalDecisions.ReportAppServer.ClientDoc.dll" />
+    <Content Include="ReferenciasDll\CrystalDecisions.ReportAppServer.CommLayer.dll" />
+    <Content Include="ReferenciasDll\CrystalDecisions.ReportAppServer.CommonControls.dll" />
+    <Content Include="ReferenciasDll\CrystalDecisions.ReportAppServer.CommonObjectModel.dll" />
+    <Content Include="ReferenciasDll\CrystalDecisions.ReportAppServer.Controllers.dll" />
+    <Content Include="ReferenciasDll\CrystalDecisions.ReportAppServer.CubeDefModel.dll" />
+    <Content Include="ReferenciasDll\CrystalDecisions.ReportAppServer.DataDefModel.dll" />
+    <Content Include="ReferenciasDll\CrystalDecisions.ReportAppServer.DataSetConversion.dll" />
+    <Content Include="ReferenciasDll\CrystalDecisions.ReportAppServer.ObjectFactory.dll" />
+    <Content Include="ReferenciasDll\CrystalDecisions.ReportAppServer.Prompting.dll" />
+    <Content Include="ReferenciasDll\CrystalDecisions.ReportAppServer.ReportDefModel.dll" />
+    <Content Include="ReferenciasDll\CrystalDecisions.ReportAppServer.XmlSerialize.dll" />
+    <Content Include="ReferenciasDll\CrystalDecisions.ReportSource.dll" />
+    <Content Include="ReferenciasDll\CrystalDecisions.Shared.dll" />
+    <Content Include="ReferenciasDll\CrystalDecisions.Web.dll" />
+    <Content Include="Service References\wsSyteline\ALE_MexJet.wsSyteline.CompositeType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <None Include="Service References\wsSyteline\item.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\wsSyteline\item1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\wsSyteline\item10.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\wsSyteline\item11.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\wsSyteline\item12.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\wsSyteline\item13.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\wsSyteline\item14.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\wsSyteline\item2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\wsSyteline\item3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\wsSyteline\item4.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\wsSyteline\item5.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\wsSyteline\item6.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\wsSyteline\item7.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\wsSyteline\item8.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\wsSyteline\item9.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\wsSyteline\wsSiteLine.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\wsSyteline\wsSiteLine1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\wsSyteline\wsSiteLine10.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\wsSyteline\wsSiteLine11.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\wsSyteline\wsSiteLine2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\wsSyteline\wsSiteLine3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\wsSyteline\wsSiteLine4.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\wsSyteline\wsSiteLine6.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\wsSyteline\wsSiteLine7.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\wsSyteline\wsSiteLine8.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\wsSyteline\wsSiteLine9.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\wsSyteline\ws_SyteLine.wsdl" />
+    <Content Include="SwitcherResources\Content\bootstrap.min.css" />
+    <Content Include="SwitcherResources\Content\Cerulean\bootstrap.min.css" />
+    <Content Include="SwitcherResources\Content\Cosmo\bootstrap.min.css" />
+    <Content Include="SwitcherResources\Content\Cyborg\bootstrap.min.css" />
+    <Content Include="SwitcherResources\Content\Darkly\bootstrap.min.css" />
+    <Content Include="SwitcherResources\Content\Flatly\bootstrap.min.css" />
+    <Content Include="SwitcherResources\Content\Journal\bootstrap.min.css" />
+    <Content Include="SwitcherResources\Content\litera\bootstrap.min.css" />
+    <Content Include="SwitcherResources\Content\Lumen\bootstrap.min.css" />
+    <Content Include="SwitcherResources\Content\lux\bootstrap.min.css" />
+    <Content Include="SwitcherResources\Content\materia\bootstrap.min.css" />
+    <Content Include="SwitcherResources\Content\minty\bootstrap.min.css" />
+    <Content Include="SwitcherResources\Content\pages.css" />
+    <Content Include="SwitcherResources\Content\pulse\bootstrap.min.css" />
+    <Content Include="SwitcherResources\Content\Sandstone\bootstrap.min.css" />
+    <Content Include="SwitcherResources\Content\Simplex\bootstrap.min.css" />
+    <Content Include="SwitcherResources\Content\sketchy\bootstrap.min.css" />
+    <Content Include="SwitcherResources\Content\Slate\bootstrap.min.css" />
+    <Content Include="SwitcherResources\Content\solar\bootstrap.min.css" />
+    <Content Include="SwitcherResources\Content\Spacelab\bootstrap.min.css" />
+    <Content Include="SwitcherResources\Content\Superhero\bootstrap.min.css" />
+    <Content Include="SwitcherResources\Content\themes.css" />
+    <Content Include="SwitcherResources\Content\United\bootstrap.min.css" />
+    <Content Include="SwitcherResources\Content\Yeti\bootstrap.min.css" />
+    <Content Include="SwitcherResources\Scripts\bootstrap.min.js" />
+    <Content Include="SwitcherResources\Scripts\jquery-3.1.1.js" />
+    <Content Include="SwitcherResources\Scripts\popper.min.js" />
+    <Content Include="SwitcherResources\Themes.xml" />
+    <Content Include="Views\AtencionClientes\frmTripGuide.aspx" />
+    <Content Include="Views\Catalogos\frmFactoresFijos.aspx" />
+    <Content Include="Views\Catalogos\frmListaDifusion.aspx" />
+    <Content Include="Views\Catalogos\frmMembresias.aspx" />
+    <Content Include="Views\Catalogos\frmPasajero.aspx" />
+    <Content Include="Views\Catalogos\frmPersonaDifusion.aspx" />
+    <Content Include="Views\Catalogos\frmTarifasEzMexJet.aspx" />
+    <Content Include="Views\Consultas\frmConsultaDespacho.aspx" />
+    <Content Include="Views\Consultas\frmConsultaPresupuestos.aspx" />
+    <Content Include="Views\Consultas\frmDistOtodromicaPend.aspx" />
+    <Content Include="Views\Consultas\frmDocPendientes.aspx" />
+    <Content Include="Views\Consultas\frmReportePresupuesto.aspx" />
+    <Content Include="Views\Consultas\frmResumenContrato.aspx" />
+    <Content Include="Views\CreditoCobranza\frmFormulasRemision.aspx" />
+    <Content Include="Views\CreditoCobranza\frmIncrementoTarifas.aspx" />
+    <Content Include="Views\FBO\frmConsultaTrafico.aspx" />
+    <Content Include="Views\FBO\frmConsultaVuelosUSA.aspx" />
+    <Content Include="Views\FBO\frmMonitorAtencionClientes.aspx" />
+    <Content Include="Views\FBO\frmMonitorDespacho.aspx" />
+    <Content Include="Views\FBO\frmMonitorTrafico.aspx" />
+    <Content Include="Views\JetSmart\frmEncuesta.aspx" />
+    <Content Include="Views\JetSmart\frmPubFerrys.aspx" />
+    <Content Include="Views\JetSmart\frmRevenew.aspx" />
+    <Content Include="Views\JetSmart\frmTableroFerry.aspx" />
+    <Content Include="Views\JetSmart\frmTableroMiembros.aspx" />
+    <Content Include="Views\JetSmart\frmVentaFerrys.aspx" />
+    <Content Include="Views\Notificaciones\frmMonitorCambios.aspx" />
+    <Content Include="Views\Reportes\frmDetalleVueloCliente.aspx" />
+    <Content Include="Views\Reportes\frmHorasVoladasCliente.aspx" />
+    <Content Include="Views\Reportes\frmHorasVueloMatricula.aspx" />
+    <Content Include="Views\Reportes\frmVuelosReasignados.aspx" />
+    <Content Include="Views\Seguridad\frmPermisosContrato.aspx" />
+    <Content Include="Views\ServicioCargo.xsc">
+      <DependentUpon>ServicioCargo.xsd</DependentUpon>
+    </Content>
+    <Content Include="Views\EstadoCuenta.xsc">
+      <DependentUpon>EstadoCuenta.xsd</DependentUpon>
+    </Content>
+    <None Include="Service References\wsSyteline\ws_SyteLine1.wsdl" />
+    <Content Include="SwitcherResources\Content\LICENSE" />
+    <None Include="Views\EstadoCuenta.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>EstadoCuenta1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Views\EstadoCuenta.xss">
+      <DependentUpon>EstadoCuenta.xsd</DependentUpon>
+    </Content>
+    <Content Include="Views\Presupuestos_DS.xsc">
+      <DependentUpon>Presupuestos_DS.xsd</DependentUpon>
+    </Content>
+    <Content Include="Views\FBO\CrystalReports\dsVuelos.xsc">
+      <DependentUpon>dsVuelos.xsd</DependentUpon>
+    </Content>
+    <None Include="Views\FBO\CrystalReports\dsVuelos.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsVuelos1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Views\FBO\CrystalReports\dsVuelos.xss">
+      <DependentUpon>dsVuelos.xsd</DependentUpon>
+    </Content>
+    <None Include="Views\Presupuestos_DS.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>Presupuestos_DS1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Views\Presupuestos_DS.xss">
+      <DependentUpon>Presupuestos_DS.xsd</DependentUpon>
+    </Content>
+    <None Include="Views\ServicioCargo.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ServicioCargo.Designer.cs</LastGenOutput>
+    </None>
+    <Content Include="Views\ServicioCargo.xss">
+      <DependentUpon>ServicioCargo.xsd</DependentUpon>
+    </Content>
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="img\avion-entre-nubes.jpg" />
+    <Content Include="img\back.jpg" />
+    <Content Include="img\back.png" />
+    <Content Include="img\back_menubar.png" />
+    <Content Include="img\back_profile.jpg" />
+    <Content Include="img\back_services.jpg" />
+    <Content Include="img\bx_loader.gif" />
+    <Content Include="img\close.png" />
+    <Content Include="img\colors\blue\logo-ale.png" />
+    <Content Include="img\colors\blue\logo-ale_brand.png" />
+    <Content Include="img\colors\blue\logo.png" />
+    <Content Include="img\colors\blue\logo50.png" />
+    <Content Include="img\colors\blue\logo_big.png" />
+    <Content Include="img\coming_back.jpg" />
+    <Content Include="img\controls.png" />
+    <Content Include="img\excel-icon-des.png" />
+    <Content Include="img\excel-icon.png" />
+    <Content Include="img\favicon.png" />
+    <Content Include="img\headers\hdd.png" />
+    <Content Include="img\headers\hdi.png" />
+    <Content Include="img\headers\hdl.png" />
+    <Content Include="img\headers\hld.png" />
+    <Content Include="img\headers\hli.png" />
+    <Content Include="img\headers\hll.png" />
+    <Content Include="img\headers\nd.png" />
+    <Content Include="img\headers\ni.png" />
+    <Content Include="img\headers\nl.png" />
+    <Content Include="img\image_1f4fbdd8-ec87-4492-87f4-5b165c653355.png" />
+    <Content Include="img\image_3e77a5d8-d62b-47aa-89f7-bbd1f224d769.png" />
+    <Content Include="img\image_4a09d85b-4dc7-4873-ad03-e5ab17cf3c21.png" />
+    <Content Include="img\image_6be19ccc-cc4a-4569-990c-622a0a183080.png" />
+    <Content Include="img\image_6be19ccc-cc4a-4569-990c-622a0a183080_2.fw.png" />
+    <Content Include="img\image_6be19ccc-cc4a-4569-990c-622a0a183080_2.png" />
+    <Content Include="img\image_8854f1ba-ed43-4b45-9405-6148104d2f3a.png" />
+    <Content Include="img\image_aviones2.png" />
+    <Content Include="img\image_backgroundmain.png" />
+    <Content Include="img\loading.gif" />
+    <Content Include="img\logo50_white.png" />
+    <Content Include="img\logo_raw.png" />
+    <Content Include="img\logo_raw_white.png" />
+    <Content Include="img\logo_white.png" />
+    <Content Include="img\next.png" />
+    <Content Include="img\preload.gif" />
+    <Content Include="img\prev.png" />
+    <Content Include="img\slide_back.jpg" />
+    <Content Include="Js\jquery\jquery-1.8.3.js" />
+    <Content Include="Js\jquery\jquery-ui-1.9.2.custom.min.css" />
+    <Content Include="Js\jquery\jquery-ui-1.9.2.custom.min.js" />
+    <Content Include="Js\app.js" />
+    <Content Include="Js\bootstrap.js" />
+    <Content Include="Js\bootstrap.min.js" />
+    <Content Include="Js\classie.js" />
+    <Content Include="Js\docs.min.js" />
+    <Content Include="Js\ie-emulation-modes-warning.js" />
+    <Content Include="Js\ie10-viewport-bug-workaround.js" />
+    <Content Include="Js\jquery.bootstrap.wizard.js" />
+    <Content Include="Js\jquery.bootstrap.wizard.min.js" />
+    <Content Include="Js\jquery.min.js" />
+    <Content Include="Js\jquery_old.min.js" />
+    <Content Include="Js\modernizr.custom.js" />
+    <Content Include="Js\npm.js" />
+    <Content Include="Js\prettify.js" />
+    <Content Include="Js\slidebars.js" />
+    <None Include="Service References\wsSyteline\configuration91.svcinfo" />
+    <None Include="Service References\wsSyteline\configuration.svcinfo" />
+    <None Include="Service References\wsSyteline\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Styles\Controls.css" />
+    <Content Include="Styles\Fuentes.css" />
+    <Content Include="Styles\overlaty.css" />
+    <Content Include="Styles\overlay.css" />
+    <Content Include="Styles\overlayCT.css" />
+    <Content Include="Styles\overlayPro.css" />
+    <Content Include="Views\AtencionClientes\frmCasos.aspx" />
+    <Content Include="Views\AtencionClientes\frmContactos.aspx" />
+    <Content Include="Views\AtencionClientes\frmDashboard.aspx" />
+    <Content Include="Views\AtencionClientes\frmDashboardAtnCliente.aspx" />
+    <Content Include="Views\AtencionClientes\frmMonitorClientes.aspx" />
+    <Content Include="Views\AtencionClientes\frmMonitorImagen.aspx" />
+    <Content Include="Views\AtencionClientes\frmSolicitudes.aspx" />
+    <Content Include="Views\AtencionClientes\frmSolicitudVuelo.aspx" />
+    <Content Include="Views\Catalogos\frmAeronave.aspx" />
+    <Content Include="Views\Catalogos\FrmAeropuerto.aspx" />
+    <Content Include="Views\Catalogos\frmArea.aspx" />
+    <Content Include="Views\Catalogos\frmCliente.aspx" />
+    <Content Include="Views\Catalogos\frmCombustibleMensualInternacional.aspx" />
+    <Content Include="Views\Catalogos\frmCombustibleSemanal.aspx" />
+    <Content Include="Views\Catalogos\frmComisariato.aspx" />
+    <Content Include="Views\Catalogos\frmComisariatoProducto.aspx" />
+    <Content Include="Views\Catalogos\frmControls.aspx" />
+    <Content Include="Views\Catalogos\frmDesignador.aspx" />
+    <Content Include="Views\Catalogos\frmDistanciaOrtodromica.aspx" />
+    <Content Include="Views\Catalogos\frmFechaPico.aspx" />
+    <Content Include="Views\Catalogos\frmFlota.aspx" />
+    <Content Include="Views\Catalogos\frmGrupoModelo.aspx" />
+    <Content Include="Views\Catalogos\frmInflacion.aspx" />
+    <Content Include="Views\Catalogos\frmMarcas.aspx" />
+    <Content Include="Views\Catalogos\frmModelo.aspx" />
+    <Content Include="Views\Catalogos\frmMotivo.aspx" />
+    <Content Include="Views\Catalogos\frmPaquete.aspx" />
+    <Content Include="Views\Catalogos\frmParametros.aspx" />
+    <Content Include="Views\Catalogos\frmPilotos.aspx" />
+    <Content Include="Views\Catalogos\frmProducto.aspx" />
+    <Content Include="Views\Catalogos\frmRangoCombustibles.aspx" />
+    <Content Include="Views\Catalogos\frmRol.aspx" />
+    <Content Include="Views\Catalogos\frmRolAccion.aspx" />
+    <Content Include="Views\Catalogos\frmSector.aspx" />
+    <Content Include="Views\Catalogos\frmServicioConCargo.aspx" />
+    <Content Include="Views\Catalogos\frmTipoCambio.aspx" />
+    <Content Include="Views\Catalogos\frmTipoCliente.aspx" />
+    <Content Include="Views\Catalogos\frmTipoContacto.aspx" />
+    <Content Include="Views\Catalogos\frmTipoDemora.aspx" />
+    <Content Include="Views\Catalogos\frmTipoFactura.aspx" />
+    <Content Include="Views\Catalogos\frmTipoPierna.aspx" />
+    <Content Include="Views\Catalogos\frmTitulo.aspx" />
+    <Content Include="Views\Catalogos\frmTramoPactado.aspx" />
+    <Content Include="Views\Catalogos\frmTUA.aspx" />
+    <Content Include="Views\Catalogos\frmUsuario.aspx" />
+    <Content Include="Views\Catalogos\frmVendedor.aspx" />
+    <Content Include="Views\Consultas\frmAudit.aspx" />
+    <Content Include="Views\Consultas\frmBitacora.aspx" />
+    <Content Include="Views\Consultas\frmBitacoraAudit.aspx" />
+    <Content Include="Views\Consultas\frmConsultaCasos.aspx" />
+    <Content Include="Views\Consultas\frmConsultaContrato.aspx" />
+    <Content Include="Views\Consultas\FrmConsultaPrefactura.aspx" />
+    <Content Include="Views\Consultas\frmConsultaSolicitudes.aspx" />
+    <Content Include="Views\Consultas\frmConsultaTarifas.aspx" />
+    <Content Include="Views\Consultas\frmCtrlAeroTercerosFacturas.aspx" />
+    <Content Include="Views\Consultas\frmErroresBitacora.aspx" />
+    <Content Include="Views\Consultas\frmHistoricoTarifasCliente.aspx" />
+    <Content Include="Views\Consultas\frmServicioCargo.aspx" />
+    <Content Include="Views\Consultas\frmSolicitudesPorCaso.aspx" />
+    <Content Include="Views\CreditoCobranza\AeronaveRen.aspx" />
+    <Content Include="Views\CreditoCobranza\frmEstadoCuenta.aspx" />
+    <Content Include="Views\CreditoCobranza\frmFacturaProveedor.aspx" />
+    <Content Include="Views\CreditoCobranza\frmPagoAPHIS.aspx" />
+    <Content Include="Views\CreditoCobranza\frmBsqNotaCredito.aspx" />
+    <Content Include="Views\CreditoCobranza\frmContrato.aspx" />
+    <Content Include="Views\CreditoCobranza\frmGRemision.aspx" />
+    <Content Include="Views\CreditoCobranza\frmNotaCredito.aspx" />
+    <Content Include="Views\CreditoCobranza\frmGastosInternos.aspx" />
+    <Content Include="Views\CreditoCobranza\frmPagoSENEAM.aspx" />
+    <Content Include="Views\CreditoCobranza\frmPrefactura.aspx" />
+    <Content Include="Views\CreditoCobranza\frmRemisiones.aspx" />
+    <Content Include="Views\CreditoCobranza\frmTraspasoHoras.aspx" />
+    <Content Include="Views\CreditoCobranza\frmVuelosPorCliente.aspx" />
+    <Content Include="Views\Default.aspx" />
+    <Content Include="Views\FBO\frmMonitorComisariato.aspx" />
+    <Content Include="Views\frmCorreo.aspx" />
+    <Content Include="Views\frmDefault.aspx" />
+    <Content Include="Views\frmLogin.aspx" />
+    <Content Include="Views\Principales\frmPruebaAD.aspx" />
+    <Content Include="Views\Rentas\frmPresupuesto.aspx" />
+    <Content Include="Views\Reportes\frmReporteTabulado.aspx" />
+    <Content Include="Views\test.aspx" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AleMain.Master.cs">
+      <DependentUpon>AleMain.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AleMain.Master.designer.cs">
+      <DependentUpon>AleMain.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Clases\ClsSecurity.cs" />
+    <Compile Include="Clases\Enums.cs" />
+    <Compile Include="Clases\Utils.cs" />
+    <Compile Include="Clases\UtilsServicios.cs" />
+    <Compile Include="ControlesUsuario\ucClienteContrato.ascx.cs">
+      <DependentUpon>ucClienteContrato.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ControlesUsuario\ucClienteContrato.ascx.designer.cs">
+      <DependentUpon>ucClienteContrato.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ControlesUsuario\ucPizarraElectronica.ascx.cs">
+      <DependentUpon>ucPizarraElectronica.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ControlesUsuario\ucPizarraElectronica.ascx.designer.cs">
+      <DependentUpon>ucPizarraElectronica.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="DomainModel\DBAeronaveRen.cs" />
+    <Compile Include="DomainModel\DBAnalisisFerrys.cs" />
+    <Compile Include="DomainModel\DBAutorizacionMembresias.cs" />
+    <Compile Include="DomainModel\DBBaseFlight.cs" />
+    <Compile Include="DomainModel\DBBaseFPK.cs" />
+    <Compile Include="DomainModel\DBBaseSAP.cs" />
+    <Compile Include="DomainModel\DBConsultaContrato.cs" />
+    <Compile Include="DomainModel\DBAeronave.cs" />
+    <Compile Include="DomainModel\DBAeropuerto.cs" />
+    <Compile Include="DomainModel\DBAeropuertos.cs" />
+    <Compile Include="DomainModel\DBAudit.cs" />
+    <Compile Include="DomainModel\DBBitacora.cs" />
+    <Compile Include="DomainModel\DBBitacoraAudit.cs" />
+    <Compile Include="DomainModel\DBCasos.cs" />
+    <Compile Include="DomainModel\DBCombustibleGrupoModelo.cs" />
+    <Compile Include="DomainModel\DBCombustibleMensualInternacional.cs" />
+    <Compile Include="DomainModel\DBCombustibleSemanal.cs" />
+    <Compile Include="DomainModel\DBCombustibleSemanalDetalle.cs" />
+    <Compile Include="DomainModel\DBConsultaCasos.cs" />
+    <Compile Include="DomainModel\DBConsultaDespacho.cs" />
+    <Compile Include="DomainModel\DBConsultaPrefactura.cs" />
+    <Compile Include="DomainModel\DBConsultaPresupuestos.cs" />
+    <Compile Include="DomainModel\DBConsultaSolicitudes.cs" />
+    <Compile Include="DomainModel\DBConsultaTarifa.cs" />
+    <Compile Include="DomainModel\DBConsultaTrafico.cs" />
+    <Compile Include="DomainModel\DBConsultaVuelos.cs" />
+    <Compile Include="DomainModel\DBContactosyPreferencias.cs" />
+    <Compile Include="DomainModel\DBContrato.cs" />
+    <Compile Include="DomainModel\DBCtrlAeroTercerosFacturas.cs" />
+    <Compile Include="DomainModel\DBDashboard.cs" />
+    <Compile Include="DomainModel\DBDashboardAtnCliente.cs" />
+    <Compile Include="DomainModel\DBDetalleVuelos.cs" />
+    <Compile Include="DomainModel\DBDistOrtPend.cs" />
+    <Compile Include="DomainModel\DBDocPendientes.cs" />
+    <Compile Include="DomainModel\DBEncuesta.cs" />
+    <Compile Include="DomainModel\DBErroresBitacora.cs" />
+    <Compile Include="DomainModel\DBEstadoCuenta.cs" />
+    <Compile Include="DomainModel\DBFactoresFijos.cs" />
+    <Compile Include="DomainModel\DBFacturaProveedor.cs" />
+    <Compile Include="DomainModel\DBFechaPico.cs" />
+    <Compile Include="DomainModel\DBFormulas.cs" />
+    <Compile Include="DomainModel\DBGeneracionPagosAPHIS.cs" />
+    <Compile Include="DomainModel\DBHistoricoTarifasCliente.cs" />
+    <Compile Include="DomainModel\DBHorasVoladasCliente.cs" />
+    <Compile Include="DomainModel\DBHoraVueloMatricula.cs" />
+    <Compile Include="DomainModel\DBImagen.cs" />
+    <Compile Include="DomainModel\DBIncrementoTarifas.cs" />
+    <Compile Include="DomainModel\DBIntegrator.cs" />
+    <Compile Include="DomainModel\DBIntercambioHoras.cs" />
+    <Compile Include="DomainModel\DBListaDifusion.cs" />
+    <Compile Include="DomainModel\DBLogin.cs" />
+    <Compile Include="DomainModel\DBMembresias.cs" />
+    <Compile Include="DomainModel\DBMonitorAtencionClientes.cs" />
+    <Compile Include="DomainModel\DBMonitorCambios.cs" />
+    <Compile Include="DomainModel\DBMonitorComisariato.cs" />
+    <Compile Include="DomainModel\DBMonitorDespacho.cs" />
+    <Compile Include="DomainModel\DBMonitorTrafico.cs" />
+    <Compile Include="DomainModel\DBNotaCredito.cs" />
+    <Compile Include="DomainModel\DBGastoInterno.cs" />
+    <Compile Include="DomainModel\DBPagoSENEAM.cs" />
+    <Compile Include="DomainModel\DBPaquete.cs" />
+    <Compile Include="DomainModel\DBPaqueteCuenta.cs" />
+    <Compile Include="DomainModel\DBParametros.cs" />
+    <Compile Include="DomainModel\DBContacto.cs" />
+    <Compile Include="DomainModel\DBMonitorCliente.cs" />
+    <Compile Include="DomainModel\DBPasajero.cs" />
+    <Compile Include="DomainModel\DBPermisosContrato.cs" />
+    <Compile Include="DomainModel\DBPersonaDifusion.cs" />
+    <Compile Include="DomainModel\DBPizarra.cs" />
+    <Compile Include="DomainModel\DBPrefactura.cs" />
+    <Compile Include="DomainModel\DBPresupuesto.cs" />
+    <Compile Include="DomainModel\DBPubFerrys.cs" />
+    <Compile Include="DomainModel\DBRangoCombustible.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DomainModel\DBRemision.cs" />
+    <Compile Include="DomainModel\DBReporteTabular.cs" />
+    <Compile Include="DomainModel\DBResumenContrato.cs" />
+    <Compile Include="DomainModel\DBRevenew.cs" />
+    <Compile Include="DomainModel\DBRolAccion.cs" />
+    <Compile Include="DomainModel\DBSAP.cs" />
+    <Compile Include="DomainModel\DBServicioCargo.cs" />
+    <Compile Include="DomainModel\DBSolicitudesPorCaso.cs" />
+    <Compile Include="DomainModel\DBSolicitudesVuelo.cs" />
+    <Compile Include="DomainModel\DBTableroFerry.cs" />
+    <Compile Include="DomainModel\DBTarifaGrupoModeloEZ.cs" />
+    <Compile Include="DomainModel\DBTipoCliente.cs" />
+    <Compile Include="DomainModel\DBTipoPierna.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DomainModel\DBTramoPactado.cs" />
+    <Compile Include="DomainModel\DBTripGuide.cs" />
+    <Compile Include="DomainModel\DBTripGuideFPK.cs" />
+    <Compile Include="DomainModel\DBTUA.cs" />
+    <Compile Include="DomainModel\DBUtils.cs" />
+    <Compile Include="DomainModel\DBVendedor.cs" />
+    <Compile Include="DomainModel\DBVentaFerry.cs" />
+    <Compile Include="DomainModel\DBVuelosPorCliente.cs" />
+    <Compile Include="DomainModel\DBVuelosReasignados.cs" />
+    <Compile Include="Interfaces\IViewAeronave.cs" />
+    <Compile Include="Interfaces\IViewAeronaveRen.cs" />
+    <Compile Include="Interfaces\IViewAnalisisFerrys.cs" />
+    <Compile Include="Interfaces\IViewAudit.cs" />
+    <Compile Include="Interfaces\IViewAutorizacionMembresias.cs" />
+    <Compile Include="Interfaces\IViewBitacora.cs" />
+    <Compile Include="Interfaces\IViewBitacoraAudit.cs" />
+    <Compile Include="Interfaces\IViewCasos.cs" />
+    <Compile Include="Interfaces\IViewConsultaDespacho.cs" />
+    <Compile Include="Interfaces\iViewConsultaPrefactura.cs" />
+    <Compile Include="Interfaces\IViewConsultaPresupuestos.cs" />
+    <Compile Include="Interfaces\IViewConsultaServicioCargo.cs" />
+    <Compile Include="Interfaces\IViewConsultaTrafico.cs" />
+    <Compile Include="Interfaces\IViewConsultaVuelos.cs" />
+    <Compile Include="Interfaces\IViewCtrlAeroTercerosFacturas.cs" />
+    <Compile Include="Interfaces\IViewDashboard.cs" />
+    <Compile Include="Interfaces\IViewDashboardAtnCliente.cs" />
+    <Compile Include="Interfaces\IViewDetalleVuelos.cs" />
+    <Compile Include="Interfaces\IVIewDistOrtPend.cs" />
+    <Compile Include="Interfaces\IViewDocPendientes.cs" />
+    <Compile Include="Interfaces\IViewEstadoCuenta.cs" />
+    <Compile Include="Interfaces\IViewFactoresFijos.cs" />
+    <Compile Include="Interfaces\IVIewFacturaProveedor.cs" />
+    <Compile Include="Interfaces\IViewFormulasRemision.cs" />
+    <Compile Include="Interfaces\IViewHistoricoTarifasCliente.cs" />
+    <Compile Include="Interfaces\IViewHorasVoladasCliente.cs" />
+    <Compile Include="Interfaces\IViewHoraVueloMatricula.cs" />
+    <Compile Include="Interfaces\IViewIncrementoTarifas.cs" />
+    <Compile Include="Interfaces\IViewInflacion.cs" />
+    <Compile Include="Interfaces\IViewMonitorAtencionClientes.cs" />
+    <Compile Include="Interfaces\IViewMonitorCambios.cs" />
+    <Compile Include="Interfaces\IViewMonitorDespacho.cs" />
+    <Compile Include="Interfaces\IViewMonitorTrafico.cs" />
+    <Compile Include="Interfaces\IViewPasajero.cs" />
+    <Compile Include="Interfaces\IViewPermisosContrato.cs" />
+    <Compile Include="Interfaces\IViewPersonaDifusion.cs" />
+    <Compile Include="Interfaces\iViewPrefactura.cs" />
+    <Compile Include="Interfaces\iViewPresupuesto.cs" />
+    <Compile Include="Interfaces\IViewPubFerrys.cs" />
+    <Compile Include="Interfaces\IViewReporteTabular.cs" />
+    <Compile Include="Interfaces\IViewResumenContrato.cs" />
+    <Compile Include="Interfaces\IViewRevenew.cs" />
+    <Compile Include="Interfaces\IViewRol.cs" />
+    <Compile Include="Interfaces\IViewCliente.cs" />
+    <Compile Include="Interfaces\IViewCombustibleMensualInternacional.cs" />
+    <Compile Include="Interfaces\IViewCombustibleSemanal.cs" />
+    <Compile Include="Interfaces\IViewComisariatoProducto.cs" />
+    <Compile Include="Interfaces\IViewConsultaCasos.cs" />
+    <Compile Include="Interfaces\iViewConsultaContrato.cs" />
+    <Compile Include="Interfaces\IViewConsultaSolicitudes.cs" />
+    <Compile Include="Interfaces\IViewConsultaTarifa.cs" />
+    <Compile Include="Interfaces\IViewContacto.cs" />
+    <Compile Include="Interfaces\IViewContrato.cs" />
+    <Compile Include="Interfaces\IViewErroresBitacora.cs" />
+    <Compile Include="Interfaces\IViewFlota.cs" />
+    <Compile Include="Interfaces\IViewGastoInterno.cs" />
+    <Compile Include="Interfaces\IViewGeneracionPagosAPHIS.cs" />
+    <Compile Include="Interfaces\IViewGRemision.cs" />
+    <Compile Include="Interfaces\IViewImagen.cs" />
+    <Compile Include="Interfaces\IViewIntercambioHoras.cs" />
+    <Compile Include="Interfaces\IViewModelo.cs" />
+    <Compile Include="Interfaces\IViewMonitorCliente.cs" />
+    <Compile Include="Interfaces\IViewMonitorComisariato.cs" />
+    <Compile Include="Interfaces\IViewNotaCredito.cs" />
+    <Compile Include="Interfaces\IViewPagoSENEAM.cs" />
+    <Compile Include="Interfaces\IViewPaquete.cs" />
+    <Compile Include="Interfaces\IViewRangoCombustible.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Interfaces\IViewRemision.cs" />
+    <Compile Include="Interfaces\IViewLogin.cs" />
+    <Compile Include="Interfaces\IViewRolAccion.cs" />
+    <Compile Include="Interfaces\IViewServicioCargo.cs" />
+    <Compile Include="Interfaces\IViewSolicitudesPorCaso.cs" />
+    <Compile Include="Interfaces\IViewSolicitudVuelo.cs" />
+    <Compile Include="Interfaces\IViewTableroFerry.cs" />
+    <Compile Include="Interfaces\IviewTipoCliente.cs" />
+    <Compile Include="Interfaces\iViewTipoPierna.cs" />
+    <Compile Include="Interfaces\IViewTramoPactado.cs" />
+    <Compile Include="Interfaces\IViewTripGuide.cs" />
+    <Compile Include="Interfaces\IViewTripGuideFPK.cs" />
+    <Compile Include="Interfaces\IViewTUA.cs" />
+    <Compile Include="Interfaces\IViewVendedor.cs" />
+    <Compile Include="Interfaces\IViewVentaFerry.cs" />
+    <Compile Include="Interfaces\IViewVuelosPorCliente.cs" />
+    <Compile Include="Interfaces\IViewVuelosReasignados.cs" />
+    <Compile Include="Objetos\Aeronave.cs" />
+    <Compile Include="Objetos\Aeropuerto.cs" />
+    <Compile Include="Objetos\AppNotification.cs" />
+    <Compile Include="Objetos\Bitacora.cs" />
+    <Compile Include="Objetos\BitacoraAudit.cs" />
+    <Compile Include="Objetos\Casos.cs" />
+    <Compile Include="Objetos\CombustibleGrupoModelo.cs" />
+    <Compile Include="Objetos\CombustibleMensualInternacional.cs" />
+    <Compile Include="Objetos\CombustibleSemanal.cs" />
+    <Compile Include="Objetos\CombustibleSemanalDetalle.cs" />
+    <Compile Include="Objetos\ConsultaCasos.cs" />
+    <Compile Include="Objetos\ConsultaPrefacturas.cs" />
+    <Compile Include="Objetos\ConsultaSolicitudes.cs" />
+    <Compile Include="Objetos\Consulta_Tarifas.cs" />
+    <Compile Include="Objetos\Contacto.cs" />
+    <Compile Include="Objetos\ContactosyPreferencias.cs" />
+    <Compile Include="Objetos\Contratos_Bases.cs" />
+    <Compile Include="Objetos\Contrato_CaracteristicasEspeciales.cs" />
+    <Compile Include="Objetos\Contrato_CobrosDescuentos.cs" />
+    <Compile Include="Objetos\Contrato_CombustibleInternacional.cs" />
+    <Compile Include="Objetos\Contrato_Generales.cs" />
+    <Compile Include="Objetos\Contrato_GirasFechasPico.cs" />
+    <Compile Include="Objetos\Contrato_Intercambios.cs" />
+    <Compile Include="Objetos\Contrato_Preferencias.cs" />
+    <Compile Include="Objetos\Contrato_RangoCombustible.cs" />
+    <Compile Include="Objetos\Contrato_Tarifas.cs" />
+    <Compile Include="Objetos\Contrato_TramoPactado.cs" />
+    <Compile Include="Objetos\DatosToken.cs" />
+    <Compile Include="Objetos\DocPendientes.cs" />
+    <Compile Include="Objetos\Encuesta.cs" />
+    <Compile Include="Objetos\EstadoCuenta.cs" />
+    <Compile Include="Objetos\FactorFijo.cs" />
+    <Compile Include="Objetos\FacturaPaso1.cs" />
+    <Compile Include="Objetos\FacturaPaso2.cs" />
+    <Compile Include="Objetos\FacturaPaso3.cs" />
+    <Compile Include="Objetos\FacturaProveedor.cs" />
+    <Compile Include="Objetos\FechaPico.cs" />
+    <Compile Include="Objetos\FormulaRem.cs" />
+    <Compile Include="Objetos\GastoInterno.cs" />
+    <Compile Include="Objetos\Imagen.cs" />
+    <Compile Include="Objetos\ImagenCorreo.cs" />
+    <Compile Include="Objetos\IncrementoTarifas.cs" />
+    <Compile Include="Objetos\InflacionDetalle.cs" />
+    <Compile Include="Objetos\JetSmart.cs" />
+    <Compile Include="Objetos\JsonObjeto.cs" />
+    <Compile Include="Objetos\ListaDifusion.cs" />
+    <Compile Include="Objetos\Membresia.cs" />
+    <Compile Include="Objetos\Mensajes.cs" />
+    <Compile Include="Objetos\MensajesTexto.cs" />
+    <Compile Include="Objetos\MiembroEZ.cs" />
+    <Compile Include="Objetos\MonitorComisariato.cs" />
+    <Compile Include="Objetos\MonitorTrafico.cs" />
+    <Compile Include="Objetos\NotaCredito.cs" />
+    <Compile Include="Objetos\MonitorCliente.cs" />
+    <Compile Include="Objetos\Paquete.cs" />
+    <Compile Include="Objetos\PaqueteCuenta.cs" />
+    <Compile Include="Objetos\Parametros.cs" />
+    <Compile Include="Objetos\Pasajero.cs" />
+    <Compile Include="Objetos\PermisosContrato.cs" />
+    <Compile Include="Objetos\PersonaDifusion.cs" />
+    <Compile Include="Objetos\Prefactura.cs" />
+    <Compile Include="Objetos\Presupuesto.cs" />
+    <Compile Include="Objetos\RangoCombustible.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Objetos\Remision.cs" />
+    <Compile Include="Objetos\ReporteTabular.cs" />
+    <Compile Include="Objetos\ResumenContrato.cs" />
+    <Compile Include="Objetos\Revenew.cs" />
+    <Compile Include="Objetos\RolAccion.cs" />
+    <Compile Include="Objetos\SnapshotRemision.cs" />
+    <Compile Include="Objetos\SolicitudVuelo.cs" />
+    <Compile Include="Objetos\TarifaGrupoModeloEz.cs" />
+    <Compile Include="Objetos\TramoSolicitud.cs" />
+    <Compile Include="Objetos\TraspasoHoras.cs" />
+    <Compile Include="Objetos\TripGuide.cs" />
+    <Compile Include="Objetos\Vendedor.cs" />
+    <Compile Include="Objetos\VentaFerrys.cs" />
+    <Compile Include="Presenter\AeronaveRen_Presenter.cs" />
+    <Compile Include="Presenter\AnalisisFerrys_Presenter.cs" />
+    <Compile Include="Presenter\Audit_Presenter.cs" />
+    <Compile Include="Presenter\AutorizacionMembresias_Presenter.cs" />
+    <Compile Include="Presenter\BitacoraAudit_Presenter.cs" />
+    <Compile Include="Presenter\BitacoraPresenter.cs" />
+    <Compile Include="Presenter\Casos_Presenter.cs" />
+    <Compile Include="Presenter\CombustibleMensualInternacional_Presenter.cs" />
+    <Compile Include="Presenter\CombustibleSemanal_Presenter.cs" />
+    <Compile Include="Presenter\ConsultaCasos_Presenter.cs" />
+    <Compile Include="Presenter\ConsultaContratos_Presenter.cs" />
+    <Compile Include="Presenter\ConsultaDespacho_Presenter.cs" />
+    <Compile Include="Presenter\ConsultaPrefacturas_Presenter.cs" />
+    <Compile Include="Presenter\ConsultaPresupuestos_Presenter.cs" />
+    <Compile Include="Presenter\ConsultaSolicitudes_Presenter.cs" />
+    <Compile Include="Presenter\ConsultaTarifa_Presenter.cs" />
+    <Compile Include="Presenter\ConsultaTrafico_Presenter.cs" />
+    <Compile Include="Presenter\ConsultaVuelos_Presenter.cs" />
+    <Compile Include="Presenter\Contacto_Presenter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Presenter\Contrato_Presenter.cs" />
+    <Compile Include="Presenter\CtrlAeroTercerosFacturas_Presenter.cs" />
+    <Compile Include="Presenter\Dashboard_Presenter.cs" />
+    <Compile Include="Presenter\DashboarsAtnCliente_Presenter.cs" />
+    <Compile Include="Presenter\DetalleVuelos_Presenter.cs" />
+    <Compile Include="Presenter\DistOrtPend_Presenter.cs" />
+    <Compile Include="Presenter\DocPendientes_Presenter.cs" />
+    <Compile Include="Presenter\Encuesta_Presenter.cs" />
+    <Compile Include="Presenter\ErroresBitacora_Presenter.cs" />
+    <Compile Include="Presenter\EstadoCuenta_Presenter.cs" />
+    <Compile Include="Presenter\FactoresFijos_Presenter.cs" />
+    <Compile Include="Presenter\FacturaProveedor_Presenter.cs" />
+    <Compile Include="Presenter\FechaPico_Presenter.cs" />
+    <Compile Include="Presenter\FormulasRemision_Presenter.cs" />
+    <Compile Include="Presenter\GeneracionPagosAPHIS_Presenter.cs" />
+    <Compile Include="Presenter\HistoricoTarifasCliente_Presenter.cs" />
+    <Compile Include="Presenter\HorasVoladasCliente_Presenter.cs" />
+    <Compile Include="Presenter\HoraVueloMatricula_Presenter.cs" />
+    <Compile Include="Presenter\Imagen_Presenter.cs" />
+    <Compile Include="Presenter\IncrementoTarifas_Presenter.cs" />
+    <Compile Include="Presenter\IntercambioHoras_Presenter.cs" />
+    <Compile Include="Presenter\ListaDifusion_Presenter.cs" />
+    <Compile Include="Presenter\Membresia_Presenter.cs" />
+    <Compile Include="Presenter\MonitorAtencionClientes_Presenter.cs" />
+    <Compile Include="Presenter\MonitorCambios_Presenter.cs" />
+    <Compile Include="Presenter\MonitorComisariato_Presenter.cs" />
+    <Compile Include="Presenter\MonitorDespacho_Presenter.cs" />
+    <Compile Include="Presenter\MonitorTrafico_Presenter.cs" />
+    <Compile Include="Presenter\PagoSENEAM_Presenter.cs" />
+    <Compile Include="Presenter\Paquete_Presenter.cs" />
+    <Compile Include="Presenter\Pasajero_Presenter.cs" />
+    <Compile Include="Presenter\PermisosContrato_Presenter.cs" />
+    <Compile Include="Presenter\PersonaDifusion_Presenter.cs" />
+    <Compile Include="Presenter\Prefactura_Presenter.cs" />
+    <Compile Include="Presenter\Presupuesto_Presenter.cs" />
+    <Compile Include="Presenter\PubFerrys_Presenter.cs" />
+    <Compile Include="Presenter\RangoCombustible_Presenter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Presenter\Login_Presenter.cs" />
+    <Compile Include="Presenter\ReporteTabular_Presenter.cs" />
+    <Compile Include="Presenter\ResumenContrato_Presenter.cs" />
+    <Compile Include="Presenter\Revenew_Presenter.cs" />
+    <Compile Include="Presenter\ServicioCargo_Presenter.cs" />
+    <Compile Include="Presenter\SolicitudesPorCaso_Presenter.cs" />
+    <Compile Include="Presenter\SolicitudVuelo_Presenter.cs" />
+    <Compile Include="Objetos\TipoCliente.cs" />
+    <Compile Include="Objetos\TramoPactado.cs" />
+    <Compile Include="Objetos\TUA.cs" />
+    <Compile Include="Objetos\UserIdentity.cs" />
+    <Compile Include="Presenter\Aeronave_Presenter.cs" />
+    <Compile Include="Presenter\Aeropuerto_Presenter.cs" />
+    <Compile Include="Presenter\GastoInterno_Presenter.cs" />
+    <Compile Include="Presenter\GRemision_Presenter.cs" />
+    <Compile Include="Presenter\MonitorCliente_Presenter.cs" />
+    <Compile Include="Presenter\NotaCredito_Presenter.cs" />
+    <Compile Include="Presenter\Parametros_Presenter.cs" />
+    <Compile Include="Presenter\Remision_Presenter.cs" />
+    <Compile Include="Presenter\RolAccion_Presenter.cs" />
+    <Compile Include="Presenter\TableroFerry_Presenter.cs" />
+    <Compile Include="Presenter\TarifaGrupoModeloEz_Presenter.cs" />
+    <Compile Include="Presenter\TipoCliente_Presenter.cs" />
+    <Compile Include="Presenter\TramoPactado_Presenter.cs" />
+    <Compile Include="Presenter\TripGuideFPK_Presenter.cs" />
+    <Compile Include="Presenter\TripGuide_Presenter.cs" />
+    <Compile Include="Presenter\TUA_Presenter.cs" />
+    <Compile Include="Presenter\Vendedor_Presenter.cs" />
+    <Compile Include="Presenter\VentaFerry_Presentar.cs" />
+    <Compile Include="Presenter\VuelosPorCliente_Presenter.cs" />
+    <Compile Include="Presenter\VuelosReasignados_Presenter.cs" />
+    <Compile Include="Service References\wsSyteline\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AtencionClientes\frmCasos.aspx.cs">
+      <DependentUpon>frmCasos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\AtencionClientes\frmCasos.aspx.designer.cs">
+      <DependentUpon>frmCasos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AtencionClientes\frmContactos.aspx.cs">
+      <DependentUpon>frmContactos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\AtencionClientes\frmContactos.aspx.designer.cs">
+      <DependentUpon>frmContactos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AtencionClientes\frmDashboard.aspx.cs">
+      <DependentUpon>frmDashboard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\AtencionClientes\frmDashboard.aspx.designer.cs">
+      <DependentUpon>frmDashboard.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AtencionClientes\frmDashboardAtnCliente.aspx.cs">
+      <DependentUpon>frmDashboardAtnCliente.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\AtencionClientes\frmDashboardAtnCliente.aspx.designer.cs">
+      <DependentUpon>frmDashboardAtnCliente.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AtencionClientes\frmMonitorClientes.aspx.cs">
+      <DependentUpon>frmMonitorClientes.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\AtencionClientes\frmMonitorClientes.aspx.designer.cs">
+      <DependentUpon>frmMonitorClientes.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AtencionClientes\frmMonitorImagen.aspx.cs">
+      <DependentUpon>frmMonitorImagen.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\AtencionClientes\frmMonitorImagen.aspx.designer.cs">
+      <DependentUpon>frmMonitorImagen.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AtencionClientes\frmSolicitudes.aspx.cs">
+      <DependentUpon>frmSolicitudes.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\AtencionClientes\frmSolicitudes.aspx.designer.cs">
+      <DependentUpon>frmSolicitudes.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AtencionClientes\frmSolicitudVuelo.aspx.cs">
+      <DependentUpon>frmSolicitudVuelo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\AtencionClientes\frmSolicitudVuelo.aspx.designer.cs">
+      <DependentUpon>frmSolicitudVuelo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AtencionClientes\frmTripGuide.aspx.cs">
+      <DependentUpon>frmTripGuide.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\AtencionClientes\frmTripGuide.aspx.designer.cs">
+      <DependentUpon>frmTripGuide.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Catalogos\frmAeronave.aspx.cs">
+      <DependentUpon>frmAeronave.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Catalogos\frmAeronave.aspx.designer.cs">
+      <DependentUpon>frmAeronave.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Catalogos\FrmAeropuerto.aspx.cs">
+      <DependentUpon>FrmAeropuerto.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Catalogos\FrmAeropuerto.aspx.designer.cs">
+      <DependentUpon>FrmAeropuerto.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Catalogos\frmCombustibleMensualInternacional.aspx.cs">
+      <DependentUpon>frmCombustibleMensualInternacional.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Catalogos\frmCombustibleMensualInternacional.aspx.designer.cs">
+      <DependentUpon>frmCombustibleMensualInternacional.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Catalogos\frmCombustibleSemanal.aspx.cs">
+      <DependentUpon>frmCombustibleSemanal.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Catalogos\frmCombustibleSemanal.aspx.designer.cs">
+      <DependentUpon>frmCombustibleSemanal.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Catalogos\frmFactoresFijos.aspx.cs">
+      <DependentUpon>frmFactoresFijos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Catalogos\frmFactoresFijos.aspx.designer.cs">
+      <DependentUpon>frmFactoresFijos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Catalogos\frmFechaPico.aspx.cs">
+      <DependentUpon>frmFechaPico.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Catalogos\frmFechaPico.aspx.designer.cs">
+      <DependentUpon>frmFechaPico.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Catalogos\frmListaDifusion.aspx.cs">
+      <DependentUpon>frmListaDifusion.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Catalogos\frmListaDifusion.aspx.designer.cs">
+      <DependentUpon>frmListaDifusion.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Catalogos\frmMembresias.aspx.cs">
+      <DependentUpon>frmMembresias.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Catalogos\frmMembresias.aspx.designer.cs">
+      <DependentUpon>frmMembresias.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Catalogos\frmPaquete.aspx.cs">
+      <DependentUpon>frmPaquete.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Catalogos\frmPaquete.aspx.designer.cs">
+      <DependentUpon>frmPaquete.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Catalogos\frmParametros.aspx.cs">
+      <DependentUpon>frmParametros.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Catalogos\frmParametros.aspx.designer.cs">
+      <DependentUpon>frmParametros.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Catalogos\frmPasajero.aspx.cs">
+      <DependentUpon>frmPasajero.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Catalogos\frmPasajero.aspx.designer.cs">
+      <DependentUpon>frmPasajero.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Catalogos\frmPersonaDifusion.aspx.cs">
+      <DependentUpon>frmPersonaDifusion.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Catalogos\frmPersonaDifusion.aspx.designer.cs">
+      <DependentUpon>frmPersonaDifusion.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Catalogos\frmRangoCombustibles.aspx.cs">
+      <DependentUpon>frmRangoCombustibles.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Catalogos\frmRangoCombustibles.aspx.designer.cs">
+      <DependentUpon>frmRangoCombustibles.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Catalogos\frmRolAccion.aspx.cs">
+      <DependentUpon>frmRolAccion.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Catalogos\frmRolAccion.aspx.designer.cs">
+      <DependentUpon>frmRolAccion.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Catalogos\frmTarifasEzMexJet.aspx.cs">
+      <DependentUpon>frmTarifasEzMexJet.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Catalogos\frmTarifasEzMexJet.aspx.designer.cs">
+      <DependentUpon>frmTarifasEzMexJet.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Catalogos\frmTipoCliente.aspx.cs">
+      <DependentUpon>frmTipoCliente.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Catalogos\frmTipoCliente.aspx.designer.cs">
+      <DependentUpon>frmTipoCliente.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Catalogos\frmTramoPactado.aspx.cs">
+      <DependentUpon>frmTramoPactado.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Catalogos\frmTramoPactado.aspx.designer.cs">
+      <DependentUpon>frmTramoPactado.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Catalogos\frmTUA.aspx.cs">
+      <DependentUpon>frmTUA.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Catalogos\frmTUA.aspx.designer.cs">
+      <DependentUpon>frmTUA.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Catalogos\frmVendedor.aspx.cs">
+      <DependentUpon>frmVendedor.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Catalogos\frmVendedor.aspx.designer.cs">
+      <DependentUpon>frmVendedor.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Consultas\CristalReport\Acumulado.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Views\Consultas\CristalReport\EdoCuenta.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EdoCuenta.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Views\Consultas\CristalReport\EstadoCuenta.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Views\Consultas\CristalReport\EstCnta2.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EstCnta.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Views\Consultas\CristalReport\Facturacion.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Views\Consultas\CristalReport\NoAcumulado.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Views\Consultas\CristalReport\PresupuestoConceptos_CR.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Views\Consultas\CristalReport\Presupuesto_CR.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Views\Consultas\CristalReport\ServicioCargo.cs">
+      <SubType>Component</SubType>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ServicioCargo.rpt</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Consultas\frmConsultaDespacho.aspx.cs">
+      <DependentUpon>frmConsultaDespacho.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Consultas\frmConsultaDespacho.aspx.designer.cs">
+      <DependentUpon>frmConsultaDespacho.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Consultas\frmConsultaPresupuestos.aspx.cs">
+      <DependentUpon>frmConsultaPresupuestos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Consultas\frmConsultaPresupuestos.aspx.designer.cs">
+      <DependentUpon>frmConsultaPresupuestos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Consultas\frmDistOtodromicaPend.aspx.cs">
+      <DependentUpon>frmDistOtodromicaPend.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Consultas\frmDistOtodromicaPend.aspx.designer.cs">
+      <DependentUpon>frmDistOtodromicaPend.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Consultas\frmDocPendientes.aspx.cs">
+      <DependentUpon>frmDocPendientes.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Consultas\frmDocPendientes.aspx.designer.cs">
+      <DependentUpon>frmDocPendientes.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Consultas\frmReportePresupuesto.aspx.cs">
+      <DependentUpon>frmReportePresupuesto.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Consultas\frmReportePresupuesto.aspx.designer.cs">
+      <DependentUpon>frmReportePresupuesto.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Consultas\frmResumenContrato.aspx.cs">
+      <DependentUpon>frmResumenContrato.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Consultas\frmResumenContrato.aspx.designer.cs">
+      <DependentUpon>frmResumenContrato.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreditoCobranza\frmFormulasRemision.aspx.cs">
+      <DependentUpon>frmFormulasRemision.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\CreditoCobranza\frmFormulasRemision.aspx.designer.cs">
+      <DependentUpon>frmFormulasRemision.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreditoCobranza\frmIncrementoTarifas.aspx.cs">
+      <DependentUpon>frmIncrementoTarifas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\CreditoCobranza\frmIncrementoTarifas.aspx.designer.cs">
+      <DependentUpon>frmIncrementoTarifas.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EstadoCuenta.cs">
+      <DependentUpon>EstadoCuenta.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EstadoCuenta1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EstadoCuenta.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FBO\CrystalReports\dsVuelos1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dsVuelos.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FBO\CrystalReports\ReporteVuelosUSA1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ReporteVuelosUSA.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Views\FBO\frmConsultaTrafico.aspx.cs">
+      <DependentUpon>frmConsultaTrafico.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\FBO\frmConsultaTrafico.aspx.designer.cs">
+      <DependentUpon>frmConsultaTrafico.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FBO\frmConsultaVuelosUSA.aspx.cs">
+      <DependentUpon>frmConsultaVuelosUSA.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\FBO\frmConsultaVuelosUSA.aspx.designer.cs">
+      <DependentUpon>frmConsultaVuelosUSA.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FBO\frmMonitorAtencionClientes.aspx.cs">
+      <DependentUpon>frmMonitorAtencionClientes.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\FBO\frmMonitorAtencionClientes.aspx.designer.cs">
+      <DependentUpon>frmMonitorAtencionClientes.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FBO\frmMonitorDespacho.aspx.cs">
+      <DependentUpon>frmMonitorDespacho.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\FBO\frmMonitorDespacho.aspx.designer.cs">
+      <DependentUpon>frmMonitorDespacho.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FBO\frmMonitorTrafico.aspx.cs">
+      <DependentUpon>frmMonitorTrafico.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\FBO\frmMonitorTrafico.aspx.designer.cs">
+      <DependentUpon>frmMonitorTrafico.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\JetSmart\frmEncuesta.aspx.cs">
+      <DependentUpon>frmEncuesta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\JetSmart\frmEncuesta.aspx.designer.cs">
+      <DependentUpon>frmEncuesta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\JetSmart\frmPubFerrys.aspx.cs">
+      <DependentUpon>frmPubFerrys.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\JetSmart\frmPubFerrys.aspx.designer.cs">
+      <DependentUpon>frmPubFerrys.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\JetSmart\frmRevenew.aspx.cs">
+      <DependentUpon>frmRevenew.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\JetSmart\frmRevenew.aspx.designer.cs">
+      <DependentUpon>frmRevenew.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\JetSmart\frmTableroFerry.aspx.cs">
+      <DependentUpon>frmTableroFerry.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\JetSmart\frmTableroFerry.aspx.designer.cs">
+      <DependentUpon>frmTableroFerry.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\JetSmart\frmTableroMiembros.aspx.cs">
+      <DependentUpon>frmTableroMiembros.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\JetSmart\frmTableroMiembros.aspx.designer.cs">
+      <DependentUpon>frmTableroMiembros.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\JetSmart\frmVentaFerrys.aspx.cs">
+      <DependentUpon>frmVentaFerrys.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\JetSmart\frmVentaFerrys.aspx.designer.cs">
+      <DependentUpon>frmVentaFerrys.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Notificaciones\frmMonitorCambios.aspx.cs">
+      <DependentUpon>frmMonitorCambios.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Notificaciones\frmMonitorCambios.aspx.designer.cs">
+      <DependentUpon>frmMonitorCambios.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Presupuestos_DS.Designer.cs" />
+    <Compile Include="Views\Reportes\frmDetalleVueloCliente.aspx.cs">
+      <DependentUpon>frmDetalleVueloCliente.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Reportes\frmDetalleVueloCliente.aspx.designer.cs">
+      <DependentUpon>frmDetalleVueloCliente.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Reportes\frmHorasVoladasCliente.aspx.cs">
+      <DependentUpon>frmHorasVoladasCliente.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Reportes\frmHorasVoladasCliente.aspx.designer.cs">
+      <DependentUpon>frmHorasVoladasCliente.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Reportes\frmHorasVueloMatricula.aspx.cs">
+      <DependentUpon>frmHorasVueloMatricula.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Reportes\frmHorasVueloMatricula.aspx.designer.cs">
+      <DependentUpon>frmHorasVueloMatricula.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Reportes\frmVuelosReasignados.aspx.cs">
+      <DependentUpon>frmVuelosReasignados.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Reportes\frmVuelosReasignados.aspx.designer.cs">
+      <DependentUpon>frmVuelosReasignados.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Seguridad\frmPermisosContrato.aspx.cs">
+      <DependentUpon>frmPermisosContrato.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Seguridad\frmPermisosContrato.aspx.designer.cs">
+      <DependentUpon>frmPermisosContrato.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ServicioCargo.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ServicioCargo.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Consultas\frmAudit.aspx.cs">
+      <DependentUpon>frmAudit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Consultas\frmAudit.aspx.designer.cs">
+      <DependentUpon>frmAudit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Consultas\frmBitacora.aspx.cs">
+      <DependentUpon>frmBitacora.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Consultas\frmBitacora.aspx.designer.cs">
+      <DependentUpon>frmBitacora.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Consultas\frmBitacoraAudit.aspx.cs">
+      <DependentUpon>frmBitacoraAudit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Consultas\frmBitacoraAudit.aspx.designer.cs">
+      <DependentUpon>frmBitacoraAudit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Consultas\frmConsultaCasos.aspx.cs">
+      <DependentUpon>frmConsultaCasos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Consultas\frmConsultaCasos.aspx.designer.cs">
+      <DependentUpon>frmConsultaCasos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Consultas\frmConsultaContrato.aspx.cs">
+      <DependentUpon>frmConsultaContrato.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Consultas\frmConsultaContrato.aspx.designer.cs">
+      <DependentUpon>frmConsultaContrato.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Consultas\FrmConsultaPrefactura.aspx.cs">
+      <DependentUpon>FrmConsultaPrefactura.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Consultas\FrmConsultaPrefactura.aspx.designer.cs">
+      <DependentUpon>FrmConsultaPrefactura.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Consultas\frmConsultaSolicitudes.aspx.cs">
+      <DependentUpon>frmConsultaSolicitudes.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Consultas\frmConsultaSolicitudes.aspx.designer.cs">
+      <DependentUpon>frmConsultaSolicitudes.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Consultas\frmConsultaTarifas.aspx.cs">
+      <DependentUpon>frmConsultaTarifas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Consultas\frmConsultaTarifas.aspx.designer.cs">
+      <DependentUpon>frmConsultaTarifas.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Consultas\frmCtrlAeroTercerosFacturas.aspx.cs">
+      <DependentUpon>frmCtrlAeroTercerosFacturas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Consultas\frmCtrlAeroTercerosFacturas.aspx.designer.cs">
+      <DependentUpon>frmCtrlAeroTercerosFacturas.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Consultas\frmErroresBitacora.aspx.cs">
+      <DependentUpon>frmErroresBitacora.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Consultas\frmErroresBitacora.aspx.designer.cs">
+      <DependentUpon>frmErroresBitacora.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Consultas\frmHistoricoTarifasCliente.aspx.cs">
+      <DependentUpon>frmHistoricoTarifasCliente.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Consultas\frmHistoricoTarifasCliente.aspx.designer.cs">
+      <DependentUpon>frmHistoricoTarifasCliente.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Consultas\frmServicioCargo.aspx.cs">
+      <DependentUpon>frmServicioCargo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Consultas\frmServicioCargo.aspx.designer.cs">
+      <DependentUpon>frmServicioCargo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Consultas\frmSolicitudesPorCaso.aspx.cs">
+      <DependentUpon>frmSolicitudesPorCaso.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Consultas\frmSolicitudesPorCaso.aspx.designer.cs">
+      <DependentUpon>frmSolicitudesPorCaso.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreditoCobranza\AeronaveRen.aspx.cs">
+      <DependentUpon>AeronaveRen.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\CreditoCobranza\AeronaveRen.aspx.designer.cs">
+      <DependentUpon>AeronaveRen.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreditoCobranza\frmEstadoCuenta.aspx.cs">
+      <DependentUpon>frmEstadoCuenta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\CreditoCobranza\frmEstadoCuenta.aspx.designer.cs">
+      <DependentUpon>frmEstadoCuenta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreditoCobranza\frmFacturaProveedor.aspx.cs">
+      <DependentUpon>frmFacturaProveedor.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\CreditoCobranza\frmFacturaProveedor.aspx.designer.cs">
+      <DependentUpon>frmFacturaProveedor.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreditoCobranza\frmPagoAPHIS.aspx.cs">
+      <DependentUpon>frmPagoAPHIS.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\CreditoCobranza\frmPagoAPHIS.aspx.designer.cs">
+      <DependentUpon>frmPagoAPHIS.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreditoCobranza\frmBsqNotaCredito.aspx.cs">
+      <DependentUpon>frmBsqNotaCredito.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\CreditoCobranza\frmBsqNotaCredito.aspx.designer.cs">
+      <DependentUpon>frmBsqNotaCredito.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreditoCobranza\frmContrato.aspx.cs">
+      <DependentUpon>frmContrato.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\CreditoCobranza\frmContrato.aspx.designer.cs">
+      <DependentUpon>frmContrato.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreditoCobranza\frmGRemision.aspx.cs">
+      <DependentUpon>frmGRemision.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\CreditoCobranza\frmGRemision.aspx.designer.cs">
+      <DependentUpon>frmGRemision.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreditoCobranza\frmNotaCredito.aspx.cs">
+      <DependentUpon>frmNotaCredito.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\CreditoCobranza\frmNotaCredito.aspx.designer.cs">
+      <DependentUpon>frmNotaCredito.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreditoCobranza\frmGastosInternos.aspx.cs">
+      <DependentUpon>frmGastosInternos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\CreditoCobranza\frmGastosInternos.aspx.designer.cs">
+      <DependentUpon>frmGastosInternos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreditoCobranza\frmPagoSENEAM.aspx.cs">
+      <DependentUpon>frmPagoSENEAM.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\CreditoCobranza\frmPagoSENEAM.aspx.designer.cs">
+      <DependentUpon>frmPagoSENEAM.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreditoCobranza\frmPrefactura.aspx.cs">
+      <DependentUpon>frmPrefactura.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\CreditoCobranza\frmPrefactura.aspx.designer.cs">
+      <DependentUpon>frmPrefactura.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreditoCobranza\frmRemisiones.aspx.cs">
+      <DependentUpon>frmRemisiones.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\CreditoCobranza\frmRemisiones.aspx.designer.cs">
+      <DependentUpon>frmRemisiones.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreditoCobranza\frmTraspasoHoras.aspx.cs">
+      <DependentUpon>frmTraspasoHoras.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\CreditoCobranza\frmTraspasoHoras.aspx.designer.cs">
+      <DependentUpon>frmTraspasoHoras.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreditoCobranza\frmVuelosPorCliente.aspx.cs">
+      <DependentUpon>frmVuelosPorCliente.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\CreditoCobranza\frmVuelosPorCliente.aspx.designer.cs">
+      <DependentUpon>frmVuelosPorCliente.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FBO\frmMonitorComisariato.aspx.cs">
+      <DependentUpon>frmMonitorComisariato.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\FBO\frmMonitorComisariato.aspx.designer.cs">
+      <DependentUpon>frmMonitorComisariato.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\frmCorreo.aspx.cs">
+      <DependentUpon>frmCorreo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\frmCorreo.aspx.designer.cs">
+      <DependentUpon>frmCorreo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\frmDefault.aspx.cs">
+      <DependentUpon>frmDefault.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\frmDefault.aspx.designer.cs">
+      <DependentUpon>frmDefault.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\frmLogin.aspx.cs">
+      <DependentUpon>frmLogin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\frmLogin.aspx.designer.cs">
+      <DependentUpon>frmLogin.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Principales\frmPruebaAD.aspx.cs">
+      <DependentUpon>frmPruebaAD.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Principales\frmPruebaAD.aspx.designer.cs">
+      <DependentUpon>frmPruebaAD.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Rentas\frmPresupuesto.aspx.cs">
+      <DependentUpon>frmPresupuesto.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Rentas\frmPresupuesto.aspx.designer.cs">
+      <DependentUpon>frmPresupuesto.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Reportes\frmReporteTabulado.aspx.cs">
+      <DependentUpon>frmReporteTabulado.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Reportes\frmReporteTabulado.aspx.designer.cs">
+      <DependentUpon>frmReporteTabulado.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\test.aspx.cs">
+      <DependentUpon>test.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\test.aspx.designer.cs">
+      <DependentUpon>test.aspx</DependentUpon>
+    </Compile>
+    <Content Include="App_Code\DataSource.cs" />
+    <Compile Include="ALE_Main.Master.cs">
+      <DependentUpon>ALE_Main.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ALE_Main.Master.designer.cs">
+      <DependentUpon>ALE_Main.Master</DependentUpon>
+    </Compile>
+    <Compile Include="ControlesUsuario\ucModalMensaje.ascx.cs">
+      <DependentUpon>ucModalMensaje.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ControlesUsuario\ucModalMensaje.ascx.designer.cs">
+      <DependentUpon>ucModalMensaje.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="DomainModel\DBArea.cs" />
+    <Compile Include="DomainModel\DBBase.cs" />
+    <Compile Include="DomainModel\DBCliente.cs" />
+    <Compile Include="DomainModel\DBComisariato.cs" />
+    <Compile Include="DomainModel\DBComisariatoProducto.cs" />
+    <Compile Include="DomainModel\DBDesignador.cs" />
+    <Compile Include="DomainModel\DBDistanciaOrtodromica.cs" />
+    <Compile Include="DomainModel\DBFlota.cs" />
+    <Compile Include="DomainModel\DBGrupoModelo.cs" />
+    <Compile Include="DomainModel\DBInflacion.cs" />
+    <Compile Include="DomainModel\DBMarca.cs" />
+    <Compile Include="DomainModel\DBModelo.cs" />
+    <Compile Include="DomainModel\DBMotivo.cs" />
+    <Compile Include="DomainModel\DBPiloto.cs" />
+    <Compile Include="DomainModel\DBProducto.cs" />
+    <Compile Include="DomainModel\DBRol.cs" />
+    <Compile Include="DomainModel\DBSector.cs" />
+    <Compile Include="DomainModel\DBServicioConCargo.cs" />
+    <Compile Include="DomainModel\DBTipoCambio.cs" />
+    <Compile Include="DomainModel\DBTipoContacto.cs" />
+    <Compile Include="DomainModel\DBTipoDemora.cs" />
+    <Compile Include="DomainModel\DBTipoFactura.cs" />
+    <Compile Include="DomainModel\DBTitulo.cs" />
+    <Compile Include="DomainModel\DBUsuarios.cs" />
+    <Compile Include="Interfaces\IBaseView.cs" />
+    <Compile Include="Interfaces\IDBCat.cs" />
+    <Compile Include="Interfaces\IViewDistanciaOrtodromica.cs" />
+    <Compile Include="Interfaces\IViewCat.cs" />
+    <Compile Include="Interfaces\IViewMaster.cs" />
+    <Compile Include="Interfaces\IViewProducto.cs" />
+    <Compile Include="Interfaces\IViewUsuario.cs" />
+    <Compile Include="Objetos\Area.cs" />
+    <Compile Include="Objetos\BaseObjeto.cs" />
+    <Compile Include="Objetos\Cliente.cs" />
+    <Compile Include="Objetos\Comisariato.cs" />
+    <Compile Include="Objetos\ComisariatoProducto.cs" />
+    <Compile Include="Objetos\Designador.cs" />
+    <Compile Include="Objetos\DistanciaOrtodromica.cs" />
+    <Compile Include="Objetos\Enumeraciones.cs" />
+    <Compile Include="Objetos\Flota.cs" />
+    <Compile Include="Objetos\Genericos.cs" />
+    <Compile Include="Objetos\GrupoModelo.cs" />
+    <Compile Include="Objetos\Inflacion.cs" />
+    <Compile Include="Objetos\MarcaObj.cs" />
+    <Compile Include="Objetos\Modelo.cs" />
+    <Compile Include="Objetos\Motivo.cs" />
+    <Compile Include="Objetos\Piloto.cs" />
+    <Compile Include="Objetos\Producto.cs" />
+    <Compile Include="Objetos\Rol.cs" />
+    <Compile Include="Objetos\Sector.cs" />
+    <Compile Include="Objetos\ServicioConCargo.cs" />
+    <Compile Include="Objetos\TipoCambio.cs" />
+    <Compile Include="Objetos\TipoContacto.cs" />
+    <Compile Include="Objetos\TipoDemora.cs" />
+    <Compile Include="Objetos\TipoFactura.cs" />
+    <Compile Include="Objetos\TipoPierna.cs" />
+    <Compile Include="Objetos\Titulo.cs" />
+    <Compile Include="Objetos\Usuarios.cs" />
+    <Compile Include="Presenter\Area_Presenter.cs" />
+    <Compile Include="Presenter\BasePresenter.cs" />
+    <Compile Include="Presenter\Cliente_Presenter.cs" />
+    <Compile Include="Presenter\ComisariatoProducto_Presenter.cs" />
+    <Compile Include="Presenter\Comisariato_Presenter.cs" />
+    <Compile Include="Presenter\Designador_Presenter.cs" />
+    <Compile Include="Presenter\DistanciaOrtodromica_Presenter.cs" />
+    <Compile Include="Presenter\Flota_Presenter.cs" />
+    <Compile Include="Presenter\GrupoModelo_Presenter.cs" />
+    <Compile Include="Presenter\Inflacion_Presenter.cs" />
+    <Compile Include="Presenter\Marca_Presenter.cs" />
+    <Compile Include="Presenter\Master_Presenter.cs" />
+    <Compile Include="Presenter\Modelo_Presenter.cs" />
+    <Compile Include="Presenter\Motivo_Presemter.cs" />
+    <Compile Include="Presenter\Piloto_Presenter.cs" />
+    <Compile Include="Presenter\Producto_Presenter.cs" />
+    <Compile Include="Presenter\Rol_Presenter.cs" />
+    <Compile Include="Presenter\Sector_Presenter.cs" />
+    <Compile Include="Presenter\ServicioConCargo_Presenter.cs" />
+    <Compile Include="Presenter\TipoCambio_Presenter.cs" />
+    <Compile Include="Presenter\TipoContacto_Presenter.cs" />
+    <Compile Include="Presenter\TipoDemora_Presenter.cs" />
+    <Compile Include="Presenter\TipoFactura_Presenter.cs" />
+    <Compile Include="Presenter\TipoPierna_Presenter.cs" />
+    <Compile Include="Presenter\Titulo_Presenter.cs" />
+    <Compile Include="Presenter\Usuario_Presenter.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Views\Catalogos\frmArea.aspx.cs">
+      <DependentUpon>frmArea.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Catalogos\frmArea.aspx.designer.cs">
+      <DependentUpon>frmArea.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Catalogos\frmCliente.aspx.cs">
+      <DependentUpon>frmCliente.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Catalogos\frmCliente.aspx.designer.cs">
+      <DependentUpon>frmCliente.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Catalogos\frmComisariato.aspx.cs">
+      <DependentUpon>frmComisariato.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Catalogos\frmComisariato.aspx.designer.cs">
+      <DependentUpon>frmComisariato.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Catalogos\frmComisariatoProducto.aspx.cs">
+      <DependentUpon>frmComisariatoProducto.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Catalogos\frmComisariatoProducto.aspx.designer.cs">
+      <DependentUpon>frmComisariatoProducto.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Catalogos\frmControls.aspx.cs">
+      <DependentUpon>frmControls.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Catalogos\frmControls.aspx.designer.cs">
+      <DependentUpon>frmControls.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Catalogos\frmDesignador.aspx.cs">
+      <DependentUpon>frmDesignador.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Catalogos\frmDesignador.aspx.designer.cs">
+      <DependentUpon>frmDesignador.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Catalogos\frmDistanciaOrtodromica.aspx.cs">
+      <DependentUpon>frmDistanciaOrtodromica.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Catalogos\frmDistanciaOrtodromica.aspx.designer.cs">
+      <DependentUpon>frmDistanciaOrtodromica.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Catalogos\frmFlota.aspx.cs">
+      <DependentUpon>frmFlota.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Catalogos\frmFlota.aspx.designer.cs">
+      <DependentUpon>frmFlota.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Catalogos\frmGrupoModelo.aspx.cs">
+      <DependentUpon>frmGrupoModelo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Catalogos\frmGrupoModelo.aspx.designer.cs">
+      <DependentUpon>frmGrupoModelo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Catalogos\frmInflacion.aspx.cs">
+      <DependentUpon>frmInflacion.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Catalogos\frmInflacion.aspx.designer.cs">
+      <DependentUpon>frmInflacion.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Catalogos\frmMarcas.aspx.cs">
+      <DependentUpon>frmMarcas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Catalogos\frmMarcas.aspx.designer.cs">
+      <DependentUpon>frmMarcas.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Catalogos\frmModelo.aspx.cs">
+      <DependentUpon>frmModelo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Catalogos\frmModelo.aspx.designer.cs">
+      <DependentUpon>frmModelo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Catalogos\frmMotivo.aspx.cs">
+      <DependentUpon>frmMotivo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Catalogos\frmMotivo.aspx.designer.cs">
+      <DependentUpon>frmMotivo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Catalogos\frmPilotos.aspx.cs">
+      <DependentUpon>frmPilotos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Catalogos\frmPilotos.aspx.designer.cs">
+      <DependentUpon>frmPilotos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Catalogos\frmProducto.aspx.cs">
+      <DependentUpon>frmProducto.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Catalogos\frmProducto.aspx.designer.cs">
+      <DependentUpon>frmProducto.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Catalogos\frmRol.aspx.cs">
+      <DependentUpon>frmRol.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Catalogos\frmRol.aspx.designer.cs">
+      <DependentUpon>frmRol.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Catalogos\frmSector.aspx.cs">
+      <DependentUpon>frmSector.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Catalogos\frmSector.aspx.designer.cs">
+      <DependentUpon>frmSector.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Catalogos\frmServicioConCargo.aspx.cs">
+      <DependentUpon>frmServicioConCargo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Catalogos\frmServicioConCargo.aspx.designer.cs">
+      <DependentUpon>frmServicioConCargo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Catalogos\frmTipoCambio.aspx.cs">
+      <DependentUpon>frmTipoCambio.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Catalogos\frmTipoCambio.aspx.designer.cs">
+      <DependentUpon>frmTipoCambio.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Catalogos\frmTipoContacto.aspx.cs">
+      <DependentUpon>frmTipoContacto.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Catalogos\frmTipoContacto.aspx.designer.cs">
+      <DependentUpon>frmTipoContacto.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Catalogos\frmTipoDemora.aspx.cs">
+      <DependentUpon>frmTipoDemora.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Catalogos\frmTipoDemora.aspx.designer.cs">
+      <DependentUpon>frmTipoDemora.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Catalogos\frmTipoFactura.aspx.cs">
+      <DependentUpon>frmTipoFactura.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Catalogos\frmTipoFactura.aspx.designer.cs">
+      <DependentUpon>frmTipoFactura.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Catalogos\frmTipoPierna.aspx.cs">
+      <DependentUpon>frmTipoPierna.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Catalogos\frmTipoPierna.aspx.designer.cs">
+      <DependentUpon>frmTipoPierna.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Catalogos\frmTitulo.aspx.cs">
+      <DependentUpon>frmTitulo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Catalogos\frmTitulo.aspx.designer.cs">
+      <DependentUpon>frmTitulo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Catalogos\frmUsuario.aspx.cs">
+      <DependentUpon>frmUsuario.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Catalogos\frmUsuario.aspx.designer.cs">
+      <DependentUpon>frmUsuario.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\UploadTemp\" />
+    <Folder Include="Scripts\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
+    <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\wsSyteline\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\Consultas\CristalReport\Acumulado.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Acumulado2.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Consultas\CristalReport\EdoCuenta.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>EdoCuenta.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Consultas\CristalReport\EstadoCuenta.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>EstadoCuenta2.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Consultas\CristalReport\EstCnta.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>EstCnta2.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Consultas\CristalReport\Facturacion.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Facturacion2.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Consultas\CristalReport\NoAcumulado.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>NoAcumulado1.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Consultas\CristalReport\PresupuestoConceptos_CR.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>PresupuestoConceptos_CR1.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Consultas\CristalReport\Presupuesto_CR.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Presupuesto_CR1.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Consultas\CristalReport\ServicioCargo.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>ServicioCargo.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\FBO\CrystalReports\ReporteVuelosUSA.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>ReporteVuelosUSA1.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AutoGenerateBindingRedirects>false</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>6159</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:6141/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

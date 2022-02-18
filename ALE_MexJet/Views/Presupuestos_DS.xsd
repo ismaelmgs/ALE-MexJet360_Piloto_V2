@@ -1,0 +1,986 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="Presupuestos_DS" targetNamespace="http://tempuri.org/Presupuestos_DS.xsd" xmlns:mstns="http://tempuri.org/Presupuestos_DS.xsd" xmlns="http://tempuri.org/Presupuestos_DS.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Web.config" AppSettingsPropertyName="SqlDefault" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="SqlDefault (Web.config)" ParameterPrefix="@" PropertyReference="AppConfig.System.Configuration.ConfigurationManager.0.ConnectionStrings.SqlDefault.ConnectionString" Provider="System.Data.SqlClient" />
+        </Connections>
+        <Tables>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="tbd_MXJ_ServiciosVueloConceptosPresupuesto_HTableAdapter" GeneratorDataComponentClassName="tbd_MXJ_ServiciosVueloConceptosPresupuesto_HTableAdapter" Name="tbd_MXJ_ServiciosVueloConceptosPresupuesto_H" UserDataComponentName="tbd_MXJ_ServiciosVueloConceptosPresupuesto_HTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="SqlDefault (Web.config)" DbObjectName="MexJet360_ALE.Principales.tbd_MXJ_ServiciosVueloConceptosPresupuesto_H" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>select * from [Principales].[tbd_MXJ_ServiciosVueloConceptosPresupuesto_H]</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="IdConceptosH" DataSetColumn="IdConceptosH" />
+              <Mapping SourceColumn="IdPresupuesto" DataSetColumn="IdPresupuesto" />
+              <Mapping SourceColumn="SubTotalSV" DataSetColumn="SubTotalSV" />
+              <Mapping SourceColumn="PorDescSV" DataSetColumn="PorDescSV" />
+              <Mapping SourceColumn="ImpDescSV" DataSetColumn="ImpDescSV" />
+              <Mapping SourceColumn="TotalSV" DataSetColumn="TotalSV" />
+              <Mapping SourceColumn="PorIvaSV" DataSetColumn="PorIvaSV" />
+              <Mapping SourceColumn="ImpIvaSV" DataSetColumn="ImpIvaSV" />
+              <Mapping SourceColumn="TotalSC" DataSetColumn="TotalSC" />
+              <Mapping SourceColumn="PorIvaSC" DataSetColumn="PorIvaSC" />
+              <Mapping SourceColumn="ImpIvaSC" DataSetColumn="ImpIvaSC" />
+              <Mapping SourceColumn="TotalPres" DataSetColumn="TotalPres" />
+              <Mapping SourceColumn="TipoCambioPres" DataSetColumn="TipoCambioPres" />
+              <Mapping SourceColumn="Status" DataSetColumn="Status" />
+              <Mapping SourceColumn="UsuarioCreacion" DataSetColumn="UsuarioCreacion" />
+              <Mapping SourceColumn="FechaCreacion" DataSetColumn="FechaCreacion" />
+              <Mapping SourceColumn="UsuarioModificacion" DataSetColumn="UsuarioModificacion" />
+              <Mapping SourceColumn="FechaModificacion" DataSetColumn="FechaModificacion" />
+              <Mapping SourceColumn="IP" DataSetColumn="IP" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="tbp_MXJ_ServiciosVueloConceptosPresupuesto_DTableAdapter" GeneratorDataComponentClassName="tbp_MXJ_ServiciosVueloConceptosPresupuesto_DTableAdapter" Name="tbp_MXJ_ServiciosVueloConceptosPresupuesto_D" UserDataComponentName="tbp_MXJ_ServiciosVueloConceptosPresupuesto_DTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="SqlDefault (Web.config)" DbObjectName="MexJet360_ALE.Principales.tbp_MXJ_ServiciosVueloConceptosPresupuesto_D" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>select * from [Principales].[tbp_MXJ_ServiciosVueloConceptosPresupuesto_D]</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="IdServicioCargo" DataSetColumn="IdServicioCargo" />
+              <Mapping SourceColumn="IdPresupuesto" DataSetColumn="IdPresupuesto" />
+              <Mapping SourceColumn="IdConcepto" DataSetColumn="IdConcepto" />
+              <Mapping SourceColumn="Cantidad" DataSetColumn="Cantidad" />
+              <Mapping SourceColumn="Unidad" DataSetColumn="Unidad" />
+              <Mapping SourceColumn="Importe" DataSetColumn="Importe" />
+              <Mapping SourceColumn="HrsDescontar" DataSetColumn="HrsDescontar" />
+              <Mapping SourceColumn="Status" DataSetColumn="Status" />
+              <Mapping SourceColumn="UsuarioCreacion" DataSetColumn="UsuarioCreacion" />
+              <Mapping SourceColumn="FechaCreacion" DataSetColumn="FechaCreacion" />
+              <Mapping SourceColumn="UsuarioModificacion" DataSetColumn="UsuarioModificacion" />
+              <Mapping SourceColumn="FechaModificacion" DataSetColumn="FechaModificacion" />
+              <Mapping SourceColumn="IP" DataSetColumn="IP" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="tbp_MXJ_ServiciosCargoPresupuestosTableAdapter" GeneratorDataComponentClassName="tbp_MXJ_ServiciosCargoPresupuestosTableAdapter" Name="tbp_MXJ_ServiciosCargoPresupuestos" UserDataComponentName="tbp_MXJ_ServiciosCargoPresupuestosTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="SqlDefault (Web.config)" DbObjectName="MexJet360_ALE.Principales.tbp_MXJ_ServiciosCargoPresupuestos" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>select * from [Principales].[tbp_MXJ_ServiciosCargoPresupuestos]</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="IdServicio" DataSetColumn="IdServicio" />
+              <Mapping SourceColumn="IdPresupuesto" DataSetColumn="IdPresupuesto" />
+              <Mapping SourceColumn="IdServicioCargo" DataSetColumn="IdServicioCargo" />
+              <Mapping SourceColumn="Importe" DataSetColumn="Importe" />
+              <Mapping SourceColumn="Status" DataSetColumn="Status" />
+              <Mapping SourceColumn="UsuarioCreacion" DataSetColumn="UsuarioCreacion" />
+              <Mapping SourceColumn="FechaCreacion" DataSetColumn="FechaCreacion" />
+              <Mapping SourceColumn="UsuarioModificacion" DataSetColumn="UsuarioModificacion" />
+              <Mapping SourceColumn="FechaModificacion" DataSetColumn="FechaModificacion" />
+              <Mapping SourceColumn="IP" DataSetColumn="IP" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="tbp_MXJ_ServiciosVueloConceptosPresupuesto_D1TableAdapter" GeneratorDataComponentClassName="tbp_MXJ_ServiciosVueloConceptosPresupuesto_D1TableAdapter" Name="tbp_MXJ_ServiciosVueloConceptosPresupuesto_D1" UserDataComponentName="tbp_MXJ_ServiciosVueloConceptosPresupuesto_D1TableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="SqlDefault (Web.config)" DbObjectName="MexJet360_ALE.Principales.tbp_MXJ_ServiciosVueloConceptosPresupuesto_D" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>select * from [Principales].[tbp_MXJ_ServiciosVueloConceptosPresupuesto_D]</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="IdServicioCargo" DataSetColumn="IdServicioCargo" />
+              <Mapping SourceColumn="IdPresupuesto" DataSetColumn="IdPresupuesto" />
+              <Mapping SourceColumn="IdConcepto" DataSetColumn="IdConcepto" />
+              <Mapping SourceColumn="Cantidad" DataSetColumn="Cantidad" />
+              <Mapping SourceColumn="Unidad" DataSetColumn="Unidad" />
+              <Mapping SourceColumn="Importe" DataSetColumn="Importe" />
+              <Mapping SourceColumn="HrsDescontar" DataSetColumn="HrsDescontar" />
+              <Mapping SourceColumn="Status" DataSetColumn="Status" />
+              <Mapping SourceColumn="UsuarioCreacion" DataSetColumn="UsuarioCreacion" />
+              <Mapping SourceColumn="FechaCreacion" DataSetColumn="FechaCreacion" />
+              <Mapping SourceColumn="UsuarioModificacion" DataSetColumn="UsuarioModificacion" />
+              <Mapping SourceColumn="FechaModificacion" DataSetColumn="FechaModificacion" />
+              <Mapping SourceColumn="IP" DataSetColumn="IP" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="tbp_MXJ_ServiciosVueloConceptosPresupuesto_D2TableAdapter" GeneratorDataComponentClassName="tbp_MXJ_ServiciosVueloConceptosPresupuesto_D2TableAdapter" Name="tbp_MXJ_ServiciosVueloConceptosPresupuesto_D2" UserDataComponentName="tbp_MXJ_ServiciosVueloConceptosPresupuesto_D2TableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="SqlDefault (Web.config)" DbObjectName="MexJet360_ALE.Principales.tbp_MXJ_ServiciosVueloConceptosPresupuesto_D" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>select * from [Principales].[tbp_MXJ_ServiciosVueloConceptosPresupuesto_D]</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="IdServicioCargo" DataSetColumn="IdServicioCargo" />
+              <Mapping SourceColumn="IdPresupuesto" DataSetColumn="IdPresupuesto" />
+              <Mapping SourceColumn="IdConcepto" DataSetColumn="IdConcepto" />
+              <Mapping SourceColumn="Cantidad" DataSetColumn="Cantidad" />
+              <Mapping SourceColumn="Unidad" DataSetColumn="Unidad" />
+              <Mapping SourceColumn="Importe" DataSetColumn="Importe" />
+              <Mapping SourceColumn="HrsDescontar" DataSetColumn="HrsDescontar" />
+              <Mapping SourceColumn="Status" DataSetColumn="Status" />
+              <Mapping SourceColumn="UsuarioCreacion" DataSetColumn="UsuarioCreacion" />
+              <Mapping SourceColumn="FechaCreacion" DataSetColumn="FechaCreacion" />
+              <Mapping SourceColumn="UsuarioModificacion" DataSetColumn="UsuarioModificacion" />
+              <Mapping SourceColumn="FechaModificacion" DataSetColumn="FechaModificacion" />
+              <Mapping SourceColumn="IP" DataSetColumn="IP" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="tbp_MXJ_ServiciosVueloConceptosPresupuesto_D3TableAdapter" GeneratorDataComponentClassName="tbp_MXJ_ServiciosVueloConceptosPresupuesto_D3TableAdapter" Name="tbp_MXJ_ServiciosVueloConceptosPresupuesto_D3" UserDataComponentName="tbp_MXJ_ServiciosVueloConceptosPresupuesto_D3TableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="SqlDefault (Web.config)" DbObjectName="MexJet360_ALE.Principales.tbp_MXJ_ServiciosVueloConceptosPresupuesto_D" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>select * from [Principales].[tbp_MXJ_ServiciosVueloConceptosPresupuesto_D]</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="IdServicioCargo" DataSetColumn="IdServicioCargo" />
+              <Mapping SourceColumn="IdPresupuesto" DataSetColumn="IdPresupuesto" />
+              <Mapping SourceColumn="IdConcepto" DataSetColumn="IdConcepto" />
+              <Mapping SourceColumn="Cantidad" DataSetColumn="Cantidad" />
+              <Mapping SourceColumn="Unidad" DataSetColumn="Unidad" />
+              <Mapping SourceColumn="Importe" DataSetColumn="Importe" />
+              <Mapping SourceColumn="HrsDescontar" DataSetColumn="HrsDescontar" />
+              <Mapping SourceColumn="Status" DataSetColumn="Status" />
+              <Mapping SourceColumn="UsuarioCreacion" DataSetColumn="UsuarioCreacion" />
+              <Mapping SourceColumn="FechaCreacion" DataSetColumn="FechaCreacion" />
+              <Mapping SourceColumn="UsuarioModificacion" DataSetColumn="UsuarioModificacion" />
+              <Mapping SourceColumn="FechaModificacion" DataSetColumn="FechaModificacion" />
+              <Mapping SourceColumn="IP" DataSetColumn="IP" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="tbp_MXJ_ServiciosVueloConceptosPresupuesto_D4TableAdapter" GeneratorDataComponentClassName="tbp_MXJ_ServiciosVueloConceptosPresupuesto_D4TableAdapter" Name="tbp_MXJ_ServiciosVueloConceptosPresupuesto_D4" UserDataComponentName="tbp_MXJ_ServiciosVueloConceptosPresupuesto_D4TableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="SqlDefault (Web.config)" DbObjectName="MexJet360_ALE.Principales.tbp_MXJ_ServiciosVueloConceptosPresupuesto_D" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>select * from [Principales].[tbp_MXJ_ServiciosVueloConceptosPresupuesto_D]</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="IdServicioCargo" DataSetColumn="IdServicioCargo" />
+              <Mapping SourceColumn="IdPresupuesto" DataSetColumn="IdPresupuesto" />
+              <Mapping SourceColumn="IdConcepto" DataSetColumn="IdConcepto" />
+              <Mapping SourceColumn="Cantidad" DataSetColumn="Cantidad" />
+              <Mapping SourceColumn="Unidad" DataSetColumn="Unidad" />
+              <Mapping SourceColumn="Importe" DataSetColumn="Importe" />
+              <Mapping SourceColumn="HrsDescontar" DataSetColumn="HrsDescontar" />
+              <Mapping SourceColumn="Status" DataSetColumn="Status" />
+              <Mapping SourceColumn="UsuarioCreacion" DataSetColumn="UsuarioCreacion" />
+              <Mapping SourceColumn="FechaCreacion" DataSetColumn="FechaCreacion" />
+              <Mapping SourceColumn="UsuarioModificacion" DataSetColumn="UsuarioModificacion" />
+              <Mapping SourceColumn="FechaModificacion" DataSetColumn="FechaModificacion" />
+              <Mapping SourceColumn="IP" DataSetColumn="IP" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="tbp_MXJ_ServiciosVueloConceptosPresupuesto_D5TableAdapter" GeneratorDataComponentClassName="tbp_MXJ_ServiciosVueloConceptosPresupuesto_D5TableAdapter" Name="tbp_MXJ_ServiciosVueloConceptosPresupuesto_D5" UserDataComponentName="tbp_MXJ_ServiciosVueloConceptosPresupuesto_D5TableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="SqlDefault (Web.config)" DbObjectName="MexJet360_ALE.Principales.tbp_MXJ_ServiciosVueloConceptosPresupuesto_D" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>select * from [Principales].[tbp_MXJ_ServiciosVueloConceptosPresupuesto_D]</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="IdServicioCargo" DataSetColumn="IdServicioCargo" />
+              <Mapping SourceColumn="IdPresupuesto" DataSetColumn="IdPresupuesto" />
+              <Mapping SourceColumn="IdConcepto" DataSetColumn="IdConcepto" />
+              <Mapping SourceColumn="Cantidad" DataSetColumn="Cantidad" />
+              <Mapping SourceColumn="Unidad" DataSetColumn="Unidad" />
+              <Mapping SourceColumn="Importe" DataSetColumn="Importe" />
+              <Mapping SourceColumn="HrsDescontar" DataSetColumn="HrsDescontar" />
+              <Mapping SourceColumn="Status" DataSetColumn="Status" />
+              <Mapping SourceColumn="UsuarioCreacion" DataSetColumn="UsuarioCreacion" />
+              <Mapping SourceColumn="FechaCreacion" DataSetColumn="FechaCreacion" />
+              <Mapping SourceColumn="UsuarioModificacion" DataSetColumn="UsuarioModificacion" />
+              <Mapping SourceColumn="FechaModificacion" DataSetColumn="FechaModificacion" />
+              <Mapping SourceColumn="IP" DataSetColumn="IP" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="tbp_MXJ_TramosPresupuestoTableAdapter" GeneratorDataComponentClassName="tbp_MXJ_TramosPresupuestoTableAdapter" Name="tbp_MXJ_TramosPresupuesto" UserDataComponentName="tbp_MXJ_TramosPresupuestoTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="SqlDefault (Web.config)" DbObjectName="MexJet360_ALE.Principales.tbp_MXJ_TramosPresupuesto" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>SELECT * FROM Principales.tbp_MXJ_TramosPresupuesto</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="IdTramo" DataSetColumn="IdTramo" />
+              <Mapping SourceColumn="IdPresupuesto" DataSetColumn="IdPresupuesto" />
+              <Mapping SourceColumn="IdOrigen" DataSetColumn="IdOrigen" />
+              <Mapping SourceColumn="IdDestino" DataSetColumn="IdDestino" />
+              <Mapping SourceColumn="AeropuertoO" DataSetColumn="AeropuertoO" />
+              <Mapping SourceColumn="AeropuertoD" DataSetColumn="AeropuertoD" />
+              <Mapping SourceColumn="CantPax" DataSetColumn="CantPax" />
+              <Mapping SourceColumn="FechaSalida" DataSetColumn="FechaSalida" />
+              <Mapping SourceColumn="FechaLlegada" DataSetColumn="FechaLlegada" />
+              <Mapping SourceColumn="TiempoVueloReal" DataSetColumn="TiempoVueloReal" />
+              <Mapping SourceColumn="TiempoEspera" DataSetColumn="TiempoEspera" />
+              <Mapping SourceColumn="TiempoCobrar" DataSetColumn="TiempoCobrar" />
+              <Mapping SourceColumn="RealVirtual" DataSetColumn="RealVirtual" />
+              <Mapping SourceColumn="Status" DataSetColumn="Status" />
+              <Mapping SourceColumn="UsuarioCreacion" DataSetColumn="UsuarioCreacion" />
+              <Mapping SourceColumn="FechaCreacion" DataSetColumn="FechaCreacion" />
+              <Mapping SourceColumn="UsuarioModificacion" DataSetColumn="UsuarioModificacion" />
+              <Mapping SourceColumn="FechaModificacion" DataSetColumn="FechaModificacion" />
+              <Mapping SourceColumn="IP" DataSetColumn="IP" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="tbp_MXJ_PresupuestosTableAdapter" GeneratorDataComponentClassName="tbp_MXJ_PresupuestosTableAdapter" Name="tbp_MXJ_Presupuestos" UserDataComponentName="tbp_MXJ_PresupuestosTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="SqlDefault (Web.config)" DbObjectName="MexJet360_ALE.Principales.tbp_MXJ_Presupuestos" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>select * from Principales.tbp_MXJ_Presupuestos</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="IdPresupuesto" DataSetColumn="IdPresupuesto" />
+              <Mapping SourceColumn="FechaPresupuesto" DataSetColumn="FechaPresupuesto" />
+              <Mapping SourceColumn="DiasVigencia" DataSetColumn="DiasVigencia" />
+              <Mapping SourceColumn="IdContrato" DataSetColumn="IdContrato" />
+              <Mapping SourceColumn="CompaniaImpresion" DataSetColumn="CompaniaImpresion" />
+              <Mapping SourceColumn="IdSolicitante" DataSetColumn="IdSolicitante" />
+              <Mapping SourceColumn="NombreSolicitante" DataSetColumn="NombreSolicitante" />
+              <Mapping SourceColumn="Telefono" DataSetColumn="Telefono" />
+              <Mapping SourceColumn="Email" DataSetColumn="Email" />
+              <Mapping SourceColumn="IdGrupoModeloSol" DataSetColumn="IdGrupoModeloSol" />
+              <Mapping SourceColumn="MonedaPresupuesto" DataSetColumn="MonedaPresupuesto" />
+              <Mapping SourceColumn="VueloNacional" DataSetColumn="VueloNacional" />
+              <Mapping SourceColumn="VueloInternacional" DataSetColumn="VueloInternacional" />
+              <Mapping SourceColumn="EsperaNacional" DataSetColumn="EsperaNacional" />
+              <Mapping SourceColumn="EsperaInternacional" DataSetColumn="EsperaInternacional" />
+              <Mapping SourceColumn="PernoctaNacional" DataSetColumn="PernoctaNacional" />
+              <Mapping SourceColumn="PernoctaInternacional" DataSetColumn="PernoctaInternacional" />
+              <Mapping SourceColumn="IdSiglasAeropuerto" DataSetColumn="IdSiglasAeropuerto" />
+              <Mapping SourceColumn="FactorIntercambio" DataSetColumn="FactorIntercambio" />
+              <Mapping SourceColumn="FactorGiraEspera" DataSetColumn="FactorGiraEspera" />
+              <Mapping SourceColumn="FactorGiraHorario" DataSetColumn="FactorGiraHorario" />
+              <Mapping SourceColumn="FactorFechaPico" DataSetColumn="FactorFechaPico" />
+              <Mapping SourceColumn="FactorIntercambioD" DataSetColumn="FactorIntercambioD" />
+              <Mapping SourceColumn="FactorGiraEsperaD" DataSetColumn="FactorGiraEsperaD" />
+              <Mapping SourceColumn="FactorGiraHorarioD" DataSetColumn="FactorGiraHorarioD" />
+              <Mapping SourceColumn="FactorFechaPicoD" DataSetColumn="FactorFechaPicoD" />
+              <Mapping SourceColumn="Observaciones" DataSetColumn="Observaciones" />
+              <Mapping SourceColumn="IdSolicitud" DataSetColumn="IdSolicitud" />
+              <Mapping SourceColumn="Status" DataSetColumn="Status" />
+              <Mapping SourceColumn="UsuarioCreacion" DataSetColumn="UsuarioCreacion" />
+              <Mapping SourceColumn="FechaCreacion" DataSetColumn="FechaCreacion" />
+              <Mapping SourceColumn="UsuarioModificacion" DataSetColumn="UsuarioModificacion" />
+              <Mapping SourceColumn="FechaModificacion" DataSetColumn="FechaModificacion" />
+              <Mapping SourceColumn="IP" DataSetColumn="IP" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="TotalHrsDescontarTableAdapter" GeneratorDataComponentClassName="TotalHrsDescontarTableAdapter" Name="TotalHrsDescontar" UserDataComponentName="TotalHrsDescontarTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="SqlDefault (Web.config)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>SELECT 
+	RIGHT('00' + Principales.fn_MXJ_ConvertirDecimalHora(SUM(Principales.fn_MXJ_ConvertirHoraDecimal(HrsDescontar))),5) AS HrsDescontar
+FROM [Principales].[tbp_MXJ_ServiciosVueloConceptosPresupuesto_D]
+WHERE IdPresupuesto in (1,2,3,4,5,6, 7, 8)
+GROUP BY IdPresupuesto</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="HrsDescontar" DataSetColumn="HrsDescontar" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+        </Tables>
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="Presupuestos_DS" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="Presupuestos_DS" msprop:Generator_UserDSName="Presupuestos_DS">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="tbd_MXJ_ServiciosVueloConceptosPresupuesto_H" msprop:Generator_TableClassName="tbd_MXJ_ServiciosVueloConceptosPresupuesto_HDataTable" msprop:Generator_TableVarName="tabletbd_MXJ_ServiciosVueloConceptosPresupuesto_H" msprop:Generator_RowChangedName="tbd_MXJ_ServiciosVueloConceptosPresupuesto_HRowChanged" msprop:Generator_TablePropName="tbd_MXJ_ServiciosVueloConceptosPresupuesto_H" msprop:Generator_RowDeletingName="tbd_MXJ_ServiciosVueloConceptosPresupuesto_HRowDeleting" msprop:Generator_RowChangingName="tbd_MXJ_ServiciosVueloConceptosPresupuesto_HRowChanging" msprop:Generator_RowEvHandlerName="tbd_MXJ_ServiciosVueloConceptosPresupuesto_HRowChangeEventHandler" msprop:Generator_RowDeletedName="tbd_MXJ_ServiciosVueloConceptosPresupuesto_HRowDeleted" msprop:Generator_RowClassName="tbd_MXJ_ServiciosVueloConceptosPresupuesto_HRow" msprop:Generator_UserTableName="tbd_MXJ_ServiciosVueloConceptosPresupuesto_H" msprop:Generator_RowEvArgName="tbd_MXJ_ServiciosVueloConceptosPresupuesto_HRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="IdConceptosH" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnIdConceptosH" msprop:Generator_ColumnPropNameInRow="IdConceptosH" msprop:Generator_ColumnPropNameInTable="IdConceptosHColumn" msprop:Generator_UserColumnName="IdConceptosH" type="xs:int" />
+              <xs:element name="IdPresupuesto" msprop:Generator_ColumnVarNameInTable="columnIdPresupuesto" msprop:Generator_ColumnPropNameInRow="IdPresupuesto" msprop:Generator_ColumnPropNameInTable="IdPresupuestoColumn" msprop:Generator_UserColumnName="IdPresupuesto" type="xs:int" minOccurs="0" />
+              <xs:element name="SubTotalSV" msprop:Generator_ColumnVarNameInTable="columnSubTotalSV" msprop:Generator_ColumnPropNameInRow="SubTotalSV" msprop:Generator_ColumnPropNameInTable="SubTotalSVColumn" msprop:Generator_UserColumnName="SubTotalSV" type="xs:decimal" minOccurs="0" />
+              <xs:element name="PorDescSV" msprop:Generator_ColumnVarNameInTable="columnPorDescSV" msprop:Generator_ColumnPropNameInRow="PorDescSV" msprop:Generator_ColumnPropNameInTable="PorDescSVColumn" msprop:Generator_UserColumnName="PorDescSV" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ImpDescSV" msprop:Generator_ColumnVarNameInTable="columnImpDescSV" msprop:Generator_ColumnPropNameInRow="ImpDescSV" msprop:Generator_ColumnPropNameInTable="ImpDescSVColumn" msprop:Generator_UserColumnName="ImpDescSV" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TotalSV" msprop:Generator_ColumnVarNameInTable="columnTotalSV" msprop:Generator_ColumnPropNameInRow="TotalSV" msprop:Generator_ColumnPropNameInTable="TotalSVColumn" msprop:Generator_UserColumnName="TotalSV" type="xs:decimal" minOccurs="0" />
+              <xs:element name="PorIvaSV" msprop:Generator_ColumnVarNameInTable="columnPorIvaSV" msprop:Generator_ColumnPropNameInRow="PorIvaSV" msprop:Generator_ColumnPropNameInTable="PorIvaSVColumn" msprop:Generator_UserColumnName="PorIvaSV" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ImpIvaSV" msprop:Generator_ColumnVarNameInTable="columnImpIvaSV" msprop:Generator_ColumnPropNameInRow="ImpIvaSV" msprop:Generator_ColumnPropNameInTable="ImpIvaSVColumn" msprop:Generator_UserColumnName="ImpIvaSV" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TotalSC" msprop:Generator_ColumnVarNameInTable="columnTotalSC" msprop:Generator_ColumnPropNameInRow="TotalSC" msprop:Generator_ColumnPropNameInTable="TotalSCColumn" msprop:Generator_UserColumnName="TotalSC" type="xs:decimal" minOccurs="0" />
+              <xs:element name="PorIvaSC" msprop:Generator_ColumnVarNameInTable="columnPorIvaSC" msprop:Generator_ColumnPropNameInRow="PorIvaSC" msprop:Generator_ColumnPropNameInTable="PorIvaSCColumn" msprop:Generator_UserColumnName="PorIvaSC" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ImpIvaSC" msprop:Generator_ColumnVarNameInTable="columnImpIvaSC" msprop:Generator_ColumnPropNameInRow="ImpIvaSC" msprop:Generator_ColumnPropNameInTable="ImpIvaSCColumn" msprop:Generator_UserColumnName="ImpIvaSC" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TotalPres" msprop:Generator_ColumnVarNameInTable="columnTotalPres" msprop:Generator_ColumnPropNameInRow="TotalPres" msprop:Generator_ColumnPropNameInTable="TotalPresColumn" msprop:Generator_UserColumnName="TotalPres" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TipoCambioPres" msprop:Generator_ColumnVarNameInTable="columnTipoCambioPres" msprop:Generator_ColumnPropNameInRow="TipoCambioPres" msprop:Generator_ColumnPropNameInTable="TipoCambioPresColumn" msprop:Generator_UserColumnName="TipoCambioPres" type="xs:decimal" minOccurs="0" />
+              <xs:element name="Status" msprop:Generator_ColumnVarNameInTable="columnStatus" msprop:Generator_ColumnPropNameInRow="Status" msprop:Generator_ColumnPropNameInTable="StatusColumn" msprop:Generator_UserColumnName="Status" type="xs:unsignedByte" minOccurs="0" />
+              <xs:element name="UsuarioCreacion" msprop:Generator_ColumnVarNameInTable="columnUsuarioCreacion" msprop:Generator_ColumnPropNameInRow="UsuarioCreacion" msprop:Generator_ColumnPropNameInTable="UsuarioCreacionColumn" msprop:Generator_UserColumnName="UsuarioCreacion">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="20" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="FechaCreacion" msprop:Generator_ColumnVarNameInTable="columnFechaCreacion" msprop:Generator_ColumnPropNameInRow="FechaCreacion" msprop:Generator_ColumnPropNameInTable="FechaCreacionColumn" msprop:Generator_UserColumnName="FechaCreacion" type="xs:dateTime" />
+              <xs:element name="UsuarioModificacion" msprop:Generator_ColumnVarNameInTable="columnUsuarioModificacion" msprop:Generator_ColumnPropNameInRow="UsuarioModificacion" msprop:Generator_ColumnPropNameInTable="UsuarioModificacionColumn" msprop:Generator_UserColumnName="UsuarioModificacion" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="20" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="FechaModificacion" msprop:Generator_ColumnVarNameInTable="columnFechaModificacion" msprop:Generator_ColumnPropNameInRow="FechaModificacion" msprop:Generator_ColumnPropNameInTable="FechaModificacionColumn" msprop:Generator_UserColumnName="FechaModificacion" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="IP" msprop:Generator_ColumnVarNameInTable="columnIP" msprop:Generator_ColumnPropNameInRow="IP" msprop:Generator_ColumnPropNameInTable="IPColumn" msprop:Generator_UserColumnName="IP" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="20" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="tbp_MXJ_ServiciosVueloConceptosPresupuesto_D" msprop:Generator_TableClassName="tbp_MXJ_ServiciosVueloConceptosPresupuesto_DDataTable" msprop:Generator_TableVarName="tabletbp_MXJ_ServiciosVueloConceptosPresupuesto_D" msprop:Generator_RowChangedName="tbp_MXJ_ServiciosVueloConceptosPresupuesto_DRowChanged" msprop:Generator_TablePropName="tbp_MXJ_ServiciosVueloConceptosPresupuesto_D" msprop:Generator_RowDeletingName="tbp_MXJ_ServiciosVueloConceptosPresupuesto_DRowDeleting" msprop:Generator_RowChangingName="tbp_MXJ_ServiciosVueloConceptosPresupuesto_DRowChanging" msprop:Generator_RowEvHandlerName="tbp_MXJ_ServiciosVueloConceptosPresupuesto_DRowChangeEventHandler" msprop:Generator_RowDeletedName="tbp_MXJ_ServiciosVueloConceptosPresupuesto_DRowDeleted" msprop:Generator_RowClassName="tbp_MXJ_ServiciosVueloConceptosPresupuesto_DRow" msprop:Generator_UserTableName="tbp_MXJ_ServiciosVueloConceptosPresupuesto_D" msprop:Generator_RowEvArgName="tbp_MXJ_ServiciosVueloConceptosPresupuesto_DRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="IdServicioCargo" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnIdServicioCargo" msprop:Generator_ColumnPropNameInRow="IdServicioCargo" msprop:Generator_ColumnPropNameInTable="IdServicioCargoColumn" msprop:Generator_UserColumnName="IdServicioCargo" type="xs:int" />
+              <xs:element name="IdPresupuesto" msprop:Generator_ColumnVarNameInTable="columnIdPresupuesto" msprop:Generator_ColumnPropNameInRow="IdPresupuesto" msprop:Generator_ColumnPropNameInTable="IdPresupuestoColumn" msprop:Generator_UserColumnName="IdPresupuesto" type="xs:int" minOccurs="0" />
+              <xs:element name="IdConcepto" msprop:Generator_ColumnVarNameInTable="columnIdConcepto" msprop:Generator_ColumnPropNameInRow="IdConcepto" msprop:Generator_ColumnPropNameInTable="IdConceptoColumn" msprop:Generator_UserColumnName="IdConcepto" type="xs:int" minOccurs="0" />
+              <xs:element name="Cantidad" msprop:Generator_ColumnVarNameInTable="columnCantidad" msprop:Generator_ColumnPropNameInRow="Cantidad" msprop:Generator_ColumnPropNameInTable="CantidadColumn" msprop:Generator_UserColumnName="Cantidad" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="10" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Unidad" msprop:Generator_ColumnVarNameInTable="columnUnidad" msprop:Generator_ColumnPropNameInRow="Unidad" msprop:Generator_ColumnPropNameInTable="UnidadColumn" msprop:Generator_UserColumnName="Unidad" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="10" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Importe" msprop:Generator_ColumnVarNameInTable="columnImporte" msprop:Generator_ColumnPropNameInRow="Importe" msprop:Generator_ColumnPropNameInTable="ImporteColumn" msprop:Generator_UserColumnName="Importe" type="xs:decimal" minOccurs="0" />
+              <xs:element name="HrsDescontar" msprop:Generator_ColumnVarNameInTable="columnHrsDescontar" msprop:Generator_ColumnPropNameInRow="HrsDescontar" msprop:Generator_ColumnPropNameInTable="HrsDescontarColumn" msprop:Generator_UserColumnName="HrsDescontar" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="10" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Status" msprop:Generator_ColumnVarNameInTable="columnStatus" msprop:Generator_ColumnPropNameInRow="Status" msprop:Generator_ColumnPropNameInTable="StatusColumn" msprop:Generator_UserColumnName="Status" type="xs:unsignedByte" minOccurs="0" />
+              <xs:element name="UsuarioCreacion" msprop:Generator_ColumnVarNameInTable="columnUsuarioCreacion" msprop:Generator_ColumnPropNameInRow="UsuarioCreacion" msprop:Generator_ColumnPropNameInTable="UsuarioCreacionColumn" msprop:Generator_UserColumnName="UsuarioCreacion" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="20" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="FechaCreacion" msprop:Generator_ColumnVarNameInTable="columnFechaCreacion" msprop:Generator_ColumnPropNameInRow="FechaCreacion" msprop:Generator_ColumnPropNameInTable="FechaCreacionColumn" msprop:Generator_UserColumnName="FechaCreacion" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="UsuarioModificacion" msprop:Generator_ColumnVarNameInTable="columnUsuarioModificacion" msprop:Generator_ColumnPropNameInRow="UsuarioModificacion" msprop:Generator_ColumnPropNameInTable="UsuarioModificacionColumn" msprop:Generator_UserColumnName="UsuarioModificacion" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="20" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="FechaModificacion" msprop:Generator_ColumnVarNameInTable="columnFechaModificacion" msprop:Generator_ColumnPropNameInRow="FechaModificacion" msprop:Generator_ColumnPropNameInTable="FechaModificacionColumn" msprop:Generator_UserColumnName="FechaModificacion" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="IP" msprop:Generator_ColumnVarNameInTable="columnIP" msprop:Generator_ColumnPropNameInRow="IP" msprop:Generator_ColumnPropNameInTable="IPColumn" msprop:Generator_UserColumnName="IP" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="20" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="tbp_MXJ_ServiciosCargoPresupuestos" msprop:Generator_TableClassName="tbp_MXJ_ServiciosCargoPresupuestosDataTable" msprop:Generator_TableVarName="tabletbp_MXJ_ServiciosCargoPresupuestos" msprop:Generator_RowChangedName="tbp_MXJ_ServiciosCargoPresupuestosRowChanged" msprop:Generator_TablePropName="tbp_MXJ_ServiciosCargoPresupuestos" msprop:Generator_RowDeletingName="tbp_MXJ_ServiciosCargoPresupuestosRowDeleting" msprop:Generator_RowChangingName="tbp_MXJ_ServiciosCargoPresupuestosRowChanging" msprop:Generator_RowEvHandlerName="tbp_MXJ_ServiciosCargoPresupuestosRowChangeEventHandler" msprop:Generator_RowDeletedName="tbp_MXJ_ServiciosCargoPresupuestosRowDeleted" msprop:Generator_RowClassName="tbp_MXJ_ServiciosCargoPresupuestosRow" msprop:Generator_UserTableName="tbp_MXJ_ServiciosCargoPresupuestos" msprop:Generator_RowEvArgName="tbp_MXJ_ServiciosCargoPresupuestosRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="IdServicio" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnIdServicio" msprop:Generator_ColumnPropNameInRow="IdServicio" msprop:Generator_ColumnPropNameInTable="IdServicioColumn" msprop:Generator_UserColumnName="IdServicio" type="xs:int" />
+              <xs:element name="IdPresupuesto" msprop:Generator_ColumnVarNameInTable="columnIdPresupuesto" msprop:Generator_ColumnPropNameInRow="IdPresupuesto" msprop:Generator_ColumnPropNameInTable="IdPresupuestoColumn" msprop:Generator_UserColumnName="IdPresupuesto" type="xs:int" minOccurs="0" />
+              <xs:element name="IdServicioCargo" msprop:Generator_ColumnVarNameInTable="columnIdServicioCargo" msprop:Generator_ColumnPropNameInRow="IdServicioCargo" msprop:Generator_ColumnPropNameInTable="IdServicioCargoColumn" msprop:Generator_UserColumnName="IdServicioCargo" type="xs:int" minOccurs="0" />
+              <xs:element name="Importe" msprop:Generator_ColumnVarNameInTable="columnImporte" msprop:Generator_ColumnPropNameInRow="Importe" msprop:Generator_ColumnPropNameInTable="ImporteColumn" msprop:Generator_UserColumnName="Importe" type="xs:decimal" minOccurs="0" />
+              <xs:element name="Status" msprop:Generator_ColumnVarNameInTable="columnStatus" msprop:Generator_ColumnPropNameInRow="Status" msprop:Generator_ColumnPropNameInTable="StatusColumn" msprop:Generator_UserColumnName="Status" type="xs:unsignedByte" minOccurs="0" />
+              <xs:element name="UsuarioCreacion" msprop:Generator_ColumnVarNameInTable="columnUsuarioCreacion" msprop:Generator_ColumnPropNameInRow="UsuarioCreacion" msprop:Generator_ColumnPropNameInTable="UsuarioCreacionColumn" msprop:Generator_UserColumnName="UsuarioCreacion" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="20" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="FechaCreacion" msprop:Generator_ColumnVarNameInTable="columnFechaCreacion" msprop:Generator_ColumnPropNameInRow="FechaCreacion" msprop:Generator_ColumnPropNameInTable="FechaCreacionColumn" msprop:Generator_UserColumnName="FechaCreacion" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="UsuarioModificacion" msprop:Generator_ColumnVarNameInTable="columnUsuarioModificacion" msprop:Generator_ColumnPropNameInRow="UsuarioModificacion" msprop:Generator_ColumnPropNameInTable="UsuarioModificacionColumn" msprop:Generator_UserColumnName="UsuarioModificacion" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="20" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="FechaModificacion" msprop:Generator_ColumnVarNameInTable="columnFechaModificacion" msprop:Generator_ColumnPropNameInRow="FechaModificacion" msprop:Generator_ColumnPropNameInTable="FechaModificacionColumn" msprop:Generator_UserColumnName="FechaModificacion" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="IP" msprop:Generator_ColumnVarNameInTable="columnIP" msprop:Generator_ColumnPropNameInRow="IP" msprop:Generator_ColumnPropNameInTable="IPColumn" msprop:Generator_UserColumnName="IP" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="20" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="tbp_MXJ_ServiciosVueloConceptosPresupuesto_D1" msprop:Generator_TableClassName="tbp_MXJ_ServiciosVueloConceptosPresupuesto_D1DataTable" msprop:Generator_TableVarName="tabletbp_MXJ_ServiciosVueloConceptosPresupuesto_D1" msprop:Generator_TablePropName="tbp_MXJ_ServiciosVueloConceptosPresupuesto_D1" msprop:Generator_RowDeletingName="tbp_MXJ_ServiciosVueloConceptosPresupuesto_D1RowDeleting" msprop:Generator_RowChangingName="tbp_MXJ_ServiciosVueloConceptosPresupuesto_D1RowChanging" msprop:Generator_RowEvHandlerName="tbp_MXJ_ServiciosVueloConceptosPresupuesto_D1RowChangeEventHandler" msprop:Generator_RowDeletedName="tbp_MXJ_ServiciosVueloConceptosPresupuesto_D1RowDeleted" msprop:Generator_UserTableName="tbp_MXJ_ServiciosVueloConceptosPresupuesto_D1" msprop:Generator_RowChangedName="tbp_MXJ_ServiciosVueloConceptosPresupuesto_D1RowChanged" msprop:Generator_RowEvArgName="tbp_MXJ_ServiciosVueloConceptosPresupuesto_D1RowChangeEvent" msprop:Generator_RowClassName="tbp_MXJ_ServiciosVueloConceptosPresupuesto_D1Row">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="IdServicioCargo" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnIdServicioCargo" msprop:Generator_ColumnPropNameInRow="IdServicioCargo" msprop:Generator_ColumnPropNameInTable="IdServicioCargoColumn" msprop:Generator_UserColumnName="IdServicioCargo" type="xs:int" />
+              <xs:element name="IdPresupuesto" msprop:Generator_ColumnVarNameInTable="columnIdPresupuesto" msprop:Generator_ColumnPropNameInRow="IdPresupuesto" msprop:Generator_ColumnPropNameInTable="IdPresupuestoColumn" msprop:Generator_UserColumnName="IdPresupuesto" type="xs:int" minOccurs="0" />
+              <xs:element name="IdConcepto" msprop:Generator_ColumnVarNameInTable="columnIdConcepto" msprop:Generator_ColumnPropNameInRow="IdConcepto" msprop:Generator_ColumnPropNameInTable="IdConceptoColumn" msprop:Generator_UserColumnName="IdConcepto" type="xs:int" minOccurs="0" />
+              <xs:element name="Cantidad" msprop:Generator_ColumnVarNameInTable="columnCantidad" msprop:Generator_ColumnPropNameInRow="Cantidad" msprop:Generator_ColumnPropNameInTable="CantidadColumn" msprop:Generator_UserColumnName="Cantidad" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="10" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Unidad" msprop:Generator_ColumnVarNameInTable="columnUnidad" msprop:Generator_ColumnPropNameInRow="Unidad" msprop:Generator_ColumnPropNameInTable="UnidadColumn" msprop:Generator_UserColumnName="Unidad" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="10" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Importe" msprop:Generator_ColumnVarNameInTable="columnImporte" msprop:Generator_ColumnPropNameInRow="Importe" msprop:Generator_ColumnPropNameInTable="ImporteColumn" msprop:Generator_UserColumnName="Importe" type="xs:decimal" minOccurs="0" />
+              <xs:element name="HrsDescontar" msprop:Generator_ColumnVarNameInTable="columnHrsDescontar" msprop:Generator_ColumnPropNameInRow="HrsDescontar" msprop:Generator_ColumnPropNameInTable="HrsDescontarColumn" msprop:Generator_UserColumnName="HrsDescontar" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="10" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Status" msprop:Generator_ColumnVarNameInTable="columnStatus" msprop:Generator_ColumnPropNameInRow="Status" msprop:Generator_ColumnPropNameInTable="StatusColumn" msprop:Generator_UserColumnName="Status" type="xs:unsignedByte" minOccurs="0" />
+              <xs:element name="UsuarioCreacion" msprop:Generator_ColumnVarNameInTable="columnUsuarioCreacion" msprop:Generator_ColumnPropNameInRow="UsuarioCreacion" msprop:Generator_ColumnPropNameInTable="UsuarioCreacionColumn" msprop:Generator_UserColumnName="UsuarioCreacion" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="20" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="FechaCreacion" msprop:Generator_ColumnVarNameInTable="columnFechaCreacion" msprop:Generator_ColumnPropNameInRow="FechaCreacion" msprop:Generator_ColumnPropNameInTable="FechaCreacionColumn" msprop:Generator_UserColumnName="FechaCreacion" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="UsuarioModificacion" msprop:Generator_ColumnVarNameInTable="columnUsuarioModificacion" msprop:Generator_ColumnPropNameInRow="UsuarioModificacion" msprop:Generator_ColumnPropNameInTable="UsuarioModificacionColumn" msprop:Generator_UserColumnName="UsuarioModificacion" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="20" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="FechaModificacion" msprop:Generator_ColumnVarNameInTable="columnFechaModificacion" msprop:Generator_ColumnPropNameInRow="FechaModificacion" msprop:Generator_ColumnPropNameInTable="FechaModificacionColumn" msprop:Generator_UserColumnName="FechaModificacion" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="IP" msprop:Generator_ColumnVarNameInTable="columnIP" msprop:Generator_ColumnPropNameInRow="IP" msprop:Generator_ColumnPropNameInTable="IPColumn" msprop:Generator_UserColumnName="IP" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="20" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="tbp_MXJ_ServiciosVueloConceptosPresupuesto_D2" msprop:Generator_TableClassName="tbp_MXJ_ServiciosVueloConceptosPresupuesto_D2DataTable" msprop:Generator_TableVarName="tabletbp_MXJ_ServiciosVueloConceptosPresupuesto_D2" msprop:Generator_TablePropName="tbp_MXJ_ServiciosVueloConceptosPresupuesto_D2" msprop:Generator_RowDeletingName="tbp_MXJ_ServiciosVueloConceptosPresupuesto_D2RowDeleting" msprop:Generator_RowChangingName="tbp_MXJ_ServiciosVueloConceptosPresupuesto_D2RowChanging" msprop:Generator_RowEvHandlerName="tbp_MXJ_ServiciosVueloConceptosPresupuesto_D2RowChangeEventHandler" msprop:Generator_RowDeletedName="tbp_MXJ_ServiciosVueloConceptosPresupuesto_D2RowDeleted" msprop:Generator_UserTableName="tbp_MXJ_ServiciosVueloConceptosPresupuesto_D2" msprop:Generator_RowChangedName="tbp_MXJ_ServiciosVueloConceptosPresupuesto_D2RowChanged" msprop:Generator_RowEvArgName="tbp_MXJ_ServiciosVueloConceptosPresupuesto_D2RowChangeEvent" msprop:Generator_RowClassName="tbp_MXJ_ServiciosVueloConceptosPresupuesto_D2Row">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="IdServicioCargo" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnIdServicioCargo" msprop:Generator_ColumnPropNameInRow="IdServicioCargo" msprop:Generator_ColumnPropNameInTable="IdServicioCargoColumn" msprop:Generator_UserColumnName="IdServicioCargo" type="xs:int" />
+              <xs:element name="IdPresupuesto" msprop:Generator_ColumnVarNameInTable="columnIdPresupuesto" msprop:Generator_ColumnPropNameInRow="IdPresupuesto" msprop:Generator_ColumnPropNameInTable="IdPresupuestoColumn" msprop:Generator_UserColumnName="IdPresupuesto" type="xs:int" minOccurs="0" />
+              <xs:element name="IdConcepto" msprop:Generator_ColumnVarNameInTable="columnIdConcepto" msprop:Generator_ColumnPropNameInRow="IdConcepto" msprop:Generator_ColumnPropNameInTable="IdConceptoColumn" msprop:Generator_UserColumnName="IdConcepto" type="xs:int" minOccurs="0" />
+              <xs:element name="Cantidad" msprop:Generator_ColumnVarNameInTable="columnCantidad" msprop:Generator_ColumnPropNameInRow="Cantidad" msprop:Generator_ColumnPropNameInTable="CantidadColumn" msprop:Generator_UserColumnName="Cantidad" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="10" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Unidad" msprop:Generator_ColumnVarNameInTable="columnUnidad" msprop:Generator_ColumnPropNameInRow="Unidad" msprop:Generator_ColumnPropNameInTable="UnidadColumn" msprop:Generator_UserColumnName="Unidad" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="10" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Importe" msprop:Generator_ColumnVarNameInTable="columnImporte" msprop:Generator_ColumnPropNameInRow="Importe" msprop:Generator_ColumnPropNameInTable="ImporteColumn" msprop:Generator_UserColumnName="Importe" type="xs:decimal" minOccurs="0" />
+              <xs:element name="HrsDescontar" msprop:Generator_ColumnVarNameInTable="columnHrsDescontar" msprop:Generator_ColumnPropNameInRow="HrsDescontar" msprop:Generator_ColumnPropNameInTable="HrsDescontarColumn" msprop:Generator_UserColumnName="HrsDescontar" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="10" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Status" msprop:Generator_ColumnVarNameInTable="columnStatus" msprop:Generator_ColumnPropNameInRow="Status" msprop:Generator_ColumnPropNameInTable="StatusColumn" msprop:Generator_UserColumnName="Status" type="xs:unsignedByte" minOccurs="0" />
+              <xs:element name="UsuarioCreacion" msprop:Generator_ColumnVarNameInTable="columnUsuarioCreacion" msprop:Generator_ColumnPropNameInRow="UsuarioCreacion" msprop:Generator_ColumnPropNameInTable="UsuarioCreacionColumn" msprop:Generator_UserColumnName="UsuarioCreacion" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="20" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="FechaCreacion" msprop:Generator_ColumnVarNameInTable="columnFechaCreacion" msprop:Generator_ColumnPropNameInRow="FechaCreacion" msprop:Generator_ColumnPropNameInTable="FechaCreacionColumn" msprop:Generator_UserColumnName="FechaCreacion" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="UsuarioModificacion" msprop:Generator_ColumnVarNameInTable="columnUsuarioModificacion" msprop:Generator_ColumnPropNameInRow="UsuarioModificacion" msprop:Generator_ColumnPropNameInTable="UsuarioModificacionColumn" msprop:Generator_UserColumnName="UsuarioModificacion" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="20" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="FechaModificacion" msprop:Generator_ColumnVarNameInTable="columnFechaModificacion" msprop:Generator_ColumnPropNameInRow="FechaModificacion" msprop:Generator_ColumnPropNameInTable="FechaModificacionColumn" msprop:Generator_UserColumnName="FechaModificacion" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="IP" msprop:Generator_ColumnVarNameInTable="columnIP" msprop:Generator_ColumnPropNameInRow="IP" msprop:Generator_ColumnPropNameInTable="IPColumn" msprop:Generator_UserColumnName="IP" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="20" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="tbp_MXJ_ServiciosVueloConceptosPresupuesto_D3" msprop:Generator_TableClassName="tbp_MXJ_ServiciosVueloConceptosPresupuesto_D3DataTable" msprop:Generator_TableVarName="tabletbp_MXJ_ServiciosVueloConceptosPresupuesto_D3" msprop:Generator_TablePropName="tbp_MXJ_ServiciosVueloConceptosPresupuesto_D3" msprop:Generator_RowDeletingName="tbp_MXJ_ServiciosVueloConceptosPresupuesto_D3RowDeleting" msprop:Generator_RowChangingName="tbp_MXJ_ServiciosVueloConceptosPresupuesto_D3RowChanging" msprop:Generator_RowEvHandlerName="tbp_MXJ_ServiciosVueloConceptosPresupuesto_D3RowChangeEventHandler" msprop:Generator_RowDeletedName="tbp_MXJ_ServiciosVueloConceptosPresupuesto_D3RowDeleted" msprop:Generator_UserTableName="tbp_MXJ_ServiciosVueloConceptosPresupuesto_D3" msprop:Generator_RowChangedName="tbp_MXJ_ServiciosVueloConceptosPresupuesto_D3RowChanged" msprop:Generator_RowEvArgName="tbp_MXJ_ServiciosVueloConceptosPresupuesto_D3RowChangeEvent" msprop:Generator_RowClassName="tbp_MXJ_ServiciosVueloConceptosPresupuesto_D3Row">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="IdServicioCargo" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnIdServicioCargo" msprop:Generator_ColumnPropNameInRow="IdServicioCargo" msprop:Generator_ColumnPropNameInTable="IdServicioCargoColumn" msprop:Generator_UserColumnName="IdServicioCargo" type="xs:int" />
+              <xs:element name="IdPresupuesto" msprop:Generator_ColumnVarNameInTable="columnIdPresupuesto" msprop:Generator_ColumnPropNameInRow="IdPresupuesto" msprop:Generator_ColumnPropNameInTable="IdPresupuestoColumn" msprop:Generator_UserColumnName="IdPresupuesto" type="xs:int" minOccurs="0" />
+              <xs:element name="IdConcepto" msprop:Generator_ColumnVarNameInTable="columnIdConcepto" msprop:Generator_ColumnPropNameInRow="IdConcepto" msprop:Generator_ColumnPropNameInTable="IdConceptoColumn" msprop:Generator_UserColumnName="IdConcepto" type="xs:int" minOccurs="0" />
+              <xs:element name="Cantidad" msprop:Generator_ColumnVarNameInTable="columnCantidad" msprop:Generator_ColumnPropNameInRow="Cantidad" msprop:Generator_ColumnPropNameInTable="CantidadColumn" msprop:Generator_UserColumnName="Cantidad" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="10" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Unidad" msprop:Generator_ColumnVarNameInTable="columnUnidad" msprop:Generator_ColumnPropNameInRow="Unidad" msprop:Generator_ColumnPropNameInTable="UnidadColumn" msprop:Generator_UserColumnName="Unidad" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="10" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Importe" msprop:Generator_ColumnVarNameInTable="columnImporte" msprop:Generator_ColumnPropNameInRow="Importe" msprop:Generator_ColumnPropNameInTable="ImporteColumn" msprop:Generator_UserColumnName="Importe" type="xs:decimal" minOccurs="0" />
+              <xs:element name="HrsDescontar" msprop:Generator_ColumnVarNameInTable="columnHrsDescontar" msprop:Generator_ColumnPropNameInRow="HrsDescontar" msprop:Generator_ColumnPropNameInTable="HrsDescontarColumn" msprop:Generator_UserColumnName="HrsDescontar" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="10" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Status" msprop:Generator_ColumnVarNameInTable="columnStatus" msprop:Generator_ColumnPropNameInRow="Status" msprop:Generator_ColumnPropNameInTable="StatusColumn" msprop:Generator_UserColumnName="Status" type="xs:unsignedByte" minOccurs="0" />
+              <xs:element name="UsuarioCreacion" msprop:Generator_ColumnVarNameInTable="columnUsuarioCreacion" msprop:Generator_ColumnPropNameInRow="UsuarioCreacion" msprop:Generator_ColumnPropNameInTable="UsuarioCreacionColumn" msprop:Generator_UserColumnName="UsuarioCreacion" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="20" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="FechaCreacion" msprop:Generator_ColumnVarNameInTable="columnFechaCreacion" msprop:Generator_ColumnPropNameInRow="FechaCreacion" msprop:Generator_ColumnPropNameInTable="FechaCreacionColumn" msprop:Generator_UserColumnName="FechaCreacion" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="UsuarioModificacion" msprop:Generator_ColumnVarNameInTable="columnUsuarioModificacion" msprop:Generator_ColumnPropNameInRow="UsuarioModificacion" msprop:Generator_ColumnPropNameInTable="UsuarioModificacionColumn" msprop:Generator_UserColumnName="UsuarioModificacion" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="20" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="FechaModificacion" msprop:Generator_ColumnVarNameInTable="columnFechaModificacion" msprop:Generator_ColumnPropNameInRow="FechaModificacion" msprop:Generator_ColumnPropNameInTable="FechaModificacionColumn" msprop:Generator_UserColumnName="FechaModificacion" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="IP" msprop:Generator_ColumnVarNameInTable="columnIP" msprop:Generator_ColumnPropNameInRow="IP" msprop:Generator_ColumnPropNameInTable="IPColumn" msprop:Generator_UserColumnName="IP" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="20" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="tbp_MXJ_ServiciosVueloConceptosPresupuesto_D4" msprop:Generator_TableClassName="tbp_MXJ_ServiciosVueloConceptosPresupuesto_D4DataTable" msprop:Generator_TableVarName="tabletbp_MXJ_ServiciosVueloConceptosPresupuesto_D4" msprop:Generator_TablePropName="tbp_MXJ_ServiciosVueloConceptosPresupuesto_D4" msprop:Generator_RowDeletingName="tbp_MXJ_ServiciosVueloConceptosPresupuesto_D4RowDeleting" msprop:Generator_RowChangingName="tbp_MXJ_ServiciosVueloConceptosPresupuesto_D4RowChanging" msprop:Generator_RowEvHandlerName="tbp_MXJ_ServiciosVueloConceptosPresupuesto_D4RowChangeEventHandler" msprop:Generator_RowDeletedName="tbp_MXJ_ServiciosVueloConceptosPresupuesto_D4RowDeleted" msprop:Generator_UserTableName="tbp_MXJ_ServiciosVueloConceptosPresupuesto_D4" msprop:Generator_RowChangedName="tbp_MXJ_ServiciosVueloConceptosPresupuesto_D4RowChanged" msprop:Generator_RowEvArgName="tbp_MXJ_ServiciosVueloConceptosPresupuesto_D4RowChangeEvent" msprop:Generator_RowClassName="tbp_MXJ_ServiciosVueloConceptosPresupuesto_D4Row">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="IdServicioCargo" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnIdServicioCargo" msprop:Generator_ColumnPropNameInRow="IdServicioCargo" msprop:Generator_ColumnPropNameInTable="IdServicioCargoColumn" msprop:Generator_UserColumnName="IdServicioCargo" type="xs:int" />
+              <xs:element name="IdPresupuesto" msprop:Generator_ColumnVarNameInTable="columnIdPresupuesto" msprop:Generator_ColumnPropNameInRow="IdPresupuesto" msprop:Generator_ColumnPropNameInTable="IdPresupuestoColumn" msprop:Generator_UserColumnName="IdPresupuesto" type="xs:int" minOccurs="0" />
+              <xs:element name="IdConcepto" msprop:Generator_ColumnVarNameInTable="columnIdConcepto" msprop:Generator_ColumnPropNameInRow="IdConcepto" msprop:Generator_ColumnPropNameInTable="IdConceptoColumn" msprop:Generator_UserColumnName="IdConcepto" type="xs:int" minOccurs="0" />
+              <xs:element name="Cantidad" msprop:Generator_ColumnVarNameInTable="columnCantidad" msprop:Generator_ColumnPropNameInRow="Cantidad" msprop:Generator_ColumnPropNameInTable="CantidadColumn" msprop:Generator_UserColumnName="Cantidad" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="10" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Unidad" msprop:Generator_ColumnVarNameInTable="columnUnidad" msprop:Generator_ColumnPropNameInRow="Unidad" msprop:Generator_ColumnPropNameInTable="UnidadColumn" msprop:Generator_UserColumnName="Unidad" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="10" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Importe" msprop:Generator_ColumnVarNameInTable="columnImporte" msprop:Generator_ColumnPropNameInRow="Importe" msprop:Generator_ColumnPropNameInTable="ImporteColumn" msprop:Generator_UserColumnName="Importe" type="xs:decimal" minOccurs="0" />
+              <xs:element name="HrsDescontar" msprop:Generator_ColumnVarNameInTable="columnHrsDescontar" msprop:Generator_ColumnPropNameInRow="HrsDescontar" msprop:Generator_ColumnPropNameInTable="HrsDescontarColumn" msprop:Generator_UserColumnName="HrsDescontar" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="10" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Status" msprop:Generator_ColumnVarNameInTable="columnStatus" msprop:Generator_ColumnPropNameInRow="Status" msprop:Generator_ColumnPropNameInTable="StatusColumn" msprop:Generator_UserColumnName="Status" type="xs:unsignedByte" minOccurs="0" />
+              <xs:element name="UsuarioCreacion" msprop:Generator_ColumnVarNameInTable="columnUsuarioCreacion" msprop:Generator_ColumnPropNameInRow="UsuarioCreacion" msprop:Generator_ColumnPropNameInTable="UsuarioCreacionColumn" msprop:Generator_UserColumnName="UsuarioCreacion" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="20" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="FechaCreacion" msprop:Generator_ColumnVarNameInTable="columnFechaCreacion" msprop:Generator_ColumnPropNameInRow="FechaCreacion" msprop:Generator_ColumnPropNameInTable="FechaCreacionColumn" msprop:Generator_UserColumnName="FechaCreacion" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="UsuarioModificacion" msprop:Generator_ColumnVarNameInTable="columnUsuarioModificacion" msprop:Generator_ColumnPropNameInRow="UsuarioModificacion" msprop:Generator_ColumnPropNameInTable="UsuarioModificacionColumn" msprop:Generator_UserColumnName="UsuarioModificacion" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="20" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="FechaModificacion" msprop:Generator_ColumnVarNameInTable="columnFechaModificacion" msprop:Generator_ColumnPropNameInRow="FechaModificacion" msprop:Generator_ColumnPropNameInTable="FechaModificacionColumn" msprop:Generator_UserColumnName="FechaModificacion" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="IP" msprop:Generator_ColumnVarNameInTable="columnIP" msprop:Generator_ColumnPropNameInRow="IP" msprop:Generator_ColumnPropNameInTable="IPColumn" msprop:Generator_UserColumnName="IP" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="20" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="tbp_MXJ_ServiciosVueloConceptosPresupuesto_D5" msprop:Generator_TableClassName="tbp_MXJ_ServiciosVueloConceptosPresupuesto_D5DataTable" msprop:Generator_TableVarName="tabletbp_MXJ_ServiciosVueloConceptosPresupuesto_D5" msprop:Generator_TablePropName="tbp_MXJ_ServiciosVueloConceptosPresupuesto_D5" msprop:Generator_RowDeletingName="tbp_MXJ_ServiciosVueloConceptosPresupuesto_D5RowDeleting" msprop:Generator_RowChangingName="tbp_MXJ_ServiciosVueloConceptosPresupuesto_D5RowChanging" msprop:Generator_RowEvHandlerName="tbp_MXJ_ServiciosVueloConceptosPresupuesto_D5RowChangeEventHandler" msprop:Generator_RowDeletedName="tbp_MXJ_ServiciosVueloConceptosPresupuesto_D5RowDeleted" msprop:Generator_UserTableName="tbp_MXJ_ServiciosVueloConceptosPresupuesto_D5" msprop:Generator_RowChangedName="tbp_MXJ_ServiciosVueloConceptosPresupuesto_D5RowChanged" msprop:Generator_RowEvArgName="tbp_MXJ_ServiciosVueloConceptosPresupuesto_D5RowChangeEvent" msprop:Generator_RowClassName="tbp_MXJ_ServiciosVueloConceptosPresupuesto_D5Row">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="IdServicioCargo" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnIdServicioCargo" msprop:Generator_ColumnPropNameInRow="IdServicioCargo" msprop:Generator_ColumnPropNameInTable="IdServicioCargoColumn" msprop:Generator_UserColumnName="IdServicioCargo" type="xs:int" />
+              <xs:element name="IdPresupuesto" msprop:Generator_ColumnVarNameInTable="columnIdPresupuesto" msprop:Generator_ColumnPropNameInRow="IdPresupuesto" msprop:Generator_ColumnPropNameInTable="IdPresupuestoColumn" msprop:Generator_UserColumnName="IdPresupuesto" type="xs:int" minOccurs="0" />
+              <xs:element name="IdConcepto" msprop:Generator_ColumnVarNameInTable="columnIdConcepto" msprop:Generator_ColumnPropNameInRow="IdConcepto" msprop:Generator_ColumnPropNameInTable="IdConceptoColumn" msprop:Generator_UserColumnName="IdConcepto" type="xs:int" minOccurs="0" />
+              <xs:element name="Cantidad" msprop:Generator_ColumnVarNameInTable="columnCantidad" msprop:Generator_ColumnPropNameInRow="Cantidad" msprop:Generator_ColumnPropNameInTable="CantidadColumn" msprop:Generator_UserColumnName="Cantidad" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="10" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Unidad" msprop:Generator_ColumnVarNameInTable="columnUnidad" msprop:Generator_ColumnPropNameInRow="Unidad" msprop:Generator_ColumnPropNameInTable="UnidadColumn" msprop:Generator_UserColumnName="Unidad" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="10" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Importe" msprop:Generator_ColumnVarNameInTable="columnImporte" msprop:Generator_ColumnPropNameInRow="Importe" msprop:Generator_ColumnPropNameInTable="ImporteColumn" msprop:Generator_UserColumnName="Importe" type="xs:decimal" minOccurs="0" />
+              <xs:element name="HrsDescontar" msprop:Generator_ColumnVarNameInTable="columnHrsDescontar" msprop:Generator_ColumnPropNameInRow="HrsDescontar" msprop:Generator_ColumnPropNameInTable="HrsDescontarColumn" msprop:Generator_UserColumnName="HrsDescontar" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="10" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Status" msprop:Generator_ColumnVarNameInTable="columnStatus" msprop:Generator_ColumnPropNameInRow="Status" msprop:Generator_ColumnPropNameInTable="StatusColumn" msprop:Generator_UserColumnName="Status" type="xs:unsignedByte" minOccurs="0" />
+              <xs:element name="UsuarioCreacion" msprop:Generator_ColumnVarNameInTable="columnUsuarioCreacion" msprop:Generator_ColumnPropNameInRow="UsuarioCreacion" msprop:Generator_ColumnPropNameInTable="UsuarioCreacionColumn" msprop:Generator_UserColumnName="UsuarioCreacion" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="20" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="FechaCreacion" msprop:Generator_ColumnVarNameInTable="columnFechaCreacion" msprop:Generator_ColumnPropNameInRow="FechaCreacion" msprop:Generator_ColumnPropNameInTable="FechaCreacionColumn" msprop:Generator_UserColumnName="FechaCreacion" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="UsuarioModificacion" msprop:Generator_ColumnVarNameInTable="columnUsuarioModificacion" msprop:Generator_ColumnPropNameInRow="UsuarioModificacion" msprop:Generator_ColumnPropNameInTable="UsuarioModificacionColumn" msprop:Generator_UserColumnName="UsuarioModificacion" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="20" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="FechaModificacion" msprop:Generator_ColumnVarNameInTable="columnFechaModificacion" msprop:Generator_ColumnPropNameInRow="FechaModificacion" msprop:Generator_ColumnPropNameInTable="FechaModificacionColumn" msprop:Generator_UserColumnName="FechaModificacion" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="IP" msprop:Generator_ColumnVarNameInTable="columnIP" msprop:Generator_ColumnPropNameInRow="IP" msprop:Generator_ColumnPropNameInTable="IPColumn" msprop:Generator_UserColumnName="IP" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="20" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="tbp_MXJ_TramosPresupuesto" msprop:Generator_TableClassName="tbp_MXJ_TramosPresupuestoDataTable" msprop:Generator_TableVarName="tabletbp_MXJ_TramosPresupuesto" msprop:Generator_RowChangedName="tbp_MXJ_TramosPresupuestoRowChanged" msprop:Generator_TablePropName="tbp_MXJ_TramosPresupuesto" msprop:Generator_RowDeletingName="tbp_MXJ_TramosPresupuestoRowDeleting" msprop:Generator_RowChangingName="tbp_MXJ_TramosPresupuestoRowChanging" msprop:Generator_RowEvHandlerName="tbp_MXJ_TramosPresupuestoRowChangeEventHandler" msprop:Generator_RowDeletedName="tbp_MXJ_TramosPresupuestoRowDeleted" msprop:Generator_RowClassName="tbp_MXJ_TramosPresupuestoRow" msprop:Generator_UserTableName="tbp_MXJ_TramosPresupuesto" msprop:Generator_RowEvArgName="tbp_MXJ_TramosPresupuestoRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="IdTramo" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnIdTramo" msprop:Generator_ColumnPropNameInRow="IdTramo" msprop:Generator_ColumnPropNameInTable="IdTramoColumn" msprop:Generator_UserColumnName="IdTramo" type="xs:int" />
+              <xs:element name="IdPresupuesto" msprop:Generator_ColumnVarNameInTable="columnIdPresupuesto" msprop:Generator_ColumnPropNameInRow="IdPresupuesto" msprop:Generator_ColumnPropNameInTable="IdPresupuestoColumn" msprop:Generator_UserColumnName="IdPresupuesto" type="xs:int" minOccurs="0" />
+              <xs:element name="IdOrigen" msprop:Generator_ColumnVarNameInTable="columnIdOrigen" msprop:Generator_ColumnPropNameInRow="IdOrigen" msprop:Generator_ColumnPropNameInTable="IdOrigenColumn" msprop:Generator_UserColumnName="IdOrigen" type="xs:int" minOccurs="0" />
+              <xs:element name="IdDestino" msprop:Generator_ColumnVarNameInTable="columnIdDestino" msprop:Generator_ColumnPropNameInRow="IdDestino" msprop:Generator_ColumnPropNameInTable="IdDestinoColumn" msprop:Generator_UserColumnName="IdDestino" type="xs:int" minOccurs="0" />
+              <xs:element name="AeropuertoO" msprop:Generator_ColumnVarNameInTable="columnAeropuertoO" msprop:Generator_ColumnPropNameInRow="AeropuertoO" msprop:Generator_ColumnPropNameInTable="AeropuertoOColumn" msprop:Generator_UserColumnName="AeropuertoO" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="10" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="AeropuertoD" msprop:Generator_ColumnVarNameInTable="columnAeropuertoD" msprop:Generator_ColumnPropNameInRow="AeropuertoD" msprop:Generator_ColumnPropNameInTable="AeropuertoDColumn" msprop:Generator_UserColumnName="AeropuertoD" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="10" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="CantPax" msprop:Generator_ColumnVarNameInTable="columnCantPax" msprop:Generator_ColumnPropNameInRow="CantPax" msprop:Generator_ColumnPropNameInTable="CantPaxColumn" msprop:Generator_UserColumnName="CantPax" type="xs:int" minOccurs="0" />
+              <xs:element name="FechaSalida" msprop:Generator_ColumnVarNameInTable="columnFechaSalida" msprop:Generator_ColumnPropNameInRow="FechaSalida" msprop:Generator_ColumnPropNameInTable="FechaSalidaColumn" msprop:Generator_UserColumnName="FechaSalida" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="FechaLlegada" msprop:Generator_ColumnVarNameInTable="columnFechaLlegada" msprop:Generator_ColumnPropNameInRow="FechaLlegada" msprop:Generator_ColumnPropNameInTable="FechaLlegadaColumn" msprop:Generator_UserColumnName="FechaLlegada" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="TiempoVueloReal" msprop:Generator_ColumnVarNameInTable="columnTiempoVueloReal" msprop:Generator_ColumnPropNameInRow="TiempoVueloReal" msprop:Generator_ColumnPropNameInTable="TiempoVueloRealColumn" msprop:Generator_UserColumnName="TiempoVueloReal" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="10" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="TiempoEspera" msprop:Generator_ColumnVarNameInTable="columnTiempoEspera" msprop:Generator_ColumnPropNameInRow="TiempoEspera" msprop:Generator_ColumnPropNameInTable="TiempoEsperaColumn" msprop:Generator_UserColumnName="TiempoEspera" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="10" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="TiempoCobrar" msprop:Generator_ColumnVarNameInTable="columnTiempoCobrar" msprop:Generator_ColumnPropNameInRow="TiempoCobrar" msprop:Generator_ColumnPropNameInTable="TiempoCobrarColumn" msprop:Generator_UserColumnName="TiempoCobrar" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="10" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="RealVirtual" msprop:Generator_ColumnVarNameInTable="columnRealVirtual" msprop:Generator_ColumnPropNameInRow="RealVirtual" msprop:Generator_ColumnPropNameInTable="RealVirtualColumn" msprop:Generator_UserColumnName="RealVirtual" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="20" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Status" msprop:Generator_ColumnVarNameInTable="columnStatus" msprop:Generator_ColumnPropNameInRow="Status" msprop:Generator_ColumnPropNameInTable="StatusColumn" msprop:Generator_UserColumnName="Status" type="xs:unsignedByte" minOccurs="0" />
+              <xs:element name="UsuarioCreacion" msprop:Generator_ColumnVarNameInTable="columnUsuarioCreacion" msprop:Generator_ColumnPropNameInRow="UsuarioCreacion" msprop:Generator_ColumnPropNameInTable="UsuarioCreacionColumn" msprop:Generator_UserColumnName="UsuarioCreacion" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="20" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="FechaCreacion" msprop:Generator_ColumnVarNameInTable="columnFechaCreacion" msprop:Generator_ColumnPropNameInRow="FechaCreacion" msprop:Generator_ColumnPropNameInTable="FechaCreacionColumn" msprop:Generator_UserColumnName="FechaCreacion" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="UsuarioModificacion" msprop:Generator_ColumnVarNameInTable="columnUsuarioModificacion" msprop:Generator_ColumnPropNameInRow="UsuarioModificacion" msprop:Generator_ColumnPropNameInTable="UsuarioModificacionColumn" msprop:Generator_UserColumnName="UsuarioModificacion" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="20" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="FechaModificacion" msprop:Generator_ColumnVarNameInTable="columnFechaModificacion" msprop:Generator_ColumnPropNameInRow="FechaModificacion" msprop:Generator_ColumnPropNameInTable="FechaModificacionColumn" msprop:Generator_UserColumnName="FechaModificacion" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="IP" msprop:Generator_ColumnVarNameInTable="columnIP" msprop:Generator_ColumnPropNameInRow="IP" msprop:Generator_ColumnPropNameInTable="IPColumn" msprop:Generator_UserColumnName="IP" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="20" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="tbp_MXJ_Presupuestos" msprop:Generator_TableClassName="tbp_MXJ_PresupuestosDataTable" msprop:Generator_TableVarName="tabletbp_MXJ_Presupuestos" msprop:Generator_RowChangedName="tbp_MXJ_PresupuestosRowChanged" msprop:Generator_TablePropName="tbp_MXJ_Presupuestos" msprop:Generator_RowDeletingName="tbp_MXJ_PresupuestosRowDeleting" msprop:Generator_RowChangingName="tbp_MXJ_PresupuestosRowChanging" msprop:Generator_RowEvHandlerName="tbp_MXJ_PresupuestosRowChangeEventHandler" msprop:Generator_RowDeletedName="tbp_MXJ_PresupuestosRowDeleted" msprop:Generator_RowClassName="tbp_MXJ_PresupuestosRow" msprop:Generator_UserTableName="tbp_MXJ_Presupuestos" msprop:Generator_RowEvArgName="tbp_MXJ_PresupuestosRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="IdPresupuesto" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnIdPresupuesto" msprop:Generator_ColumnPropNameInRow="IdPresupuesto" msprop:Generator_ColumnPropNameInTable="IdPresupuestoColumn" msprop:Generator_UserColumnName="IdPresupuesto" type="xs:int" />
+              <xs:element name="FechaPresupuesto" msprop:Generator_ColumnVarNameInTable="columnFechaPresupuesto" msprop:Generator_ColumnPropNameInRow="FechaPresupuesto" msprop:Generator_ColumnPropNameInTable="FechaPresupuestoColumn" msprop:Generator_UserColumnName="FechaPresupuesto" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="DiasVigencia" msprop:Generator_ColumnVarNameInTable="columnDiasVigencia" msprop:Generator_ColumnPropNameInRow="DiasVigencia" msprop:Generator_ColumnPropNameInTable="DiasVigenciaColumn" msprop:Generator_UserColumnName="DiasVigencia" type="xs:int" minOccurs="0" />
+              <xs:element name="IdContrato" msprop:Generator_ColumnVarNameInTable="columnIdContrato" msprop:Generator_ColumnPropNameInRow="IdContrato" msprop:Generator_ColumnPropNameInTable="IdContratoColumn" msprop:Generator_UserColumnName="IdContrato" type="xs:int" minOccurs="0" />
+              <xs:element name="CompaniaImpresion" msprop:Generator_ColumnVarNameInTable="columnCompaniaImpresion" msprop:Generator_ColumnPropNameInRow="CompaniaImpresion" msprop:Generator_ColumnPropNameInTable="CompaniaImpresionColumn" msprop:Generator_UserColumnName="CompaniaImpresion" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="300" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="IdSolicitante" msprop:Generator_ColumnVarNameInTable="columnIdSolicitante" msprop:Generator_ColumnPropNameInRow="IdSolicitante" msprop:Generator_ColumnPropNameInTable="IdSolicitanteColumn" msprop:Generator_UserColumnName="IdSolicitante" type="xs:int" minOccurs="0" />
+              <xs:element name="NombreSolicitante" msprop:Generator_ColumnVarNameInTable="columnNombreSolicitante" msprop:Generator_ColumnPropNameInRow="NombreSolicitante" msprop:Generator_ColumnPropNameInTable="NombreSolicitanteColumn" msprop:Generator_UserColumnName="NombreSolicitante" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="200" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Telefono" msprop:Generator_ColumnVarNameInTable="columnTelefono" msprop:Generator_ColumnPropNameInRow="Telefono" msprop:Generator_ColumnPropNameInTable="TelefonoColumn" msprop:Generator_UserColumnName="Telefono" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="20" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Email" msprop:Generator_ColumnVarNameInTable="columnEmail" msprop:Generator_ColumnPropNameInRow="Email" msprop:Generator_ColumnPropNameInTable="EmailColumn" msprop:Generator_UserColumnName="Email" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="IdGrupoModeloSol" msprop:Generator_ColumnVarNameInTable="columnIdGrupoModeloSol" msprop:Generator_ColumnPropNameInRow="IdGrupoModeloSol" msprop:Generator_ColumnPropNameInTable="IdGrupoModeloSolColumn" msprop:Generator_UserColumnName="IdGrupoModeloSol" type="xs:int" minOccurs="0" />
+              <xs:element name="MonedaPresupuesto" msprop:Generator_ColumnVarNameInTable="columnMonedaPresupuesto" msprop:Generator_ColumnPropNameInRow="MonedaPresupuesto" msprop:Generator_ColumnPropNameInTable="MonedaPresupuestoColumn" msprop:Generator_UserColumnName="MonedaPresupuesto" type="xs:int" minOccurs="0" />
+              <xs:element name="VueloNacional" msprop:Generator_ColumnVarNameInTable="columnVueloNacional" msprop:Generator_ColumnPropNameInRow="VueloNacional" msprop:Generator_ColumnPropNameInTable="VueloNacionalColumn" msprop:Generator_UserColumnName="VueloNacional" type="xs:decimal" minOccurs="0" />
+              <xs:element name="VueloInternacional" msprop:Generator_ColumnVarNameInTable="columnVueloInternacional" msprop:Generator_ColumnPropNameInRow="VueloInternacional" msprop:Generator_ColumnPropNameInTable="VueloInternacionalColumn" msprop:Generator_UserColumnName="VueloInternacional" type="xs:decimal" minOccurs="0" />
+              <xs:element name="EsperaNacional" msprop:Generator_ColumnVarNameInTable="columnEsperaNacional" msprop:Generator_ColumnPropNameInRow="EsperaNacional" msprop:Generator_ColumnPropNameInTable="EsperaNacionalColumn" msprop:Generator_UserColumnName="EsperaNacional" type="xs:decimal" minOccurs="0" />
+              <xs:element name="EsperaInternacional" msprop:Generator_ColumnVarNameInTable="columnEsperaInternacional" msprop:Generator_ColumnPropNameInRow="EsperaInternacional" msprop:Generator_ColumnPropNameInTable="EsperaInternacionalColumn" msprop:Generator_UserColumnName="EsperaInternacional" type="xs:decimal" minOccurs="0" />
+              <xs:element name="PernoctaNacional" msprop:Generator_ColumnVarNameInTable="columnPernoctaNacional" msprop:Generator_ColumnPropNameInRow="PernoctaNacional" msprop:Generator_ColumnPropNameInTable="PernoctaNacionalColumn" msprop:Generator_UserColumnName="PernoctaNacional" type="xs:decimal" minOccurs="0" />
+              <xs:element name="PernoctaInternacional" msprop:Generator_ColumnVarNameInTable="columnPernoctaInternacional" msprop:Generator_ColumnPropNameInRow="PernoctaInternacional" msprop:Generator_ColumnPropNameInTable="PernoctaInternacionalColumn" msprop:Generator_UserColumnName="PernoctaInternacional" type="xs:decimal" minOccurs="0" />
+              <xs:element name="IdSiglasAeropuerto" msprop:Generator_ColumnVarNameInTable="columnIdSiglasAeropuerto" msprop:Generator_ColumnPropNameInRow="IdSiglasAeropuerto" msprop:Generator_ColumnPropNameInTable="IdSiglasAeropuertoColumn" msprop:Generator_UserColumnName="IdSiglasAeropuerto" type="xs:int" minOccurs="0" />
+              <xs:element name="FactorIntercambio" msprop:Generator_ColumnVarNameInTable="columnFactorIntercambio" msprop:Generator_ColumnPropNameInRow="FactorIntercambio" msprop:Generator_ColumnPropNameInTable="FactorIntercambioColumn" msprop:Generator_UserColumnName="FactorIntercambio" type="xs:boolean" minOccurs="0" />
+              <xs:element name="FactorGiraEspera" msprop:Generator_ColumnVarNameInTable="columnFactorGiraEspera" msprop:Generator_ColumnPropNameInRow="FactorGiraEspera" msprop:Generator_ColumnPropNameInTable="FactorGiraEsperaColumn" msprop:Generator_UserColumnName="FactorGiraEspera" type="xs:boolean" minOccurs="0" />
+              <xs:element name="FactorGiraHorario" msprop:Generator_ColumnVarNameInTable="columnFactorGiraHorario" msprop:Generator_ColumnPropNameInRow="FactorGiraHorario" msprop:Generator_ColumnPropNameInTable="FactorGiraHorarioColumn" msprop:Generator_UserColumnName="FactorGiraHorario" type="xs:boolean" minOccurs="0" />
+              <xs:element name="FactorFechaPico" msprop:Generator_ColumnVarNameInTable="columnFactorFechaPico" msprop:Generator_ColumnPropNameInRow="FactorFechaPico" msprop:Generator_ColumnPropNameInTable="FactorFechaPicoColumn" msprop:Generator_UserColumnName="FactorFechaPico" type="xs:boolean" minOccurs="0" />
+              <xs:element name="FactorIntercambioD" msprop:Generator_ColumnVarNameInTable="columnFactorIntercambioD" msprop:Generator_ColumnPropNameInRow="FactorIntercambioD" msprop:Generator_ColumnPropNameInTable="FactorIntercambioDColumn" msprop:Generator_UserColumnName="FactorIntercambioD" type="xs:decimal" minOccurs="0" />
+              <xs:element name="FactorGiraEsperaD" msprop:Generator_ColumnVarNameInTable="columnFactorGiraEsperaD" msprop:Generator_ColumnPropNameInRow="FactorGiraEsperaD" msprop:Generator_ColumnPropNameInTable="FactorGiraEsperaDColumn" msprop:Generator_UserColumnName="FactorGiraEsperaD" type="xs:decimal" minOccurs="0" />
+              <xs:element name="FactorGiraHorarioD" msprop:Generator_ColumnVarNameInTable="columnFactorGiraHorarioD" msprop:Generator_ColumnPropNameInRow="FactorGiraHorarioD" msprop:Generator_ColumnPropNameInTable="FactorGiraHorarioDColumn" msprop:Generator_UserColumnName="FactorGiraHorarioD" type="xs:decimal" minOccurs="0" />
+              <xs:element name="FactorFechaPicoD" msprop:Generator_ColumnVarNameInTable="columnFactorFechaPicoD" msprop:Generator_ColumnPropNameInRow="FactorFechaPicoD" msprop:Generator_ColumnPropNameInTable="FactorFechaPicoDColumn" msprop:Generator_UserColumnName="FactorFechaPicoD" type="xs:decimal" minOccurs="0" />
+              <xs:element name="Observaciones" msprop:Generator_ColumnVarNameInTable="columnObservaciones" msprop:Generator_ColumnPropNameInRow="Observaciones" msprop:Generator_ColumnPropNameInTable="ObservacionesColumn" msprop:Generator_UserColumnName="Observaciones" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="2000" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="IdSolicitud" msprop:Generator_ColumnVarNameInTable="columnIdSolicitud" msprop:Generator_ColumnPropNameInRow="IdSolicitud" msprop:Generator_ColumnPropNameInTable="IdSolicitudColumn" msprop:Generator_UserColumnName="IdSolicitud" type="xs:int" minOccurs="0" />
+              <xs:element name="Status" msprop:Generator_ColumnVarNameInTable="columnStatus" msprop:Generator_ColumnPropNameInRow="Status" msprop:Generator_ColumnPropNameInTable="StatusColumn" msprop:Generator_UserColumnName="Status" type="xs:unsignedByte" minOccurs="0" />
+              <xs:element name="UsuarioCreacion" msprop:Generator_ColumnVarNameInTable="columnUsuarioCreacion" msprop:Generator_ColumnPropNameInRow="UsuarioCreacion" msprop:Generator_ColumnPropNameInTable="UsuarioCreacionColumn" msprop:Generator_UserColumnName="UsuarioCreacion" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="20" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="FechaCreacion" msprop:Generator_ColumnVarNameInTable="columnFechaCreacion" msprop:Generator_ColumnPropNameInRow="FechaCreacion" msprop:Generator_ColumnPropNameInTable="FechaCreacionColumn" msprop:Generator_UserColumnName="FechaCreacion" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="UsuarioModificacion" msprop:Generator_ColumnVarNameInTable="columnUsuarioModificacion" msprop:Generator_ColumnPropNameInRow="UsuarioModificacion" msprop:Generator_ColumnPropNameInTable="UsuarioModificacionColumn" msprop:Generator_UserColumnName="UsuarioModificacion" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="20" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="FechaModificacion" msprop:Generator_ColumnVarNameInTable="columnFechaModificacion" msprop:Generator_ColumnPropNameInRow="FechaModificacion" msprop:Generator_ColumnPropNameInTable="FechaModificacionColumn" msprop:Generator_UserColumnName="FechaModificacion" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="IP" msprop:Generator_ColumnVarNameInTable="columnIP" msprop:Generator_ColumnPropNameInRow="IP" msprop:Generator_ColumnPropNameInTable="IPColumn" msprop:Generator_UserColumnName="IP" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="20" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="TotalHrsDescontar" msprop:Generator_TableClassName="TotalHrsDescontarDataTable" msprop:Generator_TableVarName="tableTotalHrsDescontar" msprop:Generator_RowChangedName="TotalHrsDescontarRowChanged" msprop:Generator_TablePropName="TotalHrsDescontar" msprop:Generator_RowDeletingName="TotalHrsDescontarRowDeleting" msprop:Generator_RowChangingName="TotalHrsDescontarRowChanging" msprop:Generator_RowEvHandlerName="TotalHrsDescontarRowChangeEventHandler" msprop:Generator_RowDeletedName="TotalHrsDescontarRowDeleted" msprop:Generator_RowClassName="TotalHrsDescontarRow" msprop:Generator_UserTableName="TotalHrsDescontar" msprop:Generator_RowEvArgName="TotalHrsDescontarRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="HrsDescontar" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnHrsDescontar" msprop:Generator_ColumnPropNameInRow="HrsDescontar" msprop:Generator_ColumnPropNameInTable="HrsDescontarColumn" msprop:Generator_UserColumnName="HrsDescontar" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="5" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="DatosUsuario" msprop:Generator_TableClassName="DatosUsuarioDataTable" msprop:Generator_TableVarName="tableDatosUsuario" msprop:Generator_TablePropName="DatosUsuario" msprop:Generator_RowDeletingName="DatosUsuarioRowDeleting" msprop:Generator_RowChangingName="DatosUsuarioRowChanging" msprop:Generator_RowEvHandlerName="DatosUsuarioRowChangeEventHandler" msprop:Generator_RowDeletedName="DatosUsuarioRowDeleted" msprop:Generator_UserTableName="DatosUsuario" msprop:Generator_RowChangedName="DatosUsuarioRowChanged" msprop:Generator_RowEvArgName="DatosUsuarioRowChangeEvent" msprop:Generator_RowClassName="DatosUsuarioRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Nombre" msprop:Generator_ColumnVarNameInTable="columnNombre" msprop:Generator_ColumnPropNameInRow="Nombre" msprop:Generator_ColumnPropNameInTable="NombreColumn" msprop:Generator_UserColumnName="Nombre" type="xs:string" minOccurs="0" />
+              <xs:element name="Correo" msprop:Generator_ColumnVarNameInTable="columnCorreo" msprop:Generator_ColumnPropNameInRow="Correo" msprop:Generator_ColumnPropNameInTable="CorreoColumn" msprop:Generator_UserColumnName="Correo" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:tbd_MXJ_ServiciosVueloConceptosPresupuesto_H" />
+      <xs:field xpath="mstns:IdConceptosH" />
+    </xs:unique>
+    <xs:unique name="tbp_MXJ_ServiciosVueloConceptosPresupuesto_D_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:tbp_MXJ_ServiciosVueloConceptosPresupuesto_D" />
+      <xs:field xpath="mstns:IdServicioCargo" />
+    </xs:unique>
+    <xs:unique name="tbp_MXJ_ServiciosCargoPresupuestos_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:tbp_MXJ_ServiciosCargoPresupuestos" />
+      <xs:field xpath="mstns:IdServicio" />
+    </xs:unique>
+    <xs:unique name="tbp_MXJ_ServiciosVueloConceptosPresupuesto_D1_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:tbp_MXJ_ServiciosVueloConceptosPresupuesto_D1" />
+      <xs:field xpath="mstns:IdServicioCargo" />
+    </xs:unique>
+    <xs:unique name="tbp_MXJ_ServiciosVueloConceptosPresupuesto_D2_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:tbp_MXJ_ServiciosVueloConceptosPresupuesto_D2" />
+      <xs:field xpath="mstns:IdServicioCargo" />
+    </xs:unique>
+    <xs:unique name="tbp_MXJ_ServiciosVueloConceptosPresupuesto_D3_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:tbp_MXJ_ServiciosVueloConceptosPresupuesto_D3" />
+      <xs:field xpath="mstns:IdServicioCargo" />
+    </xs:unique>
+    <xs:unique name="tbp_MXJ_ServiciosVueloConceptosPresupuesto_D4_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:tbp_MXJ_ServiciosVueloConceptosPresupuesto_D4" />
+      <xs:field xpath="mstns:IdServicioCargo" />
+    </xs:unique>
+    <xs:unique name="tbp_MXJ_ServiciosVueloConceptosPresupuesto_D5_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:tbp_MXJ_ServiciosVueloConceptosPresupuesto_D5" />
+      <xs:field xpath="mstns:IdServicioCargo" />
+    </xs:unique>
+    <xs:unique name="tbp_MXJ_TramosPresupuesto_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:tbp_MXJ_TramosPresupuesto" />
+      <xs:field xpath="mstns:IdTramo" />
+    </xs:unique>
+    <xs:unique name="tbp_MXJ_Presupuestos_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:tbp_MXJ_Presupuestos" />
+      <xs:field xpath="mstns:IdPresupuesto" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

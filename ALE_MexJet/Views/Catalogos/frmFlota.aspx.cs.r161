@@ -1,0 +1,231 @@
+﻿using ALE_MexJet.DomainModel;
+using ALE_MexJet.Interfaces;
+using ALE_MexJet.Objetos;
+using ALE_MexJet.Presenter;
+using System;
+using System.Data;
+using System.Web.UI;
+using NucleoBase.Core;
+
+using DevExpress.Export;
+using DevExpress.XtraPrinting;
+using System.ComponentModel;
+using ALE_MexJet.ControlesUsuario;
+using DevExpress.Web;
+using System.Collections.Generic;
+
+namespace ALE_MexJet.Views.Catalogos
+{
+    public partial class frmFlota : System.Web.UI.Page, IViewCat
+    {
+        #region EVENTOS
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            oPresenter = new Flota_Presenter(this, new DBFlota());
+
+            if (IsPostBack)
+            {
+                if (!string.IsNullOrEmpty(ViewState["oDatos"].S()))
+                {
+                    LoadObjects((DataTable)ViewState["oDatos"]);
+                }
+            }
+        }
+
+        protected void gvFlota_RowDeleting(object sender, DevExpress.Web.Data.ASPxDataDeletingEventArgs e)
+        {
+            eCrud = Enumeraciones.TipoOperacion.Eliminar;
+            oCrud = e;
+            CancelEditing(e);
+
+            if (eDeleteObj != null)
+                eDeleteObj(sender, e);
+        }
+
+        protected void gvFlota_RowUpdating(object sender, DevExpress.Web.Data.ASPxDataUpdatingEventArgs e)
+        {
+            eCrud = Enumeraciones.TipoOperacion.Actualizar;
+            oCrud = e;
+
+            if (eSaveObj != null)
+                eSaveObj(sender, e);
+
+            CancelEditing(e);
+        }
+        protected void gvFlota_RowValidating(object sender, DevExpress.Web.Data.ASPxDataValidationEventArgs e)
+        {
+            oCrud = e;
+
+            if (eObjSelected != null)
+                eObjSelected(sender, e);
+
+            if (bDuplicado)
+            {
+                AddError(e.Errors, gvFlota.Columns["DescripcionFlota"], "Esta Flota ya existe, favor de validarlo.");
+            }
+
+        }
+        protected void gvFlota_RowInserting(object sender, DevExpress.Web.Data.ASPxDataInsertingEventArgs e)
+        {
+
+            eCrud = Enumeraciones.TipoOperacion.Insertar;
+            oCrud = e;
+
+            if (eNewObj != null)
+                eNewObj(sender, e);
+
+            CancelEditing(e);
+        }
+
+        protected void gvFlota_CellEditorInitialize(object sender, DevExpress.Web.ASPxGridViewEditorEventArgs e)
+        {
+            e.Editor.ReadOnly = false;
+            ASPxGridView gridView = (ASPxGridView)sender;
+
+            if (gridView.IsNewRowEditing)
+            {
+                eCrud = Enumeraciones.TipoOperacion.Insertar;
+                gvFlota.Columns["Status"].Visible = false;
+
+            }
+            else
+            {
+                eCrud = Enumeraciones.TipoOperacion.Actualizar;
+            }
+        }
+
+        protected void imbExport_Click(object sender, ImageClickEventArgs e)
+        {
+            try
+            {
+                Exporter.WriteXlsToResponse(new XlsExportOptionsEx() { ExportType = ExportType.DataAware });
+            }
+
+            catch (Exception ex)
+            {
+                string sError = string.Format("Se detecto el siguiente error: {0}", ex.Message);
+                MostrarMensaje(sError, "Precaucion");
+            }
+        }
+
+        protected void btnBuscar_Click(object sender, EventArgs e)
+        {
+            ObtieneValores();
+        }
+        #endregion
+
+        #region "METODOS"
+
+        void AddError(Dictionary<GridViewColumn, string> errors, GridViewColumn column, string errorText)
+        {
+            if (errors.ContainsKey(column)) return;
+            errors[column] = errorText;
+        }
+
+        public void ObtieneValores()
+        {
+            if (eSearchObj != null)
+                eSearchObj(null, EventArgs.Empty);
+        }
+        public void LoadObjects(DataTable dtObject)
+        {
+            gvFlota.DataSource = null;
+            if (dtObject.Rows.Count > 0)
+            {
+                gvFlota.DataSource = dtObject;
+                gvFlota.DataBind();
+            }
+            ViewState["oDatos"] = dtObject;
+        }
+        public void MostrarMensaje(string sMensaje, string sCaption)
+        {
+            popup.HeaderText = sCaption;
+            gvFlota.JSProperties["cpText"] = sMensaje;
+            gvFlota.JSProperties["cpShowPopup"] = true;
+        }
+        protected void CancelEditing(CancelEventArgs e)
+        {
+            e.Cancel = true;
+            gvFlota.CancelEdit();
+        }
+
+        #endregion
+
+        #region "Vars y Propiedades"
+        Flota_Presenter oPresenter;
+        public event EventHandler eNewObj;
+        public event EventHandler eObjSelected;
+        public event EventHandler eSaveObj;
+        public event EventHandler eDeleteObj;
+        public event EventHandler eSearchObj;
+
+        public bool bDuplicado
+        {
+            get
+            {
+                return (bool)ViewState["RegistroDuplicado"];
+            }
+            set
+            {
+                ViewState["RegistroDuplicado"] = value;
+            }
+        }
+        public object oCrud
+        {
+            get { return ViewState["CrudPiloto"]; }
+            set { ViewState["CrudPiloto"] = value; }
+        }
+
+        public ALE_MexJet.Objetos.Enumeraciones.TipoOperacion eCrud
+        {
+            get { return (ALE_MexJet.Objetos.Enumeraciones.TipoOperacion)ViewState["eCrud"]; }
+            set { ViewState["eCrud"] = value; }
+        }
+
+        public object[] oArrFiltros
+        {
+            get
+            {
+                int iIdFlota = 0;
+                int iEstatus = -1;
+                string sDescripcion = string.Empty;
+
+                switch (ddlTipoBusqueda.Value.S())
+                {
+                    case "1":
+                        iIdFlota = txtTextoBusqueda.Text.S().I();
+                        iEstatus = -1;
+                        sDescripcion = string.Empty;
+                        break;
+                    case "2":
+                        iIdFlota = 0;
+                        iEstatus = -1;
+                        sDescripcion = txtTextoBusqueda.Text.S();
+                        break;
+                    case "3":
+                        iIdFlota = 0;
+                        iEstatus = 1;
+                        sDescripcion = string.Empty;
+                        break;
+                    case "4":
+                        iEstatus = 0;
+                        sDescripcion = string.Empty;
+                        break;
+
+                }
+
+                return new object[]{
+                                        "@IdFlota", iIdFlota,
+                                        "@Descripcion", "%" + sDescripcion + "%",
+                                        "@estatus", iEstatus
+                                    };
+            }
+
+        }
+
+        #endregion
+
+        
+
+    }
+}

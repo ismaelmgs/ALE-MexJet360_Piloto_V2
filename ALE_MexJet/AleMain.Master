@@ -1,0 +1,208 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="AleMain.master.cs" Inherits="ALE_MexJet.AleMain" %>
+
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head runat="server">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>.: Aerolineas Ejecutivas :.</title>
+
+    <link href="SwitcherResources/Content/litera/bootstrap.min.css" rel="stylesheet" />
+
+    <link rel="shortcut icon" href="<%= ResolveClientUrl("~/img/colors/blue/logo-ale.png") %>" />
+
+    <!-- Bootstrap core CSS -->
+    <%--<link href="css/bootstrap.min.css" rel="stylesheet" />--%>
+    <!-- Bootstrap theme -->
+
+    <%--<link href="css/bootstrap-theme.css" rel="stylesheet" />--%>
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+	<link rel="stylesheet" type="text/css" href="css/component.css" />
+	<script src="<%= ResolveClientUrl("~/Scripts/js/modernizr.custom.js") %>"></script>
+
+    <!-- Custom styles for this template -->
+    <%--<link href="theme.css" rel="stylesheet" />--%>
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="<%= ResolveClientUrl("~/Scripts/js/ie-emulation-modes-warning.js") %>"></script>
+
+    <%--<link href="css/styles-main.css" rel="stylesheet" media="screen" />--%> <!-- Estilos creados -->
+    <%--<link href="css/style-blue.css" rel="stylesheet" media="screen" />--%> <!-- Estilos del prototipo -->
+      
+
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body role="document">
+    
+    <form id="form1" runat="server">
+
+        <div class="container" style="margin-top: -65px;">
+            <div class="row">
+                <div class="col-md-2"><img src="img/logo-ale.png" width="156" height="92"  alt=""/></div>
+                <div class="col-md-5">&nbsp;</div>
+                <div class="col-md-4">menu social y login</div>
+                <div class="col-md-1">&nbsp;</div>
+            </div>
+        </div>
+
+        <!-- Fixed navbar -->
+        <nav class="navbar navbar-inverse">
+          <div class="container">
+          <!-- <div class="header1"></div> -->
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <!-- <a class="navbar-brand" href="#">Bootstrap theme</a> -->
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+              <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Inicio</a></li>
+                <li><a href="#about">Contratos</a></li>
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Reportes <span class="caret"></span></a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li><a href="frmEstadoCuenta.html">Estado de Cuenta</a></li>
+                  </ul>
+                </li>
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Clientes <span class="caret"></span></a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li><a href="frmUsuarios.html">Alta de Clientes</a></li>
+                    <li><a href="frmConsultaClientes.html">Consulta de Clientes</a></li>
+                    <!-- <li class="divider"></li>
+                    <li class="dropdown-header">Nav header</li>
+                    <li><a href="#">Separated link</a></li>
+                    <li><a href="#">One more separated link</a></li> -->
+                  </ul>
+                </li>
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Administración <span class="caret"></span></a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li><a href="#">Usuarios</a></li>
+                    <li><a href="#">Clientes</a></li>
+                    <li><a href="#">Productos</a></li>
+                    <!-- <li class="divider"></li>
+                    <li class="dropdown-header">Nav header</li>
+                    <li><a href="#">Separated link</a></li>
+                    <li><a href="#">One more separated link</a></li> -->
+                  </ul>
+                </li>
+              </ul>
+            </div><!--/.nav-collapse -->
+          </div>
+        </nav>
+
+        <%-- Contenedor Principal  --%>
+        <div class="container theme-showcase" role="main">
+            <div>
+                <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                    
+                </asp:ContentPlaceHolder>
+            </div>
+
+            <div id="footer" style="background-color: #333; width: 100%; height: 60px; color: #FFF; /* position: fixed; */ margin-bottom: -30px; border-top: solid 1px; border-top-color: #575757; padding-top: 8px;">
+                 <p align="center">México DF: +52 (55) 4209 0200 Av. Paseo de la Reforma 2608 piso 20<br />
+                     &copy; 2015 <a href="http://www.aerolineasejecutivas.com/" target="_blank">Aerolineas Ejecutivas</a>, Todos los derechos reservados.</p>
+             </div>
+
+
+        </div>
+        <%-- Fin de Contenedor Principal  --%>
+
+    </form>
+
+    
+
+   
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="<%= ResolveClientUrl("~/js/jquery.min.js") %>"></script>
+    <script src="<%= ResolveClientUrl("~/js/bootstrap.min.js") %>"></script>
+    <script src="<%= ResolveClientUrl("~/js/docs.min.js") %>"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="<%= ResolveClientUrl("~/js/ie10-viewport-bug-workaround.js") %>"></script>
+    <script src="<%= ResolveClientUrl("~/js/classie.js") %>"></script>
+	<script>
+		var menuLeft = document.getElementById('cbp-spmenu-s1'),
+			menuRight = document.getElementById('cbp-spmenu-s2'),
+			menuTop = document.getElementById('cbp-spmenu-s3'),
+			menuBottom = document.getElementById('cbp-spmenu-s4'),
+			showLeft = document.getElementById('showLeft'),
+			showRight = document.getElementById('showRight'),
+			showTop = document.getElementById('showTop'),
+			showBottom = document.getElementById('showBottom'),
+			showLeftPush = document.getElementById('showLeftPush'),
+			showRightPush = document.getElementById('showRightPush'),
+			body = document.body;
+
+		showLeft.onclick = function () {
+		    classie.toggle(this, 'active');
+		    classie.toggle(menuLeft, 'cbp-spmenu-open');
+		    disableOther('showLeft');
+		};
+		showRight.onclick = function () {
+		    classie.toggle(this, 'active');
+		    classie.toggle(menuRight, 'cbp-spmenu-open');
+		    disableOther('showRight');
+		};
+		showTop.onclick = function () {
+		    classie.toggle(this, 'active');
+		    classie.toggle(menuTop, 'cbp-spmenu-open');
+		    disableOther('showTop');
+		};
+		showBottom.onclick = function () {
+		    classie.toggle(this, 'active');
+		    classie.toggle(menuBottom, 'cbp-spmenu-open');
+		    disableOther('showBottom');
+		};
+		showLeftPush.onclick = function () {
+		    classie.toggle(this, 'active');
+		    classie.toggle(body, 'cbp-spmenu-push-toright');
+		    classie.toggle(menuLeft, 'cbp-spmenu-open');
+		    disableOther('showLeftPush');
+		};
+		showRightPush.onclick = function () {
+		    classie.toggle(this, 'active');
+		    classie.toggle(body, 'cbp-spmenu-push-toleft');
+		    classie.toggle(menuRight, 'cbp-spmenu-open');
+		    disableOther('showRightPush');
+		};
+
+		function disableOther(button) {
+		    if (button !== 'showLeft') {
+		        classie.toggle(showLeft, 'disabled');
+		    }
+		    if (button !== 'showRight') {
+		        classie.toggle(showRight, 'disabled');
+		    }
+		    if (button !== 'showTop') {
+		        classie.toggle(showTop, 'disabled');
+		    }
+		    if (button !== 'showBottom') {
+		        classie.toggle(showBottom, 'disabled');
+		    }
+		    if (button !== 'showLeftPush') {
+		        classie.toggle(showLeftPush, 'disabled');
+		    }
+		    if (button !== 'showRightPush') {
+		        classie.toggle(showRightPush, 'disabled');
+		    }
+		}
+	</script>
+    
+    
+</body>
+</html>

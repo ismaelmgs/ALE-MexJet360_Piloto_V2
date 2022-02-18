@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="ab15144e-9ded-4db6-ab34-78a0b7a7c6fa" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://192.168.1.231/wsMexJet_Produccion/wsSiteLine.svc?wsdl" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="wsSiteLine6.xsd" MetadataType="Schema" ID="ef9692f2-6af3-41e0-8a08-88140329eaf7" SourceId="1" SourceUrl="http://192.168.1.231/wsMexJet_Produccion/wsSiteLine.svc?xsd=xsd2" />
+    <MetadataFile FileName="ws_SyteLine1.wsdl" MetadataType="Wsdl" ID="f945ec61-64d9-481c-971b-aaf0ab7f20ed" SourceId="1" SourceUrl="http://192.168.1.231/wsMexJet_Produccion/wsSiteLine.svc?wsdl" />
+    <MetadataFile FileName="wsSiteLine7.xsd" MetadataType="Schema" ID="569ea135-22ad-486a-ad84-7ef2bffccb3d" SourceId="1" SourceUrl="http://192.168.1.231/wsMexJet_Produccion/wsSiteLine.svc?xsd=xsd0" />
+    <MetadataFile FileName="wsSiteLine8.xsd" MetadataType="Schema" ID="698e4ad8-dbac-4591-ab0a-77d998620c78" SourceId="1" SourceUrl="http://192.168.1.231/wsMexJet_Produccion/wsSiteLine.svc?xsd=xsd5" />
+    <MetadataFile FileName="wsSiteLine9.xsd" MetadataType="Schema" ID="8f35d44c-8b97-41e5-bb93-a6e71c18ac1e" SourceId="1" SourceUrl="http://192.168.1.231/wsMexJet_Produccion/wsSiteLine.svc?xsd=xsd3" />
+    <MetadataFile FileName="wsSiteLine10.xsd" MetadataType="Schema" ID="6acc46ee-7247-4a7b-a617-5cb8a36362b4" SourceId="1" SourceUrl="http://192.168.1.231/wsMexJet_Produccion/wsSiteLine.svc?xsd=xsd1" />
+    <MetadataFile FileName="wsSiteLine11.xsd" MetadataType="Schema" ID="a4f6d49f-4520-4a39-bd4a-5d58222dcd42" SourceId="1" SourceUrl="http://192.168.1.231/wsMexJet_Produccion/wsSiteLine.svc?xsd=xsd4" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

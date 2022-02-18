@@ -1,0 +1,330 @@
+﻿ <%@ Page Title="" Language="C#" MasterPageFile="~/ALE_Main.Master" AutoEventWireup="true" CodeBehind="frmVentaFerrys.aspx.cs" UICulture="es" Culture="es-MX" EnableEventValidation="false" Inherits="ALE_MexJet.Views.JetSmart.frmVentaFerrys" %>
+
+<%@ Register Assembly="DevExpress.Web.v20.1, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" Namespace="DevExpress.Web" TagPrefix="dx" %>
+<%@ Register Assembly="DevExpress.Web.Bootstrap.v20.1, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" Namespace="DevExpress.Web.Bootstrap" TagPrefix="dx" %>
+<%@ Register Src="~/ControlesUsuario/ucModalMensaje.ascx" TagPrefix="uc1" TagName="ucModalMensaje" %>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <link rel="stylesheet" type="text/css" href="../../Styles/Controls.css" />
+    <script type="text/javascript">
+        function suma(s, e) {
+            alert(s);
+
+            hfNacional.properties
+            //var IVA;
+            //var Subtotal;
+            //if (txtIVA.GetValue() == null)
+            //    IVA = 0;
+            //else
+            //    IVA = parseFloat(txtIVA.GetValue());
+
+            //if (txtSubtotal.GetValue() == null)
+            //    Subtotal = 0;
+            //else
+            //    Subtotal = parseFloat(txtSubtotal.GetValue());
+
+            //var Total = IVA + Subtotal;
+            //txtTotal.SetText(Total);
+        }
+
+    </script>
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <dx:ASPxPanel ID="pnlPrincipal" runat="server" Width="100%" BackColor="White" Style="border-radius: 14px;">
+        <PanelCollection>
+            <dx:PanelContent>
+                <div class="row header1">
+                    <div class="col-md-12">
+                        <span style="color: #ffffff; font-family: Helvetica, Arial,sans-serif; font-size: 20px;">&nbsp;&nbsp;Venta de ferrys</span>
+                    </div>
+                </div>
+                <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Always" OnUnload="UpdatePanel1_Unload">
+                    <ContentTemplate>
+                        <uc1:ucModalMensaje ID="mpeMensaje" runat="server" />
+                        <div class="well-g">
+                            <div class="row">
+                                <div class="col-md-12">
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row">
+                                <div class="col-md-6" style="text-align:left;">
+                                    
+                                </div>
+                                <div class="col-md-6" style="text-align: right;">
+                                    <dx:ASPxLabel runat="server" Theme="Aqua" Text="Exportar a:"></dx:ASPxLabel>
+                                    &nbsp;<dx:ASPxButton ID="btnExcel" runat="server" Text="Excel" Theme="Office2010Black"></dx:ASPxButton>
+                                </div>
+                            </div>
+                            <br />
+
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <dx:BootstrapGridView ID="gvFerrysVenta" runat="server" KeyFieldName="IdFerry" 
+                                        OnRowCommand="gvFerrysVenta_RowCommand" >
+                                        <SettingsSearchPanel Visible="true" ShowApplyButton="true" />
+                                        <SettingsAdaptivity AdaptivityMode="HideDataCells" AllowOnlyOneAdaptiveDetailExpanded="true"></SettingsAdaptivity>
+                                        <Columns>
+                                            <dx:BootstrapGridViewDataColumn FieldName="IdFerry" Caption="Id ferry" VisibleIndex="1" CssClasses-DataCell="hideColumn" CssClasses-HeaderCell="hideColumn" />
+                                            <dx:BootstrapGridViewDataColumn FieldName="Trip" Caption="TRIP" VisibleIndex="2" SortIndex="0" CssClasses-HeaderCell="" CssClasses-DataCell="" HorizontalAlign="Center" Settings-AllowCellMerge="True" />
+                                            <dx:BootstrapGridViewDataColumn FieldName="NoPierna" Caption="No. Pierna" VisibleIndex="3" CssClasses-HeaderCell="" CssClasses-DataCell="" HorizontalAlign="Center" Settings-AllowCellMerge="True" />
+                                            <dx:BootstrapGridViewDataColumn FieldName="Origen" Caption="Origen" VisibleIndex="4" CssClasses-HeaderCell="" CssClasses-DataCell="" HorizontalAlign="Center" Settings-AllowCellMerge="True" />
+                                            <dx:BootstrapGridViewDataColumn FieldName="FechaSalida" Caption="Fecha salida" VisibleIndex="5" CssClasses-HeaderCell="border-1" CssClasses-DataCell="itemTd" HorizontalAlign="Center" Settings-AllowCellMerge="True" />
+                                            <dx:BootstrapGridViewDataColumn FieldName="Destino" Caption="Destino" VisibleIndex="6" CssClasses-HeaderCell="border-1" CssClasses-DataCell="itemTd" HorizontalAlign="Center" />
+                                            <dx:BootstrapGridViewDataColumn FieldName="FechaLlegada" Caption="Fecha llegada" VisibleIndex="7" CssClasses-DataCell="hideColumn" CssClasses-HeaderCell="hideColumn" />
+                                            <dx:BootstrapGridViewDataColumn FieldName="TiempoVuelo" Caption="Tiempo vuelo" VisibleIndex="8" CssClasses-HeaderCell="border-1" CssClasses-DataCell="itemTd" HorizontalAlign="Center" />
+                                            <dx:BootstrapGridViewDataColumn FieldName="Matricula" Caption="Matricula" VisibleIndex="9" CssClasses-HeaderCell="border-1" CssClasses-DataCell="itemTd" HorizontalAlign="Center" />
+                                            <dx:BootstrapGridViewDataColumn FieldName="GrupoModelo" Caption="Grupo modelo" VisibleIndex="10" CssClasses-HeaderCell="border-1" CssClasses-DataCell="itemTd" HorizontalAlign="Center" />
+                                            <dx:BootstrapGridViewDataColumn FieldName="TipoDestino" Caption="Tipo destino" Visible="false" VisibleIndex="10" CssClasses-HeaderCell="border-1" CssClasses-DataCell="itemTd" HorizontalAlign="Center" />
+                                            <dx:BootstrapGridViewDataColumn VisibleIndex="11">
+                                                <DataItemTemplate>
+                                                    <dx:BootstrapButton ID="btnGuardarFerry" runat="server" Text="Actualizar" CommandName="ActualizarFerry" CommandArgument='<%# Eval("IdFerry").ToString()%>'></dx:BootstrapButton>
+                                                </DataItemTemplate>
+                                            </dx:BootstrapGridViewDataColumn>
+                                        </Columns>
+                                    </dx:BootstrapGridView>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12" style="margin-left: 50px; width: 90%; text-align:center;">
+                                    <div class="col-sm-12">
+                                        <div style="width: 100%; overflow-x: auto"></div>
+                                        <asp:GridView ID="gvFerrys" runat="server" AutoGenerateColumns="false" CssClass="table"
+                                            Style="border-top: 1px solid #484848; border-left: 1px solid #484848; border-right: 1px solid #484848; border-bottom: 1px solid #484848;"
+                                            DataKeyNames="IdFerry" ShowFooter="true">
+                                            <HeaderStyle CssClass="celda2" />
+                                            <RowStyle CssClass="celda6" Height="16px" Font-Size="Small" />
+                                            <FooterStyle CssClass="celda3" />
+                                            <Columns>
+                                                <asp:BoundField DataField="Trip" HeaderText="Trip" />
+                                                <asp:BoundField DataField="NoPierna" HeaderText="No. Pierna" />
+                                                <asp:BoundField DataField="Origen" HeaderText="Origen" />
+                                                <asp:BoundField DataField="FechaSalida" HeaderText="Fecha Salida" />
+                                                <asp:BoundField DataField="Destino" HeaderText="Destino" />
+                                                <asp:BoundField DataField="FechaLlegada" HeaderText="Fecha Llegada" />
+                                                <asp:BoundField DataField="Matricula" HeaderText="Matrícula" />
+                                                <asp:BoundField DataField="GrupoModelo" HeaderText="Grupo Modelo" />
+                                                <asp:TemplateField HeaderText="Acciones">
+                                                    <ItemTemplate>
+                                                        <asp:UpdatePanel ID="upaSave" runat="server" OnUnload="UpdatePanel1_Unload">
+                                                            <ContentTemplate>
+                                                                <dx:ASPxButton ID="btnGuardar" runat="server" Text="Editar" Theme="Office2010Black"
+                                                                    OnClick="btnGuardar_Click">
+                                                                </dx:ASPxButton>
+                                                            </ContentTemplate>
+                                                            <Triggers>
+                                                                <asp:AsyncPostBackTrigger ControlID="btnGuardar" EventName="Click" />
+                                                            </Triggers>
+                                                        </asp:UpdatePanel>
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
+
+                                            </Columns>
+                                            <EmptyDataTemplate>
+                                                <dx:ASPxLabel ID="lblFerrysVacios" runat="server" Text="No se encontraron registros para mostrar." Theme="Office2010Black"></dx:ASPxLabel>
+                                            </EmptyDataTemplate>
+                                        </asp:GridView>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row">
+                                <div class="col-md-6">
+                                </div>
+                                <div class="col-md-6" style="text-align: right;">
+                                </div>
+                            </div>
+                        </div>
+                    </ContentTemplate>
+                </asp:UpdatePanel>
+                <asp:UpdatePanel runat="server" ID="UpdatePanel3" OnUnload="UpdatePanel1_Unload">
+                    <ContentTemplate>
+                        <dx:ASPxHiddenField ClientInstanceName="hfNacional" ID="hfNacional" runat="server" />
+                        <dx:ASPxHiddenField ClientInstanceName="hfExtranjero" ID="hfExtranjero" runat="server" />
+                        <dx:ASPxHiddenField ClientInstanceName="hfNalExtFor" ID="hfNalExtFor" runat="server" />
+                    </ContentTemplate>
+                </asp:UpdatePanel>
+            </dx:PanelContent>
+        </PanelCollection>
+    </dx:ASPxPanel>
+
+    <%--MODAL PARA AGREGAR PRECIO A LOS FERRYS--%>
+    <dx:ASPxPopupControl ID="ppVenta" runat="server" ClientInstanceName="ppVenta" Width="900px" Height="200px" 
+        CloseAction="CloseButton" CloseOnEscape="true" Modal="true" PopupHorizontalAlign="WindowCenter" PopupVerticalAlign="Middle" 
+        AllowDragging="true" HeaderText="Edición de Ferry" Theme="Office2010Black">
+        <ContentCollection>
+            <dx:PopupControlContentControl runat="server">
+                <dx:ASPxPanel ID="ASPxPanel4" runat="server" DefaultButton="btOK">
+                    <PanelCollection>
+                        <dx:PanelContent runat="server">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <fieldset class="Personal">
+                                        <table style="width: 100%; text-align: left;">
+                                            <tr>
+                                                <td style="width: 200px; text-align: center">
+                                                    <dx:ASPxLabel runat="server" Theme="Office2010Black" Text="TRIP:"></dx:ASPxLabel>
+                                                </td>
+                                                <td style="width: 200px">
+                                                    <dx:ASPxLabel runat="server" Theme="Office2010Black" ID="lblTRIP"></dx:ASPxLabel>
+                                                </td>
+                                                <td></td>
+                                                <td style="width: 200px; text-align: center">
+                                                    <dx:ASPxLabel runat="server" Theme="Office2010Black" Text="Matricula:"></dx:ASPxLabel>
+                                                </td>
+                                                <td style="width: 200px">
+                                                    <dx:ASPxLabel runat="server" Theme="Office2010Black" ID="lblMatricula"></dx:ASPxLabel>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="5" style="height: 15px"></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="width: 200px; text-align: center">
+                                                    <dx:ASPxLabel runat="server" Theme="Office2010Black" Text="Origen:"></dx:ASPxLabel>
+                                                </td>
+                                                <td>
+                                                    <dx:ASPxLabel runat="server" Theme="Office2010Black" ID="lblOrigen"></dx:ASPxLabel>
+                                                </td>
+                                                <td></td>
+                                                <td style="width: 200px; text-align: center">
+                                                    <dx:ASPxLabel runat="server" Theme="Office2010Black" Text="Fecha Salida"></dx:ASPxLabel>
+                                                </td>
+                                                <td>
+                                                    <dx:ASPxLabel runat="server" Theme="Office2010Black" ID="lblFechaSalida"></dx:ASPxLabel>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="5" style="height: 15px"></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="width: 200px; text-align: center">
+                                                    <dx:ASPxLabel runat="server" Theme="Office2010Black" Text="Destino:"></dx:ASPxLabel>
+                                                </td>
+                                                <td>
+                                                    <dx:ASPxLabel runat="server" Theme="Office2010Black" ID="lblDestino"></dx:ASPxLabel>
+                                                </td>
+                                                <td></td>
+                                                <td style="width: 200px; text-align: center">
+                                                    <dx:ASPxLabel runat="server" Theme="Office2010Black" Text="Fecha Llegada"></dx:ASPxLabel>
+                                                </td>
+                                                <td>
+                                                    <dx:ASPxLabel runat="server" Theme="Office2010Black" ID="lblFechaLlegada"></dx:ASPxLabel>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                </div>
+                            </div>
+                            <br />
+                            <div class="col-md-12">
+                                <asp:Label ID="lblMsg" runat="server" Text="" ForeColor="Red"></asp:Label>
+                            </div>
+                            <br />
+                            <br />
+                            <table style="width: 100%">
+                                <tr>
+                                    <td style="width:4%"></td>
+                                    <td style="width:16%; text-align:left">
+                                        <dx:ASPxLabel runat="server" Theme="Office2010Black" Text="Costo Vuelo: "></dx:ASPxLabel>
+                                    </td>
+                                    <td style="width:27%; text-align:left">
+                                        <dx:ASPxTextBox ID="txtCostoVuelo" ClientInstanceName="txtCostoVuelo" runat="server" Theme="Office2010Black" >
+                                            <ClientSideEvents KeyUp="function(s,e)
+                                                                    { 
+                                                                        var iva;
+                                                                        if(hfNalExtFor.Get('hfNalExtFor') == 'F' || hfNalExtFor.Get('hfNalExtFor') == 'N')
+                                                                        {
+                                                                            iva = hfNacional.Get('hfNacional'); 
+                                                                            iva = iva * txtCostoVuelo.GetValue();
+                                                                            txtCostoIVA.SetText(iva);
+                                                                        }
+                                                                        else
+                                                                        { 
+                                                                            iva = hfExtranjero.Get('hfExtranjero'); 
+                                                                            iva = iva * txtCostoVuelo.GetValue();
+                                                                            txtCostoIVA.SetText(iva);
+                                                                        }
+                                                                    }" />
+                                            <ValidationSettings ErrorDisplayMode="Text"  ErrorTextPosition="Bottom" SetFocusOnError="True" ValidationGroup="Renta" >
+                                                <RequiredField ErrorText="El campo es requerido" IsRequired="true"/>
+                                                <RegularExpression  ErrorText="Error en la informacion ingresada costo." ValidationExpression="^[0-9]*(\.[0-9]+)?$" />
+                                            </ValidationSettings>
+                                        </dx:ASPxTextBox>
+                                    </td>
+                                    <td style="width:5%"></td>
+                                    <td style="width:16%; text-align:left">
+                                        <dx:ASPxLabel runat="server" Theme="Office2010Black" Text="Costo IVA: "></dx:ASPxLabel>
+                                    </td>
+                                    <td style="width:28%; text-align:left">
+                                        <dx:ASPxTextBox ID="txtCostoIVA" ClientInstanceName="txtCostoIVA" runat="server" Theme="Office2010Black"></dx:ASPxTextBox>
+                                    </td>
+                                    <td style="width:4%"></td>
+                                </tr>
+                                <tr>
+                                    <td style="width:4%"></td>
+                                    <td style="width:16%; text-align:left">
+                                        <dx:ASPxLabel runat="server" Theme="Office2010Black" Text="Fecha Limite: "></dx:ASPxLabel>
+                                    </td>
+                                    <td style="width:27%; text-align:left">
+                                        <dx:ASPxDateEdit ID="txtFechaReserva" runat="server" EditFormat="Custom" UseMaskBehavior="true"
+                                            Theme="Office2010Black" TimeSectionProperties-Visible="true" EditFormatString="dd/MM/yyyy hh:mm tt"
+                                            OnDateChanged="txtFechaReserva_DateChanged" AutoPostBack="true">
+                                            <DropDownButton>
+                                                <Image IconID="scheduling_calendar_16x16"></Image>
+                                            </DropDownButton>
+                                            <TimeSectionProperties>
+                                                <TimeEditProperties EditFormatString="hh:mm tt" />
+                                            </TimeSectionProperties>
+                                            <ValidationSettings ErrorDisplayMode="Text" ErrorText="Error en la informaci&#243;n ingresada." ErrorTextPosition="Bottom" 
+                                                SetFocusOnError="True" ValidationGroup="Renta">
+                                                <RequiredField ErrorText="El campo es requerido" IsRequired="true"/>
+                                            </ValidationSettings>
+                                        </dx:ASPxDateEdit>
+                                    </td>
+
+                                    <td style="width:5%"></td>
+
+                                    <td style="width:16%; text-align:left">
+                                        <dx:ASPxLabel ID="lblPrioridad" runat="server" Text="Prioridad:" Theme="Office2010Black"></dx:ASPxLabel>
+                                    </td>
+                                    <td style="width:28%; text-align:left">
+                                        <dx:ASPxComboBox ID="ddlPrioridad" runat="server" Theme="Office2010Black" AutoPostBack="true" 
+                                            OnSelectedIndexChanged="ddlPrioridad_SelectedIndexChanged">
+                                            <Items>
+                                                <dx:ListEditItem Text="Baja" Value="0" Selected="true" />
+                                                <dx:ListEditItem Text="Alta" Value="1" />
+                                            </Items>
+                                        </dx:ASPxComboBox>
+                                    </td>
+                                    <td style="width:4%"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="7" style="height: 25px"></td>
+                                </tr>
+                            </table>
+                            <table style="width:100%">
+                                <tr>
+                                    <td style="text-align: right; width:48%">
+                                        <dx:ASPxButton ID="btnGuardaDetalle" runat="server" Text="Guardar" OnClick="btnGuardaDetalle_Click" 
+                                            Theme="Office2010Black" ValidationGroup="Renta" ValidateRequestMode="Enabled">
+                                        </dx:ASPxButton>
+                                    </td>
+                                    <td style="width:4%"></td>
+                                    <td style="text-align: left; width:48%">
+                                        <dx:ASPxButton ID="btnSalir" runat="server" Text="Salir" Theme="Office2010Black">
+                                            <ClientSideEvents Click="function(s,e){ppVenta.Hide();}" />
+                                        </dx:ASPxButton>
+                                    </td>
+                                </tr>
+                            </table>
+                        </dx:PanelContent>
+                    </PanelCollection>
+                </dx:ASPxPanel>
+            </dx:PopupControlContentControl>
+        </ContentCollection>
+    </dx:ASPxPopupControl>
+
+    
+</asp:Content>

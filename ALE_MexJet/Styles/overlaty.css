@@ -1,0 +1,154 @@
+body.overlaidP {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+
+body.overlaidP div.overlaty {
+  -webkit-transform: translateY(0);
+  -moz-transform: translateY(0);
+  transform: translateY(0);
+}
+
+  div.overlaty {    
+    /* using display none to hide the overlay nullifies -webkit-transition */
+    -webkit-transform: translateY(-50000px);
+    -moz-transform: translateY(-50000px);
+    transform: translateY(-50000px);
+
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: rgba(0,0,0,0.3);
+
+    -webkit-user-select: auto;
+    -moz-user-select: auto;
+    user-select: auto;
+  }
+    div.overlaty > div.wrap-outer {
+      position: relative;
+      width: 100%;
+      height: 100%;
+
+      display: -webkit-box;
+      display: -moz-box;
+      display: box;
+
+      -webkit-box-orient: horizontal;
+      -moz-box-orient: horizontal;
+      box-orient: horizontal;
+
+      -webkit-box-align: stretch;
+      -moz-box-align: stretch;
+      box-align: stretch;
+
+      -webkit-box-pack: center;
+      -moz-box-pack: center;
+      box-pack: center;
+    }
+      div.overlaty > div.wrap-outer > div.wrap {
+      	display: -webkit-box;
+      	display: -moz-box;
+      	display: box;
+      	
+      	-webkit-box-orient: vertical;
+      	-moz-box-orient: vertical;
+      	box-orient: vertical;
+
+      	-webkit-box-align: stretch;
+      	-moz-box-align: stretch;
+      	box-align: stretch;
+
+      	-webkit-box-pack: center;
+      	-moz-box-pack: center;
+      	box-pack: center;
+      }
+
+        div.overlaty > div.wrap-outer > div.wrap > * {
+        	-webkit-box-flex: 0;
+        	-moz-box-flex: 0;
+        	box-flex: 0;
+
+        	display: block;
+        }
+        
+/*-------------- Clases del banco -------------------*/
+body.overlaid2 {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+
+body.overlaid2 div.overlay2 {
+  -webkit-transform: translateY(0);
+  -moz-transform: translateY(0);
+  transform: translateY(0);
+}
+
+  div.overlay2 {    
+    /* using display none to hide the overlay nullifies -webkit-transition */
+    -webkit-transform: translateY(-50000px);
+    -moz-transform: translateY(-50000px);
+    transform: translateY(-50000px);
+
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: rgba(0,0,0,0.8);
+
+    -webkit-user-select: auto;
+    -moz-user-select: auto;
+    user-select: auto;
+  }
+    div.overlay2 > div.wrap-outer2 {
+      position: relative;
+      width: 100%;
+      height: 100%;
+
+      display: -webkit-box;
+      display: -moz-box;
+      display: box;
+
+      -webkit-box-orient: horizontal;
+      -moz-box-orient: horizontal;
+      box-orient: horizontal;
+
+      -webkit-box-align: stretch;
+      -moz-box-align: stretch;
+      box-align: stretch;
+
+      -webkit-box-pack: center;
+      -moz-box-pack: center;
+      box-pack: center;
+    }
+      div.overlay2 > div.wrap-outer2 > div.wrap2 {
+      	display: -webkit-box;
+      	display: -moz-box;
+      	display: box;
+      	
+      	-webkit-box-orient: vertical;
+      	-moz-box-orient: vertical;
+      	box-orient: vertical;
+
+      	-webkit-box-align: stretch;
+      	-moz-box-align: stretch;
+      	box-align: stretch;
+
+      	-webkit-box-pack: center;
+      	-moz-box-pack: center;
+      	box-pack: center;
+      }
+
+        div.overlay2 > div.wrap-outer2 > div.wrap2 > * {
+        	-webkit-box-flex: 0;
+        	-moz-box-flex: 0;
+        	box-flex: 0;
+
+        	display: block;
+        }
+	
+	

@@ -1,0 +1,197 @@
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/ALE_Main.Master" AutoEventWireup="true" CodeBehind="frmPagoAPHIS.aspx.cs" Inherits="ALE_MexJet.Views.CreditoCobranza.frmPagoAPHIS" UICulture="es" Culture="es-MX" %>
+<%@ Register Assembly="DevExpress.Web.v18.1, Version=18.1.15.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" Namespace="DevExpress.Web" TagPrefix="dx" %>
+<%@ Register Src="~/ControlesUsuario/ucModalMensaje.ascx" TagPrefix="uc1" TagName="ucModalMensaje" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+   
+
+
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+     <script type="text/javascript">
+         function ShowLoginWindow(mensaje) {
+             lbl.SetText(mensaje);
+             ppAlert.Show();
+         }
+        
+
+    </script>
+      <dx:ASPxPanel ID="ASPxPanel1" runat="server" Width="100%" BackColor="White" Style="border-radius: 21px;">
+        <PanelCollection>
+            <dx:PanelContent>               		
+                <div class="row header1">
+                    <div class="col-md-12">
+                        <span style="color: #ffffff; font-family: Helvetica, Arial,sans-serif; font-size: 25px;">&nbsp;&nbsp;Generación y cálculo de pago APHIS </span>
+                    </div>
+                </div>
+                <uc1:ucModalMensaje ID="mpeMensaje" runat="server" />
+
+                <div class="well-g">
+                    <div class="row">
+                        <div class="col-md-12">
+
+                            <fieldset class="Personal">
+                                <legend>
+                                       <span style="font-family: Helvetica, Arial,sans-serif; text-align: center;">Búsqueda general</span>
+                                </legend>
+
+                                <div class="col-sm-12">
+                                     <div class="col-lg-4">                                         
+                                         <asp:DropDownList runat="server" ID="ddlanio" CssClass="combo">
+                                            
+                                         </asp:DropDownList>
+                                                                                                              
+                                     </div>
+                                    <div class="col-lg-4">
+                                        
+                                            <asp:DropDownList runat="server" ID="ddlTipoBusqueda" CssClass="combo">
+                                                <asp:ListItem Text="[Sin Filtro]" Value="0" Selected="true"></asp:ListItem>
+                                                <asp:ListItem Text="Trimestre 1" Value="1"></asp:ListItem>
+                                                <asp:ListItem Text="Trimestre 2" Value="2"></asp:ListItem>                                                                                   
+                                                <asp:ListItem Text="Trimestre 3" Value="3"></asp:ListItem>                                                                                   
+                                                <asp:ListItem Text="Trimestre 4" Value="4"></asp:ListItem>                                                                                                                                                                                   
+                                            </asp:DropDownList>                                     
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <dx:ASPxButton ID="btnBusqueda" Text="Buscar" runat="server" Theme="Office2010Black" OnClick="btnBusqueda_Click" ></dx:ASPxButton>
+                                        
+                                    </div>
+                                </div>
+                                
+                            </fieldset>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-6">                   
+                       
+                        </div>
+                        <div class="col-md-6" style="text-align: right;">
+                            <dx:ASPxLabel runat="server" Theme="Office2010Black" Text="Exportar a:"></dx:ASPxLabel>
+                            &nbsp;<dx:ASPxButton ID="btnExcel" runat="server" Text="Excel" Theme="Office2010Black"  OnClick="btnExportar_Click" ></dx:ASPxButton>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-12" style="margin-left: -15px; width: 103%;">
+                            <asp:UpdatePanel runat="server" UpdateMode="Always" OnUnload="Unnamed_Unload"> 
+                                <ContentTemplate>
+                                    <div class="col-sm-12">
+
+                                        <dx:ASPxGridView ID="gvPagosAPHIS" runat="server" AutoGenerateColumns="False" Font-Size="Small"
+                                            ClientInstanceName="gvPagosAPHIS" EnableTheming="True" KeyFieldName="IdIntercambioHoras"                                            
+                                            Theme="Office2010Black" Width="100%" StylesPopup-EditForm-ModalBackground-Opacity="90"                                                                                         
+                                            >
+                                            <ClientSideEvents EndCallback="function (s, e) {
+                                        if (s.cpShowPopup)
+                                        {
+                                            delete s.cpShowPopup;
+                                            lbl.SetText(s.cpText);
+                                            popup.Show();
+                                        }
+                                    }" />
+                                            <Columns>
+                                                <dx:GridViewDataTextColumn FieldName="NumeroTrip" ShowInCustomizationForm="True" Caption="Trip" VisibleIndex="0" Visible="true">                                                                                                      
+                                                </dx:GridViewDataTextColumn>
+                                                <dx:GridViewDataTextColumn FieldName="Matricula" ShowInCustomizationForm="True" Caption="Matricula" VisibleIndex="0" Visible="true">                                                                                                      
+                                                </dx:GridViewDataTextColumn>
+                                                <dx:GridViewDataTextColumn FieldName="AeropuertoOrigen" ShowInCustomizationForm="True" Caption="Aeropuerto Origen" VisibleIndex="0" Visible="true">                                                                                                      
+                                                </dx:GridViewDataTextColumn>
+                                                <dx:GridViewDataTextColumn FieldName="AeropuertoDestino" ShowInCustomizationForm="True" Caption="Aeropuerto Destino" VisibleIndex="0" Visible="true">                                                                                                      
+                                                </dx:GridViewDataTextColumn>
+                                                <dx:GridViewDataTextColumn FieldName="FechaSalida" ShowInCustomizationForm="True" Caption="Fecha de salida de vuelo" VisibleIndex="0" Visible="true">                                                                                                      
+                                                </dx:GridViewDataTextColumn>
+                                                <dx:GridViewDataTextColumn FieldName="NumeroPax" ShowInCustomizationForm="True" Caption="Número de Pasajeros" VisibleIndex="0" Visible="true">                                                                                                      
+                                                </dx:GridViewDataTextColumn>
+                                                <dx:GridViewDataTextColumn FieldName="Importe" ShowInCustomizationForm="True" Caption="Importe a pagar" VisibleIndex="0" Visible="true">                                                                                                      
+                                                </dx:GridViewDataTextColumn>
+                                                <dx:GridViewDataTextColumn FieldName="AeropuertoEntrada" ShowInCustomizationForm="True" Caption="Aeropuerto Entrada" VisibleIndex="0" Visible="true">                                                                                                      
+                                                </dx:GridViewDataTextColumn>
+                                            </Columns>
+
+                                            <SettingsBehavior ConfirmDelete="True" />
+                                            <SettingsPager Position="TopAndBottom">
+                                                <PageSizeItemSettings Items="1, 10, 20, 50, 100">
+                                                </PageSizeItemSettings>
+                                            </SettingsPager>
+                                            <SettingsEditing Mode="PopupEditForm" EditFormColumnCount="1"></SettingsEditing>
+                                            <Settings ShowGroupPanel="True" />
+                                            <SettingsText ConfirmDelete="¿Está seguro que desea eliminar el registro?" />
+                                            <SettingsPopup>
+                                                <EditForm HorizontalAlign="Center" VerticalAlign="Above" Modal="true" CloseOnEscape="True" Width="400px" />
+                                            </SettingsPopup>
+                                            <SettingsSearchPanel Visible="true" />   
+                                                                                                                           
+                                        </dx:ASPxGridView>
+
+                                      
+                                        <dx:ASPxGridViewExporter ID="Exporter" runat="server" GridViewID="gvCliente">
+                                        </dx:ASPxGridViewExporter>
+                                    </div>
+                                </ContentTemplate>
+                                <Triggers>
+                                 
+                                    <asp:AsyncPostBackTrigger ControlID="btnBusqueda" EventName="Click" />
+                                    <asp:PostBackTrigger ControlID="btnExcel" />
+                                    <asp:PostBackTrigger ControlID="btnExportar" />
+                                </Triggers>
+                            </asp:UpdatePanel>
+
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-sm-6">
+                        
+                        </div>
+                        <div class="col-sm-6" style="text-align: right;">
+                            <dx:ASPxLabel runat="server" Theme="Office2010Black" Text="Exportar a:"></dx:ASPxLabel>
+                            &nbsp;<dx:ASPxButton ID="btnExportar" runat="server" Text="Excel" Theme="Office2010Black" OnClick="btnExportar_Click" ></dx:ASPxButton>
+                        </div>
+                    </div>
+                    <br />
+                </div><br />
+            </dx:PanelContent>
+        </PanelCollection>
+    </dx:ASPxPanel>
+
+
+     <dx:ASPxPopupControl ID="popup" runat="server" ClientInstanceName="popup" CloseAction="CloseButton" CloseOnEscape="true" Modal="True"
+        PopupHorizontalAlign="WindowCenter" PopupVerticalAlign="Above" HeaderText="Aviso" AllowDragging="true" ShowCloseButton="true" Width="300">
+        <ClientSideEvents PopUp="function(s, e) { tbLogin.Focus(); }" />
+        <ContentCollection>
+            <dx:PopupControlContentControl runat="server">
+                <dx:ASPxPanel ID="ASPxPanel2" runat="server" DefaultButton="btOK">
+                    <PanelCollection>
+                        <dx:PanelContent runat="server">
+                            <table>
+                                <tr>
+                                    <td>
+                                        <dx:ASPxImage ID="ASPxImage2" runat="server" ShowLoadingImage="true" ImageUrl="~/img/iconos/Information2.ico"></dx:ASPxImage>
+                                        <dx:ASPxTextBox ID="tbLogin" ReadOnly="true" Border-BorderStyle="None" Height="1px" runat="server" Width="1px" ClientInstanceName="tbLogin"></dx:ASPxTextBox>
+                                    </td>
+                                    <td>
+                                        <dx:ASPxLabel ID="lbl" runat="server" ClientInstanceName="lbl" Text="ASPxLabel"></dx:ASPxLabel>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <dx:ASPxButton ID="btOK" runat="server" Text="OK" Width="80px" AutoPostBack="false" Style="float: left; margin-right: 8px" TabIndex="0">
+                                            <ClientSideEvents Click="function(s, e) {popup.Hide(); }" />
+                                        </dx:ASPxButton>
+                                    </td>
+                                </tr>
+                            </table>
+                            <div>
+                            </div>
+                            </div>
+                        </dx:PanelContent>
+                    </PanelCollection>
+                </dx:ASPxPanel>
+            </dx:PopupControlContentControl>
+        </ContentCollection>
+    </dx:ASPxPopupControl>     
+
+</asp:Content>

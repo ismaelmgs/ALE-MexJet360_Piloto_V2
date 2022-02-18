@@ -1,0 +1,64 @@
+﻿/*/ Accordion / fieldset {
+border: 1px solid #757474;
+}*/
+
+.accordionContent 
+{
+    border: 1px solid #757474;
+    border-top: none;
+    padding: 5px;
+    padding-top: 10px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
+.accordionHeader 
+{
+    border: 1px solid #472777;
+    font-family: Arial, Sans-Serif;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 5px;
+    margin-top: 5px;
+    cursor: pointer;
+    text-align: left;
+    background-color: #757474;
+    color: #FFFFFF;
+    text-decoration: underline;
+}
+
+.accordionHeader a 
+{
+    text-decoration: underline;
+}
+
+.accordionHeader a:hover
+{
+    text-decoration: underline;
+}
+
+.accordionHeaderSelected 
+{
+    border: 1px solid #472777;
+    font-family: Arial, Sans-Serif;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 5px;
+    margin-top: 5px;
+    cursor: pointer;
+    text-align: left;
+    background-color: #565656;
+    color: #FFFFFF;
+    text-decoration: underline;
+}
+
+.accordionHeaderSelected a 
+{
+    text-decoration: underline;
+}
+
+.accordionHeaderSelected a:hover
+{
+    text-decoration: underline;
+}

@@ -1,0 +1,233 @@
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/ALE_Main.Master" AutoEventWireup="true" CodeBehind="frmBsqNotaCredito.aspx.cs" Inherits="ALE_MexJet.Views.CreditoCobranza.frmBsqNotaCredito" %>
+
+<%@ Register Assembly="DevExpress.Web.v20.1, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" Namespace="DevExpress.Web" TagPrefix="dx" %>
+<%@ Register Src="~/ControlesUsuario/ucModalMensaje.ascx" TagPrefix="uc1" TagName="ucModalMensaje" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+      <script type="text/javascript">
+          function pageLoad(sender, args) {
+              txtTextoBusquedaHabilitar();
+              $('.combo').change(txtTextoBusquedaHabilitar);
+          };
+          function txtTextoBusquedaHabilitar() {
+              var filtro = $(".combo").find(':selected').val();
+              if (filtro == 0) {
+                  $(".txtBusqueda").attr('disabled', '-1');
+                  $(".txtBusqueda").val('');
+              }
+              if (filtro == 1 || filtro == 2 || filtro == 3 || filtro == 4 || filtro == 5)
+                  $(".txtBusqueda").removeAttr('disabled');
+          }
+
+          function ShowLoginWindow() {
+              popup.Show();
+          }
+
+    </script>
+</asp:Content>
+
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <dx:ASPxPanel ID="ASPxPanel1" runat="server" Width="100%" BackColor="White" Style="border-radius: 21px;">
+        <PanelCollection>
+            <dx:PanelContent>
+                <div class="row header1">
+                    <div class="col-md-12">
+                        <span style="color: #ffffff; font-family: Helvetica, Arial,sans-serif; font-size: 20px;">&nbsp;&nbsp;Nota Crédito</span>
+                    </div>
+                </div>
+                <uc1:ucModalMensaje ID="mpeMensaje" runat="server" />
+                    <div class="row"><br />
+                        <div class="col-md-12">
+                            <fieldset class="Personal">
+                                <legend>
+                                    <span style="font-family: Helvetica, Arial,sans-serif; text-align: center;">Búsqueda General</span>
+                                </legend>
+                                <div class="col-md-12">
+                                    <fieldset style="width:100%">
+                                                    <legend style="text-align:center">
+                                                        
+                                                    </legend>
+                                        <table style="width:100%;">
+                                            <tr>
+                                                <td style="width:52%; text-align:center;">
+                                      <asp:TextBox ID="textTextoBusqueda" CssClass="txtBusqueda"  Font-Size="13px" placeholder ="Ingrese la información a buscar" runat="server" Width="195px"></asp:TextBox>
+                                                </td>
+                                                <td style="width:48%; text-align:center;">
+                                                    <asp:DropDownList runat="server" CssClass="combo" ID="ddlTipoBusqueda" Font-Size="13px">
+                                                        <asp:ListItem Text="[Sin Filtro]" Value="0" Selected="true"></asp:ListItem>
+                                                        <asp:ListItem Text="Folio Nota de Crédito" Value="1"></asp:ListItem>
+                                                        <asp:ListItem Text="Tipo Nota" Value="2"></asp:ListItem>
+                                                        <asp:ListItem Text="Cliente" Value="3"></asp:ListItem>
+                                                        <asp:ListItem Text="Contrato" Value="4"></asp:ListItem>
+                                                        <asp:ListItem Text="Folio de Remisión" Value="5"></asp:ListItem>
+                                            </asp:DropDownList>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                     </fieldset>
+                                    <table style="width:100%;">
+                                        <tr style="height:10px;">
+                                            <td colspan="3" ></td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="3" style="text-align:left">
+                                                <br />
+                                                    <fieldset style="width:100%">
+                                                    <legend style="text-align:center">
+                                                        Rango de Fecha
+                                                    </legend>
+                                                    <div>
+                                                         <table style="width:100%;">
+                                                            <tr>
+                                                                <td style="width:50%;" align="center">
+                                                                    Fecha Inicio:<br />
+                                                                    <dx:ASPxDateEdit ToolTip="Fecha Inicio" ID="deInicio" ClientInstanceName="deInicio" runat="server" Theme="Office2010Black">
+                                                                    <ValidationSettings Display="Dynamic" SetFocusOnError="True">
+                                                                    </ValidationSettings>
+                                                                    </dx:ASPxDateEdit>
+                                                                </td>
+                                                                <td style="width:50%;" align="center">
+                                                                    Fecha Fin:<br />
+                                                                    <dx:ASPxDateEdit ToolTip="Fecha Fin"  ID="deFin" ClientInstanceName="deFin" runat="server" Theme="Office2010Black">
+                                                                    <DateRangeSettings StartDateEditID="deInicio"></DateRangeSettings>
+                                                                    <ValidationSettings Display="Dynamic" SetFocusOnError="True">
+                                                                    </ValidationSettings>    
+                                                                    </dx:ASPxDateEdit>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                        </div>
+                                                    </fieldset>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div style="text-align:center;">
+                                    &nbsp;
+                                </div>
+                                <div style="text-align:center;">
+                                    <dx:ASPxButton ToolTip="Buscar" ID="btnBusqueda" Theme="Office2010Black" Text="Buscar" runat="server" OnClick="btnBusqueda_Click"></dx:ASPxButton>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-12">
+                            <asp:UpdatePanel runat="server"  ID="upGv" OnUnload ="UpdatePanel1_Unload">
+                                <ContentTemplate>
+                                    <div>
+                                        <dx:ASPxGridView ID="gvNotaCredito" runat="server" AutoGenerateColumns="False" Font-Size="Small" ToolTip="Resultado"
+                                            ClientInstanceName="gvNotaCredito" Styles-Header-HorizontalAlign ="Center" EnableTheming="True" Width="100%" KeyFieldName="IdNotaCredito"
+                                             OnRowDeleting="gvNotaCredito_RowDeleting" OnCellEditorInitialize="gvNotaCredito_CellEditorInitialize"
+                                            Theme="Office2010Black" StylesPopup-EditForm-ModalBackground-Opacity="90">
+                                             <ClientSideEvents EndCallback="function (s, e) {
+                                                                                    if (s.cpShowPopup)
+                                                                                    {
+                                                                                        delete s.cpShowPopup;
+                                                                                        lbl.SetText(s.cpText);
+                                                                                        popup.Show();
+                                                                                    }
+                                                                                }" />
+                                            <Columns>
+                                                <dx:GridViewDataTextColumn FieldName="IdNotaCredito"   Caption="Folio Nota" VisibleIndex="1" HeaderStyle-HorizontalAlign="Center">
+                                                </dx:GridViewDataTextColumn>
+                                                <dx:GridViewDataTextColumn FieldName="IdRemision" Caption="Folio Remisión" VisibleIndex="2" HeaderStyle-HorizontalAlign="Center">
+                                                </dx:GridViewDataTextColumn>
+                                                <dx:GridViewDataTextColumn FieldName="TipoNotaCredito" Caption="Tipo Nota" VisibleIndex="3" HeaderStyle-HorizontalAlign="Center">
+                                                </dx:GridViewDataTextColumn>
+                                                <dx:GridViewDataTextColumn FieldName="Cantidad/Tiempo" Caption="Cantidad / Tiempo" VisibleIndex="4" HeaderStyle-HorizontalAlign="Center">
+                                                </dx:GridViewDataTextColumn>
+                                                <dx:GridViewDataTextColumn FieldName="CodigoCliente" Caption="Cliente" VisibleIndex="5" HeaderStyle-HorizontalAlign="Center">
+                                                </dx:GridViewDataTextColumn>
+                                                <dx:GridViewDataTextColumn FieldName="ClaveContrato" Caption="Contrato" VisibleIndex="6" HeaderStyle-HorizontalAlign="Center">
+                                                </dx:GridViewDataTextColumn>
+                                                <dx:GridViewDataTextColumn FieldName="Ruta" Caption="Ruta"  VisibleIndex="7" HeaderStyle-HorizontalAlign="Center" Width="20%">
+                                                </dx:GridViewDataTextColumn>
+                                                <dx:GridViewDataTextColumn FieldName="FechaCreacion"  PropertiesTextEdit-DisplayFormatString="{0:dd-MM-yyyy}" Caption="Fecha" VisibleIndex="8" HeaderStyle-HorizontalAlign="Center">
+                                                </dx:GridViewDataTextColumn>
+                                                <dx:GridViewDataTextColumn FieldName="FECHAREMISION"  PropertiesTextEdit-DisplayFormatString="{0:dd-MM-yyyy}" Caption="Fecha Remisión" VisibleIndex="9" HeaderStyle-HorizontalAlign="Center">
+                                                </dx:GridViewDataTextColumn>
+                                                <dx:GridViewDataTextColumn FieldName="FECHAVUELO"  PropertiesTextEdit-DisplayFormatString="{0:dd-MM-yyyy}" Caption="Fecha Vuelo" VisibleIndex="10" HeaderStyle-HorizontalAlign="Center">
+                                                </dx:GridViewDataTextColumn>
+                                                <dx:GridViewCommandColumn ButtonType="Button" Caption="Acciones" ShowDeleteButton="True" ShowEditButton="false" ShowNewButton="false" ShowInCustomizationForm="False" VisibleIndex="11">
+                                                </dx:GridViewCommandColumn>
+                                            </Columns>
+                                            <SettingsBehavior ConfirmDelete="True" />
+                                            <SettingsEditing Mode="Inline"></SettingsEditing>
+                                            <SettingsText ConfirmDelete="¿Está seguro que desea eliminar el registro?" />   
+                                            <SettingsSearchPanel Visible="true" />
+                                            <SettingsPager Position="TopAndBottom">
+                                                <PageSizeItemSettings Items="1, 10, 20, 50, 100">
+                                                </PageSizeItemSettings>
+                                            </SettingsPager>
+                                            <SettingsCommandButton>
+                                                <DeleteButton>
+                                                    <Image Height="20px" ToolTip="Eliminar" Width="20px">
+                                                    </Image>
+                                                </DeleteButton>
+                                            </SettingsCommandButton>
+                                        </dx:ASPxGridView>
+                                        <dx:ASPxGridViewExporter ID="Exporter" runat="server" GridViewID="gvNotaCredito">
+                                        </dx:ASPxGridViewExporter>
+                                    </div>  
+                                </ContentTemplate>
+                                <Triggers>
+                                    <asp:AsyncPostBackTrigger ControlID="btnBusqueda" EventName="Click" />
+                                    <asp:PostBackTrigger ControlID="btnExcel" />
+                                </Triggers>
+                            </asp:UpdatePanel>
+
+                        </div>
+                    </div>
+                    <br />
+            <div class="row">
+            <div class="col-md-12">
+            <div   style="text-align:right" >
+            <dx:ASPxLabel runat="server"   Theme="Office2010Black" Text="Exportar a: "></dx:ASPxLabel>
+            &nbsp;<dx:ASPxButton ID="btnExcel" runat="server" Text="Excel" Theme="Office2010Black" ToolTip="Exportar a Excel" OnClick="btnExcel_Click"></dx:ASPxButton>
+            </div>
+            </div>
+            </div>
+    <br />
+     </dx:PanelContent>
+    </PanelCollection>
+    </dx:ASPxPanel>
+
+    <dx:ASPxPopupControl ID="popup" runat="server" ClientInstanceName="popup" CloseAction="CloseButton" CloseOnEscape="true" Modal="True" Theme="Office2010Black"
+        PopupHorizontalAlign="WindowCenter" PopupVerticalAlign="Above" HeaderText="Aviso" AllowDragging="true" ShowCloseButton ="true"  Width ="300">
+        <ClientSideEvents PopUp="function(s, e) { tbLogin.Focus(); }" />
+        <ContentCollection>
+            <dx:PopupControlContentControl runat="server" >
+                <dx:ASPxPanel ID="ASPxPanel2" runat="server" DefaultButton="btOK">
+                    <PanelCollection>
+                        <dx:PanelContent runat="server">
+                            <table>
+                                <tr>
+                                    <td>
+                                        <dx:ASPxImage ID="ASPxImage2" runat="server" ShowLoadingImage="true"  ImageUrl="~/img/iconos/Information2.ico" ></dx:ASPxImage>
+                                        <dx:ASPxTextBox ID ="tbLogin" ReadOnly ="true" Border-BorderStyle ="None"  Height ="1px" runat="server" Width="1px" ClientInstanceName="tbLogin"></dx:ASPxTextBox>
+                                    </td>
+                                    <td>
+                                        <dx:ASPxLabel ID="lbl" runat="server" ClientInstanceName="lbl" Text="ASPxLabel" ></dx:ASPxLabel>
+                                    </td>
+                                </tr>
+                                <tr >
+                                    <td>
+                                         <dx:ASPxButton ID="btOK" runat="server" Text="OK" Width="80px" AutoPostBack="false" style="float: left; margin-right: 8px" TabIndex ="0" Theme="Office2010Black">
+                                             <ClientSideEvents Click="function(s, e) {popup.Hide(); }" />
+                                        </dx:ASPxButton>
+                                    </td>
+                                </tr>
+                            </table>
+                            <div >
+                            </div>
+                        </dx:PanelContent>
+                    </PanelCollection>
+                </dx:ASPxPanel>
+            </dx:PopupControlContentControl>
+        </ContentCollection>
+    </dx:ASPxPopupControl>
+
+</asp:Content>

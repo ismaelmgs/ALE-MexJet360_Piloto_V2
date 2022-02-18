@@ -1,0 +1,85 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="frmLogin.aspx.cs" Inherits="ALE_MexJet.Views.frmLogin" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
+<%@ Register Assembly="DevExpress.Web.v20.1, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" Namespace="DevExpress.Web" TagPrefix="dx" %>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../css/styles_login.css" media="screen" />
+</head>
+<body>
+
+    <script type="text/javascript">
+
+        function Redirecciona(cad) {
+            location.href = cad;
+        }
+
+        function fnCheckValue() {
+            var myVal = document.getElementById('<%=txtPassword.ClientID%>').value;
+            var myUsu = document.getElementById('<%=txtUsuario.ClientID%>').value;
+
+            if (myUsu = "") {
+                alert("El Usuario es requerido");
+                return false;
+            }
+            else if (myVal == "") {
+                alert("La contraseña es requerida");
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
+
+        function EnterEvent(e) {
+
+            if (e.keyCode == 13) {
+                if (fnCheckValue()) {
+                    var obj = document.getElementById('<%=btnEntrar.ClientID%>');
+
+                    if (obj) {
+                        obj.click();
+                    }
+                }
+                else {
+                    return false;
+                }
+            }
+        }
+
+	</script>
+
+    <form id="form1" runat="server">
+
+        <cc1:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server"></cc1:ToolkitScriptManager>
+        <asp:UpdatePanel ID="upaPrincipal" runat="server">
+            <ContentTemplate>
+
+                <div id="logo_ale" class="logo">
+	                <%--<asp:Image ID="imLogo" runat="server" ImageUrl="../../img/colors/blue/logo-ale.png" width="156" height="92" />--%>
+                    <img id="imLogoH" runat="server" src="~/img/colors/blue/logo-ale.png" />
+                </div>
+
+                <div id="bg" class="dvCentro">
+                    <!--DIV DE LOGIN-->
+                    <div id="log">
+                        <p class="titulo bienvenido" style="font-family:Arial">Bienvenido</p>
+                        <p class="userLabel" style="font-family:Arial">Usuario:</p>
+                        <asp:TextBox ID="txtUsuario" runat="server" CssClass="textUser" ClientIDMode="Static" style="font-family:Arial"></asp:TextBox>
+
+                        <p class="passLabel" style="font-family:Arial">Contrase&ntilde;a:</p>
+                        <asp:TextBox ID="txtPassword" runat="server" MaxLength="20" TextMode="Password" ClientIDMode="Static" onkeypress="return EnterEvent(event);"
+                            CssClass="textPassword" style="font-family:Arial;"></asp:TextBox>
+                        <p class="rememberLabel" style="font-family:Arial;"><!-- &iquest;Olvidaste tu Contrase&ntilde;a? --></p>
+                        <asp:Button ID="btnEntrar" runat="server" Text="Entrar" CssClass="boton botLog" ClientIDMode="Static"  style="font-family:Arial;margin-top: 6px;" OnClick="btnEntrar_Click" />
+                    </div>
+                </div>
+
+            </ContentTemplate>
+        </asp:UpdatePanel>        
+    </form>
+</body>
+</html>

@@ -1,0 +1,169 @@
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/ALE_Main.Master" AutoEventWireup="true" CodeBehind="frmBitacoraAudit.aspx.cs" Inherits="ALE_MexJet.Views.Consultas.frmBitacoraAudit" %>
+
+<%@ Register Assembly="DevExpress.Web.v20.1, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" Namespace="DevExpress.Web" TagPrefix="dx" %>
+<%@ Register Src="~/ControlesUsuario/ucModalMensaje.ascx" TagPrefix="uc1" TagName="ucModalMensaje" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <dx:ASPxPanel ID="ASPxPanel1" runat="server" Width="100%" BackColor="White" style="border-radius:21px;">
+        <PanelCollection>
+            <dx:PanelContent>
+                <div class="row header1">
+                    <div class="col-md-12">
+                        <span style="color: #ffffff; font-family: Helvetica, Arial,sans-serif; font-size: 20px;">&nbsp;&nbsp;Bitácora Audit</span>
+                    </div>
+                </div>
+                <uc1:ucModalMensaje ID="mpeMensaje" runat="server" />
+                <div class="well-g">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <fieldset class="Personal">
+                                <legend>
+                                    <span style="font-family: Helvetica, Arial,sans-serif; text-align: center;">Búsqueda General</span>
+                                </legend>
+                                <div class="col-sm-12">
+                                    <table style="width:100%;">
+                                        <tr>
+                                            <td style="text-align: left">
+                                                <dx:ASPxLabel runat="server" Text="Modulo:"></dx:ASPxLabel>
+                                            </td>
+                                            <td style="width: 25%;">
+                                                <asp:UpdatePanel runat="server" ID="UpdatePanel3" OnUnload="UpdatePanel3_Unload">
+                                                    <ContentTemplate>
+                                                        <dx:ASPxComboBox ToolTip="Modulo" ID="ddlModulo" runat="server" Theme="Office2010Black" EnableTheming="True" NullText="Seleccione un Modulo"  AutoPostBack="true" OnSelectedIndexChanged="ddlModulo_SelectedIndexChanged">
+                                                        </dx:ASPxComboBox>
+                                                    </ContentTemplate>
+                                                </asp:UpdatePanel>
+                                            </td>
+                                            <td colspan="2">
+                                                <dx:ASPxLabel Font-Size="Larger" runat="server" Text="Rango de Fechas"></dx:ASPxLabel>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left">
+                                                <dx:ASPxLabel runat="server" Text="Tipo Acción:"></dx:ASPxLabel>
+                                            </td>
+                                            <td style="width: 25%;">
+                                                <asp:UpdatePanel runat="server" ID="UpdatePanel2" OnUnload="UpdatePanel2_Unload">
+                                                    <ContentTemplate>
+                                                        <dx:ASPxComboBox ToolTip="Tipo Acción" ID="ddlAccion" runat="server" Theme="Office2010Black" EnableTheming="True" NullText="Seleccione una Accion" OnSelectedIndexChanged="ddlAccion_SelectedIndexChanged" AutoPostBack="true">
+                                                        </dx:ASPxComboBox>
+                                                    </ContentTemplate>
+                                                </asp:UpdatePanel>
+                                            </td>
+                                            <td style="text-align: left">
+
+                                                <dx:ASPxDateEdit Caption="Desde:" ID="dFechaIni" ClientInstanceName="dFechaIni" NullText="Fecha Inicial" runat="server" ToolTip="Fecha Inicial" Theme="Office2010Black" EditFormatString="MM/dd/yyyy">
+                                                    <ValidationSettings Display="Dynamic" SetFocusOnError="True" CausesValidation="True" ErrorDisplayMode="Text">
+                                                        <RequiredField ErrorText="La fecha inicial es requerida" IsRequired="true" />
+                                                    </ValidationSettings>
+                                                </dx:ASPxDateEdit>
+                                            </td>
+                                            <td style="text-align: left">
+                                                <dx:ASPxDateEdit Caption="Hasta:" ID="dFechaFin" ClientInstanceName="dFechaFin" runat="server" Theme="Office2010Black" ToolTip="Fecha Final" NullText="Fecha Final" EditFormatString="MM/dd/yyyy">
+                                                    <DateRangeSettings StartDateEditID="dFechaIni"></DateRangeSettings>
+                                                    <ValidationSettings Display="Dynamic" SetFocusOnError="True" CausesValidation="True"  ErrorDisplayMode="Text">
+                                                        <RequiredField ErrorText="La fecha final es requerida"  IsRequired="true"/>
+                                                    </ValidationSettings>
+                                                </dx:ASPxDateEdit>
+                                            </td>
+                                            
+                                        </tr>
+                                        <tr style="height:10px;">
+                                            <td colspan="4" ></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left">
+                                                <dx:ASPxLabel runat="server" Text="Usuario:"></dx:ASPxLabel>
+                                            </td>
+                                            <td>
+                                                <asp:UpdatePanel runat="server" ID="UpdatePanel1" OnUnload="UpdatePanel1_Unload" >
+                                                    <ContentTemplate>
+                                                        <dx:ASPxComboBox ToolTip="Usuario" ID="ddlUsuario" NullText="Seleccione un Usuario" runat="server" Theme="Office2010Black" EnableTheming="True">
+                                                        </dx:ASPxComboBox>
+                                                    </ContentTemplate>
+                                                </asp:UpdatePanel>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left">
+                                                <dx:ASPxLabel runat="server" Text="IP:"></dx:ASPxLabel>
+                                            </td>
+                                            <td style="text-align: left">
+                                                <asp:Panel ID="panel1" runat="server" DefaultButton="btnBusqueda">
+                                                    <dx:ASPxTextBox ID="sIP" ToolTip="IP" runat="server" Theme="Office2010Black" NullText="Ingrese la dirección Ip.">
+                                                        <ValidationSettings>
+                                                            <RegularExpression ValidationExpression="\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b" ErrorText="La dirección Ip no tiene el formato correcto" />
+                                                        </ValidationSettings>
+                                                    </dx:ASPxTextBox>
+                                                </asp:Panel>
+                                            </td>
+                                            <td colspan="2" style="text-align: right">
+                                                <dx:ASPxButton ID="btnBusqueda" Text="Buscar" runat="server" Theme="Office2010Black" OnClick="btnBusqueda_Click">
+                                                </dx:ASPxButton>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-12">
+                            <asp:UpdatePanel runat="server"  ID="upGv" OnUnload ="UpdatePanel1_Unload"  UpdateMode="Conditional">
+                                <ContentTemplate>
+                                    <div>
+                                        <dx:ASPxGridView ID="gvBitacoraAudit" runat="server" AutoGenerateColumns="False" Font-Size="Small" ToolTip="Resultado"
+                                            ClientInstanceName="gvBitacoraAudit" EnableTheming="True" Width="100%" Styles-Header-HorizontalAlign ="Center"
+                                            Theme="Office2010Black" StylesPopup-EditForm-ModalBackground-Opacity="90">
+                                            <Columns>
+                                                <dx:GridViewDataTextColumn FieldName="DesAccion"   Caption="Tipo Acción" VisibleIndex="1"  HeaderStyle-HorizontalAlign="Center" Width="150px">
+                                                </dx:GridViewDataTextColumn>
+                                                <dx:GridViewDataTextColumn FieldName="Descripcion" Caption="Descripción" VisibleIndex="2" HeaderStyle-HorizontalAlign="Center" Width="350px">
+                                                </dx:GridViewDataTextColumn>
+                                                <dx:GridViewDataTextColumn FieldName="DesModulo" Caption="Modulo" VisibleIndex="3" HeaderStyle-HorizontalAlign="Center" Width="250px">
+                                                </dx:GridViewDataTextColumn>
+                                                <dx:GridViewDataTextColumn FieldName="UsuarioCreacion" Caption="Usuario" VisibleIndex="4" HeaderStyle-HorizontalAlign="Center" Width="100px">
+                                                </dx:GridViewDataTextColumn>
+                                                <dx:GridViewDataTextColumn FieldName="FechaCreacion" Caption="Fecha y Hora" VisibleIndex="5" HeaderStyle-HorizontalAlign="Center" Width="150px">
+                                                </dx:GridViewDataTextColumn>
+                                                <dx:GridViewDataTextColumn FieldName="IP" Caption="Dirección IP" VisibleIndex="6" HeaderStyle-HorizontalAlign="Center" Width="200px">
+                                                </dx:GridViewDataTextColumn>
+                                            </Columns>
+                                            <Settings HorizontalScrollBarMode="Auto" ShowGroupPanel="True" />
+                                            <SettingsSearchPanel Visible="true"  />
+                                            <SettingsPager Position="TopAndBottom">
+                                                <PageSizeItemSettings Items="1, 10, 20, 50, 100">
+                                                </PageSizeItemSettings>
+                                            </SettingsPager>
+                                        </dx:ASPxGridView>
+                                        <dx:ASPxGridViewExporter ID="Exporter" runat="server" GridViewID="gvBitacoraAudit">
+                                        </dx:ASPxGridViewExporter>
+                                    </div>  
+                                </ContentTemplate>
+                               <Triggers>
+                                   <asp:AsyncPostBackTrigger  ControlID="btnBusqueda" EventName="Click"/>
+                                   <asp:PostBackTrigger ControlID="btnExcel" />
+                               </Triggers>
+                            </asp:UpdatePanel>
+
+                        </div>
+                    </div>
+                    <br />
+            <div class="row">
+            <div class="col-md-12">
+            <div   style="text-align:right" >
+            <dx:ASPxLabel runat="server"   Theme="Office2010Black" Text="Exportar a: "></dx:ASPxLabel>
+            &nbsp;<dx:ASPxButton ID="btnExcel" runat="server" Text="Excel" Theme="Office2010Black" ToolTip="Exportar a Excel" OnClick="btnExportar_Click" ></dx:ASPxButton>
+            </div>
+            </div>
+            </div>
+    <br />
+                    </div>
+     </dx:PanelContent>
+    </PanelCollection>
+    </dx:ASPxPanel>
+
+</asp:Content>

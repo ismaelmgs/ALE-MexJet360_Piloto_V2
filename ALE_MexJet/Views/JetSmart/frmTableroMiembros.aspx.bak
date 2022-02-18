@@ -1,0 +1,293 @@
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/ALE_Main.Master" AutoEventWireup="true" CodeBehind="frmTableroMiembros.aspx.cs" Inherits="ALE_MexJet.Views.JetSmart.frmTableroMiembros" %>
+<%@ Register Assembly="DevExpress.Web.v20.1, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" Namespace="DevExpress.Web" TagPrefix="dx" %>
+<%@ Register Src="~/ControlesUsuario/ucModalMensaje.ascx" TagPrefix="uc1" TagName="ucModalMensaje" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <script type="text/javascript">
+        function OcultaError() {
+            ppEditarMiembro.Hide();
+        }
+    </script>
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <dx:ASPxPanel ID="ASPxPanel1" runat="server" Width="100%" BackColor="White" Style="border-radius: 21px;">
+        <PanelCollection>
+            <dx:PanelContent>
+                <div class="row header1">
+                    <div class="col-md-12">
+                        <span style="color: #ffffff; font-family: Helvetica, Arial,sans-serif; font-size: 20px;">&nbsp;&nbsp;Autorización de Miembros</span>
+                    </div>
+                </div>
+                <uc1:ucModalMensaje ID="mpeMensaje" runat="server" />
+                <div class="well-g">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <fieldset class="Personal">
+                                <legend>
+                                    <span style="font-family: Helvetica, Arial,sans-serif; text-align: center;">Búsqueda General</span>
+                                </legend>
+                                <div class="col-sm-12">
+                                    <table style="width: 100%;">
+                                        <tr>
+                                            <td style="text-align: left">
+                                                <dx:ASPxLabel Theme="Office2010Black" Font-Bold="True" runat="server" Text="Tipo Búsqueda:"></dx:ASPxLabel>
+                                            </td>
+                                            <td style="width: 45%;">
+                                                <dx:ASPxRadioButtonList ID="rblFiltro" Theme="Office2010Black" runat="server" RepeatDirection="Horizontal">
+                                                    <Items>
+                                                        <dx:ListEditItem Text="Pendienes" Value="1" Selected="true" />
+                                                        <dx:ListEditItem Text="Aprobados" Value="2" />
+                                                        <dx:ListEditItem Text="Rechazados" Value="0" />
+                                                    </Items>
+                                                </dx:ASPxRadioButtonList>
+                                            </td>
+                                            <td style="text-align: center" colspan="2">
+                                                <dx:ASPxLabel Theme="Office2010Black" runat="server" Text="Rango de Fechas" Font-Bold="True" Font-Size="Small"></dx:ASPxLabel>
+                                            </td>
+                                        </tr>
+                                        <tr style="height: 10px;">
+                                            <td colspan="4"></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left">
+                                                
+                                            </td>
+                                            <td>
+                                                
+                                            </td>
+                                            <td>
+                                                <dx:ASPxDateEdit Caption="Desde:" ID="dFechaIni" ClientInstanceName="dFechaIni" NullText="Fecha Inicial" runat="server" ToolTip="Fecha Inicial" Theme="Office2010Black" >
+                                                    <ValidationSettings ErrorDisplayMode="Text" ErrorTextPosition="Bottom" SetFocusOnError="True" CausesValidation="True" >
+                                                        <RegularExpression ValidationExpression =""></RegularExpression>
+                                                         <%--<RequiredField ErrorText="Fecha inicial es requerida" IsRequired="True" />--%>
+                                                    </ValidationSettings>
+                                                </dx:ASPxDateEdit>
+                                            </td>
+                                            <td style="text-align: right">
+                                                <dx:ASPxDateEdit Caption="Hasta:" ID="dFechaFin" ClientInstanceName="dFechaFin" runat="server" Theme="Office2010Black" ToolTip="Fecha Final" NullText="Fecha Final" >
+                                                    <ValidationSettings ErrorDisplayMode="Text" ErrorTextPosition="Bottom" SetFocusOnError="True" CausesValidation="True" >
+                                                        <RegularExpression ValidationExpression =""></RegularExpression>
+                                                         <%--<RequiredField ErrorText="Fecha final es requerida" IsRequired="True" />       --%>
+                                                    </ValidationSettings>
+                                                </dx:ASPxDateEdit>
+                                            </td>
+                                        </tr>
+                                        <tr style="height: 10px;">
+                                            <td colspan="4"></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left">
+                                                
+                                            </td>
+                                            <td>
+                                                
+                                            </td>
+                                            <td></td>
+                                            <td style="text-align: right">
+                                                <dx:ASPxButton ID="btnBusqueda" Text="Buscar" runat="server" Theme="Office2010Black" OnClick="btnBusqueda_Click">
+                                                </dx:ASPxButton>
+                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-12">
+                            <asp:UpdatePanel runat="server" ID="upGv" UpdateMode="Conditional" OnUnload="upGv_Unload">
+                                <ContentTemplate>
+                                    <div>
+                                        <dx:ASPxGridView ID="gvMiembros" runat="server" AutoGenerateColumns="false" Font-Size="Small" ToolTip="Resultado"
+                                            ClientInstanceName="gvMiembros" EnableTheming="True" Width="100%" Styles-Header-HorizontalAlign="Center"
+                                            Theme="Office2010Black" StylesPopup-EditForm-ModalBackground-Opacity="90">
+                                            <Columns>
+                                                <dx:GridViewDataTextColumn Caption="Membresia" FieldName="Membresia" VisibleIndex="0" HeaderStyle-HorizontalAlign="Center" Width="120px">
+                                                </dx:GridViewDataTextColumn>
+                                                <dx:GridViewDataTextColumn Caption="Nombre Miembro" FieldName="Nombre" VisibleIndex="1" HeaderStyle-HorizontalAlign="Center" Width="150px" PropertiesTextEdit-DisplayFormatString="dd/MM/yyyy">
+                                                </dx:GridViewDataTextColumn>
+                                                <dx:GridViewDataTextColumn Caption="e-mail" FieldName="CorreoElectronico" VisibleIndex="2" HeaderStyle-HorizontalAlign="Center">
+                                                </dx:GridViewDataTextColumn>
+                                                <dx:GridViewDataTextColumn Caption="Teléfono" FieldName="Telefono" VisibleIndex="3" HeaderStyle-HorizontalAlign="Center">
+                                                </dx:GridViewDataTextColumn>
+                                                <dx:GridViewDataTextColumn Caption="Móvil" FieldName="TelefonoMovil" VisibleIndex="4" HeaderStyle-HorizontalAlign="Center">
+                                                </dx:GridViewDataTextColumn>
+                                                <dx:GridViewDataTextColumn Caption="Subscripción" FieldName="subscripcion" VisibleIndex="5" HeaderStyle-HorizontalAlign="Center">
+                                                </dx:GridViewDataTextColumn>
+                                                <dx:GridViewDataTextColumn Caption="Desc. Horas" FieldName="DescHoras" VisibleIndex="6" HeaderStyle-HorizontalAlign="Center">
+                                                </dx:GridViewDataTextColumn>
+                                                <dx:GridViewDataTextColumn Caption="Codigo Invitación" FieldName="CodigoInvitacion" VisibleIndex="6" HeaderStyle-HorizontalAlign="Center">
+                                                </dx:GridViewDataTextColumn>
+                                                <dx:GridViewDataColumn Caption="Acciones">
+                                                    <HeaderStyle HorizontalAlign="Center" />
+                                                    <EditCellStyle HorizontalAlign="Center"></EditCellStyle>
+                                                    <DataItemTemplate>
+                                                        <dx:ASPxButton ID="btnEditar" runat="server" Text="Editar" Theme="Office2010Black" CommandArgument='<%# Eval("IdMiembro") %>' OnClick="btnEditar_Click"></dx:ASPxButton>
+                                                        <dx:ASPxButton ID="btnAprobar" runat="server" Text="Aprobar" Theme="Office2010Black" CommandArgument='<%# Eval("IdMiembro") %>' OnClick="btnAcepRec_Click"></dx:ASPxButton>
+                                                        <dx:ASPxButton ID="btnRechazar" runat="server" Text="Rechazar" Theme="Office2010Black" CommandArgument='<%# Eval("IdMiembro") %>' OnClick="btnRechazar_Click"></dx:ASPxButton>
+                                                    </DataItemTemplate>
+                                                </dx:GridViewDataColumn>
+                                            </Columns>
+                                            <SettingsSearchPanel Visible="true" />
+                                            <SettingsPager Position="TopAndBottom" Visible="true">
+                                                <PageSizeItemSettings Items="1, 10, 20, 50, 100" Visible="true">
+                                                </PageSizeItemSettings>
+                                            </SettingsPager>
+                                        </dx:ASPxGridView>
+                                        <dx:ASPxGridViewExporter ID="Exporter" runat="server" GridViewID="gvMiembros">
+                                        </dx:ASPxGridViewExporter>
+                                    </div>
+                                </ContentTemplate>
+                                <Triggers>
+                                    <asp:AsyncPostBackTrigger ControlID="btnBusqueda" EventName="Click" />
+                                </Triggers>
+                            </asp:UpdatePanel>
+
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div style="text-align: right">
+                                <asp:UpdatePanel runat="server" ID="UpdatePanel2" UpdateMode="Conditional" OnUnload="upGv_Unload">
+                                    <ContentTemplate>
+                                        <dx:ASPxLabel runat="server" Font-Bold="True" Theme="Office2010Black" Text="Exportar a: "></dx:ASPxLabel>
+                                        &nbsp;<dx:ASPxButton ID="btnExcel" Theme="Office2010Black" ToolTip="Exportar" runat="server" Text="Excel" OnClick="btnExcel_Click"></dx:ASPxButton>
+                                    </ContentTemplate>
+                                    <Triggers>
+                                        <asp:PostBackTrigger ControlID="btnExcel" />
+                                    </Triggers>
+                                </asp:UpdatePanel>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                </div>
+            </dx:PanelContent>
+        </PanelCollection>
+    </dx:ASPxPanel>
+
+
+    <%-- MODAL EDITAR A UN MIEMBRO --%>
+    <dx:ASPxPopupControl ID="ppEditarMiembro" runat="server" ClientInstanceName="ppEditarMiembro" CloseAction="CloseButton" CloseOnEscape="true" Modal="True" 
+        Theme="Office2010Black" PopupHorizontalAlign="WindowCenter" PopupVerticalAlign="Middle" HeaderText="Edición de Miembro" 
+        AllowDragging="true" ShowCloseButton="true" Width="700">
+        <ClientSideEvents />
+        <ContentCollection>
+            <dx:PopupControlContentControl runat="server">
+                <asp:Panel ID="Panel2" runat="server">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <fieldset class="Personal1">
+                                <legend>
+                                    <span style="font-family: Helvetica, Arial,sans-serif; text-align: center;"></span>
+                                </legend>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <table width="100%">
+                                            <tr>
+                                                <td style="width:8%"></td>
+                                                <td style="width:40%"></td>
+                                                <td style="width:4%"></td>
+                                                <td style="width:10%"></td>
+                                                <td style="width:38%"></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="text-align: left; width:8%">
+                                                    <dx:ASPxLabel runat="server" ID="lblMembresiaM" Text="Membresia:" Theme="Office2010Black"></dx:ASPxLabel>
+                                                </td>
+                                                <td style="text-align: left; width:40%">
+                                                    <dx:ASPxComboBox ID="ddlMembresiaM" runat="server" Native="false" Width="100%" Theme="Office2010Black" 
+                                                        OnSelectedIndexChanged="ddlMembresiaM_SelectedIndexChanged" AutoPostBack="true"></dx:ASPxComboBox>
+                                                </td>
+                                                <td></td>
+                                                <td style="text-align: left; width:48%" colspan="2">
+                                                    <dx:ASPxLabel runat="server" ID="lblRazonSocial" Text="" Theme="Office2010Black"></dx:ASPxLabel>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="5" style="height:10px"></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="text-align: left; width:8%">
+                                                    <dx:ASPxLabel runat="server" ID="lblNombreM" Text="Nombre:"></dx:ASPxLabel>
+                                                </td>
+                                                <td style="text-align: left; width:40%">
+                                                    <dx:ASPxTextBox ID="txtNombreM" runat="server" Width="100%" Theme="Office2010Black"></dx:ASPxTextBox>
+                                                </td>
+                                                <td></td>
+                                                <td style="text-align:left">
+                                                    <dx:ASPxLabel runat="server" ID="lblCorreoM" Text="Correo:"></dx:ASPxLabel>
+                                                </td>
+                                                <td>
+                                                    <dx:ASPxTextBox ID="txtCorreoM" runat="server" Width="100%" Theme="Office2010Black"></dx:ASPxTextBox>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="5" style="height:10px"></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="text-align:left">
+                                                    <dx:ASPxLabel runat="server" ID="lblTelefonoM" Text="Teléfono:"></dx:ASPxLabel>
+                                                </td>
+                                                <td>
+                                                    <dx:ASPxTextBox ID="txtTelefonoM" runat="server" Width="100%" Theme="Office2010Black"></dx:ASPxTextBox>
+                                                </td>
+                                                <td></td>
+                                                <td style="text-align:left">
+                                                    <dx:ASPxLabel runat="server" ID="lblTelefonoMo" Text="Teléfono movil:"></dx:ASPxLabel>
+                                                </td>
+                                                <td>
+                                                    <dx:ASPxTextBox ID="txtTelefonoMo" runat="server" Width="100%" Theme="Office2010Black"></dx:ASPxTextBox>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="5" style="height:10px"></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="text-align:left">
+                                                    <dx:ASPxLabel runat="server" ID="lblSubscripcion" Text="Tipo subscripción:"></dx:ASPxLabel>
+                                                </td>
+                                                <td>
+                                                    <dx:ASPxComboBox ID="ddlSubscripcion" runat="server" Width="100%" Theme="Office2010Black" ></dx:ASPxComboBox>
+                                                </td>
+                                                <td></td>
+                                                <td style="text-align:left">
+                                                    <dx:ASPxLabel runat="server" ID="lblDescuentaHoras" Text="Descuenta Horas:"></dx:ASPxLabel>
+                                                </td>
+                                                <td style="text-align:left">
+                                                    <dx:ASPxCheckBox ID="chkDescuenta" runat="server" Theme="Office2010Black"></dx:ASPxCheckBox>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <br />
+                            <table style="width:100%">
+                                <tr>
+                                    <td style="width:48%; text-align:right">
+                                        <asp:Button ID="btnAceptarM" runat="server" Text="Aceptar" OnClick="btnAceptarM_Click" OnClientClick="OcultaError();" />
+                                        <%--<dx:ASPxButton ID="btnAceptarM" runat="server" Text="Aceptar" Theme="Office2010Black" OnClick="btnAceptarM_Click">
+                                            <ClientSideEvents Click="function(s, e) {ppNotas.Hide(); }" />
+                                        </dx:ASPxButton>--%>
+                                    </td>
+                                    <td style="width:4%"></td>
+                                    <td style="width:50%; text-align:left">
+                                        <asp:Button ID="btnCancelarM" runat="server" Text="Cancelar" OnClientClick="OcultaError();">
+                                        </asp:Button>
+                                    </td>
+                                </tr>
+                            </table>
+                            
+                        </div>
+                    </div>
+                </asp:Panel>
+            </dx:PopupControlContentControl>
+        </ContentCollection>
+    </dx:ASPxPopupControl>
+
+</asp:Content>

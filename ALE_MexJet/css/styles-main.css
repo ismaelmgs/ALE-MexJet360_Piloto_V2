@@ -1,0 +1,70 @@
+﻿body, html{ width:100%; height:100%; padding: 0; margin: 0;}
+
+/* Container Main   */
+.container-main {
+    /* background-image: url("../img/avion-entre-nubes.jpg"); */
+  background-color: #036;
+  width:100%;
+  /*margin-bottom: 40px;*/
+  overflow: hidden;
+  height: auto;
+  /* background-attachment: scroll; */
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+}
+/*.radius{
+	 -moz-border-radius: 5px; /* Firefox */
+	 /*-webkit-border-radius: 5px; /* Google Chrome y Safari */
+	 /*border-radius: 5px; /* CSS3 (Opera 10.5, IE 9 y estándar a ser soportado por todos los futuros navegadores) */
+/*}*/
+
+
+/***************************** Grid *********************************/
+.grid {
+    /*width: 600px;*/
+    table-layout: fixed;
+}
+
+.grid tr > th {
+    height: 40px;
+    text-align: left;
+    /*background-color: #aaa;*/
+    
+    color: #fff;
+    background-color: #337ab7;
+    border-color: #2e6da4;
+
+    /*display: inline-block;*/
+  /*padding: 6px 12px;*/
+  
+  margin-bottom: 0;
+  font-size: 11pt;
+  font-weight: normal;
+  line-height: 1.42857143;
+  /*text-align: center;*/
+  white-space: nowrap;
+  vertical-align: middle;
+  -ms-touch-action: manipulation;
+      touch-action: manipulation;
+  /*cursor: pointer;*/
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  /*background-image: none;*/
+  /*border: 1px solid transparent;*/
+  /*border-radius: 4px;*/
+  border-top-left-radius:4px;
+  border-top-right-radius:4px;
+}
+
+.grid tr > td, .grid tr > th {
+    padding: 5px;
+    border: 1px solid #ccc;
+}
+
+.grid tr:nth-child(even) {
+    background-color: #eee;
+    vertical-align: bottom;
+    border-bottom: 2px solid #ddd;
+}

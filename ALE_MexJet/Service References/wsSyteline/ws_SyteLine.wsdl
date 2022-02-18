@@ -1,0 +1,1171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="ws_SyteLine" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xs:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:import namespace="http://schemas.datacontract.org/2004/07/ws_SyteLine" />
+      <xs:import namespace="http://schemas.datacontract.org/2004/07/ws_SyteLine.Objetos" />
+      <xs:element name="GetData">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="value" type="xs:int" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetDataResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="GetDataResult" nillable="true" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetCodigoUnidad_Uno">
+        <xs:complexType>
+          <xs:sequence />
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetCodigoUnidad_UnoResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="GetCodigoUnidad_UnoResult" nillable="true">
+              <xs:complexType>
+                <xs:annotation>
+                  <xs:appinfo>
+                    <ActualType Name="DataSet" Namespace="http://schemas.datacontract.org/2004/07/System.Data" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xs:appinfo>
+                </xs:annotation>
+                <xs:sequence>
+                  <xs:element ref="xs:schema" />
+                  <xs:any />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetCodigoUnidad_Dos">
+        <xs:complexType>
+          <xs:sequence />
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetCodigoUnidad_DosResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="GetCodigoUnidad_DosResult" nillable="true">
+              <xs:complexType>
+                <xs:annotation>
+                  <xs:appinfo>
+                    <ActualType Name="DataSet" Namespace="http://schemas.datacontract.org/2004/07/System.Data" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xs:appinfo>
+                </xs:annotation>
+                <xs:sequence>
+                  <xs:element ref="xs:schema" />
+                  <xs:any />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetCodigoUnidad_Tres">
+        <xs:complexType>
+          <xs:sequence />
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetCodigoUnidad_TresResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="GetCodigoUnidad_TresResult" nillable="true">
+              <xs:complexType>
+                <xs:annotation>
+                  <xs:appinfo>
+                    <ActualType Name="DataSet" Namespace="http://schemas.datacontract.org/2004/07/System.Data" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xs:appinfo>
+                </xs:annotation>
+                <xs:sequence>
+                  <xs:element ref="xs:schema" />
+                  <xs:any />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetCodigoUnidad_Cuatro">
+        <xs:complexType>
+          <xs:sequence />
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetCodigoUnidad_CuatroResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="GetCodigoUnidad_CuatroResult" nillable="true">
+              <xs:complexType>
+                <xs:annotation>
+                  <xs:appinfo>
+                    <ActualType Name="DataSet" Namespace="http://schemas.datacontract.org/2004/07/System.Data" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xs:appinfo>
+                </xs:annotation>
+                <xs:sequence>
+                  <xs:element ref="xs:schema" />
+                  <xs:any />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetCodigoUnidad_Dos_Union">
+        <xs:complexType>
+          <xs:sequence />
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetCodigoUnidad_Dos_UnionResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="GetCodigoUnidad_Dos_UnionResult" nillable="true">
+              <xs:complexType>
+                <xs:annotation>
+                  <xs:appinfo>
+                    <ActualType Name="DataSet" Namespace="http://schemas.datacontract.org/2004/07/System.Data" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xs:appinfo>
+                </xs:annotation>
+                <xs:sequence>
+                  <xs:element ref="xs:schema" />
+                  <xs:any />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetCodigoUnidad_Uno_Vendedor">
+        <xs:complexType>
+          <xs:sequence />
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetCodigoUnidad_Uno_VendedorResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="GetCodigoUnidad_Uno_VendedorResult" nillable="true">
+              <xs:complexType>
+                <xs:annotation>
+                  <xs:appinfo>
+                    <ActualType Name="DataSet" Namespace="http://schemas.datacontract.org/2004/07/System.Data" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xs:appinfo>
+                </xs:annotation>
+                <xs:sequence>
+                  <xs:element ref="xs:schema" />
+                  <xs:any />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetCuentasContables">
+        <xs:complexType>
+          <xs:sequence />
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetCuentasContablesResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="GetCuentasContablesResult" nillable="true">
+              <xs:complexType>
+                <xs:annotation>
+                  <xs:appinfo>
+                    <ActualType Name="DataSet" Namespace="http://schemas.datacontract.org/2004/07/System.Data" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xs:appinfo>
+                </xs:annotation>
+                <xs:sequence>
+                  <xs:element ref="xs:schema" />
+                  <xs:any />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetCuentasContablesServicios">
+        <xs:complexType>
+          <xs:sequence />
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetCuentasContablesServiciosResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="GetCuentasContablesServiciosResult" nillable="true">
+              <xs:complexType>
+                <xs:annotation>
+                  <xs:appinfo>
+                    <ActualType Name="DataSet" Namespace="http://schemas.datacontract.org/2004/07/System.Data" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xs:appinfo>
+                </xs:annotation>
+                <xs:sequence>
+                  <xs:element ref="xs:schema" />
+                  <xs:any />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetDescripcion_CodigoUnidadUNO">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="unit1" nillable="true" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetDescripcion_CodigoUnidadUNOResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="GetDescripcion_CodigoUnidadUNOResult" nillable="true" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetDescripcion_CodigoUnidadDOS">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="unit2" nillable="true" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetDescripcion_CodigoUnidadDOSResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="GetDescripcion_CodigoUnidadDOSResult" nillable="true" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetDescripcion_CodigoUnidadTRES">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="unit3" nillable="true" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetDescripcion_CodigoUnidadTRESResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="GetDescripcion_CodigoUnidadTRESResult" nillable="true" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetDescripcion_CodigoUnidadCUATRO">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="unit4" nillable="true" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetDescripcion_CodigoUnidadCUATROResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="GetDescripcion_CodigoUnidadCUATROResult" nillable="true" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetFacturantes">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="sTipo" nillable="true" type="xs:string" />
+            <xs:element minOccurs="0" name="sContrato" nillable="true" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetFacturantesResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="GetFacturantesResult" nillable="true">
+              <xs:complexType>
+                <xs:annotation>
+                  <xs:appinfo>
+                    <ActualType Name="DataSet" Namespace="http://schemas.datacontract.org/2004/07/System.Data" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xs:appinfo>
+                </xs:annotation>
+                <xs:sequence>
+                  <xs:element ref="xs:schema" />
+                  <xs:any />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="ValidaFacturante">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="sFacturante" nillable="true" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="ValidaFacturanteResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="ValidaFacturanteResult" nillable="true" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetNumFactura">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="sFacturante" nillable="true" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetNumFacturaResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="GetNumFacturaResult" nillable="true" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetDataUsingDataContract">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/ws_SyteLine" minOccurs="0" name="composite" nillable="true" type="q1:CompositeType" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetDataUsingDataContractResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/ws_SyteLine" minOccurs="0" name="GetDataUsingDataContractResult" nillable="true" type="q2:CompositeType" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="SaveArinV">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/ws_SyteLine.Objetos" minOccurs="0" name="Paso" nillable="true" type="q3:FacturaPaso1" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="SaveArinVResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="SaveArinVResult" nillable="true" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="SaveArinVD">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/ws_SyteLine.Objetos" minOccurs="0" name="Paso" nillable="true" type="q4:FacturaPaso2" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="SaveArinVDResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="SaveArinVDResult" nillable="true" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="SaveConceptoFacFinanciera">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/ws_SyteLine.Objetos" minOccurs="0" name="Paso" nillable="true" type="q5:FacturaPaso3" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="SaveConceptoFacFinancieraResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="SaveConceptoFacFinancieraResult" nillable="true" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetEstadoCuentaFacturacionMXN">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="sClaveCliente" nillable="true" type="xs:string" />
+            <xs:element minOccurs="0" name="dtfechaInicio" type="xs:dateTime" />
+            <xs:element minOccurs="0" name="dtFechaFin" type="xs:dateTime" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetEstadoCuentaFacturacionMXNResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="GetEstadoCuentaFacturacionMXNResult" nillable="true">
+              <xs:complexType>
+                <xs:annotation>
+                  <xs:appinfo>
+                    <ActualType Name="DataSet" Namespace="http://schemas.datacontract.org/2004/07/System.Data" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xs:appinfo>
+                </xs:annotation>
+                <xs:sequence>
+                  <xs:element ref="xs:schema" />
+                  <xs:any />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetEstadoCuentaFacturacionDLLS">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="sClaveCliente" nillable="true" type="xs:string" />
+            <xs:element minOccurs="0" name="dtfechaInicio" type="xs:dateTime" />
+            <xs:element minOccurs="0" name="dtFechaFin" type="xs:dateTime" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetEstadoCuentaFacturacionDLLSResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="GetEstadoCuentaFacturacionDLLSResult" nillable="true">
+              <xs:complexType>
+                <xs:annotation>
+                  <xs:appinfo>
+                    <ActualType Name="DataSet" Namespace="http://schemas.datacontract.org/2004/07/System.Data" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xs:appinfo>
+                </xs:annotation>
+                <xs:sequence>
+                  <xs:element ref="xs:schema" />
+                  <xs:any />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetEstadoCuentaResumenNoAcumuladoDLLS">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="sClaveCliente" nillable="true" type="xs:string" />
+            <xs:element minOccurs="0" name="dtfechaInicio" type="xs:dateTime" />
+            <xs:element minOccurs="0" name="dtFechaFin" type="xs:dateTime" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetEstadoCuentaResumenNoAcumuladoDLLSResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="GetEstadoCuentaResumenNoAcumuladoDLLSResult" nillable="true">
+              <xs:complexType>
+                <xs:annotation>
+                  <xs:appinfo>
+                    <ActualType Name="DataSet" Namespace="http://schemas.datacontract.org/2004/07/System.Data" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xs:appinfo>
+                </xs:annotation>
+                <xs:sequence>
+                  <xs:element ref="xs:schema" />
+                  <xs:any />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetEstadoCuentaResumenNoAcumuladoMXN">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="sClaveCliente" nillable="true" type="xs:string" />
+            <xs:element minOccurs="0" name="dtfechaInicio" type="xs:dateTime" />
+            <xs:element minOccurs="0" name="dtFechaFin" type="xs:dateTime" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetEstadoCuentaResumenNoAcumuladoMXNResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="GetEstadoCuentaResumenNoAcumuladoMXNResult" nillable="true">
+              <xs:complexType>
+                <xs:annotation>
+                  <xs:appinfo>
+                    <ActualType Name="DataSet" Namespace="http://schemas.datacontract.org/2004/07/System.Data" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xs:appinfo>
+                </xs:annotation>
+                <xs:sequence>
+                  <xs:element ref="xs:schema" />
+                  <xs:any />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetEstadoCuentaResumenAcumuladoDLLS">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="sClaveCliente" nillable="true" type="xs:string" />
+            <xs:element minOccurs="0" name="dtfechaInicio" type="xs:dateTime" />
+            <xs:element minOccurs="0" name="dtFechaFin" type="xs:dateTime" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetEstadoCuentaResumenAcumuladoDLLSResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="GetEstadoCuentaResumenAcumuladoDLLSResult" nillable="true">
+              <xs:complexType>
+                <xs:annotation>
+                  <xs:appinfo>
+                    <ActualType Name="DataSet" Namespace="http://schemas.datacontract.org/2004/07/System.Data" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xs:appinfo>
+                </xs:annotation>
+                <xs:sequence>
+                  <xs:element ref="xs:schema" />
+                  <xs:any />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetEstadoCuentaResumenAcumuladoMXN">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="sClaveCliente" nillable="true" type="xs:string" />
+            <xs:element minOccurs="0" name="dtfechaInicio" type="xs:dateTime" />
+            <xs:element minOccurs="0" name="dtFechaFin" type="xs:dateTime" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetEstadoCuentaResumenAcumuladoMXNResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="GetEstadoCuentaResumenAcumuladoMXNResult" nillable="true">
+              <xs:complexType>
+                <xs:annotation>
+                  <xs:appinfo>
+                    <ActualType Name="DataSet" Namespace="http://schemas.datacontract.org/2004/07/System.Data" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xs:appinfo>
+                </xs:annotation>
+                <xs:sequence>
+                  <xs:element ref="xs:schema" />
+                  <xs:any />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:schema>
+    <xs:schema xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="anyType" nillable="true" type="xs:anyType" />
+      <xs:element name="anyURI" nillable="true" type="xs:anyURI" />
+      <xs:element name="base64Binary" nillable="true" type="xs:base64Binary" />
+      <xs:element name="boolean" nillable="true" type="xs:boolean" />
+      <xs:element name="byte" nillable="true" type="xs:byte" />
+      <xs:element name="dateTime" nillable="true" type="xs:dateTime" />
+      <xs:element name="decimal" nillable="true" type="xs:decimal" />
+      <xs:element name="double" nillable="true" type="xs:double" />
+      <xs:element name="float" nillable="true" type="xs:float" />
+      <xs:element name="int" nillable="true" type="xs:int" />
+      <xs:element name="long" nillable="true" type="xs:long" />
+      <xs:element name="QName" nillable="true" type="xs:QName" />
+      <xs:element name="short" nillable="true" type="xs:short" />
+      <xs:element name="string" nillable="true" type="xs:string" />
+      <xs:element name="unsignedByte" nillable="true" type="xs:unsignedByte" />
+      <xs:element name="unsignedInt" nillable="true" type="xs:unsignedInt" />
+      <xs:element name="unsignedLong" nillable="true" type="xs:unsignedLong" />
+      <xs:element name="unsignedShort" nillable="true" type="xs:unsignedShort" />
+      <xs:element name="char" nillable="true" type="tns:char" />
+      <xs:simpleType name="char">
+        <xs:restriction base="xs:int" />
+      </xs:simpleType>
+      <xs:element name="duration" nillable="true" type="tns:duration" />
+      <xs:simpleType name="duration">
+        <xs:restriction base="xs:duration">
+          <xs:pattern value="\-?P(\d*D)?(T(\d*H)?(\d*M)?(\d*(\.\d*)?S)?)?" />
+          <xs:minInclusive value="-P10675199DT2H48M5.4775808S" />
+          <xs:maxInclusive value="P10675199DT2H48M5.4775807S" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:element name="guid" nillable="true" type="tns:guid" />
+      <xs:simpleType name="guid">
+        <xs:restriction base="xs:string">
+          <xs:pattern value="[\da-fA-F]{8}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{12}" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:attribute name="FactoryType" type="xs:QName" />
+      <xs:attribute name="Id" type="xs:ID" />
+      <xs:attribute name="Ref" type="xs:IDREF" />
+    </xs:schema>
+    <xs:schema elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="DataSet" nillable="true">
+        <xs:complexType>
+          <xs:annotation>
+            <xs:appinfo>
+              <ActualType Name="DataSet" Namespace="http://schemas.datacontract.org/2004/07/System.Data" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+            </xs:appinfo>
+          </xs:annotation>
+          <xs:sequence>
+            <xs:element ref="xs:schema" />
+            <xs:any />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:schema>
+    <xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/ws_SyteLine" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/ws_SyteLine" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:complexType name="CompositeType">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="BoolValue" type="xs:boolean" />
+          <xs:element minOccurs="0" name="StringValue" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="CompositeType" nillable="true" type="tns:CompositeType" />
+    </xs:schema>
+    <xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/ws_SyteLine.Objetos" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/ws_SyteLine.Objetos" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:complexType name="FacturaPaso1">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="dAmount" type="xs:decimal" />
+          <xs:element minOccurs="0" name="dSales_tax" type="xs:decimal" />
+          <xs:element minOccurs="0" name="dtDueDate" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="dtInvDate" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="sAcct" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="sAcct_unit3" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="sAcct_unit4" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="sDescription" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="sExch_rate" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="sFacturante" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="sInvNum" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="sRef" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="sTax_code1" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="sUsuario" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="FacturaPaso1" nillable="true" type="tns:FacturaPaso1" />
+      <xs:complexType name="FacturaPaso2">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="dAmount" type="xs:decimal" />
+          <xs:element minOccurs="0" name="iDistSeq" type="xs:int" />
+          <xs:element minOccurs="0" name="iTaxSystem" type="xs:int" />
+          <xs:element minOccurs="0" name="sAcct" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="sAcct_unit1" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="sAcct_unit2" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="sAcct_unit3" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="sAcct_unit4" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="sFacturante" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="sInvNum" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="sTax_code1" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="sUsuario" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="FacturaPaso2" nillable="true" type="tns:FacturaPaso2" />
+      <xs:complexType name="FacturaPaso3">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="NoteExist" type="xs:int" />
+          <xs:element minOccurs="0" name="dPrice" type="xs:decimal" />
+          <xs:element minOccurs="0" name="dQty" type="xs:decimal" />
+          <xs:element minOccurs="0" name="iIsWorkflow" type="xs:int" />
+          <xs:element minOccurs="0" name="iLine" type="xs:int" />
+          <xs:element minOccurs="0" name="sInvNum" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="sUM" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="sUsuario" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="sdescription" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="FacturaPaso3" nillable="true" type="tns:FacturaPaso3" />
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="Iws_SyteLine_GetData_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetData" />
+  </wsdl:message>
+  <wsdl:message name="Iws_SyteLine_GetData_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="Iws_SyteLine_GetCodigoUnidad_Uno_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCodigoUnidad_Uno" />
+  </wsdl:message>
+  <wsdl:message name="Iws_SyteLine_GetCodigoUnidad_Uno_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCodigoUnidad_UnoResponse" />
+  </wsdl:message>
+  <wsdl:message name="Iws_SyteLine_GetCodigoUnidad_Dos_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCodigoUnidad_Dos" />
+  </wsdl:message>
+  <wsdl:message name="Iws_SyteLine_GetCodigoUnidad_Dos_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCodigoUnidad_DosResponse" />
+  </wsdl:message>
+  <wsdl:message name="Iws_SyteLine_GetCodigoUnidad_Tres_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCodigoUnidad_Tres" />
+  </wsdl:message>
+  <wsdl:message name="Iws_SyteLine_GetCodigoUnidad_Tres_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCodigoUnidad_TresResponse" />
+  </wsdl:message>
+  <wsdl:message name="Iws_SyteLine_GetCodigoUnidad_Cuatro_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCodigoUnidad_Cuatro" />
+  </wsdl:message>
+  <wsdl:message name="Iws_SyteLine_GetCodigoUnidad_Cuatro_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCodigoUnidad_CuatroResponse" />
+  </wsdl:message>
+  <wsdl:message name="Iws_SyteLine_GetCodigoUnidad_Dos_Union_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCodigoUnidad_Dos_Union" />
+  </wsdl:message>
+  <wsdl:message name="Iws_SyteLine_GetCodigoUnidad_Dos_Union_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCodigoUnidad_Dos_UnionResponse" />
+  </wsdl:message>
+  <wsdl:message name="Iws_SyteLine_GetCodigoUnidad_Uno_Vendedor_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCodigoUnidad_Uno_Vendedor" />
+  </wsdl:message>
+  <wsdl:message name="Iws_SyteLine_GetCodigoUnidad_Uno_Vendedor_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCodigoUnidad_Uno_VendedorResponse" />
+  </wsdl:message>
+  <wsdl:message name="Iws_SyteLine_GetCuentasContables_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCuentasContables" />
+  </wsdl:message>
+  <wsdl:message name="Iws_SyteLine_GetCuentasContables_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCuentasContablesResponse" />
+  </wsdl:message>
+  <wsdl:message name="Iws_SyteLine_GetCuentasContablesServicios_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCuentasContablesServicios" />
+  </wsdl:message>
+  <wsdl:message name="Iws_SyteLine_GetCuentasContablesServicios_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCuentasContablesServiciosResponse" />
+  </wsdl:message>
+  <wsdl:message name="Iws_SyteLine_GetDescripcion_CodigoUnidadUNO_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetDescripcion_CodigoUnidadUNO" />
+  </wsdl:message>
+  <wsdl:message name="Iws_SyteLine_GetDescripcion_CodigoUnidadUNO_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetDescripcion_CodigoUnidadUNOResponse" />
+  </wsdl:message>
+  <wsdl:message name="Iws_SyteLine_GetDescripcion_CodigoUnidadDOS_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetDescripcion_CodigoUnidadDOS" />
+  </wsdl:message>
+  <wsdl:message name="Iws_SyteLine_GetDescripcion_CodigoUnidadDOS_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetDescripcion_CodigoUnidadDOSResponse" />
+  </wsdl:message>
+  <wsdl:message name="Iws_SyteLine_GetDescripcion_CodigoUnidadTRES_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetDescripcion_CodigoUnidadTRES" />
+  </wsdl:message>
+  <wsdl:message name="Iws_SyteLine_GetDescripcion_CodigoUnidadTRES_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetDescripcion_CodigoUnidadTRESResponse" />
+  </wsdl:message>
+  <wsdl:message name="Iws_SyteLine_GetDescripcion_CodigoUnidadCUATRO_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetDescripcion_CodigoUnidadCUATRO" />
+  </wsdl:message>
+  <wsdl:message name="Iws_SyteLine_GetDescripcion_CodigoUnidadCUATRO_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetDescripcion_CodigoUnidadCUATROResponse" />
+  </wsdl:message>
+  <wsdl:message name="Iws_SyteLine_GetFacturantes_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetFacturantes" />
+  </wsdl:message>
+  <wsdl:message name="Iws_SyteLine_GetFacturantes_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetFacturantesResponse" />
+  </wsdl:message>
+  <wsdl:message name="Iws_SyteLine_ValidaFacturante_InputMessage">
+    <wsdl:part name="parameters" element="tns:ValidaFacturante" />
+  </wsdl:message>
+  <wsdl:message name="Iws_SyteLine_ValidaFacturante_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ValidaFacturanteResponse" />
+  </wsdl:message>
+  <wsdl:message name="Iws_SyteLine_GetNumFactura_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetNumFactura" />
+  </wsdl:message>
+  <wsdl:message name="Iws_SyteLine_GetNumFactura_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetNumFacturaResponse" />
+  </wsdl:message>
+  <wsdl:message name="Iws_SyteLine_GetDataUsingDataContract_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetDataUsingDataContract" />
+  </wsdl:message>
+  <wsdl:message name="Iws_SyteLine_GetDataUsingDataContract_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetDataUsingDataContractResponse" />
+  </wsdl:message>
+  <wsdl:message name="Iws_SyteLine_SaveArinV_InputMessage">
+    <wsdl:part name="parameters" element="tns:SaveArinV" />
+  </wsdl:message>
+  <wsdl:message name="Iws_SyteLine_SaveArinV_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SaveArinVResponse" />
+  </wsdl:message>
+  <wsdl:message name="Iws_SyteLine_SaveArinVD_InputMessage">
+    <wsdl:part name="parameters" element="tns:SaveArinVD" />
+  </wsdl:message>
+  <wsdl:message name="Iws_SyteLine_SaveArinVD_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SaveArinVDResponse" />
+  </wsdl:message>
+  <wsdl:message name="Iws_SyteLine_SaveConceptoFacFinanciera_InputMessage">
+    <wsdl:part name="parameters" element="tns:SaveConceptoFacFinanciera" />
+  </wsdl:message>
+  <wsdl:message name="Iws_SyteLine_SaveConceptoFacFinanciera_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SaveConceptoFacFinancieraResponse" />
+  </wsdl:message>
+  <wsdl:message name="Iws_SyteLine_GetEstadoCuentaFacturacionMXN_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetEstadoCuentaFacturacionMXN" />
+  </wsdl:message>
+  <wsdl:message name="Iws_SyteLine_GetEstadoCuentaFacturacionMXN_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetEstadoCuentaFacturacionMXNResponse" />
+  </wsdl:message>
+  <wsdl:message name="Iws_SyteLine_GetEstadoCuentaFacturacionDLLS_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetEstadoCuentaFacturacionDLLS" />
+  </wsdl:message>
+  <wsdl:message name="Iws_SyteLine_GetEstadoCuentaFacturacionDLLS_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetEstadoCuentaFacturacionDLLSResponse" />
+  </wsdl:message>
+  <wsdl:message name="Iws_SyteLine_GetEstadoCuentaResumenNoAcumuladoDLLS_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetEstadoCuentaResumenNoAcumuladoDLLS" />
+  </wsdl:message>
+  <wsdl:message name="Iws_SyteLine_GetEstadoCuentaResumenNoAcumuladoDLLS_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetEstadoCuentaResumenNoAcumuladoDLLSResponse" />
+  </wsdl:message>
+  <wsdl:message name="Iws_SyteLine_GetEstadoCuentaResumenNoAcumuladoMXN_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetEstadoCuentaResumenNoAcumuladoMXN" />
+  </wsdl:message>
+  <wsdl:message name="Iws_SyteLine_GetEstadoCuentaResumenNoAcumuladoMXN_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetEstadoCuentaResumenNoAcumuladoMXNResponse" />
+  </wsdl:message>
+  <wsdl:message name="Iws_SyteLine_GetEstadoCuentaResumenAcumuladoDLLS_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetEstadoCuentaResumenAcumuladoDLLS" />
+  </wsdl:message>
+  <wsdl:message name="Iws_SyteLine_GetEstadoCuentaResumenAcumuladoDLLS_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetEstadoCuentaResumenAcumuladoDLLSResponse" />
+  </wsdl:message>
+  <wsdl:message name="Iws_SyteLine_GetEstadoCuentaResumenAcumuladoMXN_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetEstadoCuentaResumenAcumuladoMXN" />
+  </wsdl:message>
+  <wsdl:message name="Iws_SyteLine_GetEstadoCuentaResumenAcumuladoMXN_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetEstadoCuentaResumenAcumuladoMXNResponse" />
+  </wsdl:message>
+  <wsdl:portType name="Iws_SyteLine">
+    <wsdl:operation name="GetData">
+      <wsdl:input wsaw:Action="http://tempuri.org/Iws_SyteLine/GetData" message="tns:Iws_SyteLine_GetData_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/Iws_SyteLine/GetDataResponse" message="tns:Iws_SyteLine_GetData_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCodigoUnidad_Uno">
+      <wsdl:input wsaw:Action="http://tempuri.org/Iws_SyteLine/GetCodigoUnidad_Uno" message="tns:Iws_SyteLine_GetCodigoUnidad_Uno_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/Iws_SyteLine/GetCodigoUnidad_UnoResponse" message="tns:Iws_SyteLine_GetCodigoUnidad_Uno_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCodigoUnidad_Dos">
+      <wsdl:input wsaw:Action="http://tempuri.org/Iws_SyteLine/GetCodigoUnidad_Dos" message="tns:Iws_SyteLine_GetCodigoUnidad_Dos_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/Iws_SyteLine/GetCodigoUnidad_DosResponse" message="tns:Iws_SyteLine_GetCodigoUnidad_Dos_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCodigoUnidad_Tres">
+      <wsdl:input wsaw:Action="http://tempuri.org/Iws_SyteLine/GetCodigoUnidad_Tres" message="tns:Iws_SyteLine_GetCodigoUnidad_Tres_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/Iws_SyteLine/GetCodigoUnidad_TresResponse" message="tns:Iws_SyteLine_GetCodigoUnidad_Tres_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCodigoUnidad_Cuatro">
+      <wsdl:input wsaw:Action="http://tempuri.org/Iws_SyteLine/GetCodigoUnidad_Cuatro" message="tns:Iws_SyteLine_GetCodigoUnidad_Cuatro_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/Iws_SyteLine/GetCodigoUnidad_CuatroResponse" message="tns:Iws_SyteLine_GetCodigoUnidad_Cuatro_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCodigoUnidad_Dos_Union">
+      <wsdl:input wsaw:Action="http://tempuri.org/Iws_SyteLine/GetCodigoUnidad_Dos_Union" message="tns:Iws_SyteLine_GetCodigoUnidad_Dos_Union_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/Iws_SyteLine/GetCodigoUnidad_Dos_UnionResponse" message="tns:Iws_SyteLine_GetCodigoUnidad_Dos_Union_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCodigoUnidad_Uno_Vendedor">
+      <wsdl:input wsaw:Action="http://tempuri.org/Iws_SyteLine/GetCodigoUnidad_Uno_Vendedor" message="tns:Iws_SyteLine_GetCodigoUnidad_Uno_Vendedor_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/Iws_SyteLine/GetCodigoUnidad_Uno_VendedorResponse" message="tns:Iws_SyteLine_GetCodigoUnidad_Uno_Vendedor_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCuentasContables">
+      <wsdl:input wsaw:Action="http://tempuri.org/Iws_SyteLine/GetCuentasContables" message="tns:Iws_SyteLine_GetCuentasContables_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/Iws_SyteLine/GetCuentasContablesResponse" message="tns:Iws_SyteLine_GetCuentasContables_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCuentasContablesServicios">
+      <wsdl:input wsaw:Action="http://tempuri.org/Iws_SyteLine/GetCuentasContablesServicios" message="tns:Iws_SyteLine_GetCuentasContablesServicios_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/Iws_SyteLine/GetCuentasContablesServiciosResponse" message="tns:Iws_SyteLine_GetCuentasContablesServicios_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDescripcion_CodigoUnidadUNO">
+      <wsdl:input wsaw:Action="http://tempuri.org/Iws_SyteLine/GetDescripcion_CodigoUnidadUNO" message="tns:Iws_SyteLine_GetDescripcion_CodigoUnidadUNO_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/Iws_SyteLine/GetDescripcion_CodigoUnidadUNOResponse" message="tns:Iws_SyteLine_GetDescripcion_CodigoUnidadUNO_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDescripcion_CodigoUnidadDOS">
+      <wsdl:input wsaw:Action="http://tempuri.org/Iws_SyteLine/GetDescripcion_CodigoUnidadDOS" message="tns:Iws_SyteLine_GetDescripcion_CodigoUnidadDOS_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/Iws_SyteLine/GetDescripcion_CodigoUnidadDOSResponse" message="tns:Iws_SyteLine_GetDescripcion_CodigoUnidadDOS_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDescripcion_CodigoUnidadTRES">
+      <wsdl:input wsaw:Action="http://tempuri.org/Iws_SyteLine/GetDescripcion_CodigoUnidadTRES" message="tns:Iws_SyteLine_GetDescripcion_CodigoUnidadTRES_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/Iws_SyteLine/GetDescripcion_CodigoUnidadTRESResponse" message="tns:Iws_SyteLine_GetDescripcion_CodigoUnidadTRES_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDescripcion_CodigoUnidadCUATRO">
+      <wsdl:input wsaw:Action="http://tempuri.org/Iws_SyteLine/GetDescripcion_CodigoUnidadCUATRO" message="tns:Iws_SyteLine_GetDescripcion_CodigoUnidadCUATRO_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/Iws_SyteLine/GetDescripcion_CodigoUnidadCUATROResponse" message="tns:Iws_SyteLine_GetDescripcion_CodigoUnidadCUATRO_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetFacturantes">
+      <wsdl:input wsaw:Action="http://tempuri.org/Iws_SyteLine/GetFacturantes" message="tns:Iws_SyteLine_GetFacturantes_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/Iws_SyteLine/GetFacturantesResponse" message="tns:Iws_SyteLine_GetFacturantes_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ValidaFacturante">
+      <wsdl:input wsaw:Action="http://tempuri.org/Iws_SyteLine/ValidaFacturante" message="tns:Iws_SyteLine_ValidaFacturante_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/Iws_SyteLine/ValidaFacturanteResponse" message="tns:Iws_SyteLine_ValidaFacturante_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetNumFactura">
+      <wsdl:input wsaw:Action="http://tempuri.org/Iws_SyteLine/GetNumFactura" message="tns:Iws_SyteLine_GetNumFactura_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/Iws_SyteLine/GetNumFacturaResponse" message="tns:Iws_SyteLine_GetNumFactura_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDataUsingDataContract">
+      <wsdl:input wsaw:Action="http://tempuri.org/Iws_SyteLine/GetDataUsingDataContract" message="tns:Iws_SyteLine_GetDataUsingDataContract_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/Iws_SyteLine/GetDataUsingDataContractResponse" message="tns:Iws_SyteLine_GetDataUsingDataContract_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveArinV">
+      <wsdl:input wsaw:Action="http://tempuri.org/Iws_SyteLine/SaveArinV" message="tns:Iws_SyteLine_SaveArinV_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/Iws_SyteLine/SaveArinVResponse" message="tns:Iws_SyteLine_SaveArinV_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveArinVD">
+      <wsdl:input wsaw:Action="http://tempuri.org/Iws_SyteLine/SaveArinVD" message="tns:Iws_SyteLine_SaveArinVD_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/Iws_SyteLine/SaveArinVDResponse" message="tns:Iws_SyteLine_SaveArinVD_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveConceptoFacFinanciera">
+      <wsdl:input wsaw:Action="http://tempuri.org/Iws_SyteLine/SaveConceptoFacFinanciera" message="tns:Iws_SyteLine_SaveConceptoFacFinanciera_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/Iws_SyteLine/SaveConceptoFacFinancieraResponse" message="tns:Iws_SyteLine_SaveConceptoFacFinanciera_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetEstadoCuentaFacturacionMXN">
+      <wsdl:input wsaw:Action="http://tempuri.org/Iws_SyteLine/GetEstadoCuentaFacturacionMXN" message="tns:Iws_SyteLine_GetEstadoCuentaFacturacionMXN_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/Iws_SyteLine/GetEstadoCuentaFacturacionMXNResponse" message="tns:Iws_SyteLine_GetEstadoCuentaFacturacionMXN_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetEstadoCuentaFacturacionDLLS">
+      <wsdl:input wsaw:Action="http://tempuri.org/Iws_SyteLine/GetEstadoCuentaFacturacionDLLS" message="tns:Iws_SyteLine_GetEstadoCuentaFacturacionDLLS_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/Iws_SyteLine/GetEstadoCuentaFacturacionDLLSResponse" message="tns:Iws_SyteLine_GetEstadoCuentaFacturacionDLLS_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetEstadoCuentaResumenNoAcumuladoDLLS">
+      <wsdl:input wsaw:Action="http://tempuri.org/Iws_SyteLine/GetEstadoCuentaResumenNoAcumuladoDLLS" message="tns:Iws_SyteLine_GetEstadoCuentaResumenNoAcumuladoDLLS_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/Iws_SyteLine/GetEstadoCuentaResumenNoAcumuladoDLLSResponse" message="tns:Iws_SyteLine_GetEstadoCuentaResumenNoAcumuladoDLLS_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetEstadoCuentaResumenNoAcumuladoMXN">
+      <wsdl:input wsaw:Action="http://tempuri.org/Iws_SyteLine/GetEstadoCuentaResumenNoAcumuladoMXN" message="tns:Iws_SyteLine_GetEstadoCuentaResumenNoAcumuladoMXN_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/Iws_SyteLine/GetEstadoCuentaResumenNoAcumuladoMXNResponse" message="tns:Iws_SyteLine_GetEstadoCuentaResumenNoAcumuladoMXN_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetEstadoCuentaResumenAcumuladoDLLS">
+      <wsdl:input wsaw:Action="http://tempuri.org/Iws_SyteLine/GetEstadoCuentaResumenAcumuladoDLLS" message="tns:Iws_SyteLine_GetEstadoCuentaResumenAcumuladoDLLS_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/Iws_SyteLine/GetEstadoCuentaResumenAcumuladoDLLSResponse" message="tns:Iws_SyteLine_GetEstadoCuentaResumenAcumuladoDLLS_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetEstadoCuentaResumenAcumuladoMXN">
+      <wsdl:input wsaw:Action="http://tempuri.org/Iws_SyteLine/GetEstadoCuentaResumenAcumuladoMXN" message="tns:Iws_SyteLine_GetEstadoCuentaResumenAcumuladoMXN_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/Iws_SyteLine/GetEstadoCuentaResumenAcumuladoMXNResponse" message="tns:Iws_SyteLine_GetEstadoCuentaResumenAcumuladoMXN_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_Iws_SyteLine" type="tns:Iws_SyteLine">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetData">
+      <soap:operation soapAction="http://tempuri.org/Iws_SyteLine/GetData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCodigoUnidad_Uno">
+      <soap:operation soapAction="http://tempuri.org/Iws_SyteLine/GetCodigoUnidad_Uno" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCodigoUnidad_Dos">
+      <soap:operation soapAction="http://tempuri.org/Iws_SyteLine/GetCodigoUnidad_Dos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCodigoUnidad_Tres">
+      <soap:operation soapAction="http://tempuri.org/Iws_SyteLine/GetCodigoUnidad_Tres" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCodigoUnidad_Cuatro">
+      <soap:operation soapAction="http://tempuri.org/Iws_SyteLine/GetCodigoUnidad_Cuatro" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCodigoUnidad_Dos_Union">
+      <soap:operation soapAction="http://tempuri.org/Iws_SyteLine/GetCodigoUnidad_Dos_Union" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCodigoUnidad_Uno_Vendedor">
+      <soap:operation soapAction="http://tempuri.org/Iws_SyteLine/GetCodigoUnidad_Uno_Vendedor" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCuentasContables">
+      <soap:operation soapAction="http://tempuri.org/Iws_SyteLine/GetCuentasContables" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCuentasContablesServicios">
+      <soap:operation soapAction="http://tempuri.org/Iws_SyteLine/GetCuentasContablesServicios" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDescripcion_CodigoUnidadUNO">
+      <soap:operation soapAction="http://tempuri.org/Iws_SyteLine/GetDescripcion_CodigoUnidadUNO" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDescripcion_CodigoUnidadDOS">
+      <soap:operation soapAction="http://tempuri.org/Iws_SyteLine/GetDescripcion_CodigoUnidadDOS" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDescripcion_CodigoUnidadTRES">
+      <soap:operation soapAction="http://tempuri.org/Iws_SyteLine/GetDescripcion_CodigoUnidadTRES" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDescripcion_CodigoUnidadCUATRO">
+      <soap:operation soapAction="http://tempuri.org/Iws_SyteLine/GetDescripcion_CodigoUnidadCUATRO" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFacturantes">
+      <soap:operation soapAction="http://tempuri.org/Iws_SyteLine/GetFacturantes" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidaFacturante">
+      <soap:operation soapAction="http://tempuri.org/Iws_SyteLine/ValidaFacturante" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetNumFactura">
+      <soap:operation soapAction="http://tempuri.org/Iws_SyteLine/GetNumFactura" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDataUsingDataContract">
+      <soap:operation soapAction="http://tempuri.org/Iws_SyteLine/GetDataUsingDataContract" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveArinV">
+      <soap:operation soapAction="http://tempuri.org/Iws_SyteLine/SaveArinV" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveArinVD">
+      <soap:operation soapAction="http://tempuri.org/Iws_SyteLine/SaveArinVD" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveConceptoFacFinanciera">
+      <soap:operation soapAction="http://tempuri.org/Iws_SyteLine/SaveConceptoFacFinanciera" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEstadoCuentaFacturacionMXN">
+      <soap:operation soapAction="http://tempuri.org/Iws_SyteLine/GetEstadoCuentaFacturacionMXN" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEstadoCuentaFacturacionDLLS">
+      <soap:operation soapAction="http://tempuri.org/Iws_SyteLine/GetEstadoCuentaFacturacionDLLS" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEstadoCuentaResumenNoAcumuladoDLLS">
+      <soap:operation soapAction="http://tempuri.org/Iws_SyteLine/GetEstadoCuentaResumenNoAcumuladoDLLS" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEstadoCuentaResumenNoAcumuladoMXN">
+      <soap:operation soapAction="http://tempuri.org/Iws_SyteLine/GetEstadoCuentaResumenNoAcumuladoMXN" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEstadoCuentaResumenAcumuladoDLLS">
+      <soap:operation soapAction="http://tempuri.org/Iws_SyteLine/GetEstadoCuentaResumenAcumuladoDLLS" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEstadoCuentaResumenAcumuladoMXN">
+      <soap:operation soapAction="http://tempuri.org/Iws_SyteLine/GetEstadoCuentaResumenAcumuladoMXN" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ws_SyteLine">
+    <wsdl:port name="BasicHttpBinding_Iws_SyteLine" binding="tns:BasicHttpBinding_Iws_SyteLine">
+      <soap:address location="http://localhost:8733/Design_Time_Addresses/ws_SyteLine/Service1/" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
