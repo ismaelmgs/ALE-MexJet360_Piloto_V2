@@ -205,12 +205,12 @@ background-color: #669999;">
                                 <div id="divToken" runat="server" visible="false">
                                     <div class="row">
                                         <div class="col-md-6" style="text-align:right; padding-right:10px"">
-                                            <asp:Button ID="btnOK" runat="server" Text="Entrar" CssClass="btn btn-primary" Visible="false" ClientIDMode="Static"  style="font-family:Arial;margin-top: 6px;" 
-                                                OnClick="btnOK_Click" />
+                                            <asp:Button ID="btnOK" runat="server" Text="Entrar" CssClass="btn btn-primary" Visible="false" ClientIDMode="Static"  style="font-family:Arial;margin-top: 6px;width: 150px;
+    margin-right: 3px;" OnClick="btnOK_Click" />
                                         </div>
                                         <div class="col-md-6" style="text-align:left; padding-left:10px" >
-                                            <asp:Button ID="btnCancelar" runat="server" Text="Cancelar" CssClass="btn btn-warning" Visible="false" ClientIDMode="Static"  style="font-family:Arial;margin-top: 6px;" 
-                                                OnClick="btnCancelar_Click" />
+                                            <asp:Button ID="btnCancelar" runat="server" Text="Cancelar" CssClass="btn btn-warning" Visible="false" ClientIDMode="Static"  style="font-family:Arial;margin-top: 6px;width: 150px;
+    " OnClick="btnCancelar_Click" />
                                         </div>
                                     </div>
                                 </div>
