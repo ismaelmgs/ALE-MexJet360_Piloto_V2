@@ -2,7 +2,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <div style="width:100%; background:#ffffff url(../img/back_home.jpg); background-position: center center; background-repeat: no-repeat; background-attachment: fixed; background-size: cover; background-color: #ffffff;border-radius:20px;">
+    <div style="width:100%; background:#ffffff url(../img/back_home3.jpg); background-position: center center; background-repeat: no-repeat; background-attachment: fixed; background-size: cover; background-color: #ffffff;border-radius:20px;">
     <br />
     <br />
     <br />
