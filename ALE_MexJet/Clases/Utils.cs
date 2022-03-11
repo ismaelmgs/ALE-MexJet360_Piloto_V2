@@ -457,6 +457,27 @@ namespace ALE_MexJet.Clases
                 string sTipoVuelo = oRem.iCobroTiempo == 1 ? "TotalTiempoVuelo" : "TotalTiempoCalzo";
                 string sTipoIntercambioHeli = "TotalTiempoCalzo";
 
+                bool bEsHelicoptero = false;
+                DataTable dt = new DBRemision().DBGetObtieneMatriculasHelicoptero;
+                if (dt != null)
+                {
+                    string sMatricula = oRem.dtTramos.Rows[0]["Matricula"].S();
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        if (row["Matricula"].S() == sMatricula)
+                        {
+                            bEsHelicoptero = true;
+                            break;
+                        }
+                    }
+                }
+
+                if (bEsHelicoptero)
+                {
+                    if(oRem.iCobraFerryHelicoptero == 1)
+                        oRem.eSeCobraFerry = Enumeraciones.SeCobraFerrys.Todos;
+                }
+
                 switch (oRem.eSeCobraFerry)
                 {
                     case Enumeraciones.SeCobraFerrys.Todos:
@@ -477,7 +498,7 @@ namespace ALE_MexJet.Clases
 
                                         if (sTiempo == "00:00:00" || sTiempo == string.Empty)
                                         {
-                                            row["TiempoCobrar"] = DefineTiempoCobrar(oRem.iCobroTiempo, row[sTipoVuelo].S(), oRem.iMasMinutos, row.S("Matricula"), row.S(sTipoIntercambioHeli));
+                                            row["TiempoCobrar"] = DefineTiempoCobrar(oRem.iCobroTiempo, row[sTipoVuelo].S(), oRem.iMasMinutos, row.S("Matricula"), row.S(sTipoIntercambioHeli), oRem);
                                         }
                                         else
                                             row["TiempoCobrar"] = sTiempo;
@@ -487,7 +508,7 @@ namespace ALE_MexJet.Clases
                                 {
                                     foreach (DataRow row in oRem.dtTramos.Rows)
                                     {
-                                        row["TiempoCobrar"] = DefineTiempoCobrar(oRem.iCobroTiempo, row[sTipoVuelo].S(), oRem.iMasMinutos, row.S("Matricula"), row.S(sTipoIntercambioHeli));
+                                        row["TiempoCobrar"] = DefineTiempoCobrar(oRem.iCobroTiempo, row[sTipoVuelo].S(), oRem.iMasMinutos, row.S("Matricula"), row.S(sTipoIntercambioHeli), oRem);
                                     }
                                 }
 
@@ -499,7 +520,7 @@ namespace ALE_MexJet.Clases
 
                                     foreach (DataRow drw in oRem.dtTramos.Rows)
                                     {
-                                        drw["TiempoEspera"] = "00:00:00";
+                                        drw["TiempoEspera"] = "00:00";
                                     }
                                 }
                             }
@@ -512,9 +533,9 @@ namespace ALE_MexJet.Clases
                                     {
                                         string sTiempo = ObtieneTramoPactado(oRem, row.S("Origen"), row.S("Destino"), row.S("Matricula"));
 
-                                        if (sTiempo == "00:00:00" || sTiempo == string.Empty)
+                                        if (sTiempo == "00:00:00" || sTiempo == string.Empty || sTiempo == "00:00")
                                         {
-                                            row["TiempoCobrar"] = DefineTiempoCobrar(oRem.iCobroTiempo, row[sTipoVuelo].S(), oRem.iMasMinutos, row.S("Matricula"), row.S(sTipoIntercambioHeli));
+                                            row["TiempoCobrar"] = DefineTiempoCobrar(oRem.iCobroTiempo, row[sTipoVuelo].S(), oRem.iMasMinutos, row.S("Matricula"), row.S(sTipoIntercambioHeli), oRem);
                                         }
                                         else
                                             row["TiempoCobrar"] = sTiempo;
@@ -524,7 +545,7 @@ namespace ALE_MexJet.Clases
                                 {
                                     foreach (DataRow row in oRem.dtTramos.Rows)
                                     {
-                                        row["TiempoCobrar"] = DefineTiempoCobrar(oRem.iCobroTiempo, row[sTipoVuelo].S(), oRem.iMasMinutos, row.S("Matricula"), row.S(sTipoIntercambioHeli));
+                                        row["TiempoCobrar"] = DefineTiempoCobrar(oRem.iCobroTiempo, row[sTipoVuelo].S(), oRem.iMasMinutos, row.S("Matricula"), row.S(sTipoIntercambioHeli), oRem);
                                     }
                                 }
                             }
@@ -552,7 +573,7 @@ namespace ALE_MexJet.Clases
 
                                     if (sTiempo == "00:00:00" || sTiempo == string.Empty)
                                     {
-                                        row["TiempoCobrar"] = DefineTiempoCobrar(oRem.iCobroTiempo, row[sTipoVuelo].S(), oRem.iMasMinutos, row.S("Matricula"), row.S(sTipoIntercambioHeli));
+                                        row["TiempoCobrar"] = DefineTiempoCobrar(oRem.iCobroTiempo, row[sTipoVuelo].S(), oRem.iMasMinutos, row.S("Matricula"), row.S(sTipoIntercambioHeli), oRem);
                                     }
                                     else
                                         row["TiempoCobrar"] = sTiempo;
@@ -562,7 +583,7 @@ namespace ALE_MexJet.Clases
                             {
                                 foreach (DataRow row in oRem.dtTramos.Rows)
                                 {
-                                    row["TiempoCobrar"] = DefineTiempoCobrar(oRem.iCobroTiempo, row[sTipoVuelo].S(), oRem.iMasMinutos, row.S("Matricula"), row.S(sTipoIntercambioHeli));
+                                    row["TiempoCobrar"] = DefineTiempoCobrar(oRem.iCobroTiempo, row[sTipoVuelo].S(), oRem.iMasMinutos, row.S("Matricula"), row.S(sTipoIntercambioHeli), oRem);
                                     //row["TiempoCobrar"] = sTiempo == "00:00:00" || sTiempo == string.Empty ? row[sTipoVuelo].S() : sTiempo;
                                 }
                             }
@@ -642,16 +663,16 @@ namespace ALE_MexJet.Clases
                                         dr["FechaLlegada"] = dtFechaLlegada;
 
                                         dr["CantPax"] = 0;
-                                        dr["TotalTiempoCalzo"] = "00:00:00";
-                                        dr["TotalTiempoVuelo"] = "00:00:00";
+                                        dr["TotalTiempoCalzo"] = "00:00";
+                                        dr["TotalTiempoVuelo"] = "00:00";
 
                                         ts = dtFechaLlegada - oRem.dtTramos.Rows[oRem.dtTramos.Rows.Count - 1]["FechaLlegada"].Dt();
 
-                                        dr["TiempoCobrar"] = sTiempo == "00:00:00" ? ts.S() : sTiempo;
+                                        dr["TiempoCobrar"] = (sTiempo == "00:00:00" || sTiempo == "00:00") ? ts.S() : sTiempo;
                                         dr["RealVirtual"] = "Virtual";
                                         dr["VueloClienteId"] = oRem.dtTramos.Rows[0]["VueloClienteId"].S();
                                         dr["VueloContratoId"] = oRem.dtTramos.Rows[0]["VueloContratoId"].S();
-                                        dr["TiempoEspera"] = "00:00:00";
+                                        dr["TiempoEspera"] = "00:00";
                                         dr["SeCobra"] = 1;
 
                                         oRem.dtTramos.Rows.Add(dr);
@@ -690,15 +711,15 @@ namespace ALE_MexJet.Clases
 
 
                                         drI["CantPax"] = 0;
-                                        drI["TotalTiempoCalzo"] = "00:00:00";
-                                        drI["TotalTiempoVuelo"] = "00:00:00";
+                                        drI["TotalTiempoCalzo"] = "00:00";
+                                        drI["TotalTiempoVuelo"] = "00:00";
 
-                                        drI["TiempoCobrar"] = sTiempo == "00:00:00" ? ts.S() : sTiempo;
+                                        drI["TiempoCobrar"] = (sTiempo == "00:00:00" || sTiempo == "00:00") ? ts.S() : sTiempo;
 
                                         drI["RealVirtual"] = "Virtual";
                                         drI["VueloClienteId"] = oRem.dtTramos.Rows[0]["VueloClienteId"].S();
                                         drI["VueloContratoId"] = oRem.dtTramos.Rows[0]["VueloContratoId"].S();
-                                        drI["TiempoEspera"] = "00:00:00";
+                                        drI["TiempoEspera"] = "00:00";
                                         drI["SeCobra"] = 1;
 
                                         oRem.dtTramos.Rows.Add(drI);
@@ -751,15 +772,15 @@ namespace ALE_MexJet.Clases
                                 ts = oRem.dtTramos.Rows[0]["FechaSalida"].Dt() - dtFechaLlegada;
 
                                 drI["CantPax"] = 0;
-                                drI["TotalTiempoCalzo"] = "00:00:00";
-                                drI["TotalTiempoVuelo"] = "00:00:00";
+                                drI["TotalTiempoCalzo"] = "00:00";
+                                drI["TotalTiempoVuelo"] = "00:00";
 
-                                drI["TiempoCobrar"] = sTiempo == "00:00:00" ? ts.S() : sTiempo;
+                                drI["TiempoCobrar"] = (sTiempo == "00:00:00" || sTiempo == "00:00") ? ts.S() : sTiempo;
 
                                 drI["RealVirtual"] = "Virtual";
                                 drI["VueloClienteId"] = oRem.dtTramos.Rows[0]["VueloClienteId"].S();
                                 drI["VueloContratoId"] = oRem.dtTramos.Rows[0]["VueloContratoId"].S();
-                                drI["TiempoEspera"] = "00:00:00";
+                                drI["TiempoEspera"] = "00:00";
                                 drI["SeCobra"] = 1;
 
                                 oRem.dtTramos.Rows.Add(drI);
@@ -791,16 +812,16 @@ namespace ALE_MexJet.Clases
                                 drF["FechaLlegada"] = dtFechaLlegada;
 
                                 drF["CantPax"] = 0;
-                                drF["TotalTiempoCalzo"] = "00:00:00";
-                                drF["TotalTiempoVuelo"] = "00:00:00";
+                                drF["TotalTiempoCalzo"] = "00:00";
+                                drF["TotalTiempoVuelo"] = "00:00";
 
                                 ts = dtFechaLlegada - oRem.dtTramos.Rows[oRem.dtTramos.Rows.Count - 2]["FechaLlegada"].Dt();
 
-                                drF["TiempoCobrar"] = sTiempo == "00:00:00" ? ts.S() : sTiempo;
+                                drF["TiempoCobrar"] = (sTiempo == "00:00:00" || sTiempo == "00:00") ? ts.S() : sTiempo;
                                 drF["RealVirtual"] = "Virtual";
                                 drF["VueloClienteId"] = oRem.dtTramos.Rows[0]["VueloClienteId"].S();
                                 drF["VueloContratoId"] = oRem.dtTramos.Rows[0]["VueloContratoId"].S();
-                                drF["TiempoEspera"] = "00:00:00";
+                                drF["TiempoEspera"] = "00:00";
                                 drF["SeCobra"] = 1;
 
                                 oRem.dtTramos.Rows.Add(drF);
@@ -840,9 +861,9 @@ namespace ALE_MexJet.Clases
                             {
                                 string sTiempo = ObtieneTramoPactado(oRem, row.S("Origen"), row.S("Destino"), row.S("Matricula"));
 
-                                if (sTiempo == "00:00:00" || sTiempo == string.Empty)
+                                if (sTiempo == "00:00:00" || sTiempo == string.Empty || sTiempo == "00:00")
                                 {
-                                    row["TiempoCobrar"] = DefineTiempoCobrar(oRem.iCobroTiempo, row[sTipoVuelo].S(), oRem.iMasMinutos, row.S("Matricula"), row.S(sTipoIntercambioHeli));
+                                    row["TiempoCobrar"] = DefineTiempoCobrar(oRem.iCobroTiempo, row[sTipoVuelo].S(), oRem.iMasMinutos, row.S("Matricula"), row.S(sTipoIntercambioHeli), oRem);
                                 }
                                 else
                                     row["TiempoCobrar"] = sTiempo;
@@ -852,7 +873,7 @@ namespace ALE_MexJet.Clases
                         {
                             foreach (DataRow row in oRem.dtTramos.Rows)
                             {
-                                row["TiempoCobrar"] = DefineTiempoCobrar(oRem.iCobroTiempo, row[sTipoVuelo].S(), oRem.iMasMinutos, row.S("Matricula"), row.S(sTipoIntercambioHeli));
+                                row["TiempoCobrar"] = DefineTiempoCobrar(oRem.iCobroTiempo, row[sTipoVuelo].S(), oRem.iMasMinutos, row.S("Matricula"), row.S(sTipoIntercambioHeli), oRem);
                             }
                         }
 
@@ -949,9 +970,9 @@ namespace ALE_MexJet.Clases
                             {
                                 string sTiempo = ObtieneTramoPactado(oRem, row.S("Origen"), row.S("Destino"), row.S("Matricula"));
 
-                                if (sTiempo == "00:00:00" || sTiempo == string.Empty)
+                                if (sTiempo == "00:00:00" || sTiempo == string.Empty || sTiempo == "00:00")
                                 {
-                                    row["TiempoCobrar"] = DefineTiempoCobrar(oRem.iCobroTiempo, row[sTipoVuelo].S(), oRem.iMasMinutos, row.S("Matricula"), row.S(sTipoIntercambioHeli));
+                                    row["TiempoCobrar"] = DefineTiempoCobrar(oRem.iCobroTiempo, row[sTipoVuelo].S(), oRem.iMasMinutos, row.S("Matricula"), row.S(sTipoIntercambioHeli), oRem);
                                 }
                                 else
                                     row["TiempoCobrar"] = sTiempo;
@@ -961,7 +982,7 @@ namespace ALE_MexJet.Clases
                         {
                             foreach (DataRow row in oRem.dtTramos.Rows)
                             {
-                                row["TiempoCobrar"] = DefineTiempoCobrar(oRem.iCobroTiempo, row[sTipoVuelo].S(), oRem.iMasMinutos, row.S("Matricula"), row.S(sTipoIntercambioHeli));
+                                row["TiempoCobrar"] = DefineTiempoCobrar(oRem.iCobroTiempo, row[sTipoVuelo].S(), oRem.iMasMinutos, row.S("Matricula"), row.S(sTipoIntercambioHeli), oRem);
                             }
                         }
 
@@ -1074,7 +1095,7 @@ namespace ALE_MexJet.Clases
                 }
 
                 if (sTiempo == string.Empty)
-                    sTiempo = "00:00:00";
+                    sTiempo = "00:00";
 
                 if (sTiempo.Length == 5)
                     sTiempo = sTiempo + ":00";
@@ -1707,7 +1728,7 @@ namespace ALE_MexJet.Clases
             }
         }
 
-        private static string DefineTiempoCobrar(int iCobroTiempo, string sTiempoVuelo, float fTiempoSuma, string sMatricula, string sTiempoCalzo)
+        private static string DefineTiempoCobrar(int iCobroTiempo, string sTiempoVuelo, float fTiempoSuma, string sMatricula, string sTiempoCalzo, DatosRemision odRem)
         {
             try
             {   //iCobroTiempo  ===>    1.- Tiempo de Vuelo     2.- Tiempo de Calzo
@@ -1742,7 +1763,14 @@ namespace ALE_MexJet.Clases
                     }
                     else
                     {
-                        sTiempoVuelo = sTiempoCalzo;
+                        //sTiempoVuelo = sTiempoCalzo;
+                        if (odRem.iMasMinutosHelicoptero > 0)
+                        {
+                            float dTiempoV = ConvierteTiempoaDecimal(sTiempoVuelo);
+                            float dTotal = (dTiempoV + (float.Parse(odRem.iMasMinutosHelicoptero.S()) / 60));
+
+                            sTiempoVuelo = ConvierteDecimalATiempo(dTotal.S().D());
+                        }
                     }
                 }
 
@@ -2041,7 +2069,7 @@ namespace ALE_MexJet.Clases
 
                         ts = dtFechaLlegada - oRem.dtTramos.Rows[oRem.dtTramos.Rows.Count - 1]["FechaLlegada"].Dt();
 
-                        drF["TiempoCobrar"] = sTiempo == "00:00:00" ? ts.S().Substring(0, 5) : sTiempo;
+                        drF["TiempoCobrar"] = (sTiempo == "00:00:00" || sTiempo == "00:00") ? ts.S().Substring(0, 5) : sTiempo;
                         drF["RealVirtual"] = "Virtual";
                         drF["VueloClienteId"] = oRem.dtTramos.Rows[0]["VueloClienteId"].S();
                         drF["VueloContratoId"] = oRem.dtTramos.Rows[0]["VueloContratoId"].S();
@@ -2084,7 +2112,7 @@ namespace ALE_MexJet.Clases
                         drI["TotalTiempoCalzo"] = "00:00";
                         drI["TotalTiempoVuelo"] = "00:00";
 
-                        drI["TiempoCobrar"] = sTiempo == "00:00:00" ? ts.S().Substring(0,5) : sTiempo.Substring(0,5);
+                        drI["TiempoCobrar"] = (sTiempo == "00:00:00" || sTiempo == "00:00") ? ts.S().Substring(0,5) : sTiempo.Substring(0,5);
 
                         drI["RealVirtual"] = "Virtual";
                         drI["VueloClienteId"] = oRem.dtTramos.Rows[0]["VueloClienteId"].S();
@@ -2143,7 +2171,7 @@ namespace ALE_MexJet.Clases
                         drI["TotalTiempoCalzo"] = "00:00";
                         drI["TotalTiempoVuelo"] = "00:00";
 
-                        drI["TiempoCobrar"] = sTiempo == "00:00:00" ? ts.S().Substring(0,5) : sTiempo.Substring(0, 5);
+                        drI["TiempoCobrar"] = (sTiempo == "00:00:00" || sTiempo == "00:00") ? ts.S().Substring(0,5) : sTiempo.Substring(0, 5);
 
                         drI["RealVirtual"] = "Virtual";
                         drI["VueloClienteId"] = oRem.dtTramos.Rows[0]["VueloClienteId"].S();
@@ -2185,7 +2213,7 @@ namespace ALE_MexJet.Clases
 
                         ts = dtFechaLlegada - oRem.dtTramos.Rows[oRem.dtTramos.Rows.Count - 2]["FechaLlegada"].Dt();
 
-                        drF["TiempoCobrar"] = sTiempo == "00:00:00" ? ts.S().Substring(0, 5) : sTiempo.Substring(0, 5);
+                        drF["TiempoCobrar"] = (sTiempo == "00:00:00" || sTiempo == "00:00") ? ts.S().Substring(0, 5) : sTiempo.Substring(0, 5);
                         drF["RealVirtual"] = "Virtual";
                         drF["VueloClienteId"] = oRem.dtTramos.Rows[0]["VueloClienteId"].S();
                         drF["VueloContratoId"] = oRem.dtTramos.Rows[0]["VueloContratoId"].S();
@@ -2257,15 +2285,15 @@ namespace ALE_MexJet.Clases
 
 
                         drI["CantPax"] = 0;
-                        drI["TotalTiempoCalzo"] = "00:00:00";
-                        drI["TotalTiempoVuelo"] = "00:00:00";
+                        drI["TotalTiempoCalzo"] = "00:00";
+                        drI["TotalTiempoVuelo"] = "00:00";
 
-                        drI["TiempoCobrar"] = sTiempo == "00:00:00" ? ts.S() : sTiempo;
+                        drI["TiempoCobrar"] = (sTiempo == "00:00:00" || sTiempo == "00:00") ? ts.S() : sTiempo;
 
                         drI["RealVirtual"] = "Virtual";
                         drI["VueloClienteId"] = oRem.dtTramos.Rows[0]["VueloClienteId"].S();
                         drI["VueloContratoId"] = oRem.dtTramos.Rows[0]["VueloContratoId"].S();
-                        drI["TiempoEspera"] = "00:00:00";
+                        drI["TiempoEspera"] = "00:00";
                         drI["SeCobra"] = 1;
 
                         oRem.dtTramos.Rows.Add(drI);
@@ -2299,16 +2327,16 @@ namespace ALE_MexJet.Clases
 
 
                         drF["CantPax"] = 0;
-                        drF["TotalTiempoCalzo"] = "00:00:00";
-                        drF["TotalTiempoVuelo"] = "00:00:00";
+                        drF["TotalTiempoCalzo"] = "00:00";
+                        drF["TotalTiempoVuelo"] = "00:00";
 
                         ts = dtFechaLlegada - oRem.dtTramos.Rows[oRem.dtTramos.Rows.Count - 2]["FechaSalida"].Dt();
 
-                        drF["TiempoCobrar"] = sTiempo == "00:00:00" ? ts.S() : sTiempo;
+                        drF["TiempoCobrar"] = (sTiempo == "00:00:00" || sTiempo == "00:00") ? ts.S() : sTiempo;
                         drF["RealVirtual"] = "Virtual";
                         drF["VueloClienteId"] = oRem.dtTramos.Rows[0]["VueloClienteId"].S();
                         drF["VueloContratoId"] = oRem.dtTramos.Rows[0]["VueloContratoId"].S();
-                        drF["TiempoEspera"] = "00:00:00";
+                        drF["TiempoEspera"] = "00:00";
                         drF["SeCobra"] = 1;
 
                         oRem.dtTramos.Rows.Add(drF);
@@ -3126,6 +3154,9 @@ namespace ALE_MexJet.Clases
                 foreach (DataRow row in dtTramos.Rows)
                 {
                     row["TiempoOriginal"] = row.S("TiempoCobrar");
+
+                    float dTiempoCobrar = ConvierteTiempoaDecimal(row.S("TiempoCobrar"));
+                    row["TiempoCobrar"] = dTiempoCobrar.S();
                 }
 
                 // Aplica Factor de Tramos
@@ -3134,9 +3165,8 @@ namespace ALE_MexJet.Clases
                 {
                     foreach (DataRow dr in dtTramos.Rows)
                     {
-                        string sTiempoCobrar = dr.S("TiempoCobrar");
-                        float dTiempoCobrar = ConvierteTiempoaDecimal(sTiempoCobrar);
-
+                        string sTiempoCobrar = ConvierteDecimalATiempo(dr.S("TiempoCobrar").D());
+                        
                         double dFactor = 0;
                         double dTotal = 0;
 
@@ -3158,18 +3188,18 @@ namespace ALE_MexJet.Clases
                                 case "N":
                                 case "F":
                                     dFactor = oRem.dFactorTramosNal.S().Db();
-                                    dTotal = dTiempoCobrar * dFactor;
+                                    dTotal = dr.S("TiempoCobrar").Db() * dFactor;
                                     oFactorTramos.dAplicaFactorTramoNacional = dFactor;
                                     break;
                                 case "E":
                                     dFactor = oRem.dFactorTramosInt.S().Db();
-                                    dTotal = dTiempoCobrar * dFactor;
+                                    dTotal = dr.S("TiempoCobrar").Db() * dFactor;
                                     oFactorTramos.dAplicaFactorTramoInternacional = dFactor;
                                     break;
                             }
 
                             sTiempoCobrar = ConvierteDoubleATiempo(dTotal);
-                            dr["TiempoCobrar"] = sTiempoCobrar;
+                            dr["TiempoCobrar"] = dTotal;
 
                             oFactorTramos.sTiempoFinal = sTiempoCobrar;
                             oSnap.oFactoresTramos.Add(oFactorTramos);
@@ -3204,14 +3234,14 @@ namespace ALE_MexJet.Clases
                             oFactorTramos.sTiempoOriginal = row.S("TiempoCobrar");
 
                             //Aplicar factor pierna por pierna al Tiempo a Cobrar
-                            string sTiempoCobrar = row.S("TiempoCobrar");
-                            float dTiempoCobrar = ConvierteTiempoaDecimal(sTiempoCobrar);
+                            float dTiempoCobrar = float.Parse(row.S("TiempoCobrar"));
+                            //float dTiempoCobrar = ConvierteTiempoaDecimal(sTiempoCobrar);
                             double dFactor = oR.dFactorEspecial.S().Db();
 
                             double dTotal = dTiempoCobrar * dFactor;
-                            sTiempoCobrar = ConvierteDoubleATiempo(dTotal);
+                            string sTiempoCobrar = ConvierteDoubleATiempo(dTotal);
 
-                            row["TiempoCobrar"] = sTiempoCobrar;
+                            row["TiempoCobrar"] = dTotal.S();
 
                             oFactorTramos.dFactorEspeciaRem = dFactor;
                             oFactorTramos.sTiempoFinal = sTiempoCobrar;
@@ -3264,16 +3294,16 @@ namespace ALE_MexJet.Clases
                                                 oFactorTramos.sTiempoOriginal = dr.S("TiempoCobrar");
                                             }
                                         
-                                            string sTiempoCobrar = dr.S("TiempoCobrar");
-                                            float dTiempoCobrar = ConvierteTiempoaDecimal(sTiempoCobrar);
+                                            string dTiempoCobrar = dr.S("TiempoCobrar");
+                                            //float dTiempoCobrar = ConvierteTiempoaDecimal(sTiempoCobrar);
                                             double dFactor = drIs[0]["Factor"].S().Db();
 
                                             if (dFactor != 0)
                                             {
                                                 double dTotal = dTiempoCobrar.S().Db() * dFactor;
-                                                sTiempoCobrar = ConvierteDoubleATiempo(dTotal);
-
-                                                 dr["TiempoCobrar"] = sTiempoCobrar;
+                                                
+                                                dr["TiempoCobrar"] = dTotal.S();
+                                                string sTiempoCobrar = ConvierteDoubleATiempo(dTotal);
 
                                                 oRem.dFactorIntercambioF = decimal.Parse(dFactor.S());
 
@@ -3453,13 +3483,14 @@ namespace ALE_MexJet.Clases
                                         oFactorTramos.sTiempoOriginal = row.S("TiempoCobrar");
                                     }
 
-                                    float dTiempoCobrar = ConvierteTiempoaDecimal(row.S("TiempoCobrar"));
+                                    //float dTiempoCobrar = ConvierteTiempoaDecimal(row.S("TiempoCobrar"));
+                                    float dTiempoCobrar = float.Parse(row.S("TiempoCobrar"));
                                     double dTotal = dTiempoCobrar.S().Db() * (1 - oGira.dPorcentajeDescuento).S().Db();
                                     oRem.dFactorGiraEsperaF = (1 - oGira.dPorcentajeDescuento).S().D();
 
+                                    row["TiempoCobrar"] = dTotal;
                                     string sTiempoCobrar = ConvierteDoubleATiempo(dTotal);
-                                    row["TiempoCobrar"] = sTiempoCobrar;
-
+                                    
                                     oFactorTramos.dAplicaGiraEspera = oRem.dFactorGiraEsperaF.S().Db();
                                     oFactorTramos.sTiempoFinal = sTiempoCobrar;
 
@@ -3491,14 +3522,14 @@ namespace ALE_MexJet.Clases
                                         oFactorTramos.sTiempoOriginal = row.S("TiempoCobrar");
                                     }
 
-                                    float dTiempoCobrar = ConvierteTiempoaDecimal(row.S("TiempoCobrar"));
+                                    //float dTiempoCobrar = ConvierteTiempoaDecimal(row.S("TiempoCobrar"));
+                                    float dTiempoCobrar = float.Parse(row.S("TiempoCobrar"));
                                     double dTotal = dTiempoCobrar.S().Db() * (1 - oGira.dPorcentajeDescuento).S().Db();
                                     oRem.dFactorGiraHorarioF = (1 - oGira.dPorcentajeDescuento).S().D();
 
-
+                                    row["TiempoCobrar"] = dTotal;
                                     string sTiempoCobrar = ConvierteDoubleATiempo(dTotal);
-                                    row["TiempoCobrar"] = sTiempoCobrar;
-
+                                    
                                     oFactorTramos.dAplicaGiraHorario = oRem.dFactorGiraHorarioF.S().Db();
                                     oFactorTramos.sTiempoFinal = sTiempoCobrar;
 
@@ -3553,10 +3584,12 @@ namespace ALE_MexJet.Clases
                                         oFactorTramos.sTiempoOriginal = row.S("TiempoCobrar");
                                     }
 
-                                    float dTiempo = ConvierteTiempoaDecimal(row["TiempoCobrar"].S());
+                                    //float dTiempo = ConvierteTiempoaDecimal(row["TiempoCobrar"].S());
+                                    float dTiempo =  float.Parse(row["TiempoCobrar"].S());
+
                                     double dTotalT = dTiempo.S().Db() * oGira.dFactorFechaPico.S().Db();
                                     string sTiempoCobrar = ConvierteDoubleATiempo(dTotalT.S().Db());
-                                    row["TiempoCobrar"] = sTiempoCobrar;
+                                    row["TiempoCobrar"] = dTotalT;
 
                                     oRem.dFactorFechaPicoF = oGira.dFactorFechaPico;
                                     oRem.bAplicaFactorFechaPico = true;
@@ -3693,8 +3726,9 @@ namespace ALE_MexJet.Clases
                                         oFactorTramos.sTiempoOriginal = row.S("TiempoCobrar");
                                     }
 
-                                    string sTiempoCobrar = row.S("TiempoCobrar");
-                                    float dTiempoCobrar = ConvierteTiempoaDecimal(sTiempoCobrar);
+                                    //string sTiempoCobrar = row.S("TiempoCobrar");
+
+                                    double dTiempoCobrar = row.S("TiempoCobrar").Db();
                                     double dFactor = oRem.dFactorVloSimultaneo.S().Db();
 
                                     double dTotal = 0;
@@ -3703,8 +3737,8 @@ namespace ALE_MexJet.Clases
                                     else
                                         dTotal = dTiempoCobrar;
 
-                                    sTiempoCobrar = ConvierteDoubleATiempo(dTotal);
-                                    row["TiempoCobrar"] = sTiempoCobrar;
+                                    string sTiempoCobrar = ConvierteDoubleATiempo(dTotal);
+                                    row["TiempoCobrar"] = dTotal.S();
 
                                     oFactorTramos.dAplicaFactorVueloSimultaneo = dFactor;
                                     oFactorTramos.sTiempoFinal = sTiempoCobrar;
@@ -3719,9 +3753,10 @@ namespace ALE_MexJet.Clases
 
                 #endregion
 
-
                 foreach (DataRow row in dtTramos.Rows)
                 {
+                    row["TiempoCobrar"] = ConvierteDecimalATiempo(row["TiempoCobrar"].S().D());
+
                     if (row.S("OrigenICAO").IndexOf('@') != 0)
                     {
                         float fTMinimo = float.Parse(ObtieneParametroPorClave("121").S());
@@ -4132,7 +4167,7 @@ namespace ALE_MexJet.Clases
                                         {
                                             string sTiempoCobrar = dr.S("TiempoOriginal");
 
-                                            if(sTiempoCobrar == "00:00:00")
+                                            if(sTiempoCobrar == "00:00:00" || sTiempoCobrar == "00:00")
                                             {
                                                 string sTipoCobro = oRem.iCobroTiempo == 1 ? "TotalTiempoVuelo" : "TotalTiempoCalzo";
                                                 sTiempoCobrar = dr.S(sTipoCobro);
@@ -4262,9 +4297,9 @@ namespace ALE_MexJet.Clases
                                     {
                                         string sTiempo = ObtieneTramoPactado(oRem, row.S("Origen"), row.S("Destino"), row.S("Matricula"));
 
-                                        if (sTiempo == "00:00:00" || sTiempo == string.Empty)
+                                        if (sTiempo == "00:00:00" || sTiempo == string.Empty || sTiempo == "00:00")
                                         {
-                                            row["TiempoCobrar"] = DefineTiempoCobrar(oRem.iCobroTiempo, row[sTipoVuelo].S(), oRem.iMasMinutos, row.S("Matricula"), row.S(sTipoIntercambioHeli));
+                                            row["TiempoCobrar"] = DefineTiempoCobrar(oRem.iCobroTiempo, row[sTipoVuelo].S(), oRem.iMasMinutos, row.S("Matricula"), row.S(sTipoIntercambioHeli), oRem);
                                         }
                                         else
                                             row["TiempoCobrar"] = sTiempo;
@@ -4274,7 +4309,7 @@ namespace ALE_MexJet.Clases
                                 {
                                     foreach (DataRow row in oRem.dtTramos.Rows)
                                     {
-                                        row["TiempoCobrar"] = DefineTiempoCobrar(oRem.iCobroTiempo, row[sTipoVuelo].S(), oRem.iMasMinutos, row.S("Matricula"), row.S(sTipoIntercambioHeli));
+                                        row["TiempoCobrar"] = DefineTiempoCobrar(oRem.iCobroTiempo, row[sTipoVuelo].S(), oRem.iMasMinutos, row.S("Matricula"), row.S(sTipoIntercambioHeli), oRem);
                                     }
                                 }
 
@@ -4286,7 +4321,7 @@ namespace ALE_MexJet.Clases
 
                                     foreach (DataRow drw in oRem.dtTramos.Rows)
                                     {
-                                        drw["TiempoEspera"] = "00:00:00";
+                                        drw["TiempoEspera"] = "00:00";
                                     }
                                 }
                             }
@@ -4301,7 +4336,7 @@ namespace ALE_MexJet.Clases
 
                                         if (sTiempo == "00:00:00" || sTiempo == string.Empty)
                                         {
-                                            row["TiempoCobrar"] = DefineTiempoCobrar(oRem.iCobroTiempo, row[sTipoVuelo].S(), oRem.iMasMinutos, row.S("Matricula"), row.S(sTipoIntercambioHeli));
+                                            row["TiempoCobrar"] = DefineTiempoCobrar(oRem.iCobroTiempo, row[sTipoVuelo].S(), oRem.iMasMinutos, row.S("Matricula"), row.S(sTipoIntercambioHeli), oRem);
                                         }
                                         else
                                             row["TiempoCobrar"] = sTiempo;
@@ -4311,7 +4346,7 @@ namespace ALE_MexJet.Clases
                                 {
                                     foreach (DataRow row in oRem.dtTramos.Rows)
                                     {
-                                        row["TiempoCobrar"] = DefineTiempoCobrar(oRem.iCobroTiempo, row[sTipoVuelo].S(), oRem.iMasMinutos, row.S("Matricula"), row.S(sTipoIntercambioHeli));
+                                        row["TiempoCobrar"] = DefineTiempoCobrar(oRem.iCobroTiempo, row[sTipoVuelo].S(), oRem.iMasMinutos, row.S("Matricula"), row.S(sTipoIntercambioHeli), oRem);
                                     }
                                 }
                             }
@@ -4339,7 +4374,7 @@ namespace ALE_MexJet.Clases
 
                                     if (sTiempo == "00:00:00" || sTiempo == string.Empty)
                                     {
-                                        row["TiempoCobrar"] = DefineTiempoCobrar(oRem.iCobroTiempo, row[sTipoVuelo].S(), oRem.iMasMinutos, row.S("Matricula"), row.S(sTipoIntercambioHeli));
+                                        row["TiempoCobrar"] = DefineTiempoCobrar(oRem.iCobroTiempo, row[sTipoVuelo].S(), oRem.iMasMinutos, row.S("Matricula"), row.S(sTipoIntercambioHeli), oRem);
                                     }
                                     else
                                         row["TiempoCobrar"] = sTiempo;
@@ -4349,7 +4384,7 @@ namespace ALE_MexJet.Clases
                             {
                                 foreach (DataRow row in oRem.dtTramos.Rows)
                                 {
-                                    row["TiempoCobrar"] = sTiempo == "00:00:00" || sTiempo == string.Empty ? row[sTipoVuelo].S() : sTiempo;
+                                    row["TiempoCobrar"] = (sTiempo == "00:00:00" || sTiempo == string.Empty || sTiempo == "00:00") ? row[sTipoVuelo].S() : sTiempo;
                                 }
                             }
 
@@ -4428,16 +4463,16 @@ namespace ALE_MexJet.Clases
                                         dr["FechaLlegada"] = dtFechaLlegada;
 
                                         dr["CantPax"] = 0;
-                                        dr["TotalTiempoCalzo"] = "00:00:00";
-                                        dr["TotalTiempoVuelo"] = "00:00:00";
+                                        dr["TotalTiempoCalzo"] = "00:00";
+                                        dr["TotalTiempoVuelo"] = "00:00";
 
                                         ts = dtFechaLlegada - oRem.dtTramos.Rows[oRem.dtTramos.Rows.Count - 1]["FechaLlegada"].Dt();
 
-                                        dr["TiempoCobrar"] = sTiempo == "00:00:00" ? ts.S() : sTiempo;
+                                        dr["TiempoCobrar"] = (sTiempo == "00:00" || sTiempo == "00:00:00") ? ts.S() : sTiempo;
                                         dr["RealVirtual"] = "Virtual";
                                         dr["VueloClienteId"] = oRem.dtTramos.Rows[0]["VueloClienteId"].S();
                                         dr["VueloContratoId"] = oRem.dtTramos.Rows[0]["VueloContratoId"].S();
-                                        dr["TiempoEspera"] = "00:00:00";
+                                        dr["TiempoEspera"] = "00:00";
                                         dr["SeCobra"] = 1;
 
                                         oRem.dtTramos.Rows.Add(dr);
@@ -4474,15 +4509,15 @@ namespace ALE_MexJet.Clases
 
 
                                         drI["CantPax"] = 0;
-                                        drI["TotalTiempoCalzo"] = "00:00:00";
-                                        drI["TotalTiempoVuelo"] = "00:00:00";
+                                        drI["TotalTiempoCalzo"] = "00:00";
+                                        drI["TotalTiempoVuelo"] = "00:00";
 
-                                        drI["TiempoCobrar"] = sTiempo == "00:00:00" ? ts.S() : sTiempo;
+                                        drI["TiempoCobrar"] = (sTiempo == "00:00" || sTiempo == "00:00:00") ? ts.S() : sTiempo;
 
                                         drI["RealVirtual"] = "Virtual";
                                         drI["VueloClienteId"] = oRem.dtTramos.Rows[0]["VueloClienteId"].S();
                                         drI["VueloContratoId"] = oRem.dtTramos.Rows[0]["VueloContratoId"].S();
-                                        drI["TiempoEspera"] = "00:00:00";
+                                        drI["TiempoEspera"] = "00:00";
                                         drI["SeCobra"] = 1;
 
                                         oRem.dtTramos.Rows.Add(drI);
@@ -4533,15 +4568,15 @@ namespace ALE_MexJet.Clases
                                 ts = oRem.dtTramos.Rows[0]["FechaSalida"].Dt() - dtFechaLlegada;
 
                                 drI["CantPax"] = 0;
-                                drI["TotalTiempoCalzo"] = "00:00:00";
-                                drI["TotalTiempoVuelo"] = "00:00:00";
+                                drI["TotalTiempoCalzo"] = "00:00";
+                                drI["TotalTiempoVuelo"] = "00:00";
 
-                                drI["TiempoCobrar"] = sTiempo == "00:00:00" ? ts.S() : sTiempo;
+                                drI["TiempoCobrar"] = (sTiempo == "00:00" || sTiempo == "00:00:00") ? ts.S() : sTiempo;
 
                                 drI["RealVirtual"] = "Virtual";
                                 drI["VueloClienteId"] = oRem.dtTramos.Rows[0]["VueloClienteId"].S();
                                 drI["VueloContratoId"] = oRem.dtTramos.Rows[0]["VueloContratoId"].S();
-                                drI["TiempoEspera"] = "00:00:00";
+                                drI["TiempoEspera"] = "00:00";
                                 drI["SeCobra"] = 1;
 
                                 oRem.dtTramos.Rows.Add(drI);
@@ -4572,16 +4607,16 @@ namespace ALE_MexJet.Clases
                                 drF["FechaLlegada"] = dtFechaLlegada;
 
                                 drF["CantPax"] = 0;
-                                drF["TotalTiempoCalzo"] = "00:00:00";
-                                drF["TotalTiempoVuelo"] = "00:00:00";
+                                drF["TotalTiempoCalzo"] = "00:00";
+                                drF["TotalTiempoVuelo"] = "00:00";
 
                                 ts = dtFechaLlegada - oRem.dtTramos.Rows[oRem.dtTramos.Rows.Count - 2]["FechaLlegada"].Dt();
 
-                                drF["TiempoCobrar"] = sTiempo == "00:00:00" ? ts.S() : sTiempo;
+                                drF["TiempoCobrar"] = (sTiempo == "00:00" || sTiempo == "00:00:00") ? ts.S() : sTiempo;
                                 drF["RealVirtual"] = "Virtual";
                                 drF["VueloClienteId"] = oRem.dtTramos.Rows[0]["VueloClienteId"].S();
                                 drF["VueloContratoId"] = oRem.dtTramos.Rows[0]["VueloContratoId"].S();
-                                drF["TiempoEspera"] = "00:00:00";
+                                drF["TiempoEspera"] = "00:00";
                                 drF["SeCobra"] = 1;
 
                                 oRem.dtTramos.Rows.Add(drF);
@@ -4621,9 +4656,9 @@ namespace ALE_MexJet.Clases
                             {
                                 string sTiempo = ObtieneTramoPactado(oRem, row.S("Origen"), row.S("Destino"), row.S("Matricula"));
 
-                                if (sTiempo == "00:00:00" || sTiempo == string.Empty)
+                                if (sTiempo == "00:00:00" || sTiempo == string.Empty || sTiempo == "00:00:00")
                                 {
-                                    row["TiempoCobrar"] = DefineTiempoCobrar(oRem.iCobroTiempo, row[sTipoVuelo].S(), oRem.iMasMinutos, row.S("Matricula"), row.S(sTipoIntercambioHeli));
+                                    row["TiempoCobrar"] = DefineTiempoCobrar(oRem.iCobroTiempo, row[sTipoVuelo].S(), oRem.iMasMinutos, row.S("Matricula"), row.S(sTipoIntercambioHeli), oRem);
                                 }
                                 else
                                     row["TiempoCobrar"] = sTiempo;
@@ -4633,7 +4668,7 @@ namespace ALE_MexJet.Clases
                         {
                             foreach (DataRow row in oRem.dtTramos.Rows)
                             {
-                                row["TiempoCobrar"] = DefineTiempoCobrar(oRem.iCobroTiempo, row[sTipoVuelo].S(), oRem.iMasMinutos, row.S("Matricula"), row.S(sTipoIntercambioHeli));
+                                row["TiempoCobrar"] = DefineTiempoCobrar(oRem.iCobroTiempo, row[sTipoVuelo].S(), oRem.iMasMinutos, row.S("Matricula"), row.S(sTipoIntercambioHeli), oRem);
                             }
                         }
 
@@ -4730,9 +4765,9 @@ namespace ALE_MexJet.Clases
                             {
                                 string sTiempo = ObtieneTramoPactado(oRem, row.S("Origen"), row.S("Destino"), row.S("Matricula"));
 
-                                if (sTiempo == "00:00:00" || sTiempo == string.Empty)
+                                if (sTiempo == "00:00:00" || sTiempo == string.Empty || sTiempo == "00:00")
                                 {
-                                    row["TiempoCobrar"] = DefineTiempoCobrar(oRem.iCobroTiempo, row[sTipoVuelo].S(), oRem.iMasMinutos, row.S("Matricula"), row.S(sTipoIntercambioHeli));
+                                    row["TiempoCobrar"] = DefineTiempoCobrar(oRem.iCobroTiempo, row[sTipoVuelo].S(), oRem.iMasMinutos, row.S("Matricula"), row.S(sTipoIntercambioHeli), oRem);
                                 }
                                 else
                                     row["TiempoCobrar"] = sTiempo;
@@ -4742,7 +4777,7 @@ namespace ALE_MexJet.Clases
                         {
                             foreach (DataRow row in oRem.dtTramos.Rows)
                             {
-                                row["TiempoCobrar"] = DefineTiempoCobrar(oRem.iCobroTiempo, row[sTipoVuelo].S(), oRem.iMasMinutos, row.S("Matricula"), row.S(sTipoIntercambioHeli));
+                                row["TiempoCobrar"] = DefineTiempoCobrar(oRem.iCobroTiempo, row[sTipoVuelo].S(), oRem.iMasMinutos, row.S("Matricula"), row.S(sTipoIntercambioHeli), oRem);
                             }
                         }
 
@@ -5413,7 +5448,7 @@ namespace ALE_MexJet.Clases
                                 {
                                     string sTiempo = ObtieneTramoPactadoPresupuestos(oRem, row.S("Origen"), row.S("Destino"), oPres.iIdGrupoModeloSol);
 
-                                    if (sTiempo == "00:00:00" || sTiempo == string.Empty)
+                                    if (sTiempo == "00:00:00" || sTiempo == string.Empty || sTiempo == "00:00")
                                     {
                                         row["TiempoCobrar"] = DefineTiempoCobrar(oRem.iCobroTiempo, row[sTipoVuelo].S(), oRem.iMasMinutos);
                                     }
@@ -5450,7 +5485,7 @@ namespace ALE_MexJet.Clases
                                 {
                                     sTiempo = ObtieneTramoPactadoPresupuestos(oRem, row.S("Origen"), row.S("Destino"), oPres.iIdGrupoModeloSol);
 
-                                    if (sTiempo == "00:00:00" || sTiempo == string.Empty)
+                                    if (sTiempo == "00:00:00" || sTiempo == string.Empty || sTiempo == "00:00")
                                     {
                                         row["TiempoCobrar"] = DefineTiempoCobrar(oRem.iCobroTiempo, row[sTipoVuelo].S(), oRem.iMasMinutos);
                                     }
@@ -5723,7 +5758,7 @@ namespace ALE_MexJet.Clases
                             {
                                 string sTiempo = ObtieneTramoPactadoPresupuestos(oRem, row.S("Origen"), row.S("Destino"), oPres.iIdGrupoModeloSol);
 
-                                if (sTiempo == "00:00:00" || sTiempo == string.Empty)
+                                if (sTiempo == "00:00:00" || sTiempo == string.Empty || sTiempo == "00:00")
                                 {
                                     row["TiempoCobrar"] = DefineTiempoCobrar(oRem.iCobroTiempo, row[sTipoVuelo].S(), oRem.iMasMinutos);
                                 }
@@ -5840,7 +5875,7 @@ namespace ALE_MexJet.Clases
                             {
                                 string sTiempo = ObtieneTramoPactadoPresupuestos(oRem, row.S("Origen"), row.S("Destino"), oPres.iIdGrupoModeloSol);
 
-                                if (sTiempo == "00:00:00" || sTiempo == string.Empty)
+                                if (sTiempo == "00:00:00" || sTiempo == string.Empty || sTiempo == "00:00")
                                 {
                                     row["TiempoCobrar"] = DefineTiempoCobrar(oRem.iCobroTiempo, row[sTipoVuelo].S(), oRem.iMasMinutos);
                                 }
@@ -6059,10 +6094,10 @@ namespace ALE_MexJet.Clases
                         drF["FechaLlegada"] = dtFechaLlegada;
 
                         ts = dtFechaLlegada - oRem.dtTramos.Rows[oRem.dtTramos.Rows.Count - 1]["FechaLlegada"].Dt();
-                        drF["TiempoCobrar"] = sTiempo == "00:00:00" ? ts.S() : sTiempo;
+                        drF["TiempoCobrar"] = (sTiempo == "00:00:00" || sTiempo == "00:00") ? ts.S() : sTiempo;
 
-                        drF["TiempoVuelo"] = "00:00:00";
-                        drF["TiempoEspera"] = "00:00:00";
+                        drF["TiempoVuelo"] = "00:00";
+                        drF["TiempoEspera"] = "00:00";
                         drF["RealVirtual"] = 1;
                         drF["SeCobra"] = 0;
 
@@ -6096,11 +6131,11 @@ namespace ALE_MexJet.Clases
                         drI["FechaSalida"] = dtFechaLlegada;
 
                         ts = dtFechaLlegada - oRem.dtTramos.Rows[oRem.dtTramos.Rows.Count - 1]["FechaLlegada"].Dt();
-                        drI["TiempoCobrar"] = sTiempo == "00:00:00" ? ts.S() : sTiempo;
+                        drI["TiempoCobrar"] = (sTiempo == "00:00:00" || sTiempo == "00:00") ? ts.S() : sTiempo;
 
 
-                        drI["TiempoVuelo"] = "00:00:00";
-                        drI["TiempoEspera"] = "00:00:00";
+                        drI["TiempoVuelo"] = "00:00";
+                        drI["TiempoEspera"] = "00:00";
                         drI["RealVirtual"] = 1;
                         drI["SeCobra"] = 0;
 
@@ -6149,11 +6184,11 @@ namespace ALE_MexJet.Clases
                         drI["FechaSalida"] = dtFechaLlegada;
 
                         ts = oRem.dtTramos.Rows[0]["FechaSalida"].Dt() - dtFechaLlegada;
-                        drI["TiempoCobrar"] = sTiempo == "00:00:00" ? ts.S() : sTiempo;
+                        drI["TiempoCobrar"] = (sTiempo == "00:00:00" || sTiempo == "00:00") ? ts.S() : sTiempo;
 
 
-                        drI["TiempoVuelo"] = "00:00:00";
-                        drI["TiempoEspera"] = "00:00:00";
+                        drI["TiempoVuelo"] = "00:00";
+                        drI["TiempoEspera"] = "00:00";
                         drI["RealVirtual"] = 1;
                         drI["SeCobra"] = 0;
 
@@ -6186,11 +6221,11 @@ namespace ALE_MexJet.Clases
                         drF["FechaLlegada"] = dtFechaLlegada;
 
                         ts = dtFechaLlegada - oRem.dtTramos.Rows[oRem.dtTramos.Rows.Count - 2]["FechaLlegada"].Dt();
-                        drF["TiempoCobrar"] = sTiempo == "00:00:00" ? ts.S() : sTiempo;
+                        drF["TiempoCobrar"] = (sTiempo == "00:00:00" || sTiempo == "00:00") ? ts.S() : sTiempo;
 
 
-                        drF["TiempoVuelo"] = "00:00:00";
-                        drF["TiempoEspera"] = "00:00:00";
+                        drF["TiempoVuelo"] = "00:00";
+                        drF["TiempoEspera"] = "00:00";
                         drF["RealVirtual"] = 1;
                         drF["SeCobra"] = 0;
 
@@ -6242,11 +6277,11 @@ namespace ALE_MexJet.Clases
                         drI["FechaLlegada"] = dtFechaLlegada;
 
                         ts = dtFechaLlegada - oRem.dtTramos.Rows[0]["FechaLlegada"].Dt();
-                        drI["TiempoCobrar"] = sTiempo == "00:00:00" ? ts.S() : sTiempo;
+                        drI["TiempoCobrar"] = (sTiempo == "00:00:00" || sTiempo == "00:00") ? ts.S() : sTiempo;
 
 
-                        drI["TiempoVuelo"] = "00:00:00";
-                        drI["TiempoEspera"] = "00:00:00";
+                        drI["TiempoVuelo"] = "00:00";
+                        drI["TiempoEspera"] = "00:00";
                         drI["RealVirtual"] = 1;
                         drI["SeCobra"] = 1;
 
@@ -6279,11 +6314,11 @@ namespace ALE_MexJet.Clases
                         drF["FechaSalida"] = dtFechaLlegada;
 
                         ts = dtFechaLlegada - oRem.dtTramos.Rows[oRem.dtTramos.Rows.Count - 2]["FechaSalida"].Dt();
-                        drF["TiempoCobrar"] = sTiempo == "00:00:00" ? ts.S() : sTiempo;
+                        drF["TiempoCobrar"] = (sTiempo == "00:00:00" || sTiempo == "00:00") ? ts.S() : sTiempo;
 
 
-                        drF["TiempoVuelo"] = "00:00:00";
-                        drF["TiempoEspera"] = "00:00:00";
+                        drF["TiempoVuelo"] = "00:00";
+                        drF["TiempoEspera"] = "00:00";
                         drF["RealVirtual"] = 1;
                         drF["SeCobra"] = 1;
 
@@ -7651,12 +7686,12 @@ namespace ALE_MexJet.Clases
                             tsI = dtFechaLlegada - dtFechaSalida;
 
 
-                            drI["TiempoVuelo"] = sTiempo == "00:00:00" ? tsI.S() : sTiempo;
+                            drI["TiempoVuelo"] = (sTiempo == "00:00:00" || sTiempo == "00:00") ? tsI.S() : sTiempo;
 
-                            dtRes.Rows[dtRes.Rows.Count - 1]["TiempoEspera"] = "00:00:00";
+                            dtRes.Rows[dtRes.Rows.Count - 1]["TiempoEspera"] = "00:00";
 
-                            drI["TiempoEspera"] = "00:00:00";
-                            drI["TiempoCobrar"] = sTiempo == "00:00:00" ? tsI.S() : sTiempo;
+                            drI["TiempoEspera"] = "00:00";
+                            drI["TiempoCobrar"] = sTiempo == "00:00" ? tsI.S() : sTiempo;
                             //drI["RealVirtual"] = "Virtual";
                             drI["SeCobra"] = 1;
 
@@ -7704,9 +7739,9 @@ namespace ALE_MexJet.Clases
                             tsF = dtFechaLlegada - dtFechaSalida;
 
 
-                            drF["TiempoVuelo"] = sTiempo == "00:00:00" ? tsF.S() : sTiempo;
-                            drF["TiempoEspera"] = "00:00:00";
-                            drF["TiempoCobrar"] = sTiempo == "00:00:00" ? tsF.S() : sTiempo;
+                            drF["TiempoVuelo"] = (sTiempo == "00:00:00" || sTiempo == "00:00") ? tsF.S() : sTiempo;
+                            drF["TiempoEspera"] = "00:00";
+                            drF["TiempoCobrar"] = (sTiempo == "00:00:00" || sTiempo == "00:00") ? tsF.S() : sTiempo;
                             //drF["RealVirtual"] = "Virtual";
                             drF["SeCobra"] = 1;
 

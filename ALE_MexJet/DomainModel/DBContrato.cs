@@ -591,6 +591,8 @@ namespace ALE_MexJet.DomainModel
                                                                                                             "@MasMinutos", objCobros.dMinutos,
                                                                                                             "@AplicaTramos",objCobros.bAplicaTramos,
                                                                                                             "@Notas",objCobros.sNotas,
+                                                                                                            "@IdCobraFerryHelicoptero", objCobros.iCobroFerrysHelicoptero,
+                                                                                                            "@MasMinutosHelicoptero", objCobros.iMasMinutosHelicoptero,
                                                                                                             "@Status", 1,
                                                                                                             "@UsuarioCreacion", Utils.GetUser,
                                                                                                             "@IP", string.Empty);
@@ -1023,6 +1025,8 @@ namespace ALE_MexJet.DomainModel
                                                                                                             "@MasMinutos", objCobros.dMinutos,
                                                                                                             "@AplicaTramos", objCobros.bAplicaTramos,
                                                                                                             "@Notas", objCobros.sNotas,
+                                                                                                            "@IdCobraFerryHelicoptero", objCobros.iCobroFerrysHelicoptero,
+                                                                                                            "@MasMinutosHelicoptero", objCobros.iMasMinutosHelicoptero,
                                                                                                             "@Status", 1,
                                                                                                             "@UsuarioModificacion", Utils.GetUser,
                                                                                                             "@IP", string.Empty);
@@ -1433,6 +1437,8 @@ namespace ALE_MexJet.DomainModel
                     objGenerales.dMinutos = dr.ItemArray[17].S().D();
                     objGenerales.bAplicaTramos = dr.ItemArray[18].B();
                     objGenerales.sNotas = dr.ItemArray[19].S();
+                    objGenerales.iCobroFerrysHelicoptero = dr["IdCobraFerryHelicoptero"].S().I();
+                    objGenerales.iMasMinutosHelicoptero = dr["MasMinutosHelicoptero"].S().I();
                 }
 
                 DataTable dtResultServicios;

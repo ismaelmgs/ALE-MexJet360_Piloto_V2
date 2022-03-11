@@ -3692,6 +3692,9 @@ namespace ALE_MexJet.Views.CreditoCobranza
 
                 objCobros.sNotas = txtCobrosDescuentosMemo.Text.S();
 
+                objCobros.iCobroFerrysHelicoptero = rblSeCobraFerryHelicoptero.Value.S().I();
+                objCobros.iMasMinutosHelicoptero = txtHelicopteroMasMinutos.Text.S().I();
+
                 return objCobros;
 
             }
@@ -3747,6 +3750,10 @@ namespace ALE_MexJet.Views.CreditoCobranza
 
                 txtCobrosDescuentosMemo.Text = objCobros.sNotas.S();
 
+                if(objCobros.iCobroFerrysHelicoptero > 0)
+                    rblSeCobraFerryHelicoptero.Value = objCobros.iCobroFerrysHelicoptero.S();
+
+                txtHelicopteroMasMinutos.Text = objCobros.iMasMinutosHelicoptero.S();
             }
         }
         public Contrato_GirasFechasPico objGirasFechas

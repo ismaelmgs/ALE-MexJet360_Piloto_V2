@@ -193,7 +193,7 @@ namespace ALE_MexJet.Presenter
                             double iHoras = Math.Truncate(dHoras);
                             double iMinutos = Math.Truncate(dMinutos);
 
-                            drs[i]["TiempoEspera"] = iHoras.S().PadLeft(2, '0') + ":" + iMinutos.S().PadLeft(2, '0') + ":00";
+                            drs[i]["TiempoEspera"] = iHoras.S().PadLeft(2, '0') + ":" + iMinutos.S().PadLeft(2, '0');
                         }
                     }
 

@@ -30,7 +30,8 @@ namespace ALE_MexJet.Objetos
         private decimal _dMinutos = 0m;
         private List<int> _lstIdServiciosConCargo = new List<int>();
         private bool _bAplicaTramos = true;
-
+        private int _iCobroFerrysHelicoptero = 0;
+        private int _iMasMinutosHelicoptero = 0;
 
         private string _sNotas = string.Empty;
         public string sNotas { get { return _sNotas; } set { _sNotas = value; } }
@@ -61,5 +62,9 @@ namespace ALE_MexJet.Objetos
         public List<int> lstIdServiciosConCargo { get { return _lstIdServiciosConCargo; } set { _lstIdServiciosConCargo = value; } }
 
         public bool bAplicaTramos { get { return _bAplicaTramos; } set { _bAplicaTramos = value; } }
+
+        public int iCobroFerrysHelicoptero { get { return _iCobroFerrysHelicoptero; } set { _iCobroFerrysHelicoptero = value; } }
+        public int iMasMinutosHelicoptero { get { return _iMasMinutosHelicoptero; } set { _iMasMinutosHelicoptero = value; } }
+        
     }
 }

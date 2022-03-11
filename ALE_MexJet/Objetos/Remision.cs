@@ -156,8 +156,12 @@ namespace ALE_MexJet.Objetos
             // Intercambios
         private List<IntercambioRemision> _oLstIntercambios = new List<IntercambioRemision>();
 
+        // Helicopteros
+        private int _iCobraFerryHelicoptero = 0;
+        private int _iMasMinutosHelicoptero = 0;
+
         //---====================== DESCUENTOS =========================---
-            //Tiempo de Espera
+        //Tiempo de Espera
         private bool _bSeDescuentaEsperaNal = false;
         private bool _bSeDescuentaEsperaInt = false;
         private decimal _dFactorEHrVueloNal = 0;
@@ -270,6 +274,8 @@ namespace ALE_MexJet.Objetos
         public decimal dPorTarifaVueloInt { get { return _dPorTarifaVueloInt; } set { _dPorTarifaVueloInt = value; } }
 
         public List<IntercambioRemision> oLstIntercambios { get { return _oLstIntercambios; } set { _oLstIntercambios = value; } }
+        public int iCobraFerryHelicoptero { get { return _iCobraFerryHelicoptero; } set { _iCobraFerryHelicoptero = value; } }
+        public int iMasMinutosHelicoptero { get { return _iMasMinutosHelicoptero; } set { _iMasMinutosHelicoptero = value; } }
 
         public bool bSeDescuentaEsperaNal { get { return _bSeDescuentaEsperaNal; } set { _bSeDescuentaEsperaNal = value; } }
         public bool bSeDescuentaEsperaInt { get { return _bSeDescuentaEsperaInt; } set { _bSeDescuentaEsperaInt = value; } }

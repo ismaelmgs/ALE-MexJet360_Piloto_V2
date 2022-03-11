@@ -201,6 +201,9 @@ namespace ALE_MexJet.DomainModel
                     odRem.dPorTarifaVueloNal = row["PerPorTarifaDlsNal"].S().D();
                     odRem.dTarifaDolaresInt = row["PerTarifaDlsInt"].S().D();
                     odRem.dPorTarifaVueloInt = row["PerPorTarifaDlsInt"].S().D();
+                    // HELICOPTEROS
+                    odRem.iCobraFerryHelicoptero = row["IdCobraFerryHelicoptero"].S().I();
+                    odRem.iMasMinutosHelicoptero = row["MasMinutosHelicoptero"].S().I();
 
                     //=====---- DESCUENTOS ----=====//
                     // TIEMPOS DE ESPERA
