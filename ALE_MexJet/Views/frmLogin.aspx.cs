@@ -58,7 +58,7 @@ namespace ALE_MexJet.Views
             }
             else
             {
-                bool ban = true;
+                bool ban = false;
                 if (ban)
                 {
                     oUsuario = ClsSecurity.IsValidAD(txtUsuario.Text.S(), txtPassword.Text.S());

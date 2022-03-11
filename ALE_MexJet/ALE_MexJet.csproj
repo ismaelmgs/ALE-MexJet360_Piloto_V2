@@ -166,6 +166,10 @@
     <Content Include="img\ALE.png" />
     <Content Include="img\AleAzul.PNG" />
     <Content Include="img\AleAzul2.PNG" />
+    <Content Include="img\back_home.jpg" />
+    <Content Include="img\back_home2.jpg" />
+    <Content Include="img\back_home3.jpg" />
+    <Content Include="img\back_home4.jpg" />
     <Content Include="img\bkg_01.jpg" />
     <Content Include="img\bkg_01.png" />
     <Content Include="img\colors\blue\logo_ale_mexjet_bco.png" />
