@@ -284,6 +284,10 @@ namespace ALE_MexJet.Presenter
             oIGestCat.DBSetInsertaDetalleServiciosVuelo(oIView.oLstSV);
             oIGestCat.DBSetInsertaHeaderServiciosCargo(oIView.oServiciosC);
             oIGestCat.DBSetInsertaDetalleServiciosCargo(oIView.oLstD);
+
+            //Inserta registros a kardex
+            oIGestCat.DBSetInsertaRemisionKardex(oIView.oRemGrals);
+
             DataTable dt = oIGestCat.DBSetCambiaStatusRemision(oIView.oRemGrals);
             if (dt.Rows.Count > 0)
             {

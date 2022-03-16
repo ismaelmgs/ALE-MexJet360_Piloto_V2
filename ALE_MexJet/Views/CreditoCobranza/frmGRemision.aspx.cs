@@ -2803,6 +2803,18 @@ namespace ALE_MexJet.Views.CreditoCobranza
                     oRG.iStatus = 2;
                     oRG.sUsuario = ((UserIdentity)Session["UserIdentity"]).sUsuario;
                     oRG.sIP = Utils.GetIPAddress();
+                    oRG.IIdContrato = IdContrato;
+
+                    if (Session["Matricula"] != null)
+                        oRG.SMatricula = Session["Matricula"].S();
+                    else
+                        oRG.SMatricula = string.Empty;
+
+                    oRG.SCargo = lblRespTotalVueloCobrar.Text.S();
+                    oRG.SAbono = "0";
+                    oRG.IIdMotivo = 1; //Remisión
+                    oRG.SNotas = string.Empty;
+                    
 
                     return oRG;
                 }

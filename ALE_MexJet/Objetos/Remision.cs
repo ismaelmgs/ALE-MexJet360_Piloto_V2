@@ -655,6 +655,13 @@ namespace ALE_MexJet.Objetos
         private string _sUsuario = string.Empty;
         private string _sIP = string.Empty;
 
+        private int iIdContrato = 0;
+        private string sMatricula = string.Empty;
+        private string sCargo = string.Empty; //Total de horas
+        private string sAbono = string.Empty;
+        private int iIdMotivo = 0;
+        private string sNotas = string.Empty;
+
 
         public long iIdRemision { get { return _iIdRemision; } set { _iIdRemision = value; } }        
         public string sTotalTiempoCobrar { get { return _sTotalTiempoCobrar; } set { _sTotalTiempoCobrar = value; } }
@@ -680,6 +687,13 @@ namespace ALE_MexJet.Objetos
         public int iStatus { get { return _iStatus; } set { _iStatus = value; }}
         public string sUsuario { get { return _sUsuario; } set { _sUsuario = value; } }
         public string sIP { get { return _sIP; } set { _sIP = value; } }
+
+        public int IIdContrato { get => iIdContrato; set => iIdContrato = value; }
+        public string SMatricula { get => sMatricula; set => sMatricula = value; }
+        public string SCargo { get => sCargo; set => sCargo = value; }
+        public string SAbono { get => sAbono; set => sAbono = value; }
+        public int IIdMotivo { get => iIdMotivo; set => iIdMotivo = value; }
+        public string SNotas { get => sNotas; set => sNotas = value; }
     }
 
 

@@ -988,5 +988,28 @@ namespace ALE_MexJet.DomainModel
             }
         }
 
+        public string DBSetInsertaRemisionKardex(RemisionDatosGrals oRem)
+        {
+            try
+            {
+                string sRes = string.Empty;
+                object oRes = oDB_SP.EjecutarValor("[Principales].[spI_MXJ_KardexHoras]", "@IdContrato", oRem.IIdContrato,
+                                                                                          "@Matricula", oRem.SMatricula,
+                                                                                          "@Cargo", oRem.SCargo,
+                                                                                          "@Abono", oRem.SAbono,
+                                                                                          "@IdMotivo", oRem.IIdMotivo,
+                                                                                          "@Notas", oRem.SNotas,
+                                                                                          "@Usuario", oRem.sUsuario);
+
+                new DBUtils().DBSaveBitacora(Convert.ToInt32(Enumeraciones.Pantallas.Remisiones), Convert.ToInt32(Enumeraciones.TipoOperacion.Actualizar), "Se inserto registro en el kardex del contrato: " + oRem.IIdContrato.S());
+
+                return oRes.I().S();
+            }
+            catch (Exception ex)
+            {
+                return string.Empty;
+            }
+        }
+
     }
 }
