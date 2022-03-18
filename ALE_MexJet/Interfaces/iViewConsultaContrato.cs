@@ -18,8 +18,11 @@ namespace ALE_MexJet.Interfaces
         DataTable dtContratosCliente { get; set; }
         DataTable dtContratos { get; set; }
 
+        void LoadKardex(DataSet ds);
+
         event EventHandler eSearchContratosCliente;
-        
+        event EventHandler eSearchKardex;
+
 
     }
 }

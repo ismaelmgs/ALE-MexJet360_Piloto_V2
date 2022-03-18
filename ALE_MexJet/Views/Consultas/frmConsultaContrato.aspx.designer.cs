@@ -7,11 +7,13 @@
 // </generado automáticamente>
 //------------------------------------------------------------------------------
 
-namespace ALE_MexJet.Views.Consultas {
-    
-    
-    public partial class frmConsultaContrato {
-        
+namespace ALE_MexJet.Views.Consultas
+{
+
+
+    public partial class frmConsultaContrato
+    {
+
         /// <summary>
         /// Control ASPxPanel1.
         /// </summary>
@@ -20,7 +22,7 @@ namespace ALE_MexJet.Views.Consultas {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxPanel ASPxPanel1;
-        
+
         /// <summary>
         /// Control mpeMensaje.
         /// </summary>
@@ -29,7 +31,7 @@ namespace ALE_MexJet.Views.Consultas {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::ALE_MexJet.ControlesUsuario.ucModalMensaje mpeMensaje;
-        
+
         /// <summary>
         /// Control ddlCliente.
         /// </summary>
@@ -38,7 +40,7 @@ namespace ALE_MexJet.Views.Consultas {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxComboBox ddlCliente;
-        
+
         /// <summary>
         /// Control ddlContrato.
         /// </summary>
@@ -47,7 +49,7 @@ namespace ALE_MexJet.Views.Consultas {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxComboBox ddlContrato;
-        
+
         /// <summary>
         /// Control btnNuevo.
         /// </summary>
@@ -56,7 +58,7 @@ namespace ALE_MexJet.Views.Consultas {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxButton btnNuevo;
-        
+
         /// <summary>
         /// Control btnExcel.
         /// </summary>
@@ -65,7 +67,7 @@ namespace ALE_MexJet.Views.Consultas {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxButton btnExcel;
-        
+
         /// <summary>
         /// Control gvConsultaContratos.
         /// </summary>
@@ -74,7 +76,7 @@ namespace ALE_MexJet.Views.Consultas {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxGridView gvConsultaContratos;
-        
+
         /// <summary>
         /// Control btnEdit.
         /// </summary>
@@ -83,7 +85,7 @@ namespace ALE_MexJet.Views.Consultas {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.GridViewCommandColumnCustomButton btnEdit;
-        
+
         /// <summary>
         /// Control btnConsulta.
         /// </summary>
@@ -92,7 +94,7 @@ namespace ALE_MexJet.Views.Consultas {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.GridViewCommandColumnCustomButton btnConsulta;
-        
+
         /// <summary>
         /// Control Exporter.
         /// </summary>
@@ -101,7 +103,7 @@ namespace ALE_MexJet.Views.Consultas {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxGridViewExporter Exporter;
-        
+
         /// <summary>
         /// Control btnNuevo2.
         /// </summary>
@@ -110,7 +112,7 @@ namespace ALE_MexJet.Views.Consultas {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxButton btnNuevo2;
-        
+
         /// <summary>
         /// Control btnExportar.
         /// </summary>
@@ -119,7 +121,7 @@ namespace ALE_MexJet.Views.Consultas {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxButton btnExportar;
-        
+
         /// <summary>
         /// Control popup.
         /// </summary>
@@ -128,7 +130,7 @@ namespace ALE_MexJet.Views.Consultas {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxPopupControl popup;
-        
+
         /// <summary>
         /// Control ASPxPanel2.
         /// </summary>
@@ -137,7 +139,7 @@ namespace ALE_MexJet.Views.Consultas {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxPanel ASPxPanel2;
-        
+
         /// <summary>
         /// Control ASPxImage2.
         /// </summary>
@@ -146,7 +148,7 @@ namespace ALE_MexJet.Views.Consultas {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxImage ASPxImage2;
-        
+
         /// <summary>
         /// Control tbLogin.
         /// </summary>
@@ -155,7 +157,7 @@ namespace ALE_MexJet.Views.Consultas {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxTextBox tbLogin;
-        
+
         /// <summary>
         /// Control lbl.
         /// </summary>
@@ -164,7 +166,7 @@ namespace ALE_MexJet.Views.Consultas {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel lbl;
-        
+
         /// <summary>
         /// Control btOK.
         /// </summary>

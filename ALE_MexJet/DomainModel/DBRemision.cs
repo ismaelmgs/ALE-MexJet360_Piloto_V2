@@ -995,6 +995,7 @@ namespace ALE_MexJet.DomainModel
                 string sRes = string.Empty;
                 object oRes = oDB_SP.EjecutarValor("[Principales].[spI_MXJ_KardexHoras]", "@IdContrato", oRem.IIdContrato,
                                                                                           "@Matricula", oRem.SMatricula,
+                                                                                          "@IdRemision", oRem.iIdRemision,
                                                                                           "@Cargo", oRem.SCargo,
                                                                                           "@Abono", oRem.SAbono,
                                                                                           "@IdMotivo", oRem.IIdMotivo,

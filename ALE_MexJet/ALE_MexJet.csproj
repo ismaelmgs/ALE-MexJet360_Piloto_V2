@@ -48,25 +48,14 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\MexJet360_Produccion_Respaldo\ALE_MexJet\bin\AjaxControlToolkit.dll</HintPath>
     </Reference>
-    <Reference Include="CrystalDecisions.CrystalReports.Design, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
-      <Private>True</Private>
+    <Reference Include="CrystalDecisions.CrystalReports.Design, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.ReportAppServer.CommLayer, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
-    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="CrystalDecisions.ReportAppServer.CommLayer, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
-      <EmbedInteropTypes>False</EmbedInteropTypes>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="CrystalDecisions.ReportSource, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="CrystalDecisions.Shared, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="CrystalDecisions.Web, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
-      <Private>True</Private>
-    </Reference>
+    <Reference Include="CrystalDecisions.ReportSource, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.Shared, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.Web, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Data.v18.1, Version=18.1.15.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.PivotGrid.v18.1.Core, Version=18.1.15.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -435,6 +424,37 @@
     </Content>
     <None Include="Service References\wsSyteline\ws_SyteLine1.wsdl" />
     <Content Include="SwitcherResources\Content\LICENSE" />
+    <EmbeddedResource Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="Views\Consultas\CristalReport\KardexHoras.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>KardexHoras.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Consultas\CristalReport\ResumenKardex.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>ResumenKardex.cs</LastGenOutput>
+    </EmbeddedResource>
+    <Content Include="Views\Consultas\CristalReport\dsResumenKardex_1.xsc">
+      <DependentUpon>dsResumenKardex_1.xsd</DependentUpon>
+    </Content>
+    <Content Include="Views\Consultas\CristalReport\dsResumenKardex.xsc">
+      <DependentUpon>dsResumenKardex.xsd</DependentUpon>
+    </Content>
+    <None Include="Views\Consultas\CristalReport\dsResumenKardex.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsResumenKardex.Designer.cs</LastGenOutput>
+    </None>
+    <Content Include="Views\Consultas\CristalReport\dsResumenKardex.xss">
+      <DependentUpon>dsResumenKardex.xsd</DependentUpon>
+    </Content>
+    <None Include="Views\Consultas\CristalReport\dsResumenKardex_1.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsResumenKardex_1.Designer.cs</LastGenOutput>
+    </None>
+    <Content Include="Views\Consultas\CristalReport\dsResumenKardex_1.xss">
+      <DependentUpon>dsResumenKardex_1.xsd</DependentUpon>
+    </Content>
     <None Include="Views\EstadoCuenta.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>EstadoCuenta1.Designer.cs</LastGenOutput>
@@ -1226,6 +1246,28 @@
     </Compile>
     <Compile Include="Views\Consultas\CristalReport\Acumulado.cs">
       <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Views\Consultas\CristalReport\dsResumenKardex.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dsResumenKardex.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Consultas\CristalReport\dsResumenKardex_1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dsResumenKardex_1.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Consultas\CristalReport\KardexHoras.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>KardexHoras.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Views\Consultas\CristalReport\ResumenKardex.cs">
+      <DependentUpon>ResumenKardex.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Views\Consultas\CristalReport\EdoCuenta.cs">
       <AutoGen>True</AutoGen>

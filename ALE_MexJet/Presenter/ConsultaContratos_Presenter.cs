@@ -19,6 +19,7 @@ namespace ALE_MexJet.Presenter
         {
             oIGestCat = oGC;
             oIView.eSearchContratosCliente += SearchContratoCliente;
+            oIView.eSearchKardex += SearchKardex_Presenter;
         }
 
         protected override void SearchObj_Presenter(object sender, EventArgs e)
@@ -30,6 +31,10 @@ namespace ALE_MexJet.Presenter
         protected void SearchContratoCliente(object sender, EventArgs e)
         {
             oIView.dtContratosCliente = oIGestCat.DBGetContrato(oIView.iIdCliente);
+        }
+        protected void SearchKardex_Presenter(object sender, EventArgs e)
+        {
+            oIView.LoadKardex(oIGestCat.DBGetKardexContrato(oIView.iIdContrato));
         }
 
     }

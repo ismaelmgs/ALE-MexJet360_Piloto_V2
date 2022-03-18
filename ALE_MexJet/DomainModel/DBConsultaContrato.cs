@@ -50,5 +50,17 @@ namespace ALE_MexJet.DomainModel
             }
         }
 
+        public DataSet DBGetKardexContrato(int iIdContrato)
+        {
+            try
+            {
+                return oDB_SP.EjecutarDS("[Principales].[spS_MXJ_KardexHorasPorContrato]", "@IdContrato", iIdContrato);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
     }
 }

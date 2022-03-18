@@ -68,7 +68,8 @@
                                         OnCellEditorInitialize="gvConsultaContratos_CellEditorInitialize"
                                         OnCustomButtonCallback ="gvConsultaContratos_CustomButtonCallback" 
                                         OnCustomButtonInitialize="gvConsultaContratos_CustomButtonInitialize"
-                                        OnRowDeleting="gvConsultaContratos_RowDeleting">
+                                        OnRowDeleting="gvConsultaContratos_RowDeleting"
+                                        OnRowCommand="gvConsultaContratos_RowCommand">
                                         <ClientSideEvents EndCallback="function (s, e) {
                                                 if (s.cpShowPopup)
                                                 {
@@ -87,10 +88,29 @@
                                             <dx:GridViewCommandColumn ButtonType="Button" ShowInCustomizationForm="True" Caption="Acciones" VisibleIndex="6">
                                                 <HeaderStyle HorizontalAlign="Center" VerticalAlign="Middle"></HeaderStyle>
                                                 <CustomButtons>
+
                                                     <dx:GridViewCommandColumnCustomButton ID ="btnEdit" Text ="Editar"></dx:GridViewCommandColumnCustomButton>
 													<dx:GridViewCommandColumnCustomButton ID ="btnConsulta" Text ="Consultar"></dx:GridViewCommandColumnCustomButton>
+                                                    
                                                 </CustomButtons>
                                             </dx:GridViewCommandColumn>
+                                            <dx:GridViewDataColumn Caption="Reportes" Width="300px" CellStyle-HorizontalAlign="Center" VisibleIndex="7">
+                                                <HeaderStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+                                                <DataItemTemplate>
+
+                                                    <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional" ChildrenAsTriggers="true">
+                                                        <ContentTemplate>
+                                                            <dx:ASPxButton Text="Exportar a PDF" Theme="Office2010Black" ID="btnExportarPDF" runat="server" CommandArgument='<%# Eval("IdContrato") %>' CommandName="Exportar" AutoPostBack="true" ToolTip="Exportar a PDF"></dx:ASPxButton>
+                                                        </ContentTemplate>
+                                                        <Triggers>
+                                                            <asp:PostBackTrigger ControlID="btnExportarPDF" />
+                                                        </Triggers>
+                                                    </asp:UpdatePanel>
+
+                                                    
+                                                </DataItemTemplate>
+                                            </dx:GridViewDataColumn>
+
                                         </Columns>
                                         <SettingsBehavior ConfirmDelete="True" />
                                         <SettingsPager Position="TopAndBottom">
@@ -123,6 +143,7 @@
                                     </dx:ASPxGridView>
                                     <dx:ASPxGridViewExporter ID="Exporter" runat="server" GridViewID="gvConsultaContratos">
                                     </dx:ASPxGridViewExporter>
+
                                 </div>
                             </ContentTemplate>
                             <Triggers>
@@ -135,6 +156,10 @@
                     </div>
                 </div>
                 <br />
+
+                
+
+
                 <div class="row">
                     <div class="col-sm-6">
                         <dx:ASPxButton ID="btnNuevo2" runat="server" Text="Nuevo" Theme="Office2010Black" OnClick="btnNuevo_Click"></dx:ASPxButton>

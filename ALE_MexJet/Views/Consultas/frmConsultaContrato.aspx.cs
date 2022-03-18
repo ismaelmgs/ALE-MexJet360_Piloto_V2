@@ -22,6 +22,8 @@ using DevExpress.Utils;
 using System.Reflection;
 using System.Collections.Specialized;
 using System.Text;
+using CrystalDecisions.CrystalReports.Engine;
+using CrystalDecisions.Shared;
 
 namespace ALE_MexJet.Views.Consultas
 {
@@ -103,10 +105,12 @@ namespace ALE_MexJet.Views.Consultas
             object value = (sender as DevExpress.Web.ASPxGridView).GetRowValues(e.VisibleIndex, "IdContrato");
             string sIdContrato;
             string sAccion = Convert.ToBase64String(Encoding.UTF8.GetBytes("Editar"));
-			if (e.ButtonID == "btnConsulta")
-			{
-				sAccion = Convert.ToBase64String(Encoding.UTF8.GetBytes("Consultar"));
-			}
+
+            if (e.ButtonID == "btnConsulta")
+            {
+                sAccion = Convert.ToBase64String(Encoding.UTF8.GetBytes("Consultar"));
+            }
+
 			sIdContrato = Convert.ToBase64String(Encoding.UTF8.GetBytes(value.S()));
             string ruta = "~/Views/CreditoCobranza/frmcontrato.aspx?Contrato=" + sIdContrato + "&Accion=" + sAccion;
             ASPxWebControl.RedirectOnCallback(ruta);
@@ -133,6 +137,21 @@ namespace ALE_MexJet.Views.Consultas
             }
         }
 
+        protected void gvConsultaContratos_RowCommand(object sender, ASPxGridViewRowCommandEventArgs e)
+        {
+            try
+            {
+                if (e.CommandArgs.CommandName.S() == "Exportar")
+                {
+                    iIdContrato = e.CommandArgs.CommandArgument.S().I();
+                    ViewReport(iIdContrato);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
 
         #endregion
 
@@ -162,6 +181,23 @@ namespace ALE_MexJet.Views.Consultas
             gvConsultaContratos.DataBind();
 
         }
+        public void LoadKardex(DataSet ds)
+        {
+            try
+            {
+                dsKardexResume = null;
+                dsKardexResume = ds;
+
+                if(dsKardexResume != null)
+                {
+                    dsKardexResume.Tables[0].TableName = "ResumenKardex";
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
         public void MostrarMensaje(string sMensaje, string sCaption)
         {
             popup.HeaderText = sCaption;
@@ -179,7 +215,35 @@ namespace ALE_MexJet.Views.Consultas
             if (errors.ContainsKey(column)) return;
             errors[column] = errorText;
         }
+        public void ViewReport(int iContrato)
+        {
+            try
+            {
+                iIdContrato = iContrato;
 
+                if (eSearchKardex != null)
+                    eSearchKardex(null, null);
+
+                DataSet dsK = new DataSet();
+                dsK = dsKardexResume;
+
+                string strPath = string.Empty;
+                using (ReportDocument rd = new ReportDocument())
+                {
+                    strPath = Server.MapPath("CristalReport\\ResumenKardex.rpt");
+                    //strPath = strPath.Replace("\\Views\\Consultas", "");
+                    rd.Load(strPath, OpenReportMethod.OpenReportByDefault);
+
+                    rd.SetDataSource(dsKardexResume);
+                    rd.Subreports["KardexHoras.rpt"].SetDataSource(dsKardexResume);
+                    rd.ExportToHttpResponse(ExportFormatType.PortableDocFormat, Response, true, "KardexContrato");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
         #endregion
 
         #region "Vars y Propiedades"
@@ -216,7 +280,8 @@ namespace ALE_MexJet.Views.Consultas
 
         public int iIdContrato
         {
-            get { throw new NotImplementedException(); }
+            get { return (int)ViewState["ViIdContrato"]; }
+            set { ViewState["ViIdContrato"] = value; }
         }
 
         public DataTable dtClientes
@@ -313,6 +378,7 @@ namespace ALE_MexJet.Views.Consultas
         public event EventHandler eSearchObj;
         
         public event EventHandler eSearchContratosCliente;
+        public event EventHandler eSearchKardex;
         UserIdentity oUsuario = new UserIdentity();
         public DataRow[] DrPermisos
         {
@@ -322,6 +388,17 @@ namespace ALE_MexJet.Views.Consultas
             set { Session["DrPermisos"] = value; }
         }
 
+        public DataSet dsKardexResume
+        {
+            get
+            {
+                return (DataSet)ViewState["dsKardexResume"];
+            }
+            set
+            {
+                ViewState["dsKardexResume"] = value;
+            }
+        }
         #endregion
 
     }
