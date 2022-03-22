@@ -431,11 +431,8 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Consultas\CristalReport\ResumenKardex.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>ResumenKardex.cs</LastGenOutput>
+      <LastGenOutput>ResumenKardex1.cs</LastGenOutput>
     </EmbeddedResource>
-    <Content Include="Views\Consultas\CristalReport\dsResumenKardex_1.xsc">
-      <DependentUpon>dsResumenKardex_1.xsd</DependentUpon>
-    </Content>
     <Content Include="Views\Consultas\CristalReport\dsResumenKardex.xsc">
       <DependentUpon>dsResumenKardex.xsd</DependentUpon>
     </Content>
@@ -446,14 +443,6 @@
     </None>
     <Content Include="Views\Consultas\CristalReport\dsResumenKardex.xss">
       <DependentUpon>dsResumenKardex.xsd</DependentUpon>
-    </Content>
-    <None Include="Views\Consultas\CristalReport\dsResumenKardex_1.xsd">
-      <SubType>Designer</SubType>
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>dsResumenKardex_1.Designer.cs</LastGenOutput>
-    </None>
-    <Content Include="Views\Consultas\CristalReport\dsResumenKardex_1.xss">
-      <DependentUpon>dsResumenKardex_1.xsd</DependentUpon>
     </Content>
     <None Include="Views\EstadoCuenta.xsd">
       <Generator>MSDataSetGenerator</Generator>
@@ -1251,11 +1240,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>dsResumenKardex.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Consultas\CristalReport\dsResumenKardex_1.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>dsResumenKardex_1.xsd</DependentUpon>
     </Compile>
     <Compile Include="Views\Consultas\CristalReport\KardexHoras.cs">
       <AutoGen>True</AutoGen>
