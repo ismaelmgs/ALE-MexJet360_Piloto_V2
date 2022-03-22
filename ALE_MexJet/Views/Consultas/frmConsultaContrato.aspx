@@ -54,7 +54,7 @@
                 </div>
                 <br />
                 <div class="row">
-                    <div class="col-md-12" style="margin-left: -15px; width: 103%;">
+                    <div class="col-md-12" style="margin-left: -15px; width: 102%;">
                         <asp:UpdatePanel runat="server" UpdateMode="Always" OnUnload="Unnamed_Unload">
                             <ContentTemplate>
                                 <div class="col-sm-12">
@@ -94,7 +94,7 @@
                                                     
                                                 </CustomButtons>
                                             </dx:GridViewCommandColumn>
-                                            <dx:GridViewDataColumn Caption="Reportes" Width="300px" CellStyle-HorizontalAlign="Center" VisibleIndex="7">
+                                            <dx:GridViewDataColumn Caption="Reportes" Width="" CellStyle-HorizontalAlign="Center" VisibleIndex="7">
                                                 <HeaderStyle HorizontalAlign="Center" VerticalAlign="Middle" />
                                                 <DataItemTemplate>
 
