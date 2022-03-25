@@ -8418,6 +8418,41 @@ namespace ALE_MexJet.Clases
         }
 
         
+        //Recibir horas contratadas
+        //Monto de horas contratadas
+        public static string ObtenerHorasServicioConCargo(string sMonto, int iIdContrato) 
+        {
+            try
+            {
+                DataTable dtHrsCon = new DataTable();
+                dtHrsCon = new DBRemision().DBGetObtieneHorasContratadas(iIdContrato);
+
+                string sHoras = string.Empty;
+                decimal dMonto = sMonto.Replace("$", "").ToString().D();
+                decimal dHrsCon = 0;
+                decimal dCostoHrsCon = 0; //Anticipo inicial
+                decimal dCostoXHora = 0;
+                decimal dRes = 0;
+
+                decimal dTipoC = Utils.GetTipoCambioDia;
+
+                if (dtHrsCon != null && dtHrsCon.Rows.Count > 0)
+                {
+                    dHrsCon = dtHrsCon.Rows[0]["HorasContratadasTotal"].S().D();
+                    dCostoHrsCon = dtHrsCon.Rows[0]["AnticipoInicial"].S().D();
+                    //Calcula Costo por hora
+                    dCostoXHora = dCostoHrsCon / dHrsCon;
+                }
+
+                dRes = dMonto / dCostoXHora;
+                sHoras = ConvierteDecimalATiempo(dRes);
+                return sHoras;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
 
     }
 }

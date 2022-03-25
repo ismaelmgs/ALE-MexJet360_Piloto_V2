@@ -28,6 +28,8 @@ namespace ALE_MexJet.Views.Consultas.CristalReport {
         
         private ResumenGeneralesDataTable tableResumenGenerales;
         
+        private ResumenKardexEstatusFinalDataTable tableResumenKardexEstatusFinal;
+        
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -61,6 +63,9 @@ namespace ALE_MexJet.Views.Consultas.CristalReport {
                 }
                 if ((ds.Tables["ResumenGenerales"] != null)) {
                     base.Tables.Add(new ResumenGeneralesDataTable(ds.Tables["ResumenGenerales"]));
+                }
+                if ((ds.Tables["ResumenKardexEstatusFinal"] != null)) {
+                    base.Tables.Add(new ResumenKardexEstatusFinalDataTable(ds.Tables["ResumenKardexEstatusFinal"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -97,6 +102,16 @@ namespace ALE_MexJet.Views.Consultas.CristalReport {
         public ResumenGeneralesDataTable ResumenGenerales {
             get {
                 return this.tableResumenGenerales;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Browsable(false)]
+        [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
+        public ResumenKardexEstatusFinalDataTable ResumenKardexEstatusFinal {
+            get {
+                return this.tableResumenKardexEstatusFinal;
             }
         }
         
@@ -173,6 +188,9 @@ namespace ALE_MexJet.Views.Consultas.CristalReport {
                 if ((ds.Tables["ResumenGenerales"] != null)) {
                     base.Tables.Add(new ResumenGeneralesDataTable(ds.Tables["ResumenGenerales"]));
                 }
+                if ((ds.Tables["ResumenKardexEstatusFinal"] != null)) {
+                    base.Tables.Add(new ResumenKardexEstatusFinalDataTable(ds.Tables["ResumenKardexEstatusFinal"]));
+                }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
                 this.Namespace = ds.Namespace;
@@ -218,6 +236,12 @@ namespace ALE_MexJet.Views.Consultas.CristalReport {
                     this.tableResumenGenerales.InitVars();
                 }
             }
+            this.tableResumenKardexEstatusFinal = ((ResumenKardexEstatusFinalDataTable)(base.Tables["ResumenKardexEstatusFinal"]));
+            if ((initTable == true)) {
+                if ((this.tableResumenKardexEstatusFinal != null)) {
+                    this.tableResumenKardexEstatusFinal.InitVars();
+                }
+            }
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -232,6 +256,8 @@ namespace ALE_MexJet.Views.Consultas.CristalReport {
             base.Tables.Add(this.tableResumenKardex);
             this.tableResumenGenerales = new ResumenGeneralesDataTable();
             base.Tables.Add(this.tableResumenGenerales);
+            this.tableResumenKardexEstatusFinal = new ResumenKardexEstatusFinalDataTable();
+            base.Tables.Add(this.tableResumenKardexEstatusFinal);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -243,6 +269,12 @@ namespace ALE_MexJet.Views.Consultas.CristalReport {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         private bool ShouldSerializeResumenGenerales() {
+            return false;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        private bool ShouldSerializeResumenKardexEstatusFinal() {
             return false;
         }
         
@@ -307,6 +339,9 @@ namespace ALE_MexJet.Views.Consultas.CristalReport {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         public delegate void ResumenGeneralesRowChangeEventHandler(object sender, ResumenGeneralesRowChangeEvent e);
         
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        public delegate void ResumenKardexEstatusFinalRowChangeEventHandler(object sender, ResumenKardexEstatusFinalRowChangeEvent e);
+        
         /// <summary>
         ///Represents the strongly named DataTable class.
         ///</summary>
@@ -323,6 +358,8 @@ namespace ALE_MexJet.Views.Consultas.CristalReport {
             private global::System.Data.DataColumn columnHorasDecimales;
             
             private global::System.Data.DataColumn columnHoras;
+            
+            private global::System.Data.DataColumn columnFecha;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
@@ -399,6 +436,14 @@ namespace ALE_MexJet.Views.Consultas.CristalReport {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn FechaColumn {
+                get {
+                    return this.columnFecha;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -434,14 +479,15 @@ namespace ALE_MexJet.Views.Consultas.CristalReport {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public ResumenKardexRow AddResumenKardexRow(string ClaveContrato, int IdRemision, string DesMotivo, decimal HorasDecimales, string Horas) {
+            public ResumenKardexRow AddResumenKardexRow(string ClaveContrato, int IdRemision, string DesMotivo, decimal HorasDecimales, string Horas, string Fecha) {
                 ResumenKardexRow rowResumenKardexRow = ((ResumenKardexRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         ClaveContrato,
                         IdRemision,
                         DesMotivo,
                         HorasDecimales,
-                        Horas};
+                        Horas,
+                        Fecha};
                 rowResumenKardexRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowResumenKardexRow);
                 return rowResumenKardexRow;
@@ -469,6 +515,7 @@ namespace ALE_MexJet.Views.Consultas.CristalReport {
                 this.columnDesMotivo = base.Columns["DesMotivo"];
                 this.columnHorasDecimales = base.Columns["HorasDecimales"];
                 this.columnHoras = base.Columns["Horas"];
+                this.columnFecha = base.Columns["Fecha"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -484,6 +531,8 @@ namespace ALE_MexJet.Views.Consultas.CristalReport {
                 base.Columns.Add(this.columnHorasDecimales);
                 this.columnHoras = new global::System.Data.DataColumn("Horas", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnHoras);
+                this.columnFecha = new global::System.Data.DataColumn("Fecha", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnFecha);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -858,6 +907,323 @@ namespace ALE_MexJet.Views.Consultas.CristalReport {
         }
         
         /// <summary>
+        ///Represents the strongly named DataTable class.
+        ///</summary>
+        [global::System.Serializable()]
+        [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
+        public partial class ResumenKardexEstatusFinalDataTable : global::System.Data.TypedTableBase<ResumenKardexEstatusFinalRow> {
+            
+            private global::System.Data.DataColumn columnClaveContrato;
+            
+            private global::System.Data.DataColumn columnIdRemision;
+            
+            private global::System.Data.DataColumn columnDesMotivo;
+            
+            private global::System.Data.DataColumn columnHorasDecimales;
+            
+            private global::System.Data.DataColumn columnHoras;
+            
+            private global::System.Data.DataColumn columnFecha;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public ResumenKardexEstatusFinalDataTable() {
+                this.TableName = "ResumenKardexEstatusFinal";
+                this.BeginInit();
+                this.InitClass();
+                this.EndInit();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            internal ResumenKardexEstatusFinalDataTable(global::System.Data.DataTable table) {
+                this.TableName = table.TableName;
+                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
+                    this.CaseSensitive = table.CaseSensitive;
+                }
+                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
+                    this.Locale = table.Locale;
+                }
+                if ((table.Namespace != table.DataSet.Namespace)) {
+                    this.Namespace = table.Namespace;
+                }
+                this.Prefix = table.Prefix;
+                this.MinimumCapacity = table.MinimumCapacity;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected ResumenKardexEstatusFinalDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+                    base(info, context) {
+                this.InitVars();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn ClaveContratoColumn {
+                get {
+                    return this.columnClaveContrato;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn IdRemisionColumn {
+                get {
+                    return this.columnIdRemision;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn DesMotivoColumn {
+                get {
+                    return this.columnDesMotivo;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn HorasDecimalesColumn {
+                get {
+                    return this.columnHorasDecimales;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn HorasColumn {
+                get {
+                    return this.columnHoras;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn FechaColumn {
+                get {
+                    return this.columnFecha;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            [global::System.ComponentModel.Browsable(false)]
+            public int Count {
+                get {
+                    return this.Rows.Count;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public ResumenKardexEstatusFinalRow this[int index] {
+                get {
+                    return ((ResumenKardexEstatusFinalRow)(this.Rows[index]));
+                }
+            }
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public event ResumenKardexEstatusFinalRowChangeEventHandler ResumenKardexEstatusFinalRowChanging;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public event ResumenKardexEstatusFinalRowChangeEventHandler ResumenKardexEstatusFinalRowChanged;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public event ResumenKardexEstatusFinalRowChangeEventHandler ResumenKardexEstatusFinalRowDeleting;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public event ResumenKardexEstatusFinalRowChangeEventHandler ResumenKardexEstatusFinalRowDeleted;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void AddResumenKardexEstatusFinalRow(ResumenKardexEstatusFinalRow row) {
+                this.Rows.Add(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public ResumenKardexEstatusFinalRow AddResumenKardexEstatusFinalRow(string ClaveContrato, int IdRemision, string DesMotivo, decimal HorasDecimales, string Horas, string Fecha) {
+                ResumenKardexEstatusFinalRow rowResumenKardexEstatusFinalRow = ((ResumenKardexEstatusFinalRow)(this.NewRow()));
+                object[] columnValuesArray = new object[] {
+                        ClaveContrato,
+                        IdRemision,
+                        DesMotivo,
+                        HorasDecimales,
+                        Horas,
+                        Fecha};
+                rowResumenKardexEstatusFinalRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowResumenKardexEstatusFinalRow);
+                return rowResumenKardexEstatusFinalRow;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public override global::System.Data.DataTable Clone() {
+                ResumenKardexEstatusFinalDataTable cln = ((ResumenKardexEstatusFinalDataTable)(base.Clone()));
+                cln.InitVars();
+                return cln;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override global::System.Data.DataTable CreateInstance() {
+                return new ResumenKardexEstatusFinalDataTable();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            internal void InitVars() {
+                this.columnClaveContrato = base.Columns["ClaveContrato"];
+                this.columnIdRemision = base.Columns["IdRemision"];
+                this.columnDesMotivo = base.Columns["DesMotivo"];
+                this.columnHorasDecimales = base.Columns["HorasDecimales"];
+                this.columnHoras = base.Columns["Horas"];
+                this.columnFecha = base.Columns["Fecha"];
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            private void InitClass() {
+                this.columnClaveContrato = new global::System.Data.DataColumn("ClaveContrato", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnClaveContrato);
+                this.columnIdRemision = new global::System.Data.DataColumn("IdRemision", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnIdRemision);
+                this.columnDesMotivo = new global::System.Data.DataColumn("DesMotivo", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDesMotivo);
+                this.columnHorasDecimales = new global::System.Data.DataColumn("HorasDecimales", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnHorasDecimales);
+                this.columnHoras = new global::System.Data.DataColumn("Horas", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnHoras);
+                this.columnFecha = new global::System.Data.DataColumn("Fecha", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnFecha);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public ResumenKardexEstatusFinalRow NewResumenKardexEstatusFinalRow() {
+                return ((ResumenKardexEstatusFinalRow)(this.NewRow()));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
+                return new ResumenKardexEstatusFinalRow(builder);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override global::System.Type GetRowType() {
+                return typeof(ResumenKardexEstatusFinalRow);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanged(e);
+                if ((this.ResumenKardexEstatusFinalRowChanged != null)) {
+                    this.ResumenKardexEstatusFinalRowChanged(this, new ResumenKardexEstatusFinalRowChangeEvent(((ResumenKardexEstatusFinalRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanging(e);
+                if ((this.ResumenKardexEstatusFinalRowChanging != null)) {
+                    this.ResumenKardexEstatusFinalRowChanging(this, new ResumenKardexEstatusFinalRowChangeEvent(((ResumenKardexEstatusFinalRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleted(e);
+                if ((this.ResumenKardexEstatusFinalRowDeleted != null)) {
+                    this.ResumenKardexEstatusFinalRowDeleted(this, new ResumenKardexEstatusFinalRowChangeEvent(((ResumenKardexEstatusFinalRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleting(e);
+                if ((this.ResumenKardexEstatusFinalRowDeleting != null)) {
+                    this.ResumenKardexEstatusFinalRowDeleting(this, new ResumenKardexEstatusFinalRowChangeEvent(((ResumenKardexEstatusFinalRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void RemoveResumenKardexEstatusFinalRow(ResumenKardexEstatusFinalRow row) {
+                this.Rows.Remove(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
+                global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
+                global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
+                dsResumenKardex ds = new dsResumenKardex();
+                global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
+                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
+                any1.MinOccurs = new decimal(0);
+                any1.MaxOccurs = decimal.MaxValue;
+                any1.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any1);
+                global::System.Xml.Schema.XmlSchemaAny any2 = new global::System.Xml.Schema.XmlSchemaAny();
+                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
+                any2.MinOccurs = new decimal(1);
+                any2.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any2);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute1 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute1.Name = "namespace";
+                attribute1.FixedValue = ds.Namespace;
+                type.Attributes.Add(attribute1);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute2.Name = "tableTypeName";
+                attribute2.FixedValue = "ResumenKardexEstatusFinalDataTable";
+                type.Attributes.Add(attribute2);
+                type.Particle = sequence;
+                global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
+                if (xs.Contains(dsSchema.TargetNamespace)) {
+                    global::System.IO.MemoryStream s1 = new global::System.IO.MemoryStream();
+                    global::System.IO.MemoryStream s2 = new global::System.IO.MemoryStream();
+                    try {
+                        global::System.Xml.Schema.XmlSchema schema = null;
+                        dsSchema.Write(s1);
+                        for (global::System.Collections.IEnumerator schemas = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator(); schemas.MoveNext(); ) {
+                            schema = ((global::System.Xml.Schema.XmlSchema)(schemas.Current));
+                            s2.SetLength(0);
+                            schema.Write(s2);
+                            if ((s1.Length == s2.Length)) {
+                                s1.Position = 0;
+                                s2.Position = 0;
+                                for (; ((s1.Position != s1.Length) 
+                                            && (s1.ReadByte() == s2.ReadByte())); ) {
+                                    ;
+                                }
+                                if ((s1.Position == s1.Length)) {
+                                    return type;
+                                }
+                            }
+                        }
+                    }
+                    finally {
+                        if ((s1 != null)) {
+                            s1.Close();
+                        }
+                        if ((s2 != null)) {
+                            s2.Close();
+                        }
+                    }
+                }
+                xs.Add(dsSchema);
+                return type;
+            }
+        }
+        
+        /// <summary>
         ///Represents strongly named DataRow class.
         ///</summary>
         public partial class ResumenKardexRow : global::System.Data.DataRow {
@@ -953,6 +1319,22 @@ namespace ALE_MexJet.Views.Consultas.CristalReport {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string Fecha {
+                get {
+                    try {
+                        return ((string)(this[this.tableResumenKardex.FechaColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'Fecha\' de la tabla \'ResumenKardex\' es DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableResumenKardex.FechaColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public bool IsClaveContratoNull() {
                 return this.IsNull(this.tableResumenKardex.ClaveContratoColumn);
             }
@@ -1010,6 +1392,18 @@ namespace ALE_MexJet.Views.Consultas.CristalReport {
             public void SetHorasNull() {
                 this[this.tableResumenKardex.HorasColumn] = global::System.Convert.DBNull;
             }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsFechaNull() {
+                return this.IsNull(this.tableResumenKardex.FechaColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetFechaNull() {
+                this[this.tableResumenKardex.FechaColumn] = global::System.Convert.DBNull;
+            }
         }
         
         /// <summary>
@@ -1052,6 +1446,195 @@ namespace ALE_MexJet.Views.Consultas.CristalReport {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public void SetNombreClienteNull() {
                 this[this.tableResumenGenerales.NombreClienteColumn] = global::System.Convert.DBNull;
+            }
+        }
+        
+        /// <summary>
+        ///Represents strongly named DataRow class.
+        ///</summary>
+        public partial class ResumenKardexEstatusFinalRow : global::System.Data.DataRow {
+            
+            private ResumenKardexEstatusFinalDataTable tableResumenKardexEstatusFinal;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            internal ResumenKardexEstatusFinalRow(global::System.Data.DataRowBuilder rb) : 
+                    base(rb) {
+                this.tableResumenKardexEstatusFinal = ((ResumenKardexEstatusFinalDataTable)(this.Table));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string ClaveContrato {
+                get {
+                    try {
+                        return ((string)(this[this.tableResumenKardexEstatusFinal.ClaveContratoColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'ClaveContrato\' de la tabla \'ResumenKardexEstatusFinal\' es" +
+                                " DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableResumenKardexEstatusFinal.ClaveContratoColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public int IdRemision {
+                get {
+                    try {
+                        return ((int)(this[this.tableResumenKardexEstatusFinal.IdRemisionColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'IdRemision\' de la tabla \'ResumenKardexEstatusFinal\' es DB" +
+                                "Null.", e);
+                    }
+                }
+                set {
+                    this[this.tableResumenKardexEstatusFinal.IdRemisionColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string DesMotivo {
+                get {
+                    try {
+                        return ((string)(this[this.tableResumenKardexEstatusFinal.DesMotivoColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'DesMotivo\' de la tabla \'ResumenKardexEstatusFinal\' es DBN" +
+                                "ull.", e);
+                    }
+                }
+                set {
+                    this[this.tableResumenKardexEstatusFinal.DesMotivoColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public decimal HorasDecimales {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableResumenKardexEstatusFinal.HorasDecimalesColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'HorasDecimales\' de la tabla \'ResumenKardexEstatusFinal\' e" +
+                                "s DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableResumenKardexEstatusFinal.HorasDecimalesColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string Horas {
+                get {
+                    try {
+                        return ((string)(this[this.tableResumenKardexEstatusFinal.HorasColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'Horas\' de la tabla \'ResumenKardexEstatusFinal\' es DBNull." +
+                                "", e);
+                    }
+                }
+                set {
+                    this[this.tableResumenKardexEstatusFinal.HorasColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string Fecha {
+                get {
+                    try {
+                        return ((string)(this[this.tableResumenKardexEstatusFinal.FechaColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'Fecha\' de la tabla \'ResumenKardexEstatusFinal\' es DBNull." +
+                                "", e);
+                    }
+                }
+                set {
+                    this[this.tableResumenKardexEstatusFinal.FechaColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsClaveContratoNull() {
+                return this.IsNull(this.tableResumenKardexEstatusFinal.ClaveContratoColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetClaveContratoNull() {
+                this[this.tableResumenKardexEstatusFinal.ClaveContratoColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsIdRemisionNull() {
+                return this.IsNull(this.tableResumenKardexEstatusFinal.IdRemisionColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetIdRemisionNull() {
+                this[this.tableResumenKardexEstatusFinal.IdRemisionColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsDesMotivoNull() {
+                return this.IsNull(this.tableResumenKardexEstatusFinal.DesMotivoColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetDesMotivoNull() {
+                this[this.tableResumenKardexEstatusFinal.DesMotivoColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsHorasDecimalesNull() {
+                return this.IsNull(this.tableResumenKardexEstatusFinal.HorasDecimalesColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetHorasDecimalesNull() {
+                this[this.tableResumenKardexEstatusFinal.HorasDecimalesColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsHorasNull() {
+                return this.IsNull(this.tableResumenKardexEstatusFinal.HorasColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetHorasNull() {
+                this[this.tableResumenKardexEstatusFinal.HorasColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsFechaNull() {
+                return this.IsNull(this.tableResumenKardexEstatusFinal.FechaColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetFechaNull() {
+                this[this.tableResumenKardexEstatusFinal.FechaColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -1109,6 +1692,40 @@ namespace ALE_MexJet.Views.Consultas.CristalReport {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public ResumenGeneralesRow Row {
+                get {
+                    return this.eventRow;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataRowAction Action {
+                get {
+                    return this.eventAction;
+                }
+            }
+        }
+        
+        /// <summary>
+        ///Row event argument class
+        ///</summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        public class ResumenKardexEstatusFinalRowChangeEvent : global::System.EventArgs {
+            
+            private ResumenKardexEstatusFinalRow eventRow;
+            
+            private global::System.Data.DataRowAction eventAction;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public ResumenKardexEstatusFinalRowChangeEvent(ResumenKardexEstatusFinalRow row, global::System.Data.DataRowAction action) {
+                this.eventRow = row;
+                this.eventAction = action;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public ResumenKardexEstatusFinalRow Row {
                 get {
                     return this.eventRow;
                 }

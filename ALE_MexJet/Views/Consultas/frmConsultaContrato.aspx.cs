@@ -191,7 +191,8 @@ namespace ALE_MexJet.Views.Consultas
                 if(dsKardexResume != null)
                 {
                     dsKardexResume.Tables[0].TableName = "ResumenKardex";
-                    dsKardexResume.Tables[1].TableName = "ResumenGenerales";
+                    dsKardexResume.Tables[1].TableName = "EstatusFinal";
+                    dsKardexResume.Tables[2].TableName = "ResumenDatosGenerales";
                 }
             }
             catch (Exception ex)
@@ -232,11 +233,11 @@ namespace ALE_MexJet.Views.Consultas
                 using (ReportDocument rd = new ReportDocument())
                 {
                     strPath = Server.MapPath("CristalReport\\ResumenKardex.rpt");
-                    //strPath = strPath.Replace("\\Views\\Consultas", "");
                     rd.Load(strPath, OpenReportMethod.OpenReportByDefault);
 
-                    rd.SetDataSource(dsKardexResume);
-                    rd.Subreports["KardexHoras.rpt"].SetDataSource(dsKardexResume);
+                    rd.SetDataSource(dsKardexResume.Tables[2]);
+                    //rd.SetDataSource(dsKardexResume);
+                    rd.Subreports["ReporteHorasRemision.rpt"].SetDataSource(dsKardexResume);
                     rd.ExportToHttpResponse(ExportFormatType.PortableDocFormat, Response, true, "KardexContrato");
                 }
             }

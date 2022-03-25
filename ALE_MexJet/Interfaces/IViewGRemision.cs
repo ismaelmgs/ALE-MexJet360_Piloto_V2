@@ -37,6 +37,8 @@ namespace ALE_MexJet.Interfaces
         DatosRemision oDatosFactor { set; get; }
         int iIdPresupuesto { set; get; }
 
+        List<KardexRemision> OLstKardex { get; set; }
+
         void LoadObjects(DataTable dtObjCat);
         void LoadContracts(DataTable dtCont);
         void RedireccionWizard(int iIndex);

@@ -662,6 +662,8 @@ namespace ALE_MexJet.Objetos
         private int iIdMotivo = 0;
         private string sNotas = string.Empty;
 
+        private List<KardexRemision> _oLstKardex = new List<KardexRemision>();
+
 
         public long iIdRemision { get { return _iIdRemision; } set { _iIdRemision = value; } }        
         public string sTotalTiempoCobrar { get { return _sTotalTiempoCobrar; } set { _sTotalTiempoCobrar = value; } }
@@ -694,6 +696,29 @@ namespace ALE_MexJet.Objetos
         public string SAbono { get => sAbono; set => sAbono = value; }
         public int IIdMotivo { get => iIdMotivo; set => iIdMotivo = value; }
         public string SNotas { get => sNotas; set => sNotas = value; }
+        public List<KardexRemision> OLstKardex { get => _oLstKardex; set => _oLstKardex = value; }
+    }
+
+    [Serializable, Bindable(BindableSupport.Yes)]
+    public class KardexRemision : BaseObjeto
+    {
+        private long _iIdRemision = 0;
+        private int iIdContrato = 0;
+        private string sMatricula = string.Empty;
+        private string sCargo = string.Empty; //Total de horas
+        private string sAbono = string.Empty;
+        private int iIdMotivo = 0; //Conceptos de remisiones
+        private string sNotas = string.Empty;
+        private string _sUsuario = string.Empty;
+
+        public long IIdRemision { get => _iIdRemision; set => _iIdRemision = value; }
+        public int IIdContrato { get => iIdContrato; set => iIdContrato = value; }
+        public string SMatricula { get => sMatricula; set => sMatricula = value; }
+        public string SCargo { get => sCargo; set => sCargo = value; }
+        public string SAbono { get => sAbono; set => sAbono = value; }
+        public int IIdMotivo { get => iIdMotivo; set => iIdMotivo = value; }
+        public string SNotas { get => sNotas; set => sNotas = value; }
+        public string SUsuario { get => _sUsuario; set => _sUsuario = value; }
     }
 
 

@@ -280,13 +280,13 @@ namespace ALE_MexJet.Presenter
 
         protected void eSetFinalizaR_Presenter(object sender, EventArgs e)
         {
-            oIGestCat.DBSetInsertaHeaderServiciosVuelo(oIView.oServiciosV);
-            oIGestCat.DBSetInsertaDetalleServiciosVuelo(oIView.oLstSV);
-            oIGestCat.DBSetInsertaHeaderServiciosCargo(oIView.oServiciosC);
-            oIGestCat.DBSetInsertaDetalleServiciosCargo(oIView.oLstD);
+            //oIGestCat.DBSetInsertaHeaderServiciosVuelo(oIView.oServiciosV);
+            //oIGestCat.DBSetInsertaDetalleServiciosVuelo(oIView.oLstSV);
+            //oIGestCat.DBSetInsertaHeaderServiciosCargo(oIView.oServiciosC);
+            //oIGestCat.DBSetInsertaDetalleServiciosCargo(oIView.oLstD);
 
             //Inserta registros a kardex
-            oIGestCat.DBSetInsertaRemisionKardex(oIView.oRemGrals);
+            oIGestCat.DBSetInsertaRemisionKardex(oIView.OLstKardex);
 
             DataTable dt = oIGestCat.DBSetCambiaStatusRemision(oIView.oRemGrals);
             if (dt.Rows.Count > 0)

@@ -474,6 +474,8 @@ namespace ALE_MexJet.Views.CreditoCobranza
         {
             try
             {
+                RemisionesKardex();
+
                 if (eSetFinalizaR != null)
                     eSetFinalizaR(sender, e);
 
@@ -482,6 +484,54 @@ namespace ALE_MexJet.Views.CreditoCobranza
             catch (Exception ex)
             {
                 Utils.SaveErrorEnBitacora(mpeMensaje, ex.Message, sPagina, sClase, "btnFinalizar_Click", "Aviso");
+            }
+        }
+
+        public void RemisionesKardex()
+        {
+            try
+            {
+                string sMatricula = string.Empty;
+                KardexRemision oRm = new KardexRemision();
+                OLstKardex = new List<KardexRemision>();
+
+                if (Session["Matricula"] != null)
+                    sMatricula = Session["Matricula"].S();
+
+                //Remision
+                oRm.IIdRemision = iIdRemision;
+                oRm.IIdContrato = IdContrato;
+                oRm.SMatricula = sMatricula;
+                oRm.SCargo = lblRespTotalVueloCobrar.Text.S();
+                oRm.SAbono = "0";
+                oRm.IIdMotivo = 1; //Remisión
+                oRm.SNotas = string.Empty;
+                oRm.SUsuario = ((UserIdentity)Session["UserIdentity"]).sUsuario;
+                OLstKardex.Add(oRm);
+
+                //Remisión Servicios con cargo
+                if (dtServiciosC != null)
+                {
+                    KardexRemision oRem = new KardexRemision();
+                    oRem.IIdRemision = iIdRemision;
+                    oRem.IIdContrato = IdContrato;
+                    oRem.SMatricula = sMatricula;
+
+                    if (dSubTotalRemSC != 0)
+                        oRem.SCargo = Utils.ObtenerHorasServicioConCargo(dSubTotalRemSC.S(), IdContrato);
+                    else
+                        oRem.SCargo = "0";
+
+                    oRem.SAbono = "0";
+                    oRem.IIdMotivo = 9; //Remisión SCC (Servicio con cargo)
+                    oRem.SNotas = string.Empty;
+                    oRem.SUsuario = ((UserIdentity)Session["UserIdentity"]).sUsuario;
+                    OLstKardex.Add(oRem);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
         }
         protected void ddlConceptoAdi_SelectedIndexChanged(object sender, EventArgs e)
@@ -1693,6 +1743,9 @@ namespace ALE_MexJet.Views.CreditoCobranza
                     }
                 }
 
+                dSubTotalRemSC = 0;
+                dSubTotalRemSC = dSuma;
+
                 dTotalPesos = dSumaSC + (dSumaSV * dTipoC);
                 dTotalDlls = dSumaSV + (dSumaSC / dTipoC);
 
@@ -2805,15 +2858,15 @@ namespace ALE_MexJet.Views.CreditoCobranza
                     oRG.sIP = Utils.GetIPAddress();
                     oRG.IIdContrato = IdContrato;
 
-                    if (Session["Matricula"] != null)
-                        oRG.SMatricula = Session["Matricula"].S();
-                    else
-                        oRG.SMatricula = string.Empty;
+                    //if (Session["Matricula"] != null)
+                    //    oRG.SMatricula = Session["Matricula"].S();
+                    //else
+                    //    oRG.SMatricula = string.Empty;
 
-                    oRG.SCargo = lblRespTotalVueloCobrar.Text.S();
-                    oRG.SAbono = "0";
-                    oRG.IIdMotivo = 1; //Remisión
-                    oRG.SNotas = string.Empty;
+                    //oRG.SCargo = lblRespTotalVueloCobrar.Text.S();
+                    //oRG.SAbono = "0";
+                    //oRG.IIdMotivo = 1; //Remisión
+                    //oRG.SNotas = string.Empty;
                     
 
                     return oRG;
@@ -2824,6 +2877,13 @@ namespace ALE_MexJet.Views.CreditoCobranza
                 }
             }
         }
+
+        public List<KardexRemision> OLstKardex
+        {
+            get { return (List<KardexRemision>)ViewState["VSLstKardex"]; }
+            set { ViewState["VSLstKardex"] = value; }
+        }
+
         public DataTable dtOrigenDestino
         {
             get { return (DataTable)ViewState["VSOrigenDestino"]; }
@@ -2881,12 +2941,17 @@ namespace ALE_MexJet.Views.CreditoCobranza
             get { return (double)ViewState["VSFactorTotalRem"]; }
             set { ViewState["VSFactorTotalRem"] = value; }
         }
+        public decimal dSubTotalRemSC
+        {
+            get { return (decimal)ViewState["VSSubTotalRemSC"]; }
+            set { ViewState["VSSubTotalRemSC"] = value; }
+        }
         //public DataTable dtFactoresTramo
         //{
         //    get { return (DataTable)ViewState["VSDTFactoresTramo"]; }
         //    set { ViewState["VSDTFactoresTramo"] = value; }
         //}
         #endregion
-       
+
     }
 }

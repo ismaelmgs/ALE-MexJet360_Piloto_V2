@@ -988,27 +988,41 @@ namespace ALE_MexJet.DomainModel
             }
         }
 
-        public string DBSetInsertaRemisionKardex(RemisionDatosGrals oRem)
+        public string DBSetInsertaRemisionKardex(List<KardexRemision> oLstKdx)
         {
             try
             {
                 string sRes = string.Empty;
-                object oRes = oDB_SP.EjecutarValor("[Principales].[spI_MXJ_KardexHoras]", "@IdContrato", oRem.IIdContrato,
+                object oRes = new object();
+
+                foreach (KardexRemision oRem in oLstKdx)
+                {
+                    oRes = oDB_SP.EjecutarValor("[Principales].[spI_MXJ_KardexHoras]", "@IdContrato", oRem.IIdContrato,
                                                                                           "@Matricula", oRem.SMatricula,
-                                                                                          "@IdRemision", oRem.iIdRemision,
+                                                                                          "@IdRemision", oRem.IIdRemision,
                                                                                           "@Cargo", oRem.SCargo,
                                                                                           "@Abono", oRem.SAbono,
                                                                                           "@IdMotivo", oRem.IIdMotivo,
                                                                                           "@Notas", oRem.SNotas,
-                                                                                          "@Usuario", oRem.sUsuario);
-
-                new DBUtils().DBSaveBitacora(Convert.ToInt32(Enumeraciones.Pantallas.Remisiones), Convert.ToInt32(Enumeraciones.TipoOperacion.Actualizar), "Se inserto registro en el kardex del contrato: " + oRem.IIdContrato.S());
-
+                                                                                          "@Usuario", oRem.SUsuario);
+                    new DBUtils().DBSaveBitacora(Convert.ToInt32(Enumeraciones.Pantallas.Remisiones), Convert.ToInt32(Enumeraciones.TipoOperacion.Actualizar), "Se inserto registro en el kardex del contrato: " + oRem.IIdContrato.S() + ", y IdMotivo: " + oRem.IIdMotivo.S());
+                }
                 return oRes.I().S();
             }
             catch (Exception ex)
             {
                 return string.Empty;
+            }
+        }
+        public DataTable DBGetObtieneHorasContratadas(int iIdContrato)
+        {
+            try
+            {
+                return oDB_SP.EjecutarDT("[Principales].[spS_MXJ_KardexHorasContratadas]", "@IdContrato", iIdContrato);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
         }
 

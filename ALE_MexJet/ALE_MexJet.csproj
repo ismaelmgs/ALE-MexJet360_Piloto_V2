@@ -424,10 +424,21 @@
     </Content>
     <None Include="Service References\wsSyteline\ws_SyteLine1.wsdl" />
     <Content Include="SwitcherResources\Content\LICENSE" />
-    <EmbeddedResource Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="Views\Consultas\CristalReport\ReporteHorasRemision.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>ReporteHorasRemision.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Consultas\CristalReport\RemisionesHoras.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>RemisionesHoras.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\Consultas\CristalReport\KardexHoras.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>KardexHoras.cs</LastGenOutput>
+      <LastGenOutput>KardexHoras1.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Consultas\CristalReport\ResumenRemisiones.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>ResumenRemisiones.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Consultas\CristalReport\ResumenKardex.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
@@ -435,6 +446,17 @@
     </EmbeddedResource>
     <Content Include="Views\Consultas\CristalReport\dsResumenKardex.xsc">
       <DependentUpon>dsResumenKardex.xsd</DependentUpon>
+    </Content>
+    <Content Include="Views\Consultas\CristalReport\dsResumenRem.xsc">
+      <DependentUpon>dsResumenRem.xsd</DependentUpon>
+    </Content>
+    <None Include="Views\Consultas\CristalReport\dsResumenRem.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsResumenRem.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Views\Consultas\CristalReport\dsResumenRem.xss">
+      <DependentUpon>dsResumenRem.xsd</DependentUpon>
     </Content>
     <None Include="Views\Consultas\CristalReport\dsResumenKardex.xsd">
       <SubType>Designer</SubType>
@@ -1241,14 +1263,32 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>dsResumenKardex.xsd</DependentUpon>
     </Compile>
-    <Compile Include="Views\Consultas\CristalReport\KardexHoras.cs">
+    <Compile Include="Views\Consultas\CristalReport\KardexHoras1.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>KardexHoras.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Views\Consultas\CristalReport\ResumenKardex.cs">
+    <Compile Include="Views\Consultas\CristalReport\ReporteHorasRemision.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ReporteHorasRemision.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Views\Consultas\CristalReport\RemisionesHoras.cs">
+      <DependentUpon>RemisionesHoras.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\Consultas\CristalReport\ResumenKardex1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
       <DependentUpon>ResumenKardex.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Views\Consultas\CristalReport\ResumenRemisiones.cs">
+      <DependentUpon>ResumenRemisiones.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
       <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
