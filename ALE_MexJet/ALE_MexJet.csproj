@@ -397,6 +397,7 @@
     <Content Include="Views\Consultas\frmDocPendientes.aspx" />
     <Content Include="Views\Consultas\frmReportePresupuesto.aspx" />
     <Content Include="Views\Consultas\frmResumenContrato.aspx" />
+    <Content Include="Views\CreditoCobranza\frmAjustesJetCard.aspx" />
     <Content Include="Views\CreditoCobranza\frmFormulasRemision.aspx" />
     <Content Include="Views\CreditoCobranza\frmIncrementoTarifas.aspx" />
     <Content Include="Views\FBO\frmConsultaTrafico.aspx" />
@@ -1367,6 +1368,13 @@
     </Compile>
     <Compile Include="Views\Consultas\frmResumenContrato.aspx.designer.cs">
       <DependentUpon>frmResumenContrato.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreditoCobranza\frmAjustesJetCard.aspx.cs">
+      <DependentUpon>frmAjustesJetCard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\CreditoCobranza\frmAjustesJetCard.aspx.designer.cs">
+      <DependentUpon>frmAjustesJetCard.aspx</DependentUpon>
     </Compile>
     <Compile Include="Views\CreditoCobranza\frmFormulasRemision.aspx.cs">
       <DependentUpon>frmFormulasRemision.aspx</DependentUpon>
