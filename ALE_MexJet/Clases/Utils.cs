@@ -8433,6 +8433,7 @@ namespace ALE_MexJet.Clases
                 decimal dCostoHrsCon = 0; //Anticipo inicial
                 decimal dCostoXHora = 0;
                 decimal dRes = 0;
+                int iMoneda = 0;
 
                 decimal dTipoC = Utils.GetTipoCambioDia;
 
@@ -8440,6 +8441,12 @@ namespace ALE_MexJet.Clases
                 {
                     dHrsCon = dtHrsCon.Rows[0]["HorasContratadasTotal"].S().D();
                     dCostoHrsCon = dtHrsCon.Rows[0]["AnticipoInicial"].S().D();
+                    //1 = Pesos, 2 = Dolares
+                    iMoneda = dtHrsCon.Rows[0]["TipoCambio"].S().I();
+
+                    if(iMoneda == 2)
+                        dCostoHrsCon = dCostoHrsCon * dTipoC;
+
                     //Calcula Costo por hora
                     dCostoXHora = dCostoHrsCon / dHrsCon;
                 }
