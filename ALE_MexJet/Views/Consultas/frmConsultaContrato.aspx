@@ -69,7 +69,8 @@
                                         OnCustomButtonCallback ="gvConsultaContratos_CustomButtonCallback" 
                                         OnCustomButtonInitialize="gvConsultaContratos_CustomButtonInitialize"
                                         OnRowDeleting="gvConsultaContratos_RowDeleting"
-                                        OnRowCommand="gvConsultaContratos_RowCommand">
+                                        OnRowCommand="gvConsultaContratos_RowCommand"
+                                        OnHtmlDataCellPrepared="gvConsultaContratos_HtmlDataCellPrepared">
                                         <ClientSideEvents EndCallback="function (s, e) {
                                                 if (s.cpShowPopup)
                                                 {
@@ -94,7 +95,7 @@
                                                     
                                                 </CustomButtons>
                                             </dx:GridViewCommandColumn>
-                                            <dx:GridViewDataColumn Caption="Reportes" Width="" CellStyle-HorizontalAlign="Center" VisibleIndex="7">
+                                            <dx:GridViewDataColumn Caption="Reportes" Width="" CellStyle-HorizontalAlign="Center" VisibleIndex="7" FieldName="Reportes">
                                                 <HeaderStyle HorizontalAlign="Center" VerticalAlign="Middle" />
                                                 <DataItemTemplate>
 

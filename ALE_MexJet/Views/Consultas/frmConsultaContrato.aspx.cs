@@ -403,5 +403,16 @@ namespace ALE_MexJet.Views.Consultas
         }
         #endregion
 
+        protected void gvConsultaContratos_HtmlDataCellPrepared(object sender, ASPxGridViewTableDataCellEventArgs e)
+        {
+            if (e.DataColumn.FieldName == "Reportes") 
+            {
+                ASPxButton btnPDF = gvConsultaContratos.FindRowCellTemplateControl(e.VisibleIndex, e.DataColumn, "btnExportarPDF") as ASPxButton;
+                if (Convert.ToString(e.GetValue("Paquete")).Equals("JETCARD DIRECT") || Convert.ToString(e.GetValue("Paquete")).Equals("JETCARD EFFICIENT"))
+                    btnPDF.Visible = true;
+                else 
+                    btnPDF.Visible = false;
+            }
+        }
     }
 }
