@@ -78,7 +78,7 @@
                                 </div>
                                 <br />
                                 <div class="row">
-                                    <div class="col-md-12" style="margin-left: -15px; width: 103%;">
+                                    <div class="col-md-12" style="margin-left: -15px; width: 102%;">
 
                                         <%--<asp:UpdatePanel ID="upaInicio" runat="server" UpdateMode="Always">
                                             <ContentTemplate>--%>
