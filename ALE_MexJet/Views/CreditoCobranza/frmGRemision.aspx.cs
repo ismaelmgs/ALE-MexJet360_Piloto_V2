@@ -492,6 +492,9 @@ namespace ALE_MexJet.Views.CreditoCobranza
             try
             {
                 string sMatricula = string.Empty;
+                string sFechaVuelo = string.Empty;
+                string sSubtotal = string.Empty;
+                int index = 0;
                 KardexRemision oRm = new KardexRemision();
                 OLstKardex = new List<KardexRemision>();
 
@@ -499,10 +502,18 @@ namespace ALE_MexJet.Views.CreditoCobranza
                     sMatricula = Session["Matricula"].S();
 
                 //Remision
+
+                if(dtServVuelo != null && dtServVuelo.Rows.Count > 0)
+                {
+                    DataRow[] rows = dtServVuelo.Select("Cantidad = 'SubTotal'");
+                    index = rows[0].ItemArray.Length - 1;
+                    sSubtotal = rows[0].ItemArray[index].S();
+                }
+
                 oRm.IIdRemision = iIdRemision;
                 oRm.IIdContrato = IdContrato;
                 oRm.SMatricula = sMatricula;
-                oRm.SCargo = lblRespTotalVueloCobrar.Text.S();
+                oRm.SCargo = sSubtotal;
                 oRm.SAbono = "0";
                 oRm.IIdMotivo = 1; //Remisión
                 oRm.SNotas = string.Empty;
@@ -512,13 +523,20 @@ namespace ALE_MexJet.Views.CreditoCobranza
                 //Remisión Servicios con cargo
                 if (dtServiciosC != null)
                 {
+                    DateTime dtFechaSalida = new DateTime();
                     KardexRemision oRem = new KardexRemision();
+
+                    if (Session["FechaVuelo"] != null)
+                        sFechaVuelo = Session["FechaVuelo"].S();
+
+                    dtFechaSalida = sFechaVuelo.Dt();
+
                     oRem.IIdRemision = iIdRemision;
                     oRem.IIdContrato = IdContrato;
                     oRem.SMatricula = sMatricula;
 
                     if (dSubTotalRemSC != 0)
-                        oRem.SCargo = Utils.ObtenerHorasServicioConCargo(dSubTotalRemSC.S(), IdContrato);
+                        oRem.SCargo = Utils.ObtenerHorasServicioConCargo(dSubTotalRemSC.S(), IdContrato, dtFechaSalida);
                     else
                         oRem.SCargo = "0";
 

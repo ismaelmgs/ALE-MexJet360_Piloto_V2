@@ -147,6 +147,22 @@ namespace ALE_MexJet.DomainModel
             {
                 throw ex;
             }
-        }        
+        }
+
+        public decimal DBGettipoCambioSalida(DateTime dtFechaSalida)
+        {
+            try
+            {
+                object oRespuesta = new DBSAP().DBGetTipoCambioSalida(dtFechaSalida);
+                decimal dTipoCambio = oRespuesta.S().D();
+
+                return decimal.Round(dTipoCambio, 4);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
     }
 }

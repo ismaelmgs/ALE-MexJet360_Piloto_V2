@@ -2826,6 +2826,12 @@ namespace ALE_MexJet.Clases
                 //return (20.69).S().D();
             }
         }
+
+        public static decimal GetTipoCambioDiaSalida(DateTime dtFechaSalida)
+        {
+            return new DBUtils().DBGettipoCambioSalida(dtFechaSalida);
+        }
+
         /// <summary>
         /// Obtiene la suma de dos tiempos
         /// </summary>
@@ -8420,7 +8426,7 @@ namespace ALE_MexJet.Clases
         
         //Recibir horas contratadas
         //Monto de horas contratadas
-        public static string ObtenerHorasServicioConCargo(string sMonto, int iIdContrato) 
+        public static string ObtenerHorasServicioConCargo(string sMonto, int iIdContrato, DateTime dtFechaSalida) 
         {
             try
             {
@@ -8429,13 +8435,18 @@ namespace ALE_MexJet.Clases
 
                 string sHoras = string.Empty;
                 decimal dMonto = sMonto.Replace("$", "").ToString().D();
+                decimal dMontoUsd = 0;
+
                 decimal dHrsCon = 0;
                 decimal dCostoHrsCon = 0; //Anticipo inicial
                 decimal dCostoXHora = 0;
                 decimal dRes = 0;
                 int iMoneda = 0;
 
-                decimal dTipoC = Utils.GetTipoCambioDia;
+                decimal dTipoC = Utils.GetTipoCambioDiaSalida(dtFechaSalida);
+
+                if (dTipoC > 0)
+                    dMontoUsd = dMonto / dTipoC;
 
                 if (dtHrsCon != null && dtHrsCon.Rows.Count > 0)
                 {
@@ -8444,14 +8455,14 @@ namespace ALE_MexJet.Clases
                     //1 = Pesos, 2 = Dolares
                     iMoneda = dtHrsCon.Rows[0]["TipoCambio"].S().I();
 
-                    if(iMoneda == 2)
-                        dCostoHrsCon = dCostoHrsCon * dTipoC;
+                    //if(iMoneda == 2)
+                        //dCostoHrsCon = dCostoHrsCon * dTipoC;
 
                     //Calcula Costo por hora
                     dCostoXHora = dCostoHrsCon / dHrsCon;
                 }
 
-                dRes = dMonto / dCostoXHora;
+                dRes = dMontoUsd / dCostoXHora;
                 sHoras = ConvierteDecimalATiempo(dRes);
                 return sHoras;
             }

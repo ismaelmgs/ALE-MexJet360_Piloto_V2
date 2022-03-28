@@ -63,12 +63,16 @@ namespace ALE_MexJet.Views.CreditoCobranza
             if (e.CommandArgs.CommandName.S() == "Detalle")
             {
                 Session["Matricula"] = string.Empty;
+                Session["FechaVuelo"] = string.Empty;
                 int index = e.VisibleIndex.I();
                 string sIdRemision = e.CommandArgs.CommandArgument.S();
                 string sMatricula = gvRemisiones.GetRowValues(index, "Matricula").ToString();
+                string sFechaVuelo = gvRemisiones.GetRowValues(index, "FechaVuelo").ToString();
 
                 if (!string.IsNullOrEmpty(sMatricula))
                     Session["Matricula"] = sMatricula;
+                if (!string.IsNullOrEmpty(sFechaVuelo))
+                    Session["FechaVuelo"] = sFechaVuelo;
 
                 Response.Redirect("~/Views/CreditoCobranza/frmGRemision.aspx?Folio=" + sIdRemision, false);
             }

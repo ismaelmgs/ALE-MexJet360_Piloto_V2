@@ -424,6 +424,14 @@
     </Content>
     <None Include="Service References\wsSyteline\ws_SyteLine1.wsdl" />
     <Content Include="SwitcherResources\Content\LICENSE" />
+    <EmbeddedResource Include="Views\Consultas\CristalReport\ReporteEstatusHoras.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>ReporteEstatusHoras.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Consultas\CristalReport\ReporteEstatusHorasDetalle.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>ReporteEstatusHorasDetalle.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\Consultas\CristalReport\ReporteHorasRemision.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>ReporteHorasRemision.cs</LastGenOutput>
@@ -1267,6 +1275,18 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>KardexHoras.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Views\Consultas\CristalReport\ReporteEstatusHoras.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ReporteEstatusHoras.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Views\Consultas\CristalReport\ReporteEstatusHorasDetalle.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ReporteEstatusHorasDetalle.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Views\Consultas\CristalReport\ReporteHorasRemision.cs">

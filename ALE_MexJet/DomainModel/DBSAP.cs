@@ -305,6 +305,23 @@ namespace ALE_MexJet.Clases
                 }
             }
         }
+
+        /// <summary>
+        /// Obtiene el tipo de cambio del día anterior a la fecha de salida
+        /// </summary>
+        public object DBGetTipoCambioSalida(DateTime dtFechaSalida)
+        {
+            try
+            {
+                string sCad = string.Empty;
+                sCad = "SELECT TOP 1 Rate AS buy_rate FROM ORTT (NOLOCK) WHERE Currency = 'USD' AND RateDate = '" + dtFechaSalida.ToString("yyyy-MM-dd") + "' ORDER BY RateDate DESC";
+                return oDB_SP.EjecutarValor_DeQuery(sCad);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
         #endregion
     }
 }
