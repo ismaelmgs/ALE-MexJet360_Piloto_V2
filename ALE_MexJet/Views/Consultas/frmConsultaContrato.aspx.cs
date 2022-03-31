@@ -190,9 +190,13 @@ namespace ALE_MexJet.Views.Consultas
 
                 if(dsKardexResume != null)
                 {
-                    dsKardexResume.Tables[0].TableName = "ResumenKardex";
-                    dsKardexResume.Tables[1].TableName = "EstatusFinal";
-                    dsKardexResume.Tables[2].TableName = "ResumenDatosGenerales";
+                    //dsKardexResume.Tables[0].TableName = "ResumenKardex";
+                    //dsKardexResume.Tables[1].TableName = "EstatusFinal";
+                    //dsKardexResume.Tables[2].TableName = "ResumenDatosGenerales";
+
+                    dsKardexResume.Tables[0].TableName = "Generales";
+                    dsKardexResume.Tables[1].TableName = "Detalle";
+                    //dsKardexResume.Tables[2].TableName = "ResumenDatosGenerales";
                 }
             }
             catch (Exception ex)
@@ -232,13 +236,21 @@ namespace ALE_MexJet.Views.Consultas
                 string strPath = string.Empty;
                 using (ReportDocument rd = new ReportDocument())
                 {
-                    strPath = Server.MapPath("CristalReport\\ResumenKardex.rpt");
+                    //Primer Reporte
+                    //strPath = Server.MapPath("CristalReport\\ResumenKardex.rpt");
+                    //rd.Load(strPath, OpenReportMethod.OpenReportByDefault);
+
+                    //rd.SetDataSource(dsKardexResume.Tables[2]);
+                    //rd.Subreports["ReporteHorasRemision.rpt"].SetDataSource(dsKardexResume);
+                    //rd.ExportToHttpResponse(ExportFormatType.PortableDocFormat, Response, true, "KardexContrato");
+
+                    //Reporte de prueba
+                    strPath = Server.MapPath("CristalReport\\ReporteEstatusHoras.rpt");
                     rd.Load(strPath, OpenReportMethod.OpenReportByDefault);
 
-                    rd.SetDataSource(dsKardexResume.Tables[2]);
-                    //rd.SetDataSource(dsKardexResume);
-                    rd.Subreports["ReporteHorasRemision.rpt"].SetDataSource(dsKardexResume);
-                    rd.ExportToHttpResponse(ExportFormatType.PortableDocFormat, Response, true, "KardexContrato");
+                    rd.SetDataSource(dsKardexResume);
+                    rd.Subreports["ReporteEstatusHorasDetalle.rpt"].SetDataSource(dsKardexResume.Tables[1]);
+                    rd.ExportToHttpResponse(ExportFormatType.PortableDocFormat, Response, true, "StatusHoras");
                 }
             }
             catch (Exception ex)

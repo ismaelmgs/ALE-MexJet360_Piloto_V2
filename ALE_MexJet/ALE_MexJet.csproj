@@ -475,6 +475,17 @@
     <Content Include="Views\Consultas\CristalReport\dsResumenKardex.xss">
       <DependentUpon>dsResumenKardex.xsd</DependentUpon>
     </Content>
+    <Content Include="Views\Consultas\CristalReport\dsStatusVueloContrato.xsc">
+      <DependentUpon>dsStatusVueloContrato.xsd</DependentUpon>
+    </Content>
+    <None Include="Views\Consultas\CristalReport\dsStatusVueloContrato.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsStatusVueloContrato.Designer.cs</LastGenOutput>
+    </None>
+    <Content Include="Views\Consultas\CristalReport\dsStatusVueloContrato.xss">
+      <DependentUpon>dsStatusVueloContrato.xsd</DependentUpon>
+    </Content>
     <None Include="Views\EstadoCuenta.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>EstadoCuenta1.Designer.cs</LastGenOutput>
@@ -1271,6 +1282,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>dsResumenKardex.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Consultas\CristalReport\dsStatusVueloContrato.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dsStatusVueloContrato.xsd</DependentUpon>
     </Compile>
     <Compile Include="Views\Consultas\CristalReport\KardexHoras1.cs">
       <AutoGen>True</AutoGen>

@@ -54,7 +54,8 @@ namespace ALE_MexJet.DomainModel
         {
             try
             {
-                return oDB_SP.EjecutarDS("[Principales].[spS_MXJ_KardexHorasPorContrato]", "@IdContrato", iIdContrato);
+                //return oDB_SP.EjecutarDS("[Principales].[spS_MXJ_KardexHorasPorContrato]", "@IdContrato", iIdContrato);
+                return oDB_SP.EjecutarDS("[Principales].[spS_MXJ_StatusVueloHorasPorContrato]", "@IdContrato", iIdContrato);
             }
             catch (Exception ex)
             {
