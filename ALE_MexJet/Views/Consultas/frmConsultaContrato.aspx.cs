@@ -196,7 +196,7 @@ namespace ALE_MexJet.Views.Consultas
 
                     dsKardexResume.Tables[0].TableName = "Generales";
                     dsKardexResume.Tables[1].TableName = "Detalle";
-                    //dsKardexResume.Tables[2].TableName = "ResumenDatosGenerales";
+                    dsKardexResume.Tables[2].TableName = "Totales";
                 }
             }
             catch (Exception ex)
