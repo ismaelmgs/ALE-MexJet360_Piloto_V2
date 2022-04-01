@@ -161,6 +161,7 @@
     <Content Include="img\back_home4.jpg" />
     <Content Include="img\bkg_01.jpg" />
     <Content Include="img\bkg_01.png" />
+    <Content Include="img\colors\blue\logoMexJet.jpg" />
     <Content Include="img\colors\blue\logo_ale_mexjet_bco.png" />
     <Content Include="img\coming_back2.jpg" />
     <Content Include="img\iconos\Accept.png" />
