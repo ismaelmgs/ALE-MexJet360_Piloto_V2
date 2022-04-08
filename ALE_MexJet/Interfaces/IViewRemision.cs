@@ -11,9 +11,13 @@ namespace ALE_MexJet.Interfaces
     public interface IViewRemision : IBaseView
     {
         object[] oArrFiltros { get; }
-        void LoadObjects(DataTable dtObjCat);       
+        void LoadObjects(DataTable dtObjCat);
+        void LoadMotivos(DataTable dt);
         void MostrarMensaje(string sMensaje, string sCaption);
         Remision oRemision { get; }
-        
+        AjusteRemision oAjuste { get; }
+        event EventHandler eSearchMotivos;
+        event EventHandler eInsertAjuste;
+
     }
 }

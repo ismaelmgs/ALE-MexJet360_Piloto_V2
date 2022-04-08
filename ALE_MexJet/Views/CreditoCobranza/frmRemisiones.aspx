@@ -124,6 +124,10 @@
                                                                     <dx:ASPxButton Text="Cancelar" Theme="Office2010Black" ID="btnEliminarSolicitud" runat="server" CommandArgument='<%# Eval("FolioRemision") %>' CommandName="Eliminar" AutoPostBack="true" ToolTip="Eliminar">
                                                                     <ClientSideEvents Click="function(s, e) { OnValueChanged(s); }"/>
                                                                     </dx:ASPxButton>
+
+                                                                    <dx:ASPxButton Text="Ajuste Remisión" Theme="Office2010Black" ID="btnAjuste" runat="server" CommandArgument='<%# Eval("FolioRemision") %>' CommandName="Ajuste" AutoPostBack="true" 
+                                                                        ToolTip="Agregar Ajuste de Remisión"></dx:ASPxButton>
+
                                                                 </DataItemTemplate>
                                                                 <EditFormSettings Visible="false" />
                                                             </dx:GridViewDataColumn>
@@ -212,5 +216,67 @@
             </dx:PopupControlContentControl>
         </ContentCollection>
     </dx:ASPxPopupControl>
+
+
+    <div class="well-g">
+        <asp:Panel ID="pnlAjuste" runat="server" Visible="false">
+            <asp:UpdatePanel ID="upaAjuste" runat="server" UpdateMode="Conditional">
+                <ContentTemplate>
+
+                    <div style="width:50%; margin:0 auto 0 auto;">
+                        <div class="row" style="padding:0 10px 0 10px;">
+                            <div class="col-lg-12" align="center">
+                                <h4>
+                                    Solicitud de Autorización de Ajuste
+                                </h4>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <dx:ASPxLabel ID="lblCargoAbono" runat="server" Text="Cargo/Abono"></dx:ASPxLabel>
+                            </div>
+                            <div class="col-md-9">
+                                <dx:ASPxComboBox ID="ccbMotivo" runat="server"></dx:ASPxComboBox>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <dx:ASPxLabel ID="lblHoras" runat="server" Text="Horas"></dx:ASPxLabel>
+                            </div>
+                            <div class="col-md-9">
+                                <dx:ASPxTextBox ID="txtHoras" runat="server">
+                                    <MaskSettings Mask="HH:mm" IncludeLiterals="All" ShowHints="true" />
+                                    <ValidationSettings Display="Dynamic" ErrorDisplayMode="ImageWithTooltip" ValidationGroup="ValidHr">
+                                        <RequiredField IsRequired="true" ErrorText="Formato incorrecto" />
+                                    </ValidationSettings>
+                                </dx:ASPxTextBox>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <dx:ASPxLabel ID="lblComentarios" runat="server" Text="Comentarios"></dx:ASPxLabel>
+                            </div>
+                            <div class="col-md-9">
+                                <dx:ASPxMemo ID="txtComentarios" runat="server" Width="100%" Rows="3"></dx:ASPxMemo>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6" align="right">
+                                <asp:HiddenField ID="hdnIdRemision" runat="server" />
+                                <dx:ASPxButton ID="btnCancelar" runat="server" Text="Cancelar" Theme="Office2010Black" OnClick="btnCancelar_Click"></dx:ASPxButton>
+                            </div>
+                            <div class="col-md-6" align="left">
+                                <dx:ASPxButton ID="btnAceptar" runat="server" Text="Aceptar" Theme="Office2010Black" OnClick="btnAceptar_Click"></dx:ASPxButton>
+                            </div>
+                        </div>
+                    </div>
+
+                </ContentTemplate>
+            </asp:UpdatePanel>
+        </asp:Panel>
+    </div>
+
+
+
      
 </asp:Content>

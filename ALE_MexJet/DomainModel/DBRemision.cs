@@ -1026,5 +1026,74 @@ namespace ALE_MexJet.DomainModel
             }
         }
 
+        public DataTable DBGetMotivos()
+        {
+            try
+            {
+                return oDB_SP.EjecutarDT("[Principales].[spS_MXJ_ConsultaMotivosRemisiones]");
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public int DBSetInsertaAjuste(AjusteRemision oA)
+        {
+            try
+            {
+                object oRes = new object();
+                
+                oRes = oDB_SP.EjecutarValor("[Principales].[spI_MXJ_InsertaAjusteRemision]", "@IdRemision", oA.IIdRemision,
+                                                                                             "@IdMotivo", oA.IIdMotivo,
+                                                                                             "@Horas", oA.SHoras,
+                                                                                             "@Comentarios", oA.SComentarios,
+                                                                                             "@Estatus", oA.IEstatus,
+                                                                                             "@Usuario", oA.SUsuario);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+
+                return oRes.I();
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+        }
+
+        public int DBSetActualizaAutorizacionAjuste(AjusteRemision oA)
+        {
+            try
+            {
+                object oRes = new object();
+
+                oRes = oDB_SP.EjecutarValor("[Principales].[spU_MXJ_ActualizaAjusteRemision]", "@IdRemision", oA.IIdRemision,
+                                                                                               "@Estatus", oA.IEstatus,
+                                                                                               "@UsuarioAut", oA.SUsuarioAutorizador);
+
+                return oRes.I();
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+        }
+
+        public DataSet DBGetAjusteRemision(int iIdRemision)
+        {
+            try
+            {
+                DataSet ds = new DataSet();
+
+                ds = oDB_SP.EjecutarDS("[Principales].[spS_MXJ_ConsultaAjusteRemision]", "@IdRemision", iIdRemision);
+
+                return ds;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+
+
     }
 }

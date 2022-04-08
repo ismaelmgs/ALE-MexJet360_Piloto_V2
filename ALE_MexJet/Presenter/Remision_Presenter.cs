@@ -16,6 +16,8 @@ namespace ALE_MexJet.Presenter
             : base(oView)
         {
             oIGestCat = oGC;
+            oIView.eSearchMotivos += SearchMotivos_Presenter;
+            oIView.eInsertAjuste += InsertAjuste_Presenter;
 
             LoadObjects_Presenter();                       
         }
@@ -51,6 +53,19 @@ namespace ALE_MexJet.Presenter
                 throw ex;
             }
         }
-       
+        protected void SearchMotivos_Presenter(object sender, EventArgs e)
+        {
+            oIView.LoadMotivos(oIGestCat.DBGetMotivos());
+        }
+        protected void InsertAjuste_Presenter(object sender, EventArgs e)
+        {
+            int iRes = oIGestCat.DBSetInsertaAjuste(oIView.oAjuste);
+
+            if(iRes > 0)
+                oIView.MostrarMensaje("Se registro correctamente el ajuste de la remisión", "Aviso");
+            else
+                oIView.MostrarMensaje("No se puede registrar el ajuste de la remisión, revisar por favor", "Aviso");
+        }
+
     }
 }

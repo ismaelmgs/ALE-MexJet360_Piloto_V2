@@ -36,6 +36,9 @@ namespace ALE_MexJet.Views.CreditoCobranza
             gvRemisiones.SettingsPager.PageSizeItemSettings.Visible = true;
             gvRemisiones.SettingsPager.PageSizeItemSettings.Position = PagerPageSizePosition.Right;
             gvRemisiones.SettingsText.SearchPanelEditorNullText = "Ingresa la información a buscar:";
+
+            if (eSearchMotivos != null)
+                eSearchMotivos(sender, e);
         }
 
         protected void btnNuevo_Click(object sender, EventArgs e)
@@ -86,6 +89,13 @@ namespace ALE_MexJet.Views.CreditoCobranza
                     if (eDeleteObj != null)
                         eDeleteObj(null, EventArgs.Empty);
                 }
+            }
+
+            else if (e.CommandArgs.CommandName.S() == "Ajuste")
+            {
+                string sIdRemision = e.CommandArgs.CommandArgument.S();
+                hdnIdRemision.Value = sIdRemision;
+                pnlAjuste.Visible = true;
             }
         }        
 
@@ -161,6 +171,26 @@ namespace ALE_MexJet.Views.CreditoCobranza
             }
 
         }
+
+        public void LoadMotivos(DataTable dt)
+        {
+            try
+            {
+                if(dt != null && dt.Rows.Count > 0)
+                {
+                    ccbMotivo.DataSource = dt;
+                    ccbMotivo.ValueField = "IdMotivo";
+                    ccbMotivo.TextField = "DesMotivo";
+                    ccbMotivo.DataBind();
+                    //ccbMotivo.Items.Add(new ListEditItem("Seleccione", "0"));
+                    //ccbMotivo.SelectedIndex = -1;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
         #endregion
 
         #region VARIABLES Y PROPIEDADES
@@ -170,7 +200,9 @@ namespace ALE_MexJet.Views.CreditoCobranza
         public event EventHandler eObjSelected;
         public event EventHandler eSaveObj;
         public event EventHandler eDeleteObj;
-        public event EventHandler eSearchObj;       
+        public event EventHandler eSearchObj;
+        public event EventHandler eSearchMotivos;
+        public event EventHandler eInsertAjuste;
         UserIdentity oUsuario = new UserIdentity();
 
         protected static int iIdRemision;
@@ -181,6 +213,29 @@ namespace ALE_MexJet.Views.CreditoCobranza
                 Remision oRem = new Remision();
                 oRem.iIdRemision = iIdRemision;
                 return oRem;
+            }
+        }
+
+        public AjusteRemision oAjuste
+        {
+            get
+            {
+                try
+                {
+                    AjusteRemision oAj = new AjusteRemision();
+                    oAj.IIdRemision = hdnIdRemision.Value.I();
+                    oAj.IIdMotivo = (int)ccbMotivo.SelectedItem.GetValue("IdMotivo"); //ccbMotivo.Value != null ? ccbMotivo.Value.ToString().I() : 0;
+                    oAj.SHoras = txtHoras.Text;
+                    oAj.SComentarios = txtComentarios.Text;
+                    oAj.IEstatus = 1; //Registrado
+                    oAj.SUsuario = ((UserIdentity)Session["UserIdentity"]).sUsuario;
+                    return oAj;
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                
             }
         }
         public DataRow[] DrPermisos
@@ -253,6 +308,29 @@ namespace ALE_MexJet.Views.CreditoCobranza
             }
             
         }
-                    
+
+        protected void btnCancelar_Click(object sender, EventArgs e)
+        {
+            hdnIdRemision.Value = string.Empty;
+            ccbMotivo.SelectedIndex = -1;
+            txtHoras.Text = string.Empty;
+            txtComentarios.Text = string.Empty;
+            pnlAjuste.Visible = false;
+        }
+
+        protected void btnAceptar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (eInsertAjuste != null)
+                    eInsertAjuste(sender, e);
+
+                btnCancelar_Click(null, null);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

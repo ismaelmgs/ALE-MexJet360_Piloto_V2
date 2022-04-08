@@ -399,6 +399,7 @@
     <Content Include="Views\Consultas\frmReportePresupuesto.aspx" />
     <Content Include="Views\Consultas\frmResumenContrato.aspx" />
     <Content Include="Views\CreditoCobranza\frmAjustesJetCard.aspx" />
+    <Content Include="Views\CreditoCobranza\frmAutorizacion.aspx" />
     <Content Include="Views\CreditoCobranza\frmFormulasRemision.aspx" />
     <Content Include="Views\CreditoCobranza\frmIncrementoTarifas.aspx" />
     <Content Include="Views\FBO\frmConsultaTrafico.aspx" />
@@ -426,6 +427,7 @@
     </Content>
     <None Include="Service References\wsSyteline\ws_SyteLine1.wsdl" />
     <Content Include="SwitcherResources\Content\LICENSE" />
+    <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Views\Consultas\CristalReport\ReporteEstatusHoras.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>ReporteEstatusHoras.cs</LastGenOutput>
@@ -824,6 +826,7 @@
     <Compile Include="Interfaces\IViewAeronaveRen.cs" />
     <Compile Include="Interfaces\IViewAnalisisFerrys.cs" />
     <Compile Include="Interfaces\IViewAudit.cs" />
+    <Compile Include="Interfaces\IViewAutorizacion.cs" />
     <Compile Include="Interfaces\IViewAutorizacionMembresias.cs" />
     <Compile Include="Interfaces\IViewBitacora.cs" />
     <Compile Include="Interfaces\IViewBitacoraAudit.cs" />
@@ -988,6 +991,7 @@
     <Compile Include="Presenter\AnalisisFerrys_Presenter.cs" />
     <Compile Include="Presenter\Audit_Presenter.cs" />
     <Compile Include="Presenter\AutorizacionMembresias_Presenter.cs" />
+    <Compile Include="Presenter\Autorizacion_Presenter.cs" />
     <Compile Include="Presenter\BitacoraAudit_Presenter.cs" />
     <Compile Include="Presenter\BitacoraPresenter.cs" />
     <Compile Include="Presenter\Casos_Presenter.cs" />
@@ -1412,6 +1416,13 @@
     </Compile>
     <Compile Include="Views\CreditoCobranza\frmAjustesJetCard.aspx.designer.cs">
       <DependentUpon>frmAjustesJetCard.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreditoCobranza\frmAutorizacion.aspx.cs">
+      <DependentUpon>frmAutorizacion.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\CreditoCobranza\frmAutorizacion.aspx.designer.cs">
+      <DependentUpon>frmAutorizacion.aspx</DependentUpon>
     </Compile>
     <Compile Include="Views\CreditoCobranza\frmFormulasRemision.aspx.cs">
       <DependentUpon>frmFormulasRemision.aspx</DependentUpon>
