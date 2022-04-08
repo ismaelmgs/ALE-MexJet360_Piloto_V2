@@ -42,6 +42,15 @@ namespace ALE_MexJet.Views.CreditoCobranza
         protected global::System.Web.UI.UpdatePanel upaAutorizar;
 
         /// <summary>
+        /// Control imgLogoHea.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlImage imgLogoHea;
+
+        /// <summary>
         /// Control hdnIdRemision.
         /// </summary>
         /// <remarks>
