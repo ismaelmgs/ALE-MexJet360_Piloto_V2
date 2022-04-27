@@ -119,7 +119,7 @@ namespace ALE_MexJet.ControlesUsuario
                 lblSnapGrupoModelo.Text = oSnap.oDatosRem.sGrupoModeloDesc;
 
                 lblSnapFolioRem.Text = oSnap.oDatosRem.lIdRemision.S();
-                lblSnapTiempoCobrar.Text = oSnap.oDatosRem.sTotalTiempoCalzo;
+                lblSnapTiempoCobrar.Text = oSnap.oDatosRem.sTotalTiempoCobrar;
                 lblSnapMasMinutos.Text = oSnap.oDatosRem.iMasMinutos.S();
                 lblSnapAplicaTramPact.Text = oSnap.oDatosRem.bTiemposPactados ? "Si" : "No";
                 lblSnapHorasContratadasTotal.Text = oSnap.oDatosRem.iHorasContratadasTotal.S();

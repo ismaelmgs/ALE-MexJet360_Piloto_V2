@@ -3758,9 +3758,24 @@ namespace ALE_MexJet.Clases
 
                 #endregion
 
+
+                decimal dTotalTiempoCobrar = 0;
                 foreach (DataRow row in dtTramos.Rows)
                 {
-                    row["TiempoCobrar"] = ConvierteDecimalATiempo(row["TiempoCobrar"].S().D());
+                    if (row["SeCobra"].S() == "1")
+                    {
+                        dTotalTiempoCobrar += row["TiempoCobrar"].S().D();
+                    }
+                }
+
+                oRem.sTotalTiempoCobrar = ConvierteDecimalATiempo(dTotalTiempoCobrar);
+
+
+                foreach (DataRow row in dtTramos.Rows)
+                {
+                    string TiempoCobrar = string.Empty;
+                    TiempoCobrar = ConvierteDecimalATiempo(row["TiempoCobrar"].S().D());
+                    row["TiempoCobrar"] = TiempoCobrar;
 
                     if (row.S("OrigenICAO").IndexOf('@') != 0)
                     {
@@ -3769,7 +3784,19 @@ namespace ALE_MexJet.Clases
 
                         if (fTMinimo > fTiempoCobrar)
                         {
-                            row["TiempoCobrar"] = ConvierteDecimalATiempo(fTMinimo.S().D());
+                            TiempoCobrar = ConvierteDecimalATiempo(fTMinimo.S().D());
+                            row["TiempoCobrar"] = TiempoCobrar;
+                        }
+                        else
+                        {
+                            FactoresTramoSnapshot oFactorTramos;
+                            oFactorTramos = oSnap.oFactoresTramos.Where(r => r.sOrigen == row["OrigenICAO"].S()
+                                                                            && r.sDestino == row["DestinoICAO"].S()
+                                                                            && r.sMatricula == row["Matricula"].S()).FirstOrDefault();
+                            if (oFactorTramos != null)
+                            {
+                                oFactorTramos.sTiempoFinal = TiempoCobrar;
+                            }
                         }
                     }
                 }

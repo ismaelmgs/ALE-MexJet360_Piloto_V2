@@ -156,6 +156,11 @@ namespace ALE_MexJet.Presenter
             //Guardar piernas en Tramos-Remisión
             oIGestCat.DBSetInsertaTramosRemisionReales(oIView.dtTramosRemOpc2, oIView.iIdRemision);
             oIGestCat.DBSetActualizaFactoresRemision(oIView.oDatosFactor);
+
+            SnapshotRemision oSnap = (SnapshotRemision)System.Web.HttpContext.Current.Session["SnapshotRem"];
+            if (oSnap != null)
+                oIGestCat.DBSetInsertaSnapshotRemision(oSnap.oFactoresTramos, oSnap.oDatosRem);
+
             LoadPasoCuatro();
         }
 

@@ -1409,6 +1409,7 @@ namespace ALE_MexJet.Views.CreditoCobranza
                 float dTiempoF = 0;
                 string sTiempoVuelo = string.Empty;
                 string sTiempoCalzo = string.Empty;
+                string sTiempoCobrar = string.Empty;
 
                 if (oRem.sTotalTiempoVuelo == string.Empty)
                     sTiempoVuelo = Utils.ObtieneTotalTiempo(dtTramosRem, "TotalTiempoVuelo", ref dTiempoF);
@@ -1420,7 +1421,11 @@ namespace ALE_MexJet.Views.CreditoCobranza
                 else
                     sTiempoCalzo = oRem.sTotalTiempoCalzo;
 
-                string sTiempoCobrar = Utils.ObtieneTotalTiempo(dtTramosRem, "TiempoCobrar", ref dTiempoF);
+                if (oRem.sTotalTiempoCobrar == string.Empty)
+                    sTiempoCobrar = Utils.ObtieneTotalTiempo(dtTramosRem, "TiempoCobrar", ref dTiempoF);
+                else
+                    sTiempoCalzo = oRem.sTotalTiempoCobrar;
+
 
                 lblRespTiempoVueloReal.Text = sTiempoVuelo;
                 lblRespTiempoVueloRealF.Text = sTiempoVuelo;
