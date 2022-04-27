@@ -15,6 +15,10 @@ using System.Reflection;
 using ALE_MexJet.Clases;
 using DevExpress.XtraPrinting;
 using DevExpress.Export;
+using System.Collections.Specialized;
+using System.Web.Script.Serialization;
+using System.Text;
+using System.Net;
 
 namespace ALE_MexJet.Views.CreditoCobranza
 {
@@ -191,6 +195,75 @@ namespace ALE_MexJet.Views.CreditoCobranza
                 throw ex;
             }
         }
+
+        public void setParameters(List<Parametros> lstParameteres)
+        {
+            foreach (Parametros p in lstParameteres)
+            {
+                if (p.Nombre == "apiKey")
+                    sapiKey = p.Valor;
+
+                if (p.Nombre == "EmailSoporte")
+                    sEmailSoporte = p.Valor;
+
+                if (p.Nombre == "template")
+                    sTemplate = p.Valor;
+            }
+        }
+        public void isValidUser(string nombre)
+        {
+            if (nombre != "" && !string.IsNullOrEmpty(hdnIdRemision.Value.S()))
+            {
+                NameValueCollection values = new NameValueCollection();
+                values.Add("apikey", sapiKey);//ConfigurationManager.AppSettings["apiKey"]);
+                values.Add("from", sEmailSoporte);//onfigurationManager.AppSettings["EmailSoporte"]);
+                values.Add("fromName", "ALE Management");
+                values.Add("to", sEmail);
+                values.Add("subject", "Autorizar Ajuste de Remisión");
+                values.Add("isTransactional", "true");
+                values.Add("template", sTemplate);// ConfigurationManager.AppSettings["template"]);
+                values.Add("merge_firstname", nombre);
+                values.Add("merge_email", sEmail);
+                //values.Add("merge_timeInterval", DateTime.Now.AddHours(2).ToString("ddMMyyHHmm"));
+                //values.Add("merge_accountaddress", sEmail);
+                values.Add("merge_IdRemision", hdnIdRemision.Value.S());
+
+                string address = "https://api.elasticemail.com/v2/email/send";
+
+                string response = Send(address, values);
+
+                JavaScriptSerializer ser = new JavaScriptSerializer();
+                Success s = new Success();
+                s = ser.Deserialize<Success>(response);
+
+                if (s.success)
+                {
+                    MostrarMensaje("Se ha enviado el correo satisfactoriamente", "Aviso");
+                }
+
+                Console.WriteLine(response);
+            }
+            else
+            {
+                MostrarMensaje("No se pudo enviar el correo, favor de verificar", "Aviso");
+            }
+        }
+        public static string Send(string address, NameValueCollection values)
+        {
+            using (WebClient client = new WebClient())
+            {
+                try
+                {
+                    byte[] apiResponse = client.UploadValues(address, values);
+                    return Encoding.UTF8.GetString(apiResponse);
+
+                }
+                catch (Exception ex)
+                {
+                    return "Exception caught: " + ex.Message + "\n" + ex.StackTrace;
+                }
+            }
+        }
         #endregion
 
         #region VARIABLES Y PROPIEDADES
@@ -203,6 +276,7 @@ namespace ALE_MexJet.Views.CreditoCobranza
         public event EventHandler eSearchObj;
         public event EventHandler eSearchMotivos;
         public event EventHandler eInsertAjuste;
+        public event EventHandler eValidateObj;
         UserIdentity oUsuario = new UserIdentity();
 
         protected static int iIdRemision;
@@ -278,6 +352,39 @@ namespace ALE_MexJet.Views.CreditoCobranza
             }
         }
 
+        public string sEmail
+        {
+            //get { return txtEmail.Text.S(); }
+            get { return "jimmymh87@gmail.com"; }
+        }
+        public string sapiKey
+        {
+            get { return ViewState["sVSsapiKey"].S(); }
+            set { ViewState["sVSsapiKey"] = value; }
+        }
+
+        public string sTemplate
+        {
+            get { return ViewState["sVSsTemplate"].S(); }
+            set { ViewState["sVSsTemplate"] = value; }
+        }
+
+        public string sEmailSoporte
+        {
+            get { return ViewState["sVsEmailSoporte"].S(); }
+            set { ViewState["sVsEmailSoporte"] = value; }
+        }
+        public class Success
+        {
+            public bool success { get; set; }
+            public Data data { get; set; }
+
+        }
+        public class Data
+        {
+            public string transactionid { get; set; }
+            public string messageid { get; set; }
+        }
         #endregion               
 
         protected void gvRemisiones_CommandButtonInitialize(object sender, ASPxGridViewCommandButtonEventArgs e)
@@ -322,8 +429,11 @@ namespace ALE_MexJet.Views.CreditoCobranza
         {
             try
             {
-                if (eInsertAjuste != null)
-                    eInsertAjuste(sender, e);
+                //if (eInsertAjuste != null)
+                //    eInsertAjuste(sender, e);
+
+                if (eValidateObj != null)
+                    eValidateObj(sender, e);
 
                 btnCancelar_Click(null, null);
             }

@@ -1,4 +1,5 @@
-﻿using ALE_MexJet.Objetos;
+﻿using ALE_MexJet.Clases;
+using ALE_MexJet.Objetos;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -6,7 +7,10 @@ using System.Linq;
 using System.Web;
 using NucleoBase.Core;
 using NucleoBase.BaseDeDatos;
-using ALE_MexJet.Clases;
+using System.Web.Script.Serialization;
+using DevExpress.XtraPrinting.Native;
+using RestSharp;
+using Helper = ALE_MexJet.Clases.Helper;
 
 namespace ALE_MexJet.DomainModel
 {
@@ -1093,7 +1097,79 @@ namespace ALE_MexJet.DomainModel
             }
         }
 
+        public List<Parametros> getParameters()
+        {
+            try
+            {
+                JavaScriptSerializer ser = new JavaScriptSerializer();
+                List<Parametros> p = new List<Parametros>();
+                
+                //TokenWS oToken = Utils.ObtieneToken;
+                //var client = new RestClient(Helper.US_UrlObtieneParametros);//Esta no se ocupara xq viene del webservice de portal de clientes
+                //var request = new RestRequest(Method.GET);
+                //request.AddHeader("Authorization", oToken.token);
+                //IRestResponse response = client.Execute(request);
+                //var resp = response.Content;
+                //p = ser.Deserialize<List<Parametros>>(resp);
 
+                DataTable dtParam = new DataTable();
+
+                dtParam = oDB_SP.EjecutarDT("[Principales].[spS_MXJ_ObtieneParametros]");
+
+                if(dtParam != null && dtParam.Rows.Count > 0)
+                {
+                    for (int i = 0; i < dtParam.Rows.Count; i++)
+                    {
+                        Parametros oP = new Parametros();
+                        oP.Nombre = dtParam.Rows[i]["Nombre"].S();
+                        oP.Valor = dtParam.Rows[i]["Valor"].S();
+                        p.Add(oP);
+                    }
+                }
+
+                return p;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
+
+        public string ValidarUsuario(string sEmail)
+        {
+            try
+            {
+                //JavaScriptSerializer ser = new JavaScriptSerializer();
+                //nombreUsuario n = new nombreUsuario();
+                //FiltroEmail oLog = new FiltroEmail();
+                //oLog.email = sEmail;
+
+                //TokenWS oToken = Utils.ObtieneToken;
+
+                //var client = new RestClient(Helper.US_UrlObtieneValidacionUusario);
+                //var request = new RestRequest(Method.POST);
+                //request.AddHeader("Authorization", oToken.token);
+                //request.AddJsonBody(oLog);
+
+                //IRestResponse response = client.Execute(request);
+                //var resp = response.Content;
+                //n = ser.Deserialize<nombreUsuario>(resp);
+                string sNombre = string.Empty;
+                DataTable dt = new DataTable();
+                dt = oDB_SP.EjecutarDT("[Principales].[spS_MXJ_ObtieneNombreAutorizador]", "@email", sEmail);
+
+                if (dt != null && dt.Rows.Count > 0)
+                    sNombre = dt.Rows[0]["Nombre"].S();
+
+                return sNombre;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
 
     }
 }

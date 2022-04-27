@@ -18,6 +18,7 @@ namespace ALE_MexJet.Presenter
             oIGestCat = oGC;
             oIView.eSearchMotivos += SearchMotivos_Presenter;
             oIView.eInsertAjuste += InsertAjuste_Presenter;
+            oIView.eValidateObj += eValidateObj_Presenter;
 
             LoadObjects_Presenter();                       
         }
@@ -67,5 +68,10 @@ namespace ALE_MexJet.Presenter
                 oIView.MostrarMensaje("No se puede registrar el ajuste de la remisión, revisar por favor", "Aviso");
         }
 
+        protected void eValidateObj_Presenter(object sender, EventArgs e)
+        {
+            oIView.setParameters(oIGestCat.getParameters());
+            oIView.isValidUser(oIGestCat.ValidarUsuario(oIView.sEmail));
+        }
     }
 }

@@ -38,6 +38,7 @@ namespace ALE_MexJet.Objetos
 
         public string sIP { get { return _sIP; } set { _sIP = value; } }
 
-
+        public string Nombre { get; set; }
+        public string Valor { get; set; }
     }
 }

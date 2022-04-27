@@ -10,6 +10,13 @@ namespace ALE_MexJet.Interfaces
 {
     public interface IViewRemision : IBaseView
     {
+        string sEmail { get; }
+        string sapiKey { get; }
+        string sEmailSoporte { get; }
+        string sTemplate { get; }
+        void isValidUser(string isValid);
+        void setParameters(List<Parametros> lstParameters);
+
         object[] oArrFiltros { get; }
         void LoadObjects(DataTable dtObjCat);
         void LoadMotivos(DataTable dt);
@@ -18,6 +25,6 @@ namespace ALE_MexJet.Interfaces
         AjusteRemision oAjuste { get; }
         event EventHandler eSearchMotivos;
         event EventHandler eInsertAjuste;
-
+        event EventHandler eValidateObj;
     }
 }

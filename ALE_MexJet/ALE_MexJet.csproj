@@ -105,6 +105,9 @@
     <Reference Include="NucleoBase">
       <HintPath>..\..\..\MexJet360_Produccion_Respaldo\ALE_MexJet\bin\NucleoBase.dll</HintPath>
     </Reference>
+    <Reference Include="RestSharp, Version=105.2.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RestSharp.105.2.3\lib\net45\RestSharp.dll</HintPath>
+    </Reference>
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data.Linq" />
     <Reference Include="System.DirectoryServices" />
@@ -257,6 +260,7 @@
     <Content Include="Objetos\fonts\FuturaLight.eot" />
     <Content Include="Objetos\fonts\FuturaLight.ttf" />
     <Content Include="Objetos\fonts\FuturaLight.woff" />
+    <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\WebNoe.pubxml" />
     <Content Include="ReferenciasDll\CrystalDecisions.CrystalReports.Design.dll" />
     <Content Include="ReferenciasDll\CrystalDecisions.CrystalReports.Engine.dll" />
@@ -707,6 +711,7 @@
     </Compile>
     <Compile Include="Clases\ClsSecurity.cs" />
     <Compile Include="Clases\Enums.cs" />
+    <Compile Include="Clases\Helper.cs" />
     <Compile Include="Clases\Utils.cs" />
     <Compile Include="Clases\UtilsServicios.cs" />
     <Compile Include="ControlesUsuario\ucClienteContrato.ascx.cs">
@@ -936,6 +941,7 @@
     <Compile Include="Objetos\Contrato_RangoCombustible.cs" />
     <Compile Include="Objetos\Contrato_Tarifas.cs" />
     <Compile Include="Objetos\Contrato_TramoPactado.cs" />
+    <Compile Include="Objetos\CredencialesWS.cs" />
     <Compile Include="Objetos\DatosToken.cs" />
     <Compile Include="Objetos\DocPendientes.cs" />
     <Compile Include="Objetos\Encuesta.cs" />
@@ -955,6 +961,7 @@
     <Compile Include="Objetos\JetSmart.cs" />
     <Compile Include="Objetos\JsonObjeto.cs" />
     <Compile Include="Objetos\ListaDifusion.cs" />
+    <Compile Include="Objetos\Login.cs" />
     <Compile Include="Objetos\Membresia.cs" />
     <Compile Include="Objetos\Mensajes.cs" />
     <Compile Include="Objetos\MensajesTexto.cs" />

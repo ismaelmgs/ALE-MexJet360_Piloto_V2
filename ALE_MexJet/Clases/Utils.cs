@@ -14,7 +14,6 @@ using System.IO;
 using System.Net.Http;
 using System.Text;
 using Newtonsoft.Json;
-using System.Web.UI.WebControls;
 using System.Configuration;
 using System.Net.Http.Headers;
 using iTextSharp.text;
@@ -24,7 +23,7 @@ using System.Threading;
 using System.Globalization;
 using System.Net;
 using System.Web.Script.Serialization;
-using System.Text;
+using RestSharp;
 
 namespace ALE_MexJet.Clases
 {
@@ -8469,6 +8468,33 @@ namespace ALE_MexJet.Clases
             catch (Exception ex)
             {
                 throw;
+            }
+        }
+
+        public static TokenWS ObtieneToken
+        {
+            get
+            {
+                JavaScriptSerializer ser = new JavaScriptSerializer();
+                CredencialesWS oCred = new CredencialesWS();
+                oCred.username = Globales.GetConfigApp<string>("UsrWs");
+                oCred.password = Globales.GetConfigApp<string>("PassWs");
+
+                var client = new RestClient(Helper.UrlToken);
+                //client.Authenticator = new SimpleAuthenticator("username", oCred.username, "password", oCred.password);
+
+                var request = new RestRequest(Method.POST);
+
+                request.AddJsonBody(oCred);
+
+                //.AddJsonBody
+
+                IRestResponse response = client.Execute(request);
+                var resp = response.Content;
+
+                TokenWS oToken = ser.Deserialize<TokenWS>(resp);
+
+                return oToken;
             }
         }
 
