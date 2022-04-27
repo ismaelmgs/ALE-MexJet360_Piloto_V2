@@ -212,6 +212,7 @@ namespace ALE_MexJet.Objetos
         // --================= TOTALES TIEMPOS =======================---
         private string _sTotalTiempoVuelo = string.Empty;
         private string _sTotalTiempoCalzo = string.Empty;
+        private string _sTotalTiempoCobrar = string.Empty;
 
         // --================= BANDERA DOBLE PRESUPUESTO ====================--
         private bool _bPermiteDoblePresupuesto = true;
@@ -322,7 +323,7 @@ namespace ALE_MexJet.Objetos
 
         public string sTotalTiempoVuelo { get { return _sTotalTiempoVuelo; } set { _sTotalTiempoVuelo = value; } }
         public string sTotalTiempoCalzo { get { return _sTotalTiempoCalzo; } set { _sTotalTiempoCalzo = value; } }
-
+        public string sTotalTiempoCobrar { get => _sTotalTiempoCobrar; set => _sTotalTiempoCobrar = value; }
 
         public bool bPermiteDoblePresupuesto { get { return _bPermiteDoblePresupuesto; } set { _bPermiteDoblePresupuesto = value; } }
 

@@ -34,6 +34,7 @@ namespace ALE_MexJet.DomainModel
                 {
                     DataRow row = ds.Tables[0].Rows[0];
                     oDatRem.lIdRemision = row["IdRemision"].S().L();
+                    oDatRem.sTotalTiempoCobrar = row["ToTalTiempoCobrar"].S();
                     oDatRem.sClaveContrato = row["ClaveContrato"].S();
                     oDatRem.sClaveCliente = row["CodigoCliente"].S();
                     oDatRem.sTipoPaquete = row["TipoPaquete"].S();

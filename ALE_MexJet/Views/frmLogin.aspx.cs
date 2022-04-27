@@ -78,7 +78,8 @@ namespace ALE_MexJet.Views
                         oUsuario.dTPermisos = (DataTable)Session["oDatos"];
                         Session["UserIdentity"] = oUsuario;
 
-                        Token(sender, e);                       
+                        Token(sender, e);
+                        ShowMessage("Se ha enviado un token a su teléfono movil", Enums.Success);
                     }
                 }
                 else
@@ -167,6 +168,7 @@ namespace ALE_MexJet.Views
         protected void lkbReenviar_Click(object sender, EventArgs e)
         {
             Token(sender, e);
+            ShowMessage("Se ha reenviado un token a su teléfono movil", Enums.Success);
         }
 
         protected void btnCerrarMensaje_Click(object sender, EventArgs e)
