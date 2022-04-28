@@ -18,12 +18,14 @@ namespace ALE_MexJet.Views.CreditoCobranza
         protected void Page_Load(object sender, EventArgs e)
         {
             iIdRemision = 0;
+            iIdAjuste = 0;
             iIdRemision = Request.QueryString["IdRemision"].S().I();
+            iIdAjuste = Request.QueryString["IdAjuste"].S().I();
             oPresenter = new Autorizacion_Presenter(this, new DBRemision());
 
             if (!IsPostBack)
             {
-                if (iIdRemision > 0)
+                if (iIdRemision > 0 && iIdAjuste > 0)
                 {
                     if (eSearchObj != null)
                         eSearchObj(sender, e);
@@ -80,6 +82,11 @@ namespace ALE_MexJet.Views.CreditoCobranza
             get { return (int)ViewState["IdRemision"]; }
             set { ViewState["IdRemision"] = value; }
         }
+        public int iIdAjuste
+        {
+            get { return (int)ViewState["idAjuste"]; }
+            set { ViewState["idAjuste"] = value; }
+        }
         public int iRespuesta
         {
             get { return (int)ViewState["VSRespuesta"]; }
@@ -100,6 +107,7 @@ namespace ALE_MexJet.Views.CreditoCobranza
                     oAJ.IIdRemision = iIdRemision;
                     oAJ.IEstatus = iRespuesta;
                     oAJ.SUsuarioAutorizador = sAutorizador;
+                    oAJ.IIdAjuste = iIdAjuste;
                     return oAJ;
                 }
                 catch (Exception ex)

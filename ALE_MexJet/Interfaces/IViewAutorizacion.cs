@@ -11,6 +11,7 @@ namespace ALE_MexJet.Interfaces
     public interface IViewAutorizacion : IBaseView
     {
         int iIdRemision { get; set; }
+        int iIdAjuste { get; set; }
         void LoadRemision(DataSet ds);
         void MostrarMensaje(string sMensaje, string sCaption);
         AjusteRemision oAjuste { get; }

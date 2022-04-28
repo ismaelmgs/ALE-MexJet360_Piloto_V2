@@ -10,6 +10,7 @@ namespace ALE_MexJet.Interfaces
 {
     public interface IViewRemision : IBaseView
     {
+        int iIdAjuste { get; set; }
         string sEmail { get; }
         string sapiKey { get; }
         string sEmailSoporte { get; }

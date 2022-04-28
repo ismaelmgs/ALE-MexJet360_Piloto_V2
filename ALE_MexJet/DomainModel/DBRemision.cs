@@ -1071,7 +1071,8 @@ namespace ALE_MexJet.DomainModel
 
                 oRes = oDB_SP.EjecutarValor("[Principales].[spU_MXJ_ActualizaAjusteRemision]", "@IdRemision", oA.IIdRemision,
                                                                                                "@Estatus", oA.IEstatus,
-                                                                                               "@UsuarioAut", oA.SUsuarioAutorizador);
+                                                                                               "@UsuarioAut", oA.SUsuarioAutorizador,
+                                                                                               "@IdAjuste", oA.IIdAjuste);
 
                 return oRes.I();
             }
@@ -1081,13 +1082,13 @@ namespace ALE_MexJet.DomainModel
             }
         }
 
-        public DataSet DBGetAjusteRemision(int iIdRemision)
+        public DataSet DBGetAjusteRemision(int iIdRemision, int iIdAjuste)
         {
             try
             {
                 DataSet ds = new DataSet();
 
-                ds = oDB_SP.EjecutarDS("[Principales].[spS_MXJ_ConsultaAjusteRemision]", "@IdRemision", iIdRemision);
+                ds = oDB_SP.EjecutarDS("[Principales].[spS_MXJ_ConsultaAjusteRemision]", "@IdRemision", iIdRemision, "@IdAjuste", iIdAjuste);
 
                 return ds;
             }

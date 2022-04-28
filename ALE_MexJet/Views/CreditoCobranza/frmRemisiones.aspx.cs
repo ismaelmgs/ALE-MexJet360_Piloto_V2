@@ -227,6 +227,7 @@ namespace ALE_MexJet.Views.CreditoCobranza
                 //values.Add("merge_timeInterval", DateTime.Now.AddHours(2).ToString("ddMMyyHHmm"));
                 //values.Add("merge_accountaddress", sEmail);
                 values.Add("merge_IdRemision", hdnIdRemision.Value.S());
+                values.Add("merge_IdAjuste", iIdAjuste.S());
 
                 string address = "https://api.elasticemail.com/v2/email/send";
 
@@ -385,6 +386,12 @@ namespace ALE_MexJet.Views.CreditoCobranza
             public string transactionid { get; set; }
             public string messageid { get; set; }
         }
+
+        public int iIdAjuste
+        {
+            get { return (int)ViewState["VSIdAjuste"]; }
+            set { ViewState["VSIdAjuste"] = value; }
+        }
         #endregion               
 
         protected void gvRemisiones_CommandButtonInitialize(object sender, ASPxGridViewCommandButtonEventArgs e)
@@ -429,11 +436,16 @@ namespace ALE_MexJet.Views.CreditoCobranza
         {
             try
             {
-                //if (eInsertAjuste != null)
-                //    eInsertAjuste(sender, e);
+                iIdAjuste = 0;
 
-                if (eValidateObj != null)
-                    eValidateObj(sender, e);
+                if (eInsertAjuste != null)
+                    eInsertAjuste(sender, e);
+
+                if (iIdAjuste != 0)
+                {
+                    if (eValidateObj != null)
+                        eValidateObj(sender, e);
+                }
 
                 btnCancelar_Click(null, null);
             }

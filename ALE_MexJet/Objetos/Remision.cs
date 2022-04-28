@@ -782,6 +782,7 @@ namespace ALE_MexJet.Objetos
     [Serializable, Bindable(BindableSupport.Yes)]
     public class AjusteRemision : BaseObjeto
     {
+        private int _iIdAjuste = 0;
         private long _iIdRemision = 0;
         private int _iIdMotivo = 0;
         private string _sHoras = string.Empty;
@@ -790,6 +791,7 @@ namespace ALE_MexJet.Objetos
         private string _sUsuarioAutorizador = string.Empty;
         private int _iEstatus = 0;
 
+        public int IIdAjuste { get => _iIdAjuste; set => _iIdAjuste = value; }
         public long IIdRemision { get => _iIdRemision; set => _iIdRemision = value; }
         public int IIdMotivo { get => _iIdMotivo; set => _iIdMotivo = value; }
         public string SHoras { get => _sHoras; set => _sHoras = value; }
