@@ -210,44 +210,57 @@ namespace ALE_MexJet.Views.CreditoCobranza
                     sTemplate = p.Valor;
             }
         }
-        public void isValidUser(string nombre)
+        public void isValidUser(System.Data.DataTable dtDatos)
         {
-            if (nombre != "" && !string.IsNullOrEmpty(hdnIdRemision.Value.S()))
+            try
             {
-                NameValueCollection values = new NameValueCollection();
-                values.Add("apikey", sapiKey);//ConfigurationManager.AppSettings["apiKey"]);
-                values.Add("from", sEmailSoporte);//onfigurationManager.AppSettings["EmailSoporte"]);
-                values.Add("fromName", "ALE Management");
-                values.Add("to", sEmail);
-                values.Add("subject", "Autorizar Ajuste de Remisión");
-                values.Add("isTransactional", "true");
-                values.Add("template", sTemplate);// ConfigurationManager.AppSettings["template"]);
-                values.Add("merge_firstname", nombre);
-                values.Add("merge_email", sEmail);
-                //values.Add("merge_timeInterval", DateTime.Now.AddHours(2).ToString("ddMMyyHHmm"));
-                //values.Add("merge_accountaddress", sEmail);
-                values.Add("merge_IdRemision", hdnIdRemision.Value.S());
-                values.Add("merge_IdAjuste", iIdAjuste.S());
+                dtDatosAutorizador = null;
+                dtDatosAutorizador = dtDatos;
 
-                string address = "https://api.elasticemail.com/v2/email/send";
-
-                string response = Send(address, values);
-
-                JavaScriptSerializer ser = new JavaScriptSerializer();
-                Success s = new Success();
-                s = ser.Deserialize<Success>(response);
-
-                if (s.success)
+                if (dtDatosAutorizador != null && dtDatosAutorizador.Rows.Count > 0 && !string.IsNullOrEmpty(hdnIdRemision.Value.S()))
                 {
-                    MostrarMensaje("Se ha enviado el correo satisfactoriamente", "Aviso");
-                }
+                    NameValueCollection values = new NameValueCollection();
+                    values.Add("apikey", sapiKey);//ConfigurationManager.AppSettings["apiKey"]);
+                    values.Add("from", sEmailSoporte);//onfigurationManager.AppSettings["EmailSoporte"]);
+                    values.Add("fromName", "ALE Management");
+                    values.Add("to", dtDatosAutorizador.Rows[0]["Correo"].S());
+                    values.Add("subject", "Autorizar Ajuste de Remisión");
+                    values.Add("isTransactional", "true");
+                    values.Add("template", sTemplate);// ConfigurationManager.AppSettings["template"]);
+                    values.Add("merge_firstname", dtDatosAutorizador.Rows[0]["Autorizador"].S());
+                    values.Add("merge_email", dtDatosAutorizador.Rows[0]["Correo"].S());
+                    //values.Add("merge_timeInterval", DateTime.Now.AddHours(2).ToString("ddMMyyHHmm"));
+                    //values.Add("merge_accountaddress", sEmail);
+                    values.Add("merge_IdRemision", hdnIdRemision.Value.S());
+                    values.Add("merge_IdAjuste", iIdAjuste.S());
 
-                Console.WriteLine(response);
+                    string address = "https://api.elasticemail.com/v2/email/send";
+
+                    string response = Send(address, values);
+
+                    JavaScriptSerializer ser = new JavaScriptSerializer();
+                    Success s = new Success();
+                    s = ser.Deserialize<Success>(response);
+
+                    if (s.success)
+                    {
+                        lblMsg.Text = "Se ha enviado el correo satisfactoriamente";
+                        //msgAlert.ShowOnPageLoad = true;
+                    }
+
+                    Console.WriteLine(response);
+                }
+                else
+                {
+                    lblMsg.Text = "No se pudo enviar el correo, favor de verificar";
+                    msgAlert.ShowOnPageLoad = true;
+                }
             }
-            else
+            catch (Exception ex)
             {
-                MostrarMensaje("No se pudo enviar el correo, favor de verificar", "Aviso");
+                throw ex;
             }
+            
         }
         public static string Send(string address, NameValueCollection values)
         {
@@ -279,6 +292,11 @@ namespace ALE_MexJet.Views.CreditoCobranza
         public event EventHandler eInsertAjuste;
         public event EventHandler eValidateObj;
         UserIdentity oUsuario = new UserIdentity();
+        public DataTable dtDatosAutorizador
+        {
+            get { return (DataTable)ViewState["VSDatosAutorizador"]; }
+            set { ViewState["VSDatosAutorizador"] = value; }
+        }
 
         protected static int iIdRemision;
         public Remision oRemision
@@ -356,7 +374,7 @@ namespace ALE_MexJet.Views.CreditoCobranza
         public string sEmail
         {
             //get { return txtEmail.Text.S(); }
-            get { return "jimmymh87@gmail.com"; }
+            get { return ""; }
         }
         public string sapiKey
         {
@@ -445,6 +463,9 @@ namespace ALE_MexJet.Views.CreditoCobranza
                 {
                     if (eValidateObj != null)
                         eValidateObj(sender, e);
+
+                    lblMsg.Text = "Se registro la solicitud de ajuste correctamente. El autorizador la revisará a la brevedad.";
+                    msgAlert.ShowOnPageLoad = true;
                 }
 
                 btnCancelar_Click(null, null);

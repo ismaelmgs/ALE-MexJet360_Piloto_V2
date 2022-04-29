@@ -218,6 +218,9 @@
     </dx:ASPxPopupControl>
 
 
+
+
+
     <div class="well-g">
         <asp:Panel ID="pnlAjuste" runat="server" Visible="false">
             <asp:UpdatePanel ID="upaAjuste" runat="server" UpdateMode="Conditional">
@@ -263,13 +266,61 @@
                         <div class="row">
                             <div class="col-md-6" align="right">
                                 <asp:HiddenField ID="hdnIdRemision" runat="server" />
-                                <dx:ASPxButton ID="btnCancelar" runat="server" Text="Cancelar" Theme="Office2010Black" OnClick="btnCancelar_Click"></dx:ASPxButton>
+                                <dx:ASPxButton ID="btnAceptar" runat="server" Text="Aceptar" Theme="Office2010Black" OnClick="btnAceptar_Click"></dx:ASPxButton>
                             </div>
                             <div class="col-md-6" align="left">
-                                <dx:ASPxButton ID="btnAceptar" runat="server" Text="Aceptar" Theme="Office2010Black" OnClick="btnAceptar_Click"></dx:ASPxButton>
+                                <dx:ASPxButton ID="btnCancelar" runat="server" Text="Cancelar" Theme="Office2010Black" OnClick="btnCancelar_Click"></dx:ASPxButton>
                             </div>
                         </div>
                     </div>
+
+                    <%--MODAL PARA MENSAJES--%>
+                    <dx:ASPxPopupControl ID="msgAlert" 
+                        runat="server" 
+                        Theme="Office2010Black"
+                        HeaderText="Aviso"
+                        CloseOnEscape="true"
+                        PopupHorizontalAlign="WindowCenter"
+                        PopupVerticalAlign="WindowCenter"
+                        AllowResize="true"
+                        CloseAction="CloseButton"
+                        DisappearAfter="100"
+                        Width="300px"
+                        Height="100px"
+                        Modal="true"
+                        ShowFooter="false"
+                        AllowDragging="true"   
+                        ShowCloseButton="true" >
+                        <ClientSideEvents />
+                        <ContentCollection>
+                            <dx:PopupControlContentControl runat="server">
+                                <dx:ASPxPanel ID="ASPxPanel1" runat="server" DefaultButton="bt_OK">
+                                    <PanelCollection>
+                                        <dx:PanelContent runat="server">
+                                            <table>
+                                                <tr>
+                                                    <td>
+                                                        <dx:ASPxImage ID="ASPxImage1" runat="server" ShowLoadingImage="true" ImageUrl="~/img/iconos/Information2.ico"></dx:ASPxImage>
+                                                        <dx:ASPxTextBox ID="ASPxTextBox1" ReadOnly="true" Border-BorderStyle="None" Height="1px" runat="server" Width="1px" ClientInstanceName="tbLogin"></dx:ASPxTextBox>
+                                                    </td>
+                                                    <td>
+                                                        <dx:ASPxLabel ID="lblMsg" runat="server" ClientInstanceName="lbl" Text="ASPxLabel"></dx:ASPxLabel>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <dx:ASPxButton ID="bt_OK" runat="server" Text="OK" Theme="PlasticBlue" Width="80px" AutoPostBack="false" Style="float: left; margin-right: 8px" TabIndex="0">
+                                                            <ClientSideEvents Click="function(s, e) {msgAlert.Hide(); }" />
+                                                        </dx:ASPxButton>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </dx:PanelContent>
+                                    </PanelCollection>
+                                </dx:ASPxPanel>
+                            </dx:PopupControlContentControl>
+                        </ContentCollection>
+                    </dx:ASPxPopupControl>
 
                 </ContentTemplate>
             </asp:UpdatePanel>

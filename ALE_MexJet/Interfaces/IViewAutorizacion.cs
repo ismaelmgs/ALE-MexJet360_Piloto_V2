@@ -13,7 +13,7 @@ namespace ALE_MexJet.Interfaces
         int iIdRemision { get; set; }
         int iIdAjuste { get; set; }
         void LoadRemision(DataSet ds);
-        void MostrarMensaje(string sMensaje, string sCaption);
+        void MostrarMensaje(string sMensaje);
         AjusteRemision oAjuste { get; }
     }
 }

@@ -71,7 +71,8 @@ namespace ALE_MexJet.Presenter
         protected void eValidateObj_Presenter(object sender, EventArgs e)
         {
             oIView.setParameters(oIGestCat.getParameters());
-            oIView.isValidUser(oIGestCat.ValidarUsuario(oIView.sEmail));
+            //oIView.isValidUser(oIGestCat.ValidarUsuario(oIView.sEmail));
+            oIView.isValidUser(oIGestCat.DBGetDatosAutorizador());
         }
     }
 }

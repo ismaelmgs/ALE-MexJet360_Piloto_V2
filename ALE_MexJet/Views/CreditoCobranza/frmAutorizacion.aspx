@@ -1,7 +1,11 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="frmAutorizacion.aspx.cs" Inherits="ALE_MexJet.Views.CreditoCobranza.frmAutorizacion" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
+<%@ Register Assembly="DevExpress.Web.Bootstrap.v18.1, Version=18.1.15.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" Namespace="DevExpress.Web.Bootstrap" TagPrefix="dx" %>
 <%@ Register Assembly="DevExpress.Web.v18.1, Version=18.1.15.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" Namespace="DevExpress.Web" TagPrefix="dx" %>
+
+<%--<%@ Register Assembly="DevExpress.Web.v13.1" Namespace="DevExpress.Web.ASPxEditors" TagPrefix="dxe" %>
+<%@ Register Assembly="DevExpress.Web.v13.1" Namespace="DevExpress.Web.ASPxPopupControl" TagPrefix="dxpc" %>--%>
 
 <!DOCTYPE html>
 
@@ -163,6 +167,11 @@
                                 <div style="margin:0 auto;width:100%;">
                                     <table style="margin: 0 auto;padding: 10px; width:35%; background-color:#efefef;" cellspacing="10">
                                     <tr>
+                                        <td colspan="4" align="center">
+                                            <asp:Label ID="LblMsg" runat="server" Text="" ForeColor="Red" Font-Bold="true" Visible="false" Font-Size="12pt"></asp:Label>
+                                        </td>
+                                    </tr>
+                                    <tr>
                                         <td>
                                             &nbsp;
                                         </td>
@@ -225,7 +234,9 @@
                                             &nbsp;
                                         </td>
                                         <td align="center">
-                                            <dx:ASPxButton ID="btnAutorizar" runat="server" Text="Autorizar" OnClick="btnAutorizar_Click" CssClass="dxb"></dx:ASPxButton>
+                                            <dx:ASPxButton ID="btnAutorizar" runat="server" Text="Autorizar" OnClick="btnAutorizar_Click" CssClass="dxb">
+                                                <%--<ClientSideEvents Click="function(s, e) {ppAlert.Show(); }" />--%>
+                                            </dx:ASPxButton>
                                         </td>
                                         <td align="center">
                                             <dx:ASPxButton ID="btnRechazar" runat="server" Text="Rechazar" OnClick="btnRechazar_Click" CssClass="dxb"></dx:ASPxButton>
@@ -234,52 +245,78 @@
                                             &nbsp;
                                         </td>
                                     </tr>
+                                   
                                 </table>
                                 <br /><br />
                                 </div>
                             </div>
 
+                            <%--MODAL PARA MENSAJES--%>
+                            <dx:ASPxPopupControl ID="msgAlert" 
+                                runat="server" 
+                                Theme="Office2010Black"
+                                HeaderText="Aviso"
+                                CloseOnEscape="true"
+                                PopupHorizontalAlign="WindowCenter"
+                                PopupVerticalAlign="WindowCenter"
+                                AllowResize="true"
+                                CloseAction="CloseButton"
+                                DisappearAfter="100"
+                                Width="300px"
+                                Height="100px"
+                                Modal="true"
+                                ShowFooter="false"
+                                AllowDragging="true"   
+                                ShowCloseButton="true" >
+                                <ClientSideEvents />
+                                <ContentCollection>
+                                    <dx:PopupControlContentControl runat="server">
+                                        <dx:ASPxPanel ID="ASPxPanel2" runat="server" DefaultButton="btOK">
+                                            <PanelCollection>
+                                                <dx:PanelContent runat="server">
+                                                    <table>
+                                                        <tr>
+                                                            <td>
+                                                                <dx:ASPxImage ID="ASPxImage2" runat="server" ShowLoadingImage="true" ImageUrl="~/img/iconos/Information2.ico"></dx:ASPxImage>
+                                                                <dx:ASPxTextBox ID="tbLogin" ReadOnly="true" Border-BorderStyle="None" Height="1px" runat="server" Width="1px" ClientInstanceName="tbLogin"></dx:ASPxTextBox>
+                                                            </td>
+                                                            <td>
+                                                                <dx:ASPxLabel ID="lbl" runat="server" ClientInstanceName="lbl" Text="ASPxLabel"></dx:ASPxLabel>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <dx:ASPxButton ID="btOK" runat="server" Text="OK" Theme="PlasticBlue" Width="80px" AutoPostBack="false" Style="float: left; margin-right: 8px" TabIndex="0">
+                                                                    <ClientSideEvents Click="function(s, e) {msgAlert.Hide(); }" />
+                                                                </dx:ASPxButton>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </dx:PanelContent>
+                                            </PanelCollection>
+                                        </dx:ASPxPanel>
+                                    </dx:PopupControlContentControl>
+                                </ContentCollection>
+                            </dx:ASPxPopupControl>
+
+                            
+
                         </ContentTemplate>
                     </asp:UpdatePanel>
 
 
-                    <%--MODAL PARA MENSAJES--%>
-                    <dx:ASPxPopupControl ID="ppAlert" runat="server" ClientInstanceName="ppAlert" CloseAction="CloseButton" CloseOnEscape="true" Modal="True" Theme="Office2010Black"
-                        PopupHorizontalAlign="WindowCenter" PopupVerticalAlign="Middle" HeaderText="Aviso" AllowDragging="true" ShowCloseButton="true" Width="300">
-                        <ClientSideEvents />
-                        <ContentCollection>
-                            <dx:PopupControlContentControl runat="server">
-                                <dx:ASPxPanel ID="ASPxPanel2" runat="server" DefaultButton="btOK">
-                                    <PanelCollection>
-                                        <dx:PanelContent runat="server">
-                                            <table>
-                                                <tr>
-                                                    <td>
-                                                        <dx:ASPxImage ID="ASPxImage2" runat="server" ShowLoadingImage="true" ImageUrl="~/img/iconos/Information2.ico"></dx:ASPxImage>
-                                                        <dx:ASPxTextBox ID="tbLogin" ReadOnly="true" Border-BorderStyle="None" Height="1px" runat="server" Width="1px" ClientInstanceName="tbLogin"></dx:ASPxTextBox>
-                                                    </td>
-                                                    <td>
-                                                        <dx:ASPxLabel ID="lbl" runat="server" ClientInstanceName="lbl" Text="ASPxLabel"></dx:ASPxLabel>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <dx:ASPxButton ID="btOK" runat="server" Text="OK" Theme="PlasticBlue" Width="80px" AutoPostBack="false" Style="float: left; margin-right: 8px" TabIndex="0">
-                                                            <ClientSideEvents Click="function(s, e) {ppAlert.Hide(); }" />
-                                                        </dx:ASPxButton>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </dx:PanelContent>
-                                    </PanelCollection>
-                                </dx:ASPxPanel>
-                            </dx:PopupControlContentControl>
-                        </ContentCollection>
-                    </dx:ASPxPopupControl>
+                    
+
+
+
+                
+                    
+                    
+                    
                 
             </div>
             <br /><br />
-            <div id="footer" style="background-color: #333; width: 100%; height: 60px; color: #FFF; /* position: fixed; */ margin-bottom: -30px; border-top: solid 1px; border-top-color: #575757; padding-top: 8px;">
+            <div id="footer" style="background-color: #333; width: 100%; height: 60px; color: #FFF; /* position: fixed; */ margin-bottom: -20px; border-top: solid 1px; border-top-color: #575757; padding-top: 8px;">
                 <p align="center">
                    <br /> México DF: +52 (55) 4209 0200 Av. Paseo de la Reforma 2608 piso 20, 
                     &copy; <script>

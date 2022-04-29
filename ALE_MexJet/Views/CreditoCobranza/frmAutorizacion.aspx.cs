@@ -46,17 +46,34 @@ namespace ALE_MexJet.Views.CreditoCobranza
                     rdHoras.Text = dsDatosRem.Tables[0].Rows[0]["Horas"].S();
                     rdComentarios.Text = dsDatosRem.Tables[0].Rows[0]["Comentarios"].S();
                     sAutorizador = dsDatosRem.Tables[1].Rows[0]["Autorizador"].S();
+
+                    if(dsDatosRem.Tables[0].Rows[0]["Estatus"].S().I() == 1)
+                    {
+                        btnAutorizar.Enabled = true;
+                        btnRechazar.Enabled = true;
+                        LblMsg.Visible = false;
+                    }
+                    else if(dsDatosRem.Tables[0].Rows[0]["Estatus"].S().I() == 2)
+                    {
+                        btnAutorizar.Enabled = false;
+                        btnRechazar.Enabled = false;
+                        LblMsg.Text = "La solicitud de ajuste ha sido aprobada con anterioridad";
+                        LblMsg.Visible = true;
+                    }
+                    else if (dsDatosRem.Tables[0].Rows[0]["Estatus"].S().I() == -1)
+                    {
+                        btnAutorizar.Enabled = false;
+                        btnRechazar.Enabled = false;
+                        LblMsg.Text = "La solicitud de ajuste ha sido rechazada con anterioridad";
+                        LblMsg.Visible = true;
+                    }
+
                 }
             }
             catch (Exception ex)
             {
                 throw ex;
             }
-        }
-        public void MostrarMensaje(string sMensaje, string sCaption)
-        {
-            lbl.Text = sMensaje;
-            ppAlert.ShowOnPageLoad = true;
         }
 
         #region VARIABLES Y PROPIEDADES
@@ -130,6 +147,8 @@ namespace ALE_MexJet.Views.CreditoCobranza
 
                 btnAutorizar.Enabled = false;
                 btnRechazar.Enabled = false;
+                string sMsg = "Se autorizó correctamente el ajuste";
+                MostrarMensaje(sMsg);
             }
             catch (Exception ex)
             {
@@ -146,6 +165,9 @@ namespace ALE_MexJet.Views.CreditoCobranza
                 if (eSaveObj != null)
                     eSaveObj(sender, e);
 
+                string sMsg = "Se ha rechazado el ajuste solicitado";
+                MostrarMensaje(sMsg);
+
                 btnAutorizar.Enabled = false;
                 btnRechazar.Enabled = false;
             }
@@ -153,6 +175,12 @@ namespace ALE_MexJet.Views.CreditoCobranza
             {
                 throw ex;
             }
+        }
+
+        public void MostrarMensaje(string sMensaje)
+        {
+            lbl.Text = sMensaje;
+            msgAlert.ShowOnPageLoad = true;
         }
 
     }

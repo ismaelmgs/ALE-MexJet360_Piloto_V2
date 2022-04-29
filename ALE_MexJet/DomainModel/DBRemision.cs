@@ -1172,5 +1172,17 @@ namespace ALE_MexJet.DomainModel
 
         }
 
+        public DataTable DBGetDatosAutorizador()
+        {
+            try
+            {
+                return oDB_SP.EjecutarDT("[Principales].[spS_MXJ_ConsultaAutorizador]");
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
     }
 }

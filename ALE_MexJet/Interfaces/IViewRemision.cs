@@ -15,7 +15,7 @@ namespace ALE_MexJet.Interfaces
         string sapiKey { get; }
         string sEmailSoporte { get; }
         string sTemplate { get; }
-        void isValidUser(string isValid);
+        void isValidUser(DataTable dt);
         void setParameters(List<Parametros> lstParameters);
 
         object[] oArrFiltros { get; }

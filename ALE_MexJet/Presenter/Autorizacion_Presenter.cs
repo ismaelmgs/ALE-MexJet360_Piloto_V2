@@ -27,10 +27,8 @@ namespace ALE_MexJet.Presenter
         {
             int iRes = oIGestCat.DBSetActualizaAutorizacionAjuste(oIView.oAjuste);
 
-            if (iRes > 0)
-                oIView.MostrarMensaje("Se autorizó ajuste de remisión", "Aviso");
-            else
-                oIView.MostrarMensaje("No se puede registrar el ajuste de la remisión, revisar por favor", "Aviso");
+            if (iRes == 0)
+                oIView.MostrarMensaje("No se puede registrar el ajuste de la remisión, revisar por favor");
         }
     }
 }

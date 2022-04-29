@@ -60,6 +60,15 @@ namespace ALE_MexJet.Views.CreditoCobranza
         protected global::System.Web.UI.WebControls.HiddenField hdnIdRemision;
 
         /// <summary>
+        /// Control LblMsg.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LblMsg;
+
+        /// <summary>
         /// Control lblCargoAbono.
         /// </summary>
         /// <remarks>
@@ -132,13 +141,13 @@ namespace ALE_MexJet.Views.CreditoCobranza
         protected global::DevExpress.Web.ASPxButton btnRechazar;
 
         /// <summary>
-        /// Control ppAlert.
+        /// Control msgAlert.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxPopupControl ppAlert;
+        protected global::DevExpress.Web.ASPxPopupControl msgAlert;
 
         /// <summary>
         /// Control ASPxPanel2.
