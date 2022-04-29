@@ -309,8 +309,8 @@
                                                 </tr>
                                                 <tr>
                                                     <td>
-                                                        <dx:ASPxButton ID="bt_OK" runat="server" Text="OK" Theme="PlasticBlue" Width="80px" AutoPostBack="false" Style="float: left; margin-right: 8px" TabIndex="0">
-                                                            <ClientSideEvents Click="function(s, e) {msgAlert.Hide(); }" />
+                                                        <dx:ASPxButton ID="bt_OK" runat="server" Text="OK" Theme="PlasticBlue" Width="80px" Style="float: left; margin-right: 8px" TabIndex="0" AutoPostBack="true" OnClick="bt_OK_Click">
+                                                            <%--<ClientSideEvents Click="function(s, e) {msgAlert.Hide(); }" />--%>
                                                         </dx:ASPxButton>
                                                     </td>
                                                 </tr>

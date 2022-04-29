@@ -303,7 +303,7 @@ namespace ALE_MexJet.Views.CreditoCobranza
         protected global::DevExpress.Web.ASPxLabel lblMsg;
 
         /// <summary>
-        /// Control btOK.
+        /// Control bt_OK.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.

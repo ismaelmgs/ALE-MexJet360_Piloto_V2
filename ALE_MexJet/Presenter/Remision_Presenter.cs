@@ -62,10 +62,10 @@ namespace ALE_MexJet.Presenter
         {
             oIView.iIdAjuste = oIGestCat.DBSetInsertaAjuste(oIView.oAjuste);
 
-            if(oIView.iIdAjuste > 0)
-                oIView.MostrarMensaje("Se registro correctamente el ajuste de la remisión", "Aviso");
-            else
-                oIView.MostrarMensaje("No se puede registrar el ajuste de la remisión, revisar por favor", "Aviso");
+            //if(oIView.iIdAjuste > 0)
+            //    oIView.MostrarMensaje("Se registro correctamente el ajuste de la remisión", "Aviso");
+            //else
+            //    oIView.MostrarMensaje("No se puede registrar el ajuste de la remisión, revisar por favor", "Aviso");
         }
 
         protected void eValidateObj_Presenter(object sender, EventArgs e)

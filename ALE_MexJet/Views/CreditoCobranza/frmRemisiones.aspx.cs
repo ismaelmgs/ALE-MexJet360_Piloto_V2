@@ -454,7 +454,7 @@ namespace ALE_MexJet.Views.CreditoCobranza
         {
             try
             {
-                iIdAjuste = 0;
+                iIdAjuste = 1;
 
                 if (eInsertAjuste != null)
                     eInsertAjuste(sender, e);
@@ -468,12 +468,22 @@ namespace ALE_MexJet.Views.CreditoCobranza
                     msgAlert.ShowOnPageLoad = true;
                 }
 
-                btnCancelar_Click(null, null);
+                //btnCancelar_Click(null, null);
             }
             catch (Exception ex)
             {
                 throw ex;
             }
+        }
+
+        protected void bt_OK_Click(object sender, EventArgs e)
+        {
+            hdnIdRemision.Value = string.Empty;
+            ccbMotivo.SelectedIndex = -1;
+            txtHoras.Text = string.Empty;
+            txtComentarios.Text = string.Empty;
+            pnlAjuste.Visible = false;
+            msgAlert.ShowOnPageLoad = false;
         }
     }
 }
