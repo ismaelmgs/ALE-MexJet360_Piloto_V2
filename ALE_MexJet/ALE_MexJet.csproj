@@ -402,6 +402,7 @@
     <Content Include="Views\Consultas\frmDocPendientes.aspx" />
     <Content Include="Views\Consultas\frmReportePresupuesto.aspx" />
     <Content Include="Views\Consultas\frmResumenContrato.aspx" />
+    <Content Include="Views\CreditoCobranza\frmAjustes.aspx" />
     <Content Include="Views\CreditoCobranza\frmAjustesJetCard.aspx" />
     <Content Include="Views\CreditoCobranza\frmAutorizacion.aspx" />
     <Content Include="Views\CreditoCobranza\frmFormulasRemision.aspx" />
@@ -729,6 +730,7 @@
       <DependentUpon>ucPizarraElectronica.ascx</DependentUpon>
     </Compile>
     <Compile Include="DomainModel\DBAeronaveRen.cs" />
+    <Compile Include="DomainModel\DBAjuste.cs" />
     <Compile Include="DomainModel\DBAnalisisFerrys.cs" />
     <Compile Include="DomainModel\DBAutorizacionMembresias.cs" />
     <Compile Include="DomainModel\DBBaseFlight.cs" />
@@ -829,6 +831,7 @@
     <Compile Include="DomainModel\DBVuelosReasignados.cs" />
     <Compile Include="Interfaces\IViewAeronave.cs" />
     <Compile Include="Interfaces\IViewAeronaveRen.cs" />
+    <Compile Include="Interfaces\IViewAjuste.cs" />
     <Compile Include="Interfaces\IViewAnalisisFerrys.cs" />
     <Compile Include="Interfaces\IViewAudit.cs" />
     <Compile Include="Interfaces\IViewAutorizacion.cs" />
@@ -995,6 +998,7 @@
     <Compile Include="Objetos\Vendedor.cs" />
     <Compile Include="Objetos\VentaFerrys.cs" />
     <Compile Include="Presenter\AeronaveRen_Presenter.cs" />
+    <Compile Include="Presenter\Ajuste_Presenter.cs" />
     <Compile Include="Presenter\AnalisisFerrys_Presenter.cs" />
     <Compile Include="Presenter\Audit_Presenter.cs" />
     <Compile Include="Presenter\AutorizacionMembresias_Presenter.cs" />
@@ -1416,6 +1420,13 @@
     </Compile>
     <Compile Include="Views\Consultas\frmResumenContrato.aspx.designer.cs">
       <DependentUpon>frmResumenContrato.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreditoCobranza\frmAjustes.aspx.cs">
+      <DependentUpon>frmAjustes.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\CreditoCobranza\frmAjustes.aspx.designer.cs">
+      <DependentUpon>frmAjustes.aspx</DependentUpon>
     </Compile>
     <Compile Include="Views\CreditoCobranza\frmAjustesJetCard.aspx.cs">
       <DependentUpon>frmAjustesJetCard.aspx</DependentUpon>

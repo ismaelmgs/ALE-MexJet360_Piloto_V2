@@ -39,7 +39,11 @@ namespace ALE_MexJet.Views.CreditoCobranza
                 if (Page.Request["Folio"] != null)
                 {
                     iIdRemision = Page.Request["Folio"].S().L();
+                    if (eGetTipoPaquete != null)
+                        eGetTipoPaquete(sender, e);
+
                     CargaPasoUnoRemisiones();
+
                 }
                 else
                 {
@@ -474,7 +478,9 @@ namespace ALE_MexJet.Views.CreditoCobranza
         {
             try
             {
-                RemisionesKardex();
+                iConversion = 0; //Sin conversion
+                if(iConversion == 0)
+                    RemisionesKardex();
 
                 if (eSetFinalizaR != null)
                     eSetFinalizaR(sender, e);
@@ -521,30 +527,62 @@ namespace ALE_MexJet.Views.CreditoCobranza
                 OLstKardex.Add(oRm);
 
                 //Remisión Servicios con cargo
-                if (dtServiciosC != null)
+                //Cuando quiere convertir dinero a horas y el cliente de la remisión sea JetCard
+                if (iConversion == 1 && (iPaquete == 1 || iPaquete == 2))
                 {
-                    DateTime dtFechaSalida = new DateTime();
-                    KardexRemision oRem = new KardexRemision();
+                    if (dtServiciosC != null)
+                    {
+                        DateTime dtFechaSalida = new DateTime();
+                        KardexRemision oRem = new KardexRemision();
 
-                    if (Session["FechaVuelo"] != null)
-                        sFechaVuelo = Session["FechaVuelo"].S();
+                        if (Session["FechaVuelo"] != null)
+                            sFechaVuelo = Session["FechaVuelo"].S();
 
-                    dtFechaSalida = sFechaVuelo.Dt();
+                        dtFechaSalida = sFechaVuelo.Dt();
 
-                    oRem.IIdRemision = iIdRemision;
-                    oRem.IIdContrato = IdContrato;
-                    oRem.SMatricula = sMatricula;
+                        oRem.IIdRemision = iIdRemision;
+                        oRem.IIdContrato = IdContrato;
+                        oRem.SMatricula = sMatricula;
 
-                    if (dSubTotalRemSC != 0)
-                        oRem.SCargo = Utils.ObtenerHorasServicioConCargo(dSubTotalRemSC.S(), IdContrato, dtFechaSalida);
-                    else
-                        oRem.SCargo = "0";
+                        if (dSubTotalRemSC != 0)
+                            oRem.SCargo = Utils.ObtenerHorasServicioConCargo(dSubTotalRemSC.S(), IdContrato, dtFechaSalida);
+                        else
+                            oRem.SCargo = "0";
 
-                    oRem.SAbono = "0";
-                    oRem.IIdMotivo = 9; //Remisión SCC (Servicio con cargo)
-                    oRem.SNotas = string.Empty;
-                    oRem.SUsuario = ((UserIdentity)Session["UserIdentity"]).sUsuario;
-                    OLstKardex.Add(oRem);
+                        oRem.SAbono = "0";
+                        oRem.IIdMotivo = 9; //Remisión SCC (Servicio con cargo)
+                        oRem.SNotas = string.Empty;
+                        oRem.SUsuario = ((UserIdentity)Session["UserIdentity"]).sUsuario;
+                        OLstKardex.Add(oRem);
+                    }
+                }
+                else if(iConversion == 0)
+                {
+                    if (dtServiciosC != null)
+                    {
+                        DateTime dtFechaSalida = new DateTime();
+                        KardexRemision oRem = new KardexRemision();
+
+                        if (Session["FechaVuelo"] != null)
+                            sFechaVuelo = Session["FechaVuelo"].S();
+
+                        dtFechaSalida = sFechaVuelo.Dt();
+
+                        oRem.IIdRemision = iIdRemision;
+                        oRem.IIdContrato = IdContrato;
+                        oRem.SMatricula = sMatricula;
+
+                        if (dSubTotalRemSC != 0)
+                            oRem.SCargo = Utils.ObtenerHorasServicioConCargo(dSubTotalRemSC.S(), IdContrato, dtFechaSalida);
+                        else
+                            oRem.SCargo = "0";
+
+                        oRem.SAbono = "0";
+                        oRem.IIdMotivo = 9; //Remisión SCC (Servicio con cargo)
+                        oRem.SNotas = string.Empty;
+                        oRem.SUsuario = ((UserIdentity)Session["UserIdentity"]).sUsuario;
+                        OLstKardex.Add(oRem);
+                    }
                 }
             }
             catch (Exception ex)
@@ -1265,6 +1303,27 @@ namespace ALE_MexJet.Views.CreditoCobranza
                 ddlCliente.TextField = "CodigoCliente";
                 ddlCliente.ValueField = "IdCliente";
                 ddlCliente.DataBind();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        public void LoadPackRem(DataTable dt)
+        {
+            try
+            {
+                dtPackRem = null;
+                dtPackRem = dt;
+                iPaquete = 0;
+
+                if (dtPackRem != null && dtPackRem.Rows.Count > 0)
+                    iPaquete = dtPackRem.Rows[0]["IdTipoPaquete"].S().I();
+
+                if (iPaquete == 1 || iPaquete == 2)
+                    btnFinalizarSCC.Visible = true;
+                else
+                    btnFinalizarSCC.Visible = false;
             }
             catch (Exception ex)
             {
@@ -2499,7 +2558,18 @@ namespace ALE_MexJet.Views.CreditoCobranza
         public event EventHandler eGetNotasTrip;
         public event EventHandler eGetContractsDates;
         public event EventHandler eSetTramosCotizacion;
+        public event EventHandler eGetTipoPaquete;
 
+        public int iConversion
+        {
+            get { return (int)ViewState["VSConversion"]; }
+            set { ViewState["VSConversion"] = 0; }
+        }
+        public int iPaquete
+        {
+            get { return (int)ViewState["VSPaquete"]; }
+            set { ViewState["VSPaquete"] = value; }
+        }
         public int IdCliente
         {
             get 
@@ -2969,6 +3039,11 @@ namespace ALE_MexJet.Views.CreditoCobranza
             get { return (decimal)ViewState["VSSubTotalRemSC"]; }
             set { ViewState["VSSubTotalRemSC"] = value; }
         }
+        public DataTable dtPackRem
+        {
+            get { return (DataTable)ViewState["VSPackRem"]; }
+            set { ViewState["VSPackRem"] = value; }
+        }
         //public DataTable dtFactoresTramo
         //{
         //    get { return (DataTable)ViewState["VSDTFactoresTramo"]; }
@@ -2976,5 +3051,24 @@ namespace ALE_MexJet.Views.CreditoCobranza
         //}
         #endregion
 
+        protected void btnFinalizarSCC_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                //Inserta Servicio con cargo con Conversión
+                iConversion = 1;
+                if(iConversion == 1)
+                    RemisionesKardex();
+
+                if (eSetFinalizaR != null)
+                    eSetFinalizaR(sender, e);
+
+                ScriptManager.RegisterClientScriptBlock(this, typeof(Page), "redirecciona", "window.location.href = 'frmRemisiones.aspx'", true);
+            }
+            catch (Exception ex)
+            {
+                Utils.SaveErrorEnBitacora(mpeMensaje, ex.Message, sPagina, sClase, "btnFinalizarSCC_Click", "Aviso");
+            }
+        }
     }
 }

@@ -125,8 +125,8 @@
                                                                     <ClientSideEvents Click="function(s, e) { OnValueChanged(s); }"/>
                                                                     </dx:ASPxButton>
 
-                                                                    <dx:ASPxButton Text="Ajuste Remisión" Theme="Office2010Black" ID="btnAjuste" runat="server" CommandArgument='<%# Eval("FolioRemision") %>' CommandName="Ajuste" AutoPostBack="true" 
-                                                                        ToolTip="Agregar Ajuste de Remisión"></dx:ASPxButton>
+                                                                    <%--<dx:ASPxButton Text="Ajuste Remisión" Theme="Office2010Black" ID="btnAjuste" runat="server" CommandArgument='<%# Eval("FolioRemision") %>' CommandName="Ajuste" AutoPostBack="true" 
+                                                                        ToolTip="Agregar Ajuste de Remisión"></dx:ASPxButton>--%>
 
                                                                 </DataItemTemplate>
                                                                 <EditFormSettings Visible="false" />

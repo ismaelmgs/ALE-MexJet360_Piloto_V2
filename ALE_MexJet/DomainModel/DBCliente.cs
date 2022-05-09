@@ -23,6 +23,17 @@ namespace ALE_MexJet.DomainModel
                 throw ex;
             }
         }
+        public DataTable DBGetTipoPaqueteRemision(long iFolio)
+        {
+            try
+            {
+                return oDB_SP.EjecutarDT("[Principales].[spS_MXJ_ConsultaPaqueteRemision]", "@idRemision", iFolio);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
         public int DBSave(Cliente oCliente)
         {
             try

@@ -784,6 +784,8 @@ namespace ALE_MexJet.Objetos
     {
         private int _iIdAjuste = 0;
         private long _iIdRemision = 0;
+        private string _sCveContrato = string.Empty;
+        private int _iTipo = 0;
         private int _iIdMotivo = 0;
         private string _sHoras = string.Empty;
         private string _sComentarios = string.Empty;
@@ -793,6 +795,8 @@ namespace ALE_MexJet.Objetos
 
         public int IIdAjuste { get => _iIdAjuste; set => _iIdAjuste = value; }
         public long IIdRemision { get => _iIdRemision; set => _iIdRemision = value; }
+        public string SCveContrato { get => _sCveContrato; set => _sCveContrato = value; }
+        public int ITipo { get => _iTipo; set => _iTipo = value; }
         public int IIdMotivo { get => _iIdMotivo; set => _iIdMotivo = value; }
         public string SHoras { get => _sHoras; set => _sHoras = value; }
         public string SComentarios { get => _sComentarios; set => _sComentarios = value; }

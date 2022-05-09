@@ -10,6 +10,7 @@ namespace ALE_MexJet.Interfaces
 {
     public interface IViewGRemision : IBaseView
     {
+        int iConversion { get; set; }
         int IdCliente { get; }
         int IdContrato { get; }
         long iIdRemision { get; set; }
@@ -40,6 +41,7 @@ namespace ALE_MexJet.Interfaces
         List<KardexRemision> OLstKardex { get; set; }
 
         void LoadObjects(DataTable dtObjCat);
+        void LoadPackRem(DataTable dtPack);
         void LoadContracts(DataTable dtCont);
         void RedireccionWizard(int iIndex);
         void MostrarMensaje(string sMensaje, string sCaption);
@@ -65,5 +67,6 @@ namespace ALE_MexJet.Interfaces
         event EventHandler eGetNotasTrip;
         event EventHandler eGetContractsDates;
         event EventHandler eSetTramosCotizacion;
+        event EventHandler eGetTipoPaquete;
     }
 }

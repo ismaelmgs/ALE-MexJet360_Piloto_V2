@@ -832,6 +832,7 @@
                                             </div>
                                             <div class="col-lg-12" style="text-align:right">
                                                 <dx:ASPxButton ID="btnFinalizar" runat="server" Text="Finalizar" Theme="Office2010Black" OnClick="btnFinalizar_Click"></dx:ASPxButton>
+                                                <dx:ASPxButton ID="btnFinalizarSCC" runat="server" Text="Finalizar con conversión a Tiempo" Theme="Office2010Black" OnClick="btnFinalizarSCC_Click" Visible="false"></dx:ASPxButton>
                                             </div>
                                             <div class="col-lg-1">
                                             </div>

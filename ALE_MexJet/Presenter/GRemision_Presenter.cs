@@ -35,6 +35,7 @@ namespace ALE_MexJet.Presenter
             oIView.eGetNotasTrip += eGetNotasTrip_Presenter;
             oIView.eGetContractsDates += eGetContractsDates_Presenter;
             oIView.eSetTramosCotizacion += eSetTramosCotizacion_Presenter;
+            oIView.eGetTipoPaquete += eGetTipoPaquete_Presenter;
 
             //LoadObjects_Presenter();
 
@@ -48,6 +49,11 @@ namespace ALE_MexJet.Presenter
                                                             "@Nombre", string.Empty,
                                                             "@TipoCliente", string.Empty,
                                                             "@estatus", 1));
+        }
+
+        protected void eGetTipoPaquete_Presenter(object sender, EventArgs e)
+        {
+            oIView.LoadPackRem(new DBCliente().DBGetTipoPaqueteRemision(oIView.iIdRemision));
         }
 
         protected void eGetContracts_Presenter(object sender, EventArgs e)
@@ -290,8 +296,9 @@ namespace ALE_MexJet.Presenter
             oIGestCat.DBSetInsertaHeaderServiciosCargo(oIView.oServiciosC);
             oIGestCat.DBSetInsertaDetalleServiciosCargo(oIView.oLstD);
 
-            //Inserta registros a kardex
+            //Inserta registros de Servicios con cargo a kardex
             oIGestCat.DBSetInsertaRemisionKardex(oIView.OLstKardex);
+
 
             DataTable dt = oIGestCat.DBSetCambiaStatusRemision(oIView.oRemGrals);
             if (dt.Rows.Count > 0)

@@ -7,11 +7,13 @@
 // </generado automáticamente>
 //------------------------------------------------------------------------------
 
-namespace ALE_MexJet.Views.CreditoCobranza {
-    
-    
-    public partial class frmGRemision {
-        
+namespace ALE_MexJet.Views.CreditoCobranza
+{
+
+
+    public partial class frmGRemision
+    {
+
         /// <summary>
         /// Control pnlPrincipal.
         /// </summary>
@@ -20,7 +22,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxPanel pnlPrincipal;
-        
+
         /// <summary>
         /// Control mpeMensaje.
         /// </summary>
@@ -29,7 +31,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::ALE_MexJet.ControlesUsuario.ucModalMensaje mpeMensaje;
-        
+
         /// <summary>
         /// Control ucPizarraElectronica.
         /// </summary>
@@ -38,7 +40,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::ALE_MexJet.ControlesUsuario.ucPizarraElectronica ucPizarraElectronica;
-        
+
         /// <summary>
         /// Control hdFactorIntercambio.
         /// </summary>
@@ -47,7 +49,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdFactorIntercambio;
-        
+
         /// <summary>
         /// Control hdFactorGiraHorario.
         /// </summary>
@@ -56,7 +58,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdFactorGiraHorario;
-        
+
         /// <summary>
         /// Control hdFactorGiraEspera.
         /// </summary>
@@ -65,7 +67,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdFactorGiraEspera;
-        
+
         /// <summary>
         /// Control hdFactorFechaPico.
         /// </summary>
@@ -74,7 +76,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdFactorFechaPico;
-        
+
         /// <summary>
         /// Control hdFactorVueloSimul.
         /// </summary>
@@ -83,7 +85,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdFactorVueloSimul;
-        
+
         /// <summary>
         /// Control hdFactorTramoNal.
         /// </summary>
@@ -92,7 +94,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdFactorTramoNal;
-        
+
         /// <summary>
         /// Control hdFactorTramoInt.
         /// </summary>
@@ -101,7 +103,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdFactorTramoInt;
-        
+
         /// <summary>
         /// Control upaPrincipal.
         /// </summary>
@@ -110,7 +112,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel upaPrincipal;
-        
+
         /// <summary>
         /// Control btnPizarra.
         /// </summary>
@@ -119,7 +121,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxButton btnPizarra;
-        
+
         /// <summary>
         /// Control btnButton.
         /// </summary>
@@ -128,7 +130,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxButton btnButton;
-        
+
         /// <summary>
         /// Control pcRemision.
         /// </summary>
@@ -137,7 +139,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxPageControl pcRemision;
-        
+
         /// <summary>
         /// Control ContentControl1.
         /// </summary>
@@ -146,7 +148,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ContentControl ContentControl1;
-        
+
         /// <summary>
         /// Control lblFecha.
         /// </summary>
@@ -155,7 +157,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel lblFecha;
-        
+
         /// <summary>
         /// Control detFecha.
         /// </summary>
@@ -164,7 +166,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxDateEdit detFecha;
-        
+
         /// <summary>
         /// Control lblCliente.
         /// </summary>
@@ -173,7 +175,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel lblCliente;
-        
+
         /// <summary>
         /// Control ddlCliente.
         /// </summary>
@@ -182,7 +184,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxComboBox ddlCliente;
-        
+
         /// <summary>
         /// Control lblContrato.
         /// </summary>
@@ -191,7 +193,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel lblContrato;
-        
+
         /// <summary>
         /// Control ddlContrato.
         /// </summary>
@@ -200,7 +202,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxComboBox ddlContrato;
-        
+
         /// <summary>
         /// Control lblAplicaIntercambio.
         /// </summary>
@@ -209,7 +211,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel lblAplicaIntercambio;
-        
+
         /// <summary>
         /// Control chkAplicaIntercambio.
         /// </summary>
@@ -218,7 +220,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxCheckBox chkAplicaIntercambio;
-        
+
         /// <summary>
         /// Control lblFactorEspecial.
         /// </summary>
@@ -227,7 +229,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel lblFactorEspecial;
-        
+
         /// <summary>
         /// Control txtFactorEspecial.
         /// </summary>
@@ -236,7 +238,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxTextBox txtFactorEspecial;
-        
+
         /// <summary>
         /// Control btnCancelarAR.
         /// </summary>
@@ -245,7 +247,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxButton btnCancelarAR;
-        
+
         /// <summary>
         /// Control btnGuardarAR.
         /// </summary>
@@ -254,7 +256,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxButton btnGuardarAR;
-        
+
         /// <summary>
         /// Control ContentControl2.
         /// </summary>
@@ -263,7 +265,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ContentControl ContentControl2;
-        
+
         /// <summary>
         /// Control lblClienteP.
         /// </summary>
@@ -272,7 +274,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel lblClienteP;
-        
+
         /// <summary>
         /// Control lblRespClienteP.
         /// </summary>
@@ -281,7 +283,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel lblRespClienteP;
-        
+
         /// <summary>
         /// Control lblContratoP.
         /// </summary>
@@ -290,7 +292,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel lblContratoP;
-        
+
         /// <summary>
         /// Control lblRespContratoP.
         /// </summary>
@@ -299,7 +301,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel lblRespContratoP;
-        
+
         /// <summary>
         /// Control lblTipoEquipoP.
         /// </summary>
@@ -308,7 +310,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel lblTipoEquipoP;
-        
+
         /// <summary>
         /// Control lblRespTipoEquipoP.
         /// </summary>
@@ -317,7 +319,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel lblRespTipoEquipoP;
-        
+
         /// <summary>
         /// Control lblFactorEspecialP.
         /// </summary>
@@ -326,7 +328,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel lblFactorEspecialP;
-        
+
         /// <summary>
         /// Control lblRespFactorEspecialP.
         /// </summary>
@@ -335,7 +337,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel lblRespFactorEspecialP;
-        
+
         /// <summary>
         /// Control lblAPlicaIntercambioP.
         /// </summary>
@@ -344,7 +346,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel lblAPlicaIntercambioP;
-        
+
         /// <summary>
         /// Control lblRespAplicaIntercambioP.
         /// </summary>
@@ -353,7 +355,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel lblRespAplicaIntercambioP;
-        
+
         /// <summary>
         /// Control pnlTramos.
         /// </summary>
@@ -362,7 +364,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel pnlTramos;
-        
+
         /// <summary>
         /// Control tmRecarga.
         /// </summary>
@@ -371,7 +373,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.Timer tmRecarga;
-        
+
         /// <summary>
         /// Control upaPiernas.
         /// </summary>
@@ -380,7 +382,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel upaPiernas;
-        
+
         /// <summary>
         /// Control gvTramos.
         /// </summary>
@@ -389,7 +391,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gvTramos;
-        
+
         /// <summary>
         /// Control btnRegresarTramos.
         /// </summary>
@@ -398,7 +400,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxButton btnRegresarTramos;
-        
+
         /// <summary>
         /// Control btnSiguienteTramos.
         /// </summary>
@@ -407,7 +409,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxButton btnSiguienteTramos;
-        
+
         /// <summary>
         /// Control ContentControl3.
         /// </summary>
@@ -416,7 +418,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ContentControl ContentControl3;
-        
+
         /// <summary>
         /// Control tmRecarga2.
         /// </summary>
@@ -425,7 +427,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.Timer tmRecarga2;
-        
+
         /// <summary>
         /// Control ASPxLabel11.
         /// </summary>
@@ -434,7 +436,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel ASPxLabel11;
-        
+
         /// <summary>
         /// Control lblRespClienteTP.
         /// </summary>
@@ -443,7 +445,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel lblRespClienteTP;
-        
+
         /// <summary>
         /// Control ASPxLabel13.
         /// </summary>
@@ -452,7 +454,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel ASPxLabel13;
-        
+
         /// <summary>
         /// Control lblRespContratoTP.
         /// </summary>
@@ -461,7 +463,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel lblRespContratoTP;
-        
+
         /// <summary>
         /// Control ASPxLabel15.
         /// </summary>
@@ -470,7 +472,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel ASPxLabel15;
-        
+
         /// <summary>
         /// Control lblRespTipoETP.
         /// </summary>
@@ -479,7 +481,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel lblRespTipoETP;
-        
+
         /// <summary>
         /// Control ASPxLabel17.
         /// </summary>
@@ -488,7 +490,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel ASPxLabel17;
-        
+
         /// <summary>
         /// Control lblRespFactorTP.
         /// </summary>
@@ -497,7 +499,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel lblRespFactorTP;
-        
+
         /// <summary>
         /// Control ASPxLabel19.
         /// </summary>
@@ -506,7 +508,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel ASPxLabel19;
-        
+
         /// <summary>
         /// Control lblRespInterTP.
         /// </summary>
@@ -515,7 +517,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel lblRespInterTP;
-        
+
         /// <summary>
         /// Control lblTotalTiempoVueloReal.
         /// </summary>
@@ -524,7 +526,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel lblTotalTiempoVueloReal;
-        
+
         /// <summary>
         /// Control lblRespTiempoVueloReal.
         /// </summary>
@@ -533,7 +535,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel lblRespTiempoVueloReal;
-        
+
         /// <summary>
         /// Control lblTotalVueloCobrar.
         /// </summary>
@@ -542,7 +544,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel lblTotalVueloCobrar;
-        
+
         /// <summary>
         /// Control lblRespTotalVueloCobrar.
         /// </summary>
@@ -551,7 +553,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel lblRespTotalVueloCobrar;
-        
+
         /// <summary>
         /// Control lblTotalTiempoCalzoReal.
         /// </summary>
@@ -560,7 +562,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel lblTotalTiempoCalzoReal;
-        
+
         /// <summary>
         /// Control lblRespTotalTiempoCalzo.
         /// </summary>
@@ -569,7 +571,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel lblRespTotalTiempoCalzo;
-        
+
         /// <summary>
         /// Control lblFactoresAplicados.
         /// </summary>
@@ -578,7 +580,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel lblFactoresAplicados;
-        
+
         /// <summary>
         /// Control chkList.
         /// </summary>
@@ -587,7 +589,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBoxList chkList;
-        
+
         /// <summary>
         /// Control btnAgregarFerry.
         /// </summary>
@@ -596,7 +598,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxButton btnAgregarFerry;
-        
+
         /// <summary>
         /// Control gvTramosOpc1.
         /// </summary>
@@ -605,7 +607,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gvTramosOpc1;
-        
+
         /// <summary>
         /// Control gvConceptos.
         /// </summary>
@@ -614,7 +616,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gvConceptos;
-        
+
         /// <summary>
         /// Control btnSiguienteSC.
         /// </summary>
@@ -623,7 +625,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxButton btnSiguienteSC;
-        
+
         /// <summary>
         /// Control lblTotalTiempoVueloRealF.
         /// </summary>
@@ -632,7 +634,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel lblTotalTiempoVueloRealF;
-        
+
         /// <summary>
         /// Control lblRespTiempoVueloRealF.
         /// </summary>
@@ -641,7 +643,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel lblRespTiempoVueloRealF;
-        
+
         /// <summary>
         /// Control lblTotalVueloCobrarF.
         /// </summary>
@@ -650,7 +652,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel lblTotalVueloCobrarF;
-        
+
         /// <summary>
         /// Control lblRespTotalVueloCobrarF.
         /// </summary>
@@ -659,7 +661,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel lblRespTotalVueloCobrarF;
-        
+
         /// <summary>
         /// Control lblTotalTiempoCalzoRealF.
         /// </summary>
@@ -668,7 +670,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel lblTotalTiempoCalzoRealF;
-        
+
         /// <summary>
         /// Control lblRespTotalTiempoCalzoF.
         /// </summary>
@@ -677,7 +679,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel lblRespTotalTiempoCalzoF;
-        
+
         /// <summary>
         /// Control lblFactoresAplicadosF.
         /// </summary>
@@ -686,7 +688,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel lblFactoresAplicadosF;
-        
+
         /// <summary>
         /// Control chkListF.
         /// </summary>
@@ -695,7 +697,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBoxList chkListF;
-        
+
         /// <summary>
         /// Control ASPxButton1.
         /// </summary>
@@ -704,7 +706,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxButton ASPxButton1;
-        
+
         /// <summary>
         /// Control gvTramosOpc2.
         /// </summary>
@@ -713,7 +715,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gvTramosOpc2;
-        
+
         /// <summary>
         /// Control gvConceptos2.
         /// </summary>
@@ -722,7 +724,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gvConceptos2;
-        
+
         /// <summary>
         /// Control btnSiguienteOpc2.
         /// </summary>
@@ -731,7 +733,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxButton btnSiguienteOpc2;
-        
+
         /// <summary>
         /// Control btnRegresarSC.
         /// </summary>
@@ -740,7 +742,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxButton btnRegresarSC;
-        
+
         /// <summary>
         /// Control ContentControl4.
         /// </summary>
@@ -749,7 +751,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ContentControl ContentControl4;
-        
+
         /// <summary>
         /// Control ASPxLabel1.
         /// </summary>
@@ -758,7 +760,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel ASPxLabel1;
-        
+
         /// <summary>
         /// Control lblRespClienteSC.
         /// </summary>
@@ -767,7 +769,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel lblRespClienteSC;
-        
+
         /// <summary>
         /// Control ASPxLabel3.
         /// </summary>
@@ -776,7 +778,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel ASPxLabel3;
-        
+
         /// <summary>
         /// Control lblRespContratoSC.
         /// </summary>
@@ -785,7 +787,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel lblRespContratoSC;
-        
+
         /// <summary>
         /// Control ASPxLabel5.
         /// </summary>
@@ -794,7 +796,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel ASPxLabel5;
-        
+
         /// <summary>
         /// Control lblRespTipoESC.
         /// </summary>
@@ -803,7 +805,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel lblRespTipoESC;
-        
+
         /// <summary>
         /// Control ASPxLabel7.
         /// </summary>
@@ -812,7 +814,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel ASPxLabel7;
-        
+
         /// <summary>
         /// Control lblRespFactorSC.
         /// </summary>
@@ -821,7 +823,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel lblRespFactorSC;
-        
+
         /// <summary>
         /// Control ASPxLabel9.
         /// </summary>
@@ -830,7 +832,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel ASPxLabel9;
-        
+
         /// <summary>
         /// Control lblRespInterSC.
         /// </summary>
@@ -839,7 +841,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel lblRespInterSC;
-        
+
         /// <summary>
         /// Control gvSC.
         /// </summary>
@@ -848,7 +850,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gvSC;
-        
+
         /// <summary>
         /// Control chkTiempoAdi.
         /// </summary>
@@ -857,7 +859,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxCheckBox chkTiempoAdi;
-        
+
         /// <summary>
         /// Control lblTiempoAdi.
         /// </summary>
@@ -866,7 +868,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel lblTiempoAdi;
-        
+
         /// <summary>
         /// Control txttiempoAdi.
         /// </summary>
@@ -875,7 +877,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxTextBox txttiempoAdi;
-        
+
         /// <summary>
         /// Control lblConceptoAdi.
         /// </summary>
@@ -884,7 +886,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel lblConceptoAdi;
-        
+
         /// <summary>
         /// Control ddlConceptoAdi.
         /// </summary>
@@ -893,7 +895,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxComboBox ddlConceptoAdi;
-        
+
         /// <summary>
         /// Control btnAgregarTiempo.
         /// </summary>
@@ -902,7 +904,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxButton btnAgregarTiempo;
-        
+
         /// <summary>
         /// Control btnAgregarSC.
         /// </summary>
@@ -911,7 +913,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxButton btnAgregarSC;
-        
+
         /// <summary>
         /// Control gvServiciosC.
         /// </summary>
@@ -920,7 +922,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gvServiciosC;
-        
+
         /// <summary>
         /// Control btnRecalcular.
         /// </summary>
@@ -929,7 +931,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxButton btnRecalcular;
-        
+
         /// <summary>
         /// Control lblTotalPesos.
         /// </summary>
@@ -938,7 +940,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel lblTotalPesos;
-        
+
         /// <summary>
         /// Control lblTotalDlls.
         /// </summary>
@@ -947,7 +949,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel lblTotalDlls;
-        
+
         /// <summary>
         /// Control btnFinalizar.
         /// </summary>
@@ -956,7 +958,16 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxButton btnFinalizar;
-        
+
+        /// <summary>
+        /// Control btnFinalizarSCC.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxButton btnFinalizarSCC;
+
         /// <summary>
         /// Control ppAlert.
         /// </summary>
@@ -965,7 +976,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxPopupControl ppAlert;
-        
+
         /// <summary>
         /// Control ASPxPanel2.
         /// </summary>
@@ -974,7 +985,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxPanel ASPxPanel2;
-        
+
         /// <summary>
         /// Control ASPxImage2.
         /// </summary>
@@ -983,7 +994,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxImage ASPxImage2;
-        
+
         /// <summary>
         /// Control tbLogin.
         /// </summary>
@@ -992,7 +1003,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxTextBox tbLogin;
-        
+
         /// <summary>
         /// Control lbl.
         /// </summary>
@@ -1001,7 +1012,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel lbl;
-        
+
         /// <summary>
         /// Control btOK.
         /// </summary>
@@ -1010,7 +1021,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxButton btOK;
-        
+
         /// <summary>
         /// Control ppServicios.
         /// </summary>
@@ -1019,7 +1030,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxPopupControl ppServicios;
-        
+
         /// <summary>
         /// Control ASPxPanel1.
         /// </summary>
@@ -1028,7 +1039,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxPanel ASPxPanel1;
-        
+
         /// <summary>
         /// Control lblServicioCargo.
         /// </summary>
@@ -1037,7 +1048,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel lblServicioCargo;
-        
+
         /// <summary>
         /// Control ddlServiciosCargo.
         /// </summary>
@@ -1046,7 +1057,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxComboBox ddlServiciosCargo;
-        
+
         /// <summary>
         /// Control btnGuardarSC.
         /// </summary>
@@ -1055,7 +1066,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxButton btnGuardarSC;
-        
+
         /// <summary>
         /// Control btnCancelarSC.
         /// </summary>
@@ -1064,7 +1075,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxButton btnCancelarSC;
-        
+
         /// <summary>
         /// Control ppVirtuales.
         /// </summary>
@@ -1073,7 +1084,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxPopupControl ppVirtuales;
-        
+
         /// <summary>
         /// Control ASPxPanel3.
         /// </summary>
@@ -1082,7 +1093,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxPanel ASPxPanel3;
-        
+
         /// <summary>
         /// Control lblPosicionFV.
         /// </summary>
@@ -1091,7 +1102,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel lblPosicionFV;
-        
+
         /// <summary>
         /// Control rblPosicionFV.
         /// </summary>
@@ -1100,7 +1111,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxRadioButtonList rblPosicionFV;
-        
+
         /// <summary>
         /// Control lblOrigenFV.
         /// </summary>
@@ -1109,7 +1120,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel lblOrigenFV;
-        
+
         /// <summary>
         /// Control ddlOrigenFV.
         /// </summary>
@@ -1118,7 +1129,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxComboBox ddlOrigenFV;
-        
+
         /// <summary>
         /// Control lblDestinoFV.
         /// </summary>
@@ -1127,7 +1138,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel lblDestinoFV;
-        
+
         /// <summary>
         /// Control ddlDestinoFV.
         /// </summary>
@@ -1136,7 +1147,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxComboBox ddlDestinoFV;
-        
+
         /// <summary>
         /// Control lblFechaSalidaFV.
         /// </summary>
@@ -1145,7 +1156,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel lblFechaSalidaFV;
-        
+
         /// <summary>
         /// Control txtFechaSalidaFV.
         /// </summary>
@@ -1154,7 +1165,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxDateEdit txtFechaSalidaFV;
-        
+
         /// <summary>
         /// Control lblFechaLlegadaFV.
         /// </summary>
@@ -1163,7 +1174,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel lblFechaLlegadaFV;
-        
+
         /// <summary>
         /// Control txtFechaLlegadaFV.
         /// </summary>
@@ -1172,7 +1183,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxDateEdit txtFechaLlegadaFV;
-        
+
         /// <summary>
         /// Control lblTiempoVueloFV.
         /// </summary>
@@ -1181,7 +1192,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel lblTiempoVueloFV;
-        
+
         /// <summary>
         /// Control txtTiempoVueloFV.
         /// </summary>
@@ -1190,7 +1201,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxTextBox txtTiempoVueloFV;
-        
+
         /// <summary>
         /// Control lblTipoPiernaFV.
         /// </summary>
@@ -1199,7 +1210,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel lblTipoPiernaFV;
-        
+
         /// <summary>
         /// Control ddlTipoPiernaFV.
         /// </summary>
@@ -1208,7 +1219,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlTipoPiernaFV;
-        
+
         /// <summary>
         /// Control btnAgregarFV.
         /// </summary>
@@ -1217,7 +1228,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxButton btnAgregarFV;
-        
+
         /// <summary>
         /// Control btnCancelarFV.
         /// </summary>
@@ -1226,7 +1237,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxButton btnCancelarFV;
-        
+
         /// <summary>
         /// Control pcMain.
         /// </summary>
@@ -1235,7 +1246,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxPopupControl pcMain;
-        
+
         /// <summary>
         /// Control Panel1.
         /// </summary>
@@ -1244,7 +1255,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel Panel1;
-        
+
         /// <summary>
         /// Control lblppdDescClaveCleinte.
         /// </summary>
@@ -1253,7 +1264,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel lblppdDescClaveCleinte;
-        
+
         /// <summary>
         /// Control lblppdClaveCliente.
         /// </summary>
@@ -1262,7 +1273,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel lblppdClaveCliente;
-        
+
         /// <summary>
         /// Control lblppdDescClaveContrato.
         /// </summary>
@@ -1271,7 +1282,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel lblppdDescClaveContrato;
-        
+
         /// <summary>
         /// Control lblppdClaveContrato.
         /// </summary>
@@ -1280,7 +1291,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel lblppdClaveContrato;
-        
+
         /// <summary>
         /// Control lblppdDescTipoContrato.
         /// </summary>
@@ -1289,7 +1300,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel lblppdDescTipoContrato;
-        
+
         /// <summary>
         /// Control lblppdTipoContrato.
         /// </summary>
@@ -1298,7 +1309,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel lblppdTipoContrato;
-        
+
         /// <summary>
         /// Control lblppdDescGrupoModelo.
         /// </summary>
@@ -1307,7 +1318,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel lblppdDescGrupoModelo;
-        
+
         /// <summary>
         /// Control lblppdGrupoModelo.
         /// </summary>
@@ -1316,7 +1327,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel lblppdGrupoModelo;
-        
+
         /// <summary>
         /// Control ASPxPageControl1.
         /// </summary>
@@ -1325,7 +1336,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxPageControl ASPxPageControl1;
-        
+
         /// <summary>
         /// Control lblppdDescFechaInicio.
         /// </summary>
@@ -1334,7 +1345,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel lblppdDescFechaInicio;
-        
+
         /// <summary>
         /// Control lblppdFechaInicio.
         /// </summary>
@@ -1343,7 +1354,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel lblppdFechaInicio;
-        
+
         /// <summary>
         /// Control lblppdDescHorasContratadas.
         /// </summary>
@@ -1352,7 +1363,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel lblppdDescHorasContratadas;
-        
+
         /// <summary>
         /// Control lblppdHorasContratadas.
         /// </summary>
@@ -1361,7 +1372,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel lblppdHorasContratadas;
-        
+
         /// <summary>
         /// Control lblppdDescHorasAño.
         /// </summary>
@@ -1370,7 +1381,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel lblppdDescHorasAño;
-        
+
         /// <summary>
         /// Control lblppdHorasAño.
         /// </summary>
@@ -1379,7 +1390,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel lblppdHorasAño;
-        
+
         /// <summary>
         /// Control lblppdDescBases.
         /// </summary>
@@ -1388,7 +1399,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel lblppdDescBases;
-        
+
         /// <summary>
         /// Control gvBases.
         /// </summary>
@@ -1397,7 +1408,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxGridView gvBases;
-        
+
         /// <summary>
         /// Control lblppdDescEspacioVacio.
         /// </summary>
@@ -1406,7 +1417,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel lblppdDescEspacioVacio;
-        
+
         /// <summary>
         /// Control lblppdDescNacional.
         /// </summary>
@@ -1415,7 +1426,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel lblppdDescNacional;
-        
+
         /// <summary>
         /// Control lblppdDescCInt.
         /// </summary>
@@ -1424,7 +1435,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel lblppdDescCInt;
-        
+
         /// <summary>
         /// Control lblppdDescCostoDirectro.
         /// </summary>
@@ -1433,7 +1444,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel lblppdDescCostoDirectro;
-        
+
         /// <summary>
         /// Control lblppdCDN.
         /// </summary>
@@ -1442,7 +1453,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel lblppdCDN;
-        
+
         /// <summary>
         /// Control lblppdCDI.
         /// </summary>
@@ -1451,7 +1462,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel lblppdCDI;
-        
+
         /// <summary>
         /// Control lblppdDescTiempoEspera.
         /// </summary>
@@ -1460,7 +1471,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel lblppdDescTiempoEspera;
-        
+
         /// <summary>
         /// Control lblppdTEN.
         /// </summary>
@@ -1469,7 +1480,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel lblppdTEN;
-        
+
         /// <summary>
         /// Control lblppdTEI.
         /// </summary>
@@ -1478,7 +1489,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel lblppdTEI;
-        
+
         /// <summary>
         /// Control lblppdDescPernoctas.
         /// </summary>
@@ -1487,7 +1498,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel lblppdDescPernoctas;
-        
+
         /// <summary>
         /// Control lblppdPernoctasN.
         /// </summary>
@@ -1496,7 +1507,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel lblppdPernoctasN;
-        
+
         /// <summary>
         /// Control lblppdPernoctasI.
         /// </summary>
@@ -1505,7 +1516,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel lblppdPernoctasI;
-        
+
         /// <summary>
         /// Control lblppdDescCobroCombustible.
         /// </summary>
@@ -1514,7 +1525,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel lblppdDescCobroCombustible;
-        
+
         /// <summary>
         /// Control lblppdCobroCombustible.
         /// </summary>
@@ -1523,7 +1534,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel lblppdCobroCombustible;
-        
+
         /// <summary>
         /// Control lblppdDescCobroFerrys.
         /// </summary>
@@ -1532,7 +1543,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel lblppdDescCobroFerrys;
-        
+
         /// <summary>
         /// Control lblppdCobroFerrys.
         /// </summary>
@@ -1541,7 +1552,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel lblppdCobroFerrys;
-        
+
         /// <summary>
         /// Control lblppdDescCobroTipoTiempo.
         /// </summary>
@@ -1550,7 +1561,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel lblppdDescCobroTipoTiempo;
-        
+
         /// <summary>
         /// Control lblppdCobroTipoTiempo.
         /// </summary>
@@ -1559,7 +1570,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel lblppdCobroTipoTiempo;
-        
+
         /// <summary>
         /// Control lblppdDescCobroSCC.
         /// </summary>
@@ -1568,7 +1579,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel lblppdDescCobroSCC;
-        
+
         /// <summary>
         /// Control lblppdCobroTipoTiempoMinutos.
         /// </summary>
@@ -1577,7 +1588,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel lblppdCobroTipoTiempoMinutos;
-        
+
         /// <summary>
         /// Control lblppdDescCobroGiras.
         /// </summary>
@@ -1586,7 +1597,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel lblppdDescCobroGiras;
-        
+
         /// <summary>
         /// Control lblppdCobroGiras.
         /// </summary>
@@ -1595,7 +1606,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel lblppdCobroGiras;
-        
+
         /// <summary>
         /// Control lblppdDescTiempoEsperaLibre.
         /// </summary>
@@ -1604,7 +1615,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel lblppdDescTiempoEsperaLibre;
-        
+
         /// <summary>
         /// Control lblppdTiempoEsperaLibre.
         /// </summary>
@@ -1613,7 +1624,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel lblppdTiempoEsperaLibre;
-        
+
         /// <summary>
         /// Control lblppdDescIntercambio.
         /// </summary>
@@ -1622,7 +1633,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel lblppdDescIntercambio;
-        
+
         /// <summary>
         /// Control gvIntercambios.
         /// </summary>
@@ -1631,7 +1642,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxGridView gvIntercambios;
-        
+
         /// <summary>
         /// Control ppNotas.
         /// </summary>
@@ -1640,7 +1651,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxPopupControl ppNotas;
-        
+
         /// <summary>
         /// Control Panel2.
         /// </summary>
@@ -1649,7 +1660,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel Panel2;
-        
+
         /// <summary>
         /// Control ASPxLabel2.
         /// </summary>
@@ -1658,7 +1669,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel ASPxLabel2;
-        
+
         /// <summary>
         /// Control txtAlertasTrip.
         /// </summary>
@@ -1667,7 +1678,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxMemo txtAlertasTrip;
-        
+
         /// <summary>
         /// Control ASPxLabel4.
         /// </summary>
@@ -1676,7 +1687,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel ASPxLabel4;
-        
+
         /// <summary>
         /// Control txtNotasTrip.
         /// </summary>
@@ -1685,7 +1696,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxMemo txtNotasTrip;
-        
+
         /// <summary>
         /// Control ASPxLabel10.
         /// </summary>
@@ -1694,7 +1705,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel ASPxLabel10;
-        
+
         /// <summary>
         /// Control gvCasos.
         /// </summary>
@@ -1703,7 +1714,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxGridView gvCasos;
-        
+
         /// <summary>
         /// Control btnSalirNotas.
         /// </summary>
@@ -1712,7 +1723,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxButton btnSalirNotas;
-        
+
         /// <summary>
         /// Control ppConfirmacionSolEx.
         /// </summary>
@@ -1721,7 +1732,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxPopupControl ppConfirmacionSolEx;
-        
+
         /// <summary>
         /// Control ASPxPanel5.
         /// </summary>
@@ -1730,7 +1741,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxPanel ASPxPanel5;
-        
+
         /// <summary>
         /// Control lblConfirmacionSolEx.
         /// </summary>
@@ -1739,7 +1750,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel lblConfirmacionSolEx;
-        
+
         /// <summary>
         /// Control btnConfirmarSolEx.
         /// </summary>
@@ -1748,7 +1759,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxButton btnConfirmarSolEx;
-        
+
         /// <summary>
         /// Control ppConfirmacion.
         /// </summary>
@@ -1757,7 +1768,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxPopupControl ppConfirmacion;
-        
+
         /// <summary>
         /// Control ASPxPanel4.
         /// </summary>
@@ -1766,7 +1777,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxPanel ASPxPanel4;
-        
+
         /// <summary>
         /// Control lblConfirmacion.
         /// </summary>
@@ -1775,7 +1786,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel lblConfirmacion;
-        
+
         /// <summary>
         /// Control rblRentas.
         /// </summary>
@@ -1784,7 +1795,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RadioButtonList rblRentas;
-        
+
         /// <summary>
         /// Control lblFolioCotizacion.
         /// </summary>
@@ -1793,7 +1804,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel lblFolioCotizacion;
-        
+
         /// <summary>
         /// Control txtFolioCotizacion.
         /// </summary>
@@ -1802,7 +1813,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxTextBox txtFolioCotizacion;
-        
+
         /// <summary>
         /// Control lblMensajeVal.
         /// </summary>
@@ -1811,7 +1822,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel lblMensajeVal;
-        
+
         /// <summary>
         /// Control btnConfirmar.
         /// </summary>
@@ -1820,7 +1831,7 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxButton btnConfirmar;
-        
+
         /// <summary>
         /// Control btnSalirConfirm.
         /// </summary>
