@@ -225,6 +225,10 @@ namespace ALE_MexJet.Views.CreditoCobranza
                 values.Add("template", sTemplateNot);// ConfigurationManager.AppSettings["template"]);
                 values.Add("merge_firstname", dtNotificador.Rows[0]["NombreEjecutivo"].S());
                 values.Add("merge_email", dtNotificador.Rows[0]["CorreoEjecutivo"].S());
+
+                values.Add("merge_Contrato", readContrato.Text);
+                values.Add("merge_Remision", readNumRemision.Text);
+
                 string address = "https://api.elasticemail.com/v2/email/send";
                 string response = Send(address, values);
 
@@ -263,6 +267,10 @@ namespace ALE_MexJet.Views.CreditoCobranza
                 values.Add("template", sTemplateNot);// ConfigurationManager.AppSettings["template"]);
                 values.Add("merge_firstname", dtNotificador.Rows[0]["NombreVendedor"].S());
                 values.Add("merge_email", dtNotificador.Rows[0]["CorreoVendedor"].S());
+
+                values.Add("merge_Contrato", readContrato.Text);
+                values.Add("merge_Remision", readNumRemision.Text);
+
                 string address = "https://api.elasticemail.com/v2/email/send";
                 string response = Send(address, values);
 
