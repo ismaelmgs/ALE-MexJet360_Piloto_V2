@@ -186,6 +186,20 @@
                                         </td>
                                     </tr>
                                     <tr>
+                                        <td>
+                                            &nbsp;
+                                        </td>
+                                        <td align="center">
+                                            <asp:Label ID="lblMotivo" runat="server" Text="Motivo:"></asp:Label>
+                                        </td>              
+                                        <td align="center">
+                                            <asp:Label ID="rdMotivo" runat="server" Text=""></asp:Label>
+                                        </td>
+                                        <td>
+                                            &nbsp;
+                                        </td>
+                                    </tr>
+                                    <tr>
                                         <td align="center" colspan="4">
                                             &nbsp;
                                         </td>              

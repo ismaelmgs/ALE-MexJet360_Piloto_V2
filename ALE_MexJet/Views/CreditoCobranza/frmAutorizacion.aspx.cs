@@ -42,7 +42,8 @@ namespace ALE_MexJet.Views.CreditoCobranza
 
                 if (dsDatosRem != null && dsDatosRem.Tables[0].Rows.Count > 0)
                 {
-                    rdCargoAbono.Text = dsDatosRem.Tables[0].Rows[0]["DesMotivo"].S();
+                    rdCargoAbono.Text = dsDatosRem.Tables[0].Rows[0]["Tipo"].S();
+                    rdMotivo.Text = dsDatosRem.Tables[0].Rows[0]["DesMotivo"].S();
                     rdHoras.Text = dsDatosRem.Tables[0].Rows[0]["Horas"].S();
                     rdComentarios.Text = dsDatosRem.Tables[0].Rows[0]["Comentarios"].S();
                     sAutorizador = dsDatosRem.Tables[1].Rows[0]["Autorizador"].S();

@@ -17,6 +17,7 @@ namespace ALE_MexJet.Interfaces
         void LoadMotivos(DataTable dt);
         AjusteRemision oAjuste { get; }
         void setParameters(List<Parametros> lstParameters);
+        void setParametersNot(List<Parametros> lstParameters);
         void isValidUser(DataSet ds);
 
         event EventHandler eValidateObj;

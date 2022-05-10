@@ -59,7 +59,7 @@ namespace ALE_MexJet.DomainModel
                 return 0;
             }
         }
-        public List<Parametros> getParameters()
+        public List<Parametros> getParameters(int iOpcion)
         {
             try
             {
@@ -76,7 +76,7 @@ namespace ALE_MexJet.DomainModel
 
                 DataTable dtParam = new DataTable();
 
-                dtParam = oDB_SP.EjecutarDT("[Principales].[spS_MXJ_ObtieneParametros]");
+                dtParam = oDB_SP.EjecutarDT("[Principales].[spS_MXJ_ObtieneParametros]", "@iOpcionTem", iOpcion);
 
                 if (dtParam != null && dtParam.Rows.Count > 0)
                 {

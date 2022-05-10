@@ -42,7 +42,8 @@ namespace ALE_MexJet.Presenter
         }
         protected void eValidateObj_Presenter(object sender, EventArgs e)
         {
-            oIView.setParameters(oIGestCat.getParameters());
+            oIView.setParameters(oIGestCat.getParameters(1)); //Datos de template para autorizador
+            oIView.setParametersNot(oIGestCat.getParameters(2)); //Datos de template para ejecutivo y vendedor (Notificaciones)
             oIView.isValidUser(oIGestCat.DBGetDatosAutorizador(oIView.iIdContrato));
         }
     }

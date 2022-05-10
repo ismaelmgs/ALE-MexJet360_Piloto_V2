@@ -24,7 +24,7 @@
 
                             <table width="100%" style="text-align: left;">
                                 <tr>
-                                    <td colspan="2">Contrato:<dx:ASPxComboBox ID="ddlContrato" runat="server" Theme="Office2010Black" 
+                                    <td colspan="2">Contrato:<dx:ASPxComboBox ID="ddlContrato" runat="server" Theme="Office2010Black" NullText="- Selecciona -"
                                         AutoPostBack="true" OnSelectedIndexChanged="ddlContrato_SelectedIndexChanged">
                                     </dx:ASPxComboBox>                    
 
@@ -43,8 +43,8 @@
                         <asp:UpdatePanel runat="server" UpdateMode="Always">
                             <ContentTemplate>
                                 <div class="col-sm-12">
-                                    <dx:ASPxGridView ID="gvRemisiones" runat="server" AutoGenerateColumns="false" Font-Size="Small"
-                                        EnableTheming="True"  Styles-Header-HorizontalAlign="Center"
+                                    <dx:ASPxGridView ID="gvRemisiones" runat="server" AutoGenerateColumns="False" Font-Size="Small"
+                                        EnableTheming="True"  Styles-Header-HorizontalAlign="Center" ClientInstanceName="gvRemisiones"
                                         Theme="Office2010Black" Width="100%" StylesPopup-EditForm-ModalBackground-Opacity="90"
                                         KeyFieldName="IdRemision"   
                                         OnRowCommand="gvRemisiones_RowCommand">
@@ -77,6 +77,11 @@
                                             </dx:GridViewDataColumn>
 
                                         </Columns>
+                                        <SettingsPager Position="TopAndBottom">
+                                            <PageSizeItemSettings Items="1, 10, 20, 50, 100">
+                                            </PageSizeItemSettings>
+                                        </SettingsPager>
+                                        <SettingsSearchPanel Visible="true" />
                                     </dx:ASPxGridView>
                                 </div>
                             </ContentTemplate>

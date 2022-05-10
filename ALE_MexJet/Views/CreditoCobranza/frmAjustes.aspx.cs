@@ -27,6 +27,14 @@ namespace ALE_MexJet.Views.CreditoCobranza
         protected void Page_Load(object sender, EventArgs e)
         {
             oPresenter = new Ajuste_Presenter(this, new DBAjuste());
+            gvRemisiones.SettingsPager.Position = PagerPosition.TopAndBottom;
+            gvRemisiones.SettingsPager.ShowDisabledButtons = true;
+            gvRemisiones.SettingsPager.ShowNumericButtons = true;
+            gvRemisiones.SettingsPager.ShowSeparators = true;
+            gvRemisiones.SettingsPager.Summary.Visible = true;
+            gvRemisiones.SettingsPager.PageSizeItemSettings.Visible = true;
+            gvRemisiones.SettingsPager.PageSizeItemSettings.Position = PagerPageSizePosition.Right;
+            gvRemisiones.SettingsText.SearchPanelEditorNullText = "Ingresa la información a buscar:";
 
             if (!IsPostBack)
             {
@@ -120,6 +128,20 @@ namespace ALE_MexJet.Views.CreditoCobranza
                     sTemplate = p.Valor;
             }
         }
+        public void setParametersNot(List<Parametros> lstParameteres)
+        {
+            foreach (Parametros p in lstParameteres)
+            {
+                if (p.Nombre == "apiKey")
+                    sapiKeyNot = p.Valor;
+
+                if (p.Nombre == "EmailSoporte")
+                    sEmailSoporteNot = p.Valor;
+
+                if (p.Nombre == "template")
+                    sTemplateNot = p.Valor;
+            }
+        }
         public void isValidUser(System.Data.DataSet dsDatos)
         {
             try
@@ -188,18 +210,19 @@ namespace ALE_MexJet.Views.CreditoCobranza
             {
                 bool bRes = false;
                 NameValueCollection values = new NameValueCollection();
-                values.Add("apikey", sapiKey);//ConfigurationManager.AppSettings["apiKey"]);
-                values.Add("from", sEmailSoporte);//onfigurationManager.AppSettings["EmailSoporte"]);
+                values.Add("apikey", sapiKeyNot);//ConfigurationManager.AppSettings["apiKey"]);
+                values.Add("from", sEmailSoporteNot);//onfigurationManager.AppSettings["EmailSoporte"]);
                 values.Add("fromName", "ALE Management");
 
-                if(!string.IsNullOrEmpty(dtNotificador.Rows[0]["CorreoEjecutivo"].S()))
-                    values.Add("to", dtNotificador.Rows[0]["CorreoEjecutivo"].S());
-                else
-                    values.Add("to", "jimmymh87@gmail.com");
+                //if(!string.IsNullOrEmpty(dtNotificador.Rows[0]["CorreoEjecutivo"].S()))
+                //    values.Add("to", dtNotificador.Rows[0]["CorreoEjecutivo"].S());
+                //else
+                //    values.Add("to", "jimmymh87@gmail.com");
+                values.Add("to", "jimmymh87@gmail.com"); //Prueba
 
-                values.Add("subject", "Notificar de ajuste al ejecutivo");
+                values.Add("subject", "Notificación de ajuste al ejecutivo");
                 values.Add("isTransactional", "true");
-                values.Add("template", sTemplate);// ConfigurationManager.AppSettings["template"]);
+                values.Add("template", sTemplateNot);// ConfigurationManager.AppSettings["template"]);
                 values.Add("merge_firstname", dtNotificador.Rows[0]["NombreEjecutivo"].S());
                 values.Add("merge_email", dtNotificador.Rows[0]["CorreoEjecutivo"].S());
                 string address = "https://api.elasticemail.com/v2/email/send";
@@ -225,18 +248,19 @@ namespace ALE_MexJet.Views.CreditoCobranza
             {
                 bool bRes = false;
                 NameValueCollection values = new NameValueCollection();
-                values.Add("apikey", sapiKey);//ConfigurationManager.AppSettings["apiKey"]);
-                values.Add("from", sEmailSoporte);//onfigurationManager.AppSettings["EmailSoporte"]);
+                values.Add("apikey", sapiKeyNot);//ConfigurationManager.AppSettings["apiKey"]);
+                values.Add("from", sEmailSoporteNot);//onfigurationManager.AppSettings["EmailSoporte"]);
                 values.Add("fromName", "ALE Management");
 
-                if (!string.IsNullOrEmpty(dtNotificador.Rows[0]["CorreoVendedor"].S()))
-                    values.Add("to", dtNotificador.Rows[0]["CorreoVendedor"].S());
-                else
-                    values.Add("to", "jimmymh87@gmail.com");
+                //if (!string.IsNullOrEmpty(dtNotificador.Rows[0]["CorreoVendedor"].S()))
+                //    values.Add("to", dtNotificador.Rows[0]["CorreoVendedor"].S());
+                //else
+                //    values.Add("to", "jimmymh87@gmail.com");
+                values.Add("to", "jimmymh87@gmail.com"); //Prueba
 
-                values.Add("subject", "Notificar de ajuste al vendedor");
+                values.Add("subject", "Notificación de ajuste al vendedor");
                 values.Add("isTransactional", "true");
-                values.Add("template", sTemplate);// ConfigurationManager.AppSettings["template"]);
+                values.Add("template", sTemplateNot);// ConfigurationManager.AppSettings["template"]);
                 values.Add("merge_firstname", dtNotificador.Rows[0]["NombreVendedor"].S());
                 values.Add("merge_email", dtNotificador.Rows[0]["CorreoVendedor"].S());
                 string address = "https://api.elasticemail.com/v2/email/send";
@@ -311,6 +335,11 @@ namespace ALE_MexJet.Views.CreditoCobranza
             get { return ViewState["sVsEmailSoporte"].S(); }
             set { ViewState["sVsEmailSoporte"] = value; }
         }
+        public string sEmailSoporteNot
+        {
+            get { return ViewState["sVsEmailSoporteNot"].S(); }
+            set { ViewState["sVsEmailSoporteNot"] = value; }
+        }
         public string sEmail
         {
             //get { return txtEmail.Text.S(); }
@@ -321,11 +350,21 @@ namespace ALE_MexJet.Views.CreditoCobranza
             get { return ViewState["sVSsapiKey"].S(); }
             set { ViewState["sVSsapiKey"] = value; }
         }
+        public string sapiKeyNot
+        {
+            get { return ViewState["sVSsapiKeyNot"].S(); }
+            set { ViewState["sVSsapiKeyNot"] = value; }
+        }
 
         public string sTemplate
         {
             get { return ViewState["sVSsTemplate"].S(); }
             set { ViewState["sVSsTemplate"] = value; }
+        }
+        public string sTemplateNot
+        {
+            get { return ViewState["sVSsTemplateNot"].S(); }
+            set { ViewState["sVSsTemplateNot"] = value; }
         }
         public class Success
         {
@@ -437,5 +476,7 @@ namespace ALE_MexJet.Views.CreditoCobranza
             pnlRemisiones.Visible = true;
             msgAlert.ShowOnPageLoad = false;
         }
+
+        
     }
 }
