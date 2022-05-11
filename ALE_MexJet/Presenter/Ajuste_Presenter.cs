@@ -33,7 +33,7 @@ namespace ALE_MexJet.Presenter
 
         protected override void ObjSelected_Presenter(object sender, EventArgs e)
         {
-            oIView.LoadRemisiones(oIGestCat.DBGetRemisionesContrato(oIView.iIdContrato));
+            oIView.LoadRemisiones(oIGestCat.DBGetRemisionesContrato(oIView.sClaveContrato));
         }
 
         protected override void NewObj_Presenter(object sender, EventArgs e)

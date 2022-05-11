@@ -15,15 +15,6 @@ namespace ALE_MexJet.Views.CreditoCobranza
     {
 
         /// <summary>
-        /// Control UpdatePanel1.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel1;
-
-        /// <summary>
         /// Control ddlContrato.
         /// </summary>
         /// <remarks>
@@ -33,6 +24,15 @@ namespace ALE_MexJet.Views.CreditoCobranza
         protected global::DevExpress.Web.ASPxComboBox ddlContrato;
 
         /// <summary>
+        /// Control btnSolicitarAjuste.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxButton btnSolicitarAjuste;
+
+        /// <summary>
         /// Control pnlRemisiones.
         /// </summary>
         /// <remarks>
@@ -40,6 +40,15 @@ namespace ALE_MexJet.Views.CreditoCobranza
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel pnlRemisiones;
+
+        /// <summary>
+        /// Control UpdatePanel1.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel1;
 
         /// <summary>
         /// Control gvRemisiones.
@@ -114,6 +123,15 @@ namespace ALE_MexJet.Views.CreditoCobranza
         protected global::DevExpress.Web.ASPxComboBox ccbMotivo;
 
         /// <summary>
+        /// Control pnlAgregarRem.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlAgregarRem;
+
+        /// <summary>
         /// Control lblNumRemision.
         /// </summary>
         /// <remarks>
@@ -123,13 +141,13 @@ namespace ALE_MexJet.Views.CreditoCobranza
         protected global::DevExpress.Web.ASPxLabel lblNumRemision;
 
         /// <summary>
-        /// Control readNumRemision.
+        /// Control ccbListaRemisiones.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxLabel readNumRemision;
+        protected global::DevExpress.Web.ASPxComboBox ccbListaRemisiones;
 
         /// <summary>
         /// Control lblHoras.
@@ -148,6 +166,15 @@ namespace ALE_MexJet.Views.CreditoCobranza
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxTextBox txtHoras;
+
+        /// <summary>
+        /// Control ASPxLabel1.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxLabel ASPxLabel1;
 
         /// <summary>
         /// Control lblComentarios.

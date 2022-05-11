@@ -12,6 +12,7 @@ namespace ALE_MexJet.Interfaces
     {
         int iIdAjuste { get; set; }
         int iIdContrato { set; get; }
+        string sClaveContrato { set; get; }
         void LoadContratos(DataTable dt);
         void LoadRemisiones(DataTable dt);
         void LoadMotivos(DataTable dt);

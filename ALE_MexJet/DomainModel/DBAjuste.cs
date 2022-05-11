@@ -27,11 +27,11 @@ namespace ALE_MexJet.DomainModel
                 throw ex;
             }
         }
-        public DataTable DBGetRemisionesContrato(int iIdContrato)
+        public DataTable DBGetRemisionesContrato(string sCveContrato)
         {
             try
             {
-                return oDB_SP.EjecutarDT("[Principales].[spS_MXJ_ConsultaRemisionesContrato]", "@IdContrato", iIdContrato);
+                return oDB_SP.EjecutarDT("[Principales].[spS_MXJ_ConsultaRemisionesContrato]", "@cveContrato", sCveContrato);
             }
             catch (Exception ex)
             {

@@ -26,7 +26,10 @@ namespace ALE_MexJet.Views.CreditoCobranza
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            
+
             oPresenter = new Ajuste_Presenter(this, new DBAjuste());
+
             gvRemisiones.SettingsPager.Position = PagerPosition.TopAndBottom;
             gvRemisiones.SettingsPager.ShowDisabledButtons = true;
             gvRemisiones.SettingsPager.ShowNumericButtons = true;
@@ -36,11 +39,11 @@ namespace ALE_MexJet.Views.CreditoCobranza
             gvRemisiones.SettingsPager.PageSizeItemSettings.Position = PagerPageSizePosition.Right;
             gvRemisiones.SettingsText.SearchPanelEditorNullText = "Ingresa la información a buscar:";
 
-            if (!IsPostBack)
-            {
-                if (eSearchObj != null)
-                    eSearchObj(sender, e);
-            }
+            //if (!IsPostBack)
+            //{
+            if (eSearchObj != null)
+                eSearchObj(sender, e);
+            //}
         }
 
         protected void ddlContrato_SelectedIndexChanged(object sender, EventArgs e)
@@ -52,8 +55,14 @@ namespace ALE_MexJet.Views.CreditoCobranza
 
                 if (iIdContrato != 0)
                 {
-                    if (eObjSelected != null)
-                        eObjSelected(sender, e);
+                    //if (eObjSelected != null)
+                    //    eObjSelected(sender, e);
+                    string sClaveContrato = string.Empty;
+                    sClaveContrato = ddlContrato.SelectedItem.Value.S();
+
+                    readContrato.Text = sClaveContrato;
+                    pnlAjuste.Visible = true;
+
                 }
             }
             catch (Exception ex)
@@ -70,8 +79,8 @@ namespace ALE_MexJet.Views.CreditoCobranza
                 if (dt != null && dt.Rows.Count > 0)
                 {
                     ddlContrato.DataSource = dt;
-                    ddlContrato.ValueField = "IdContrato";
-                    ddlContrato.TextField = "ClaveContrato";
+                    ddlContrato.ValueField = "ClaveContrato";
+                    ddlContrato.TextField = "DesContrato";
                     ddlContrato.DataBind();
                 }
             }
@@ -86,8 +95,12 @@ namespace ALE_MexJet.Views.CreditoCobranza
             {
                 if (dt != null && dt.Rows.Count > 0)
                 {
-                    gvRemisiones.DataSource = dt;
-                    gvRemisiones.DataBind();
+                    ccbListaRemisiones.DataSource = dt;
+                    ccbListaRemisiones.ValueField = "IdRemision";
+                    ccbListaRemisiones.TextField = "Remision";
+                    ccbListaRemisiones.DataBind(); 
+                    //gvRemisiones.DataSource = dt;
+                    //gvRemisiones.DataBind();
                 }
             }
             catch (Exception ex)
@@ -156,21 +169,21 @@ namespace ALE_MexJet.Views.CreditoCobranza
                     dtDatosNotificacion = dsDatos.Tables[1];
 
 
-                if (dtDatosAutorizador != null && dtDatosAutorizador.Rows.Count > 0 && !string.IsNullOrEmpty(readNumRemision.Value.S()))
+                if (dtDatosAutorizador != null && dtDatosAutorizador.Rows.Count > 0)
                 {
                     NameValueCollection values = new NameValueCollection();
                     values.Add("apikey", sapiKey);//ConfigurationManager.AppSettings["apiKey"]);
                     values.Add("from", sEmailSoporte);//onfigurationManager.AppSettings["EmailSoporte"]);
-                    values.Add("fromName", "ALE Management");
+                    values.Add("fromName", "ALE Management - Contrato " + readContrato.Text);
                     values.Add("to", dtDatosAutorizador.Rows[0]["Correo"].S());
-                    values.Add("subject", "Autorizar Ajuste de Remisión");
+                    values.Add("subject", "Autorizar Ajuste");
                     values.Add("isTransactional", "true");
                     values.Add("template", sTemplate);// ConfigurationManager.AppSettings["template"]);
                     values.Add("merge_firstname", dtDatosAutorizador.Rows[0]["Autorizador"].S());
                     values.Add("merge_email", dtDatosAutorizador.Rows[0]["Correo"].S());
                     //values.Add("merge_timeInterval", DateTime.Now.AddHours(2).ToString("ddMMyyHHmm"));
                     //values.Add("merge_accountaddress", sEmail);
-                    values.Add("merge_IdRemision", readNumRemision.Value.S());
+                    //values.Add("merge_IdRemision", readNumRemision.Value.S());
                     values.Add("merge_IdAjuste", iIdAjuste.S());
 
                     string address = "https://api.elasticemail.com/v2/email/send";
@@ -212,7 +225,7 @@ namespace ALE_MexJet.Views.CreditoCobranza
                 NameValueCollection values = new NameValueCollection();
                 values.Add("apikey", sapiKeyNot);//ConfigurationManager.AppSettings["apiKey"]);
                 values.Add("from", sEmailSoporteNot);//onfigurationManager.AppSettings["EmailSoporte"]);
-                values.Add("fromName", "ALE Management");
+                values.Add("fromName", "ALE Management - Contrato " + readContrato.Text);
 
                 //if(!string.IsNullOrEmpty(dtNotificador.Rows[0]["CorreoEjecutivo"].S()))
                 //    values.Add("to", dtNotificador.Rows[0]["CorreoEjecutivo"].S());
@@ -227,7 +240,7 @@ namespace ALE_MexJet.Views.CreditoCobranza
                 values.Add("merge_email", dtNotificador.Rows[0]["CorreoEjecutivo"].S());
 
                 values.Add("merge_Contrato", readContrato.Text);
-                values.Add("merge_Remision", readNumRemision.Text);
+                //values.Add("merge_Remision", readNumRemision.Text);
 
                 string address = "https://api.elasticemail.com/v2/email/send";
                 string response = Send(address, values);
@@ -254,7 +267,7 @@ namespace ALE_MexJet.Views.CreditoCobranza
                 NameValueCollection values = new NameValueCollection();
                 values.Add("apikey", sapiKeyNot);//ConfigurationManager.AppSettings["apiKey"]);
                 values.Add("from", sEmailSoporteNot);//onfigurationManager.AppSettings["EmailSoporte"]);
-                values.Add("fromName", "ALE Management");
+                values.Add("fromName", "ALE Management - Contrato " + readContrato.Text);
 
                 //if (!string.IsNullOrEmpty(dtNotificador.Rows[0]["CorreoVendedor"].S()))
                 //    values.Add("to", dtNotificador.Rows[0]["CorreoVendedor"].S());
@@ -269,7 +282,7 @@ namespace ALE_MexJet.Views.CreditoCobranza
                 values.Add("merge_email", dtNotificador.Rows[0]["CorreoVendedor"].S());
 
                 values.Add("merge_Contrato", readContrato.Text);
-                values.Add("merge_Remision", readNumRemision.Text);
+                //values.Add("merge_Remision", readNumRemision.Text);
 
                 string address = "https://api.elasticemail.com/v2/email/send";
                 string response = Send(address, values);
@@ -330,9 +343,15 @@ namespace ALE_MexJet.Views.CreditoCobranza
         }
         public int iIdContrato
         {
-            get { return (int)ViewState["VSIdPresupuesto"]; }
-            set { ViewState["VSIdPresupuesto"] = value; }
+            get { return (int)ViewState["VSIdContrato"]; }
+            set { ViewState["VSIdContrato"] = value; }
         }
+        public string sClaveContrato
+        {
+            get { return (string)ViewState["VSsClaveContrato"]; }
+            set { ViewState["VSsClaveContrato"] = value; }
+        }
+        //sClaveContrato
         public int iIdAjuste
         {
             get { return (int)ViewState["VSIdAjuste"]; }
@@ -392,8 +411,8 @@ namespace ALE_MexJet.Views.CreditoCobranza
                 try
                 {
                     AjusteRemision oAj = new AjusteRemision();
-                    oAj.IIdRemision = readNumRemision.Value.I();
-                    oAj.SCveContrato = readContrato.Text;
+                    oAj.IIdRemision = ccbMotivo.SelectedItem.Value.I() == 15 ? ccbListaRemisiones.SelectedItem.Value.I() : 0;
+                    oAj.SCveContrato = sClaveContrato;
                     oAj.ITipo = ccbTipo.SelectedItem.Value.I();
                     oAj.IIdMotivo = ccbMotivo.SelectedItem.Value.I(); //(int)ccbMotivo.SelectedItem.GetValue("IdMotivo"); //ccbMotivo.Value != null ? ccbMotivo.Value.ToString().I() : 0;
                     oAj.SHoras = txtHoras.Text;
@@ -421,7 +440,7 @@ namespace ALE_MexJet.Views.CreditoCobranza
                     string sIdRemision = e.CommandArgs.CommandArgument.S();
                     string sClaveContrato = gvRemisiones.GetRowValues(index, "ClaveContrato").ToString();
 
-                    readNumRemision.Text = sIdRemision;
+                    //readNumRemision.Text = sIdRemision;
                     readContrato.Text = sClaveContrato;
 
                     pnlRemisiones.Visible = false;
@@ -448,8 +467,17 @@ namespace ALE_MexJet.Views.CreditoCobranza
                     if (eValidateObj != null)
                         eValidateObj(null, null);
 
-                    lblMsg.Text = "Se registro la solicitud de ajuste correctamente. El autorizador la revisará a la brevedad.";
+                    lblMsg.Text = "Se registró la solicitud de ajuste correctamente. El autorizador la revisará a la brevedad.";
                     msgAlert.ShowOnPageLoad = true;
+                    readContrato.Text = string.Empty;
+                    //readNumRemision.Text = string.Empty;
+                    hdnIdRemision.Value = string.Empty;
+                    ccbTipo.SelectedIndex = -1;
+                    ccbMotivo.SelectedIndex = -1;
+                    txtHoras.Text = string.Empty;
+                    txtComentarios.Text = string.Empty;
+                    pnlAjuste.Visible = false;
+                    pnlRemisiones.Visible = true;
                 }
             }
             catch (Exception ex)
@@ -461,30 +489,80 @@ namespace ALE_MexJet.Views.CreditoCobranza
         protected void btnCancelar_Click(object sender, EventArgs e)
         {
             readContrato.Text = string.Empty;
-            readNumRemision.Text = string.Empty;
+            //readNumRemision.Text = string.Empty;
             hdnIdRemision.Value = string.Empty;
             ccbTipo.SelectedIndex = -1;
             ccbMotivo.SelectedIndex = -1;
             txtHoras.Text = string.Empty;
             txtComentarios.Text = string.Empty;
             pnlAjuste.Visible = false;
-            pnlRemisiones.Visible = true;
+            pnlRemisiones.Visible = false;
         }
 
         protected void bt_OK_Click(object sender, EventArgs e)
         {
             readContrato.Text = string.Empty;
-            readNumRemision.Text = string.Empty;
+            //readNumRemision.Text = string.Empty;
             hdnIdRemision.Value = string.Empty;
             ccbTipo.SelectedIndex = -1;
             ccbMotivo.SelectedIndex = -1;
             txtHoras.Text = string.Empty;
             txtComentarios.Text = string.Empty;
             pnlAjuste.Visible = false;
-            pnlRemisiones.Visible = true;
+            pnlRemisiones.Visible = false;
             msgAlert.ShowOnPageLoad = false;
         }
 
-        
+        protected void gvRemisiones_CommandButtonInitialize(object sender, ASPxGridViewCommandButtonEventArgs e)
+        {
+            object value = (sender as DevExpress.Web.ASPxGridView).GetRowValues(e.VisibleIndex, "Status");
+            e.Enabled = value.S().I() > 0;
+
+        }
+
+        protected void gvRemisiones_CustomButtonInitialize(object sender, ASPxGridViewCustomButtonEventArgs e)
+        {
+            object value = (sender as DevExpress.Web.ASPxGridView).GetRowValues(e.VisibleIndex, "Status");
+            e.Enabled = value.S().I() > 0;
+        }
+
+        protected void UpdatePanel1_Unload(object sender, EventArgs e)
+        {
+            MethodInfo methodInfo = typeof(ScriptManager).GetMethods(BindingFlags.NonPublic | BindingFlags.Instance).Where(i => i.Name.Equals("System.Web.UI.IScriptManagerInternal.RegisterUpdatePanel")).First();
+            methodInfo.Invoke(ScriptManager.GetCurrent(Page),
+                new object[] { sender as UpdatePanel });
+        }
+
+        protected void btnSolicitarAjuste_Click(object sender, EventArgs e)
+        {
+            readContrato.Text = ddlContrato.SelectedItem.Text.S();
+            sClaveContrato = ddlContrato.SelectedItem.Value.S();
+            pnlAjuste.Visible = true;
+        }
+
+        protected void ccbMotivo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+
+                if (ccbMotivo.SelectedItem.Value.I() != 15)
+                {
+                    pnlAgregarRem.Visible = false;
+                }
+                else
+                {
+                    sClaveContrato = ddlContrato.SelectedItem.Value.S();
+
+                    if (eObjSelected != null)
+                        eObjSelected(sender, e);
+
+                    pnlAgregarRem.Visible = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

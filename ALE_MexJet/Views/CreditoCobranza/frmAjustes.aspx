@@ -9,25 +9,33 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
 
-    <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional">
-        <ContentTemplate>
+    <%--<asp:UpdatePanel ID="upaPrincipal" runat="server" UpdateMode="Conditional">
+        <ContentTemplate>--%>
+
+    
+    <%--<dx:ASPxPanel ID="pnlPrincipal" runat="server" Width="100%" BackColor="White" style="border-radius: 14px;">
+        <PanelCollection>
+            <dx:PanelContent>--%>
 
             <div class="row">
                 <div class="col-md-12">
                     <br />
                     <fieldset class="Personal">
                         <legend>
-                            <span style="font-family: Helvetica, Arial,sans-serif; text-align: center;">Búsqueda por contrato</span>
+                            <span style="font-family: Helvetica, Arial,sans-serif; text-align: center;">Ajustes de Horas JetCard</span>
                         </legend>
                         <div class="col-sm-12">
 
 
-                            <table width="100%" style="text-align: left;">
+                            <table width="50%" style="text-align: left;">
                                 <tr>
                                     <td colspan="2">Contrato:<dx:ASPxComboBox ID="ddlContrato" runat="server" Theme="Office2010Black" NullText="- Selecciona -"
-                                        AutoPostBack="true" OnSelectedIndexChanged="ddlContrato_SelectedIndexChanged">
+                                        AutoPostBack="true" OnSelectedIndexChanged="ddlContrato_SelectedIndexChanged" Width="95%">
                                     </dx:ASPxComboBox>                    
 
+                                    </td>
+                                    <td align="left" valign="bottom">&nbsp;
+                                        <dx:ASPxButton ID="btnSolicitarAjuste" runat="server" Text="Solicitar Ajuste" Theme="Office2010Black" OnClick="btnSolicitarAjuste_Click"></dx:ASPxButton>
                                     </td>
                                 </tr>
                             </table>
@@ -37,17 +45,25 @@
                 </div>
             </div>
             <br />
-            <asp:Panel ID="pnlRemisiones" runat="server">
+            <asp:Panel ID="pnlRemisiones" runat="server" Visible="false">
                 <div class="row">
                     <div class="col-md-12" style="margin-left: -15px; width: 102%;">
-                        <asp:UpdatePanel runat="server" UpdateMode="Always">
+                        <asp:UpdatePanel  ID="UpdatePanel1" runat="server" UpdateMode="Always" OnUnload="UpdatePanel1_Unload">
                             <ContentTemplate>
                                 <div class="col-sm-12">
-                                    <dx:ASPxGridView ID="gvRemisiones" runat="server" AutoGenerateColumns="False" Font-Size="Small"
+                                    <%--<dx:ASPxGridView ID="gvRemisiones" runat="server" AutoGenerateColumns="False" Font-Size="Small"
                                         EnableTheming="True"  Styles-Header-HorizontalAlign="Center" ClientInstanceName="gvRemisiones"
                                         Theme="Office2010Black" Width="100%" StylesPopup-EditForm-ModalBackground-Opacity="90"
                                         KeyFieldName="IdRemision"   
                                         OnRowCommand="gvRemisiones_RowCommand">
+                                        <ClientSideEvents EndCallback="function (s, e) {
+                                                    if (s.cpShowPopup)
+                                                    {
+                                                        delete s.cpShowPopup;
+                                                        lbl.SetText(s.cpText);
+                                                        popup.Show();
+                                                    }
+                                                }" />
                                         <Columns>
                                            
                                             <dx:GridViewDataTextColumn Caption="Folio Remisión" FieldName="IdRemision" ShowInCustomizationForm="True" VisibleIndex="1">
@@ -78,11 +94,88 @@
 
                                         </Columns>
                                         <SettingsPager Position="TopAndBottom">
-                                            <PageSizeItemSettings Items="1, 10, 20, 50, 100">
+                                            <PageSizeItemSettings Items="1, 10, 20, 50, 100" Visible="true">
                                             </PageSizeItemSettings>
                                         </SettingsPager>
-                                        <SettingsSearchPanel Visible="true" />
-                                    </dx:ASPxGridView>
+                                        <SettingsEditing Mode="PopupEditForm" EditFormColumnCount="1"></SettingsEditing>
+                                        <Settings ShowGroupPanel="True" />
+                                        <SettingsPopup>
+                                            <EditForm HorizontalAlign="Center" VerticalAlign="Below" Width="400px" />
+                                        </SettingsPopup>
+                                    </dx:ASPxGridView>--%>
+
+
+
+                                    <dx:ASPxGridView ID="gvRemisiones" runat="server" AutoGenerateColumns="False" Font-Size="Small"
+                                                        ClientInstanceName="gvRemisiones" EnableTheming="True" Styles-Header-HorizontalAlign ="Center"
+                                                        Theme="Office2010Black" Width="100%" OnRowCommand="gvRemisiones_RowCommand" KeyFieldName ="IdRemision"
+                                                        OnCommandButtonInitialize ="gvRemisiones_CommandButtonInitialize"   
+                                                        OnCustomButtonInitialize ="gvRemisiones_CustomButtonInitialize"                                                         
+                                                        >                                                        
+                                                        <ClientSideEvents EndCallback="function (s, e) {
+                                                    if (s.cpShowPopup)
+                                                    {
+                                                        delete s.cpShowPopup;
+                                                        lbl.SetText(s.cpText);
+                                                        popup.Show();
+                                                    }
+                                                }" />
+                                                        <Columns>
+                                                            <dx:GridViewDataTextColumn Caption="Folio Remisión" FieldName="IdRemision" ShowInCustomizationForm="True" VisibleIndex="1">
+                                                            </dx:GridViewDataTextColumn>
+                                                            <dx:GridViewDataTextColumn Caption="Fecha Remisión" FieldName="FechaRemision" ShowInCustomizationForm="True" VisibleIndex="2">
+                                                            </dx:GridViewDataTextColumn>
+                                                            <dx:GridViewDataTextColumn Caption="Cliente" FieldName="ClaveCliente" ShowInCustomizationForm="True" VisibleIndex="3">
+                                                            </dx:GridViewDataTextColumn>
+                                                            <dx:GridViewDataTextColumn Caption="Fecha de Vuelo" FieldName="FechaVuelo" ShowInCustomizationForm="True" VisibleIndex="4">
+                                                            </dx:GridViewDataTextColumn>
+                                                            <dx:GridViewDataTextColumn Caption="Matrícula" FieldName="Matricula" ShowInCustomizationForm="True" VisibleIndex="5">
+                                                            </dx:GridViewDataTextColumn>
+                                                            <dx:GridViewDataTextColumn Caption="Ruta" FieldName="Ruta" ShowInCustomizationForm="True" VisibleIndex="6">
+                                                            </dx:GridViewDataTextColumn>
+                                                            <dx:GridViewDataTextColumn Caption="Contrato" FieldName="ClaveContrato" ShowInCustomizationForm="False" VisibleIndex="7" EditFormSettings-Visible="False">
+                                                            </dx:GridViewDataTextColumn>                                                           
+
+                                                            <dx:GridViewDataColumn Caption="Acciones" Visible="true" VisibleIndex="8">
+                                                                <HeaderStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+                                                                <DataItemTemplate>
+
+                                                                    <dx:ASPxButton Text="Ajuste" Theme="Office2010Black" ID="btnAjuste" runat="server" CommandArgument='<%# Eval("IdRemision") %>' CommandName="Ajuste" AutoPostBack="true" 
+                                                                        ToolTip="Agregar Ajuste"></dx:ASPxButton>
+
+                                                                </DataItemTemplate>
+                                                                <EditFormSettings Visible="false" />
+                                                            </dx:GridViewDataColumn>
+
+                                                        </Columns>
+                                                        <SettingsBehavior ConfirmDelete="True" />
+                                                        <SettingsPager Position="TopAndBottom">
+                                                            <PageSizeItemSettings Items="1, 10, 20, 50, 100">
+                                                            </PageSizeItemSettings>
+                                                        </SettingsPager>
+                                                        <SettingsEditing Mode="PopupEditForm" EditFormColumnCount="1"></SettingsEditing>
+                                                        <Settings ShowGroupPanel="True" />
+                                                        <SettingsText ConfirmDelete="¿Desea eliminar?" />
+                                                        <SettingsPopup>
+                                                            <EditForm HorizontalAlign="Center" VerticalAlign="Below" Width="400px" />
+                                                        </SettingsPopup>
+                                                        <SettingsSearchPanel Visible="true" />
+                                                        <SettingsCommandButton>
+
+                                                            <NewButton ButtonType="Link">
+                                                                <Image ToolTip="New">
+                                                                </Image>
+                                                            </NewButton>
+                                                            <UpdateButton Text="Guardar"></UpdateButton>
+                                                            <CancelButton Text ="Cancelar"></CancelButton>
+                                                            <EditButton Text="Editar"></EditButton>
+                                                        </SettingsCommandButton>
+                                                    </dx:ASPxGridView>
+
+
+
+
+
                                 </div>
                             </ContentTemplate>
                         </asp:UpdatePanel>
@@ -132,30 +225,37 @@
                                             <dx:ASPxLabel ID="lblMotivo" runat="server" Text="Motivo"></dx:ASPxLabel>
                                         </div>
                                         <div class="col-md-9">
-                                            <dx:ASPxComboBox ID="ccbMotivo" runat="server" NullText="- Selecciona -"></dx:ASPxComboBox>
+                                            <dx:ASPxComboBox ID="ccbMotivo" runat="server" NullText="- Selecciona -" AutoPostBack="true" OnSelectedIndexChanged="ccbMotivo_SelectedIndexChanged"></dx:ASPxComboBox>
                                         </div>
                                     </div>
 
-                                    <div class="row">
-                                        <div class="col-md-3">
-                                            <dx:ASPxLabel ID="lblNumRemision" runat="server" Text="No. Remisiòn"></dx:ASPxLabel>
+                                    <asp:Panel ID="pnlAgregarRem" runat="server" Visible="false">
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <dx:ASPxLabel ID="lblNumRemision" runat="server" Text="No. Remisión"></dx:ASPxLabel>
+                                            </div>
+                                            <div class="col-md-9">
+                                               <%-- <dx:ASPxLabel ID="readNumRemision" runat="server" Text=""></dx:ASPxLabel>--%>
+                                                <dx:ASPxComboBox ID="ccbListaRemisiones" runat="server" NullText="- Selecciona -"></dx:ASPxComboBox>
+                                            </div>
                                         </div>
-                                        <div class="col-md-9">
-                                            <dx:ASPxLabel ID="readNumRemision" runat="server" Text=""></dx:ASPxLabel>
-                                        </div>
-                                    </div>
+                                    </asp:Panel>
+                                    
 
                                     <div class="row">
                                         <div class="col-md-3">
                                             <dx:ASPxLabel ID="lblHoras" runat="server" Text="Horas"></dx:ASPxLabel>
                                         </div>
-                                        <div class="col-md-9">
+                                        <div class="col-md-3">
                                             <dx:ASPxTextBox ID="txtHoras" runat="server">
                                                 <MaskSettings Mask="HH:mm" IncludeLiterals="All" ShowHints="true" />
                                                 <ValidationSettings Display="Dynamic" ErrorDisplayMode="ImageWithTooltip" ValidationGroup="ValidHr">
                                                     <RequiredField IsRequired="true" ErrorText="Formato incorrecto" />
                                                 </ValidationSettings>
                                             </dx:ASPxTextBox>
+                                        </div>
+                                        <div class="col-md-6" style="padding-left: 30px;">
+                                            <dx:ASPxLabel ID="ASPxLabel1" runat="server" Text="HH:MM"></dx:ASPxLabel>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -231,9 +331,11 @@
             </asp:Panel>
             
 
-        </ContentTemplate>
-    </asp:UpdatePanel>
-
+        <%--</ContentTemplate>
+    </asp:UpdatePanel>--%>
+           <%-- </dx:PanelContent>
+        </PanelCollection>
+    </dx:ASPxPanel>--%>
 
 
     
