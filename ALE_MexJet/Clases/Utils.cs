@@ -23,7 +23,7 @@ using System.Threading;
 using System.Globalization;
 using System.Net;
 using System.Web.Script.Serialization;
-using RestSharp;
+//using RestSharp;
 
 namespace ALE_MexJet.Clases
 {
@@ -8498,32 +8498,32 @@ namespace ALE_MexJet.Clases
             }
         }
 
-        public static TokenWS ObtieneToken
-        {
-            get
-            {
-                JavaScriptSerializer ser = new JavaScriptSerializer();
-                CredencialesWS oCred = new CredencialesWS();
-                oCred.username = Globales.GetConfigApp<string>("UsrWs");
-                oCred.password = Globales.GetConfigApp<string>("PassWs");
+        //public static TokenWS ObtieneToken
+        //{
+        //    get
+        //    {
+        //        JavaScriptSerializer ser = new JavaScriptSerializer();
+        //        CredencialesWS oCred = new CredencialesWS();
+        //        oCred.username = Globales.GetConfigApp<string>("UsrWs");
+        //        oCred.password = Globales.GetConfigApp<string>("PassWs");
 
-                var client = new RestClient(Helper.UrlToken);
-                //client.Authenticator = new SimpleAuthenticator("username", oCred.username, "password", oCred.password);
+        //        var client = new RestClient(Helper.UrlToken);
+        //        //client.Authenticator = new SimpleAuthenticator("username", oCred.username, "password", oCred.password);
 
-                var request = new RestRequest(Method.POST);
+        //        var request = new RestRequest(Method.POST);
 
-                request.AddJsonBody(oCred);
+        //        request.AddJsonBody(oCred);
 
-                //.AddJsonBody
+        //        //.AddJsonBody
 
-                IRestResponse response = client.Execute(request);
-                var resp = response.Content;
+        //        IRestResponse response = client.Execute(request);
+        //        var resp = response.Content;
 
-                TokenWS oToken = ser.Deserialize<TokenWS>(resp);
+        //        TokenWS oToken = ser.Deserialize<TokenWS>(resp);
 
-                return oToken;
-            }
-        }
+        //        return oToken;
+        //    }
+        //}
 
     }
 }

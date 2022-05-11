@@ -9,7 +9,7 @@ using NucleoBase.Core;
 using NucleoBase.BaseDeDatos;
 using System.Web.Script.Serialization;
 using DevExpress.XtraPrinting.Native;
-using RestSharp;
+//using RestSharp;
 using Helper = ALE_MexJet.Clases.Helper;
 
 namespace ALE_MexJet.DomainModel
