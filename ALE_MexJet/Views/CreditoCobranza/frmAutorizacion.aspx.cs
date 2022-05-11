@@ -17,15 +17,15 @@ namespace ALE_MexJet.Views.CreditoCobranza
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            iIdRemision = 0;
+            //iIdRemision = 0;
             iIdAjuste = 0;
-            iIdRemision = Request.QueryString["IdRemision"].S().I();
+            //iIdRemision = Request.QueryString["IdRemision"].S().I();
             iIdAjuste = Request.QueryString["IdAjuste"].S().I();
             oPresenter = new Autorizacion_Presenter(this, new DBRemision());
 
             if (!IsPostBack)
             {
-                if (iIdRemision > 0 && iIdAjuste > 0)
+                if (iIdAjuste > 0)
                 {
                     if (eSearchObj != null)
                         eSearchObj(sender, e);
@@ -48,7 +48,17 @@ namespace ALE_MexJet.Views.CreditoCobranza
                     rdComentarios.Text = dsDatosRem.Tables[0].Rows[0]["Comentarios"].S();
                     sAutorizador = dsDatosRem.Tables[1].Rows[0]["Autorizador"].S();
 
-                    if(dsDatosRem.Tables[0].Rows[0]["Estatus"].S().I() == 1)
+                    sCliente = dsDatosRem.Tables[2].Rows[0]["Cliente"].S();
+                    sContrato = dsDatosRem.Tables[2].Rows[0]["Contrato"].S();
+                    sEjecutivo = dsDatosRem.Tables[2].Rows[0]["Ejecutivo"].S();
+                    sVendedor = dsDatosRem.Tables[2].Rows[0]["Vendedor"].S();
+
+                    rdCliente.Text = sCliente;
+                    rdContrato.Text = sContrato;
+                    rdEjecutivo.Text = sEjecutivo;
+                    rdVendedor.Text = sVendedor;
+
+                    if (dsDatosRem.Tables[0].Rows[0]["Estatus"].S().I() == 1)
                     {
                         btnAutorizar.Enabled = true;
                         btnRechazar.Enabled = true;
@@ -115,6 +125,28 @@ namespace ALE_MexJet.Views.CreditoCobranza
             get { return (string)ViewState["VSAutorizador"]; }
             set { ViewState["VSAutorizador"] = value; }
         }
+
+        public string sCliente
+        {
+            get { return (string)ViewState["VSCliente"]; }
+            set { ViewState["VSCliente"] = value; }
+        }
+        public string sContrato
+        {
+            get { return (string)ViewState["VSContrato"]; }
+            set { ViewState["VSContrato"] = value; }
+        }
+        public string sEjecutivo
+        {
+            get { return (string)ViewState["VSEjecutivo"]; }
+            set { ViewState["VSEjecutivo"] = value; }
+        }
+        public string sVendedor
+        {
+            get { return (string)ViewState["VSVendedor"]; }
+            set { ViewState["VSVendedor"] = value; }
+        }
+
         public AjusteRemision oAjuste
         {
             get

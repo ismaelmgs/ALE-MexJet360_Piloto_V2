@@ -171,6 +171,64 @@
                                             <asp:Label ID="LblMsg" runat="server" Text="" ForeColor="Red" Font-Bold="true" Visible="false" Font-Size="12pt"></asp:Label>
                                         </td>
                                     </tr>
+                                    
+                                    <tr>
+                                        <td>
+                                            &nbsp;
+                                        </td>
+                                        <td align="center">
+                                            <asp:Label ID="Label1" runat="server" Text="Cliente:"></asp:Label>
+                                        </td>              
+                                        <td align="center">
+                                            <asp:Label ID="rdCliente" runat="server" Text=""></asp:Label>
+                                        </td>
+                                        <td>
+                                            &nbsp;
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            &nbsp;
+                                        </td>
+                                        <td align="center">
+                                            <asp:Label ID="Label2" runat="server" Text="Contrato:"></asp:Label>
+                                        </td>              
+                                        <td align="center">
+                                            <asp:Label ID="rdContrato" runat="server" Text=""></asp:Label>
+                                        </td>
+                                        <td>
+                                            &nbsp;
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            &nbsp;
+                                        </td>
+                                        <td align="center">
+                                            <asp:Label ID="Label3" runat="server" Text="Ejecutivo:"></asp:Label>
+                                        </td>              
+                                        <td align="center">
+                                            <asp:Label ID="rdEjecutivo" runat="server" Text=""></asp:Label>
+                                        </td>
+                                        <td>
+                                            &nbsp;
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            &nbsp;
+                                        </td>
+                                        <td align="center">
+                                            <asp:Label ID="Label4" runat="server" Text="Vendedor:"></asp:Label>
+                                        </td>              
+                                        <td align="center">
+                                            <asp:Label ID="rdVendedor" runat="server" Text=""></asp:Label>
+                                        </td>
+                                        <td>
+                                            &nbsp;
+                                        </td>
+                                    </tr>
+
                                     <tr>
                                         <td>
                                             &nbsp;

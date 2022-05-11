@@ -1082,13 +1082,13 @@ namespace ALE_MexJet.DomainModel
             }
         }
 
-        public DataSet DBGetAjusteRemision(int iIdRemision, int iIdAjuste)
+        public DataSet DBGetAjusteRemision(int iIdAjuste)
         {
             try
             {
                 DataSet ds = new DataSet();
 
-                ds = oDB_SP.EjecutarDS("[Principales].[spS_MXJ_ConsultaAjusteRemision]", "@IdRemision", iIdRemision, "@IdAjuste", iIdAjuste);
+                ds = oDB_SP.EjecutarDS("[Principales].[spS_MXJ_ConsultaAjusteRemision]", "@IdAjuste", iIdAjuste);
 
                 return ds;
             }

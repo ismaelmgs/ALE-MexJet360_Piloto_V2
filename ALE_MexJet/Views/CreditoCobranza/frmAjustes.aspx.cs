@@ -174,7 +174,7 @@ namespace ALE_MexJet.Views.CreditoCobranza
                     NameValueCollection values = new NameValueCollection();
                     values.Add("apikey", sapiKey);//ConfigurationManager.AppSettings["apiKey"]);
                     values.Add("from", sEmailSoporte);//onfigurationManager.AppSettings["EmailSoporte"]);
-                    values.Add("fromName", "ALE Management - Contrato " + readContrato.Text);
+                    values.Add("fromName", "ALE Management - Contrato " + sClaveContrato);
                     values.Add("to", dtDatosAutorizador.Rows[0]["Correo"].S());
                     values.Add("subject", "Autorizar Ajuste");
                     values.Add("isTransactional", "true");
@@ -225,7 +225,7 @@ namespace ALE_MexJet.Views.CreditoCobranza
                 NameValueCollection values = new NameValueCollection();
                 values.Add("apikey", sapiKeyNot);//ConfigurationManager.AppSettings["apiKey"]);
                 values.Add("from", sEmailSoporteNot);//onfigurationManager.AppSettings["EmailSoporte"]);
-                values.Add("fromName", "ALE Management - Contrato " + readContrato.Text);
+                values.Add("fromName", "ALE Management - Contrato " + sClaveContrato);
 
                 //if(!string.IsNullOrEmpty(dtNotificador.Rows[0]["CorreoEjecutivo"].S()))
                 //    values.Add("to", dtNotificador.Rows[0]["CorreoEjecutivo"].S());
@@ -267,7 +267,7 @@ namespace ALE_MexJet.Views.CreditoCobranza
                 NameValueCollection values = new NameValueCollection();
                 values.Add("apikey", sapiKeyNot);//ConfigurationManager.AppSettings["apiKey"]);
                 values.Add("from", sEmailSoporteNot);//onfigurationManager.AppSettings["EmailSoporte"]);
-                values.Add("fromName", "ALE Management - Contrato " + readContrato.Text);
+                values.Add("fromName", "ALE Management - Contrato " + sClaveContrato);
 
                 //if (!string.IsNullOrEmpty(dtNotificador.Rows[0]["CorreoVendedor"].S()))
                 //    values.Add("to", dtNotificador.Rows[0]["CorreoVendedor"].S());
@@ -474,10 +474,11 @@ namespace ALE_MexJet.Views.CreditoCobranza
                     hdnIdRemision.Value = string.Empty;
                     ccbTipo.SelectedIndex = -1;
                     ccbMotivo.SelectedIndex = -1;
+                    ccbListaRemisiones.SelectedIndex = -1;
                     txtHoras.Text = string.Empty;
                     txtComentarios.Text = string.Empty;
                     pnlAjuste.Visible = false;
-                    pnlRemisiones.Visible = true;
+                    //pnlRemisiones.Visible = true;
                 }
             }
             catch (Exception ex)

@@ -44,7 +44,8 @@ namespace ALE_MexJet.DomainModel
             {
                 object oRes = new object();
 
-                oRes = oDB_SP.EjecutarValor("[Principales].[spI_MXJ_InsertaAjusteRemision]", "@IdRemision", oA.IIdRemision,
+                oRes = oDB_SP.EjecutarValor("[Principales].[spI_MXJ_InsertaAjusteRemision]", "@CveContrato", oA.SCveContrato,
+                                                                                             "@IdRemision", oA.IIdRemision,
                                                                                              "@Tipo", oA.ITipo,
                                                                                              "@IdMotivo", oA.IIdMotivo,
                                                                                              "@Horas", oA.SHoras,
