@@ -775,6 +775,17 @@
                                                                 </tr>
                                                                 <tr>
                                                                     <td colspan="2">
+                                                                        <dx:ASPxLabel ID="ASPxLabel15" Theme="Office2010Black" runat="server" Text="¿Aplica Factor de Combustible?:"></dx:ASPxLabel>
+                                                                    </td>
+                                                                    <td colspan="2" style="text-align: center;">
+                                                                        <div class="col-sm-1">
+                                                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<dx:ASPxCheckBox ID="chkAplicaFactCombustible" Theme="Office2010Black" runat="server" TextAlign="Left" CheckState="Unchecked">
+                                                                            </dx:ASPxCheckBox>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td colspan="2">
                                                                         <dx:ASPxLabel ID="lblTarifaPrecioCombustibleInternacional" Theme="Office2010Black" runat="server" Text="¿Precio Combustible internacional Especial?:"></dx:ASPxLabel>
                                                                     </td>
                                                                     <td colspan="2" style="text-align: center;">

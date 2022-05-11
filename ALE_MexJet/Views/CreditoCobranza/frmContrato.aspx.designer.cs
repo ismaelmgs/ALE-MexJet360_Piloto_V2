@@ -886,6 +886,24 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         protected global::DevExpress.Web.ASPxTextBox txtFactorTramInt;
         
         /// <summary>
+        /// Control ASPxLabel15.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxLabel ASPxLabel15;
+        
+        /// <summary>
+        /// Control chkAplicaFactCombustible.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxCheckBox chkAplicaFactCombustible;
+        
+        /// <summary>
         /// Control lblTarifaPrecioCombustibleInternacional.
         /// </summary>
         /// <remarks>

@@ -3507,6 +3507,7 @@ namespace ALE_MexJet.Views.CreditoCobranza
                 objTarifa.dFactorTramosNal = txtFactorTramNal.Text.S().D();
                 objTarifa.dFactorTramosInt = txtFactorTramInt.Text.S().D();
 
+                objTarifa.bAplicaFactorCombustible = chkAplicaFactCombustible.Checked;
                 objTarifa.bPrecioInternacionalEspecial = chkTarifasPrecioEspecial.Checked;
                 objTarifa.bCobraTiempoEspera = rdlListTarifaCoroEspera.Value == "1";
                 objTarifa.dTiempoEsperaFijaNal = txtTarifaTiempoEsperaNacionaFija.Text.D();
@@ -3617,6 +3618,9 @@ namespace ALE_MexJet.Views.CreditoCobranza
                 txtTarfaFijoAnualMaximo.Text = objTarifa.dFATopeMAximo.S();
 
                 txtTarifasMemo.Text = objTarifa.sNotas.S();
+
+                chkAplicaFactCombustible.Checked = objTarifa.bAplicaFactorCombustible;
+
                 /*
                 if (objTarifa.bCobraTiempoEspera)
                 {
