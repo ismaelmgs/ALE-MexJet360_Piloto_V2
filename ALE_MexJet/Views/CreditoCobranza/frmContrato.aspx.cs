@@ -126,7 +126,7 @@ namespace ALE_MexJet.Views.CreditoCobranza
                         gvServicioConCargo.DataBind();
                         ObtieneValores();
 
-                        DataRow[] drResults = dtCliente.Select("IdCliente = " + cboGeneralesClientes.SelectedItem.Value.S());
+                        DataRow[] drResults = dtCliente.Select("IdCliente = " + cboGeneralesClientes.Value.S());
                         lblGeneralesRazonSocial.Text = drResults[0].ItemArray[4].S();
                         ValidaRecuperacionContrato();
                     }
@@ -3429,66 +3429,72 @@ namespace ALE_MexJet.Views.CreditoCobranza
             }
             set
             {
-
-                Contrato_Generales objContratosGenerales = value;
-
-                txtGeneralesContrato.Text = objContratosGenerales.sContrato;
-                //cboGeneralesClientes.SelectedIndex=cboGeneralesClientes.Items.IndexOfValue(objContratosGenerales.iIdCliente.S());
-                cboGeneralesClientes.Value = objContratosGenerales.iIdCliente.S();
-                cboGeneralesVendedor.Value = objContratosGenerales.iiDVendedor.S();
-                DtGeneralesFechaContrato.Date = objContratosGenerales.dtFechaContrato;
-                cboGeneralesEjcutivo.Value = objContratosGenerales.iIdEjecutivo.S();
-                dtGeneralesFechaInicioVuelo.Date = objContratosGenerales.dtFechaInicioVuelo;
-                cboGeneralesPaquete.Value = objContratosGenerales.iIdPAquete.S();
-                cboGeneralesModelo.Value = objContratosGenerales.iIdGrupoModelo.S();
-                spinGeneralesAñosContrato.Text = objContratosGenerales.iAñoContratados.S();
-                spinGeneralesMesesGracia.Text = objContratosGenerales.iMesesGracia.S();
-                txtGeneralesHorasContratadasTot.Text = objContratosGenerales.iHorasContratadasTotal.S();
-                txtGeneralesHorasContratadasAño.Text = objContratosGenerales.iHorasContratadasAño.S();
-                txtGeneralesHorasAcumulables.Text = objContratosGenerales.dHorasNoUsadasAcumulables.S();
-                txtGeneralesMatricula.Text = objContratosGenerales.sMatricula;
-                cboGeneralesMonedaPago.Value = objContratosGenerales.iIdTipoCambio.S();
-                txtGeneralesAnticipo.Text = objContratosGenerales.dAnticipioInicial.S();
-                txtGeneralesFijoAnual.Text = objContratosGenerales.dFijoAnual.S();
-                txtGeneralesRenovacion.Text = objContratosGenerales.dRenovacion.S();
-                txtGeneralesPrenda.Text = objContratosGenerales.dPrenda.S();
-                txtGeneraesCostoDirPorRenovacion.Text = objContratosGenerales.dIncrementoCostoDirectoRenovacion.S();
-                chkReasigna.Checked = objContratosGenerales.bReasigna;
-
-                List<Contratos_Bases> lstbases = value.lstBases;
-
-                DataTable dtBaseGeerales = dtBasesSeleccionadas;
-                DataRow drBase = dtBaseGeerales.NewRow();
-                foreach (Contratos_Bases objBases in lstbases)
+                try
                 {
-                    drBase = dtBaseGeerales.NewRow();
-                    drBase["IdBase"] = objBases.iId;
-                    drBase["Aeropuerto"] = objBases.sAeropuerto;
-                    drBase["Tipobase"] = objBases.iPredeterminada;
+                    Contrato_Generales objContratosGenerales = value;
 
-                    dtBaseGeerales.Rows.Add(drBase);
-                }
-                dtBasesSeleccionadas = dtBaseGeerales;
-                txtGeneralesMemo.Text = objContratosGenerales.sNotas;
-                cboGeneralesEstatusCliente.Value = objContratosGenerales.iStatus.S();
+                    txtGeneralesContrato.Text = objContratosGenerales.sContrato;
+                    //cboGeneralesClientes.SelectedIndex=cboGeneralesClientes.Items.IndexOfValue(objContratosGenerales.iIdCliente.S());
+                    cboGeneralesClientes.Value = objContratosGenerales.iIdCliente.S();
+                    cboGeneralesVendedor.Value = objContratosGenerales.iiDVendedor.S();
+                    DtGeneralesFechaContrato.Date = objContratosGenerales.dtFechaContrato;
+                    cboGeneralesEjcutivo.Value = objContratosGenerales.iIdEjecutivo.S();
+                    dtGeneralesFechaInicioVuelo.Date = objContratosGenerales.dtFechaInicioVuelo;
+                    cboGeneralesPaquete.Value = objContratosGenerales.iIdPAquete.S();
+                    cboGeneralesModelo.Value = objContratosGenerales.iIdGrupoModelo.S();
+                    spinGeneralesAñosContrato.Text = objContratosGenerales.iAñoContratados.S();
+                    spinGeneralesMesesGracia.Text = objContratosGenerales.iMesesGracia.S();
+                    txtGeneralesHorasContratadasTot.Text = objContratosGenerales.iHorasContratadasTotal.S();
+                    txtGeneralesHorasContratadasAño.Text = objContratosGenerales.iHorasContratadasAño.S();
+                    txtGeneralesHorasAcumulables.Text = objContratosGenerales.dHorasNoUsadasAcumulables.S();
+                    txtGeneralesMatricula.Text = objContratosGenerales.sMatricula;
+                    cboGeneralesMonedaPago.Value = objContratosGenerales.iIdTipoCambio.S();
+                    txtGeneralesAnticipo.Text = objContratosGenerales.dAnticipioInicial.S();
+                    txtGeneralesFijoAnual.Text = objContratosGenerales.dFijoAnual.S();
+                    txtGeneralesRenovacion.Text = objContratosGenerales.dRenovacion.S();
+                    txtGeneralesPrenda.Text = objContratosGenerales.dPrenda.S();
+                    txtGeneraesCostoDirPorRenovacion.Text = objContratosGenerales.dIncrementoCostoDirectoRenovacion.S();
+                    chkReasigna.Checked = objContratosGenerales.bReasigna;
 
-                //Cargamos el PDF
-                lkbtnDownloadPDF.Text = objContratosGenerales.sNombreArchivo;
-                Session["VSbArchivo"] = objContratosGenerales.bContratoD;
+                    List<Contratos_Bases> lstbases = value.lstBases;
 
-                txtIntercambioMemo.Text = objContratosGenerales.sNotasIntercambios;
-                txtRangosCombustibleMemo.Text = objContratosGenerales.sNotasRangoCombustible;
+                    DataTable dtBaseGeerales = dtBasesSeleccionadas;
+                    DataRow drBase = dtBaseGeerales.NewRow();
+                    foreach (Contratos_Bases objBases in lstbases)
+                    {
+                        drBase = dtBaseGeerales.NewRow();
+                        drBase["IdBase"] = objBases.iId;
+                        drBase["Aeropuerto"] = objBases.sAeropuerto;
+                        drBase["Tipobase"] = objBases.iPredeterminada;
 
-                //if (objContratosGenerales.sMetodoPagoFact != string.Empty)
+                        dtBaseGeerales.Rows.Add(drBase);
+                    }
+                    dtBasesSeleccionadas = dtBaseGeerales;
+                    txtGeneralesMemo.Text = objContratosGenerales.sNotas;
+                    cboGeneralesEstatusCliente.Value = objContratosGenerales.iStatus.S();
+
+                    //Cargamos el PDF
+                    lkbtnDownloadPDF.Text = objContratosGenerales.sNombreArchivo;
+                    Session["VSbArchivo"] = objContratosGenerales.bContratoD;
+
+                    txtIntercambioMemo.Text = objContratosGenerales.sNotasIntercambios;
+                    txtRangosCombustibleMemo.Text = objContratosGenerales.sNotasRangoCombustible;
+
+                    //if (objContratosGenerales.sMetodoPagoFact != string.Empty)
                     ddlMetodoPago.Value = objContratosGenerales.sMetodoPagoFact;
 
-                //if (objContratosGenerales.sFormaPago != string.Empty)
+                    //if (objContratosGenerales.sFormaPago != string.Empty)
                     ddlFormaPago.Value = objContratosGenerales.sFormaPago;
 
-                //if (objContratosGenerales.sUsoCFDI != string.Empty)
+                    //if (objContratosGenerales.sUsoCFDI != string.Empty)
                     ddlUsoCFDI.Value = objContratosGenerales.sUsoCFDI;
 
-                ddlFormatoEdoCta.Value = objContratosGenerales.sFormatoEdoCta;
+                    ddlFormatoEdoCta.Value = objContratosGenerales.sFormatoEdoCta;
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
             }
         }
         public Contrato_Tarifas objContratosTarifas

@@ -20,7 +20,7 @@ namespace ALE_MexJet.DomainModel
                     return oDB_SP.EjecutarDT("[Catalogos].[spS_MXJ_ConsultaCliente]", "@CodigoCliente", "%%",
                                                                                     "@Nombre", "%%",
                                                                                     "@TipoCliente", "%%",
-                                                                                    "@estatus", 1);
+                                                                                    "@estatus", -1);
                 }
                 catch (Exception ex)
                 {
