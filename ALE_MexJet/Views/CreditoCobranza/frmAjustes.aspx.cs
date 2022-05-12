@@ -50,20 +50,11 @@ namespace ALE_MexJet.Views.CreditoCobranza
         {
             try
             {
-                //iIdContrato = 0;
-                //iIdContrato = ddlContrato.SelectedItem.Value.I();
+                string sClaveContrato = string.Empty;
+                sClaveContrato = ddlContrato.SelectedItem.Value.S();
 
-                //if (iIdContrato != 0)
-                //{
-                    //if (eObjSelected != null)
-                    //    eObjSelected(sender, e);
-                    string sClaveContrato = string.Empty;
-                    sClaveContrato = ddlContrato.SelectedItem.Value.S();
-
-                    readContrato.Text = sClaveContrato;
-                    pnlAjuste.Visible = true;
-
-                //}
+                readContrato.Text = sClaveContrato;
+                pnlAjuste.Visible = true;
             }
             catch (Exception ex)
             {
@@ -470,8 +461,6 @@ namespace ALE_MexJet.Views.CreditoCobranza
                     if (eValidateObj != null)
                         eValidateObj(null, null);
 
-                    lblMsg.Text = "Se registró la solicitud de ajuste correctamente. El autorizador la revisará a la brevedad.";
-                    msgAlert.ShowOnPageLoad = true;
                     readContrato.Text = string.Empty;
                     //readNumRemision.Text = string.Empty;
                     hdnIdRemision.Value = string.Empty;
@@ -481,7 +470,11 @@ namespace ALE_MexJet.Views.CreditoCobranza
                     txtHoras.Text = string.Empty;
                     txtComentarios.Text = string.Empty;
                     pnlAjuste.Visible = false;
+                    pnlAgregarRem.Visible = false;
                     //pnlRemisiones.Visible = true;
+
+                    lblMsg.Text = "Se registró la solicitud de ajuste correctamente. El autorizador la revisará a la brevedad.";
+                    msgAlert.ShowOnPageLoad = true; 
                 }
             }
             catch (Exception ex)
@@ -501,6 +494,7 @@ namespace ALE_MexJet.Views.CreditoCobranza
             txtComentarios.Text = string.Empty;
             pnlAjuste.Visible = false;
             pnlRemisiones.Visible = false;
+            pnlAgregarRem.Visible = false;
         }
 
         protected void bt_OK_Click(object sender, EventArgs e)
@@ -514,6 +508,7 @@ namespace ALE_MexJet.Views.CreditoCobranza
             txtComentarios.Text = string.Empty;
             pnlAjuste.Visible = false;
             pnlRemisiones.Visible = false;
+            pnlAgregarRem.Visible = false;
             msgAlert.ShowOnPageLoad = false;
         }
 
