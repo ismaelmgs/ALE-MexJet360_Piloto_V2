@@ -165,7 +165,7 @@
                                 <asp:HiddenField ID="hdnIdRemision" runat="server" />
                                 <br /><br />
                                 <div style="margin:0 auto;width:100%;">
-                                    <table style="margin: 0 auto;padding: 10px; width:35%; background-color:#efefef;" cellspacing="10">
+                                    <table style="margin: 0 auto;padding: 10px; width:50%; background-color:#efefef;border-radius:20px;border:2px solid #cad8e3;" cellspacing="10">
                                     <tr>
                                         <td colspan="4" align="center">
                                             <asp:Label ID="LblMsg" runat="server" Text="" ForeColor="Red" Font-Bold="true" Visible="false" Font-Size="12pt"></asp:Label>
@@ -173,16 +173,16 @@
                                     </tr>
                                     
                                     <tr>
-                                        <td>
+                                        <td align="center" style="width:10%;">
                                             &nbsp;
                                         </td>
-                                        <td align="center">
+                                        <td align="left" style="width:40%;background-color:#e5e5e5;padding:5px;">
                                             <asp:Label ID="Label1" runat="server" Text="Cliente:"></asp:Label>
                                         </td>              
-                                        <td align="center">
+                                        <td align="left" style="width:40%; font-weight:bold;background-color:#e5e5e5;padding:5px;">
                                             <asp:Label ID="rdCliente" runat="server" Text=""></asp:Label>
                                         </td>
-                                        <td>
+                                        <td align="center" style="width:10%;">
                                             &nbsp;
                                         </td>
                                     </tr>
@@ -190,10 +190,10 @@
                                         <td>
                                             &nbsp;
                                         </td>
-                                        <td align="center">
+                                        <td align="left" style="background-color:#e5e5e5;padding:5px;">
                                             <asp:Label ID="Label2" runat="server" Text="Contrato:"></asp:Label>
                                         </td>              
-                                        <td align="center">
+                                        <td align="left" style="font-weight:bold;background-color:#e5e5e5;padding:5px;">
                                             <asp:Label ID="rdContrato" runat="server" Text=""></asp:Label>
                                         </td>
                                         <td>
@@ -204,10 +204,10 @@
                                         <td>
                                             &nbsp;
                                         </td>
-                                        <td align="center">
+                                        <td align="left" style="background-color:#e5e5e5;padding:5px;">
                                             <asp:Label ID="Label3" runat="server" Text="Ejecutivo:"></asp:Label>
                                         </td>              
-                                        <td align="center">
+                                        <td align="left" style="font-weight:bold;background-color:#e5e5e5;padding:5px;">
                                             <asp:Label ID="rdEjecutivo" runat="server" Text=""></asp:Label>
                                         </td>
                                         <td>
@@ -218,10 +218,10 @@
                                         <td>
                                             &nbsp;
                                         </td>
-                                        <td align="center">
+                                        <td align="left" style="background-color:#e5e5e5;padding:5px;">
                                             <asp:Label ID="Label4" runat="server" Text="Vendedor:"></asp:Label>
                                         </td>              
-                                        <td align="center">
+                                        <td align="left" style="font-weight:bold;background-color:#e5e5e5;padding:5px;">
                                             <asp:Label ID="rdVendedor" runat="server" Text=""></asp:Label>
                                         </td>
                                         <td>
@@ -233,10 +233,10 @@
                                         <td>
                                             &nbsp;
                                         </td>
-                                        <td align="center">
+                                        <td align="left" style="background-color:#e5e5e5;padding:5px;">
                                             <asp:Label ID="lblCargoAbono" runat="server" Text="Tipo de ajuste:"></asp:Label>
                                         </td>              
-                                        <td align="center">
+                                        <td align="left" style="font-weight:bold;background-color:#e5e5e5;padding:5px;">
                                             <asp:Label ID="rdCargoAbono" runat="server" Text=""></asp:Label>
                                         </td>
                                         <td>
@@ -247,10 +247,10 @@
                                         <td>
                                             &nbsp;
                                         </td>
-                                        <td align="center">
+                                        <td align="left" style="background-color:#e5e5e5;padding:5px;">
                                             <asp:Label ID="lblMotivo" runat="server" Text="Motivo:"></asp:Label>
                                         </td>              
-                                        <td align="center">
+                                        <td align="left" style="font-weight:bold;background-color:#e5e5e5;padding:5px;">
                                             <asp:Label ID="rdMotivo" runat="server" Text=""></asp:Label>
                                         </td>
                                         <td>
@@ -266,11 +266,11 @@
                                         <td>
                                             &nbsp;
                                         </td>
-                                        <td align="center">
+                                        <td align="left" style="background-color:#e5e5e5;padding:5px;">
                                             <asp:Label ID="lblHoras" runat="server" Text="Tiempo:"></asp:Label>
                                         </td>              
-                                        <td align="center">
-                                            <asp:Label ID="rdHoras" runat="server" Text=""></asp:Label>
+                                        <td align="left" style="font-weight:bold;background-color:#e5e5e5;padding:5px;">
+                                            <asp:Label ID="rdHoras" runat="server" Text=""></asp:Label>&nbsp;&nbsp;HH:MM
                                         </td>
                                         <td>
                                             &nbsp;
@@ -285,10 +285,10 @@
                                         <td>
                                             &nbsp;
                                         </td>
-                                        <td align="center">
+                                        <td align="left" style="background-color:#e5e5e5;padding:5px;">
                                             <asp:Label ID="lblComentarios" runat="server" Text="Comentarios:"></asp:Label>
                                         </td>              
-                                        <td align="center">
+                                        <td align="left" style="font-weight:bold;background-color:#e5e5e5;padding:5px;">
                                             <asp:Label ID="rdComentarios" runat="server" Text=""></asp:Label>
                                         </td>
                                         <td>
@@ -297,7 +297,7 @@
                                     </tr>
                                     <tr>
                                         <td align="center" colspan="4">
-                                            &nbsp;
+                                            <hr />
                                         </td>   
                                         
                                     </tr>
@@ -306,12 +306,12 @@
                                             &nbsp;
                                         </td>
                                         <td align="center">
-                                            <dx:ASPxButton ID="btnAutorizar" runat="server" Text="Autorizar" OnClick="btnAutorizar_Click" CssClass="dxb">
+                                            <dx:ASPxButton ID="btnAutorizar" runat="server" Text="Autorizar" OnClick="btnAutorizar_Click" CssClass="dxb" Theme="Office2010Black" >
                                                 <%--<ClientSideEvents Click="function(s, e) {ppAlert.Show(); }" />--%>
                                             </dx:ASPxButton>
                                         </td>
                                         <td align="center">
-                                            <dx:ASPxButton ID="btnRechazar" runat="server" Text="Rechazar" OnClick="btnRechazar_Click" CssClass="dxb"></dx:ASPxButton>
+                                            <dx:ASPxButton ID="btnRechazar" runat="server" Text="Rechazar" OnClick="btnRechazar_Click" CssClass="dxb" Theme="Office2010Black" ></dx:ASPxButton>
                                         </td>
                                         <td>
                                             &nbsp;
@@ -321,7 +321,8 @@
                                 </table>
                                 <br /><br />
                                 </div>
-                            </div>
+                            </div></div></div>
+                            <div style="margin-top:20%;">&nbsp;</div>
 
                             <%--MODAL PARA MENSAJES--%>
                             <dx:ASPxPopupControl ID="msgAlert" 

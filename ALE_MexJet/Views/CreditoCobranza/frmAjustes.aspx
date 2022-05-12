@@ -27,9 +27,10 @@
                         <div class="col-sm-12">
 
 
-                            <table width="50%" style="text-align: left;">
+                            <table width="50%" style="text-align: left; margin:0 auto;">
                                 <tr>
-                                    <td colspan="2">Contrato:<dx:ASPxComboBox ID="ddlContrato" runat="server" Theme="Office2010Black" NullText="- Selecciona -"
+                                    <td>Contrato:</td>
+                                    <td><dx:ASPxComboBox ID="ddlContrato" runat="server" Theme="Office2010Black" NullText="- Selecciona -"
                                         AutoPostBack="true" OnSelectedIndexChanged="ddlContrato_SelectedIndexChanged" Width="95%">
                                     </dx:ASPxComboBox>                    
 
@@ -188,26 +189,31 @@
                     <div class="col-md-12" style="margin-left: -15px; width: 102%;">
                         <asp:UpdatePanel runat="server" UpdateMode="Always">
                             <ContentTemplate>
-                                <div style="width:50%; margin:0 auto 0 auto;">
-                                    <div class="row" style="padding:0 10px 0 10px;">
+                                <fieldset class="Personal" style="width: 98%;margin-left: 15px;">
+                                    <legend>
+                                        <span style="font-family: Helvetica, Arial,sans-serif; text-align: center;">Solicitud de Ajuste</span>
+                                    </legend>
+                                    <div class="col-sm-12">
+                                    <div style="width:50%; margin:0 auto 0 auto;">
+                                    <%--<div class="row" style="padding:0 10px 0 10px;">
                                         <div class="col-lg-12" align="center">
                                             <h4>
                                                 Solicitud de Ajuste
                                             </h4>
                                         </div>
-                                    </div>
+                                    </div>--%>
 
                                     <div class="row">
-                                        <div class="col-md-3">
+                                        <div class="col-md-3" style="text-align:left;padding-left:12%;">
                                             <dx:ASPxLabel ID="lblContrato" runat="server" Text="Contrato"></dx:ASPxLabel>
                                         </div>
-                                        <div class="col-md-9">
+                                        <div class="col-md-9" style="text-align:left;">
                                             <dx:ASPxLabel ID="readContrato" runat="server" Text=""></dx:ASPxLabel>
                                         </div>
                                     </div>
 
                                     <div class="row">
-                                        <div class="col-md-3">
+                                        <div class="col-md-3" style="text-align:left;padding-left:12%;">
                                             <dx:ASPxLabel ID="lblTipo" runat="server" Text="Tipo"></dx:ASPxLabel>
                                         </div>
                                         <div class="col-md-9">
@@ -221,7 +227,7 @@
                                     </div>
 
                                     <div class="row">
-                                        <div class="col-md-3">
+                                        <div class="col-md-3" style="text-align:left;padding-left:12%;">
                                             <dx:ASPxLabel ID="lblMotivo" runat="server" Text="Motivo"></dx:ASPxLabel>
                                         </div>
                                         <div class="col-md-9">
@@ -231,7 +237,7 @@
 
                                     <asp:Panel ID="pnlAgregarRem" runat="server" Visible="false">
                                         <div class="row">
-                                            <div class="col-md-3">
+                                            <div class="col-md-3" style="text-align:left;padding-left:12%;">
                                                 <dx:ASPxLabel ID="lblNumRemision" runat="server" Text="No. Remisión"></dx:ASPxLabel>
                                             </div>
                                             <div class="col-md-9">
@@ -243,7 +249,7 @@
                                     
 
                                     <div class="row">
-                                        <div class="col-md-3">
+                                        <div class="col-md-3" style="text-align:left;padding-left:12%;">
                                             <dx:ASPxLabel ID="lblHoras" runat="server" Text="Horas"></dx:ASPxLabel>
                                         </div>
                                         <div class="col-md-3">
@@ -254,17 +260,18 @@
                                                 </ValidationSettings>
                                             </dx:ASPxTextBox>
                                         </div>
-                                        <div class="col-md-6" style="padding-left: 30px;">
+                                        <div class="col-md-6" style="text-align:left;">
                                             <dx:ASPxLabel ID="ASPxLabel1" runat="server" Text="HH:MM"></dx:ASPxLabel>
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-md-3">
+                                        <div class="col-md-3" style="text-align:left;padding-left:12%;">
                                             <dx:ASPxLabel ID="lblComentarios" runat="server" Text="Comentarios"></dx:ASPxLabel>
                                         </div>
-                                        <div class="col-md-9">
+                                        <div class="col-md-6">
                                             <dx:ASPxMemo ID="txtComentarios" runat="server" Width="100%" Rows="3"></dx:ASPxMemo>
                                         </div>
+                                        <div class="col-md-3">&nbsp;</div>
                                     </div>
                                     <div class="row" style="padding-top:20px;">
                                         <div class="col-md-6" align="right">
@@ -276,6 +283,9 @@
                                         </div>
                                     </div>
                                 </div>
+                                    </div>
+                                </fieldset>
+                                
 
                                 <%--MODAL PARA MENSAJES--%>
                                 <dx:ASPxPopupControl ID="msgAlert" 
@@ -317,7 +327,7 @@
                                                                     </dx:ASPxButton>
                                                                 </td>
                                                             </tr>
-                                                        </table>
+                                                        </table><br />
                                                     </dx:PanelContent>
                                                 </PanelCollection>
                                             </dx:ASPxPanel>
