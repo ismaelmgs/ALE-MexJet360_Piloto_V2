@@ -80,6 +80,131 @@
         .level1 .static {
             border-radius:5px 5px 0px 0px !important;
         }
+
+
+
+        .btn {
+          display: inline-block;
+          font-weight: 400;
+          color: #212529;
+          text-align: center;
+          vertical-align: middle;
+          -webkit-user-select: none;
+          -moz-user-select: none;
+          -ms-user-select: none;
+          user-select: none;
+          background-color: transparent;
+          border: 1px solid transparent;
+          padding: 0.375rem 0.75rem;
+          font-size: 1rem;
+          line-height: 1.5;
+          border-radius: 0.25rem;
+          transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .btn {
+            transition: none;
+          }
+        }
+
+        .btn:hover {
+          color: #212529;
+          text-decoration: none;
+        }
+
+        .btn:focus, .btn.focus {
+          outline: 0;
+          box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+        }
+
+        .btn.disabled, .btn:disabled {
+          opacity: 0.65;
+        }
+
+        .btn:not(:disabled):not(.disabled) {
+          cursor: pointer;
+        }
+
+        a.btn.disabled,
+        fieldset:disabled a.btn {
+          pointer-events: none;
+        }
+
+        .btn-primary {
+          color: #fff;
+          background-color: #007bff;
+          border-color: #007bff;
+        }
+
+        .btn-primary:hover {
+          color: #fff;
+          background-color: #0069d9;
+          border-color: #0062cc;
+        }
+
+        .btn-primary:focus, .btn-primary.focus {
+          color: #fff;
+          background-color: #0069d9;
+          border-color: #0062cc;
+          box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.5);
+        }
+
+        .btn-primary.disabled, .btn-primary:disabled {
+          color: #fff;
+          background-color: #007bff;
+          border-color: #007bff;
+        }
+
+        .btn-primary:not(:disabled):not(.disabled):active, .btn-primary:not(:disabled):not(.disabled).active,
+        .show > .btn-primary.dropdown-toggle {
+          color: #fff;
+          background-color: #0062cc;
+          border-color: #005cbf;
+        }
+
+        .btn-primary:not(:disabled):not(.disabled):active:focus, .btn-primary:not(:disabled):not(.disabled).active:focus,
+        .show > .btn-primary.dropdown-toggle:focus {
+          box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.5);
+        }
+
+        .btn-warning {
+          color: #212529;
+          background-color: #ffc107;
+          border-color: #ffc107;
+        }
+
+        .btn-warning:hover {
+          color: #212529;
+          background-color: #e0a800;
+          border-color: #d39e00;
+        }
+
+        .btn-warning:focus, .btn-warning.focus {
+          color: #212529;
+          background-color: #e0a800;
+          border-color: #d39e00;
+          box-shadow: 0 0 0 0.2rem rgba(222, 170, 12, 0.5);
+        }
+
+        .btn-warning.disabled, .btn-warning:disabled {
+          color: #212529;
+          background-color: #ffc107;
+          border-color: #ffc107;
+        }
+
+        .btn-warning:not(:disabled):not(.disabled):active, .btn-warning:not(:disabled):not(.disabled).active,
+        .show > .btn-warning.dropdown-toggle {
+          color: #212529;
+          background-color: #d39e00;
+          border-color: #c69500;
+        }
+
+        .btn-warning:not(:disabled):not(.disabled):active:focus, .btn-warning:not(:disabled):not(.disabled).active:focus,
+        .show > .btn-warning.dropdown-toggle:focus {
+          box-shadow: 0 0 0 0.2rem rgba(222, 170, 12, 0.5);
+        }
+
         </style>
     	<style type="text/css" media="screen, projection">
 		    #port {
@@ -157,7 +282,7 @@
                                             -moz-box-shadow: 0px 4px 28px -8px rgba(0,0,0,1);
                                             box-shadow: 0px 4px 28px -8px rgb(0 0 0);">
                                             <div class="col-md-12">
-                                                <span style="font-family: Helvetica, Arial,sans-serif; font-size: 20px; color:#ffffff;">&nbsp;&nbsp;Datos de Ajuste de Remisión</span>
+                                                <span style="font-family: Helvetica, Arial,sans-serif; font-size: 20px; color:#ffffff;">&nbsp;&nbsp;Datos de Ajuste JetCard</span>
                                             </div>
                                         </div>
                                     </div>
@@ -176,10 +301,10 @@
                                         <td align="center" style="width:10%;">
                                             &nbsp;
                                         </td>
-                                        <td align="left" style="width:40%;background-color:#e5e5e5;padding:5px;">
+                                        <td align="left" style="width:25%;background-color:#e5e5e5;padding:5px;">
                                             <asp:Label ID="Label1" runat="server" Text="Cliente:"></asp:Label>
                                         </td>              
-                                        <td align="left" style="width:40%; font-weight:bold;background-color:#e5e5e5;padding:5px;">
+                                        <td align="left" style="width:55%; font-weight:bold;background-color:#e5e5e5;padding:5px;">
                                             <asp:Label ID="rdCliente" runat="server" Text=""></asp:Label>
                                         </td>
                                         <td align="center" style="width:10%;">
@@ -302,21 +427,22 @@
                                         
                                     </tr>
                                     <tr>
-                                        <td>
-                                            &nbsp;
-                                        </td>
-                                        <td align="center">
-                                            <dx:ASPxButton ID="btnAutorizar" runat="server" Text="Autorizar" OnClick="btnAutorizar_Click" CssClass="dxb" Theme="Office2010Black" >
-                                                <%--<ClientSideEvents Click="function(s, e) {ppAlert.Show(); }" />--%>
-                                            </dx:ASPxButton>
-                                        </td>
-                                        <td align="center">
-                                            <dx:ASPxButton ID="btnRechazar" runat="server" Text="Rechazar" OnClick="btnRechazar_Click" CssClass="dxb" Theme="Office2010Black" ></dx:ASPxButton>
-                                        </td>
-                                        <td>
-                                            &nbsp;
+                                        <td colspan="4" align="center">
+                                            <table width="100%" border="0">
+                                                <tr>
+                                                    <td align="right" style="padding-right:20px;" width="50%">
+                                                        <asp:Button ID="btnAutorizar" runat="server" Text="Autorizar" CssClass="btn btn-primary" Visible="true" ClientIDMode="Static"  style="font-family:Arial;margin-top: 6px;width: 150px;margin-right: 3px;" OnClick="btnAutorizar_Click" />
+                                                        <%--<dx:ASPxButton ID="btnAutorizar" runat="server" Text="Autorizar" OnClick="btnAutorizar_Click" CssClass="btn btn-primary" style="font-family:Arial;margin-top: 6px;width: 150px;margin-right: 3px;"></dx:ASPxButton>--%>
+                                                    </td>
+                                                    <td align="left" style="padding-left:20px;" width="50%">
+                                                        <asp:Button ID="btnRechazar" runat="server" Text="Rechazar" CssClass="btn btn-warning" Visible="true" ClientIDMode="Static" style="font-family:Arial;margin-top: 6px;width: 150px;" OnClick="btnRechazar_Click" />
+                                                        <%--<dx:ASPxButton ID="btnRechazar" runat="server" Text="Rechazar" OnClick="btnRechazar_Click" CssClass="btn btn-warning" style="font-family:Arial;margin-top: 6px;width: 150px;"></dx:ASPxButton>--%>
+                                                    </td>
+                                                </tr>
+                                            </table>
                                         </td>
                                     </tr>
+
                                    
                                 </table>
                                 <br /><br />

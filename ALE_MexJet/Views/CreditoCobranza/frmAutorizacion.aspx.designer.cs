@@ -219,7 +219,7 @@ namespace ALE_MexJet.Views.CreditoCobranza
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxButton btnAutorizar;
+        protected global::System.Web.UI.WebControls.Button btnAutorizar;
 
         /// <summary>
         /// Control btnRechazar.
@@ -228,7 +228,7 @@ namespace ALE_MexJet.Views.CreditoCobranza
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxButton btnRechazar;
+        protected global::System.Web.UI.WebControls.Button btnRechazar;
 
         /// <summary>
         /// Control msgAlert.

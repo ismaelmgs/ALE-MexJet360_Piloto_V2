@@ -24,10 +24,9 @@ namespace ALE_MexJet.Views.CreditoCobranza
 {
     public partial class frmAjustes : System.Web.UI.Page, IViewAjuste
     {
+        #region EVENTOS
         protected void Page_Load(object sender, EventArgs e)
         {
-            
-
             oPresenter = new Ajuste_Presenter(this, new DBAjuste());
 
             gvRemisiones.SettingsPager.Position = PagerPosition.TopAndBottom;
@@ -45,7 +44,6 @@ namespace ALE_MexJet.Views.CreditoCobranza
                 eSearchObj(sender, e);
             //}
         }
-
         protected void ddlContrato_SelectedIndexChanged(object sender, EventArgs e)
         {
             try
@@ -54,13 +52,145 @@ namespace ALE_MexJet.Views.CreditoCobranza
                 sClaveContrato = ddlContrato.SelectedItem.Value.S();
 
                 readContrato.Text = sClaveContrato;
-                pnlAjuste.Visible = true;
+                //pnlAjuste.Visible = true;
             }
             catch (Exception ex)
             {
                 throw ex;
             }
         }
+        protected void gvRemisiones_RowCommand(object sender, ASPxGridViewRowCommandEventArgs e)
+        {
+            try
+            {
+                if (e.CommandArgs.CommandName.S() == "Ajuste")
+                {
+                    int index = e.VisibleIndex.I();
+                    string sIdRemision = e.CommandArgs.CommandArgument.S();
+                    string sClaveContrato = gvRemisiones.GetRowValues(index, "ClaveContrato").ToString();
+
+                    //readNumRemision.Text = sIdRemision;
+                    readContrato.Text = sClaveContrato;
+
+                    pnlRemisiones.Visible = false;
+                    pnlAjuste.Visible = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        protected void btnAceptar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                iIdAjuste = 0;
+
+                if (eNewObj != null)
+                    eNewObj(sender, e);
+
+                if (iIdAjuste != 0)
+                {
+                    if (eValidateObj != null)
+                        eValidateObj(null, null);
+
+                    readContrato.Text = string.Empty;
+                    //readNumRemision.Text = string.Empty;
+                    hdnIdRemision.Value = string.Empty;
+                    ccbTipo.SelectedIndex = -1;
+                    ccbMotivo.SelectedIndex = -1;
+                    ccbListaRemisiones.SelectedIndex = -1;
+                    txtHoras.Text = string.Empty;
+                    txtComentarios.Text = string.Empty;
+                    pnlAjuste.Visible = false;
+                    pnlAgregarRem.Visible = false;
+                    //pnlRemisiones.Visible = true;
+
+                    lblMsg.Text = "Se registró la solicitud de ajuste correctamente. El autorizador la revisará a la brevedad.";
+                    msgAlert.ShowOnPageLoad = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        protected void btnCancelar_Click(object sender, EventArgs e)
+        {
+            readContrato.Text = string.Empty;
+            //readNumRemision.Text = string.Empty;
+            hdnIdRemision.Value = string.Empty;
+            ccbTipo.SelectedIndex = -1;
+            ccbMotivo.SelectedIndex = -1;
+            txtHoras.Text = string.Empty;
+            txtComentarios.Text = string.Empty;
+            pnlAjuste.Visible = false;
+            pnlRemisiones.Visible = false;
+            pnlAgregarRem.Visible = false;
+        }
+        protected void bt_OK_Click(object sender, EventArgs e)
+        {
+            readContrato.Text = string.Empty;
+            //readNumRemision.Text = string.Empty;
+            hdnIdRemision.Value = string.Empty;
+            ccbTipo.SelectedIndex = -1;
+            ccbMotivo.SelectedIndex = -1;
+            txtHoras.Text = string.Empty;
+            txtComentarios.Text = string.Empty;
+            pnlAjuste.Visible = false;
+            pnlRemisiones.Visible = false;
+            pnlAgregarRem.Visible = false;
+            msgAlert.ShowOnPageLoad = false;
+        }
+        protected void gvRemisiones_CommandButtonInitialize(object sender, ASPxGridViewCommandButtonEventArgs e)
+        {
+            object value = (sender as DevExpress.Web.ASPxGridView).GetRowValues(e.VisibleIndex, "Status");
+            e.Enabled = value.S().I() > 0;
+
+        }
+        protected void gvRemisiones_CustomButtonInitialize(object sender, ASPxGridViewCustomButtonEventArgs e)
+        {
+            object value = (sender as DevExpress.Web.ASPxGridView).GetRowValues(e.VisibleIndex, "Status");
+            e.Enabled = value.S().I() > 0;
+        }
+        protected void UpdatePanel1_Unload(object sender, EventArgs e)
+        {
+            MethodInfo methodInfo = typeof(ScriptManager).GetMethods(BindingFlags.NonPublic | BindingFlags.Instance).Where(i => i.Name.Equals("System.Web.UI.IScriptManagerInternal.RegisterUpdatePanel")).First();
+            methodInfo.Invoke(ScriptManager.GetCurrent(Page),
+                new object[] { sender as UpdatePanel });
+        }
+        protected void btnSolicitarAjuste_Click(object sender, EventArgs e)
+        {
+            readContrato.Text = ddlContrato.SelectedItem.Text.S();
+            sClaveContrato = ddlContrato.SelectedItem.Value.S();
+            pnlAjuste.Visible = true;
+        }
+        protected void ccbMotivo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+
+                if (ccbMotivo.SelectedItem.Value.I() != 15)
+                {
+                    pnlAgregarRem.Visible = false;
+                }
+                else
+                {
+                    sClaveContrato = ddlContrato.SelectedItem.Value.S();
+
+                    if (eObjSelected != null)
+                        eObjSelected(sender, e);
+
+                    pnlAgregarRem.Visible = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        #endregion
 
         #region MÉTODOS
         public void LoadContratos(DataTable dt)
@@ -167,8 +297,8 @@ namespace ALE_MexJet.Views.CreditoCobranza
                     values.Add("from", sEmailSoporte);//onfigurationManager.AppSettings["EmailSoporte"]);
                     values.Add("fromName", "ALE Management - Contrato " + sClaveContrato);
 
-                    //values.Add("to", dtDatosAutorizador.Rows[0]["Correo"].S());
-                    values.Add("to", "jimmymh87@gmail.com"); //Prueba
+                    values.Add("to", dtDatosAutorizador.Rows[0]["Correo"].S());
+                    //values.Add("to", "jimmymh87@gmail.com"); //Prueba
 
                     values.Add("subject", "Autorizar Ajuste");
                     values.Add("isTransactional", "true");
@@ -210,7 +340,6 @@ namespace ALE_MexJet.Views.CreditoCobranza
             }
 
         }
-
         public bool NotificarEjecutivo(DataTable dtNotificador) 
         {
             try
@@ -221,11 +350,8 @@ namespace ALE_MexJet.Views.CreditoCobranza
                 values.Add("from", sEmailSoporteNot);//onfigurationManager.AppSettings["EmailSoporte"]);
                 values.Add("fromName", "ALE Management - Contrato " + sClaveContrato);
 
-                //if(!string.IsNullOrEmpty(dtNotificador.Rows[0]["CorreoEjecutivo"].S()))
-                //    values.Add("to", dtNotificador.Rows[0]["CorreoEjecutivo"].S());
-                //else
-                //    values.Add("to", "jimmymh87@gmail.com");
-                values.Add("to", "jimmymh87@gmail.com"); //Prueba
+                values.Add("to", dtNotificador.Rows[0]["CorreoEjecutivo"].S());
+                //values.Add("to", "jimmymh87@gmail.com"); //Prueba
 
                 values.Add("subject", "Notificación de ajuste al ejecutivo");
                 values.Add("isTransactional", "true");
@@ -263,11 +389,8 @@ namespace ALE_MexJet.Views.CreditoCobranza
                 values.Add("from", sEmailSoporteNot);//onfigurationManager.AppSettings["EmailSoporte"]);
                 values.Add("fromName", "ALE Management - Contrato " + sClaveContrato);
 
-                //if (!string.IsNullOrEmpty(dtNotificador.Rows[0]["CorreoVendedor"].S()))
-                //    values.Add("to", dtNotificador.Rows[0]["CorreoVendedor"].S());
-                //else
-                //    values.Add("to", "jimmymh87@gmail.com");
-                values.Add("to", "jimmymh87@gmail.com"); //Prueba
+                values.Add("to", dtNotificador.Rows[0]["CorreoVendedor"].S());
+                //values.Add("to", "jimmymh87@gmail.com"); //Prueba
 
                 values.Add("subject", "Notificación de ajuste al vendedor");
                 values.Add("isTransactional", "true");
@@ -423,145 +546,5 @@ namespace ALE_MexJet.Views.CreditoCobranza
             }
         }
         #endregion
-
-        protected void gvRemisiones_RowCommand(object sender, ASPxGridViewRowCommandEventArgs e)
-        {
-            try
-            {
-                if (e.CommandArgs.CommandName.S() == "Ajuste")
-                {
-                    int index = e.VisibleIndex.I();
-                    string sIdRemision = e.CommandArgs.CommandArgument.S();
-                    string sClaveContrato = gvRemisiones.GetRowValues(index, "ClaveContrato").ToString();
-
-                    //readNumRemision.Text = sIdRemision;
-                    readContrato.Text = sClaveContrato;
-
-                    pnlRemisiones.Visible = false;
-                    pnlAjuste.Visible = true;
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
-
-        protected void btnAceptar_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                iIdAjuste = 0;
-
-                if (eNewObj != null)
-                    eNewObj(sender, e);
-
-                if (iIdAjuste != 0)
-                {
-                    if (eValidateObj != null)
-                        eValidateObj(null, null);
-
-                    readContrato.Text = string.Empty;
-                    //readNumRemision.Text = string.Empty;
-                    hdnIdRemision.Value = string.Empty;
-                    ccbTipo.SelectedIndex = -1;
-                    ccbMotivo.SelectedIndex = -1;
-                    ccbListaRemisiones.SelectedIndex = -1;
-                    txtHoras.Text = string.Empty;
-                    txtComentarios.Text = string.Empty;
-                    pnlAjuste.Visible = false;
-                    pnlAgregarRem.Visible = false;
-                    //pnlRemisiones.Visible = true;
-
-                    lblMsg.Text = "Se registró la solicitud de ajuste correctamente. El autorizador la revisará a la brevedad.";
-                    msgAlert.ShowOnPageLoad = true; 
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
-
-        protected void btnCancelar_Click(object sender, EventArgs e)
-        {
-            readContrato.Text = string.Empty;
-            //readNumRemision.Text = string.Empty;
-            hdnIdRemision.Value = string.Empty;
-            ccbTipo.SelectedIndex = -1;
-            ccbMotivo.SelectedIndex = -1;
-            txtHoras.Text = string.Empty;
-            txtComentarios.Text = string.Empty;
-            pnlAjuste.Visible = false;
-            pnlRemisiones.Visible = false;
-            pnlAgregarRem.Visible = false;
-        }
-
-        protected void bt_OK_Click(object sender, EventArgs e)
-        {
-            readContrato.Text = string.Empty;
-            //readNumRemision.Text = string.Empty;
-            hdnIdRemision.Value = string.Empty;
-            ccbTipo.SelectedIndex = -1;
-            ccbMotivo.SelectedIndex = -1;
-            txtHoras.Text = string.Empty;
-            txtComentarios.Text = string.Empty;
-            pnlAjuste.Visible = false;
-            pnlRemisiones.Visible = false;
-            pnlAgregarRem.Visible = false;
-            msgAlert.ShowOnPageLoad = false;
-        }
-
-        protected void gvRemisiones_CommandButtonInitialize(object sender, ASPxGridViewCommandButtonEventArgs e)
-        {
-            object value = (sender as DevExpress.Web.ASPxGridView).GetRowValues(e.VisibleIndex, "Status");
-            e.Enabled = value.S().I() > 0;
-
-        }
-
-        protected void gvRemisiones_CustomButtonInitialize(object sender, ASPxGridViewCustomButtonEventArgs e)
-        {
-            object value = (sender as DevExpress.Web.ASPxGridView).GetRowValues(e.VisibleIndex, "Status");
-            e.Enabled = value.S().I() > 0;
-        }
-
-        protected void UpdatePanel1_Unload(object sender, EventArgs e)
-        {
-            MethodInfo methodInfo = typeof(ScriptManager).GetMethods(BindingFlags.NonPublic | BindingFlags.Instance).Where(i => i.Name.Equals("System.Web.UI.IScriptManagerInternal.RegisterUpdatePanel")).First();
-            methodInfo.Invoke(ScriptManager.GetCurrent(Page),
-                new object[] { sender as UpdatePanel });
-        }
-
-        protected void btnSolicitarAjuste_Click(object sender, EventArgs e)
-        {
-            readContrato.Text = ddlContrato.SelectedItem.Text.S();
-            sClaveContrato = ddlContrato.SelectedItem.Value.S();
-            pnlAjuste.Visible = true;
-        }
-
-        protected void ccbMotivo_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            try
-            {
-
-                if (ccbMotivo.SelectedItem.Value.I() != 15)
-                {
-                    pnlAgregarRem.Visible = false;
-                }
-                else
-                {
-                    sClaveContrato = ddlContrato.SelectedItem.Value.S();
-
-                    if (eObjSelected != null)
-                        eObjSelected(sender, e);
-
-                    pnlAgregarRem.Visible = true;
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
     }
 }

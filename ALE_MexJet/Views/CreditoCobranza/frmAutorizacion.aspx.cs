@@ -15,6 +15,7 @@ namespace ALE_MexJet.Views.CreditoCobranza
 {
     public partial class frmAutorizacion : System.Web.UI.Page, IViewAutorizacion
     {
+        #region EVENTOS
         protected void Page_Load(object sender, EventArgs e)
         {
             //iIdRemision = 0;
@@ -32,7 +33,48 @@ namespace ALE_MexJet.Views.CreditoCobranza
                 }
             }
         }
+        protected void btnAutorizar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                iRespuesta = 2;
 
+                if (eSaveObj != null)
+                    eSaveObj(sender, e);
+
+                btnAutorizar.Enabled = false;
+                btnRechazar.Enabled = false;
+                string sMsg = "Se autorizó correctamente el ajuste";
+                MostrarMensaje(sMsg);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        protected void btnRechazar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                iRespuesta = -1;
+
+                if (eSaveObj != null)
+                    eSaveObj(sender, e);
+
+                string sMsg = "Se ha rechazado el ajuste solicitado";
+                MostrarMensaje(sMsg);
+
+                btnAutorizar.Enabled = false;
+                btnRechazar.Enabled = false;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        #endregion
+
+        #region MÉTODOS
         public void LoadRemision(DataSet ds)
         {
             try
@@ -64,7 +106,7 @@ namespace ALE_MexJet.Views.CreditoCobranza
                         btnRechazar.Enabled = true;
                         LblMsg.Visible = false;
                     }
-                    else if(dsDatosRem.Tables[0].Rows[0]["Estatus"].S().I() == 2)
+                    else if (dsDatosRem.Tables[0].Rows[0]["Estatus"].S().I() == 2)
                     {
                         btnAutorizar.Enabled = false;
                         btnRechazar.Enabled = false;
@@ -86,6 +128,12 @@ namespace ALE_MexJet.Views.CreditoCobranza
                 throw ex;
             }
         }
+        public void MostrarMensaje(string sMensaje)
+        {
+            lbl.Text = sMensaje;
+            msgAlert.ShowOnPageLoad = true;
+        }
+        #endregion
 
         #region VARIABLES Y PROPIEDADES
         Autorizacion_Presenter oPresenter;
@@ -125,7 +173,6 @@ namespace ALE_MexJet.Views.CreditoCobranza
             get { return (string)ViewState["VSAutorizador"]; }
             set { ViewState["VSAutorizador"] = value; }
         }
-
         public string sCliente
         {
             get { return (string)ViewState["VSCliente"]; }
@@ -146,7 +193,6 @@ namespace ALE_MexJet.Views.CreditoCobranza
             get { return (string)ViewState["VSVendedor"]; }
             set { ViewState["VSVendedor"] = value; }
         }
-
         public AjusteRemision oAjuste
         {
             get
@@ -154,7 +200,6 @@ namespace ALE_MexJet.Views.CreditoCobranza
                 try
                 {
                     AjusteRemision oAJ = new AjusteRemision();
-                    oAJ.IIdRemision = iIdRemision;
                     oAJ.IEstatus = iRespuesta;
                     oAJ.SUsuarioAutorizador = sAutorizador;
                     oAJ.IIdAjuste = iIdAjuste;
@@ -165,56 +210,7 @@ namespace ALE_MexJet.Views.CreditoCobranza
                     throw ex;
                 }
             }
-
-            #endregion
         }
-
-        protected void btnAutorizar_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                iRespuesta = 2;
-
-                if (eSaveObj != null)
-                    eSaveObj(sender, e);
-
-                btnAutorizar.Enabled = false;
-                btnRechazar.Enabled = false;
-                string sMsg = "Se autorizó correctamente el ajuste";
-                MostrarMensaje(sMsg);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
-
-        protected void btnRechazar_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                iRespuesta = -1;
-
-                if (eSaveObj != null)
-                    eSaveObj(sender, e);
-
-                string sMsg = "Se ha rechazado el ajuste solicitado";
-                MostrarMensaje(sMsg);
-
-                btnAutorizar.Enabled = false;
-                btnRechazar.Enabled = false;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
-
-        public void MostrarMensaje(string sMensaje)
-        {
-            lbl.Text = sMensaje;
-            msgAlert.ShowOnPageLoad = true;
-        }
-
+        #endregion
     }
 }
