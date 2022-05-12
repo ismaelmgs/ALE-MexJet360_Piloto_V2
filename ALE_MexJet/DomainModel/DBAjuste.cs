@@ -98,11 +98,11 @@ namespace ALE_MexJet.DomainModel
             }
 
         }
-        public DataSet DBGetDatosAutorizador(int iIdContrato)
+        public DataSet DBGetDatosAutorizador(string sCveContrato)
         {
             try
             {
-                return oDB_SP.EjecutarDS("[Principales].[spS_MXJ_ConsultaAutorizador]", "@iIdContrato", iIdContrato);
+                return oDB_SP.EjecutarDS("[Principales].[spS_MXJ_ConsultaAutorizador]", "@cveContrato", sCveContrato);
             }
             catch (Exception ex)
             {

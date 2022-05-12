@@ -50,11 +50,11 @@ namespace ALE_MexJet.Views.CreditoCobranza
         {
             try
             {
-                iIdContrato = 0;
-                iIdContrato = ddlContrato.SelectedItem.Value.I();
+                //iIdContrato = 0;
+                //iIdContrato = ddlContrato.SelectedItem.Value.I();
 
-                if (iIdContrato != 0)
-                {
+                //if (iIdContrato != 0)
+                //{
                     //if (eObjSelected != null)
                     //    eObjSelected(sender, e);
                     string sClaveContrato = string.Empty;
@@ -63,7 +63,7 @@ namespace ALE_MexJet.Views.CreditoCobranza
                     readContrato.Text = sClaveContrato;
                     pnlAjuste.Visible = true;
 
-                }
+                //}
             }
             catch (Exception ex)
             {
@@ -175,7 +175,10 @@ namespace ALE_MexJet.Views.CreditoCobranza
                     values.Add("apikey", sapiKey);//ConfigurationManager.AppSettings["apiKey"]);
                     values.Add("from", sEmailSoporte);//onfigurationManager.AppSettings["EmailSoporte"]);
                     values.Add("fromName", "ALE Management - Contrato " + sClaveContrato);
-                    values.Add("to", dtDatosAutorizador.Rows[0]["Correo"].S());
+
+                    //values.Add("to", dtDatosAutorizador.Rows[0]["Correo"].S());
+                    values.Add("to", "jimmymh87@gmail.com"); //Prueba
+
                     values.Add("subject", "Autorizar Ajuste");
                     values.Add("isTransactional", "true");
                     values.Add("template", sTemplate);// ConfigurationManager.AppSettings["template"]);
