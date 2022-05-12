@@ -20,7 +20,7 @@ namespace ALE_MexJet.Presenter
 
         protected override void SearchObj_Presenter(object sender, EventArgs e)
         {
-            oIView.LoadRemision(oIGestCat.DBGetAjusteRemision(oIView.iIdRemision, oIView.iIdAjuste));
+            oIView.LoadRemision(oIGestCat.DBGetAjusteRemision(oIView.iIdAjuste));
         }
 
         protected override void SaveObj_Presenter(object sender, EventArgs e)

@@ -1069,8 +1069,7 @@ namespace ALE_MexJet.DomainModel
             {
                 object oRes = new object();
 
-                oRes = oDB_SP.EjecutarValor("[Principales].[spU_MXJ_ActualizaAjusteRemision]", "@IdRemision", oA.IIdRemision,
-                                                                                               "@Estatus", oA.IEstatus,
+                oRes = oDB_SP.EjecutarValor("[Principales].[spU_MXJ_ActualizaAjusteRemision]", "@Estatus", oA.IEstatus,
                                                                                                "@UsuarioAut", oA.SUsuarioAutorizador,
                                                                                                "@IdAjuste", oA.IIdAjuste);
 
