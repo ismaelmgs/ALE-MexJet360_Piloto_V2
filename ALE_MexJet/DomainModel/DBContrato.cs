@@ -456,7 +456,7 @@ namespace ALE_MexJet.DomainModel
                                                                                                 "@ConsumoGalonesHrV", objTarifa.dConsumoGalones,
                                                                                                 "@FactorTramosNal", objTarifa.dFactorTramosNal,
                                                                                                 "@FactorTramosInt", objTarifa.dFactorTramosInt,
-                                                                                                "@AplicaFactorCombustible", objTarifa.bAplicaFactorCombustible == true ? 1 : 0,
+                                                                                                "@AplicaFactorCombustible", objTarifa.bAplicaFactorCombustible,
                                                                                                 "@CombustibleIntEspV", objTarifa.bPrecioInternacionalEspecial,
                                                                                                 "@SeCobraTE", objTarifa.bCobraTiempoEspera,
                                                                                                 "@TarifaNacionalTE", objTarifa.dTiempoEsperaFijaNal,
@@ -941,7 +941,7 @@ namespace ALE_MexJet.DomainModel
                                                                                                 "@ConsumoGalonesHrV", oTarifas.dConsumoGalones,
                                                                                                 "@FactorTramosNal", oTarifas.dFactorTramosNal,
                                                                                                 "@FactorTramosInt", oTarifas.dFactorTramosInt,
-                                                                                                "@AplicaFactorCombustible", oTarifas.bAplicaFactorCombustible ? 1 : 0,
+                                                                                                "@AplicaFactorCombustible", oTarifas.bAplicaFactorCombustible,
                                                                                                 "@CombustibleIntEspV", oTarifas.bPrecioInternacionalEspecial,
                                                                                                 "@SeCobraTE", oTarifas.bCobraTiempoEspera,
                                                                                                 "@TarifaNacionalTE", oTarifas.dTiempoEsperaFijaNal,
@@ -1400,7 +1400,7 @@ namespace ALE_MexJet.DomainModel
                     objGenerales.dFactorTramosNal = dr.S("FactorTramosNal").D();
                     objGenerales.dFactorTramosInt = dr.S("FactorTramosInt").D();
 
-                    objGenerales.bAplicaFactorCombustible = dr.S("AplicaFactorCombustible") == "1" ? true : false;
+                    objGenerales.bAplicaFactorCombustible = dr.S("AplicaFactorCombustible").I();
                 }
                 return objGenerales;
             }
@@ -1673,6 +1673,16 @@ namespace ALE_MexJet.DomainModel
             }
         }
 
-
+        public DataTable DBGetObtieneFactoresCombustible(int iOpcion)
+        {
+            try
+            {
+                return oDB_SP.EjecutarDT("[Principales].[spS_MXJ_ObtieneTablaFactoresCombustible]", "@Opcion", iOpcion);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

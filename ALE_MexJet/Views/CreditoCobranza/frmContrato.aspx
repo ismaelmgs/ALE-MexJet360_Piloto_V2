@@ -774,8 +774,34 @@
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
+                                                                    <td>
+                                                                        
+                                                                    </td>
+                                                                    <td colspan="2" style="text-align: center;">
+                                                                        <div class="col-sm-1">
+                                                                            <asp:ImageButton ID="imbComunicao" runat="server" ToolTip="Ver tabla de factores comunicado 1ro de Mayo" ImageUrl="~/img/iconos/find.png" Height="24" Width="24" 
+                                                                                OnClick="imbComunicao_Click"/>
+                                                                        </div>
+                                                                        <div class="col-sm-10">
+                                                                            <dx:ASPxRadioButtonList ID="rblFactorCombustible" runat="server" Width="100%" RepeatDirection="Horizontal"
+                                                                                AutoPostBack="true" OnValueChanged="rblFactorCombustible_ValueChanged">
+                                                                                <Items>
+                                                                                    <dx:ListEditItem Text="Factor Combustible Comunicado 1ro de Mayo" Value="1" />
+                                                                                    <dx:ListEditItem Text="Factor Combustible Contratos Nuevos" Value="2" />
+                                                                                </Items>
+                                                                            </dx:ASPxRadioButtonList>
+                                                                        </div>
+                                                                        <div class="col-sm-1">
+                                                                            <asp:ImageButton ID="imbContratosNvos" runat="server" ToolTip="Ver tabla para nuevos contratos" ImageUrl="~/img/iconos/find.png" Height="24" Width="24" 
+                                                                                OnClick="imbContratosNvos_Click"/>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td></td>
+                                                                </tr>
+
+                                                                <%--<tr>
                                                                     <td colspan="2">
-                                                                        <dx:ASPxLabel ID="ASPxLabel15" Theme="Office2010Black" runat="server" Text="¿Aplica Factor de Combustible?:"></dx:ASPxLabel>
+                                                                        <dx:ASPxLabel ID="ASPxLabel15" Theme="Office2010Black" runat="server" Text="¿Aplica Factor de Combustible 1ro de Abril?:"></dx:ASPxLabel>
                                                                     </td>
                                                                     <td colspan="2" style="text-align: center;">
                                                                         <div class="col-sm-1">
@@ -784,6 +810,18 @@
                                                                         </div>
                                                                     </td>
                                                                 </tr>
+                                                                <tr>
+                                                                    <td colspan="2">
+                                                                        <dx:ASPxLabel ID="ASPxLabel16" Theme="Office2010Black" runat="server" Text="¿Aplica Factor de Combustible Contratos Nuevos?:"></dx:ASPxLabel>
+                                                                    </td>
+                                                                    <td colspan="2" style="text-align: center;">
+                                                                        <div class="col-sm-1">
+                                                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<dx:ASPxCheckBox ID="ASPxCheckBox1" Theme="Office2010Black" runat="server" TextAlign="Left" CheckState="Unchecked">
+                                                                            </dx:ASPxCheckBox>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>--%>
+
                                                                 <tr>
                                                                     <td colspan="2">
                                                                         <dx:ASPxLabel ID="lblTarifaPrecioCombustibleInternacional" Theme="Office2010Black" runat="server" Text="¿Precio Combustible internacional Especial?:"></dx:ASPxLabel>
@@ -3301,6 +3339,7 @@
             </dx:TabPage>
         </TabPages>
     </dx:ASPxPageControl>
+
     <dx:ASPxPopupControl ID="popup" runat="server" ClientInstanceName="popup" CloseAction="CloseButton" CloseOnEscape="true" Modal="True"
         PopupHorizontalAlign="WindowCenter" PopupVerticalAlign="Above" HeaderText="Aviso" AllowDragging="true" ShowCloseButton="true" Width="300">
         <ClientSideEvents PopUp="function(s, e) { tbLogin.Focus(); }" />
@@ -3324,6 +3363,50 @@
                                     <td>
                                         <dx:ASPxButton ID="btOK" runat="server" Text="OK" Width="80px" AutoPostBack="false" Style="float: left; margin-right: 8px" TabIndex="0">
                                             <ClientSideEvents Click="function(s, e) {popup.Hide(); }" />
+                                        </dx:ASPxButton>
+                                    </td>
+                                </tr>
+                            </table>
+                            <div>
+                            </div>
+                        </dx:PanelContent>
+                    </PanelCollection>
+                </dx:ASPxPanel>
+            </dx:PopupControlContentControl>
+        </ContentCollection>
+    </dx:ASPxPopupControl>
+
+
+    <dx:ASPxPopupControl ID="ppFactorCombustible" runat="server" ClientInstanceName="popup" CloseAction="CloseButton" CloseOnEscape="true" Modal="True"
+        PopupHorizontalAlign="WindowCenter" PopupVerticalAlign="Above" HeaderText="Factor de Combustible" AllowDragging="true" ShowCloseButton="true" Width="300">
+        <ClientSideEvents PopUp="function(s, e) { tbLogin.Focus(); }" />
+        <ContentCollection>
+            <dx:PopupControlContentControl runat="server">
+                <dx:ASPxPanel ID="pnlFactorCombustible" runat="server" DefaultButton="btOK">
+                    <PanelCollection>
+                        <dx:PanelContent runat="server">
+                            <table>
+                                <tr>
+                                    <td colspan="2" style="text-align:center">
+                                        <asp:Label ID="lblTituloFactores" runat="server"></asp:Label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <asp:GridView ID="gvFactoresComb" runat="server" AutoGenerateColumns="false" CssClass="table"
+                                            style="border-top: 1px solid #484848; border-left: 1px solid #484848;border-right: 1px solid #484848; border-bottom: 1px solid #484848;">
+                                            <Columns>
+                                                <asp:BoundField DataField="RangoInferior" HeaderText="Rango Inferior" />
+                                                <asp:BoundField DataField="RangoSuperior" HeaderText="Rango Superior" />
+                                                <asp:BoundField DataField="FactorAplicar" HeaderText="Factor Aplicar" />
+                                            </Columns>
+                                        </asp:GridView>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" style="text-align:center">
+                                        <dx:ASPxButton ID="btnCerrarFactores" runat="server" Text="Cerrar" Width="80px" AutoPostBack="false" Style="float: left; margin-right: 8px" TabIndex="0">
+                                            <ClientSideEvents Click="function(s, e) { ppFactorCombustible.Hide(); }" />
                                         </dx:ASPxButton>
                                     </td>
                                 </tr>

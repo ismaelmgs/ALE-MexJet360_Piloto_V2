@@ -2370,6 +2370,23 @@ namespace ALE_MexJet.Views.CreditoCobranza
             }
         }
 
+        protected void rblFactorCombustible_ValueChanged(object sender, EventArgs e)
+        {
+            if (rblFactorCombustible.Value.S() == "2")
+            {
+                txtFactorTramNal.Text = "1";
+                txtFactorTramInt.Text = "1";
+
+                txtFactorTramNal.ReadOnly = true;
+                txtFactorTramInt.ReadOnly = true;
+            }
+            else
+            {
+                txtFactorTramNal.ReadOnly = false;
+                txtFactorTramInt.ReadOnly = false;
+            }
+        }
+
         #endregion
 
         #region "METODOS"
@@ -3506,14 +3523,13 @@ namespace ALE_MexJet.Views.CreditoCobranza
                 objTarifa.dCostoDirNal = txtTarifasCostoDirNac.Text.D();
                 objTarifa.dCostoDirInt = txtTarifasCostoDirInter.Text.D();
                 objTarifa.bCombustible = rdlTarifasCombustible.Checked;
-
                 objTarifa.iTipoCalculo = cboTarifaCalculoPrecioCombustible.Value.S().I();
                 objTarifa.dConsumoGalones = txtTarifaConsumo.Text.D();
-
                 objTarifa.dFactorTramosNal = txtFactorTramNal.Text.S().D();
                 objTarifa.dFactorTramosInt = txtFactorTramInt.Text.S().D();
 
-                objTarifa.bAplicaFactorCombustible = chkAplicaFactCombustible.Checked;
+                objTarifa.bAplicaFactorCombustible = rblFactorCombustible.Value.S().I();
+
                 objTarifa.bPrecioInternacionalEspecial = chkTarifasPrecioEspecial.Checked;
                 objTarifa.bCobraTiempoEspera = rdlListTarifaCoroEspera.Value == "1";
                 objTarifa.dTiempoEsperaFijaNal = txtTarifaTiempoEsperaNacionaFija.Text.D();
@@ -3625,7 +3641,7 @@ namespace ALE_MexJet.Views.CreditoCobranza
 
                 txtTarifasMemo.Text = objTarifa.sNotas.S();
 
-                chkAplicaFactCombustible.Checked = objTarifa.bAplicaFactorCombustible;
+                rblFactorCombustible.Value = objTarifa.bAplicaFactorCombustible.S();
 
                 /*
                 if (objTarifa.bCobraTiempoEspera)
@@ -4062,8 +4078,28 @@ namespace ALE_MexJet.Views.CreditoCobranza
             set { ViewState["oCrudCombustible"] = value; }
         }
 
+
+
         #endregion
 
+        protected void imbContratosNvos_Click(object sender, ImageClickEventArgs e)
+        {
+            lblTituloFactores.Text = "Factor combustible Nuevos Contratos";
+            DataTable dtFactor = new DBContrato().DBGetObtieneFactoresCombustible(2);
+            gvFactoresComb.DataSource = dtFactor;
+            gvFactoresComb.DataBind();
 
+            ppFactorCombustible.ShowOnPageLoad = true;
+        }
+
+        protected void imbComunicao_Click(object sender, ImageClickEventArgs e)
+        {
+            lblTituloFactores.Text = "Factor comunicado 1ro de Mayo";
+            DataTable dtFactor = new DBContrato().DBGetObtieneFactoresCombustible(1);
+            gvFactoresComb.DataSource = dtFactor;
+            gvFactoresComb.DataBind();
+
+            ppFactorCombustible.ShowOnPageLoad = true;
+        }
     }
 }

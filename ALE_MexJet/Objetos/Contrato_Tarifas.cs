@@ -18,7 +18,9 @@ namespace ALE_MexJet.Objetos
         private decimal _dConsumoGalones = 0m;
         private decimal _dFactorTramosNal = 0m;
         private decimal _dFactorTramosInt = 0m;
-        private bool _bAplicaFactorCombustible = false;
+
+        private int _bAplicaFactorCombustible = 0;
+
         private bool _bPrecioInternacionalEspecial = false;
 
         private bool _bCobraTiempoEspera = true;
@@ -61,7 +63,7 @@ namespace ALE_MexJet.Objetos
         public decimal dConsumoGalones { get { return _dConsumoGalones; } set { _dConsumoGalones = value; } }
         public decimal dFactorTramosNal { get { return _dFactorTramosNal; } set { _dFactorTramosNal = value; } }
         public decimal dFactorTramosInt { get { return _dFactorTramosInt; } set { _dFactorTramosInt = value; } }
-        public bool bAplicaFactorCombustible { get { return _bAplicaFactorCombustible; } set { _bAplicaFactorCombustible = value; } }
+        public int bAplicaFactorCombustible { get { return _bAplicaFactorCombustible; } set { _bAplicaFactorCombustible = value; } }
         public bool bPrecioInternacionalEspecial { get { return _bPrecioInternacionalEspecial; } set { _bPrecioInternacionalEspecial = value; } }
 
         public bool bCobraTiempoEspera { get { return _bCobraTiempoEspera; } set { _bCobraTiempoEspera = value; } }

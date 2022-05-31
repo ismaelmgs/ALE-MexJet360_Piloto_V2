@@ -886,22 +886,31 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         protected global::DevExpress.Web.ASPxTextBox txtFactorTramInt;
         
         /// <summary>
-        /// Control ASPxLabel15.
+        /// Control imbComunicao.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxLabel ASPxLabel15;
+        protected global::System.Web.UI.WebControls.ImageButton imbComunicao;
         
         /// <summary>
-        /// Control chkAplicaFactCombustible.
+        /// Control rblFactorCombustible.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxCheckBox chkAplicaFactCombustible;
+        protected global::DevExpress.Web.ASPxRadioButtonList rblFactorCombustible;
+        
+        /// <summary>
+        /// Control imbContratosNvos.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton imbContratosNvos;
         
         /// <summary>
         /// Control lblTarifaPrecioCombustibleInternacional.
@@ -3557,5 +3566,50 @@ namespace ALE_MexJet.Views.CreditoCobranza {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxButton btOK;
+        
+        /// <summary>
+        /// Control ppFactorCombustible.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxPopupControl ppFactorCombustible;
+        
+        /// <summary>
+        /// Control pnlFactorCombustible.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxPanel pnlFactorCombustible;
+        
+        /// <summary>
+        /// Control lblTituloFactores.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblTituloFactores;
+        
+        /// <summary>
+        /// Control gvFactoresComb.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvFactoresComb;
+        
+        /// <summary>
+        /// Control btnCerrarFactores.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxButton btnCerrarFactores;
     }
 }
