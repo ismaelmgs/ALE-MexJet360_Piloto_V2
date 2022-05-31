@@ -100,6 +100,7 @@ namespace ALE_MexJet.Presenter
                         oAeropuerto.dAeropuertoHelipuertoTarifa= eU.NewValues["AeropuertoHelipuertoTarifa"].S().D();
                         oAeropuerto.bBase = eU.NewValues["Base"].S().B();
                         oAeropuerto.bAeropuertoHelipuerto = eU.NewValues["AeropuertoHelipuerto"].S().B();
+                        oAeropuerto.bCobraAterrizaje = eU.NewValues["SeCobraAterrizaje"].S().B();
                         oAeropuerto.dAterrizajeNal = eU.NewValues["AterrizajeNal"].S().D();
                         oAeropuerto.dAterrizajeInt = eU.NewValues["AterrizajeInt"].S().D();
                         oAeropuerto.iStatus = eU.NewValues["Status"].S().I();

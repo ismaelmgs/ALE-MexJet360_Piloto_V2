@@ -22,6 +22,8 @@ namespace ALE_MexJet.Objetos
         private string _TipoDestino = string.Empty;
         private bool _bAeropuertoHelipuerto = false;
         private decimal _dAeropuertoHelipuertoTarifa = 0m;
+
+        private bool _bCobraAterrizaje = false;
         private decimal _dAterrizajeNal = 0m;
         private decimal _dAterrizajeInt = 0m;
         private int _iStatus = 1;
@@ -52,6 +54,7 @@ namespace ALE_MexJet.Objetos
         public string TipoDestino { get { return _TipoDestino; } set { _TipoDestino = value; } }
         public bool bAeropuertoHelipuerto { get { return _bAeropuertoHelipuerto; } set { _bAeropuertoHelipuerto = value; } }
         public decimal dAeropuertoHelipuertoTarifa { get { return _dAeropuertoHelipuertoTarifa; } set { _dAeropuertoHelipuertoTarifa = value; } }
+        public bool bCobraAterrizaje { get { return _bCobraAterrizaje; } set { _bCobraAterrizaje = value; } }
         public decimal dAterrizajeNal { get => _dAterrizajeNal; set => _dAterrizajeNal = value; }
         public decimal dAterrizajeInt { get => _dAterrizajeInt; set => _dAterrizajeInt = value; }
 

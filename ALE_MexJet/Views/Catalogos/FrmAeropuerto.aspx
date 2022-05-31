@@ -143,6 +143,12 @@
                                                     <EditFormSettings Visible="True"></EditFormSettings>
                                                 </dx:GridViewDataTextColumn>
 
+                                                <dx:GridViewDataCheckColumn Caption="¿Se cobra aterrizaje?" FieldName="SeCobraAterrizaje" ShowInCustomizationForm="True" VisibleIndex="9">
+                                                    <PropertiesCheckEdit ValueChecked="1" ValueType="System.Int32" ValueUnchecked="0">
+                                                    </PropertiesCheckEdit>
+                                                    <EditFormSettings Visible="True"></EditFormSettings>
+                                                </dx:GridViewDataCheckColumn>
+
                                                 <dx:GridViewDataTextColumn Caption="Aterrizaje Nal" FieldName="AterrizajeNal" ShowInCustomizationForm="True" VisibleIndex="9">
                                                     <PropertiesTextEdit DisplayFormatInEditMode="True">
                                                     </PropertiesTextEdit>

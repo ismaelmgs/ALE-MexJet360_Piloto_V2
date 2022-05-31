@@ -68,6 +68,7 @@ namespace ALE_MexJet.DomainModel
                                                                                             "@TipoDestino", oAeropuerto.TipoDestino,
                                                                                             "@AeropuertoHelipuerto", oAeropuerto.bAeropuertoHelipuerto,
                                                                                             "@AeropuertoHelipuertoTarifa", oAeropuerto.dAeropuertoHelipuertoTarifa,
+                                                                                            "@SeCobraAterrizaje", oAeropuerto.bCobraAterrizaje,
                                                                                             "@AterrizajeNal", oAeropuerto.dAterrizajeNal,
                                                                                             "@AterrizajeInt", oAeropuerto.dAterrizajeInt,
                                                                                             "@Status", oAeropuerto.iStatus,
