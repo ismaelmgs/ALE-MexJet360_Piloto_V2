@@ -419,6 +419,7 @@
     <Content Include="Views\JetSmart\frmTableroMiembros.aspx" />
     <Content Include="Views\JetSmart\frmVentaFerrys.aspx" />
     <Content Include="Views\Notificaciones\frmMonitorCambios.aspx" />
+    <Content Include="Views\Operaciones\frmReporteVuelos.aspx" />
     <Content Include="Views\Reportes\frmDetalleVueloCliente.aspx" />
     <Content Include="Views\Reportes\frmHorasVoladasCliente.aspx" />
     <Content Include="Views\Reportes\frmHorasVueloMatricula.aspx" />
@@ -1558,6 +1559,13 @@
     </Compile>
     <Compile Include="Views\Notificaciones\frmMonitorCambios.aspx.designer.cs">
       <DependentUpon>frmMonitorCambios.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Operaciones\frmReporteVuelos.aspx.cs">
+      <DependentUpon>frmReporteVuelos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Operaciones\frmReporteVuelos.aspx.designer.cs">
+      <DependentUpon>frmReporteVuelos.aspx</DependentUpon>
     </Compile>
     <Compile Include="Views\Presupuestos_DS.Designer.cs" />
     <Compile Include="Views\Reportes\frmDetalleVueloCliente.aspx.cs">
