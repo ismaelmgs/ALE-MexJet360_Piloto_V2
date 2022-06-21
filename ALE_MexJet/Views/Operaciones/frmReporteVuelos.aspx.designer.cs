@@ -15,13 +15,22 @@ namespace ALE_MexJet.Views.Operaciones
     {
 
         /// <summary>
-        /// Control txtFecha.
+        /// Control date1.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxTextBox txtFecha;
+        protected global::DevExpress.Web.ASPxDateEdit date1;
+
+        /// <summary>
+        /// Control date2.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxDateEdit date2;
 
         /// <summary>
         /// Control btnConsultaVuelos.
@@ -58,5 +67,14 @@ namespace ALE_MexJet.Views.Operaciones
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxGridView gvVuelos;
+
+        /// <summary>
+        /// Control btnProcesar.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxButton btnProcesar;
     }
 }

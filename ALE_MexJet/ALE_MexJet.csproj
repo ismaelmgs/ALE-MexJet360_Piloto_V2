@@ -734,6 +734,7 @@
     <Compile Include="DomainModel\DBAjuste.cs" />
     <Compile Include="DomainModel\DBAnalisisFerrys.cs" />
     <Compile Include="DomainModel\DBAutorizacionMembresias.cs" />
+    <Compile Include="DomainModel\DBBaseAleSuite.cs" />
     <Compile Include="DomainModel\DBBaseFlight.cs" />
     <Compile Include="DomainModel\DBBaseFPK.cs" />
     <Compile Include="DomainModel\DBBaseSAP.cs" />
@@ -808,6 +809,7 @@
     </Compile>
     <Compile Include="DomainModel\DBRemision.cs" />
     <Compile Include="DomainModel\DBReporteTabular.cs" />
+    <Compile Include="DomainModel\DBReporteVuelos.cs" />
     <Compile Include="DomainModel\DBResumenContrato.cs" />
     <Compile Include="DomainModel\DBRevenew.cs" />
     <Compile Include="DomainModel\DBRolAccion.cs" />
@@ -872,6 +874,7 @@
     <Compile Include="Interfaces\iViewPresupuesto.cs" />
     <Compile Include="Interfaces\IViewPubFerrys.cs" />
     <Compile Include="Interfaces\IViewReporteTabular.cs" />
+    <Compile Include="Interfaces\IViewReporteVuelos.cs" />
     <Compile Include="Interfaces\IViewResumenContrato.cs" />
     <Compile Include="Interfaces\IViewRevenew.cs" />
     <Compile Include="Interfaces\IViewRol.cs" />
@@ -998,6 +1001,7 @@
     <Compile Include="Objetos\TripGuide.cs" />
     <Compile Include="Objetos\Vendedor.cs" />
     <Compile Include="Objetos\VentaFerrys.cs" />
+    <Compile Include="Objetos\Vuelo.cs" />
     <Compile Include="Presenter\AeronaveRen_Presenter.cs" />
     <Compile Include="Presenter\Ajuste_Presenter.cs" />
     <Compile Include="Presenter\AnalisisFerrys_Presenter.cs" />
@@ -1062,6 +1066,7 @@
     </Compile>
     <Compile Include="Presenter\Login_Presenter.cs" />
     <Compile Include="Presenter\ReporteTabular_Presenter.cs" />
+    <Compile Include="Presenter\ReporteVuelos_Presenter.cs" />
     <Compile Include="Presenter\ResumenContrato_Presenter.cs" />
     <Compile Include="Presenter\Revenew_Presenter.cs" />
     <Compile Include="Presenter\ServicioCargo_Presenter.cs" />
