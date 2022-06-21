@@ -7,13 +7,11 @@
 // </generado automáticamente>
 //------------------------------------------------------------------------------
 
-namespace ALE_MexJet.Views.Operaciones
-{
-
-
-    public partial class frmReporteVuelos
-    {
-
+namespace ALE_MexJet.Views.Operaciones {
+    
+    
+    public partial class frmReporteVuelos {
+        
         /// <summary>
         /// Control date1.
         /// </summary>
@@ -22,7 +20,7 @@ namespace ALE_MexJet.Views.Operaciones
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxDateEdit date1;
-
+        
         /// <summary>
         /// Control date2.
         /// </summary>
@@ -31,7 +29,16 @@ namespace ALE_MexJet.Views.Operaciones
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxDateEdit date2;
-
+        
+        /// <summary>
+        /// Control txtTrip.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxTextBox txtTrip;
+        
         /// <summary>
         /// Control btnConsultaVuelos.
         /// </summary>
@@ -40,7 +47,7 @@ namespace ALE_MexJet.Views.Operaciones
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxButton btnConsultaVuelos;
-
+        
         /// <summary>
         /// Control pnlVuelos.
         /// </summary>
@@ -49,7 +56,7 @@ namespace ALE_MexJet.Views.Operaciones
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel pnlVuelos;
-
+        
         /// <summary>
         /// Control UpdatePanel1.
         /// </summary>
@@ -58,7 +65,7 @@ namespace ALE_MexJet.Views.Operaciones
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel UpdatePanel1;
-
+        
         /// <summary>
         /// Control gvVuelos.
         /// </summary>
@@ -67,7 +74,7 @@ namespace ALE_MexJet.Views.Operaciones
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxGridView gvVuelos;
-
+        
         /// <summary>
         /// Control btnProcesar.
         /// </summary>

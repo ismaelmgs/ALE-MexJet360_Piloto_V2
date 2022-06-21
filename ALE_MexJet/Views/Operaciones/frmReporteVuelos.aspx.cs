@@ -20,8 +20,7 @@ namespace ALE_MexJet.Views.Operaciones
         #region EVENTOS
         protected void Page_Init(object sender, EventArgs e)
         {
-            if (eSearchObj != null)
-                eSearchObj(sender, e);
+            
         }
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -35,7 +34,17 @@ namespace ALE_MexJet.Views.Operaciones
             gvVuelos.SettingsPager.PageSizeItemSettings.Position = PagerPageSizePosition.Right;
             gvVuelos.SettingsText.SearchPanelEditorNullText = "Ingresa la información a buscar:";
 
-            
+            if (!IsPostBack)
+            {
+                date1.Text = DateTime.Now.AddDays(-1).ToString("dd/MM/yyyy");
+                date2.Text = DateTime.Now.ToString("dd/MM/yyyy");
+
+                sFecha = date1.Text;
+                sFecha2 = date2.Text;
+            }
+
+            if (eSearchObj != null)
+                eSearchObj(sender, e);
         }
 
 

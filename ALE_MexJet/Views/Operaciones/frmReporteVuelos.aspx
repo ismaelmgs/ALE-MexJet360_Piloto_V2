@@ -105,8 +105,20 @@
                                 </dx:ASPxDateEdit>
 
                             </td>
+                            <td>
+                                <dx:ASPxTextBox ID="txtTrip" runat="server" Caption="No. Trip" Theme="Office2010Black"></dx:ASPxTextBox>
+                            </td>
                             <td align="left" valign="bottom">&nbsp;
                                 <dx:ASPxButton ID="btnConsultaVuelos" runat="server" Text="Consulta vuelos" Theme="Office2010Black" OnClick="btnConsultaVuelos_Click"></dx:ASPxButton>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td align="left" valign="bottom">&nbsp;
+                                
                             </td>
                         </tr>
                     </table>
@@ -126,6 +138,7 @@
                             <dx:ASPxGridView ID="gvVuelos" runat="server" AutoGenerateColumns="False" Font-Size="Small"
                                 ClientInstanceName="gvVuelos" EnableTheming="True" Styles-Header-HorizontalAlign ="Center"
                                 Theme="Office2010Black" Width="100%" OnRowCommand="gvVuelos_RowCommand" KeyFieldName ="vuelo"
+                                
                                 OnPageIndexChanged="gvVuelos_PageIndexChanged"
                                 OnCommandButtonInitialize ="gvVuelos_CommandButtonInitialize"   
                                 OnCustomButtonInitialize ="gvVuelos_CustomButtonInitialize" 
@@ -138,6 +151,7 @@
                                             popup.Show();
                                         }
                                     }" />
+                                <SettingsSearchPanel Visible="true" />
                                     <Columns>
                                         <%--<dx:GridViewDataColumn Caption="Acciones" Visible="true" VisibleIndex="1">
                                             <HeaderStyle HorizontalAlign="Center" VerticalAlign="Middle" />
@@ -180,11 +194,19 @@
                                         </dx:GridViewDataTextColumn>
                                         <dx:GridViewDataTextColumn Caption="País Destino" FieldName="PaisDestino" ShowInCustomizationForm="True" VisibleIndex="8">
                                         </dx:GridViewDataTextColumn>
-                                        <dx:GridViewDataTextColumn Caption="Fecha Origen" FieldName="FechaHoraOrigen" ShowInCustomizationForm="True" VisibleIndex="9">
+                                        <dx:GridViewDataColumn FieldName="Estatus"  VisibleIndex="9" Caption="Viabilidad" HeaderStyle-HorizontalAlign="Center" Width="120px"> 
+                                            <DataItemTemplate>
+                                                <dx:ASPxImage runat="server" ID="imgTemplate" Width="15px" Height="15px" ImageAlign="AbsMiddle"
+                                                    ImageUrl='<%# "~/img/iconos/" + Eval("EstatusImg") %>'
+                                                    ToolTip='<%# Eval("Tooltip") %>'>
+                                                </dx:ASPxImage>
+                                            </DataItemTemplate>
+                                        </dx:GridViewDataColumn>
+                                        <dx:GridViewDataTextColumn Caption="Fecha Origen" FieldName="FechaHoraOrigen" ShowInCustomizationForm="True" VisibleIndex="10">
                                         </dx:GridViewDataTextColumn>
-                                        <dx:GridViewDataTextColumn Caption="Fecha Destino" FieldName="FechaHoraDestino" ShowInCustomizationForm="True" VisibleIndex="10">
+                                        <dx:GridViewDataTextColumn Caption="Fecha Destino" FieldName="FechaHoraDestino" ShowInCustomizationForm="True" VisibleIndex="11">
                                         </dx:GridViewDataTextColumn>
-                                        <dx:GridViewDataTextColumn FieldName="legid" ShowInCustomizationForm="False" VisibleIndex="11" EditFormSettings-Visible="False" Visible="false">
+                                        <dx:GridViewDataTextColumn FieldName="legid" ShowInCustomizationForm="False" VisibleIndex="12" EditFormSettings-Visible="False" Visible="false">
                                         </dx:GridViewDataTextColumn>
 
                                         <%--<dx:GridViewDataColumn Caption="Acciones" Visible="true" VisibleIndex="8">
@@ -201,7 +223,7 @@
                                     </Columns>
                                     <SettingsBehavior ConfirmDelete="True" />
                                     <SettingsPager Position="TopAndBottom">
-                                        <PageSizeItemSettings Items="1, 10, 20, 50, 100">
+                                        <PageSizeItemSettings Items="20, 50, 100">
                                         </PageSizeItemSettings>
                                     </SettingsPager>
                                     <SettingsEditing Mode="PopupEditForm" EditFormColumnCount="1"></SettingsEditing>
@@ -210,9 +232,7 @@
                                     <SettingsPopup>
                                         <EditForm HorizontalAlign="Center" VerticalAlign="Below" Width="400px" />
                                     </SettingsPopup>
-                                    <SettingsSearchPanel Visible="false" />
                                    <%-- <SettingsCommandButton>
-
                                         <NewButton ButtonType="Link">
                                             <Image ToolTip="New">
                                             </Image>
