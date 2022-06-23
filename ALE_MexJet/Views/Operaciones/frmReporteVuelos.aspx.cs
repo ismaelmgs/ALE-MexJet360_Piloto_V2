@@ -169,49 +169,28 @@ namespace ALE_MexJet.Views.Operaciones
 
                 for (int i = 0; i < olst.Count; i++)
                 {
-                    //ASPxCheckBox chkSelect = gvVuelos.FindRowCellTemplateControl(i, (GridViewDataColumn)gvVuelos.Columns[0], "cbCheck") as ASPxCheckBox;
-
-                    //if (chkSelect != null)
-                    //{
-                    //    ((IPostBackDataHandler)chkSelect).LoadPostData(chkSelect.UniqueID, Request.Form);
-
-                    //    if (chkSelect.Checked)
-                    //    {
                     Vuelo oV = new Vuelo();
                     object obj = olst[i];
-                    //        object[] row = (object[])gvVuelos.GetRowValues(i,"vuelo", "claveContrato", "Matricula", "Origen", "Destino", "PaisOrigen", "PaisDestino", "FechaHoraOrigen", "FechaHoraDestino", "legid");
+                    object[] row = (object[])obj;
 
-                    //        oV.ITripNum = olst[i]["vuelo"].S().I();
-                    //        oV.SCveContrato = row[1].ToString();
-                    //        oV.SMatricula = row[2].ToString();
-                    //        oV.SOrigen = row[3].S();
-                    //        oV.SDestino = row[4].S();
-                    //        oV.SPaisOrigen = row[5].S();
-                    //        oV.SPaisDestino = row[6].S();
-                    //        oV.DtOrigenVuelo = row[7].S().Dt();
-                    //        oV.DtDestinoVuelo = row[8].S().Dt();
-                    //        oV.ILegID = row[9].I();
-                    //        oV.SUsuario = ((UserIdentity)Session["UserIdentity"]).sUsuario;
-                    //        oLsVuelos.Add(oV);
-
-                    //if (eNewObj != null)
-                    //    eNewObj(sender, e);
-
-                    //        }
-                    //    }
-                    //}
-                    //ListaVuelos = oLsVuelos;
-
-                    //if(ListaVuelos.Count > 0)
-                    //{
-
-
-                    //    if (iRes != 0)
-                    //    {
-                    //        //
-                    //    }
-
-                    //}
+                    oV.ITripNum = row[0].S().I();
+                    oV.SCveContrato = row[1].ToString();
+                    oV.SMatricula = row[2].ToString();
+                    oV.SOrigen = row[3].S();
+                    oV.SDestino = row[4].S();
+                    oV.SPaisOrigen = row[5].S();
+                    oV.SPaisDestino = row[6].S();
+                    oV.DtOrigenVuelo = row[7].S().Dt();
+                    oV.DtDestinoVuelo = row[8].S().Dt();
+                    oV.ILegID = row[9].I();
+                    oV.SUsuario = ((UserIdentity)Session["UserIdentity"]).sUsuario;
+                    oLsVuelos.Add(oV);
+                    ListaVuelos = oLsVuelos;
+                }
+                if (ListaVuelos.Count > 0)
+                {
+                    if (eNewObj != null)
+                        eNewObj(sender, e);
                 }
             }
             catch (Exception ex)
