@@ -73,7 +73,7 @@ namespace ALE_MexJet.Views.Operaciones {
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxGridView gvVuelos;
+        protected global::DevExpress.Web.Bootstrap.BootstrapGridView gvVuelos;
         
         /// <summary>
         /// Control btnProcesar.

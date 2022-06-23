@@ -12,6 +12,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using NucleoBase.Core;
+using DevExpress.Web.Bootstrap;
 
 namespace ALE_MexJet.Views.Operaciones
 {
@@ -41,7 +42,7 @@ namespace ALE_MexJet.Views.Operaciones
 
                 sFecha = date1.Text;
                 sFecha2 = date2.Text;
-                sTripNum = string.IsNullOrEmpty(sTripNum) ? "0" : txtTrip.Text;
+                sTripNum = string.IsNullOrEmpty(sTripNum) ? "" : txtTrip.Text;
             }
 
             if (eSearchObj != null)
