@@ -13,6 +13,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using NucleoBase.Core;
 using DevExpress.Web.Bootstrap;
+using DevExpress.Web.Data;
 
 namespace ALE_MexJet.Views.Operaciones
 {
@@ -161,46 +162,56 @@ namespace ALE_MexJet.Views.Operaciones
                 List<Vuelo> oLsVuelos = new List<Vuelo>();
                 iRes = 0;
 
-                for (int i = 0; i < gvVuelos.VisibleRowCount; i++)
+                string[] fieldValues = { "vuelo", "claveContrato", "Matricula", "Origen", "Destino", "PaisOrigen", "PaisDestino", "FechaHoraOrigen", "FechaHoraDestino", "legid" };
+                List<object> olst = gvVuelos.GetSelectedFieldValues(fieldValues);
+
+
+
+                for (int i = 0; i < olst.Count; i++)
                 {
-                    ASPxCheckBox chkSelect = gvVuelos.FindRowCellTemplateControl(i, (GridViewDataColumn)gvVuelos.Columns[0], "cbCheck") as ASPxCheckBox;
+                    //ASPxCheckBox chkSelect = gvVuelos.FindRowCellTemplateControl(i, (GridViewDataColumn)gvVuelos.Columns[0], "cbCheck") as ASPxCheckBox;
 
-                    if (chkSelect != null)
-                    {
-                        ((IPostBackDataHandler)chkSelect).LoadPostData(chkSelect.UniqueID, Request.Form);
+                    //if (chkSelect != null)
+                    //{
+                    //    ((IPostBackDataHandler)chkSelect).LoadPostData(chkSelect.UniqueID, Request.Form);
 
-                        if (chkSelect.Checked)
-                        {
-                            Vuelo oV = new Vuelo();
-                            object[] row = (object[])gvVuelos.GetRowValues(i,"vuelo", "claveContrato", "Matricula", "Origen", "Destino", "PaisOrigen", "PaisDestino", "FechaHoraOrigen", "FechaHoraDestino", "legid");
+                    //    if (chkSelect.Checked)
+                    //    {
+                    Vuelo oV = new Vuelo();
+                    object obj = olst[i];
+                    //        object[] row = (object[])gvVuelos.GetRowValues(i,"vuelo", "claveContrato", "Matricula", "Origen", "Destino", "PaisOrigen", "PaisDestino", "FechaHoraOrigen", "FechaHoraDestino", "legid");
 
-                            oV.ITripNum = row[0].S().I();
-                            oV.SCveContrato = row[1].ToString();
-                            oV.SMatricula = row[2].ToString();
-                            oV.SOrigen = row[3].S();
-                            oV.SDestino = row[4].S();
-                            oV.SPaisOrigen = row[5].S();
-                            oV.SPaisDestino = row[6].S();
-                            oV.DtOrigenVuelo = row[7].S().Dt();
-                            oV.DtDestinoVuelo = row[8].S().Dt();
-                            oV.ILegID = row[9].I();
-                            oV.SUsuario = ((UserIdentity)Session["UserIdentity"]).sUsuario;
-                            oLsVuelos.Add(oV);
-                        }
-                    }
-                }
-                ListaVuelos = oLsVuelos;
+                    //        oV.ITripNum = olst[i]["vuelo"].S().I();
+                    //        oV.SCveContrato = row[1].ToString();
+                    //        oV.SMatricula = row[2].ToString();
+                    //        oV.SOrigen = row[3].S();
+                    //        oV.SDestino = row[4].S();
+                    //        oV.SPaisOrigen = row[5].S();
+                    //        oV.SPaisDestino = row[6].S();
+                    //        oV.DtOrigenVuelo = row[7].S().Dt();
+                    //        oV.DtDestinoVuelo = row[8].S().Dt();
+                    //        oV.ILegID = row[9].I();
+                    //        oV.SUsuario = ((UserIdentity)Session["UserIdentity"]).sUsuario;
+                    //        oLsVuelos.Add(oV);
 
-                if(ListaVuelos.Count > 0)
-                {
-                    if (eNewObj != null)
-                        eNewObj(sender, e);
+                    //if (eNewObj != null)
+                    //    eNewObj(sender, e);
 
-                    if (iRes != 0)
-                    {
-                        //
-                    }
+                    //        }
+                    //    }
+                    //}
+                    //ListaVuelos = oLsVuelos;
 
+                    //if(ListaVuelos.Count > 0)
+                    //{
+
+
+                    //    if (iRes != 0)
+                    //    {
+                    //        //
+                    //    }
+
+                    //}
                 }
             }
             catch (Exception ex)
