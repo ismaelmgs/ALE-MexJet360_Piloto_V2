@@ -19,7 +19,7 @@ namespace ALE_MexJet.Views.Operaciones {
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxDateEdit date1;
+        protected global::DevExpress.Web.Bootstrap.BootstrapDateEdit date1;
         
         /// <summary>
         /// Control date2.
@@ -28,7 +28,7 @@ namespace ALE_MexJet.Views.Operaciones {
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxDateEdit date2;
+        protected global::DevExpress.Web.Bootstrap.BootstrapDateEdit date2;
         
         /// <summary>
         /// Control txtTrip.
@@ -37,7 +37,7 @@ namespace ALE_MexJet.Views.Operaciones {
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxTextBox txtTrip;
+        protected global::DevExpress.Web.Bootstrap.BootstrapTextBox txtTrip;
         
         /// <summary>
         /// Control btnConsultaVuelos.
@@ -46,7 +46,7 @@ namespace ALE_MexJet.Views.Operaciones {
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxButton btnConsultaVuelos;
+        protected global::DevExpress.Web.Bootstrap.BootstrapButton btnConsultaVuelos;
         
         /// <summary>
         /// Control pnlVuelos.
@@ -82,7 +82,7 @@ namespace ALE_MexJet.Views.Operaciones {
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxButton btnProcesar;
+        protected global::DevExpress.Web.Bootstrap.BootstrapButton btnProcesar;
         
         /// <summary>
         /// Control ppAlert.

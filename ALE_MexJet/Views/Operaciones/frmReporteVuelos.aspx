@@ -32,26 +32,33 @@
                         <tr>
                             <td></td>
                             <td>
-                                <dx:ASPxDateEdit ID="date1" runat="server" EditFormat="Custom" Width="190" Caption="Desde" ClientInstanceName="Fecha1"
+                                <dx:BootstrapDateEdit ID="date1" runat="server" EditFormat="Custom" Width="190" Caption="Desde" ClientInstanceName="Fecha1"
                                     DisplayFormatString="dd/MM/yyyy" EditFormatString="dd/MM/yyyy" UseMaskBehavior="true">
-                                </dx:ASPxDateEdit>
+                                </dx:BootstrapDateEdit>
 
                             </td>
-                            <td></td>
+                            <td>&nbsp;&nbsp;&nbsp;</td>
                             <td>
-                                <dx:ASPxDateEdit ID="date2" runat="server" EditFormat="Custom" Width="190" Caption="Hasta" ClientInstanceName="Fecha2"
+                                <dx:BootstrapDateEdit ID="date2" runat="server" EditFormat="Custom" Width="190" Caption="Hasta" ClientInstanceName="Fecha2"
                                     DisplayFormatString="dd/MM/yyyy" EditFormatString="dd/MM/yyyy" UseMaskBehavior="true">
-                                </dx:ASPxDateEdit>
+                                </dx:BootstrapDateEdit>
 
                             </td>
+                            <td>&nbsp;&nbsp;&nbsp;</td>
                             <td>
-                                <dx:ASPxTextBox ID="txtTrip" runat="server" Caption="No. Trip" Theme="Office2010Black"></dx:ASPxTextBox>
+                                <dx:BootstrapTextBox ID="txtTrip" runat="server" Caption="No. Trip"></dx:BootstrapTextBox>
                             </td>
+                            <td>&nbsp;&nbsp;&nbsp;</td>
                             <td align="left" valign="bottom">&nbsp;
-                                <dx:ASPxButton ID="btnConsultaVuelos" runat="server" Text="Consulta vuelos" Theme="Office2010Black" OnClick="btnConsultaVuelos_Click"></dx:ASPxButton>
+                                <dx:BootstrapButton ID="btnConsultaVuelos" runat="server" Text="Consulta vuelos" OnClick="btnConsultaVuelos_Click">
+                                    <SettingsBootstrap RenderOption="Success" />
+                                </dx:BootstrapButton>
                             </td>
                         </tr>
                         <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
                             <td></td>
                             <td></td>
                             <td></td>
@@ -124,7 +131,9 @@
         </div>
         <div class="row" style="padding-top: 30px;">
             <div class="col-md-12" align="center">
-                <dx:ASPxButton ID="btnProcesar" runat="server" Text="Procesar Vuelos" Theme="Office2010Black" OnClick="btnProcesar_Click"></dx:ASPxButton>
+                <dx:BootstrapButton ID="btnProcesar" runat="server" Text="Procesar Vuelos" OnClick="btnProcesar_Click">
+                    <SettingsBootstrap RenderOption="Primary" />
+                </dx:BootstrapButton>
             </div>
         </div>
     </asp:Panel>
