@@ -166,31 +166,39 @@ namespace ALE_MexJet.Views.Operaciones
                 List<object> olst = gvVuelos.GetSelectedFieldValues(fieldValues);
 
 
-
-                for (int i = 0; i < olst.Count; i++)
+                if (olst.Count > 0)
                 {
-                    Vuelo oV = new Vuelo();
-                    object obj = olst[i];
-                    object[] row = (object[])obj;
+                    for (int i = 0; i < olst.Count; i++)
+                    {
+                        Vuelo oV = new Vuelo();
+                        object obj = olst[i];
+                        object[] row = (object[])obj;
 
-                    oV.ITripNum = row[0].S().I();
-                    oV.SCveContrato = row[1].ToString();
-                    oV.SMatricula = row[2].ToString();
-                    oV.SOrigen = row[3].S();
-                    oV.SDestino = row[4].S();
-                    oV.SPaisOrigen = row[5].S();
-                    oV.SPaisDestino = row[6].S();
-                    oV.DtOrigenVuelo = row[7].S().Dt();
-                    oV.DtDestinoVuelo = row[8].S().Dt();
-                    oV.ILegID = row[9].I();
-                    oV.SUsuario = ((UserIdentity)Session["UserIdentity"]).sUsuario;
-                    oLsVuelos.Add(oV);
-                    ListaVuelos = oLsVuelos;
+                        oV.ITripNum = row[0].S().I();
+                        oV.SCveContrato = row[1].ToString();
+                        oV.SMatricula = row[2].ToString();
+                        oV.SOrigen = row[3].S();
+                        oV.SDestino = row[4].S();
+                        oV.SPaisOrigen = row[5].S();
+                        oV.SPaisDestino = row[6].S();
+                        oV.DtOrigenVuelo = row[7].S().Dt();
+                        oV.DtDestinoVuelo = row[8].S().Dt();
+                        oV.ILegID = row[9].I();
+                        oV.SUsuario = ((UserIdentity)Session["UserIdentity"]).sUsuario;
+                        oLsVuelos.Add(oV);
+                        ListaVuelos = oLsVuelos;
+                    }
+                    if (ListaVuelos.Count > 0)
+                    {
+                        if (eNewObj != null)
+                            eNewObj(sender, e);
+
+                        MostrarMensaje("Los vuelos se enviaron correctamente", "Aviso");
+                    }
                 }
-                if (ListaVuelos.Count > 0)
+                else
                 {
-                    if (eNewObj != null)
-                        eNewObj(sender, e);
+                    MostrarMensaje("Debe seleccionar al menos un vuelo", "Aviso");
                 }
             }
             catch (Exception ex)
@@ -240,6 +248,13 @@ namespace ALE_MexJet.Views.Operaciones
             //    }
             //}
             //cb.Checked = cbChecked;
+        }
+
+        public void MostrarMensaje(string sMensaje, string sCaption)
+        {
+            //mpeMensaje.ShowMessage(sMensaje, sCaption);
+            lbl.Text = sMensaje;
+            ppAlert.ShowOnPageLoad = true;
         }
 
         private const string _selectableRowsKey = "cp_SelectableRows";
