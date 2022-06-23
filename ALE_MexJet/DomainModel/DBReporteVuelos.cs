@@ -14,11 +14,11 @@ namespace ALE_MexJet.DomainModel
 {
     public class DBReporteVuelos : DBBaseAleSuite
     {
-        public DataTable DBGetVuelos(string sFecha, string sFecha2)
+        public DataTable DBGetVuelos(string sFecha, string sFecha2, string sTripNum)
         {
             try
             {
-                return oDB_SP.EjecutarDT("[OPER].[spS_ObtenerVuelosXFecha]", "@FechaIni", sFecha.Dt(), "@FechaFin", sFecha2.Dt());
+                return oDB_SP.EjecutarDT("[OPER].[spS_ObtenerVuelosXFecha]", "@FechaIni", sFecha.Dt(), "@FechaFin", sFecha2.Dt(), "@TripNum", sTripNum.I());
             }
             catch (Exception ex)
             {

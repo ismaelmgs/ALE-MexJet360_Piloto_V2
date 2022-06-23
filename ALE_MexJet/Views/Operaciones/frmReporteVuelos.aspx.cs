@@ -41,6 +41,7 @@ namespace ALE_MexJet.Views.Operaciones
 
                 sFecha = date1.Text;
                 sFecha2 = date2.Text;
+                sTripNum = string.IsNullOrEmpty(sTripNum) ? "0" : txtTrip.Text;
             }
 
             if (eSearchObj != null)
@@ -112,6 +113,11 @@ namespace ALE_MexJet.Views.Operaciones
             get { return (string)ViewState["VSsFecha2"]; }
             set { ViewState["VSsFecha2"] = value; }
         }
+        public string sTripNum
+        {
+            get { return (string)ViewState["VSTripNum"]; }
+            set { ViewState["VSTripNum"] = value; }
+        }
         public int iRes
         {
             get { return (int)ViewState["VSRes"]; }
@@ -130,8 +136,10 @@ namespace ALE_MexJet.Views.Operaciones
             {
                 sFecha = string.Empty;
                 sFecha2 = string.Empty;
+                sTripNum = string.Empty;
                 sFecha = date1.Text;
                 sFecha2 = date2.Text;
+                sTripNum = txtTrip.Text == "" ? sTripNum = "0" : txtTrip.Text;
 
                 if (eSearchObj != null)
                     eSearchObj(sender, e);

@@ -24,7 +24,7 @@ namespace ALE_MexJet.Presenter
         }
         protected override void SearchObj_Presenter(object sender, EventArgs e)
         {
-            oIView.LoadVuelos(oIGestCat.DBGetVuelos(oIView.sFecha, oIView.sFecha2));
+            oIView.LoadVuelos(oIGestCat.DBGetVuelos(oIView.sFecha, oIView.sFecha2, oIView.sTripNum));
         }
         protected override void NewObj_Presenter(object sender, EventArgs e)
         {

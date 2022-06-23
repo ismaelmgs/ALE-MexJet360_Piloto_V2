@@ -12,6 +12,7 @@ namespace ALE_MexJet.Interfaces
     {
         string sFecha { set; get; }
         string sFecha2 { set; get; }
+        string sTripNum { set; get; }
         int iRes { set; get; }
         void LoadVuelos(DataTable dt);
         List<Vuelo> ListaVuelos { set; get; }
