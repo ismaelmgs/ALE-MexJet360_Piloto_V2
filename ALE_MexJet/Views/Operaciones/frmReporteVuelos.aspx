@@ -96,7 +96,7 @@
                                     <dx:BootstrapGridViewDataColumn Caption="Destino" FieldName="Destino" VisibleIndex="6" />
                                     <dx:BootstrapGridViewDataColumn Caption="País Origen" FieldName="PaisOrigen" VisibleIndex="7" />
                                     <dx:BootstrapGridViewDataColumn Caption="País Destino" FieldName="PaisDestino" VisibleIndex="8" />
-                                    <dx:BootstrapGridViewDataColumn FieldName="Estatus" VisibleIndex="9" Caption="Viabilidad" Width="120px">
+                                    <dx:BootstrapGridViewDataColumn FieldName="Estatus" VisibleIndex="9" Caption="Estatus" Width="120px">
                                         <DataItemTemplate>
                                             <dx:BootstrapImage runat="server" ID="imgTemplate" Width="15px" Height="15px" ImageAlign="AbsMiddle"
                                                 ImageUrl='<%# "~/img/iconos/" + Eval("EstatusImg") %>'
