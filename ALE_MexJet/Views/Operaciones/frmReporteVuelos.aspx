@@ -25,51 +25,31 @@
                 <legend>
                     <span style="font-family: Helvetica, Arial,sans-serif; text-align: center;">Búsqueda de Vuelos</span>
                 </legend>
-                <div class="col-sm-12">
 
-
-                    <table width="50%" style="text-align: left; margin: 0 auto;">
-                        <tr>
-                            <td></td>
-                            <td>
-                                <dx:BootstrapDateEdit ID="date1" runat="server" EditFormat="Custom" Width="190" Caption="Desde" ClientInstanceName="Fecha1"
-                                    DisplayFormatString="dd/MM/yyyy" EditFormatString="dd/MM/yyyy" UseMaskBehavior="true">
-                                </dx:BootstrapDateEdit>
-
-                            </td>
-                            <td>&nbsp;&nbsp;&nbsp;</td>
-                            <td>
-                                <dx:BootstrapDateEdit ID="date2" runat="server" EditFormat="Custom" Width="190" Caption="Hasta" ClientInstanceName="Fecha2"
-                                    DisplayFormatString="dd/MM/yyyy" EditFormatString="dd/MM/yyyy" UseMaskBehavior="true">
-                                </dx:BootstrapDateEdit>
-
-                            </td>
-                            <td>&nbsp;&nbsp;&nbsp;</td>
-                            <td>
-                                <dx:BootstrapTextBox ID="txtTrip" runat="server" Caption="No. Trip"></dx:BootstrapTextBox>
-                            </td>
-                            <td>&nbsp;&nbsp;&nbsp;</td>
-                            <td align="left" valign="bottom">&nbsp;
-                                <dx:BootstrapButton ID="btnConsultaVuelos" runat="server" Text="Consulta vuelos" OnClick="btnConsultaVuelos_Click">
-                                    <SettingsBootstrap RenderOption="Success" />
-                                </dx:BootstrapButton>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td align="left" valign="bottom">&nbsp;
-                                
-                            </td>
-                        </tr>
-                    </table>
-
+                <div class="row">
+                    <div class="col-sm-2">&nbsp;</div>
+                    <div class="col-sm-2">
+                        <dx:BootstrapDateEdit ID="date1" runat="server" EditFormat="Custom" Width="100%" Caption="Desde" ClientInstanceName="Fecha1"
+                            DisplayFormatString="dd/MM/yyyy" EditFormatString="dd/MM/yyyy" UseMaskBehavior="true">
+                        </dx:BootstrapDateEdit>
+                    </div>
+                    <div class="col-sm-2">
+                        <dx:BootstrapDateEdit ID="date2" runat="server" EditFormat="Custom" Width="100%" Caption="Hasta" ClientInstanceName="Fecha2"
+                            DisplayFormatString="dd/MM/yyyy" EditFormatString="dd/MM/yyyy" UseMaskBehavior="true">
+                        </dx:BootstrapDateEdit>
+                    </div>
+                    <div class="col-sm-2">
+                        <dx:BootstrapTextBox ID="txtTrip" runat="server" Caption="No. Trip" Width="100%"></dx:BootstrapTextBox>
+                    </div>
+                    <div class="col-sm-2" style="vertical-align:bottom">
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <dx:BootstrapButton ID="btnConsultaVuelos" runat="server" Text="Consulta vuelos" OnClick="btnConsultaVuelos_Click" Width="100%">
+                            <SettingsBootstrap RenderOption="Success" />
+                        </dx:BootstrapButton>
+                    </div>
+                    <div class="col-sm-2">&nbsp;</div>
                 </div>
+                    
             </fieldset>
         </div>
     </div>
@@ -131,7 +111,7 @@
         </div>
         <div class="row" style="padding-top: 30px;">
             <div class="col-md-12" align="center">
-                <dx:BootstrapButton ID="btnProcesar" runat="server" Text="Procesar Vuelos" OnClick="btnProcesar_Click">
+                <dx:BootstrapButton ID="btnProcesar" runat="server" Text="Enviar Reporte" OnClick="btnProcesar_Click">
                     <SettingsBootstrap RenderOption="Primary" />
                 </dx:BootstrapButton>
             </div>

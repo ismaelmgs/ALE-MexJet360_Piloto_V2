@@ -190,10 +190,16 @@ namespace ALE_MexJet.Views.Operaciones
                     }
                     if (ListaVuelos.Count > 0)
                     {
-                        if (eNewObj != null)
-                            eNewObj(sender, e);
+                        //if (eNewObj != null)
+                        //    eNewObj(sender, e);
 
                         MostrarMensaje("Los vuelos se enviaron correctamente", "Aviso");
+
+                        if (eSearchObj != null)
+                            eSearchObj(sender, e);
+
+                        UpdatePanel1.Update();
+                        gvVuelos.DataBind();
                     }
                 }
                 else
