@@ -67,7 +67,7 @@
                                 <Settings ShowGroupPanel="True" ShowFilterRowMenu="true" />
                                 <SettingsAdaptivity AdaptivityMode="HideDataCells" AllowOnlyOneAdaptiveDetailExpanded="true"></SettingsAdaptivity>
                                 <Columns>
-                                    <dx:BootstrapGridViewCommandColumn ShowSelectCheckbox="True" SelectAllCheckboxMode="AllPages" />
+                                    <dx:BootstrapGridViewCommandColumn ShowSelectCheckbox="True" SelectAllCheckboxMode="AllPages" ShowClearFilterButton="true" />
 
                                     <dx:BootstrapGridViewDataColumn Caption="Trip" FieldName="vuelo" VisibleIndex="2" HorizontalAlign="Center"/>
                                     <dx:BootstrapGridViewDataColumn Caption="Clave Contrato" FieldName="claveContrato" VisibleIndex="3" />
