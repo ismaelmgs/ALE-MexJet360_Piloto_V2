@@ -39,7 +39,9 @@
                         </dx:BootstrapDateEdit>
                     </div>
                     <div class="col-sm-2">
-                        <dx:BootstrapTextBox ID="txtTrip" runat="server" Caption="No. Trip" Width="100%"></dx:BootstrapTextBox>
+                        <dx:BootstrapTextBox ID="txtTrip" runat="server" Caption="No. Trip" Width="100%">
+                            <MaskSettings Mask="999999999999999" />
+                        </dx:BootstrapTextBox>
                     </div>
                     <div class="col-sm-2" style="vertical-align:bottom">
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
