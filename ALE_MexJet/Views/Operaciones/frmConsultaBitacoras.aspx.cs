@@ -19,6 +19,7 @@ namespace ALE_MexJet.Views.Operaciones
 {
     public partial class frmConsultaBitacoras : System.Web.UI.Page, IViewConsultaBitacoras
     {
+        #region EVENTOS
         protected void Page_Load(object sender, EventArgs e)
         {
             oPresenter = new ConsultaBitacoras_Presenter(this, new DBConsultaBitacoras());
@@ -101,6 +102,76 @@ namespace ALE_MexJet.Views.Operaciones
             }
         }
 
+        protected void btnActualizar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (eSaveObj != null)
+                    eSaveObj(sender, e);
+
+                if (bRes == true)
+                {
+                    pnlBusqueda.Visible = true;
+                    pnlBitacoras.Visible = true;
+                    pnlActualizaBitacora.Visible = false;
+
+                    if (eSearchObj != null)
+                        eSearchObj(sender, e);
+
+                    MostrarMensaje("Se actualizó la información correctamente", "¡Listo!");
+                }
+                else
+                    MostrarMensaje("No se pudo actualizar, favor de verificar", "¡Atención!");
+            }
+            catch (Exception ex)
+            {
+                MostrarMensaje("Ocurrió un error :" + ex.Message, "¡Error!");
+            }
+        }
+
+        protected void btnAutorizar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (eUpdateSts != null)
+                    eUpdateSts(sender, e);
+
+                if (bRes == true)
+                {
+                    pnlBusqueda.Visible = true;
+                    pnlBitacoras.Visible = true;
+                    pnlActualizaBitacora.Visible = false;
+
+                    if (eSearchObj != null)
+                        eSearchObj(sender, e);
+
+                    MostrarMensaje("Se autorizó la información correctamente", "¡Listo!");
+                }
+                else
+                    MostrarMensaje("No se pudo autorizar la información, favor de verificar", "¡Atención!");
+            }
+            catch (Exception ex)
+            {
+                MostrarMensaje("Ocurrió un error :" + ex.Message, "¡Error!");
+            }
+        }
+
+        protected void btnVerImagen_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (eSearchPhoto != null)
+                    eSearchPhoto(sender, e);
+
+                ppVerImagen.ShowOnPageLoad = true;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+        }
+        #endregion
 
         #region MÉTODOS
         public void MostrarMensaje(string sMensaje, string sCaption)
@@ -169,7 +240,6 @@ namespace ALE_MexJet.Views.Operaciones
             get { return (DataTable)ViewState["VSdtBitacoras"]; }
             set { ViewState["VSdtBitacoras"] = value; }
         }
-
         public BitacoraVuelo oBi
         {
             get
@@ -193,75 +263,5 @@ namespace ALE_MexJet.Views.Operaciones
         }
 
         #endregion
-
-        protected void btnActualizar_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                if (eSaveObj != null)
-                    eSaveObj(sender, e);
-
-                if (bRes == true)
-                {
-                    pnlBusqueda.Visible = true;
-                    pnlBitacoras.Visible = true;
-                    pnlActualizaBitacora.Visible = false;
-
-                    if (eSearchObj != null)
-                        eSearchObj(sender, e);
-
-                    MostrarMensaje("Se actualizó la información correctamente", "¡Listo!");
-                }
-                else
-                    MostrarMensaje("No se pudo actualizar, favor de verificar", "¡Atención!");
-            }
-            catch (Exception ex)
-            {
-                MostrarMensaje("Ocurrió un error :" + ex.Message, "¡Error!");
-            }
-        }
-
-        protected void btnAutorizar_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                if (eUpdateSts != null)
-                    eUpdateSts(sender, e);
-
-                if (bRes == true)
-                {
-                    pnlBusqueda.Visible = true;
-                    pnlBitacoras.Visible = true;
-                    pnlActualizaBitacora.Visible = false;
-
-                    if (eSearchObj != null)
-                        eSearchObj(sender, e);
-
-                    MostrarMensaje("Se autorizó la información correctamente", "¡Listo!");
-                }
-                else
-                    MostrarMensaje("No se pudo autorizar la información, favor de verificar", "¡Atención!");
-            }
-            catch (Exception ex)
-            {
-                MostrarMensaje("Ocurrió un error :" + ex.Message, "¡Error!");
-            }
-        }
-
-        protected void btnVerImagen_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                if (eSearchPhoto != null)
-                    eSearchPhoto(sender, e);
-
-                ppVerImagen.ShowOnPageLoad = true;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            
-        }
     }
 }
