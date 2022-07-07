@@ -22,19 +22,18 @@ namespace ALE_MexJet.Views.Operaciones
         #region EVENTOS
         protected void Page_Init(object sender, EventArgs e)
         {
-            
         }
         protected void Page_Load(object sender, EventArgs e)
         {
             oPresenter = new ReporteVuelos_Presenter(this, new DBReporteVuelos());
-            gvVuelos.SettingsPager.Position = PagerPosition.TopAndBottom;
-            gvVuelos.SettingsPager.ShowDisabledButtons = true;
-            gvVuelos.SettingsPager.ShowNumericButtons = true;
-            gvVuelos.SettingsPager.ShowSeparators = true;
-            gvVuelos.SettingsPager.Summary.Visible = true;
-            gvVuelos.SettingsPager.PageSizeItemSettings.Visible = true;
-            gvVuelos.SettingsPager.PageSizeItemSettings.Position = PagerPageSizePosition.Right;
-            gvVuelos.SettingsText.SearchPanelEditorNullText = "Ingresa la información a buscar:";
+            //gvVuelos.SettingsPager.Position = PagerPosition.TopAndBottom;
+            //gvVuelos.SettingsPager.ShowDisabledButtons = true;
+            //gvVuelos.SettingsPager.ShowNumericButtons = true;
+            //gvVuelos.SettingsPager.ShowSeparators = true;
+            //gvVuelos.SettingsPager.Summary.Visible = true;
+            //gvVuelos.SettingsPager.PageSizeItemSettings.Visible = true;
+            //gvVuelos.SettingsPager.PageSizeItemSettings.Position = PagerPageSizePosition.Right;
+            //gvVuelos.SettingsText.SearchPanelEditorNullText = "Ingresa la información a buscar:";
 
             if (!IsPostBack)
             {
@@ -44,10 +43,10 @@ namespace ALE_MexJet.Views.Operaciones
                 sFecha = date1.Text;
                 sFecha2 = date2.Text;
                 sTripNum = string.IsNullOrEmpty(sTripNum) ? "" : txtTrip.Text;
-            }
 
-            if (eSearchObj != null)
-                eSearchObj(sender, e);
+                if (eSearchObj != null)
+                    eSearchObj(sender, e);
+            }
         }
 
 
@@ -77,7 +76,7 @@ namespace ALE_MexJet.Views.Operaciones
         #endregion
 
         #region MÉTODOS
-        public void LoadVuelos(DataTable dt) 
+        public void LoadVuelos(DataTable dt)
         {
             try
             {
@@ -88,14 +87,18 @@ namespace ALE_MexJet.Views.Operaciones
                 {
                     gvVuelos.DataSource = dt;
                     gvVuelos.DataBind();
+                    pnlVuelos.Visible = true;
                 }
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
+
+
+
+
         #endregion
 
         #region VARIABLES Y PROPIEDADES
@@ -161,10 +164,8 @@ namespace ALE_MexJet.Views.Operaciones
             {
                 List<Vuelo> oLsVuelos = new List<Vuelo>();
                 iRes = 0;
-
                 string[] fieldValues = { "vuelo", "claveContrato", "Matricula", "Origen", "Destino", "PaisOrigen", "PaisDestino", "FechaHoraOrigen", "FechaHoraDestino", "legid" };
-                List<object> olst = gvVuelos.GetSelectedFieldValues(fieldValues);
-
+                List<Object> olst = gvVuelos.GetSelectedFieldValues(fieldValues);
 
                 if (olst.Count > 0)
                 {

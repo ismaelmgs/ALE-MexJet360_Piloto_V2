@@ -63,7 +63,7 @@
                     <ContentTemplate>
                         <div class="col-sm-12">
 
-                            <dx:BootstrapGridView ID="gvVuelos" runat="server" KeyFieldName="vuelo"
+                            <dx:BootstrapGridView ID="gvVuelos" runat="server" KeyFieldName="legid"
                                 OnRowCommand="gvVuelos_RowCommand" OnPageIndexChanged="gvVuelos_PageIndexChanged">
                                 <SettingsSearchPanel Visible="true" ShowApplyButton="true" />
                                 <Settings ShowGroupPanel="True" ShowFilterRowMenu="true" />
@@ -90,8 +90,8 @@
                                     <dx:BootstrapGridViewDataColumn Caption="Fecha Origen" FieldName="FechaHoraOrigen" VisibleIndex="10" />
                                     <dx:BootstrapGridViewDataColumn Caption="Fecha Destino" FieldName="FechaHoraDestino" VisibleIndex="11" />
 
-                                    <dx:BootstrapGridViewDataColumn FieldName="leg_num" Visible="false" VisibleIndex="13" CssClasses-DataCell="hideColumn" CssClasses-HeaderCell="hideColumn" HorizontalAlign="Center" />
-                                    <dx:BootstrapGridViewDataColumn FieldName="legid" Visible="false" VisibleIndex="12" CssClasses-DataCell="hideColumn" CssClasses-HeaderCell="hideColumn" HorizontalAlign="Center" />
+                                    <dx:BootstrapGridViewDataColumn FieldName="leg_num" Visible="false" VisibleIndex="12" CssClasses-DataCell="hideColumn" CssClasses-HeaderCell="hideColumn" HorizontalAlign="Center" />
+                                    <dx:BootstrapGridViewDataColumn FieldName="legid" Visible="false" VisibleIndex="13" CssClasses-DataCell="hideColumn" CssClasses-HeaderCell="hideColumn" HorizontalAlign="Center" />
                                     <dx:BootstrapGridViewDataColumn FieldName="Tooltip" Visible="false" VisibleIndex="14" CssClasses-DataCell="hideColumn" CssClasses-HeaderCell="hideColumn" HorizontalAlign="Center" />
                                     <dx:BootstrapGridViewDataColumn FieldName="Estatus_Img" Visible="false" VisibleIndex="15" CssClasses-DataCell="hideColumn" CssClasses-HeaderCell="hideColumn" HorizontalAlign="Center" />
 
