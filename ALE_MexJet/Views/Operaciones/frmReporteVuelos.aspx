@@ -31,11 +31,13 @@
                     <div class="col-sm-2">
                         <dx:BootstrapDateEdit ID="date1" runat="server" EditFormat="Custom" Width="100%" Caption="Desde" ClientInstanceName="Fecha1"
                             DisplayFormatString="dd/MM/yyyy" EditFormatString="dd/MM/yyyy" UseMaskBehavior="true">
+                            <CalendarProperties ShowWeekNumbers="false"></CalendarProperties>
                         </dx:BootstrapDateEdit>
                     </div>
                     <div class="col-sm-2">
                         <dx:BootstrapDateEdit ID="date2" runat="server" EditFormat="Custom" Width="100%" Caption="Hasta" ClientInstanceName="Fecha2"
                             DisplayFormatString="dd/MM/yyyy" EditFormatString="dd/MM/yyyy" UseMaskBehavior="true">
+                            <CalendarProperties ShowWeekNumbers="false"></CalendarProperties>
                         </dx:BootstrapDateEdit>
                     </div>
                     <div class="col-sm-2">
