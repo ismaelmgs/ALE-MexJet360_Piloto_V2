@@ -13,6 +13,7 @@ using ALE_MexJet.Interfaces;
 using ALE_MexJet.DomainModel;
 using ALE_MexJet.Presenter;
 using ALE_MexJet.Objetos;
+using System.IO;
 
 namespace ALE_MexJet.Views.Operaciones
 {
@@ -127,6 +128,26 @@ namespace ALE_MexJet.Views.Operaciones
                 throw ex;
             }
         }
+        public void LoadFoto(DataTable dt)
+        {
+            try
+            {
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    byte[] imgData = (byte[])dt.Rows[0]["Foto"];
+                    ppVerImagen.HeaderText = dt.Rows[0]["NombreArchivo"].S();
+                    using (MemoryStream ms = new MemoryStream(imgData))
+                    {
+                        //System.Drawing.Image image = System.Drawing.Image.FromStream(ms);
+                        imgFoto.ImageUrl = "data:image/png;base64," + Convert.ToBase64String(ms.ToArray(), 0, ms.ToArray().Length);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
         #endregion
 
         #region PROPIEDADES Y VARIABLES
@@ -137,6 +158,7 @@ namespace ALE_MexJet.Views.Operaciones
         public event EventHandler eDeleteObj;
         public event EventHandler eSearchObj;
         public event EventHandler eUpdateSts;
+        public event EventHandler eSearchPhoto;
         public bool bRes
         {
             get { return (bool)ViewState["VSRes"]; }
@@ -228,7 +250,18 @@ namespace ALE_MexJet.Views.Operaciones
 
         protected void btnVerImagen_Click(object sender, EventArgs e)
         {
-            ppVerImagen.ShowOnPageLoad = true;
+            try
+            {
+                if (eSearchPhoto != null)
+                    eSearchPhoto(sender, e);
+
+                ppVerImagen.ShowOnPageLoad = true;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            
         }
     }
 }

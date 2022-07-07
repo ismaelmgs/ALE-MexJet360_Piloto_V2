@@ -17,6 +17,7 @@ namespace ALE_MexJet.Presenter
         {
             oIGestCat = oGC;
             oIView.eUpdateSts += UpdateSts_Presenter;
+            oIView.eSearchPhoto += SearchPhoto_Presenter;
         }
         protected override void SearchObj_Presenter(object sender, EventArgs e)
         {
@@ -31,6 +32,11 @@ namespace ALE_MexJet.Presenter
         protected void UpdateSts_Presenter(object sender, EventArgs e)
         {
             oIView.bRes = oIGestCat.DBSetAutorizaBitacora(oIView.oBi);
+        }
+
+        protected void SearchPhoto_Presenter(object sender, EventArgs e)
+        {
+            oIView.LoadFoto(oIGestCat.DBGetFotoXBitacora(oIView.oBi));
         }
 
     }

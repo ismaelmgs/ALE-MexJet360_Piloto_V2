@@ -13,7 +13,9 @@ namespace ALE_MexJet.Interfaces
         bool bRes { set; get; }
         BitacoraVuelo oBi { get; }
         void LoadBitacoras(DataTable dt);
+        void LoadFoto(DataTable dt);
 
         event EventHandler eUpdateSts;
+        event EventHandler eSearchPhoto;
     }
 }

@@ -255,14 +255,14 @@
 
     <%--MODAL PARA VER IMAGEN--%>
     <dx:ASPxPopupControl ID="ppVerImagen" runat="server" ClientInstanceName="ppVerImagen" CloseAction="CloseButton" CloseOnEscape="true" Modal="True" Theme="Office2010Black"
-        PopupHorizontalAlign="WindowCenter" PopupVerticalAlign="Middle" HeaderText="Aviso" AllowDragging="true" ShowCloseButton="true" Width="300">
+        PopupHorizontalAlign="WindowCenter" PopupVerticalAlign="Middle" AllowDragging="true" ShowCloseButton="true" Width="300">
         <ClientSideEvents />
         <ContentCollection>
             <dx:PopupControlContentControl runat="server">
                 <dx:ASPxPanel ID="ASPxPanel1" runat="server" DefaultButton="btOK">
                     <PanelCollection>
                         <dx:PanelContent runat="server">
-                            
+                            <asp:Image ID="imgFoto" runat="server" Width="750" Height="500" />
                         </dx:PanelContent>
                     </PanelCollection>
                 </dx:ASPxPanel>
