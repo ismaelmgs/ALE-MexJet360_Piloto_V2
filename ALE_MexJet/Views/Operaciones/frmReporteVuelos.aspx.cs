@@ -26,14 +26,14 @@ namespace ALE_MexJet.Views.Operaciones
         protected void Page_Load(object sender, EventArgs e)
         {
             oPresenter = new ReporteVuelos_Presenter(this, new DBReporteVuelos());
-            //gvVuelos.SettingsPager.Position = PagerPosition.TopAndBottom;
-            //gvVuelos.SettingsPager.ShowDisabledButtons = true;
-            //gvVuelos.SettingsPager.ShowNumericButtons = true;
-            //gvVuelos.SettingsPager.ShowSeparators = true;
-            //gvVuelos.SettingsPager.Summary.Visible = true;
-            //gvVuelos.SettingsPager.PageSizeItemSettings.Visible = true;
-            //gvVuelos.SettingsPager.PageSizeItemSettings.Position = PagerPageSizePosition.Right;
-            //gvVuelos.SettingsText.SearchPanelEditorNullText = "Ingresa la información a buscar:";
+            gvVuelos.SettingsPager.Position = PagerPosition.TopAndBottom;
+            gvVuelos.SettingsPager.ShowDisabledButtons = true;
+            gvVuelos.SettingsPager.ShowNumericButtons = true;
+            gvVuelos.SettingsPager.ShowSeparators = true;
+            gvVuelos.SettingsPager.Summary.Visible = true;
+            gvVuelos.SettingsPager.PageSizeItemSettings.Visible = true;
+            gvVuelos.SettingsPager.PageSizeItemSettings.Position = PagerPageSizePosition.Right;
+            gvVuelos.SettingsText.SearchPanelEditorNullText = "Ingresa la información a buscar:";
 
             if (!IsPostBack)
             {
@@ -43,10 +43,10 @@ namespace ALE_MexJet.Views.Operaciones
                 sFecha = date1.Text;
                 sFecha2 = date2.Text;
                 sTripNum = string.IsNullOrEmpty(sTripNum) ? "" : txtTrip.Text;
-
-                if (eSearchObj != null)
-                    eSearchObj(sender, e);
             }
+
+            if (eSearchObj != null)
+                eSearchObj(sender, e);
         }
 
 
