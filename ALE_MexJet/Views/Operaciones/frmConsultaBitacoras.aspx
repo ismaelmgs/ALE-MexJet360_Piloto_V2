@@ -6,6 +6,7 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link rel="stylesheet" type="text/css" href="../../Styles/Controls.css" />
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script type="text/javascript">
         function onSelectionGridViewAction(s, e) {
             $("#selectionLabel").html("Total rows selected: " + s.GetSelectedRowCount());
@@ -13,7 +14,14 @@
         function alerta() {
             alert("Mensaje de prueba");
         }
+
+        function myFunction() {
+            alert($("#<%=txtFuelOut.ClientID %>").val())
+        }
+
+       
     </script>
+  
     <style>
         .hiddenRow {
             visibility:hidden !important;
@@ -21,6 +29,9 @@
         .centerCell {
             text-align:center !important;
             color: #337ab7 !important;
+        }
+        .centerTxt {
+            text-align:center !important;
         }
     </style>
 </asp:Content>
@@ -62,23 +73,24 @@
                                 <SettingsAdaptivity AdaptivityMode="HideDataCells" AllowOnlyOneAdaptiveDetailExpanded="true"></SettingsAdaptivity>
                                 <SettingsPager PageSize="20"></SettingsPager>
                                 <Columns>
-                                    <dx:BootstrapGridViewDataColumn Caption="Leg Id" FieldName="leg_id" VisibleIndex="1" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" />
-                                    <dx:BootstrapGridViewDataColumn Caption="Folio" FieldName="folio" VisibleIndex="2" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" />
-                                    <dx:BootstrapGridViewDataColumn Caption="Flight Off" FieldName="flight_off" VisibleIndex="3" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" />
-                                    <dx:BootstrapGridViewDataColumn Caption="Flight On" FieldName="flight_on" VisibleIndex="4" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" />
-                                    <dx:BootstrapGridViewDataColumn Caption="Flight Diff" FieldName="flight_diff" VisibleIndex="5" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" />
-                                    <dx:BootstrapGridViewDataColumn Caption="Calzo In" FieldName="calzo_in" VisibleIndex="6" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" />
-                                    <dx:BootstrapGridViewDataColumn Caption="Calzo Out" FieldName="calzo_out" VisibleIndex="7" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" />
-                                    <dx:BootstrapGridViewDataColumn Caption="Calzo Diff" FieldName="calzo_diff" VisibleIndex="8" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" />
-                                    <dx:BootstrapGridViewDataColumn Caption="Fuel In" FieldName="fuel_in" VisibleIndex="9" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" />
-                                    <dx:BootstrapGridViewDataColumn Caption="Fuel Out" FieldName="fuel_out" VisibleIndex="10" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" />
-                                    <dx:BootstrapGridViewDataColumn Caption="Fuel Diff" FieldName="fuel_diff" VisibleIndex="11" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" />
-                                    <dx:BootstrapGridViewDataColumn Caption="Quién autorizó" FieldName="autorizacion" VisibleIndex="12" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" />
-                                    <dx:BootstrapGridViewDataColumn Caption="Cuando autorizó" FieldName="fecha_autorizacion" VisibleIndex="13" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" />
-                                    <dx:BootstrapGridViewDataColumn Caption="Estatus" FieldName="desestatus" VisibleIndex="14" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" />
-                                    <dx:BootstrapGridViewDataColumn FieldName="estatus" VisibleIndex="15" HorizontalAlign="Center" CssClasses-DataCell="hiddenRow" CssClasses-HeaderCell="centerCell" 
-                                        HeaderBadge-CssClass="hiddenRow" Visible="false" CssClasses-EditCell="centerCell" />
-                                    <dx:BootstrapGridViewDataColumn Caption="Acciones" Visible="true" VisibleIndex="16" HorizontalAlign="Center">
+                                    <dx:BootstrapGridViewDataColumn Caption="Trip" FieldName="trip" VisibleIndex="1" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" />
+                                    <dx:BootstrapGridViewDataColumn Caption="Matricula" FieldName="matricula" VisibleIndex="2" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" />
+                                    <dx:BootstrapGridViewDataColumn Caption="Folio" FieldName="folio" VisibleIndex="3" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" />
+                                    <dx:BootstrapGridViewDataColumn Caption="Flight Off" FieldName="flight_off" VisibleIndex="4" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" />
+                                    <dx:BootstrapGridViewDataColumn Caption="Flight On" FieldName="flight_on" VisibleIndex="5" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" />
+                                    <dx:BootstrapGridViewDataColumn Caption="Flight Diff" FieldName="flight_diff" VisibleIndex="6" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" />
+                                    <dx:BootstrapGridViewDataColumn Caption="Calzo In" FieldName="calzo_in" VisibleIndex="7" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" />
+                                    <dx:BootstrapGridViewDataColumn Caption="Calzo Out" FieldName="calzo_out" VisibleIndex="8" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" />
+                                    <dx:BootstrapGridViewDataColumn Caption="Calzo Diff" FieldName="calzo_diff" VisibleIndex="9" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" />
+                                    <dx:BootstrapGridViewDataColumn Caption="Fuel In" FieldName="fuel_in" VisibleIndex="10" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" />
+                                    <dx:BootstrapGridViewDataColumn Caption="Fuel Out" FieldName="fuel_out" VisibleIndex="11" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" />
+                                    <dx:BootstrapGridViewDataColumn Caption="Fuel Diff" FieldName="fuel_diff" VisibleIndex="12" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" />
+                                    <dx:BootstrapGridViewDataColumn Caption="Quién autorizó" FieldName="autorizacion" VisibleIndex="13" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" />
+                                    <dx:BootstrapGridViewDataColumn Caption="Cuando autorizó" FieldName="fecha_autorizacion" VisibleIndex="14" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" />
+                                    <dx:BootstrapGridViewDataColumn Caption="Estatus" FieldName="desestatus" VisibleIndex="15" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" />
+                                    <dx:BootstrapGridViewDataColumn FieldName="estatus" VisibleIndex="16" CssClasses-DataCell="hiddenRow" HeaderBadge-CssClass="hiddenRow" Visible="false" />
+                                    <dx:BootstrapGridViewDataColumn FieldName="leg_id" VisibleIndex="17" CssClasses-DataCell="hiddenRow" HeaderBadge-CssClass="hiddenRow" Visible="false" />
+                                    <dx:BootstrapGridViewDataColumn Caption="Acciones" Visible="true" VisibleIndex="18" HorizontalAlign="Center">
                                         <DataItemTemplate>
                                             <div>
                                                 <dx:BootstrapButton Text="Actualizar" ID="btnActualiza" runat="server" CommandArgument='<%# Eval("idBitacora") %>' CommandName="Actualiza" AutoPostBack="true" 
@@ -99,107 +111,101 @@
     <br />
 
     <asp:Panel ID="pnlActualizaBitacora" runat="server" Visible="false">
+        <div style="width:60%; margin:0 auto 0 auto;">
+            <div class="row">
+                <div class="col-lg-12" align="right">
+                    <dx:BootstrapButton ID="btnVerImagen" runat="server" Text="Ver imagen" SettingsBootstrap-RenderOption="Primary" AutoPostBack="true" OnClick="btnVerImagen_Click" />
+                </div>
+            </div>
+            <div class="row" style="padding-bottom:20px;">
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <div style="text-align:center;"><label>Matrícula</label></div>
+                        <dx:BootstrapTextBox ID="txtMatricula" runat="server" Text="" Enabled="false" CssClasses-Control="centerTxt" />
+                        <asp:HiddenField ID="hdnIdBitacora" runat="server" />
+                        <asp:HiddenField ID="hdnLegId" runat="server" />
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <div style="text-align:center;"><label>Folio</label></div>
+                            <dx:BootstrapTextBox ID="txtFolio" runat="server" Text="" Enabled="false" />
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <div style="text-align:center;"><label>Trip</label></div>
+                        <dx:BootstrapTextBox ID="txtTrip" runat="server" Text="" Enabled="false" />
+                    </div>
+                </div>
+            </div>
+
+            <asp:UpdatePanel ID="upaOperaciones" runat="server" UpdateMode="Conditional">
+                <ContentTemplate>
+
+                    <div class="row" style="padding-bottom:5px;">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <div style="text-align:center;"><label>Calzo</label></div>
+                                <dx:BootstrapTextBox ID="txtCalzoIn" runat="server" Text="" OnTextChanged="txtCalzoOut_TextChanged" AutoPostBack="true" />
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <div style="text-align:center;"><label>Vuelo</label></div>
+                                <dx:BootstrapTextBox ID="txtFlightOn" runat="server" Text="" OnTextChanged="txtFlightOff_TextChanged" AutoPostBack="true" />
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <div style="text-align:center;"><label>Combustible</label></div>
+                                <dx:BootstrapTextBox ID="txtFuelIn" runat="server" Text="" OnTextChanged="txtFuelOut_TextChanged" AutoPostBack="true" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="padding-bottom:10px;">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <dx:BootstrapTextBox ID="txtCalzoOut" runat="server" Text="" OnTextChanged="txtCalzoOut_TextChanged" AutoPostBack="true" />
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <dx:BootstrapTextBox ID="txtFlightOff" runat="server" Text="" OnTextChanged="txtFlightOff_TextChanged" AutoPostBack="true" />
+                        </div>
+                        <div class="col-sm-4">
+                            <dx:BootstrapTextBox ID="txtFuelOut" runat="server" Text="" OnTextChanged="txtFuelOut_TextChanged" AutoPostBack="true" />
+                        </div>
+                    </div>
+                    <div class="row" style="padding-bottom:20px;">
+                        <div class="col-sm-4">
+                            <dx:BootstrapTextBox ID="txtCalzoDiff" runat="server" Text="" Enabled="false" />
+                        </div>
+                        <div class="col-sm-4">
+                            <dx:BootstrapTextBox ID="txtFlightDiff" runat="server" Text="" Enabled="false" />
+                        </div>
+                        <div class="col-sm-4">
+                            <dx:BootstrapTextBox ID="txtFuelDiff" runat="server" Text="" Enabled="false" />
+                        </div>
+                    </div>
+
+                </ContentTemplate>
+                <Triggers>
+                    <asp:AsyncPostBackTrigger ControlID="txtFuelOut" EventName="TextChanged" />
+                    <asp:AsyncPostBackTrigger ControlID="txtFlightOff" EventName="TextChanged" />
+                    <asp:AsyncPostBackTrigger ControlID="txtCalzoOut" EventName="TextChanged" />
+                </Triggers>
+            </asp:UpdatePanel>
+
+            
+
+
+
+
+        </div>
         <div class="row">
 
             <dx:BootstrapFormLayout runat="server">
-                <Items>
-                    <dx:BootstrapLayoutGroup Caption="Información de Bitácora">
-                        <Items>
-                            <dx:BootstrapLayoutItem HorizontalAlign="Right" ShowCaption="False" ColSpanMd="12">
-                                <ContentCollection>
-                                    <dx:ContentControl>
-                                        <dx:BootstrapButton ID="btnVerImagen" runat="server" Text="Ver imagen" SettingsBootstrap-RenderOption="Primary" AutoPostBack="true" OnClick="btnVerImagen_Click" />
-                                    </dx:ContentControl>
-                                </ContentCollection>
-                            </dx:BootstrapLayoutItem>
-                        </Items>
-                        <Items>
-                            <dx:BootstrapLayoutItem Caption="LegID" ColSpanMd="3">
-                                <ContentCollection>
-                                    <dx:ContentControl>
-                                        <dx:BootstrapTextBox ID="txtLegId" runat="server" Text="" Enabled="false" />
-                                        <asp:HiddenField ID="hdnIdBitacora" runat="server" />
-                                    </dx:ContentControl>
-                                </ContentCollection>
-                            </dx:BootstrapLayoutItem>
-                            <dx:BootstrapLayoutItem Caption="Folio" ColSpanMd="3">
-                                <ContentCollection>
-                                    <dx:ContentControl>
-                                        <dx:BootstrapTextBox ID="txtFolio" runat="server" Text="" Enabled="false" />
-                                    </dx:ContentControl>
-                                </ContentCollection>
-                            </dx:BootstrapLayoutItem>
-                            <dx:BootstrapLayoutItem Caption="Flight Off" ColSpanMd="3">
-                                <ContentCollection>
-                                    <dx:ContentControl>
-                                        <dx:BootstrapTextBox ID="txtFlightOff" runat="server" Text="" />
-                                    </dx:ContentControl>
-                                </ContentCollection>
-                            </dx:BootstrapLayoutItem>
-                            <dx:BootstrapLayoutItem Caption="Flight On" ColSpanMd="3">
-                                <ContentCollection>
-                                    <dx:ContentControl>
-                                        <dx:BootstrapTextBox ID="txtFlightOn" runat="server" Text="" />
-                                    </dx:ContentControl>
-                                </ContentCollection>
-                            </dx:BootstrapLayoutItem>
-                        </Items>
-                        <Items>
-                            <dx:BootstrapLayoutItem Caption="Flight Diff" ColSpanMd="3">
-                                <ContentCollection>
-                                    <dx:ContentControl>
-                                        <dx:BootstrapTextBox ID="txtFlightDiff" runat="server" Text="" />
-                                    </dx:ContentControl>
-                                </ContentCollection>
-                            </dx:BootstrapLayoutItem>
-                            <dx:BootstrapLayoutItem Caption="Calzo In" ColSpanMd="3">
-                                <ContentCollection>
-                                    <dx:ContentControl>
-                                        <dx:BootstrapTextBox ID="txtCalzoIn" runat="server" Text="" />
-                                    </dx:ContentControl>
-                                </ContentCollection>
-                            </dx:BootstrapLayoutItem>
-                            <dx:BootstrapLayoutItem Caption="Calzo Out" ColSpanMd="3">
-                                <ContentCollection>
-                                    <dx:ContentControl>
-                                        <dx:BootstrapTextBox ID="txtCalzoOut" runat="server" Text="" />
-                                    </dx:ContentControl>
-                                </ContentCollection>
-                            </dx:BootstrapLayoutItem>
-                            <dx:BootstrapLayoutItem Caption="Calzo Diff" ColSpanMd="3">
-                                <ContentCollection>
-                                    <dx:ContentControl>
-                                        <dx:BootstrapTextBox ID="txtCalzoDiff" runat="server" Text="" />
-                                    </dx:ContentControl>
-                                </ContentCollection>
-                            </dx:BootstrapLayoutItem>
-                        </Items>
-                        <Items>
-                            <dx:BootstrapLayoutItem Caption="Fuel In" ColSpanMd="3">
-                                <ContentCollection>
-                                    <dx:ContentControl>
-                                        <dx:BootstrapTextBox ID="txtFuelIn" runat="server" Text="" />
-                                    </dx:ContentControl>
-                                </ContentCollection>
-                            </dx:BootstrapLayoutItem>
-                            <dx:BootstrapLayoutItem Caption="Fuel Out" ColSpanMd="3">
-                                <ContentCollection>
-                                    <dx:ContentControl>
-                                        <dx:BootstrapTextBox ID="txtFuelOut" runat="server" Text="" />
-                                    </dx:ContentControl>
-                                </ContentCollection>
-                            </dx:BootstrapLayoutItem>
-                            <dx:BootstrapLayoutItem Caption="Fuel Diff" ColSpanMd="3">
-                                <ContentCollection>
-                                    <dx:ContentControl>
-                                        <dx:BootstrapTextBox ID="txtFuelDiff" runat="server" Text="" />
-                                    </dx:ContentControl>
-                                </ContentCollection>
-                            </dx:BootstrapLayoutItem>
-
-                        </Items>
-                    </dx:BootstrapLayoutGroup>
-                    
+                <Items>                 
                     <dx:BootstrapLayoutItem HorizontalAlign="Right" ShowCaption="False" ColSpanMd="12">
                         <ContentCollection>
                             <dx:ContentControl>
@@ -213,7 +219,6 @@
                     </dx:BootstrapLayoutItem>
                 </Items>
             </dx:BootstrapFormLayout>
-
 
         </div>
     </asp:Panel>

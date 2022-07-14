@@ -69,13 +69,13 @@ namespace ALE_MexJet.Views.Operaciones
         protected global::DevExpress.Web.Bootstrap.BootstrapButton btnVerImagen;
 
         /// <summary>
-        /// Control txtLegId.
+        /// Control txtMatricula.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::DevExpress.Web.Bootstrap.BootstrapTextBox txtLegId;
+        protected global::DevExpress.Web.Bootstrap.BootstrapTextBox txtMatricula;
 
         /// <summary>
         /// Control hdnIdBitacora.
@@ -87,6 +87,15 @@ namespace ALE_MexJet.Views.Operaciones
         protected global::System.Web.UI.WebControls.HiddenField hdnIdBitacora;
 
         /// <summary>
+        /// Control hdnLegId.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdnLegId;
+
+        /// <summary>
         /// Control txtFolio.
         /// </summary>
         /// <remarks>
@@ -96,31 +105,22 @@ namespace ALE_MexJet.Views.Operaciones
         protected global::DevExpress.Web.Bootstrap.BootstrapTextBox txtFolio;
 
         /// <summary>
-        /// Control txtFlightOff.
+        /// Control txtTrip.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::DevExpress.Web.Bootstrap.BootstrapTextBox txtFlightOff;
+        protected global::DevExpress.Web.Bootstrap.BootstrapTextBox txtTrip;
 
         /// <summary>
-        /// Control txtFlightOn.
+        /// Control upaOperaciones.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::DevExpress.Web.Bootstrap.BootstrapTextBox txtFlightOn;
-
-        /// <summary>
-        /// Control txtFlightDiff.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::DevExpress.Web.Bootstrap.BootstrapTextBox txtFlightDiff;
+        protected global::System.Web.UI.UpdatePanel upaOperaciones;
 
         /// <summary>
         /// Control txtCalzoIn.
@@ -132,22 +132,13 @@ namespace ALE_MexJet.Views.Operaciones
         protected global::DevExpress.Web.Bootstrap.BootstrapTextBox txtCalzoIn;
 
         /// <summary>
-        /// Control txtCalzoOut.
+        /// Control txtFlightOn.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::DevExpress.Web.Bootstrap.BootstrapTextBox txtCalzoOut;
-
-        /// <summary>
-        /// Control txtCalzoDiff.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::DevExpress.Web.Bootstrap.BootstrapTextBox txtCalzoDiff;
+        protected global::DevExpress.Web.Bootstrap.BootstrapTextBox txtFlightOn;
 
         /// <summary>
         /// Control txtFuelIn.
@@ -159,6 +150,24 @@ namespace ALE_MexJet.Views.Operaciones
         protected global::DevExpress.Web.Bootstrap.BootstrapTextBox txtFuelIn;
 
         /// <summary>
+        /// Control txtCalzoOut.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::DevExpress.Web.Bootstrap.BootstrapTextBox txtCalzoOut;
+
+        /// <summary>
+        /// Control txtFlightOff.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::DevExpress.Web.Bootstrap.BootstrapTextBox txtFlightOff;
+
+        /// <summary>
         /// Control txtFuelOut.
         /// </summary>
         /// <remarks>
@@ -166,6 +175,24 @@ namespace ALE_MexJet.Views.Operaciones
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.Bootstrap.BootstrapTextBox txtFuelOut;
+
+        /// <summary>
+        /// Control txtCalzoDiff.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::DevExpress.Web.Bootstrap.BootstrapTextBox txtCalzoDiff;
+
+        /// <summary>
+        /// Control txtFlightDiff.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::DevExpress.Web.Bootstrap.BootstrapTextBox txtFlightDiff;
 
         /// <summary>
         /// Control txtFuelDiff.

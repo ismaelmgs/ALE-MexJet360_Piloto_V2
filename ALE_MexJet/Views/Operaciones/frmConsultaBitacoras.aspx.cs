@@ -22,7 +22,16 @@ namespace ALE_MexJet.Views.Operaciones
         #region EVENTOS
         protected void Page_Load(object sender, EventArgs e)
         {
+
             oPresenter = new ConsultaBitacoras_Presenter(this, new DBConsultaBitacoras());
+            gvBitacoras.SettingsPager.Position = PagerPosition.TopAndBottom;
+            gvBitacoras.SettingsPager.ShowDisabledButtons = true;
+            gvBitacoras.SettingsPager.ShowNumericButtons = true;
+            gvBitacoras.SettingsPager.ShowSeparators = true;
+            gvBitacoras.SettingsPager.Summary.Visible = true;
+            gvBitacoras.SettingsPager.PageSizeItemSettings.Visible = true;
+            gvBitacoras.SettingsPager.PageSizeItemSettings.Position = PagerPageSizePosition.Right;
+            gvBitacoras.SettingsText.SearchPanelEditorNullText = "Ingresa la información a buscar:";
 
             if (!IsPostBack)
             {
@@ -30,6 +39,7 @@ namespace ALE_MexJet.Views.Operaciones
                     eSearchObj(sender, e);
             }
         }
+
 
         protected void gvBitacoras_PageIndexChanged(object sender, EventArgs e)
         {
@@ -54,14 +64,14 @@ namespace ALE_MexJet.Views.Operaciones
                 {
                     int index = e.VisibleIndex.I();
                     int iIdBitacora = gvBitacoras.GetRowValues(index, "idBitacora").S().I();
-                    string[] fieldValues = { "leg_id", "folio", "flight_off", "flight_on", "flight_diff", "calzo_in", "calzo_out", "calzo_diff", "fuel_in", "fuel_out", "fuel_diff", "estatus" };
+                    string[] fieldValues = { "leg_id", "folio", "flight_off", "flight_on", "flight_diff", "calzo_in", "calzo_out", "calzo_diff", "fuel_in", "fuel_out", "fuel_diff", "estatus", "trip", "matricula" };
                     object obj = gvBitacoras.GetRowValues(index, fieldValues);
                     object[] oB = (object[])obj;
                     //List<object> olst = oB;
 
                     if (oB.Length > 0)
                     {
-                        txtLegId.Text = oB[0].S();
+                        hdnLegId.Value = oB[0].S();
                         txtFolio.Text = oB[1].S();
                         txtFlightOff.Text = oB[2].S();
                         txtFlightOn.Text = oB[3].S();
@@ -72,6 +82,8 @@ namespace ALE_MexJet.Views.Operaciones
                         txtFuelIn.Text = oB[8].S();
                         txtFuelOut.Text = oB[9].S();
                         txtFuelDiff.Text = oB[10].S();
+                        txtTrip.Text = oB[12].S();
+                        txtMatricula.Text = oB[13].S();
                         hdnIdBitacora.Value = iIdBitacora.S();
                         pnlBusqueda.Visible = false;
                         pnlActualizaBitacora.Visible = true;
@@ -246,7 +258,7 @@ namespace ALE_MexJet.Views.Operaciones
             {
                 BitacoraVuelo oBita = new BitacoraVuelo();
                 oBita.IIdBitacora = hdnIdBitacora.Value.I();
-                oBita.LLegId = txtLegId.Text.I();
+                oBita.LLegId = hdnLegId.Value.I();
                 oBita.SFolio = txtFolio.Text;
                 oBita.SFlightOff = txtFlightOff.Text;
                 oBita.SFlightOn = txtFlightOn.Text;
@@ -263,5 +275,66 @@ namespace ALE_MexJet.Views.Operaciones
         }
 
         #endregion
+
+        protected void txtFuelOut_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                double dFuelIn = txtFuelIn.Text.Db();
+                double dFuelOut = txtFuelOut.Text.Db();
+                double dRes = 0;
+                dRes = dFuelIn - dFuelOut;
+                txtFuelDiff.Text = dRes.S();
+                upaOperaciones.Update();
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        protected void txtFlightOff_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                string[] sArrFliOff = txtFlightOff.Text.Split(' ');
+                string[] sArrFliOn = txtFlightOn.Text.Split(' ');
+                if (sArrFliOff.Length > 1 && sArrFliOn.Length > 1)
+                {
+                    string sTimeOff = sArrFliOff[1].S();
+                    string sTimeOn = sArrFliOn[1].S();
+                    TimeSpan timeOff = TimeSpan.Parse(sTimeOff);
+                    TimeSpan timeOn = TimeSpan.Parse(sTimeOn);
+                    TimeSpan timeRes = timeOn - timeOff;
+                    txtFlightDiff.Text = timeRes.S();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        protected void txtCalzoOut_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                string[] sArrClzOut = txtCalzoOut.Text.Split(' ');
+                string[] sArrClzIn = txtCalzoIn.Text.Split(' ');
+                if (sArrClzOut.Length > 1 && sArrClzIn.Length > 1)
+                {
+                    string sTimeOut = sArrClzOut[1].S();
+                    string sTimeIn = sArrClzIn[1].S();
+                    TimeSpan timeOut = TimeSpan.Parse(sTimeOut);
+                    TimeSpan timeIn = TimeSpan.Parse(sTimeIn);
+                    TimeSpan timeRes = timeIn - timeOut;
+                    txtCalzoDiff.Text = timeRes.S();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
     }
 }
