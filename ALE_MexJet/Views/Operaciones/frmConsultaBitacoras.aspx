@@ -256,7 +256,7 @@
                             <dx:ContentControl>
                                 <dx:BootstrapButton ID="btnActualizar" runat="server" Text="Actualizar" SettingsBootstrap-RenderOption="Primary" AutoPostBack="true" OnClick="btnActualizar_Click" />
                                 <dx:BootstrapButton ID="btnAutorizar" runat="server" Text="Autorizar" SettingsBootstrap-RenderOption="Success" AutoPostBack="true" OnClick="btnAutorizar_Click" />
-                                <dx:BootstrapButton ID="btnCancelar" runat="server" Text="Cancelar" SettingsBootstrap-RenderOption="Warning" AutoPostBack="false">
+                                <dx:BootstrapButton ID="btnCancelar" runat="server" Text="Regresar" SettingsBootstrap-RenderOption="Warning" AutoPostBack="false">
                                     <ClientSideEvents Click="function(s, e) { document.location.reload(); }" />
                                 </dx:BootstrapButton>
                             </dx:ContentControl>

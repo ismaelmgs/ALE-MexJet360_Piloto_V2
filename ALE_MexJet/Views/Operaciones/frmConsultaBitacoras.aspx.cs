@@ -123,12 +123,9 @@ namespace ALE_MexJet.Views.Operaciones
 
                 if (bRes == true)
                 {
-                    pnlBusqueda.Visible = true;
-                    pnlBitacoras.Visible = true;
-                    pnlActualizaBitacora.Visible = false;
-
-                    if (eSearchObj != null)
-                        eSearchObj(sender, e);
+                    pnlBusqueda.Visible = false;
+                    pnlBitacoras.Visible = false;
+                    pnlActualizaBitacora.Visible = true;
 
                     MostrarMensaje("Se actualizó la información correctamente", "¡Listo!");
                 }
@@ -150,13 +147,9 @@ namespace ALE_MexJet.Views.Operaciones
 
                 if (bRes == true)
                 {
-                    pnlBusqueda.Visible = true;
-                    pnlBitacoras.Visible = true;
-                    pnlActualizaBitacora.Visible = false;
-
-                    if (eSearchObj != null)
-                        eSearchObj(sender, e);
-
+                    pnlBusqueda.Visible = false;
+                    pnlBitacoras.Visible = false;
+                    pnlActualizaBitacora.Visible = true;
                     MostrarMensaje("Se autorizó la información correctamente", "¡Listo!");
                 }
                 else
