@@ -172,10 +172,12 @@ namespace ALE_MexJet.Views.Operaciones
         {
             try
             {
-                if (eSearchPhoto != null)
-                    eSearchPhoto(sender, e);
+                //if (eSearchPhoto != null)
+                //    eSearchPhoto(sender, e);
 
-                ppVerImagen.ShowOnPageLoad = true;
+                //ppVerImagen.ShowOnPageLoad = true;
+                int iBitacora = hdnIdBitacora.Value.I();
+                ScriptManager.RegisterStartupScript(Page, typeof(Page), "OpenWindow", "window.open('../Operaciones/frmViewBitacora.aspx?Bitacora=" + iBitacora + "',this.target, 'width=600,height=600,top=120,left=400,toolbar=no,location=no,status=no,menubar=no');", true);
             }
             catch (Exception)
             {
@@ -283,9 +285,17 @@ namespace ALE_MexJet.Views.Operaciones
                 double dFuelIn = txtFuelIn.Text.Db();
                 double dFuelOut = txtFuelOut.Text.Db();
                 double dRes = 0;
-                dRes = dFuelIn - dFuelOut;
-                txtFuelDiff.Text = dRes.S();
-                upaOperaciones.Update();
+
+                if (dFuelOut > dFuelIn)
+                {
+                    MostrarMensaje("La cantidad de combustible no concuerdan para esta operación, favor de revisar.", "");
+                }
+                else 
+                {
+                    dRes = dFuelIn - dFuelOut;
+                    txtFuelDiff.Text = dRes.S();
+                    upaOperaciones.Update();
+                } 
             }
             catch (Exception ex)
             {
@@ -305,8 +315,16 @@ namespace ALE_MexJet.Views.Operaciones
                     string sTimeOn = sArrFliOn[1].S();
                     TimeSpan timeOff = TimeSpan.Parse(sTimeOff);
                     TimeSpan timeOn = TimeSpan.Parse(sTimeOn);
-                    TimeSpan timeRes = timeOn - timeOff;
-                    txtFlightDiff.Text = timeRes.S();
+
+                    if (timeOn > timeOff)
+                    {
+                        MostrarMensaje("Los tiempos no concuerdan para esta operación, favor de revisar tiempos de vuelo.", "");
+                    }
+                    else
+                    {
+                        TimeSpan timeRes = timeOff - timeOn;
+                        txtFlightDiff.Text = timeRes.S();
+                    }
                 }
             }
             catch (Exception ex)
@@ -327,8 +345,17 @@ namespace ALE_MexJet.Views.Operaciones
                     string sTimeIn = sArrClzIn[1].S();
                     TimeSpan timeOut = TimeSpan.Parse(sTimeOut);
                     TimeSpan timeIn = TimeSpan.Parse(sTimeIn);
-                    TimeSpan timeRes = timeIn - timeOut;
-                    txtCalzoDiff.Text = timeRes.S();
+
+                    if (timeIn > timeOut)
+                    {
+                        MostrarMensaje("Los tiempos no concuerdan para esta operación, favor de revisar tiempos Calzo.", "");
+                    }
+                    else
+                    {
+                        TimeSpan timeRes = timeOut - timeIn;
+                        txtCalzoDiff.Text = timeRes.S();
+                    }
+
                 }
             }
             catch (Exception ex)

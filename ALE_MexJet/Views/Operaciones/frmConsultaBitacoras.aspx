@@ -33,6 +33,26 @@
         .centerTxt {
             text-align:center !important;
         }
+        .dirTB{  
+            text-align:center !important;  
+        }
+        .dataCell {
+            font-size:9pt;
+        }
+        .form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
+            cursor: not-allowed !important;
+            background-color: #eee !important;
+            opacity: 1 !important;
+            text-align:center !important;
+        }
+        .form-control {
+            text-align:center !important;
+        }
+        .spa {
+            font-weight: bold !important;
+            color: #337ab7 !important;
+            text-align: center !important;
+        }
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -73,21 +93,21 @@
                                 <SettingsAdaptivity AdaptivityMode="HideDataCells" AllowOnlyOneAdaptiveDetailExpanded="true"></SettingsAdaptivity>
                                 <SettingsPager PageSize="20"></SettingsPager>
                                 <Columns>
-                                    <dx:BootstrapGridViewDataColumn Caption="Trip" FieldName="trip" VisibleIndex="1" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" />
-                                    <dx:BootstrapGridViewDataColumn Caption="Matricula" FieldName="matricula" VisibleIndex="2" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" />
-                                    <dx:BootstrapGridViewDataColumn Caption="Folio" FieldName="folio" VisibleIndex="3" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" />
-                                    <dx:BootstrapGridViewDataColumn Caption="Flight Off" FieldName="flight_off" VisibleIndex="4" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" />
-                                    <dx:BootstrapGridViewDataColumn Caption="Flight On" FieldName="flight_on" VisibleIndex="5" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" />
-                                    <dx:BootstrapGridViewDataColumn Caption="Flight Diff" FieldName="flight_diff" VisibleIndex="6" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" />
-                                    <dx:BootstrapGridViewDataColumn Caption="Calzo In" FieldName="calzo_in" VisibleIndex="7" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" />
-                                    <dx:BootstrapGridViewDataColumn Caption="Calzo Out" FieldName="calzo_out" VisibleIndex="8" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" />
-                                    <dx:BootstrapGridViewDataColumn Caption="Calzo Diff" FieldName="calzo_diff" VisibleIndex="9" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" />
-                                    <dx:BootstrapGridViewDataColumn Caption="Fuel In" FieldName="fuel_in" VisibleIndex="10" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" />
-                                    <dx:BootstrapGridViewDataColumn Caption="Fuel Out" FieldName="fuel_out" VisibleIndex="11" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" />
-                                    <dx:BootstrapGridViewDataColumn Caption="Fuel Diff" FieldName="fuel_diff" VisibleIndex="12" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" />
-                                    <dx:BootstrapGridViewDataColumn Caption="Quién autorizó" FieldName="autorizacion" VisibleIndex="13" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" />
-                                    <dx:BootstrapGridViewDataColumn Caption="Cuando autorizó" FieldName="fecha_autorizacion" VisibleIndex="14" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" />
-                                    <dx:BootstrapGridViewDataColumn Caption="Estatus" FieldName="desestatus" VisibleIndex="15" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" />
+                                    <dx:BootstrapGridViewDataColumn Caption="Trip" FieldName="trip" VisibleIndex="1" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" CssClasses-DataCell="dataCell" />
+                                    <dx:BootstrapGridViewDataColumn Caption="Matricula" FieldName="matricula" VisibleIndex="2" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" CssClasses-DataCell="dataCell" />
+                                    <dx:BootstrapGridViewDataColumn Caption="Folio" FieldName="folio" VisibleIndex="3" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" CssClasses-DataCell="dataCell" />
+                                    <dx:BootstrapGridViewDataColumn Caption="Flight Off" FieldName="flight_off" VisibleIndex="4" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" CssClasses-DataCell="dataCell" />
+                                    <dx:BootstrapGridViewDataColumn Caption="Flight On" FieldName="flight_on" VisibleIndex="5" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" CssClasses-DataCell="dataCell" />
+                                    <dx:BootstrapGridViewDataColumn Caption="Flight" FieldName="flight_diff" VisibleIndex="6" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" CssClasses-DataCell="dataCell" />
+                                    <dx:BootstrapGridViewDataColumn Caption="Calzo In" FieldName="calzo_in" VisibleIndex="7" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" CssClasses-DataCell="dataCell" />
+                                    <dx:BootstrapGridViewDataColumn Caption="Calzo Out" FieldName="calzo_out" VisibleIndex="8" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" CssClasses-DataCell="dataCell" />
+                                    <dx:BootstrapGridViewDataColumn Caption="Calzo" FieldName="calzo_diff" VisibleIndex="9" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" CssClasses-DataCell="dataCell" />
+                                    <dx:BootstrapGridViewDataColumn Caption="Fuel In" FieldName="fuel_in" VisibleIndex="10" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" CssClasses-DataCell="dataCell" />
+                                    <dx:BootstrapGridViewDataColumn Caption="Fuel Out" FieldName="fuel_out" VisibleIndex="11" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" CssClasses-DataCell="dataCell" />
+                                    <dx:BootstrapGridViewDataColumn Caption="Usado" FieldName="fuel_diff" VisibleIndex="12" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" CssClasses-DataCell="dataCell" />
+                                    <dx:BootstrapGridViewDataColumn Caption="Autorizó" FieldName="autorizacion" VisibleIndex="13" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" CssClasses-DataCell="dataCell" />
+                                    <dx:BootstrapGridViewDataColumn Caption="Fecha" FieldName="fecha_autorizacion" VisibleIndex="14" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" CssClasses-DataCell="dataCell" />
+                                    <dx:BootstrapGridViewDataColumn Caption="Estatus" FieldName="desestatus" VisibleIndex="15" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" CssClasses-DataCell="dataCell" />
                                     <dx:BootstrapGridViewDataColumn FieldName="estatus" VisibleIndex="16" CssClasses-DataCell="hiddenRow" HeaderBadge-CssClass="hiddenRow" Visible="false" />
                                     <dx:BootstrapGridViewDataColumn FieldName="leg_id" VisibleIndex="17" CssClasses-DataCell="hiddenRow" HeaderBadge-CssClass="hiddenRow" Visible="false" />
                                     <dx:BootstrapGridViewDataColumn Caption="Acciones" Visible="true" VisibleIndex="18" HorizontalAlign="Center">
@@ -97,6 +117,7 @@
                                                     ToolTip="Actualiza" SettingsBootstrap-RenderOption="Primary"></dx:BootstrapButton>
                                             </div>
                                         </DataItemTemplate>
+                                        <CssClasses HeaderCell="spa" />
                                     </dx:BootstrapGridViewDataColumn>
 
                                 </Columns>
@@ -112,30 +133,36 @@
 
     <asp:Panel ID="pnlActualizaBitacora" runat="server" Visible="false">
         <div style="width:60%; margin:0 auto 0 auto;">
-            <div class="row">
+            <div class="row" style="padding-bottom:40px;">
                 <div class="col-lg-12" align="right">
                     <dx:BootstrapButton ID="btnVerImagen" runat="server" Text="Ver imagen" SettingsBootstrap-RenderOption="Primary" AutoPostBack="true" OnClick="btnVerImagen_Click" />
                 </div>
             </div>
             <div class="row" style="padding-bottom:20px;">
-                <div class="col-sm-4">
+                <div class="col-sm-4" align="center">
                     <div class="form-group">
                         <div style="text-align:center;"><label>Matrícula</label></div>
-                        <dx:BootstrapTextBox ID="txtMatricula" runat="server" Text="" Enabled="false" CssClasses-Control="centerTxt" />
+                        <dx:BootstrapTextBox ID="txtMatricula" runat="server" Text="" Enabled="false" Width="60%">
+                            <CssClasses Control="dirTB" />
+                        </dx:BootstrapTextBox>
                         <asp:HiddenField ID="hdnIdBitacora" runat="server" />
                         <asp:HiddenField ID="hdnLegId" runat="server" />
                     </div>
                 </div>
-                <div class="col-sm-4">
+                <div class="col-sm-4" align="center">
                     <div class="form-group">
                         <div style="text-align:center;"><label>Folio</label></div>
-                            <dx:BootstrapTextBox ID="txtFolio" runat="server" Text="" Enabled="false" />
+                            <dx:BootstrapTextBox ID="txtFolio" runat="server" Text="" Enabled="false" Width="60%">
+                                <CssClasses Control="dirTB" />
+                            </dx:BootstrapTextBox>
                     </div>
                 </div>
-                <div class="col-sm-4">
+                <div class="col-sm-4" align="center">
                     <div class="form-group">
                         <div style="text-align:center;"><label>Trip</label></div>
-                        <dx:BootstrapTextBox ID="txtTrip" runat="server" Text="" Enabled="false" />
+                        <dx:BootstrapTextBox ID="txtTrip" runat="server" Text="" Enabled="false" Width="60%">
+                            <CssClasses Control="dirTB" />
+                        </dx:BootstrapTextBox>
                     </div>
                 </div>
             </div>
@@ -147,30 +174,40 @@
                         <div class="col-sm-4">
                             <div class="form-group">
                                 <div style="text-align:center;"><label>Calzo</label></div>
-                                <dx:BootstrapTextBox ID="txtCalzoIn" runat="server" Text="" OnTextChanged="txtCalzoOut_TextChanged" AutoPostBack="true" />
+                                <dx:BootstrapTextBox ID="txtCalzoIn" runat="server" Text="" OnTextChanged="txtCalzoOut_TextChanged" AutoPostBack="true" MaxLength="16">
+                                    <CssClasses Control="dirTB" />
+                                </dx:BootstrapTextBox>
                             </div>
                         </div>
                         <div class="col-sm-4">
                             <div class="form-group">
                                 <div style="text-align:center;"><label>Vuelo</label></div>
-                                <dx:BootstrapTextBox ID="txtFlightOn" runat="server" Text="" OnTextChanged="txtFlightOff_TextChanged" AutoPostBack="true" />
+                                <dx:BootstrapTextBox ID="txtFlightOn" runat="server" Text="" OnTextChanged="txtFlightOff_TextChanged" AutoPostBack="true" MaxLength="16">
+                                    <CssClasses Control="dirTB" />
+                                </dx:BootstrapTextBox>
                             </div>
                         </div>
                         <div class="col-sm-4">
                             <div class="form-group">
                                 <div style="text-align:center;"><label>Combustible</label></div>
-                                <dx:BootstrapTextBox ID="txtFuelIn" runat="server" Text="" OnTextChanged="txtFuelOut_TextChanged" AutoPostBack="true" />
+                                <dx:BootstrapTextBox ID="txtFuelIn" runat="server" Text="" OnTextChanged="txtFuelOut_TextChanged" AutoPostBack="true">
+                                    <CssClasses Control="dirTB" />
+                                </dx:BootstrapTextBox>
                             </div>
                         </div>
                     </div>
                     <div class="row" style="padding-bottom:10px;">
                         <div class="col-sm-4">
                             <div class="form-group">
-                                <dx:BootstrapTextBox ID="txtCalzoOut" runat="server" Text="" OnTextChanged="txtCalzoOut_TextChanged" AutoPostBack="true" />
+                                <dx:BootstrapTextBox ID="txtCalzoOut" runat="server" Text="" OnTextChanged="txtCalzoOut_TextChanged" AutoPostBack="true" MaxLength="16">
+                                    <CssClasses Control="dirTB" />
+                                </dx:BootstrapTextBox>
                             </div>
                         </div>
                         <div class="col-sm-4">
-                            <dx:BootstrapTextBox ID="txtFlightOff" runat="server" Text="" OnTextChanged="txtFlightOff_TextChanged" AutoPostBack="true" />
+                            <dx:BootstrapTextBox ID="txtFlightOff" runat="server" Text="" OnTextChanged="txtFlightOff_TextChanged" AutoPostBack="true" MaxLength="16">
+                                <CssClasses Control="dirTB" />
+                            </dx:BootstrapTextBox>
                         </div>
                         <div class="col-sm-4">
                             <dx:BootstrapTextBox ID="txtFuelOut" runat="server" Text="" OnTextChanged="txtFuelOut_TextChanged" AutoPostBack="true" />
@@ -178,13 +215,21 @@
                     </div>
                     <div class="row" style="padding-bottom:20px;">
                         <div class="col-sm-4">
-                            <dx:BootstrapTextBox ID="txtCalzoDiff" runat="server" Text="" Enabled="false" />
+                            <dx:BootstrapTextBox ID="txtCalzoDiff" runat="server" Text="" Enabled="false" MaxLength="5">
+                                <CssClasses Control="dirTB" />
+                                <MaskSettings Mask="00:00" />
+                            </dx:BootstrapTextBox>
                         </div>
                         <div class="col-sm-4">
-                            <dx:BootstrapTextBox ID="txtFlightDiff" runat="server" Text="" Enabled="false" />
+                            <dx:BootstrapTextBox ID="txtFlightDiff" runat="server" Text="" Enabled="false" MaxLength="5">
+                                <CssClasses Control="dirTB" />
+                                <MaskSettings Mask="00:00" />
+                            </dx:BootstrapTextBox>
                         </div>
                         <div class="col-sm-4">
-                            <dx:BootstrapTextBox ID="txtFuelDiff" runat="server" Text="" Enabled="false" />
+                            <dx:BootstrapTextBox ID="txtFuelDiff" runat="server" Text="" Enabled="false">
+                                <CssClasses Control="dirTB" />
+                            </dx:BootstrapTextBox>
                         </div>
                     </div>
 

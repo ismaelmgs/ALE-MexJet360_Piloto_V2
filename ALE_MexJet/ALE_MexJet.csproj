@@ -421,6 +421,7 @@
     <Content Include="Views\Notificaciones\frmMonitorCambios.aspx" />
     <Content Include="Views\Operaciones\frmConsultaBitacoras.aspx" />
     <Content Include="Views\Operaciones\frmReporteVuelos.aspx" />
+    <Content Include="Views\Operaciones\frmViewBitacora.aspx" />
     <Content Include="Views\Reportes\frmDetalleVueloCliente.aspx" />
     <Content Include="Views\Reportes\frmHorasVoladasCliente.aspx" />
     <Content Include="Views\Reportes\frmHorasVueloMatricula.aspx" />
@@ -1583,6 +1584,13 @@
     </Compile>
     <Compile Include="Views\Operaciones\frmReporteVuelos.aspx.designer.cs">
       <DependentUpon>frmReporteVuelos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Operaciones\frmViewBitacora.aspx.cs">
+      <DependentUpon>frmViewBitacora.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Operaciones\frmViewBitacora.aspx.designer.cs">
+      <DependentUpon>frmViewBitacora.aspx</DependentUpon>
     </Compile>
     <Compile Include="Views\Presupuestos_DS.Designer.cs" />
     <Compile Include="Views\Reportes\frmDetalleVueloCliente.aspx.cs">

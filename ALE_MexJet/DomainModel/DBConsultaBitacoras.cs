@@ -69,8 +69,7 @@ namespace ALE_MexJet.DomainModel
         {
             try
             {
-                return oDB_SP.EjecutarDT("[ASwitch].[spS_ASwitch_ConsultaFotoXBitacora]", "@IdBitacora", oB.IIdBitacora,
-                                                                                          "@LegId", oB.LLegId);
+                return oDB_SP.EjecutarDT("[ASwitch].[spS_ASwitch_ConsultaFotoXBitacora]", "@IdBitacora", oB.IIdBitacora);
             }
             catch (Exception ex)
             {
