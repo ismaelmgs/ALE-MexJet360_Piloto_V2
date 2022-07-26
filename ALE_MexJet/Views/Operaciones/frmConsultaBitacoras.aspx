@@ -76,7 +76,7 @@
                             <dx:BootstrapComboBox ID="ddlBusqueda" runat="server">
                                 <Items>
                                     <dx:BootstrapListEditItem Value="" Text=".:Seleccione:."></dx:BootstrapListEditItem>
-                                    <dx:BootstrapListEditItem Value="1" Text="Pendientes"></dx:BootstrapListEditItem>
+                                    <dx:BootstrapListEditItem Value="1" Text="Por Autorizar"></dx:BootstrapListEditItem>
                                     <dx:BootstrapListEditItem Value="2" Text="Autorizados"></dx:BootstrapListEditItem>
                                     <dx:BootstrapListEditItem Value="0" Text="Todos"></dx:BootstrapListEditItem>
                                 </Items>
