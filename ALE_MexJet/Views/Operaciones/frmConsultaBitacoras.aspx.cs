@@ -35,6 +35,8 @@ namespace ALE_MexJet.Views.Operaciones
 
             if (!IsPostBack)
             {
+                bViewDetail = false;
+                sParametro = ddlBusqueda.SelectedItem.Value.S();
                 if (eSearchObj != null)
                     eSearchObj(sender, e);
             }
@@ -64,7 +66,7 @@ namespace ALE_MexJet.Views.Operaciones
                 {
                     int index = e.VisibleIndex.I();
                     int iIdBitacora = gvBitacoras.GetRowValues(index, "idBitacora").S().I();
-                    string[] fieldValues = { "leg_id", "folio", "flight_off", "flight_on", "flight_diff", "calzo_in", "calzo_out", "calzo_diff", "fuel_in", "fuel_out", "fuel_diff", "estatus", "trip", "matricula" };
+                    string[] fieldValues = { "leg_id", "folio", "flight_off", "flight_on", "flight_diff", "calzo_in", "calzo_out", "calzo_diff", "fuel_in", "fuel_out", "fuel_diff", "estatus", "trip", "matricula", "Foto" };
                     object obj = gvBitacoras.GetRowValues(index, fieldValues);
                     object[] oB = (object[])obj;
                     //List<object> olst = oB;
@@ -73,11 +75,29 @@ namespace ALE_MexJet.Views.Operaciones
                     {
                         hdnLegId.Value = oB[0].S();
                         txtFolio.Text = oB[1].S();
-                        txtFlightOff.Text = oB[2].S();
-                        txtFlightOn.Text = oB[3].S();
+
+                        if (oB[2].S().Length >= 16)
+                            txtFlightOff.Text = oB[2].S().Substring(0, 16);
+                        else
+                            txtFlightOff.Text = oB[2].S();
+
+                        if (oB[3].S().Length >= 16)
+                            txtFlightOn.Text = oB[3].S().Substring(0, 16);
+                        else
+                            txtFlightOn.Text = oB[3].S();
+
                         txtFlightDiff.Text = oB[4].S();
-                        txtCalzoIn.Text = oB[5].S();
-                        txtCalzoOut.Text = oB[6].S();
+
+                        if (oB[5].S().Length >= 16)
+                            txtCalzoIn.Text = oB[5].S().Substring(0, 16);
+                        else
+                            txtCalzoIn.Text = oB[5].S();
+
+                        if (oB[6].S().Length >= 16)
+                            txtCalzoOut.Text = oB[6].S().Substring(0, 16);
+                        else
+                            txtCalzoOut.Text = oB[6].S();
+
                         txtCalzoDiff.Text = oB[7].S();
                         txtFuelIn.Text = oB[8].S();
                         txtFuelOut.Text = oB[9].S();
@@ -85,9 +105,16 @@ namespace ALE_MexJet.Views.Operaciones
                         txtTrip.Text = oB[12].S();
                         txtMatricula.Text = oB[13].S();
                         hdnIdBitacora.Value = iIdBitacora.S();
+                        hdnFoto.Value = oB[14].S();
                         pnlBusqueda.Visible = false;
                         pnlActualizaBitacora.Visible = true;
                         pnlBitacoras.Visible = false;
+                        bViewDetail = true;
+
+                        if (oB[14].S() == "1")
+                            btnVerImagen.Enabled = true;
+                        else if (oB[14].S() == "0")
+                            btnVerImagen.Enabled = false;
 
                         if (oB[11].I() == 1)
                             btnAutorizar.Enabled = true;
@@ -170,7 +197,7 @@ namespace ALE_MexJet.Views.Operaciones
 
                 //ppVerImagen.ShowOnPageLoad = true;
                 int iBitacora = hdnIdBitacora.Value.I();
-                ScriptManager.RegisterStartupScript(Page, typeof(Page), "OpenWindow", "window.open('../Operaciones/frmViewBitacora.aspx?Bitacora=" + iBitacora + "',this.target, 'width=600,height=600,top=120,left=400,toolbar=no,location=no,status=no,menubar=no');", true);
+                ScriptManager.RegisterStartupScript(Page, typeof(Page), "OpenWindow", "window.open('../Operaciones/frmViewBitacora.aspx?Bitacora=" + iBitacora + "',this.target, 'width=700,height=500,top=120,left=400,toolbar=no,location=no,status=no,menubar=no');", true);
             }
             catch (Exception)
             {
@@ -242,6 +269,16 @@ namespace ALE_MexJet.Views.Operaciones
             get { return (bool)ViewState["VSRes"]; }
             set { ViewState["VSRes"] = value; }
         }
+        public bool bViewDetail
+        {
+            get { return (bool)ViewState["VSViewDetail"]; }
+            set { ViewState["VSViewDetail"] = value; }
+        }
+        public string sParametro
+        {
+            get { return (string)ViewState["VSParametro"]; }
+            set { ViewState["VSParametro"] = value; }
+        }
         public DataTable dtBitacoras
         {
             get { return (DataTable)ViewState["VSdtBitacoras"]; }
@@ -296,6 +333,35 @@ namespace ALE_MexJet.Views.Operaciones
             }
         }
 
+        
+
+        
+
+        protected void btnBuscar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                sParametro = ddlBusqueda.SelectedItem.Value.S();
+
+                if (eSearchObj != null)
+                    eSearchObj(sender, e);
+            }
+            catch (Exception ex)
+            {
+                MostrarMensaje("Error: " + ex.Message, "Aviso");
+            }
+        }
+
+        protected void gvBitacoras_Load(object sender, EventArgs e)
+        {
+            if (bViewDetail == false)
+            {
+                sParametro = ddlBusqueda.SelectedItem.Value.S();
+                if (eSearchObj != null)
+                    eSearchObj(sender, e);
+            }
+        }
+
         protected void txtFlightOff_TextChanged(object sender, EventArgs e)
         {
             try
@@ -309,14 +375,57 @@ namespace ALE_MexJet.Views.Operaciones
                     TimeSpan timeOff = TimeSpan.Parse(sTimeOff);
                     TimeSpan timeOn = TimeSpan.Parse(sTimeOn);
 
-                    if (timeOn > timeOff)
+                    if (timeOff > timeOn)
                     {
+                        divFlightOff.Attributes.CssStyle.Add("border", "1px solid #ff0000");
+                        divFlightOff.Attributes.CssStyle.Add("border-radius", "4px");
+                        btnActualizar.Enabled = false;
+                        btnAutorizar.Enabled = false;
                         MostrarMensaje("Los tiempos no concuerdan para esta operación, favor de revisar tiempos de vuelo.", "");
                     }
                     else
                     {
-                        TimeSpan timeRes = timeOff - timeOn;
+                        TimeSpan timeRes = timeOn - timeOff;
                         txtFlightDiff.Text = timeRes.S();
+                        divFlightOff.Attributes.CssStyle.Add("border", "none");
+                        btnActualizar.Enabled = true;
+                        btnAutorizar.Enabled = true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+        protected void txtFlightOn_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                string[] sArrFliOff = txtFlightOff.Text.Split(' ');
+                string[] sArrFliOn = txtFlightOn.Text.Split(' ');
+                if (sArrFliOff.Length > 1 && sArrFliOn.Length > 1)
+                {
+                    string sTimeOff = sArrFliOff[1].S();
+                    string sTimeOn = sArrFliOn[1].S();
+                    TimeSpan timeOff = TimeSpan.Parse(sTimeOff);
+                    TimeSpan timeOn = TimeSpan.Parse(sTimeOn);
+
+                    if (timeOn < timeOff)
+                    {
+                        divFlightOn.Attributes.CssStyle.Add("border", "1px solid #ff0000");
+                        divFlightOn.Attributes.CssStyle.Add("border-radius", "4px");
+                        btnActualizar.Enabled = false;
+                        btnAutorizar.Enabled = false;
+                        MostrarMensaje("Los tiempos no concuerdan para esta operación, favor de revisar tiempos de vuelo.", "");
+                    }
+                    else
+                    {
+                        TimeSpan timeRes = timeOn - timeOff;
+                        txtFlightDiff.Text = timeRes.S();
+                        divFlightOn.Attributes.CssStyle.Add("border", "none");
+                        btnActualizar.Enabled = true;
+                        btnAutorizar.Enabled = true;
                     }
                 }
             }
@@ -341,12 +450,19 @@ namespace ALE_MexJet.Views.Operaciones
 
                     if (timeIn > timeOut)
                     {
+                        divCalzoOut.Attributes.CssStyle.Add("border", "1px solid #ff0000");
+                        divCalzoOut.Attributes.CssStyle.Add("border-radius", "4px");
+                        btnActualizar.Enabled = false;
+                        btnAutorizar.Enabled = false;
                         MostrarMensaje("Los tiempos no concuerdan para esta operación, favor de revisar tiempos Calzo.", "");
                     }
                     else
                     {
                         TimeSpan timeRes = timeOut - timeIn;
                         txtCalzoDiff.Text = timeRes.S();
+                        divCalzoOut.Attributes.CssStyle.Add("border", "none");
+                        btnActualizar.Enabled = true;
+                        btnAutorizar.Enabled = true;
                     }
 
                 }
@@ -354,6 +470,43 @@ namespace ALE_MexJet.Views.Operaciones
             catch (Exception ex)
             {
                 throw;
+            }
+        }
+
+        protected void txtCalzoIn_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                string[] sArrClzOut = txtCalzoOut.Text.Split(' ');
+                string[] sArrClzIn = txtCalzoIn.Text.Split(' ');
+                if (sArrClzOut.Length > 1 && sArrClzIn.Length > 1)
+                {
+                    string sTimeOut = sArrClzOut[1].S();
+                    string sTimeIn = sArrClzIn[1].S();
+                    TimeSpan timeOut = TimeSpan.Parse(sTimeOut);
+                    TimeSpan timeIn = TimeSpan.Parse(sTimeIn);
+
+                    if (timeOut < timeIn)
+                    {
+                        divCalzoIn.Attributes.CssStyle.Add("border", "1px solid #ff0000");
+                        divCalzoIn.Attributes.CssStyle.Add("border-radius", "4px");
+                        btnActualizar.Enabled = false;
+                        btnAutorizar.Enabled = false;
+                        MostrarMensaje("Los tiempos no concuerdan para esta operación, favor de revisar tiempos Calzo.", "");
+                    }
+                    else
+                    {
+                        TimeSpan timeRes = timeOut - timeIn;
+                        txtCalzoDiff.Text = timeRes.S();
+                        divCalzoIn.Attributes.CssStyle.Add("border", "none");
+                        btnActualizar.Enabled = true;
+                        btnAutorizar.Enabled = true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
         }
     }

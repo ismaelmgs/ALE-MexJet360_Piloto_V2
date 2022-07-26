@@ -53,11 +53,14 @@
             color: #337ab7 !important;
             text-align: center !important;
         }
+        .validateTxt {
+            border-color: crimson !important;
+        }
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-    <asp:Panel ID="pnlBusqueda" runat="server" Visible="false">
+    <asp:Panel ID="pnlBusqueda" runat="server" Visible="true">
          <div class="row">
             <div class="col-md-12">
                 <br />
@@ -67,11 +70,22 @@
                     </legend>
                     <div class="row">
                         <div class="col-sm-2">&nbsp;</div>
-                        <div class="col-sm-2">&nbsp;</div>
-                        <div class="col-sm-2">&nbsp;</div>
-                        <div class="col-sm-2">&nbsp;</div>
-                        <div class="col-sm-2">&nbsp;</div>
-                        <div class="col-sm-2">&nbsp;</div>
+                        <%--<div class="col-sm-2">&nbsp;</div>--%>
+                        <div class="col-sm-3" align="right">Búsqueda por:</div>
+                        <div class="col-sm-2" align="center">
+                            <dx:BootstrapComboBox ID="ddlBusqueda" runat="server">
+                                <Items>
+                                    <dx:BootstrapListEditItem Value="" Text=".:Seleccione:."></dx:BootstrapListEditItem>
+                                    <dx:BootstrapListEditItem Value="1" Text="Pendientes"></dx:BootstrapListEditItem>
+                                    <dx:BootstrapListEditItem Value="2" Text="Autorizados"></dx:BootstrapListEditItem>
+                                    <dx:BootstrapListEditItem Value="0" Text="Todos"></dx:BootstrapListEditItem>
+                                </Items>
+                            </dx:BootstrapComboBox> 
+                        </div>
+                        <div class="col-sm-2" align="left">
+                            <dx:BootstrapButton ID="btnBuscar" runat="server" Text="Buscar" SettingsBootstrap-RenderOption="Primary" OnClick="btnBuscar_Click" />
+                        </div>
+                        <div class="col-sm-3">&nbsp;</div>
                     </div>
                 </fieldset>
             </div>
@@ -86,14 +100,15 @@
                     <ContentTemplate>
                         <div class="col-sm-12">
 
-                            <dx:BootstrapGridView ID="gvBitacoras" runat="server" KeyFieldName="idBitacora"
+                            <dx:BootstrapGridView ID="gvBitacoras" runat="server" KeyFieldName="idBitacora" OnLoad="gvBitacoras_Load"
                                 OnRowCommand="gvBitacoras_RowCommand" OnPageIndexChanged="gvBitacoras_PageIndexChanged">
                                 <SettingsSearchPanel Visible="true" ShowApplyButton="true" />
                                 <Settings ShowGroupPanel="True" ShowFilterRowMenu="true" />
                                 <SettingsAdaptivity AdaptivityMode="HideDataCells" AllowOnlyOneAdaptiveDetailExpanded="true"></SettingsAdaptivity>
                                 <SettingsPager PageSize="20"></SettingsPager>
+                                <SettingsBehavior AllowSort="true" />
                                 <Columns>
-                                    <dx:BootstrapGridViewDataColumn Caption="Trip" FieldName="trip" VisibleIndex="1" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" CssClasses-DataCell="dataCell" />
+                                    <dx:BootstrapGridViewDataColumn Caption="Trip" FieldName="trip" VisibleIndex="1" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" CssClasses-DataCell="dataCell" SortIndex="0" SortOrder="Ascending" />
                                     <dx:BootstrapGridViewDataColumn Caption="Matricula" FieldName="matricula" VisibleIndex="2" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" CssClasses-DataCell="dataCell" />
                                     <dx:BootstrapGridViewDataColumn Caption="Folio" FieldName="folio" VisibleIndex="3" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" CssClasses-DataCell="dataCell" />
                                     <dx:BootstrapGridViewDataColumn Caption="Flight Off" FieldName="flight_off" VisibleIndex="4" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" CssClasses-DataCell="dataCell" />
@@ -110,6 +125,7 @@
                                     <dx:BootstrapGridViewDataColumn Caption="Estatus" FieldName="desestatus" VisibleIndex="15" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" CssClasses-DataCell="dataCell" />
                                     <dx:BootstrapGridViewDataColumn FieldName="estatus" VisibleIndex="16" CssClasses-DataCell="hiddenRow" HeaderBadge-CssClass="hiddenRow" Visible="false" />
                                     <dx:BootstrapGridViewDataColumn FieldName="leg_id" VisibleIndex="17" CssClasses-DataCell="hiddenRow" HeaderBadge-CssClass="hiddenRow" Visible="false" />
+                                    <dx:BootstrapGridViewDataColumn FieldName="Foto" VisibleIndex="18" CssClasses-DataCell="hiddenRow" HeaderBadge-CssClass="hiddenRow" Visible="false" />
                                     <dx:BootstrapGridViewDataColumn Caption="Acciones" Visible="true" VisibleIndex="18" HorizontalAlign="Center">
                                         <DataItemTemplate>
                                             <div>
@@ -147,6 +163,7 @@
                         </dx:BootstrapTextBox>
                         <asp:HiddenField ID="hdnIdBitacora" runat="server" />
                         <asp:HiddenField ID="hdnLegId" runat="server" />
+                        <asp:HiddenField ID="hdnFoto" runat="server" />
                     </div>
                 </div>
                 <div class="col-sm-4" align="center">
@@ -174,40 +191,54 @@
                         <div class="col-sm-4">
                             <div class="form-group">
                                 <div style="text-align:center;"><label>Calzo</label></div>
-                                <dx:BootstrapTextBox ID="txtCalzoIn" runat="server" Text="" OnTextChanged="txtCalzoOut_TextChanged" AutoPostBack="true" MaxLength="16">
-                                    <CssClasses Control="dirTB" />
-                                </dx:BootstrapTextBox>
+                                <div id="divCalzoIn" runat="server">
+                                    <dx:BootstrapTextBox ID="txtCalzoIn" runat="server" Text="" OnTextChanged="txtCalzoIn_TextChanged" AutoPostBack="true" MaxLength="16">
+                                        <CssClasses Control="dirTB" />
+                                    </dx:BootstrapTextBox>
+                                </div>
+                                
                             </div>
                         </div>
                         <div class="col-sm-4">
                             <div class="form-group">
                                 <div style="text-align:center;"><label>Vuelo</label></div>
-                                <dx:BootstrapTextBox ID="txtFlightOn" runat="server" Text="" OnTextChanged="txtFlightOff_TextChanged" AutoPostBack="true" MaxLength="16">
-                                    <CssClasses Control="dirTB" />
-                                </dx:BootstrapTextBox>
+
+                                <div id="divFlightOff" runat="server">
+                                    
+                                    <dx:BootstrapTextBox ID="txtFlightOff" runat="server" Text="" OnTextChanged="txtFlightOff_TextChanged" AutoPostBack="true" MaxLength="16">
+                                    </dx:BootstrapTextBox>
+
+                                </div>
                             </div>
                         </div>
                         <div class="col-sm-4">
                             <div class="form-group">
                                 <div style="text-align:center;"><label>Combustible</label></div>
-                                <dx:BootstrapTextBox ID="txtFuelIn" runat="server" Text="" OnTextChanged="txtFuelOut_TextChanged" AutoPostBack="true">
-                                    <CssClasses Control="dirTB" />
-                                </dx:BootstrapTextBox>
+                                
+                                    <dx:BootstrapTextBox ID="txtFuelIn" runat="server" Text="" OnTextChanged="txtFuelOut_TextChanged" AutoPostBack="true">
+                                    </dx:BootstrapTextBox>
+                                
                             </div>
                         </div>
                     </div>
                     <div class="row" style="padding-bottom:10px;">
                         <div class="col-sm-4">
                             <div class="form-group">
-                                <dx:BootstrapTextBox ID="txtCalzoOut" runat="server" Text="" OnTextChanged="txtCalzoOut_TextChanged" AutoPostBack="true" MaxLength="16">
-                                    <CssClasses Control="dirTB" />
-                                </dx:BootstrapTextBox>
+                                <div id="divCalzoOut" runat="server">
+                                    <dx:BootstrapTextBox ID="txtCalzoOut" runat="server" Text="" OnTextChanged="txtCalzoOut_TextChanged" AutoPostBack="true" MaxLength="16">
+                                        <CssClasses Control="dirTB" />
+                                    </dx:BootstrapTextBox>
+                                </div>
+
                             </div>
                         </div>
                         <div class="col-sm-4">
-                            <dx:BootstrapTextBox ID="txtFlightOff" runat="server" Text="" OnTextChanged="txtFlightOff_TextChanged" AutoPostBack="true" MaxLength="16">
-                                <CssClasses Control="dirTB" />
-                            </dx:BootstrapTextBox>
+
+                            <div id="divFlightOn" runat="server">
+                                <dx:BootstrapTextBox ID="txtFlightOn" runat="server" Text="" OnTextChanged="txtFlightOn_TextChanged" AutoPostBack="true" MaxLength="16">
+                                </dx:BootstrapTextBox>
+                            </div>
+                            
                         </div>
                         <div class="col-sm-4">
                             <dx:BootstrapTextBox ID="txtFuelOut" runat="server" Text="" OnTextChanged="txtFuelOut_TextChanged" AutoPostBack="true" />

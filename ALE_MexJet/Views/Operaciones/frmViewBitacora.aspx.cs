@@ -23,6 +23,8 @@ namespace ALE_MexJet.Views.Operaciones
         {
             try
             {
+                string sHtml = string.Empty;
+
                 BitacoraVuelo oB = new BitacoraVuelo();
                 DataTable dt = new DataTable();
                 oB.IIdBitacora = iIdBitacora;
@@ -30,34 +32,104 @@ namespace ALE_MexJet.Views.Operaciones
 
                 if (dt != null && dt.Rows.Count > 0)
                 {
-                    byte[] imgData = (byte[])dt.Rows[0]["Foto"];
-                    string[] sExt = dt.Rows[0]["NombreArchivo"].S().Split('.');
-                    using (MemoryStream ms = new MemoryStream(imgData))
+                    sHtml = "<div id='myCarousel' class='carousel slide' data-ride='carousel'>";
+
+                    //Indicators
+                    sHtml += "  <ol class='carousel-indicators'>";
+                    for (int x = 0; x < dt.Rows.Count; x++)
                     {
-                        if (sExt.Length > 1)
+                        if(x == 0)
+                            sHtml += "<li data-target='#myCarousel' data-slide-to='" + x + "' class='active'></li>";
+                        else
+                            sHtml += "<li data-target='#myCarousel' data-slide-to='" + x + "'></li>";
+                    }
+                    sHtml += "</ol>";
+
+
+                    //Wrapper for slides
+                    sHtml += "<div class='carousel-inner'>";
+
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                    {
+
+                        byte[] imgData = (byte[])dt.Rows[i]["Foto"];
+                        string[] sExt = dt.Rows[i]["NombreArchivo"].S().Split('.');
+                        string sImagenUrl = string.Empty;
+
+                        using (MemoryStream ms = new MemoryStream(imgData))
                         {
-                            switch (sExt[1].S())
+                            if (sExt.Length > 1)
                             {
-                                case "jpg":
-                                    imgFoto.ImageUrl = "data:image/jpg;base64," + Convert.ToBase64String(ms.ToArray(), 0, ms.ToArray().Length);
-                                    break;
-                                case "jpeg":
-                                    imgFoto.ImageUrl = "data:image/jpeg;base64," + Convert.ToBase64String(ms.ToArray(), 0, ms.ToArray().Length);
-                                    break;
-                                case "png":
-                                    imgFoto.ImageUrl = "data:image/png;base64," + Convert.ToBase64String(ms.ToArray(), 0, ms.ToArray().Length);
-                                    break;
-                                case "gif":
-                                    imgFoto.ImageUrl = "data:image/gif;base64," + Convert.ToBase64String(ms.ToArray(), 0, ms.ToArray().Length);
-                                    break;
-                                default:
-                                    break;
+                                switch (sExt[1].S())
+                                {
+                                    case "jpg":
+                                    case "JPG":
+                                        sImagenUrl = "data:image/jpg;base64," + Convert.ToBase64String(ms.ToArray(), 0, ms.ToArray().Length);
+                                        break;
+                                    case "jpeg":
+                                    case "JPEG":
+                                        sImagenUrl = "data:image/jpeg;base64," + Convert.ToBase64String(ms.ToArray(), 0, ms.ToArray().Length);
+                                        break;
+                                    case "png":
+                                    case "PNG":
+                                        sImagenUrl = "data:image/png;base64," + Convert.ToBase64String(ms.ToArray(), 0, ms.ToArray().Length);
+                                        break;
+                                    case "gif":
+                                    case "GIF":
+                                        sImagenUrl = "data:image/gif;base64," + Convert.ToBase64String(ms.ToArray(), 0, ms.ToArray().Length);
+                                        break;
+                                    case "jfif":
+                                    case "JFIF":
+                                        sImagenUrl = "data:image/jfif;base64," + Convert.ToBase64String(ms.ToArray(), 0, ms.ToArray().Length);
+                                        break;
+                                    case "tiff":
+                                    case "TIFF":
+                                        sImagenUrl = "data:image/tiff;base64," + Convert.ToBase64String(ms.ToArray(), 0, ms.ToArray().Length);
+                                        break;
+                                    default:
+                                        break;
+                                }
                             }
                         }
-                        //System.Drawing.Image image = System.Drawing.Image.FromStream(ms);
-                        
+
+                        if (i == 0)
+                        {
+                            sHtml += "  <div class='item active'>";
+                            sHtml += "      <img src='" + sImagenUrl + "' alt='' width='400px' height='400px' />";
+                            sHtml += "      <div class='carousel-caption'>";
+                            sHtml += "          <h4 style='color:#CCCCCC;'>" + dt.Rows[i]["NombreArchivo"].S() + "</h4>";
+                            //sHtml += "          <p>This is the first image slide</p>";
+                            sHtml += "      </div>";
+                            sHtml += "  </div>";
+                        }
+                        else
+                        {
+                            sHtml += "  <div class='item'>";
+                            sHtml += "      <img src='" + sImagenUrl + "' alt='' width='400px' height='400px' />";
+                            sHtml += "      <div class='carousel-caption'>";
+                            sHtml += "          <h4 style='color:#CCCCCC;'>" + dt.Rows[i]["NombreArchivo"].S() + "</h4>";
+                            //sHtml += "          <p>This is the first image slide</p>";
+                            sHtml += "      </div>";
+                            sHtml += "  </div>";
+                        }
                     }
+
+                    sHtml += "</div>";
+
+                    //Controls
+                    sHtml += "<a class='left carousel-control' href='#myCarousel' data-slide='prev'>";
+                    sHtml += "  <span class='glyphicon glyphicon-chevron-left'></span>";
+                    sHtml += "  <span class='sr-only'>Previous</span>";
+                    sHtml += "</a>";
+                    sHtml += "<a class='right carousel-control' href='#myCarousel' data-slide='next'>";
+                    sHtml += "  <span class='glyphicon glyphicon-chevron-right'></span>";
+                    sHtml += "  <span class='sr-only'>Next</span>";
+                    sHtml += "</a>";
+
+                    sHtml += "</div>";
+                    sHtml += "</div>";                 
                 }
+                divPrint.InnerHtml = sHtml;
             }
             catch (Exception ex)
             {

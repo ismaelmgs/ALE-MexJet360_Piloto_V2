@@ -11,11 +11,11 @@ namespace ALE_MexJet.DomainModel
 {
     public class DBConsultaBitacoras : DBBaseAleSuite
     {
-        public DataTable DBGetConsultaBitacoras()
+        public DataTable DBGetConsultaBitacoras(string sParametro)
         {
             try
             {
-                return oDB_SP.EjecutarDT("[ASwitch].[spS_ASwitch_ConsultaBitacoras]");
+                return oDB_SP.EjecutarDT("[ASwitch].[spS_ASwitch_ConsultaBitacoras]", "@Parametro", sParametro);
             }
             catch (Exception ex)
             {

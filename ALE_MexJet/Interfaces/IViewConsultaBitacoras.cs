@@ -11,6 +11,7 @@ namespace ALE_MexJet.Interfaces
     public interface IViewConsultaBitacoras : IBaseView
     {
         bool bRes { set; get; }
+        string sParametro { set; get; }
         BitacoraVuelo oBi { get; }
         void LoadBitacoras(DataTable dt);
         void LoadFoto(DataTable dt);

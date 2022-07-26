@@ -21,7 +21,7 @@ namespace ALE_MexJet.Presenter
         }
         protected override void SearchObj_Presenter(object sender, EventArgs e)
         {
-            oIView.LoadBitacoras(oIGestCat.DBGetConsultaBitacoras());
+            oIView.LoadBitacoras(oIGestCat.DBGetConsultaBitacoras(oIView.sParametro));
         }
 
         protected override void SaveObj_Presenter(object sender, EventArgs e)
