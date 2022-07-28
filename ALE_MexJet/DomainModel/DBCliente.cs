@@ -132,5 +132,17 @@ namespace ALE_MexJet.DomainModel
             }
         }
 
+        public DataTable DBGetLegsByRemision(long iFolio)
+        {
+            try
+            {
+                return oDB_SP.EjecutarDT("[Catalogos].[spS_MXJ_ConsultaLegIDs]", "@IdRemision", iFolio);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
     }
 }

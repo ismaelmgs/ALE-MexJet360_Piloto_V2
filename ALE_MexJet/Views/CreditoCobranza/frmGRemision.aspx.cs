@@ -43,7 +43,11 @@ namespace ALE_MexJet.Views.CreditoCobranza
                         eGetTipoPaquete(sender, e);
 
                     CargaPasoUnoRemisiones();
-
+                    int iCount = ImgsInDataBase(Page.Request["Folio"].S().I());
+                    if (iCount > 0)
+                        btnVerImagen.Enabled = true;
+                    else
+                        btnVerImagen.Enabled = false;
                 }
                 else
                 {
@@ -3068,6 +3072,61 @@ namespace ALE_MexJet.Views.CreditoCobranza
             catch (Exception ex)
             {
                 Utils.SaveErrorEnBitacora(mpeMensaje, ex.Message, sPagina, sClase, "btnFinalizarSCC_Click", "Aviso");
+            }
+        }
+
+        protected void btnVerImagen_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int iIdRem = Page.Request["Folio"].S().I(); //hdnIdBitacora.Value.I();
+                ScriptManager.RegisterStartupScript(Page, typeof(Page), "OpenWindow", "window.open('frmViewFotos.aspx?IdRemision=" + iIdRem + "',this.target, 'width=700,height=500,top=120,left=400,toolbar=no,location=no,status=no,menubar=no');", true);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public int ImgsInDataBase(int idRem)
+        {
+            try
+            {
+                BitacoraVuelo oB = new BitacoraVuelo();
+                DataTable dt = new DataTable();
+                DataTable dtFotos = new DataTable();
+                dtFotos.Columns.Add("Foto");
+                dtFotos.Columns.Add("NombreArchivo");
+                int iCount = 0;
+                DataTable dtLegs = new DBCliente().DBGetLegsByRemision(idRem);
+                if (dtLegs != null && dtLegs.Rows.Count > 0)
+                {
+                    for (int a = 0; a < dtLegs.Rows.Count; a++)
+                    {
+                        oB.LLegId = dtLegs.Rows[a][0].L();
+                        dt = new DBConsultaBitacoras().DBGetFotoXLegID(oB);
+                        if (dt != null && dt.Rows.Count > 0)
+                        {
+                            for (int b = 0; b < dt.Rows.Count; b++)
+                            {
+                                DataRow row = dtFotos.NewRow();
+                                row["Foto"] = dt.Rows[b]["Foto"];
+                                row["NombreArchivo"] = dt.Rows[b]["NombreArchivo"];
+                                dtFotos.Rows.Add(row);
+                            }
+                        }
+                    }
+                    dtFotos.AcceptChanges();
+                }
+
+                if (dtFotos != null && dtFotos.Rows.Count > 0)
+                    iCount = dtFotos.Rows.Count;
+
+                return iCount;
+            }
+            catch (Exception ex)
+            {
+                return 0;
             }
         }
     }

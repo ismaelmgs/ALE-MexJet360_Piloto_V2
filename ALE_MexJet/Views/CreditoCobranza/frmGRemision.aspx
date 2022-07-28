@@ -362,6 +362,16 @@
                                                                     <div class="panel-body">
                                                                         <table class="table" style="width:100%">
                                                                             <tr>
+                                                                                <td colspan="4" align="right">
+                                                                                    <div class="row" style="padding-bottom:40px;">
+                                                                                        <div class="col-lg-12" align="right">
+                                                                                            <%--<dx:BootstrapButton ID="btnVerImagen" runat="server" Text="Ver Imágenes" SettingsBootstrap-RenderOption="Light" AutoPostBack="true" OnClick="btnVerImagen_Click" />--%>
+                                                                                            <dx:ASPxButton ID="btnVerImagen" runat="server" Text="Ver Imágenes"  OnClick="btnVerImagen_Click" Theme="Office2010Black"></dx:ASPxButton>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
                                                                                 <td>
                                                                                     <dx:ASPxLabel ID="lblTotalTiempoVueloReal" runat="server" Text="Total tiempo de Vuelo Real:"></dx:ASPxLabel>
                                                                                 </td>

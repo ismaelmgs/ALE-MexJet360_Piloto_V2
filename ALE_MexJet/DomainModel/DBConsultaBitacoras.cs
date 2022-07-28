@@ -76,5 +76,16 @@ namespace ALE_MexJet.DomainModel
                 throw ex;
             }
         }
+        public DataTable DBGetFotoXLegID(BitacoraVuelo oB)
+        {
+            try
+            {
+                return oDB_SP.EjecutarDT("[ASwitch].[spS_MXJ_ConsultaFotoXLegID]", "@LegID", oB.LLegId);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

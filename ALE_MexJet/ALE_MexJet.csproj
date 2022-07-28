@@ -407,6 +407,7 @@
     <Content Include="Views\CreditoCobranza\frmAutorizacion.aspx" />
     <Content Include="Views\CreditoCobranza\frmFormulasRemision.aspx" />
     <Content Include="Views\CreditoCobranza\frmIncrementoTarifas.aspx" />
+    <Content Include="Views\CreditoCobranza\frmViewFotos.aspx" />
     <Content Include="Views\FBO\frmConsultaTrafico.aspx" />
     <Content Include="Views\FBO\frmConsultaVuelosUSA.aspx" />
     <Content Include="Views\FBO\frmMonitorAtencionClientes.aspx" />
@@ -1467,6 +1468,13 @@
     </Compile>
     <Compile Include="Views\CreditoCobranza\frmIncrementoTarifas.aspx.designer.cs">
       <DependentUpon>frmIncrementoTarifas.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreditoCobranza\frmViewFotos.aspx.cs">
+      <DependentUpon>frmViewFotos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\CreditoCobranza\frmViewFotos.aspx.designer.cs">
+      <DependentUpon>frmViewFotos.aspx</DependentUpon>
     </Compile>
     <Compile Include="Views\EstadoCuenta.cs">
       <DependentUpon>EstadoCuenta.xsd</DependentUpon>
