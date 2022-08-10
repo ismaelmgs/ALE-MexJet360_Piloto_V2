@@ -702,6 +702,8 @@
     <Content Include="Views\Rentas\frmPresupuesto.aspx" />
     <Content Include="Views\Reportes\frmReporteTabulado.aspx" />
     <Content Include="Views\test.aspx" />
+    <Content Include="Views\viaticos\frmConsultaVuelos.aspx" />
+    <Content Include="Views\viaticos\frmRevenewM.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -761,6 +763,7 @@
     <Compile Include="DomainModel\DBConsultaSolicitudes.cs" />
     <Compile Include="DomainModel\DBConsultaTarifa.cs" />
     <Compile Include="DomainModel\DBConsultaTrafico.cs" />
+    <Compile Include="DomainModel\DBConsultaViaticosVuelos.cs" />
     <Compile Include="DomainModel\DBConsultaVuelos.cs" />
     <Compile Include="DomainModel\DBContactosyPreferencias.cs" />
     <Compile Include="DomainModel\DBContrato.cs" />
@@ -852,6 +855,7 @@
     <Compile Include="Interfaces\IViewConsultaPresupuestos.cs" />
     <Compile Include="Interfaces\IViewConsultaServicioCargo.cs" />
     <Compile Include="Interfaces\IViewConsultaTrafico.cs" />
+    <Compile Include="Interfaces\IViewConsultaViaticosVuelos.cs" />
     <Compile Include="Interfaces\IViewConsultaVuelos.cs" />
     <Compile Include="Interfaces\IViewCtrlAeroTercerosFacturas.cs" />
     <Compile Include="Interfaces\IViewDashboard.cs" />
@@ -1028,6 +1032,7 @@
     <Compile Include="Presenter\ConsultaSolicitudes_Presenter.cs" />
     <Compile Include="Presenter\ConsultaTarifa_Presenter.cs" />
     <Compile Include="Presenter\ConsultaTrafico_Presenter.cs" />
+    <Compile Include="Presenter\ConsultaViaticosVuelos_Presenter.cs" />
     <Compile Include="Presenter\ConsultaVuelos_Presenter.cs" />
     <Compile Include="Presenter\Contacto_Presenter.cs">
       <SubType>Code</SubType>
@@ -1885,6 +1890,20 @@
     </Compile>
     <Compile Include="Views\test.aspx.designer.cs">
       <DependentUpon>test.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\viaticos\frmConsultaVuelos.aspx.cs">
+      <DependentUpon>frmConsultaVuelos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\viaticos\frmConsultaVuelos.aspx.designer.cs">
+      <DependentUpon>frmConsultaVuelos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\viaticos\frmRevenewM.aspx.cs">
+      <DependentUpon>frmRevenewM.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\viaticos\frmRevenewM.aspx.designer.cs">
+      <DependentUpon>frmRevenewM.aspx</DependentUpon>
     </Compile>
     <Content Include="App_Code\DataSource.cs" />
     <Compile Include="ALE_Main.Master.cs">

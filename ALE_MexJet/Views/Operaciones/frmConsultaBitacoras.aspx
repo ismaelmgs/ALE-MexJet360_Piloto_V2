@@ -76,7 +76,7 @@
                             <dx:BootstrapComboBox ID="ddlBusqueda" runat="server">
                                 <Items>
                                     <dx:BootstrapListEditItem Value="" Text=".:Seleccione:."></dx:BootstrapListEditItem>
-                                    <dx:BootstrapListEditItem Value="1" Text="Por Autorizar"></dx:BootstrapListEditItem>
+                                    <dx:BootstrapListEditItem Value="1" Text="Por Autorizar" Selected="true"></dx:BootstrapListEditItem>
                                     <dx:BootstrapListEditItem Value="2" Text="Autorizados"></dx:BootstrapListEditItem>
                                     <dx:BootstrapListEditItem Value="0" Text="Todos"></dx:BootstrapListEditItem>
                                 </Items>
@@ -263,6 +263,20 @@
                             </dx:BootstrapTextBox>
                         </div>
                     </div>
+                    <%--<div class="row" style="padding-bottom:10px;">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <div style="text-align:center;"><label>Comentarios</label></div>
+
+                                <div id="div1" runat="server">
+                                    
+                                    <dx:BootstrapTextBox ID="txtComentarios" runat="server" Text="" Width="400">
+                                    </dx:BootstrapTextBox>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>--%>
 
                 </ContentTemplate>
                 <Triggers>

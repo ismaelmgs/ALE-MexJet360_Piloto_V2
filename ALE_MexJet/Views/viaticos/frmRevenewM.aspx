@@ -68,93 +68,64 @@
                     </legend>
                     <div class="row">
                         <div class="col-md-12">
-                            
-                            <div class="table-responsive">
-                              <table class="table table-bordered table-striped table-hover" style="background-color:#ffffff; border:1px solid #00000030;">
-                                  <tr>
-                                      <th style="width:20%;">
-                                          Concepto
-                                      </th>
-                                      <th style="width:20%;">
-                                          Horario Inicial
-                                      </th>
-                                      <th style="width:20%;">
-                                          Horario Final
-                                      </th>
-                                      <th style="width:20%;">
-                                          MXN
-                                      </th>
-                                      <th style="width:20%;">
-                                          USD
-                                      </th>
-                                  </tr>
-                                  <tr>
-                                      <td>
-                                          <dx:ASPxLabel ID="lblDesayuno" Text="Desayuno" Theme="Office2010Black" runat="server"></dx:ASPxLabel>
-                                      </td>
-                                      <td>
-                                          <dx:ASPxTextBox ID="txtDesayunoInicial" Theme="Office2010Black" runat="server" Style="width:70%;margin:0 auto;" CssClass="tdcentro"></dx:ASPxTextBox>
-                                      </td>
-                                      <td>
-                                          <dx:ASPxTextBox ID="txtDesayunoFinal" Theme="Office2010Black" runat="server" Style="width:70%;margin:0 auto;" CssClass="tdcentro"></dx:ASPxTextBox>
-                                      </td>
-                                      <td>
-                                          <dx:ASPxTextBox ID="txtDesayunoMXN" Theme="Office2010Black" runat="server" Style="width:70%;margin:0 auto;" CssClass="tdderecha"></dx:ASPxTextBox>
-                                      </td>
-                                      <td>
-                                          <dx:ASPxTextBox ID="txtDesayunoUSD" Theme="Office2010Black" runat="server" Style="width:70%;margin:0 auto;" CssClass="tdderecha"></dx:ASPxTextBox>
-                                      </td>
-                                  </tr>
-                                  <tr>
-                                      <td>
-                                          <dx:ASPxLabel ID="lblComida" Text="Comida" Theme="Office2010Black" runat="server"></dx:ASPxLabel>
-                                      </td>
-                                      <td>
-                                          <dx:ASPxTextBox ID="txtComidaInicial" Theme="Office2010Black" runat="server" Style="width:70%;margin:0 auto;" CssClass="tdcentro"></dx:ASPxTextBox>
-                                      </td>
-                                      <td>
-                                          <dx:ASPxTextBox ID="txtComidaFinal" Theme="Office2010Black" runat="server" Style="width:70%;margin:0 auto;" CssClass="tdcentro"></dx:ASPxTextBox>
-                                      </td>
-                                      <td>
-                                          <dx:ASPxTextBox ID="txtComidaMXN" Theme="Office2010Black" runat="server" Style="width:70%;margin:0 auto;" CssClass="tdderecha"></dx:ASPxTextBox>
-                                      </td>
-                                      <td>
-                                          <dx:ASPxTextBox ID="txtComidaUSD" Theme="Office2010Black" runat="server" Style="width:70%;margin:0 auto;" CssClass="tdderecha"></dx:ASPxTextBox>
-                                      </td>
-                                  </tr>
-                                  <tr>
-                                      <td>
-                                          <dx:ASPxLabel ID="lblCena" Text="Cena" Theme="Office2010Black" runat="server"></dx:ASPxLabel>
-                                      </td>
-                                      <td>
-                                          <dx:ASPxTextBox ID="txtCenaInicial" Theme="Office2010Black" runat="server" Style="width:70%;margin:0 auto;" CssClass="tdcentro"></dx:ASPxTextBox>
-                                      </td>
-                                      <td>
-                                          <dx:ASPxTextBox ID="txtCenaFinal" Theme="Office2010Black" runat="server" Style="width:70%;margin:0 auto;" CssClass="tdcentro"></dx:ASPxTextBox>
-                                      </td>
-                                      <td>
-                                          <dx:ASPxTextBox ID="txtCenaMXN" Theme="Office2010Black" runat="server" Style="width:70%;margin:0 auto;" CssClass="tdderecha"></dx:ASPxTextBox>
-                                      </td>
-                                      <td>
-                                          <dx:ASPxTextBox ID="txtCenaUSD" Theme="Office2010Black" runat="server" Style="width:70%;margin:0 auto;" CssClass="tdderecha"></dx:ASPxTextBox>
-                                      </td>
-                                  </tr>
-                                  <tr>
-                                      <td colspan="2">
-                                          &nbsp;
-                                      </td>
-                                      <td>
-                                          <dx:ASPxLabel ID="lblTota" Text="TOTAL" Theme="Office2010Black" runat="server"></dx:ASPxLabel>
-                                      </td>
-                                      <td>
-                                          <dx:ASPxLabel ID="lblTotalMXN" Text="$00000.00" Theme="Office2010Black" runat="server"></dx:ASPxLabel>
-                                      </td>
-                                      <td>
-                                          <dx:ASPxLabel ID="lblTotalUSD" Text="$00000.00" Theme="Office2010Black" runat="server"></dx:ASPxLabel>
-                                      </td>
-                                  </tr>
-                              </table>
+
+                            <div style="max-height:400px; overflow-y:auto; text-align:center;">
+
+                                <dx:BootstrapGridView ID="gvConceptos" runat="server" KeyFieldName="IdConcepto">
+                                    <SettingsSearchPanel Visible="true" ShowApplyButton="true" />
+                                    <Settings ShowGroupPanel="True" ShowFilterRowMenu="true" />
+                                    <SettingsAdaptivity AdaptivityMode="HideDataCells" AllowOnlyOneAdaptiveDetailExpanded="true"></SettingsAdaptivity>
+                                    <SettingsPager PageSize="20"></SettingsPager>
+                                    <SettingsBehavior AllowSort="true" />
+                                    
+                                    <Columns>
+
+                                        <dx:BootstrapGridViewDataColumn Caption="Concepto" FieldName="Concepto" VisibleIndex="1" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" CssClasses-DataCell="dataCell" SortIndex="0" SortOrder="Ascending" />
+                                        <dx:BootstrapGridViewDataColumn Caption="Horario Inicial" Visible="true" VisibleIndex="2" HorizontalAlign="Center">
+                                            <DataItemTemplate>
+                                                <div>
+                                                    <dx:BootstrapTextBox ID="txtHoraIni" runat="server" CssClasses-Control="timepicker inputStyle" Text="09:00"></dx:BootstrapTextBox>
+                                                </div>
+                                            </DataItemTemplate>
+                                            <CssClasses HeaderCell="spa" />
+                                        </dx:BootstrapGridViewDataColumn>
+                                        <dx:BootstrapGridViewDataColumn Caption="Horario Inicial" Visible="true" VisibleIndex="2" HorizontalAlign="Center">
+                                            <DataItemTemplate>
+                                                <div>
+                                                    <dx:BootstrapTextBox ID="txtHoraIni" runat="server" CssClasses-Control="timepicker inputStyle" Text="09:00"></dx:BootstrapTextBox>
+                                                </div>
+                                            </DataItemTemplate>
+                                            <CssClasses HeaderCell="spa" />
+                                        </dx:BootstrapGridViewDataColumn>
+                                        <dx:BootstrapGridViewDataColumn Caption="Horario Final" Visible="true" VisibleIndex="3" HorizontalAlign="Center">
+                                            <DataItemTemplate>
+                                                <div>
+                                                    <dx:BootstrapTextBox ID="txtHoraFin" runat="server" CssClasses-Control="timepicker inputStyle" Text="10:00"></dx:BootstrapTextBox>
+                                                </div>
+                                            </DataItemTemplate>
+                                            <CssClasses HeaderCell="spa" />
+                                        </dx:BootstrapGridViewDataColumn>
+                                        <dx:BootstrapGridViewDataColumn Caption="MXN" Visible="true" VisibleIndex="4" HorizontalAlign="Center">
+                                            <DataItemTemplate>
+                                                <div>
+                                                    <dx:BootstrapTextBox ID="txtMontoMXN" runat="server" CssClasses-Control="timepicker inputStyle" Text=""></dx:BootstrapTextBox>
+                                                </div>
+                                            </DataItemTemplate>
+                                            <CssClasses HeaderCell="spa" />
+                                        </dx:BootstrapGridViewDataColumn>
+                                        <dx:BootstrapGridViewDataColumn Caption="USD" Visible="true" VisibleIndex="4" HorizontalAlign="Center">
+                                            <DataItemTemplate>
+                                                <div>
+                                                    <dx:BootstrapTextBox ID="txtMontoUSD" runat="server" CssClasses-Control="timepicker inputStyle" Text=""></dx:BootstrapTextBox>
+                                                </div>
+                                            </DataItemTemplate>
+                                            <CssClasses HeaderCell="spa" />
+                                        </dx:BootstrapGridViewDataColumn>
+                                    </Columns>
+                                </dx:BootstrapGridView>
+
                             </div>
+
 
                         </div>
                     </div>
@@ -174,13 +145,13 @@
                     </legend>
                     <div class="row">
                         <div class="col-md-6">
-                            <dx:ASPxLabel ID="lblTerritorioNal" Text="Territorio Nacional" Theme="Office2010Black" runat="server"></dx:ASPxLabel><br />
+                            <dx:ASPxLabel ID="lblTerritorioNal" Text="Territorio Nacional" Theme="iOS" runat="server"></dx:ASPxLabel><br />
                             <div class="row">
                                 <div class="col-md-4" style="text-align:right;">
-                                    <dx:ASPxLabel ID="lblMontoMaximo" Text="Monto Máximo" Theme="Office2010Black" runat="server"></dx:ASPxLabel>
+                                    <dx:ASPxLabel ID="lblMontoMaximo" Text="Monto Máximo" Theme="iOS" runat="server"></dx:ASPxLabel>
                                 </div>
                                 <div class="col-md-4">
-                                    <dx:ASPxTextBox ID="txtMontoMaximo" Theme="Office2010Black" runat="server" Style="width:100%;margin:0 auto;" CssClass="tdcentro"></dx:ASPxTextBox>
+                                    <dx:BootstrapTextBox ID="txtMontoMaximo" runat="server" CssClasses-Control="tdcentro" Width="100%" Text=""></dx:BootstrapTextBox>
                                 </div>
                                 <div class="col-md-4" style="text-align:left;">
                                     MXN
@@ -192,7 +163,7 @@
                                     <dx:ASPxLabel ID="lblUSA" Text="USA" Theme="Office2010Black" runat="server"></dx:ASPxLabel>&nbsp;&nbsp;<dx:ASPxLabel ID="lblMontoMaximoUSA" Text="Monto Máximo" Theme="Office2010Black" runat="server"></dx:ASPxLabel>
                                 </div>
                                 <div class="col-md-4">
-                                    <dx:ASPxTextBox ID="txtMontoMaximoUSA" Theme="Office2010Black" runat="server" Style="width:100%;margin:0 auto;" CssClass="tdcentro"></dx:ASPxTextBox>
+                                    <dx:BootstrapTextBox ID="txtMontoMaximoUSA" runat="server" CssClasses-Control="tdcentro" Width="100%" Text=""></dx:BootstrapTextBox>
                                 </div>
                                 <div class="col-md-4" style="text-align:left;">
                                     USD
@@ -203,7 +174,7 @@
                                     <dx:ASPxLabel ID="lblCanadaCaribe" Text="Canadá y Caribe" Theme="Office2010Black" runat="server"></dx:ASPxLabel>&nbsp;&nbsp;<dx:ASPxLabel ID="ASPxLabel17" Text="Monto Máximo" Theme="Office2010Black" runat="server"></dx:ASPxLabel>
                                 </div>
                                 <div class="col-md-4">
-                                    <dx:ASPxTextBox ID="txtCanadaCaribe" Theme="Office2010Black" runat="server" Style="width:100%;margin:0 auto;" CssClass="tdcentro"></dx:ASPxTextBox>
+                                    <dx:BootstrapTextBox ID="txtCanadaCaribe" runat="server" CssClasses-Control="tdcentro" Width="100%" Text=""></dx:BootstrapTextBox>
                                 </div>
                                 <div class="col-md-4" style="text-align:left;">
                                     USD
@@ -234,7 +205,9 @@
                                   </tr>
                                   <tr>
                                       <td>
-                                          <dx:ASPxButton ID="btnEditar" Text="Editar" Theme="Office2010Black" runat="server"></dx:ASPxButton>  
+                                          <dx:BootstrapButton ID="btnEditar" runat="server" Text="Editar" Width="100%">
+                                               <SettingsBootstrap RenderOption="Primary" />
+                                           </dx:BootstrapButton>
                                       </td>
                                       <td>
                                           <dx:ASPxLabel ID="lblFecha" Text="1001" Theme="Office2010Black" runat="server"></dx:ASPxLabel>
@@ -248,7 +221,9 @@
                                   </tr>
                                   <tr>
                                       <td>
-                                          <dx:ASPxButton ID="ASPxButton1" Text="Editar" Theme="Office2010Black" runat="server"></dx:ASPxButton>  
+                                          <dx:BootstrapButton ID="btnEditar2" runat="server" Text="Editar" Width="100%">
+                                               <SettingsBootstrap RenderOption="Primary" />
+                                           </dx:BootstrapButton>  
                                       </td>
                                       <td>
                                           <dx:ASPxLabel ID="ASPxLabel1" Text="1001" Theme="Office2010Black" runat="server"></dx:ASPxLabel>
@@ -262,7 +237,9 @@
                                   </tr>
                                   <tr>
                                       <td>
-                                          <dx:ASPxButton ID="ASPxButton2" Text="Editar" Theme="Office2010Black" runat="server"></dx:ASPxButton>  
+                                          <dx:BootstrapButton ID="btnEditar3" runat="server" Text="Editar" Width="100%">
+                                               <SettingsBootstrap RenderOption="Primary" />
+                                           </dx:BootstrapButton> 
                                       </td>
                                       <td>
                                           <dx:ASPxLabel ID="ASPxLabel4" Text="1001" Theme="Office2010Black" runat="server"></dx:ASPxLabel>
@@ -276,7 +253,9 @@
                                   </tr>
                                   <tr>
                                       <td>
-                                          <dx:ASPxButton ID="ASPxButton3" Text="Editar" Theme="Office2010Black" runat="server"></dx:ASPxButton>  
+                                          <dx:BootstrapButton ID="btnEditar4" runat="server" Text="Editar" Width="100%">
+                                               <SettingsBootstrap RenderOption="Primary" />
+                                           </dx:BootstrapButton> 
                                       </td>
                                       <td>
                                           <dx:ASPxLabel ID="ASPxLabel7" Text="1001" Theme="Office2010Black" runat="server"></dx:ASPxLabel>
@@ -290,7 +269,9 @@
                                   </tr>
                                   <tr>
                                       <td>
-                                          <dx:ASPxButton ID="ASPxButton4" Text="Editar" Theme="Office2010Black" runat="server"></dx:ASPxButton>  
+                                          <dx:BootstrapButton ID="btnEditar5" runat="server" Text="Editar" Width="100%">
+                                               <SettingsBootstrap RenderOption="Primary" />
+                                           </dx:BootstrapButton>  
                                       </td>
                                       <td>
                                           <dx:ASPxLabel ID="ASPxLabel10" Text="1001" Theme="Office2010Black" runat="server"></dx:ASPxLabel>
@@ -303,7 +284,9 @@
                                       </td>
                                       <tr>
                                       <td>
-                                          <dx:ASPxButton ID="ASPxButton5" Text="Editar" Theme="Office2010Black" runat="server"></dx:ASPxButton>  
+                                          <dx:BootstrapButton ID="btnEditar6" runat="server" Text="Editar" Width="100%">
+                                               <SettingsBootstrap RenderOption="Primary" />
+                                           </dx:BootstrapButton>  
                                       </td>
                                       <td>
                                           <dx:ASPxLabel ID="ASPxLabel13" Text="1001" Theme="Office2010Black" runat="server"></dx:ASPxLabel>
@@ -335,15 +318,19 @@
                             <span style="font-family: Helvetica, Arial,sans-serif; text-align: center;">Cargar Cuentas de Pilotos</span>
                         </legend>
                         <div class="row">
-                            <div class="col-md-5" style="text-align:right;">
-                                <dx:ASPxLabel ID="lblSubirDocumento" Text="Seleccionar Archivo" Theme="Office2010Black" runat="server"></dx:ASPxLabel>
+                            <div class="col-md-3" style="text-align:right;">&nbsp;&nbsp;&nbsp;</div>
+                            <div class="col-md-3" style="text-align:right;">
+                                <dx:BootstrapUploadControl ID="uplCargaDocumento" runat="server">
+                                    <UploadButton Text="Cargar" />
+                                </dx:BootstrapUploadControl> 
                             </div>
                             <div class="col-md-3" style="text-align:left;">
-                                <dx:ASPxUploadControl ID="upDocumento" runat="server" Theme="Office2010Black" Style="width:100%;"></dx:ASPxUploadControl>
+                                <%--<dx:ASPxButton ID="lblCargarArchivo" Text="Cargar Archivo" Theme="Office2010Black" runat="server"></dx:ASPxButton>--%> 
+                                <dx:BootstrapButton ID="btnCargarArchivo" runat="server" Text="Cargar Archivo" Width="100%">
+                                    <SettingsBootstrap RenderOption="Success" />
+                                </dx:BootstrapButton>
                             </div>
-                            <div class="col-md-4" style="text-align:left;">
-                                <dx:ASPxButton ID="lblCargarArchivo" Text="Cargar Archivo" Theme="Office2010Black" runat="server"></dx:ASPxButton> 
-                            </div>
+                            <div class="col-md-3" style="text-align:right;"></div>
                         </div>
                         <br />
                         <dx:ASPxLabel ID="lblCuentaPilotosRegistradas" Text="Cuentas de Pilotos Registradas" Theme="Office2010Black" runat="server"></dx:ASPxLabel><br />

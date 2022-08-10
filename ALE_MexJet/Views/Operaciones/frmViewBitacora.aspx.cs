@@ -40,6 +40,8 @@ namespace ALE_MexJet.Views.Operaciones
                     {
                         if(x == 0)
                             sHtml += "<li data-target='#myCarousel' data-slide-to='" + x + "' class='active'></li>";
+                        //sHtml += "<li data-target='#myCarousel' data-slide-to='" + x + "'></li>";
+
                         else
                             sHtml += "<li data-target='#myCarousel' data-slide-to='" + x + "'></li>";
                     }
@@ -58,6 +60,7 @@ namespace ALE_MexJet.Views.Operaciones
 
                         using (MemoryStream ms = new MemoryStream(imgData))
                         {
+                            ms.Position = 0;
                             if (sExt.Length > 1)
                             {
                                 switch (sExt[1].S())
@@ -94,10 +97,11 @@ namespace ALE_MexJet.Views.Operaciones
 
                         if (i == 0)
                         {
+                            //sHtml += "  <div class='item active'>";
                             sHtml += "  <div class='item active'>";
-                            sHtml += "      <img src='" + sImagenUrl + "' alt='' width='400px' height='400px' />";
+                            sHtml += "      <img src='" + sImagenUrl + "' alt='' style='height: 90% !important;width: 90 % !important;margin: 0 auto 0 auto; max-height:500px !important;' />";
                             sHtml += "      <div class='carousel-caption'>";
-                            sHtml += "          <h4 style='color:#CCCCCC;'>" + dt.Rows[i]["NombreArchivo"].S() + "</h4>";
+                            sHtml += "          <h4 style='color:#50c878; text-shadow: -2px 1px 3px black;'>" + dt.Rows[i]["NombreArchivo"].S() + "</h4>";
                             //sHtml += "          <p>This is the first image slide</p>";
                             sHtml += "      </div>";
                             sHtml += "  </div>";
@@ -105,9 +109,9 @@ namespace ALE_MexJet.Views.Operaciones
                         else
                         {
                             sHtml += "  <div class='item'>";
-                            sHtml += "      <img src='" + sImagenUrl + "' alt='' width='400px' height='400px' />";
+                            sHtml += "      <img src='" + sImagenUrl + "' alt='' style='height: 90% !important; width: 90 % !important;margin: 0 auto 0 auto; max-height:500px !important;' />";
                             sHtml += "      <div class='carousel-caption'>";
-                            sHtml += "          <h4 style='color:#CCCCCC;'>" + dt.Rows[i]["NombreArchivo"].S() + "</h4>";
+                            sHtml += "          <h4 style='color:#50c878; text-shadow: -2px 1px 3px black;'>" + dt.Rows[i]["NombreArchivo"].S() + "</h4>";
                             //sHtml += "          <p>This is the first image slide</p>";
                             sHtml += "      </div>";
                             sHtml += "  </div>";
@@ -117,11 +121,11 @@ namespace ALE_MexJet.Views.Operaciones
                     sHtml += "</div>";
 
                     //Controls
-                    sHtml += "<a class='left carousel-control' href='#myCarousel' data-slide='prev'>";
+                    sHtml += "<a class='left carousel-control' href='#myCarousel' data-slide='prev' style='color:#50c878; text-shadow: -2px 1px 3px black;'>";
                     sHtml += "  <span class='glyphicon glyphicon-chevron-left'></span>";
                     sHtml += "  <span class='sr-only'>Previous</span>";
                     sHtml += "</a>";
-                    sHtml += "<a class='right carousel-control' href='#myCarousel' data-slide='next'>";
+                    sHtml += "<a class='right carousel-control' href='#myCarousel' data-slide='next' style='color:#50c878; text-shadow: -2px 1px 3px black;'>";
                     sHtml += "  <span class='glyphicon glyphicon-chevron-right'></span>";
                     sHtml += "  <span class='sr-only'>Next</span>";
                     sHtml += "</a>";

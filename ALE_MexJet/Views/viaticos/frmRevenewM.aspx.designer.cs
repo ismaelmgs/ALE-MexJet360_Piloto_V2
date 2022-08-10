@@ -24,166 +24,13 @@ namespace ALE_MexJet.Views.viaticos
         protected global::System.Web.UI.WebControls.Panel pnlAdminConceptos;
 
         /// <summary>
-        /// Control lblDesayuno.
+        /// Control gvConceptos.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxLabel lblDesayuno;
-
-        /// <summary>
-        /// Control txtDesayunoInicial.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::DevExpress.Web.ASPxTextBox txtDesayunoInicial;
-
-        /// <summary>
-        /// Control txtDesayunoFinal.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::DevExpress.Web.ASPxTextBox txtDesayunoFinal;
-
-        /// <summary>
-        /// Control txtDesayunoMXN.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::DevExpress.Web.ASPxTextBox txtDesayunoMXN;
-
-        /// <summary>
-        /// Control txtDesayunoUSD.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::DevExpress.Web.ASPxTextBox txtDesayunoUSD;
-
-        /// <summary>
-        /// Control lblComida.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::DevExpress.Web.ASPxLabel lblComida;
-
-        /// <summary>
-        /// Control txtComidaInicial.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::DevExpress.Web.ASPxTextBox txtComidaInicial;
-
-        /// <summary>
-        /// Control txtComidaFinal.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::DevExpress.Web.ASPxTextBox txtComidaFinal;
-
-        /// <summary>
-        /// Control txtComidaMXN.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::DevExpress.Web.ASPxTextBox txtComidaMXN;
-
-        /// <summary>
-        /// Control txtComidaUSD.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::DevExpress.Web.ASPxTextBox txtComidaUSD;
-
-        /// <summary>
-        /// Control lblCena.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::DevExpress.Web.ASPxLabel lblCena;
-
-        /// <summary>
-        /// Control txtCenaInicial.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::DevExpress.Web.ASPxTextBox txtCenaInicial;
-
-        /// <summary>
-        /// Control txtCenaFinal.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::DevExpress.Web.ASPxTextBox txtCenaFinal;
-
-        /// <summary>
-        /// Control txtCenaMXN.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::DevExpress.Web.ASPxTextBox txtCenaMXN;
-
-        /// <summary>
-        /// Control txtCenaUSD.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::DevExpress.Web.ASPxTextBox txtCenaUSD;
-
-        /// <summary>
-        /// Control lblTota.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::DevExpress.Web.ASPxLabel lblTota;
-
-        /// <summary>
-        /// Control lblTotalMXN.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::DevExpress.Web.ASPxLabel lblTotalMXN;
-
-        /// <summary>
-        /// Control lblTotalUSD.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::DevExpress.Web.ASPxLabel lblTotalUSD;
+        protected global::DevExpress.Web.Bootstrap.BootstrapGridView gvConceptos;
 
         /// <summary>
         /// Control Panel1.
@@ -219,7 +66,7 @@ namespace ALE_MexJet.Views.viaticos
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxTextBox txtMontoMaximo;
+        protected global::DevExpress.Web.Bootstrap.BootstrapTextBox txtMontoMaximo;
 
         /// <summary>
         /// Control lblTerritotioExtranjero.
@@ -255,7 +102,7 @@ namespace ALE_MexJet.Views.viaticos
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxTextBox txtMontoMaximoUSA;
+        protected global::DevExpress.Web.Bootstrap.BootstrapTextBox txtMontoMaximoUSA;
 
         /// <summary>
         /// Control lblCanadaCaribe.
@@ -282,7 +129,7 @@ namespace ALE_MexJet.Views.viaticos
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxTextBox txtCanadaCaribe;
+        protected global::DevExpress.Web.Bootstrap.BootstrapTextBox txtCanadaCaribe;
 
         /// <summary>
         /// Control lblParametrosGenerales.
@@ -327,7 +174,7 @@ namespace ALE_MexJet.Views.viaticos
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxButton btnEditar;
+        protected global::DevExpress.Web.Bootstrap.BootstrapButton btnEditar;
 
         /// <summary>
         /// Control lblFecha.
@@ -357,13 +204,13 @@ namespace ALE_MexJet.Views.viaticos
         protected global::DevExpress.Web.ASPxLabel lblValor;
 
         /// <summary>
-        /// Control ASPxButton1.
+        /// Control btnEditar2.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxButton ASPxButton1;
+        protected global::DevExpress.Web.Bootstrap.BootstrapButton btnEditar2;
 
         /// <summary>
         /// Control ASPxLabel1.
@@ -393,13 +240,13 @@ namespace ALE_MexJet.Views.viaticos
         protected global::DevExpress.Web.ASPxLabel ASPxLabel3;
 
         /// <summary>
-        /// Control ASPxButton2.
+        /// Control btnEditar3.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxButton ASPxButton2;
+        protected global::DevExpress.Web.Bootstrap.BootstrapButton btnEditar3;
 
         /// <summary>
         /// Control ASPxLabel4.
@@ -429,13 +276,13 @@ namespace ALE_MexJet.Views.viaticos
         protected global::DevExpress.Web.ASPxLabel ASPxLabel6;
 
         /// <summary>
-        /// Control ASPxButton3.
+        /// Control btnEditar4.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxButton ASPxButton3;
+        protected global::DevExpress.Web.Bootstrap.BootstrapButton btnEditar4;
 
         /// <summary>
         /// Control ASPxLabel7.
@@ -465,13 +312,13 @@ namespace ALE_MexJet.Views.viaticos
         protected global::DevExpress.Web.ASPxLabel ASPxLabel9;
 
         /// <summary>
-        /// Control ASPxButton4.
+        /// Control btnEditar5.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxButton ASPxButton4;
+        protected global::DevExpress.Web.Bootstrap.BootstrapButton btnEditar5;
 
         /// <summary>
         /// Control ASPxLabel10.
@@ -501,13 +348,13 @@ namespace ALE_MexJet.Views.viaticos
         protected global::DevExpress.Web.ASPxLabel ASPxLabel12;
 
         /// <summary>
-        /// Control ASPxButton5.
+        /// Control btnEditar6.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxButton ASPxButton5;
+        protected global::DevExpress.Web.Bootstrap.BootstrapButton btnEditar6;
 
         /// <summary>
         /// Control ASPxLabel13.
@@ -546,31 +393,22 @@ namespace ALE_MexJet.Views.viaticos
         protected global::System.Web.UI.WebControls.Panel Panel2;
 
         /// <summary>
-        /// Control lblSubirDocumento.
+        /// Control uplCargaDocumento.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxLabel lblSubirDocumento;
+        protected global::DevExpress.Web.Bootstrap.BootstrapUploadControl uplCargaDocumento;
 
         /// <summary>
-        /// Control upDocumento.
+        /// Control btnCargarArchivo.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxUploadControl upDocumento;
-
-        /// <summary>
-        /// Control lblCargarArchivo.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::DevExpress.Web.ASPxButton lblCargarArchivo;
+        protected global::DevExpress.Web.Bootstrap.BootstrapButton btnCargarArchivo;
 
         /// <summary>
         /// Control lblCuentaPilotosRegistradas.

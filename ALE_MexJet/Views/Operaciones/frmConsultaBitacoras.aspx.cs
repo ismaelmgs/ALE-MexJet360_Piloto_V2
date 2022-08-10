@@ -197,7 +197,7 @@ namespace ALE_MexJet.Views.Operaciones
 
                 //ppVerImagen.ShowOnPageLoad = true;
                 int iBitacora = hdnIdBitacora.Value.I();
-                ScriptManager.RegisterStartupScript(Page, typeof(Page), "OpenWindow", "window.open('../Operaciones/frmViewBitacora.aspx?Bitacora=" + iBitacora + "',this.target, 'width=700,height=500,top=120,left=400,toolbar=no,location=no,status=no,menubar=no');", true);
+                ScriptManager.RegisterStartupScript(Page, typeof(Page), "OpenWindow", "window.open('../Operaciones/frmViewBitacora.aspx?Bitacora=" + iBitacora + "',this.target, 'width=700,height=777,top=120,left=400,toolbar=no,location=no,status=no,menubar=no');", true);
             }
             catch (Exception)
             {
