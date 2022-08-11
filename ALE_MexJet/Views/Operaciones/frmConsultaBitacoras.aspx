@@ -52,9 +52,32 @@
             font-weight: bold !important;
             color: #337ab7 !important;
             text-align: center !important;
+            font-size:9pt;
         }
         .validateTxt {
             border-color: crimson !important;
+        }
+        th {
+            font-size:10pt !important;
+        }
+        .inputText {
+            font-family: inherit !important;
+            font-size: inherit !important;
+            line-height: inherit !important;
+            background-color: #FFFFFF !important;
+            padding: 4px 4px 5px 4px !important;
+            border: 1px solid #ccc !important;
+            border-radius: 4px;
+            color: #555;
+            -webkit-transition: 0.5s;
+            
+        }
+        .inputText textarea[type=text]:focus {
+            box-shadow: inset 0 1px 1px rgb(0 0 0 / 8%) !important;
+            -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s !important;
+            -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s !important;
+            transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s !important;
+            outline:auto;
         }
     </style>
 </asp:Content>
@@ -126,7 +149,8 @@
                                     <dx:BootstrapGridViewDataColumn FieldName="estatus" VisibleIndex="16" CssClasses-DataCell="hiddenRow" HeaderBadge-CssClass="hiddenRow" Visible="false" />
                                     <dx:BootstrapGridViewDataColumn FieldName="leg_id" VisibleIndex="17" CssClasses-DataCell="hiddenRow" HeaderBadge-CssClass="hiddenRow" Visible="false" />
                                     <dx:BootstrapGridViewDataColumn FieldName="Foto" VisibleIndex="18" CssClasses-DataCell="hiddenRow" HeaderBadge-CssClass="hiddenRow" Visible="false" />
-                                    <dx:BootstrapGridViewDataColumn Caption="Acciones" Visible="true" VisibleIndex="18" HorizontalAlign="Center">
+                                    <dx:BootstrapGridViewDataColumn FieldName="Comentarios" VisibleIndex="19" CssClasses-DataCell="hiddenRow" HeaderBadge-CssClass="hiddenRow" Visible="false" />
+                                    <dx:BootstrapGridViewDataColumn Caption="Acciones" Visible="true" VisibleIndex="20" HorizontalAlign="Center">
                                         <DataItemTemplate>
                                             <div>
                                                 <dx:BootstrapButton Text="Actualizar" ID="btnActualiza" runat="server" CommandArgument='<%# Eval("idBitacora") %>' CommandName="Actualiza" AutoPostBack="true" 
@@ -263,20 +287,18 @@
                             </dx:BootstrapTextBox>
                         </div>
                     </div>
-                    <%--<div class="row" style="padding-bottom:10px;">
-                        <div class="col-sm-4">
+                    <div class="row" style="padding-bottom:10px;">
+                        <div class="col-sm-12">
                             <div class="form-group">
                                 <div style="text-align:center;"><label>Comentarios</label></div>
 
                                 <div id="div1" runat="server">
-                                    
-                                    <dx:BootstrapTextBox ID="txtComentarios" runat="server" Text="" Width="400">
-                                    </dx:BootstrapTextBox>
-
+                                    <asp:TextBox ID="txtComentarios" runat="server" Text="" Width="100%" TextMode="MultiLine" Rows="3" CssClass="inputText">
+                                    </asp:TextBox>
                                 </div>
                             </div>
                         </div>
-                    </div>--%>
+                    </div>
 
                 </ContentTemplate>
                 <Triggers>

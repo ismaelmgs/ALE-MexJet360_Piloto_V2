@@ -23,6 +23,7 @@ namespace ALE_MexJet.Objetos
         private string _sFuelOut = string.Empty;
         private string _sFuelDiff = string.Empty;
         private string _sUser = string.Empty;
+        private string _sComentarios = string.Empty;
 
         public int IIdBitacora { get => _iIdBitacora; set => _iIdBitacora = value; }
         public int IId { get => _iId; set => _iId = value; }
@@ -38,5 +39,6 @@ namespace ALE_MexJet.Objetos
         public string SFuelOut { get => _sFuelOut; set => _sFuelOut = value; }
         public string SFuelDiff { get => _sFuelDiff; set => _sFuelDiff = value; }
         public string SUser { get => _sUser; set => _sUser = value; }
+        public string SComentarios { get => _sComentarios; set => _sComentarios = value; }
     }
 }

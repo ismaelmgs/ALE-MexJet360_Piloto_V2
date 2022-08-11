@@ -66,7 +66,7 @@ namespace ALE_MexJet.Views.Operaciones
                 {
                     int index = e.VisibleIndex.I();
                     int iIdBitacora = gvBitacoras.GetRowValues(index, "idBitacora").S().I();
-                    string[] fieldValues = { "leg_id", "folio", "flight_off", "flight_on", "flight_diff", "calzo_in", "calzo_out", "calzo_diff", "fuel_in", "fuel_out", "fuel_diff", "estatus", "trip", "matricula", "Foto" };
+                    string[] fieldValues = { "leg_id", "folio", "flight_off", "flight_on", "flight_diff", "calzo_in", "calzo_out", "calzo_diff", "fuel_in", "fuel_out", "fuel_diff", "estatus", "trip", "matricula", "Foto", "comentarios" };
                     object obj = gvBitacoras.GetRowValues(index, fieldValues);
                     object[] oB = (object[])obj;
                     //List<object> olst = oB;
@@ -106,6 +106,7 @@ namespace ALE_MexJet.Views.Operaciones
                         txtMatricula.Text = oB[13].S();
                         hdnIdBitacora.Value = iIdBitacora.S();
                         hdnFoto.Value = oB[14].S();
+                        txtComentarios.Text = oB[15].S();
                         pnlBusqueda.Visible = false;
                         pnlActualizaBitacora.Visible = true;
                         pnlBitacoras.Visible = false;
@@ -129,6 +130,7 @@ namespace ALE_MexJet.Views.Operaciones
                             txtFuelIn.Enabled = false;
                             txtFuelOut.Enabled = false;
                             txtFuelDiff.Enabled = false;
+                            txtComentarios.Enabled = false;
                             btnActualizar.Enabled = false;
                             btnAutorizar.Enabled = false;
                         }
@@ -301,6 +303,7 @@ namespace ALE_MexJet.Views.Operaciones
                 oBita.SFuelIn = txtFuelIn.Text;
                 oBita.SFuelOut = txtFuelOut.Text;
                 oBita.SFuelDiff = txtFuelDiff.Text;
+                oBita.SComentarios = txtComentarios.Text;
                 oBita.SUser = ((UserIdentity)Session["UserIdentity"]).sUsuario;
                 return oBita;
             }

@@ -267,6 +267,24 @@ namespace ALE_MexJet.Views.Operaciones
         protected global::DevExpress.Web.Bootstrap.BootstrapTextBox txtFuelDiff;
 
         /// <summary>
+        /// Control div1.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl div1;
+
+        /// <summary>
+        /// Control txtComentarios.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtComentarios;
+
+        /// <summary>
         /// Control btnActualizar.
         /// </summary>
         /// <remarks>

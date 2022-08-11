@@ -40,7 +40,8 @@ namespace ALE_MexJet.DomainModel
                                                                                    "@calzodiff", oB.SCalzoDiff,
                                                                                    "@fuelin", oB.SFuelIn,
                                                                                    "@fuelout", oB.SFuelOut,
-                                                                                   "@fueldiff", oB.SFuelDiff);	
+                                                                                   "@fueldiff", oB.SFuelDiff,
+                                                                                   "@Comentarios", oB.SComentarios);	
                 return ban;
             }
             catch (Exception ex)
