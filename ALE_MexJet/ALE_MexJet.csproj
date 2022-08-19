@@ -199,6 +199,7 @@
     <Content Include="img\iconos\poweredBy.jpg" />
     <Content Include="img\iconos\premier.jpg" />
     <Content Include="img\iconos\tache.png" />
+    <Content Include="img\iconos\warning_icon.png" />
     <Content Include="img\logo-ale2.jpg" />
     <Content Include="img\logo-ale3.jpg" />
     <Content Include="img\logoALE.png" />
@@ -704,6 +705,7 @@
     <Content Include="Views\test.aspx" />
     <Content Include="Views\viaticos\frmConsultaVuelos.aspx" />
     <Content Include="Views\viaticos\frmRevenewM.aspx" />
+    <Content Include="Views\viaticos\frmTest.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -819,6 +821,7 @@
     <Compile Include="DomainModel\DBReporteVuelos.cs" />
     <Compile Include="DomainModel\DBResumenContrato.cs" />
     <Compile Include="DomainModel\DBRevenew.cs" />
+    <Compile Include="DomainModel\DBRevenewM.cs" />
     <Compile Include="DomainModel\DBRolAccion.cs" />
     <Compile Include="DomainModel\DBSAP.cs" />
     <Compile Include="DomainModel\DBServicioCargo.cs" />
@@ -886,6 +889,7 @@
     <Compile Include="Interfaces\IViewReporteVuelos.cs" />
     <Compile Include="Interfaces\IViewResumenContrato.cs" />
     <Compile Include="Interfaces\IViewRevenew.cs" />
+    <Compile Include="Interfaces\IViewRevenewM.cs" />
     <Compile Include="Interfaces\IViewRol.cs" />
     <Compile Include="Interfaces\IViewCliente.cs" />
     <Compile Include="Interfaces\IViewCombustibleMensualInternacional.cs" />
@@ -941,6 +945,7 @@
     <Compile Include="Objetos\CombustibleMensualInternacional.cs" />
     <Compile Include="Objetos\CombustibleSemanal.cs" />
     <Compile Include="Objetos\CombustibleSemanalDetalle.cs" />
+    <Compile Include="Objetos\Concepto.cs" />
     <Compile Include="Objetos\ConsultaCasos.cs" />
     <Compile Include="Objetos\ConsultaPrefacturas.cs" />
     <Compile Include="Objetos\ConsultaSolicitudes.cs" />
@@ -990,6 +995,8 @@
     <Compile Include="Objetos\Paquete.cs" />
     <Compile Include="Objetos\PaqueteCuenta.cs" />
     <Compile Include="Objetos\Parametros.cs" />
+    <Compile Include="Objetos\ParametrosAdicionales.cs" />
+    <Compile Include="Objetos\ParametrosGrales.cs" />
     <Compile Include="Objetos\Pasajero.cs" />
     <Compile Include="Objetos\PermisosContrato.cs" />
     <Compile Include="Objetos\PersonaDifusion.cs" />
@@ -1080,6 +1087,7 @@
     <Compile Include="Presenter\ReporteTabular_Presenter.cs" />
     <Compile Include="Presenter\ReporteVuelos_Presenter.cs" />
     <Compile Include="Presenter\ResumenContrato_Presenter.cs" />
+    <Compile Include="Presenter\RevenewM_Presenter.cs" />
     <Compile Include="Presenter\Revenew_Presenter.cs" />
     <Compile Include="Presenter\ServicioCargo_Presenter.cs" />
     <Compile Include="Presenter\SolicitudesPorCaso_Presenter.cs" />
@@ -1905,6 +1913,13 @@
     <Compile Include="Views\viaticos\frmRevenewM.aspx.designer.cs">
       <DependentUpon>frmRevenewM.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Views\viaticos\frmTest.aspx.cs">
+      <DependentUpon>frmTest.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\viaticos\frmTest.aspx.designer.cs">
+      <DependentUpon>frmTest.aspx</DependentUpon>
+    </Compile>
     <Content Include="App_Code\DataSource.cs" />
     <Compile Include="ALE_Main.Master.cs">
       <DependentUpon>ALE_Main.Master</DependentUpon>
@@ -2190,6 +2205,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\UploadTemp\" />
+    <Folder Include="Files\" />
     <Folder Include="Scripts\" />
   </ItemGroup>
   <ItemGroup>

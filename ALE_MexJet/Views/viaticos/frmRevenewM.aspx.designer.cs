@@ -15,6 +15,15 @@ namespace ALE_MexJet.Views.viaticos
     {
 
         /// <summary>
+        /// Control upaGeneral.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel upaGeneral;
+
+        /// <summary>
         /// Control pnlAdminConceptos.
         /// </summary>
         /// <remarks>
@@ -22,6 +31,15 @@ namespace ALE_MexJet.Views.viaticos
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel pnlAdminConceptos;
+
+        /// <summary>
+        /// Control upaConceptos.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel upaConceptos;
 
         /// <summary>
         /// Control gvConceptos.
@@ -33,373 +51,283 @@ namespace ALE_MexJet.Views.viaticos
         protected global::DevExpress.Web.Bootstrap.BootstrapGridView gvConceptos;
 
         /// <summary>
-        /// Control Panel1.
+        /// Control pnlConfiguracionParametros.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel Panel1;
+        protected global::System.Web.UI.WebControls.Panel pnlConfiguracionParametros;
 
         /// <summary>
-        /// Control lblTerritorioNal.
+        /// Control upaParametros.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxLabel lblTerritorioNal;
+        protected global::System.Web.UI.UpdatePanel upaParametros;
 
         /// <summary>
-        /// Control lblMontoMaximo.
+        /// Control gvParametros.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxLabel lblMontoMaximo;
+        protected global::DevExpress.Web.Bootstrap.BootstrapGridView gvParametros;
 
         /// <summary>
-        /// Control txtMontoMaximo.
+        /// Control pnlConfiguracionParametrosAdicionales.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::DevExpress.Web.Bootstrap.BootstrapTextBox txtMontoMaximo;
+        protected global::System.Web.UI.WebControls.Panel pnlConfiguracionParametrosAdicionales;
 
         /// <summary>
-        /// Control lblTerritotioExtranjero.
+        /// Control upaParametrosAdicionales.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxLabel lblTerritotioExtranjero;
+        protected global::System.Web.UI.UpdatePanel upaParametrosAdicionales;
 
         /// <summary>
-        /// Control lblUSA.
+        /// Control btnNuevoParametroAdicional.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxLabel lblUSA;
+        protected global::System.Web.UI.WebControls.Button btnNuevoParametroAdicional;
 
         /// <summary>
-        /// Control lblMontoMaximoUSA.
+        /// Control gvParametrosAdicionales.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxLabel lblMontoMaximoUSA;
+        protected global::DevExpress.Web.Bootstrap.BootstrapGridView gvParametrosAdicionales;
 
         /// <summary>
-        /// Control txtMontoMaximoUSA.
+        /// Control lblTitulo.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::DevExpress.Web.Bootstrap.BootstrapTextBox txtMontoMaximoUSA;
+        protected global::System.Web.UI.WebControls.Label lblTitulo;
 
         /// <summary>
-        /// Control lblCanadaCaribe.
+        /// Control lblConcepto.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxLabel lblCanadaCaribe;
+        protected global::System.Web.UI.WebControls.Label lblConcepto;
 
         /// <summary>
-        /// Control ASPxLabel17.
+        /// Control readConcepto.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxLabel ASPxLabel17;
+        protected global::System.Web.UI.WebControls.Label readConcepto;
 
         /// <summary>
-        /// Control txtCanadaCaribe.
+        /// Control txtHorarioInicial.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::DevExpress.Web.Bootstrap.BootstrapTextBox txtCanadaCaribe;
+        protected global::System.Web.UI.WebControls.TextBox txtHorarioInicial;
 
         /// <summary>
-        /// Control lblParametrosGenerales.
+        /// Control txtHorarioFinal.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxLabel lblParametrosGenerales;
+        protected global::System.Web.UI.WebControls.TextBox txtHorarioFinal;
 
         /// <summary>
-        /// Control lblFechaParametrosG.
+        /// Control txtMontoMXN.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxLabel lblFechaParametrosG;
+        protected global::System.Web.UI.WebControls.TextBox txtMontoMXN;
 
         /// <summary>
-        /// Control lblDescripcionParametrosG.
+        /// Control txtMontoUSD.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxLabel lblDescripcionParametrosG;
+        protected global::System.Web.UI.WebControls.TextBox txtMontoUSD;
 
         /// <summary>
-        /// Control lblVaorParametrosG.
+        /// Control hdnIdConcepto.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxLabel lblVaorParametrosG;
+        protected global::System.Web.UI.WebControls.HiddenField hdnIdConcepto;
 
         /// <summary>
-        /// Control btnEditar.
+        /// Control btnGuardarConcepto.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::DevExpress.Web.Bootstrap.BootstrapButton btnEditar;
+        protected global::System.Web.UI.WebControls.Button btnGuardarConcepto;
 
         /// <summary>
-        /// Control lblFecha.
+        /// Control TituloParam.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxLabel lblFecha;
+        protected global::System.Web.UI.WebControls.Label TituloParam;
 
         /// <summary>
-        /// Control lblDescripcion.
+        /// Control lblDesParam.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxLabel lblDescripcion;
+        protected global::System.Web.UI.WebControls.Label lblDesParam;
 
         /// <summary>
-        /// Control lblValor.
+        /// Control readDesParametro.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxLabel lblValor;
+        protected global::System.Web.UI.WebControls.Label readDesParametro;
 
         /// <summary>
-        /// Control btnEditar2.
+        /// Control txtValor.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::DevExpress.Web.Bootstrap.BootstrapButton btnEditar2;
+        protected global::System.Web.UI.WebControls.TextBox txtValor;
 
         /// <summary>
-        /// Control ASPxLabel1.
+        /// Control hdnIdParametro.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxLabel ASPxLabel1;
+        protected global::System.Web.UI.WebControls.HiddenField hdnIdParametro;
 
         /// <summary>
-        /// Control ASPxLabel2.
+        /// Control btnGuardarParametro.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxLabel ASPxLabel2;
+        protected global::System.Web.UI.WebControls.Button btnGuardarParametro;
 
         /// <summary>
-        /// Control ASPxLabel3.
+        /// Control lblTituloAdicionales.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxLabel ASPxLabel3;
+        protected global::System.Web.UI.WebControls.Label lblTituloAdicionales;
 
         /// <summary>
-        /// Control btnEditar3.
+        /// Control txtClave.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::DevExpress.Web.Bootstrap.BootstrapButton btnEditar3;
+        protected global::System.Web.UI.WebControls.TextBox txtClave;
 
         /// <summary>
-        /// Control ASPxLabel4.
+        /// Control txtDescripcionParaAd.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxLabel ASPxLabel4;
+        protected global::System.Web.UI.WebControls.TextBox txtDescripcionParaAd;
 
         /// <summary>
-        /// Control ASPxLabel5.
+        /// Control txtValorParaAd.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxLabel ASPxLabel5;
+        protected global::System.Web.UI.WebControls.TextBox txtValorParaAd;
 
         /// <summary>
-        /// Control ASPxLabel6.
+        /// Control RegexDecimal.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxLabel ASPxLabel6;
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegexDecimal;
 
         /// <summary>
-        /// Control btnEditar4.
+        /// Control hdnIdParaAd.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::DevExpress.Web.Bootstrap.BootstrapButton btnEditar4;
+        protected global::System.Web.UI.WebControls.HiddenField hdnIdParaAd;
 
         /// <summary>
-        /// Control ASPxLabel7.
+        /// Control btnGuardarParaAd.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxLabel ASPxLabel7;
+        protected global::System.Web.UI.WebControls.Button btnGuardarParaAd;
 
         /// <summary>
-        /// Control ASPxLabel8.
+        /// Control pnlCuentasPilotos.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxLabel ASPxLabel8;
+        protected global::System.Web.UI.WebControls.Panel pnlCuentasPilotos;
 
         /// <summary>
-        /// Control ASPxLabel9.
+        /// Control fluArchivo.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxLabel ASPxLabel9;
-
-        /// <summary>
-        /// Control btnEditar5.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::DevExpress.Web.Bootstrap.BootstrapButton btnEditar5;
-
-        /// <summary>
-        /// Control ASPxLabel10.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::DevExpress.Web.ASPxLabel ASPxLabel10;
-
-        /// <summary>
-        /// Control ASPxLabel11.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::DevExpress.Web.ASPxLabel ASPxLabel11;
-
-        /// <summary>
-        /// Control ASPxLabel12.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::DevExpress.Web.ASPxLabel ASPxLabel12;
-
-        /// <summary>
-        /// Control btnEditar6.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::DevExpress.Web.Bootstrap.BootstrapButton btnEditar6;
-
-        /// <summary>
-        /// Control ASPxLabel13.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::DevExpress.Web.ASPxLabel ASPxLabel13;
-
-        /// <summary>
-        /// Control ASPxLabel14.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::DevExpress.Web.ASPxLabel ASPxLabel14;
-
-        /// <summary>
-        /// Control ASPxLabel15.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::DevExpress.Web.ASPxLabel ASPxLabel15;
-
-        /// <summary>
-        /// Control Panel2.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel Panel2;
-
-        /// <summary>
-        /// Control uplCargaDocumento.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::DevExpress.Web.Bootstrap.BootstrapUploadControl uplCargaDocumento;
+        protected global::System.Web.UI.WebControls.FileUpload fluArchivo;
 
         /// <summary>
         /// Control btnCargarArchivo.
@@ -411,21 +339,111 @@ namespace ALE_MexJet.Views.viaticos
         protected global::DevExpress.Web.Bootstrap.BootstrapButton btnCargarArchivo;
 
         /// <summary>
-        /// Control lblCuentaPilotosRegistradas.
+        /// Control lblRegModificar.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxLabel lblCuentaPilotosRegistradas;
+        protected global::System.Web.UI.WebControls.Label lblRegModificar;
 
         /// <summary>
-        /// Control BootstrapGridView1.
+        /// Control upaCambios.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::DevExpress.Web.Bootstrap.BootstrapGridView BootstrapGridView1;
+        protected global::System.Web.UI.UpdatePanel upaCambios;
+
+        /// <summary>
+        /// Control gvCambios.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::DevExpress.Web.Bootstrap.BootstrapGridView gvCambios;
+
+        /// <summary>
+        /// Control msgError.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl msgError;
+
+        /// <summary>
+        /// Control lblError.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblError;
+
+        /// <summary>
+        /// Control Label4.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label4;
+
+        /// <summary>
+        /// Control lblNota.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblNota;
+
+        /// <summary>
+        /// Control msgWarning.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl msgWarning;
+
+        /// <summary>
+        /// Control lblWarning.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblWarning;
+
+        /// <summary>
+        /// Control upaCarga.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel upaCarga;
+
+        /// <summary>
+        /// Control gvCargaCuentas.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::DevExpress.Web.Bootstrap.BootstrapGridView gvCargaCuentas;
+
+        /// <summary>
+        /// Control btnGuardar.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnGuardar;
     }
 }
