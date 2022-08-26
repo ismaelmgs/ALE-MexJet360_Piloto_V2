@@ -42,6 +42,15 @@ namespace ALE_MexJet.Views.viaticos
         protected global::System.Web.UI.UpdatePanel upaConceptos;
 
         /// <summary>
+        /// Control btnNuevoConcepto.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnNuevoConcepto;
+
+        /// <summary>
         /// Control gvConceptos.
         /// </summary>
         /// <remarks>
@@ -123,22 +132,13 @@ namespace ALE_MexJet.Views.viaticos
         protected global::System.Web.UI.WebControls.Label lblTitulo;
 
         /// <summary>
-        /// Control lblConcepto.
+        /// Control txtConcepto.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblConcepto;
-
-        /// <summary>
-        /// Control readConcepto.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label readConcepto;
+        protected global::System.Web.UI.WebControls.TextBox txtConcepto;
 
         /// <summary>
         /// Control txtHorarioInicial.
@@ -150,6 +150,24 @@ namespace ALE_MexJet.Views.viaticos
         protected global::System.Web.UI.WebControls.TextBox txtHorarioInicial;
 
         /// <summary>
+        /// Control divHorarioIni.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divHorarioIni;
+
+        /// <summary>
+        /// Control rqHoraIni.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label rqHoraIni;
+
+        /// <summary>
         /// Control txtHorarioFinal.
         /// </summary>
         /// <remarks>
@@ -157,6 +175,24 @@ namespace ALE_MexJet.Views.viaticos
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtHorarioFinal;
+
+        /// <summary>
+        /// Control divHorarioFin.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divHorarioFin;
+
+        /// <summary>
+        /// Control rqHoraFin.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label rqHoraFin;
 
         /// <summary>
         /// Control txtMontoMXN.
@@ -184,6 +220,60 @@ namespace ALE_MexJet.Views.viaticos
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdnIdConcepto;
+
+        /// <summary>
+        /// Control divValidGral.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divValidGral;
+
+        /// <summary>
+        /// Control rqGral.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label rqGral;
+
+        /// <summary>
+        /// Control divValidMontosMXN.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divValidMontosMXN;
+
+        /// <summary>
+        /// Control rqMontosMXN.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label rqMontosMXN;
+
+        /// <summary>
+        /// Control divValidMontosUSD.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divValidMontosUSD;
+
+        /// <summary>
+        /// Control rqMontosUSD.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label rqMontosUSD;
 
         /// <summary>
         /// Control btnGuardarConcepto.
@@ -363,7 +453,7 @@ namespace ALE_MexJet.Views.viaticos
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::DevExpress.Web.Bootstrap.BootstrapGridView gvCambios;
+        protected global::System.Web.UI.WebControls.GridView gvCambios;
 
         /// <summary>
         /// Control msgError.
@@ -435,15 +525,15 @@ namespace ALE_MexJet.Views.viaticos
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::DevExpress.Web.Bootstrap.BootstrapGridView gvCargaCuentas;
+        protected global::System.Web.UI.WebControls.GridView gvCargaCuentas;
 
         /// <summary>
-        /// Control btnGuardar.
+        /// Control btnGuardarCuentas.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnGuardar;
+        protected global::System.Web.UI.WebControls.Button btnGuardarCuentas;
     }
 }

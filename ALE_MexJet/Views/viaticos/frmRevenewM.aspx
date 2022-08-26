@@ -96,10 +96,31 @@
             color: #152138 !important;
             background-color: #ccc !important;
         }
+        .validInput {
+            color: red;
+            font-size: 9pt;
+        }
+        .gvRows {
+            background-color: #FFFFFF;
+        }
+
+        .errorValid {
+            border: 1px solid red !important;
+            border-radius: 3px 3px !important;
+        }
+        .errorValid:focus {
+            outline: none !important;
+            border:1px solid red;
+            box-shadow: 0 0 10px #719ECE;
+        }
+
     </style>
     <script type="text/javascript">
         function ShowPopup() {
-            $("#myModalConceptos").modal();
+            $("#myModalConceptos").modal({
+                show: true,
+                backdrop: 'static'
+            });
         }
         function ShowPopupParam() {
             $("#myModalParametros").modal();
@@ -130,6 +151,12 @@
                                     <asp:UpdatePanel ID="upaConceptos" runat="server" UpdateMode="Conditional">
                                         <ContentTemplate>
 
+                                            <div class="row" style="padding-bottom:15px;">
+                                                <div class="col-lg-12" align="right">
+                                                    <asp:Button ID="btnNuevoConcepto" runat="server" Text="Agregar Nuevo" CssClass="btn btn-success" OnClick="btnNuevoConcepto_Click" />
+                                                </div>
+                                            </div>
+
                                             <div style="height:auto; overflow-y:auto; text-align:center;">
 
                                                 <dx:BootstrapGridView ID="gvConceptos" runat="server" KeyFieldName="IdConcepto" OnRowCommand="gvConceptos_RowCommand">
@@ -141,17 +168,24 @@
                                                     <Columns>
 
                                                         <dx:BootstrapGridViewDataColumn Caption="Concepto" FieldName="Concepto" VisibleIndex="1" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" CssClasses-DataCell="dataCell" SortIndex="0" SortOrder="None" Width="40%" />
-                                                        <dx:BootstrapGridViewDataColumn Caption="Horario Inicial" FieldName="HoraIni" VisibleIndex="2" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" CssClasses-DataCell="dataCell" Width="15%" />
-                                                        <dx:BootstrapGridViewDataColumn Caption="Horario Final" FieldName="HoraFin" VisibleIndex="3" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" CssClasses-DataCell="dataCell" Width="15%" />
+                                                        <dx:BootstrapGridViewDataColumn Caption="Horario Inicial" FieldName="HoraIni" VisibleIndex="2" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" CssClasses-DataCell="dataCell" Width="10%" />
+                                                        <dx:BootstrapGridViewDataColumn Caption="Horario Final" FieldName="HoraFin" VisibleIndex="3" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" CssClasses-DataCell="dataCell" Width="10%" />
                                                 
-                                                        <dx:BootstrapGridViewDataColumn Caption="Monto MXN" FieldName="MontoMXN" VisibleIndex="4" HorizontalAlign="Right" CssClasses-HeaderCell="centerCell" CssClasses-DataCell="dataCell" Width="15%" />
-                                                        <dx:BootstrapGridViewDataColumn Caption="Monto USD" FieldName="MontoUSD" VisibleIndex="5" HorizontalAlign="Right" CssClasses-HeaderCell="centerCell" CssClasses-DataCell="dataCell" Width="15%" />
+                                                        <dx:BootstrapGridViewTextColumn Caption="Monto MXN" FieldName="MontoMXN" VisibleIndex="4" HorizontalAlign="Right" CssClasses-HeaderCell="centerCell" CssClasses-DataCell="dataCell" Width="10%">
+                                                            <PropertiesTextEdit DisplayFormatString="c"></PropertiesTextEdit>
+                                                        </dx:BootstrapGridViewTextColumn>
+                                                        <dx:BootstrapGridViewTextColumn Caption="Monto USD" FieldName="MontoUSD" VisibleIndex="5" HorizontalAlign="Right" CssClasses-HeaderCell="centerCell" CssClasses-DataCell="dataCell" Width="10%">
+                                                            <PropertiesTextEdit DisplayFormatString="c"></PropertiesTextEdit>
+                                                        </dx:BootstrapGridViewTextColumn>
 
-                                                        <dx:BootstrapGridViewDataColumn Caption="Acciones" Visible="true" VisibleIndex="6" HorizontalAlign="Center">
+                                                        <dx:BootstrapGridViewDataColumn Caption="Acciones" Visible="true" VisibleIndex="6" HorizontalAlign="Center" Width="20%">
                                                             <DataItemTemplate>
                                                                 <div>
                                                                     <dx:BootstrapButton Text="Actualizar" ID="btnActualiza" runat="server" CommandArgument='<%# Eval("IdConcepto") %>' CommandName="Actualiza" AutoPostBack="true" 
                                                                         ToolTip="Actualiza" SettingsBootstrap-RenderOption="Primary"></dx:BootstrapButton>
+
+                                                                    <asp:Button ID="btnEliminar" runat="server" CommandArgument='<%# Eval("IdConcepto") %>' CommandName="Eliminar" ToolTip="Elimina" 
+                                                                        CssClass="btn btn-danger" Text="Eliminar" OnClientClick="return confirm('¿Desea eliminar el concepto?');" />
                                                                 </div>
                                                             </DataItemTemplate>
                                                             <CssClasses HeaderCell="spa" />
@@ -200,9 +234,10 @@
 
                                                         <dx:BootstrapGridViewDataColumn Caption="Clave" FieldName="Clave" VisibleIndex="1" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" CssClasses-DataCell="dataCell" SortIndex="0" SortOrder="None" Width="20%" />
                                                         <dx:BootstrapGridViewDataColumn Caption="Descripción" FieldName="Descripcion" VisibleIndex="2" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" CssClasses-DataCell="dataCell" Width="50%" />
-                                                        <dx:BootstrapGridViewDataColumn Caption="Valor" FieldName="Valor" VisibleIndex="3" HorizontalAlign="Right" CssClasses-HeaderCell="centerCell" CssClasses-DataCell="dataCell" Width="20%" />
-
-                                                        <dx:BootstrapGridViewDataColumn Caption="Acciones" Visible="true" VisibleIndex="4" HorizontalAlign="Center" Width="10%">
+                                                        
+                                                        <dx:BootstrapGridViewDataColumn Caption="Valor" FieldName="DesValor" VisibleIndex="3" HorizontalAlign="Right" CssClasses-HeaderCell="centerCell" CssClasses-DataCell="dataCell" Width="20%" />
+                                                        <dx:BootstrapGridViewDataColumn FieldName="Valor" VisibleIndex="4" CssClasses-DataCell="hiddenRow" HeaderBadge-CssClass="hiddenRow" Visible="false" />
+                                                        <dx:BootstrapGridViewDataColumn Caption="Acciones" Visible="true" VisibleIndex="5" HorizontalAlign="Center" Width="10%">
                                                             <DataItemTemplate>
                                                                 <div>
                                                                     <dx:BootstrapButton Text="Actualizar" ID="btnActualiza" runat="server" CommandArgument='<%# Eval("IdParametro") %>' CommandName="Actualiza" AutoPostBack="true" 
@@ -212,7 +247,7 @@
                                                             <CssClasses HeaderCell="spa" />
                                                         </dx:BootstrapGridViewDataColumn>
 
-                                                        <dx:BootstrapGridViewDataColumn FieldName="IdParametro" VisibleIndex="5" CssClasses-DataCell="hiddenRow" HeaderBadge-CssClass="hiddenRow" Visible="false" />
+                                                        <dx:BootstrapGridViewDataColumn FieldName="IdParametro" VisibleIndex="6" CssClasses-DataCell="hiddenRow" HeaderBadge-CssClass="hiddenRow" Visible="false" />
                                                     </Columns>
                                                 </dx:BootstrapGridView>
 
@@ -231,7 +266,7 @@
                 </div>
             </asp:Panel>
 
-            <asp:Panel ID="pnlConfiguracionParametrosAdicionales" runat="server" Visible="true">
+            <asp:Panel ID="pnlConfiguracionParametrosAdicionales" runat="server" Visible="false">
                 <div class="row">
                     <div class="col-md-12">
                         <br />
@@ -310,9 +345,12 @@
             </asp:Panel>
 
             <!--Modal Conceptos-->
-            <div class="modal fade" id="myModalConceptos">
+            <div class="modal fade" data-backdrop="static" data-keyboard="false" tabindex="-1" id="myModalConceptos" role="dialog" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
+
+                        
+
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span></button>
@@ -322,37 +360,71 @@
                         </div>
                         <div class="modal-body">
                     
-                            <div class="row" style="padding:5px 2px 5px 2px;">
+                            <%--<div class="row" style="padding:5px 2px 5px 2px;">
                                 <div class="col-lg-6" align="right"><asp:Label ID="lblConcepto" runat="server" Text="Concepto: " style="font-weight:200; color:#555;"></asp:Label></div>
                                 <div class="col-lg-6" align="left"><asp:Label ID="readConcepto" runat="server" style="font-weight:200; color:#555;"></asp:Label></div>
+                            </div>--%>
+
+                            <div class="row">
+                                <div class="col-md-1">&nbsp;&nbsp;&nbsp;</div>
+                                <div class="col-md-3" align="right" style="vertical-align:middle; padding:5px 2px 5px 2px;">
+                                    <span>Concepto:</span>
+                                </div>
+                                <div class="col-md-5" align="left" style="padding:5px 2px 5px 2px;">
+                                    <asp:TextBox ID="txtConcepto" runat="server" Width="100%" placeholder="Ingresa Concepto" style="text-align:left;" CssClass="inputText" TextMode="MultiLine" Rows="3"></asp:TextBox>
+                                </div>
+                                <div class="col-md-3">&nbsp;&nbsp;&nbsp;</div>
                             </div>
+
                             <div class="row">
                                 <div class="col-md-3">&nbsp;&nbsp;&nbsp;</div>
                                 <div class="col-md-3" align="right" style="vertical-align:middle; padding:5px 2px 5px 2px;">
                                     <span>Horario Inicial:</span>
                                 </div>
                                 <div class="col-md-3" align="left" style="padding:5px 2px 5px 2px;">
-                                    <asp:TextBox ID="txtHorarioInicial" runat="server" Width="100%" MaxLength="5" placeholder="00:00" style="text-align:center;" CssClass="inputText"></asp:TextBox>
+                                    <asp:TextBox ID="txtHorarioInicial" runat="server" Width="100%" MaxLength="5" placeholder="00:00" style="text-align:center;" CssClass="inputText" 
+                                        OnTextChanged="txtHorarioInicial_TextChanged" AutoPostBack="true"></asp:TextBox>
+                                  <%--<cc1:MaskedEditExtender ID="mskHorarioIni" runat="server" AcceptAMPM="false" MaskType="Time" Mask="99:99" ErrorTooltipEnabled="true"
+                                        InputDirection="RightToLeft" CultureName="es-ES" TargetControlID="txtHorarioInicial" MessageValidatorTip="true"></cc1:MaskedEditExtender>
+                                    <cc1:MaskedEditValidator ID="mskValidHorarioIni" runat="server" ToolTip="Error de formato en hora" ErrorMessage="*" ControlExtender="mskHorarioIni"
+                                        ControlToValidate="txtHorarioInicial" InvalidValueMessage="Registre Hora" TooltipMessage="Ejemplo: HH:MM"></cc1:MaskedEditValidator>--%>
+
                                 </div>
                                 <div class="col-md-3">&nbsp;&nbsp;&nbsp;</div>
                             </div>
+
+                            <div id="divHorarioIni" runat="server" class="row" visible="false">
+                                <div class="col-md-12">
+                                    <asp:Label ID="rqHoraIni" runat="server" CssClass="validInput"></asp:Label>
+                                </div>
+                            </div>
+
                             <div class="row">
                                 <div class="col-md-3">&nbsp;&nbsp;&nbsp;</div>
                                 <div class="col-md-3" align="right" style="vertical-align:middle; padding:5px 2px 5px 2px;">
                                     <span>Horario Final:</span>
                                 </div>
                                 <div class="col-md-3" align="left" style="padding:5px 2px 5px 2px;">
-                                    <asp:TextBox ID="txtHorarioFinal" runat="server" Width="100%" MaxLength="5" placeholder="00:00" style="text-align:center;" CssClass="inputText"></asp:TextBox>
+                                    <asp:TextBox ID="txtHorarioFinal" runat="server" Width="100%" MaxLength="5" placeholder="00:00" style="text-align:center;" CssClass="inputText" 
+                                        OnTextChanged="txtHorarioFinal_TextChanged" AutoPostBack="true"></asp:TextBox>
                                 </div>
                                 <div class="col-md-3">&nbsp;&nbsp;&nbsp;</div>
                             </div>
+
+                            <div id="divHorarioFin" runat="server" class="row" visible="false">
+                                <div class="col-md-12">
+                                    <asp:Label ID="rqHoraFin" runat="server" CssClass="validInput"></asp:Label>
+                                </div>
+                            </div>
+
                             <div class="row">
                                 <div class="col-md-3">&nbsp;&nbsp;&nbsp;</div>
                                 <div class="col-md-3" align="right" style="vertical-align:middle; padding:5px 2px 5px 2px;">
                                     <span>Monto MXN:</span>
                                 </div>
                                 <div class="col-md-3" align="left" style="padding:5px 2px 5px 2px;">
-                                    <asp:TextBox ID="txtMontoMXN" runat="server" Width="100%" placeholder="MXN" style="text-align:right;" CssClass="inputText"></asp:TextBox>
+                                    <asp:TextBox ID="txtMontoMXN" runat="server" Width="100%" placeholder="MXN" style="text-align:right;" CssClass="inputText" 
+                                        OnTextChanged="txtMontoMXN_TextChanged" AutoPostBack="true"></asp:TextBox>
                                 </div>
                                 <div class="col-md-3">&nbsp;&nbsp;&nbsp;</div>
                             </div>
@@ -362,7 +434,8 @@
                                     <span>Monto USD:</span>
                                 </div>
                                 <div class="col-md-3" align="left" style="padding:5px 2px 5px 2px;">
-                                    <asp:TextBox ID="txtMontoUSD" runat="server" Width="100%" placeholder="USD" style="text-align:right;" CssClass="inputText"></asp:TextBox>
+                                    <asp:TextBox ID="txtMontoUSD" runat="server" Width="100%" placeholder="USD" style="text-align:right;" CssClass="inputText" 
+                                        OnTextChanged="txtMontoUSD_TextChanged" AutoPostBack="true"></asp:TextBox>
                                 </div>
                                 <div class="col-md-3">&nbsp;&nbsp;&nbsp;</div>
                             </div>
@@ -370,14 +443,29 @@
                                 <asp:HiddenField ID="hdnIdConcepto" runat="server"></asp:HiddenField>
                             </div>
 
+                            <div id="divValidGral" runat="server" class="row" visible="false">
+                                <div class="col-md-12">
+                                    <asp:Label ID="rqGral" runat="server" CssClass="validInput"></asp:Label>
+                                </div>
+                            </div>
+                            <div id="divValidMontosMXN" runat="server" class="row" visible="false">
+                                <div class="col-md-12">
+                                    <asp:Label ID="rqMontosMXN" runat="server" CssClass="validInput"></asp:Label>
+                                </div>
+                            </div>
+                            <div id="divValidMontosUSD" runat="server" class="row" visible="false">
+                                <div class="col-md-12">
+                                    <asp:Label ID="rqMontosUSD" runat="server" CssClass="validInput"></asp:Label>
+                                </div>
+                            </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-warning" data-dismiss="modal">
-                                Cancelar</button>
-                            <%--<button type="button" class="btn btn-primary">
-                                Save changes</button>--%>
-                            <asp:Button ID="btnGuardarConcepto" runat="server" CssClass="btn btn-success" Text="Actualizar" OnClick="btnGuardarConcepto_Click" />
+
+                            <button type="button" class="btn btn-warning" data-dismiss="modal">Cancelar</button>
+                            <asp:Button ID="btnGuardarConcepto" runat="server" CssClass="btn btn-success" Text="Actualizar" OnClick="btnGuardarConcepto_Click"  OnClientClick="return alert(CompararHoras());" />
+
                         </div>
+                            
                     </div>
                     <!-- /.modal-content -->
                 </div>
@@ -527,14 +615,13 @@
                                     <ContentTemplate>
                                         <%--Tabla de cambios encontrados--%>
 
-                                        <dx:BootstrapGridView ID="gvCambios" runat="server" Style="width:99%;">
+                                        <%--<dx:BootstrapGridView ID="gvCambios2" runat="server" Style="width:99%;">
                                             <SettingsSearchPanel Visible="false" ShowApplyButton="false" />
                                             <Settings ShowGroupPanel="false" ShowFilterRowMenu="false" />
                                             <SettingsAdaptivity AdaptivityMode="HideDataCells" AllowOnlyOneAdaptiveDetailExpanded="true"></SettingsAdaptivity>
                                             <SettingsPager PageSize="20"></SettingsPager>
                                             <SettingsBehavior AllowSort="false" />
                                             <Columns>
-                                                <%--<dx:BootstrapGridViewCommandColumn ShowEditButton="true" ShowDeleteButton="true" ShowNewButtonInHeader="true" />--%>
                                                 <dx:BootstrapGridViewDataColumn Caption="Titular" FieldName="Titular" VisibleIndex="1" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" CssClasses-DataCell="dataCell" SortIndex="0" SortOrder="None" Width="30%" />
                                                 <dx:BootstrapGridViewDataColumn Caption="Cuenta" FieldName="Cuenta" VisibleIndex="2" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" CssClasses-DataCell="dataCell" Width="20%" />
                                                 <dx:BootstrapGridViewDataColumn Caption="Tarjeta" FieldName="Tarjeta" VisibleIndex="3" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" CssClasses-DataCell="dataCell" Width="20%" />
@@ -542,7 +629,28 @@
                                                 <dx:BootstrapGridViewDataColumn Caption="Cuarta Linea" FieldName="CuartaLinea" VisibleIndex="5" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" CssClasses-DataCell="dataCell" Width="10%" />
                                                 <dx:BootstrapGridViewDataColumn Caption="Clave Piloto" FieldName="CvePiloto" VisibleIndex="6" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" CssClasses-DataCell="dataCell" Width="10%" />
                                             </Columns>
-                                        </dx:BootstrapGridView>
+                                        </dx:BootstrapGridView>--%>
+
+
+                                        <asp:GridView ID="gvCambios" runat="server" style="border: 1px solid #ffb400;" class="table table-bordered table-condensed"
+                                            AutoGenerateColumns="false" Width="100%">
+                                            <Columns>
+                                                <asp:BoundField DataField="Titular" HeaderText="Titular" ItemStyle-HorizontalAlign="Left" HeaderStyle-Width="30%" />
+                                                <asp:BoundField DataField="Cuenta" HeaderText="Cuenta" ItemStyle-HorizontalAlign="Center" HeaderStyle-Width="20%" />
+                                                <asp:BoundField DataField="Tarjeta" HeaderText="Tarjeta" ItemStyle-HorizontalAlign="Left" HeaderStyle-Width="20%" />
+                                                <asp:BoundField DataField="EstadoCorte" HeaderText="Estado al Corte" ItemStyle-HorizontalAlign="Left" HeaderStyle-Width="10%" />
+                                                <asp:BoundField DataField="CuartaLinea" HeaderText="Cuarta Línea" ItemStyle-HorizontalAlign="Left" HeaderStyle-Width="10%" />
+                                                <asp:BoundField DataField="CveCuenta" HeaderText="Clave Piloto" ItemStyle-HorizontalAlign="Left" HeaderStyle-Width="10%" />
+                                            </Columns>
+                                            <HeaderStyle CssClass="gvHeader" />
+                                            <RowStyle CssClass="gvRows" />
+                                            <FooterStyle CssClass="gvFooter" />
+                                            <PagerStyle CssClass="gvFooter" />
+                                            <EmptyDataTemplate>
+                                                Sin Cambios.
+                                            </EmptyDataTemplate>
+                                        </asp:GridView>
+
 
                                     </ContentTemplate>
                                 </asp:UpdatePanel>  
@@ -564,29 +672,26 @@
                                             &nbsp; Cambios Encontrados!&nbsp;</strong><asp:Label ID="lblWarning" runat="server" Text="" Font-Size="9pt"></asp:Label>
                                     </div>
 
-                                    <div style="max-height:500px; overflow-y:auto; text-align:center; margin-top: -14px;">
+                                    <div style="max-height:500px; text-align:center; margin-top: -14px;">
                                         <asp:UpdatePanel ID="upaCarga" runat="server">
                                             <ContentTemplate>
 
-                                                <div class="card-content table-responsive">
-                                                    <dx:BootstrapGridView ID="gvCargaCuentas" runat="server" Style="width:100%;" OnHtmlRowCreated="gvCargaCuentas_HtmlRowCreated">
+                                                <div class="">
+                                                    <%--<dx:BootstrapGridView ID="gvCargaCuentas" runat="server" Style="width:100%;" OnHtmlRowCreated="gvCargaCuentas_HtmlRowCreated">
                                                         <SettingsSearchPanel Visible="false" ShowApplyButton="false" />
                                                         <Settings ShowGroupPanel="false" ShowFilterRowMenu="false" />
                                                         <SettingsAdaptivity AdaptivityMode="HideDataCells" AllowOnlyOneAdaptiveDetailExpanded="true"></SettingsAdaptivity>
                                                         <SettingsPager PageSize="20"></SettingsPager>
                                                         <SettingsBehavior AllowSort="false" />
                                                         <Columns>
-                                                            <%--<dx:BootstrapGridViewCommandColumn ShowEditButton="true" ShowDeleteButton="true" ShowNewButtonInHeader="true" />--%>
                                                             <dx:BootstrapGridViewDataColumn Caption="Titular" FieldName="Titular" VisibleIndex="1" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" CssClasses-DataCell="dataCell" SortIndex="0" SortOrder="None" Width="30%" />
                                                             <dx:BootstrapGridViewDataColumn Caption="Cuenta" FieldName="Cuenta" VisibleIndex="2" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" CssClasses-DataCell="dataCell" Width="20%" />
                                                             <dx:BootstrapGridViewDataColumn Caption="Tarjeta" FieldName="Tarjeta" VisibleIndex="3" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" CssClasses-DataCell="dataCell" Width="20%" />
                                                             <dx:BootstrapGridViewDateColumn Caption="Estado al Corte" FieldName="EstadoCorte" VisibleIndex="4" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" CssClasses-DataCell="dataCell" Width="10%" />
                                                             <dx:BootstrapGridViewDataColumn Caption="Cuarta Linea" FieldName="CuartaLinea" VisibleIndex="5" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" CssClasses-DataCell="dataCell" Width="10%" />
-                                                            <%--<dx:BootstrapGridViewDataColumn Caption="Clave Piloto" FieldName="CvePiloto" VisibleIndex="6" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" CssClasses-DataCell="dataCell" Width="10%" />--%>
 
                                                             <dx:BootstrapGridViewDataColumn Caption="Clave Piloto" FieldName="CvePiloto" Width="10%" Settings-AllowDragDrop="False" VisibleIndex="6" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" CssClasses-DataCell="dataCell">
                                                                 <DataItemTemplate>
-                                                                    <%--<button type="button" class="btn btn-link more-info" data-key="<%# Container.VisibleIndex %>">Details...</button>--%>
 
                                                                     <asp:TextBox ID="txtCvePiloto" runat="server" CssClass="inputText" Placeholder="Clave Piloto" Text='<%#Eval("CvePiloto") %>' style="text-align:center; text-transform: uppercase;"
                                                                         onkeypress="return alpha(event)" MaxLength="4"></asp:TextBox>
@@ -595,7 +700,34 @@
                                                             </dx:BootstrapGridViewDataColumn>
 
                                                         </Columns>
-                                                    </dx:BootstrapGridView>
+                                                    </dx:BootstrapGridView>--%>
+
+                                                    <asp:GridView ID="gvCargaCuentas" runat="server" style="border:2px solid #f1eded;" class="table table-bordered table-condensed"
+                                                        AutoGenerateColumns="false" Width="100%">
+                                                        <Columns>
+                                                            <asp:BoundField DataField="Titular" HeaderText="Titular" ItemStyle-HorizontalAlign="Left" ItemStyle-Width="30%" />
+                                                            <asp:BoundField DataField="Cuenta" HeaderText="Cuenta" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="20%" />
+                                                            <asp:BoundField DataField="Tarjeta" HeaderText="Tarjeta" ItemStyle-HorizontalAlign="Left" ItemStyle-Width="20%" />
+                                                            <asp:BoundField DataField="EstadoCorte" HeaderText="Estado al Corte" ItemStyle-HorizontalAlign="Left" ItemStyle-Width="10%" />
+                                                            <asp:BoundField DataField="CuartaLinea" HeaderText="Cuarta Línea" ItemStyle-HorizontalAlign="Left" ItemStyle-Width="10%" />
+
+                                                            <asp:TemplateField HeaderText="Clave Piloto" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="10%">
+                                                                <ItemTemplate>
+                                                                    <asp:TextBox ID="txtCvePiloto" runat="server" CssClass="inputText" Placeholder="Clave Piloto" Text='<%#Eval("CvePiloto") %>' style="text-align:center; text-transform: uppercase;"
+                                                                        onkeypress="return alpha(event)" MaxLength="4"></asp:TextBox>
+                                                                </ItemTemplate>
+                                                            </asp:TemplateField>
+
+                                                        </Columns>
+                                                        <HeaderStyle CssClass="gvHeader" />
+                                                        <RowStyle CssClass="gvRows" />
+                                                        <FooterStyle CssClass="gvFooter" />
+                                                        <PagerStyle CssClass="gvFooter" />
+                                                        <EmptyDataTemplate>
+                                                            Sin Registros.
+                                                        </EmptyDataTemplate>
+                                                    </asp:GridView>
+
                                                 </div>
 
                                             </ContentTemplate>
@@ -607,7 +739,7 @@
 
                             <div class="row" align="center" style="border:0px solid #000000; padding-top:5px; padding-bottom:5px;">
                                 <div class="col-lg-12" style="margin:0 auto 0 auto;">
-                                    <asp:Button ID="btnGuardar" runat="server" Text="Guardar Cuentas" CssClass="btn btn-success" />
+                                    <asp:Button ID="btnGuardarCuentas" runat="server" Text="Guardar Cuentas" CssClass="btn btn-success" OnClick="btnGuardarCuentas_Click" Visible="false" />
                                 </div>
                             </div>
 
@@ -620,12 +752,45 @@
 
         </ContentTemplate>
         <Triggers>
-            <asp:PostBackTrigger ControlID="btnGuardarConcepto" />
+            <%--<asp:PostBackTrigger ControlID="btnGuardarConcepto" />--%>
             <asp:PostBackTrigger ControlID="btnGuardarParametro" />
             <asp:PostBackTrigger ControlID="btnGuardarParaAd" />
             <asp:PostBackTrigger ControlID="btnCargarArchivo" />
+
+            <asp:AsyncPostBackTrigger ControlID="txtHorarioInicial" EventName="TextChanged" />
+            <asp:AsyncPostBackTrigger ControlID="txtHorarioFinal" EventName="TextChanged" />
+            <asp:AsyncPostBackTrigger ControlID="txtMontoMXN" EventName="TextChanged" />
+            <asp:AsyncPostBackTrigger ControlID="txtMontoUSD" EventName="TextChanged" />
+
         </Triggers>
     </asp:UpdatePanel>
+
+    <script type="text/javascript">
+        function CompararHoras() {
+
+            sHora1 = document.getElementById('txtHorarioInicial');
+            sHora2 = document.getElementById('txtHorarioFinal');
+
+            var arHora1 = sHora1.split(":");
+            var arHora2 = sHora2.split(":");
+
+            // Obtener horas y minutos (hora 1)
+            var hh1 = parseInt(arHora1[0], 10);
+            var mm1 = parseInt(arHora1[1], 10);
+
+            // Obtener horas y minutos (hora 2)
+            var hh2 = parseInt(arHora2[0], 10);
+            var mm2 = parseInt(arHora2[1], 10);
+
+            // Comparar
+            if (hh1 < hh2 || (hh1 == hh2 && mm1 < mm2))
+                return "HorarioInicial ES MENOR HorarioFinal";
+            else if (hh1 > hh2 || (hh1 == hh2 && mm1 > mm2))
+                return "HorarioInicial ES MAYOR HorarioFinal";
+            else
+                return "HorarioInicial IGUAL HorarioFinal";
+        }
+    </script>
 
     
 

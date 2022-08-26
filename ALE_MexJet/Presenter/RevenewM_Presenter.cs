@@ -19,6 +19,9 @@ namespace ALE_MexJet.Presenter
             oIGestCat = oGC;
             oIView.eSaveParametro += SaveParametro_Presenter;
             oIView.eSaveParametroAd += SaveParametroAd_Presenter;
+            oIView.eSearchCuenta += SearchCuenta_Presenter;
+            oIView.eSearchCuentasGrales += SearchCuentasGrales_Presenter;
+            oIView.eInsertaCuentas += InsertaCuentas_Presenter;
         }
 
         protected override void SearchObj_Presenter(object sender, EventArgs e)
@@ -41,6 +44,15 @@ namespace ALE_MexJet.Presenter
         public void SearchCuenta_Presenter(object sender, EventArgs e)
         {
             oIView.LoadDatosCuenta(oIGestCat.DBConsultaDatosCuenta(oIView.sNumCuenta));
+        }
+
+        public void SearchCuentasGrales_Presenter(object sender, EventArgs e)
+        {
+            oIView.LoadDatosCuentasGrales(oIGestCat.DBConsultaDatosCuentasGenerales());
+        }
+        public void InsertaCuentas_Presenter(object sender, EventArgs e)
+        {
+            oIView.iBan = oIGestCat.DBSetInsertaCuentas(oIView.ListaCuentas);
         }
     }
 }

@@ -33,14 +33,14 @@ namespace ALE_MexJet.Views.viaticos
             
 
             oPresenter = new RevenewM_Presenter(this, new DBRevenewM());
-            gvConceptos.SettingsPager.Position = PagerPosition.TopAndBottom;
-            gvConceptos.SettingsPager.ShowDisabledButtons = true;
-            gvConceptos.SettingsPager.ShowNumericButtons = true;
-            gvConceptos.SettingsPager.ShowSeparators = true;
-            gvConceptos.SettingsPager.Summary.Visible = true;
-            gvConceptos.SettingsPager.PageSizeItemSettings.Visible = true;
-            gvConceptos.SettingsPager.PageSizeItemSettings.Position = PagerPageSizePosition.Right;
-            gvConceptos.SettingsText.SearchPanelEditorNullText = "Ingresa la información a buscar:";
+            //gvConceptos.SettingsPager.Position = PagerPosition.TopAndBottom;
+            //gvConceptos.SettingsPager.ShowDisabledButtons = true;
+            //gvConceptos.SettingsPager.ShowNumericButtons = true;
+            //gvConceptos.SettingsPager.ShowSeparators = true;
+            //gvConceptos.SettingsPager.Summary.Visible = true;
+            //gvConceptos.SettingsPager.PageSizeItemSettings.Visible = true;
+            //gvConceptos.SettingsPager.PageSizeItemSettings.Position = PagerPageSizePosition.Right;
+            //gvConceptos.SettingsText.SearchPanelEditorNullText = "Ingresa la información a buscar:";
 
             gvParametros.SettingsPager.Position = PagerPosition.TopAndBottom;
             gvParametros.SettingsPager.ShowDisabledButtons = true;
@@ -64,6 +64,9 @@ namespace ALE_MexJet.Views.viaticos
             {
                 if (eSearchObj != null)
                     eSearchObj(sender, e);
+
+                if (eSearchCuentasGrales != null)
+                    eSearchCuentasGrales(sender, e);
             }
         }
         protected void btnActualizarConceptos_Click(object sender, EventArgs e)
@@ -92,6 +95,7 @@ namespace ALE_MexJet.Views.viaticos
             {
                 if (e.CommandArgs.CommandName.S() == "Actualiza")
                 {
+                    iOpcion = 2;
                     LimpiarFormulario();
                     int index = e.VisibleIndex.I();
                     int iIdConcepto = gvConceptos.GetRowValues(index, "IdConcepto").S().I();
@@ -112,11 +116,30 @@ namespace ALE_MexJet.Views.viaticos
                     txtMontoMXN.Text = sMontoMXN.Replace("$", "");
                     txtMontoUSD.Text = sMontoUSD.Replace("$", "");
                     hdnIdConcepto.Value = sIdConcepto;
-                    readConcepto.Text = sDesConcepto;
+                    txtConcepto.Text = sDesConcepto;
 
                     //ClientScript.RegisterStartupScript(this.GetType(), "alert", "ShowPopup();", true);
                     ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "MyScript", "ShowPopup();", true);
                     this.lblTitulo.Text = "Actualización de Conceptos";
+                }
+                else if (e.CommandArgs.CommandName.S() == "Eliminar")
+                {
+                    iOpcion = 3;
+                    int index = e.VisibleIndex.I();
+                    int iIdConcepto = gvConceptos.GetRowValues(index, "IdConcepto").S().I();
+                    hdnIdConcepto.Value = iIdConcepto.S();
+
+                    if (eSaveObj != null)
+                        eSaveObj(sender, e);
+
+                    if (sOk == "1")
+                    {
+                        if (eSearchObj != null)
+                            eSearchObj(sender, e);
+
+                        upaGeneral.Update();
+                    }
+
                 }
             }
             catch (Exception ex)
@@ -129,16 +152,24 @@ namespace ALE_MexJet.Views.viaticos
         {
             try
             {
-                if (eSaveObj != null)
-                    eSaveObj(sender, e);
+                bool bHoraIni = false;
+                bool bHoraFin = false;
 
-                if (sOk == "1")
+                bHoraIni = ValidarHorarioInicial();
+                bHoraFin = ValidarHorarioFinal();
+
+                if (divHorarioIni.Visible == false && divHorarioFin.Visible == false)
                 {
-                    //ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "MyScript", "ShowPopup();", true);
-                    if (eSearchObj != null)
-                        eSearchObj(sender, e);
+                    if (eSaveObj != null)
+                        eSaveObj(sender, e);
 
-                    upaConceptos.Update();
+                    if (sOk == "1")
+                    {
+                        if (eSearchObj != null)
+                            eSearchObj(sender, e);
+
+                        //upaGeneral.Update();
+                    }
                 }
             }
             catch (Exception ex)
@@ -411,7 +442,7 @@ namespace ALE_MexJet.Views.viaticos
             hdnIdConcepto.Value = string.Empty;
             hdnIdParametro.Value = string.Empty;
             readDesParametro.Text = string.Empty;
-            readConcepto.Text = string.Empty;
+            txtConcepto.Text = string.Empty;
 
             hdnIdParaAd.Value = string.Empty;
             txtClave.Text = string.Empty;
@@ -434,6 +465,8 @@ namespace ALE_MexJet.Views.viaticos
         public event EventHandler eSaveParametro;
         public event EventHandler eSaveParametroAd;
         public event EventHandler eSearchCuenta;
+        public event EventHandler eInsertaCuentas;
+        public event EventHandler eSearchCuentasGrales;
 
         public DataTable dtConceptos
         {
@@ -470,6 +503,9 @@ namespace ALE_MexJet.Views.viaticos
                 oCon.SHorarioFinal = txtHorarioFinal.Text.S();
                 oCon.DMontoMXN = txtMontoMXN.Text.D();
                 oCon.DMontoUSD = txtMontoUSD.Text.D();
+                oCon.SDesConcepto = txtConcepto.Text.S();
+                oCon.SUsuario = ((UserIdentity)Session["UserIdentity"]).sUsuario;
+                oCon.IOpcion = iOpcion;
                 return oCon;
             }
         }
@@ -516,6 +552,11 @@ namespace ALE_MexJet.Views.viaticos
         {
             get { return (System.Data.DataTable)ViewState["VSInfoCuenta"]; }
             set { ViewState["VSInfoCuenta"] = value; }
+        }
+        public int iBan
+        {
+            set { ViewState["VSBan"] = value; }
+            get { return (int)ViewState["VSBan"]; }
         }
         #endregion
 
@@ -651,8 +692,8 @@ namespace ALE_MexJet.Views.viaticos
                 dt.Columns[2].ColumnName = "Tarjeta";
                 dt.Columns[3].ColumnName = "EstadoCorte";
                 dt.Columns[4].ColumnName = "CuartaLinea";
-
-                dt.Columns.Add("CvePiloto");
+                dt.Columns[5].ColumnName = "CvePiloto";
+                //dt.Columns.Add("CvePiloto");
 
                 foreach (DataRow rw in dt.Rows)
                 {
@@ -713,79 +754,74 @@ namespace ALE_MexJet.Views.viaticos
             {
                 dtCambios = null;
 
-                for (int i = 0; i < gvCargaCuentas.VisibleRowCount; i++)
+                foreach (GridViewRow row in gvCargaCuentas.Rows)
                 {
-                    int index = i;
-                    sNumCuenta = gvCargaCuentas.GetRowValues(index, "Cuenta").S();
-                    string[] fieldValues = { "Titular", "Cuenta", "Tarjeta", "EstadoCorte", "CuartaLinea", "CvePiloto" };
-                    object obj = gvCargaCuentas.GetRowValues(index, fieldValues);
-                    object[] oB = (object[])obj;
+                    sNumCuenta = gvCargaCuentas.Rows[row.RowIndex].Cells[1].Text;
+                    string sTitular = HttpUtility.HtmlDecode(gvCargaCuentas.Rows[row.RowIndex].Cells[0].Text).TrimEnd().TrimStart();
+                    string sNoTarjeta = gvCargaCuentas.Rows[row.RowIndex].Cells[2].Text;
+                    string sEstado = gvCargaCuentas.Rows[row.RowIndex].Cells[3].Text;
+                    string sCuartaLin = HttpUtility.HtmlDecode(gvCargaCuentas.Rows[row.RowIndex].Cells[4].Text);
 
-                    if (oB.Length > 0)
+                    TextBox txtCvePiloto = (TextBox)gvCargaCuentas.Rows[row.RowIndex].FindControl("txtCvePiloto");
+
+                    if (eSearchCuenta != null)
+                        eSearchCuenta(null, null);
+
+                    if (dtInfoCuenta != null && dtInfoCuenta.Rows.Count > 0)
                     {
-                        string sTitular = string.Empty;
-                        string sNoTarjeta = string.Empty;
-                        string sEstado = string.Empty;
-                        string sCuartaLin = string.Empty;
 
-                        sTitular = HttpUtility.HtmlDecode(oB[0].S()).TrimEnd().TrimStart();
-                        sNoTarjeta = oB[2].S();
-                        sEstado = oB[3].S();
-                        sCuartaLin = HttpUtility.HtmlDecode(oB[4].S());
+                        if (sTitular != dtInfoCuenta.Rows[0]["Titular"].S())
+                        {
+                            //gvCargaCuentas.Rows[row.RowIndex].Cells[0].BackColor = Color.FromName("#FFDE6E");
+                            //gvCargaCuentas.Rows[row.RowIndex].Cells[0].ForeColor = Color.FromName("#ffffff");
+                            gvCargaCuentas.Rows[row.RowIndex].Cells[0].CssClass = "alert-warning";
+                            gvCargaCuentas.Rows[row.RowIndex].Cells[0].ToolTip = "Nueva información a cargar";
+                        }
 
-                        var gvColumn = gvCargaCuentas.Columns[5] as GridViewDataColumn;
+                        if (sNoTarjeta != dtInfoCuenta.Rows[0]["NoTarjeta"].S())
+                        {
+                            //gvCargaCuentas.Rows[row.RowIndex].Cells[2].BackColor = Color.FromName("#FFDE6E");
+                            //gvCargaCuentas.Rows[row.RowIndex].Cells[2].ForeColor = Color.FromName("#ffffff");
+                            gvCargaCuentas.Rows[row.RowIndex].Cells[2].CssClass = "alert-warning";
+                            gvCargaCuentas.Rows[row.RowIndex].Cells[2].ToolTip = "Nueva información a cargar";
+                        }
 
-                        TextBox txtCvePiloto = (TextBox)gvCargaCuentas.FindRowCellTemplateControl(index, gvColumn, "txtCvePiloto");
+                        if (sEstado != dtInfoCuenta.Rows[0]["EstadoCorte"].S())
+                        {
+                            //gvCargaCuentas.Rows[row.RowIndex].Cells[3].BackColor = Color.FromName("#FFDE6E");
+                            //gvCargaCuentas.Rows[row.RowIndex].Cells[3].ForeColor = Color.FromName("#ffffff");
+                            gvCargaCuentas.Rows[row.RowIndex].Cells[3].CssClass = "alert-warning";
+                            gvCargaCuentas.Rows[row.RowIndex].Cells[3].ToolTip = "Nueva información a cargar";
+                        }
 
-                        if (eSearchCuenta != null)
-                            eSearchCuenta(null, null);
+
+
+                        if (sTitular != dtInfoCuenta.Rows[0]["Titular"].S() ||
+                            sNoTarjeta != dtInfoCuenta.Rows[0]["NoTarjeta"].S() ||
+                            sEstado != dtInfoCuenta.Rows[0]["EstadoCorte"].S())
+                        //sCuartaLin != dtInfoCuenta.Rows[0]["CuartaLinea"].S() || 
+                        //sNumCuenta != dtInfoCuenta.Rows[0]["Cuenta"].S() || 
+                        //txtCvePiloto.Text != dtInfoCuenta.Rows[0]["CvePiloto"].S())
+                        {
+                            CambiosEncontrados(dtInfoCuenta.Rows[0]["Titular"].S(), dtInfoCuenta.Rows[0]["Cuenta"].S(), dtInfoCuenta.Rows[0]["NoTarjeta"].S(), dtInfoCuenta.Rows[0]["EstadoCorte"].S(), dtInfoCuenta.Rows[0]["CuartaLinea"].S(), dtInfoCuenta.Rows[0]["CvePiloto"].S());
+                        }
+
 
                         if (dtInfoCuenta != null && dtInfoCuenta.Rows.Count > 0)
                         {
-                            //    if (sTitular != dtInfoCuenta.Rows[0]["Titular"].S())
-                            //    {
-                            //        gvCargaCuentas.Rows[row.RowIndex].Cells[0].BackColor = Color.FromName("#ffb400");
-                            //        gvCargaCuentas.Rows[row.RowIndex].Cells[0].ForeColor = Color.FromName("#ffffff");
-                            //        gvCargaCuentas.Rows[row.RowIndex].Cells[0].ToolTip = "Nueva información a cargar";
-                            //    }
-
-                            //    if (sNoTarjeta != dtInfoCuenta.Rows[0]["NoTarjeta"].S())
-                            //    {
-                            //        gvCargaCuentas.Rows[row.RowIndex].Cells[2].BackColor = Color.FromName("#ffb400");
-                            //        gvCargaCuentas.Rows[row.RowIndex].Cells[2].ForeColor = Color.FromName("#ffffff");
-                            //        gvCargaCuentas.Rows[row.RowIndex].Cells[2].ToolTip = "Nueva información a cargar";
-                            //    }
-
-                            //    if (sEstado != dtInfoCuenta.Rows[0]["EstadoCorte"].S())
-                            //    {
-                            //        gvCargaCuentas.Rows[row.RowIndex].Cells[3].BackColor = Color.FromName("#ffb400");
-                            //        gvCargaCuentas.Rows[row.RowIndex].Cells[3].ForeColor = Color.FromName("#ffffff");
-                            //        gvCargaCuentas.Rows[row.RowIndex].Cells[3].ToolTip = "Nueva información a cargar";
-                            //    }
-
-                            if (sTitular != dtInfoCuenta.Rows[0]["Titular"].S() ||
-                                sNoTarjeta != dtInfoCuenta.Rows[0]["NoTarjeta"].S() ||
-                                sEstado != dtInfoCuenta.Rows[0]["EstadoCorte"].S())
-                            {
-                                CambiosEncontrados(dtInfoCuenta.Rows[0]["Titular"].S(), dtInfoCuenta.Rows[0]["Cuenta"].S(), dtInfoCuenta.Rows[0]["NoTarjeta"].S(), dtInfoCuenta.Rows[0]["EstadoCorte"].S(), dtInfoCuenta.Rows[0]["CuartaLinea"].S(), dtInfoCuenta.Rows[0]["CvePiloto"].S());
-                            }
-
-
-                            if (dtInfoCuenta != null && dtInfoCuenta.Rows.Count > 0)
-                            {
-                                txtCvePiloto.Text = dtInfoCuenta.Rows[0][0].S();
-                            }
+                            txtCvePiloto.Text = dtInfoCuenta.Rows[0][0].S();
                         }
-                        else
+                    }
+                    else
+                    {
+                        if (!string.IsNullOrEmpty(sTitular) && !string.IsNullOrEmpty(sNumCuenta) && !string.IsNullOrEmpty(sNoTarjeta) && !string.IsNullOrEmpty(sEstado) && !string.IsNullOrEmpty(sCuartaLin))
                         {
-                            //if (!string.IsNullOrEmpty(sTitular) && !string.IsNullOrEmpty(sNumCuenta) && !string.IsNullOrEmpty(sNoTarjeta) && !string.IsNullOrEmpty(sEstado) && !string.IsNullOrEmpty(sCuartaLin))
-                            //{
-                            //    gvCargaCuentas.Rows[row.RowIndex].BackColor = Color.FromName("#ffb400");
-                            //    gvCargaCuentas.Rows[row.RowIndex].ForeColor = Color.FromName("#ffffff");
-                            //    gvCargaCuentas.Rows[row.RowIndex].ToolTip = "Nueva información a cargar";
-                            //}
-                            CambiosEncontrados(sTitular, sNumCuenta, sNoTarjeta, sEstado, sCuartaLin, txtCvePiloto.Text);
+                            //gvCargaCuentas.Rows[row.RowIndex].BackColor = Color.FromName("#FFDE6E");
+                            //gvCargaCuentas.Rows[row.RowIndex].ForeColor = Color.FromName("#ffffff");
+                            gvCargaCuentas.Rows[row.RowIndex].CssClass = "alert-warning";
+                            gvCargaCuentas.Rows[row.RowIndex].ToolTip = "Nueva información a cargar";
                         }
+                        CambiosEncontrados(sTitular, sNumCuenta, sNoTarjeta, sEstado, sCuartaLin, txtCvePiloto.Text);
                     }
                 }
 
@@ -797,6 +833,7 @@ namespace ALE_MexJet.Views.viaticos
                     msgWarning.Visible = true;
                     lblWarning.Text = "Le informamos que los datos mostrados han cambiado referente al nuevo archivo a cargar.";
                     Label4.Text = "Información a cargar";
+                    btnGuardarCuentas.Visible = true;
                 }
                 else
                 {
@@ -806,7 +843,111 @@ namespace ALE_MexJet.Views.viaticos
                     msgWarning.Visible = false;
                     lblWarning.Visible = false;
                     lblNota.Visible = false;
+                    btnGuardarCuentas.Visible = false;
                 }
+
+                //for (int i = 0; i < gvCargaCuentas.VisibleRowCount; i++)
+                //{
+                //    int index = i;
+                //    sNumCuenta = gvCargaCuentas.GetRowValues(index, "Cuenta").S();
+                //    string[] fieldValues = { "Titular", "Cuenta", "Tarjeta", "EstadoCorte", "CuartaLinea", "CvePiloto" };
+                //    object obj = gvCargaCuentas.GetRowValues(index, fieldValues);
+                //    object[] oB = (object[])obj;
+
+                //    if (oB.Length > 0)
+                //    {
+                //        string sTitular = string.Empty;
+                //        string sNoTarjeta = string.Empty;
+                //        string sEstado = string.Empty;
+                //        string sCuartaLin = string.Empty;
+
+                //        sTitular = HttpUtility.HtmlDecode(oB[0].S()).TrimEnd().TrimStart();
+                //        sNoTarjeta = oB[2].S();
+                //        sEstado = oB[3].S();
+                //        sCuartaLin = HttpUtility.HtmlDecode(oB[4].S());
+
+                //        var gvColumn = gvCargaCuentas.Columns[5] as GridViewDataColumn;
+
+                //        TextBox txtCvePiloto = (TextBox)gvCargaCuentas.FindRowCellTemplateControl(index, gvColumn, "txtCvePiloto");
+
+                //        if (eSearchCuenta != null)
+                //            eSearchCuenta(null, null);
+
+                //        if (dtInfoCuenta != null && dtInfoCuenta.Rows.Count > 0)
+                //        {
+                //            //    if (sTitular != dtInfoCuenta.Rows[0]["Titular"].S())
+                //            //    {
+                //            //        gvCargaCuentas.Rows[row.RowIndex].Cells[0].BackColor = Color.FromName("#ffb400");
+                //            //        gvCargaCuentas.Rows[row.RowIndex].Cells[0].ForeColor = Color.FromName("#ffffff");
+                //            //        gvCargaCuentas.Rows[row.RowIndex].Cells[0].ToolTip = "Nueva información a cargar";
+                //            //    }
+
+                //            //    if (sNoTarjeta != dtInfoCuenta.Rows[0]["NoTarjeta"].S())
+                //            //    {
+                //            //        gvCargaCuentas.Rows[row.RowIndex].Cells[2].BackColor = Color.FromName("#ffb400");
+                //            //        gvCargaCuentas.Rows[row.RowIndex].Cells[2].ForeColor = Color.FromName("#ffffff");
+                //            //        gvCargaCuentas.Rows[row.RowIndex].Cells[2].ToolTip = "Nueva información a cargar";
+                //            //    }
+
+                //            //    if (sEstado != dtInfoCuenta.Rows[0]["EstadoCorte"].S())
+                //            //    {
+                //            //        gvCargaCuentas.Rows[row.RowIndex].Cells[3].BackColor = Color.FromName("#ffb400");
+                //            //        gvCargaCuentas.Rows[row.RowIndex].Cells[3].ForeColor = Color.FromName("#ffffff");
+                //            //        gvCargaCuentas.Rows[row.RowIndex].Cells[3].ToolTip = "Nueva información a cargar";
+                //            //    }
+
+                //            if (sTitular != dtInfoCuenta.Rows[0]["Titular"].S() ||
+                //                sNoTarjeta != dtInfoCuenta.Rows[0]["NoTarjeta"].S() ||
+                //                sEstado != dtInfoCuenta.Rows[0]["EstadoCorte"].S())
+                //            {
+                //                CambiosEncontrados(dtInfoCuenta.Rows[0]["Titular"].S(), dtInfoCuenta.Rows[0]["Cuenta"].S(), dtInfoCuenta.Rows[0]["NoTarjeta"].S(), dtInfoCuenta.Rows[0]["EstadoCorte"].S(), dtInfoCuenta.Rows[0]["CuartaLinea"].S(), dtInfoCuenta.Rows[0]["CvePiloto"].S());
+                //            }
+
+
+                //            if (dtInfoCuenta != null && dtInfoCuenta.Rows.Count > 0)
+                //            {
+                //                txtCvePiloto.Text = dtInfoCuenta.Rows[0][0].S();
+                //            }
+                //        }
+                //        else
+                //        {
+                //            //if (!string.IsNullOrEmpty(sTitular) && !string.IsNullOrEmpty(sNumCuenta) && !string.IsNullOrEmpty(sNoTarjeta) && !string.IsNullOrEmpty(sEstado) && !string.IsNullOrEmpty(sCuartaLin))
+                //            //{
+                //            //    gvCargaCuentas.Rows[row.RowIndex].BackColor = Color.FromName("#ffb400");
+                //            //    gvCargaCuentas.Rows[row.RowIndex].ForeColor = Color.FromName("#ffffff");
+                //            //    gvCargaCuentas.Rows[row.RowIndex].ToolTip = "Nueva información a cargar";
+                //            //}
+                //            CambiosEncontrados(sTitular, sNumCuenta, sNoTarjeta, sEstado, sCuartaLin, txtCvePiloto.Text);
+                //        }
+                //    }
+                //}
+
+                //if (dtCambios != null && dtCambios.Rows.Count > 0)
+                //{
+                //    gvCambios.DataSource = dtCambios;
+                //    gvCambios.DataBind();
+                //    lblRegModificar.Visible = true;
+                //    msgWarning.Visible = true;
+                //    lblWarning.Text = "Le informamos que los datos mostrados han cambiado referente al nuevo archivo a cargar.";
+                //    Label4.Text = "Información a cargar";
+                //}
+                //else
+                //{
+                //    gvCambios.DataSource = dtCambios;
+                //    gvCambios.DataBind();
+                //    lblRegModificar.Visible = false;
+                //    msgWarning.Visible = false;
+                //    lblWarning.Visible = false;
+                //    lblNota.Visible = false;
+                //}
+
+
+
+
+
+
+
+
             }
             catch (Exception ex)
             {
@@ -838,7 +979,7 @@ namespace ALE_MexJet.Views.viaticos
                     dtCambios.Columns.Add("Tarjeta");
                     dtCambios.Columns.Add("EstadoCorte");
                     dtCambios.Columns.Add("CuartaLinea");
-                    dtCambios.Columns.Add("CvePiloto");
+                    dtCambios.Columns.Add("CveCuenta");
 
                     DataRow dRow = dtCambios.NewRow();
                     dRow["Titular"] = sTitular;
@@ -846,7 +987,7 @@ namespace ALE_MexJet.Views.viaticos
                     dRow["Tarjeta"] = sNoTar;
                     dRow["EstadoCorte"] = sEdo;
                     dRow["CuartaLinea"] = ScrubHtml(sCuarta);
-                    dRow["CvePiloto"] = sCve;
+                    dRow["CveCuenta"] = sCve;
                     dtCambios.Rows.Add(dRow);
                 }
                 else
@@ -857,7 +998,7 @@ namespace ALE_MexJet.Views.viaticos
                     dRow["Tarjeta"] = sNoTar;
                     dRow["EstadoCorte"] = sEdo;
                     dRow["CuartaLinea"] = ScrubHtml(sCuarta);
-                    dRow["CvePiloto"] = sCve;
+                    dRow["CveCuenta"] = sCve;
                     dtCambios.Rows.Add(dRow);
                 }
             }
@@ -871,6 +1012,425 @@ namespace ALE_MexJet.Views.viaticos
             var step1 = Regex.Replace(value, @"<[^>]+>|&nbsp;", "").Trim();
             var step2 = Regex.Replace(step1, @"\s{2,}", " ");
             return step2;
+        }
+
+        protected void btnGuardarCuentas_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                //bOK = false;
+
+                //if (dtUpdateConceptos != null && dtUpdateGastosHotel != null)
+                //{
+                    //if (eUpdateConfiguracion != null)
+                    //    eUpdateConfiguracion(sender, e);
+
+                    RecorrerDatos();
+
+                    //if (bOK == true && iBan == 1)
+                    //{
+                        if (eSearchObj != null)
+                            eSearchObj(sender, e);
+
+                        if (eSearchCuentasGrales != null)
+                            eSearchCuentasGrales(sender, e);
+
+                        lblRegModificar.Visible = false;
+                        msgError.Visible = false;
+                        lblError.Visible = false;
+                        msgWarning.Visible = false;
+                        lblWarning.Visible = false;
+                        lblNota.Visible = false;
+                        gvCambios.DataSource = null;
+                        gvCambios.DataBind();
+
+                        //MostrarMensaje("Se ha modificado la configuración correctamente", "Listo");
+                    //}
+                    //else
+                    //    MostrarMensaje("No se pudo modificar la información", "Verificar");
+                //}
+
+            }
+            catch (Exception ex)
+            {
+                //MostrarMensaje("Ocurrio un error: " + ex.Message, "Verificar");
+            }
+        }
+        protected void RecorrerDatos()
+        {
+            try
+            {
+                DataTable dt = new DataTable();
+                List<Cuentas> oLsCuentas = new List<Cuentas>();
+                if (gvCargaCuentas.Rows.Count != 0)
+                {
+                    for (int i = 0; i < gvCargaCuentas.Rows.Count; i++)
+                    {
+                        string sTitular = HttpUtility.HtmlDecode(gvCargaCuentas.Rows[i].Cells[0].Text);
+                        string sCuenta = gvCargaCuentas.Rows[i].Cells[1].Text;
+                        string sNoTarjeta = gvCargaCuentas.Rows[i].Cells[2].Text;
+                        string sEdoCorte = gvCargaCuentas.Rows[i].Cells[3].Text;
+                        string sCuartaLinea = ScrubHtml(gvCargaCuentas.Rows[i].Cells[4].Text);
+                        TextBox txtCvePiloto = (TextBox)gvCargaCuentas.Rows[i].FindControl("txtCvePiloto");
+
+                        Cuentas oCuenta = new Cuentas();
+                        oCuenta.sTitular = sTitular;
+                        oCuenta.sCuenta = sCuenta;
+                        oCuenta.sNoTarjeta = sNoTarjeta;
+                        oCuenta.sEdoCorte = sEdoCorte;
+                        oCuenta.sCuartaLinea = sCuartaLinea;
+                        oCuenta.sCvePiloto = txtCvePiloto.Text;
+                        oLsCuentas.Add(oCuenta);
+                    }
+                    ListaCuentas = oLsCuentas;
+
+                    if (eInsertaCuentas != null)
+                        eInsertaCuentas(null, null);
+                }
+                else
+                    iBan = 1;
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public void LoadDatosCuentasGrales(DataTable dt)
+        {
+            try
+            {
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    gvCargaCuentas.DataSource = dt;
+                    gvCargaCuentas.DataBind();
+                    msgWarning.Visible = false;
+                    lblWarning.Visible = false;
+                    msgError.Visible = false;
+                    lblError.Visible = false;
+                    lblNota.Visible = false;
+                    Label4.Visible = true;
+                    Label4.Text = "Cuentas de pilotos registradas";
+                    btnGuardarCuentas.Visible = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public List<Cuentas> ListaCuentas
+        {
+            set { ViewState["VSListaCuentas"] = value; }
+            get { return (List<Cuentas>)ViewState["VSListaCuentas"]; }
+        }
+
+
+        protected void btnNuevoConcepto_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                iOpcion = 1;
+
+                if(divHorarioIni.Visible == false || divHorarioFin.Visible == false)
+                    LimpiarFormulario();
+                
+                ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "MyScript", "ShowPopup();", true);
+                this.lblTitulo.Text = "Agregar nuevo concepto";
+                btnGuardarConcepto.Text = "Guardar Concepto";
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public bool ValidarHorarioInicial()
+        {
+            try
+            {
+                bool bRes = false;
+                string sTimeIni = txtHorarioInicial.Text.S();
+                string sTimeFin = txtHorarioFinal.Text.S();
+                string sConcepto = txtConcepto.Text.S();
+
+                TimeSpan tsIni;
+                TimeSpan tsFin;
+                bool parsedIni = TimeSpan.TryParse(sTimeIni, out tsIni);
+                bool parsedFin = TimeSpan.TryParse(sTimeFin, out tsFin);
+
+                if (parsedIni == true)
+                {
+                    TimeSpan timeIni = tsIni;
+                    TimeSpan timeFin = tsFin;
+
+                    if (!sConcepto.ToUpper().Contains("TECOLOTAZO"))
+                    {
+                        #region CONCEPTOS GENERALES
+                        if (timeIni == timeFin)
+                        {
+                            //rqHoraIni.Text = "Los horarios no deben de ser iguales.";
+                            //divHorarioIni.Visible = true;
+
+                            rqGral.Text = "Los horarios no deben de ser iguales.";
+                            divValidGral.Visible = true;
+                            txtHorarioFinal.CssClass = "errorValid";
+                            txtHorarioInicial.CssClass = "errorValid";
+                            btnGuardarConcepto.Enabled = false;
+                        }
+                        else if (timeIni > timeFin)
+                        {
+                            //rqHoraIni.Text = "El Horario inicial no debe de ser mayor al Horario final";
+                            //divHorarioIni.Visible = true;
+                            rqGral.Text = "El Horario inicial no debe de ser mayor al Horario final";
+                            divValidGral.Visible = true;
+                            txtHorarioInicial.CssClass = "errorValid";
+                            btnGuardarConcepto.Enabled = false;
+                        }
+                        else if (timeIni < timeFin)
+                        {
+                            //rqHoraIni.Text = string.Empty;
+                            //divHorarioIni.Visible = false;
+                            rqGral.Text = string.Empty;
+                            divValidGral.Visible = false;
+                            txtHorarioInicial.CssClass = "inputText";
+                            txtHorarioFinal.CssClass = "inputText";
+                            btnGuardarConcepto.Enabled = true;
+                        }
+                        #endregion
+                    }
+                    else
+                    {
+                        #region CONCEPTO TECOLOTAZO
+                        if (timeFin > timeIni)
+                        {
+                            //rqHoraIni.Text = "El Horario final no debe de ser mayor al Horario inicial";
+                            //divHorarioIni.Visible = true;
+                            rqGral.Text = "El Horario final no debe de ser mayor al Horario inicial";
+                            divValidGral.Visible = true;
+                            txtHorarioFinal.CssClass = "errorValid";
+                            btnGuardarConcepto.Enabled = false;
+                        }
+                        else if (timeFin < timeIni)
+                        {
+                            //rqHoraIni.Text = string.Empty;
+                            //divHorarioIni.Visible = false;
+                            rqGral.Text = string.Empty;
+                            divValidGral.Visible = true;
+                            txtHorarioFinal.CssClass = "inputText";
+                            txtHorarioInicial.CssClass = "inputText";
+                            btnGuardarConcepto.Enabled = true;
+                        }
+                        #endregion
+                    }
+
+
+
+                }
+                else if (parsedIni == false)
+                {
+                    //rqHoraIni.Text = "El Horario inicial no tiene el formato correcto. Ej: HH:MM (23:59)";
+                    //divHorarioIni.Visible = true;
+                    rqGral.Text = "El Horario inicial no tiene el formato correcto. Ej: HH:MM (23:59)";
+                    divValidGral.Visible = true;
+                    txtHorarioInicial.CssClass = "errorValid";
+                    btnGuardarConcepto.Enabled = false;
+                }
+                
+                return bRes;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        public bool ValidarHorarioFinal()
+        {
+            try
+            {
+                bool bRes = false;
+                string sTimeIni = txtHorarioInicial.Text.S();
+                string sTimeFin = txtHorarioFinal.Text.S();
+                string sConcepto = txtConcepto.Text.S();
+
+                TimeSpan tsIni;
+                TimeSpan tsFin;
+                bool parsedIni = TimeSpan.TryParse(sTimeIni, out tsIni);
+                bool parsedFin = TimeSpan.TryParse(sTimeFin, out tsFin);
+
+                if (parsedFin == true)
+                {
+                    TimeSpan timeIni = tsIni;
+                    TimeSpan timeFin = tsFin;
+
+                    if (!sConcepto.ToUpper().Contains("TECOLOTAZO"))
+                    {
+                        #region CONCEPTOS GENERALES
+                        if (timeIni == timeFin)
+                        {
+                            //rqHoraFin.Text = "Los horarios no deben de ser iguales.";
+                            //divHorarioFin.Visible = true;
+                            rqGral.Text = "* Los horarios no deben de ser iguales.";
+                            divValidGral.Visible = true;
+                            txtHorarioFinal.CssClass = "errorValid";
+                            txtHorarioInicial.CssClass = "errorValid";
+                            btnGuardarConcepto.Enabled = false;
+                        }
+                        else if (timeFin < timeIni)
+                        {
+                            //rqHoraFin.Text = "El horario final no debe de ser menor al Horario inicial";
+                            //divHorarioFin.Visible = true;
+                            rqGral.Text = "* El Horario final no debe de ser menor al Horario inicial";
+                            divValidGral.Visible = true;
+                            txtHorarioFinal.CssClass = "errorValid";
+                            btnGuardarConcepto.Enabled = false;
+                        }
+                        else if (timeIni < timeFin)
+                        {
+                            //rqHoraFin.Text = string.Empty;
+                            //divHorarioFin.Visible = false;
+                            rqGral.Text = string.Empty;
+                            divValidGral.Visible = false;
+                            txtHorarioFinal.CssClass = "inputText";
+                            txtHorarioInicial.CssClass = "inputText";
+                            btnGuardarConcepto.Enabled = true;
+                            ValidarHorarioInicial();
+                        }
+                        #endregion
+                    }
+                    else
+                    {
+                        #region CONCEPTO TECOLOTAZO
+                        if (timeFin > timeIni)
+                        {
+                            //rqHoraFin.Text = "El horario final no debe de ser mayor al Horario inicial";
+                            //divHorarioFin.Visible = true;
+                            rqGral.Text = "* El Horario final no debe de ser mayor al Horario inicial";
+                            divValidGral.Visible = true;
+                            txtHorarioFinal.CssClass = "errorValid";
+                            btnGuardarConcepto.Enabled = false;
+                        }
+                        else if (timeFin < timeIni)
+                        {
+                            //rqHoraFin.Text = string.Empty;
+                            //divHorarioFin.Visible = false;
+                            rqGral.Text = string.Empty;
+                            divValidGral.Visible = false;
+                            txtHorarioFinal.CssClass = "inputText";
+                            txtHorarioInicial.CssClass = "inputText";
+                            btnGuardarConcepto.Enabled = true;
+                        }
+                        #endregion
+                    }
+                }
+                else if(parsedFin == false)
+                {
+                    //rqHoraFin.Text = "El Horario final no tiene el formato correcto. Ej: HH:MM (23:59)";
+                    //divHorarioFin.Visible = true;
+                    rqGral.Text = "* El Horario final no tiene el formato correcto. Ej: HH:MM (23:59)";
+                    divValidGral.Visible = true;
+                    txtHorarioFinal.CssClass = "errorValid";
+                    btnGuardarConcepto.Enabled = false;
+                }
+                
+                return bRes;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+ 
+
+        protected void txtHorarioFinal_TextChanged(object sender, EventArgs e)
+            {
+            try
+            {
+                if (!ValidarHorarioFinal())
+                {
+                    txtHorarioFinal.Focus();
+                    ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "MyScript", "ShowPopup();", true);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        protected void txtHorarioInicial_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (!ValidarHorarioInicial())
+                {
+                    txtHorarioInicial.Focus();
+                    ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "MyScript", "ShowPopup();", true);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        protected void txtMontoMXN_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (txtMontoMXN.Text.D() <= 0)
+                {
+                    divValidMontosMXN.Visible = true;
+                    rqMontosMXN.Text = "* El monto MXN no debe de ser negativo ni igual a cero.";
+                    txtMontoMXN.CssClass = "errorValid";
+                    btnGuardarConcepto.Enabled = false;
+                    txtMontoMXN.Focus();
+                }
+                else
+                {
+                    divValidMontosMXN.Visible = false;
+                    rqMontosMXN.Text = string.Empty;
+                    txtMontoMXN.CssClass = "inputText";
+                    btnGuardarConcepto.Enabled = true;
+                    txtMontoUSD.Focus();
+                }
+                ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "MyScript", "ShowPopup();", true);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        protected void txtMontoUSD_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (txtMontoUSD.Text.D() <= 0)
+                {
+                    divValidMontosUSD.Visible = true;
+                    rqMontosUSD.Text = "* El monto USD no debe de ser negativo ni igual a cero.";
+                    txtMontoUSD.CssClass = "errorValid";
+                    btnGuardarConcepto.Enabled = false;
+                    txtMontoUSD.Focus();
+                }
+                else
+                {
+                    divValidMontosUSD.Visible = false;
+                    rqMontosUSD.Text = string.Empty;
+                    txtMontoUSD.CssClass = "inputText";
+                    btnGuardarConcepto.Enabled = true;
+                }
+                ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "MyScript", "ShowPopup();", true);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }
