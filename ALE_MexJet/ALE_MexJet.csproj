@@ -703,6 +703,7 @@
     <Content Include="Views\Rentas\frmPresupuesto.aspx" />
     <Content Include="Views\Reportes\frmReporteTabulado.aspx" />
     <Content Include="Views\test.aspx" />
+    <Content Include="Views\viaticos\frmCalculoPagos.aspx" />
     <Content Include="Views\viaticos\frmConsultaVuelos.aspx" />
     <Content Include="Views\viaticos\frmRevenewM.aspx" />
     <Content Include="Views\viaticos\frmTest.aspx" />
@@ -745,6 +746,7 @@
     <Compile Include="DomainModel\DBBaseFlight.cs" />
     <Compile Include="DomainModel\DBBaseFPK.cs" />
     <Compile Include="DomainModel\DBBaseSAP.cs" />
+    <Compile Include="DomainModel\DBCalculoPagos.cs" />
     <Compile Include="DomainModel\DBConsultaBitacoras.cs" />
     <Compile Include="DomainModel\DBConsultaContrato.cs" />
     <Compile Include="DomainModel\DBAeronave.cs" />
@@ -851,6 +853,7 @@
     <Compile Include="Interfaces\IViewAutorizacionMembresias.cs" />
     <Compile Include="Interfaces\IViewBitacora.cs" />
     <Compile Include="Interfaces\IViewBitacoraAudit.cs" />
+    <Compile Include="Interfaces\IViewCalculoPagos.cs" />
     <Compile Include="Interfaces\IViewCasos.cs" />
     <Compile Include="Interfaces\IViewConsultaBitacoras.cs" />
     <Compile Include="Interfaces\IViewConsultaDespacho.cs" />
@@ -940,6 +943,7 @@
     <Compile Include="Objetos\Bitacora.cs" />
     <Compile Include="Objetos\BitacoraAudit.cs" />
     <Compile Include="Objetos\BitacoraVuelo.cs" />
+    <Compile Include="Objetos\CalculoPagos.cs" />
     <Compile Include="Objetos\Casos.cs" />
     <Compile Include="Objetos\CombustibleGrupoModelo.cs" />
     <Compile Include="Objetos\CombustibleMensualInternacional.cs" />
@@ -964,6 +968,7 @@
     <Compile Include="Objetos\Contrato_Tarifas.cs" />
     <Compile Include="Objetos\Contrato_TramoPactado.cs" />
     <Compile Include="Objetos\CredencialesWS.cs" />
+    <Compile Include="Objetos\Cuentas.cs" />
     <Compile Include="Objetos\DatosToken.cs" />
     <Compile Include="Objetos\DocPendientes.cs" />
     <Compile Include="Objetos\Encuesta.cs" />
@@ -1027,6 +1032,7 @@
     <Compile Include="Presenter\Autorizacion_Presenter.cs" />
     <Compile Include="Presenter\BitacoraAudit_Presenter.cs" />
     <Compile Include="Presenter\BitacoraPresenter.cs" />
+    <Compile Include="Presenter\CalculoPagos_Presenter.cs" />
     <Compile Include="Presenter\Casos_Presenter.cs" />
     <Compile Include="Presenter\CombustibleMensualInternacional_Presenter.cs" />
     <Compile Include="Presenter\CombustibleSemanal_Presenter.cs" />
@@ -1898,6 +1904,13 @@
     </Compile>
     <Compile Include="Views\test.aspx.designer.cs">
       <DependentUpon>test.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\viaticos\frmCalculoPagos.aspx.cs">
+      <DependentUpon>frmCalculoPagos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\viaticos\frmCalculoPagos.aspx.designer.cs">
+      <DependentUpon>frmCalculoPagos.aspx</DependentUpon>
     </Compile>
     <Compile Include="Views\viaticos\frmConsultaVuelos.aspx.cs">
       <DependentUpon>frmConsultaVuelos.aspx</DependentUpon>
