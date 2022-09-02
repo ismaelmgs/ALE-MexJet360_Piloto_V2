@@ -107,5 +107,16 @@ namespace ALE_MexJet.DomainModel
             }
         }
 
+        public DataSet ObtieneParametrosViaticos()
+        {
+            try
+            {
+                return new DBBase().oDB_SP.EjecutarDS("[VB].[spS_MXJ_ConsultaConfiguracion]");
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

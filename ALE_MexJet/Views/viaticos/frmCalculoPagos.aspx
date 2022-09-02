@@ -197,20 +197,20 @@
                 <asp:UpdatePanel ID="upaVuelos" runat="server" UpdateMode="Conditional">
                     <ContentTemplate>
                         <div class="col-sm-12">
-                            <dx:BootstrapGridView ID="gvVuelos" runat="server" KeyFieldName="idBitacora">
+                            <dx:BootstrapGridView ID="gvVuelos" runat="server" KeyFieldName="LegId">
                                 <SettingsSearchPanel Visible="false" ShowApplyButton="false" />
                                 <Settings ShowGroupPanel="false" ShowFilterRowMenu="false" />
                                 <SettingsAdaptivity AdaptivityMode="HideDataCells" AllowOnlyOneAdaptiveDetailExpanded="true"></SettingsAdaptivity>
                                 <SettingsPager PageSize="20"></SettingsPager>
                                 <Columns>
-                                    <dx:BootstrapGridViewDataColumn Caption="Trip" FieldName="Trip" VisibleIndex="1" HorizontalAlign="Center" CssClasses-DataCell="dataCell" />
-                                    <dx:BootstrapGridViewDataColumn Caption="LegId" FieldName="LegId" VisibleIndex="2" HorizontalAlign="Center" CssClasses-DataCell="dataCell" />
-                                    <dx:BootstrapGridViewDataColumn Caption="PO Salida" FieldName="POSalida" VisibleIndex="3" HorizontalAlign="Center" CssClasses-DataCell="dataCell"/>
-                                    <dx:BootstrapGridViewDataColumn Caption="PO Destino" FieldName="PODestino" VisibleIndex="4" HorizontalAlign="Center" CssClasses-DataCell="dataCell"/>
-                                    <dx:BootstrapGridViewDataColumn Caption="Fecha de Salida" FieldName="FechaSalida" VisibleIndex="5" HorizontalAlign="Center" CssClasses-DataCell="dataCell"/>
-                                    <dx:BootstrapGridViewDataColumn Caption="Fecha de Llegada" FieldName="FechaLlegada" VisibleIndex="6" HorizontalAlign="Center" CssClasses-DataCell="dataCell"/>
-                                    <dx:BootstrapGridViewDataColumn Caption="Check In" FieldName="CheckIn" VisibleIndex="7" HorizontalAlign="Center" CssClasses-DataCell="dataCell"/>
-                                    <dx:BootstrapGridViewDataColumn Caption="Check Out" FieldName="CheckOut" VisibleIndex="8" HorizontalAlign="Center" CssClasses-DataCell="dataCell"/>
+                                    <%--<dx:BootstrapGridViewDataColumn Caption="Trip" FieldName="Trip" VisibleIndex="1" HorizontalAlign="Center" CssClasses-DataCell="dataCell" />--%>
+                                    <dx:BootstrapGridViewDataColumn Caption="LegId" FieldName="LegId" VisibleIndex="1" HorizontalAlign="Center" CssClasses-DataCell="dataCell" />
+                                    <dx:BootstrapGridViewDataColumn Caption="POD Salida" FieldName="POD" VisibleIndex="2" HorizontalAlign="Center" CssClasses-DataCell="dataCell"/>
+                                    <dx:BootstrapGridViewDataColumn Caption="POA Destino" FieldName="POA" VisibleIndex="3" HorizontalAlign="Center" CssClasses-DataCell="dataCell"/>
+                                    <dx:BootstrapGridViewDataColumn Caption="Fecha de Salida" FieldName="FechaSalida" VisibleIndex="4" HorizontalAlign="Center" CssClasses-DataCell="dataCell"/>
+                                    <dx:BootstrapGridViewDataColumn Caption="Fecha de Llegada" FieldName="FechaLlegada" VisibleIndex="5" HorizontalAlign="Center" CssClasses-DataCell="dataCell"/>
+                                    <%--<dx:BootstrapGridViewDataColumn Caption="Check In" FieldName="CheckIn" VisibleIndex="7" HorizontalAlign="Center" CssClasses-DataCell="dataCell"/>
+                                    <dx:BootstrapGridViewDataColumn Caption="Check Out" FieldName="CheckOut" VisibleIndex="8" HorizontalAlign="Center" CssClasses-DataCell="dataCell"/>--%>
                                 </Columns>
                                 <SettingsPager Position="Bottom">
                                     <PageSizeItemSettings Items="20, 50, 100"></PageSizeItemSettings>

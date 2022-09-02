@@ -42,6 +42,9 @@ namespace ALE_MexJet.Views.viaticos
 
                 if (eSearchConceptos != null)
                     eSearchConceptos(sender, e);
+
+                if (eGetParams != null)
+                    eGetParams(sender, e);
             }
         }
 
@@ -82,20 +85,22 @@ namespace ALE_MexJet.Views.viaticos
                         readFechaInicio.Text = oB[2].S().Dt().ToShortDateString();
                         readFechaFin.Text = oB[3].S().Dt().ToShortDateString();
 
-                        if (eSearchCalculos != null)
-                            eSearchCalculos(sender, e);
+                        
 
-                        sParametro = hdnIdBitacora.Value.S();
+                        //sParametro = hdnIdBitacora.Value.S();
                         //if (eSearchVuelos != null)
                         //    eSearchVuelos(sender, e);
 
-                        string sPlantilla = CalcularViaticos();
-                        divViaticos.InnerHtml = sPlantilla;
+                        //string sPlantilla = CalcularViaticos();
+                        //divViaticos.InnerHtml = sPlantilla;
 
                         pnlBusqueda.Visible = false;
                         pnlVuelos.Visible = false;
                         pnlCalcularViaticos.Visible = true;
                         upaVuelos.Update();
+                        
+                        if (eSearchCalculos != null)
+                            eSearchCalculos(sender, e);
                     }
                     
                 }
@@ -385,6 +390,7 @@ namespace ALE_MexJet.Views.viaticos
         public event EventHandler eSearchConceptos;
         public event EventHandler eSearchVuelos;
         public event EventHandler eSearchCalculos;
+        public event EventHandler eGetParams;
         public DataTable dtConceptos
         {
             get { return (DataTable)ViewState["VSConceptos"]; }
@@ -420,6 +426,11 @@ namespace ALE_MexJet.Views.viaticos
             get { return (List<CantidadComidas>)ViewState["VSCantidadComidas"]; }
             set { ViewState["VSCantidadComidas"] = value; }
         }
+        public DataSet dsParams
+        {
+            get { return (DataSet)ViewState["VSParametros"]; }
+            set { ViewState["VSParametros"] = value; }
+        }
         #endregion
 
         protected void btnGuardarPeriodo_Click(object sender, EventArgs e)
@@ -432,7 +443,7 @@ namespace ALE_MexJet.Views.viaticos
             try
             {
                 dtCalculos = dt;
-                //GeneraCalculo();
+                GeneraCalculo();
                 //gvPilotos.DataSource = dtCalculos;
                 //gvPilotos.DataBind();
             }
@@ -448,70 +459,163 @@ namespace ALE_MexJet.Views.viaticos
             set { ViewState["VSCalculos"] = value; }
         }
 
-        //private void GeneraCalculo()
-        //{
-        //    try
-        //    {
-        //        decimal dDesNal = 0;
-        //        decimal dDesInt = 0;
-        //        decimal dComNal = 0;
-        //        decimal dComInt = 0;
-        //        decimal dCenNal = 0;
-        //        decimal dCenInt = 0;
+        public void LlenaVuelosPiloto(DataTable dt)
+        {
+            gvVuelos.DataSource = dt;
+            gvVuelos.DataBind();
+        }
+        private void GeneraCalculo()
+        {
+            try
+            {
+                decimal dDesNal = 0;
+                decimal dDesInt = 0;
+                decimal dComNal = 0;
+                decimal dComInt = 0;
+                decimal dCenNal = 0;
+                decimal dCenInt = 0;
 
-        //        foreach (DataRow row in dsParams.Tables[0].Rows)
-        //        {
-        //            if (row["Concepto"].S() == "Desayuno")
-        //            {
-        //                dDesNal = row["MontoMXN"].S().D();
-        //                dDesInt = row["MontoUSD"].S().D();
-        //            }
-        //            if (row["Concepto"].S() == "Comida")
-        //            {
-        //                dComNal = row["MontoMXN"].S().D();
-        //                dComInt = row["MontoUSD"].S().D();
-        //            }
-        //            if (row["Concepto"].S() == "Cena")
-        //            {
-        //                dCenNal = row["MontoMXN"].S().D();
-        //                dCenInt = row["MontoUSD"].S().D();
-        //            }
-        //        }
+                foreach (DataRow row in dsParams.Tables[0].Rows)
+                {
+                    if (row["Concepto"].S() == "Desayuno")
+                    {
+                        dDesNal = row["MontoMXN"].S().D();
+                        dDesInt = row["MontoUSD"].S().D();
+                    }
+                    if (row["Concepto"].S() == "Comida")
+                    {
+                        dComNal = row["MontoMXN"].S().D();
+                        dComInt = row["MontoUSD"].S().D();
+                    }
+                    if (row["Concepto"].S() == "Cena")
+                    {
+                        dCenNal = row["MontoMXN"].S().D();
+                        dCenInt = row["MontoUSD"].S().D();
+                    }
+                }
 
-        //        dtCalculos.Columns.Add("TotalPesos", typeof(decimal));
-        //        dtCalculos.Columns.Add("TotalUSD", typeof(decimal));
+                dtCalculos.Columns.Add("TotalPesos", typeof(decimal));
+                dtCalculos.Columns.Add("TotalUSD", typeof(decimal));
 
-        //        dtCalculos.Columns["TotalPesos"].ReadOnly = false;
-        //        dtCalculos.Columns["TotalUSD"].ReadOnly = false;
-
-
-        //        foreach (DataRow row in dtCalculos.Rows)
-        //        {
-        //            decimal dTotalNal = 0;
-        //            decimal dTotalInt = 0;
-
-        //            dTotalNal += row["DesayunosNal"].S().D() * dDesNal;
-        //            dTotalNal += row["ComidasNal"].S().D() * dComNal;
-        //            dTotalNal += row["CenasNal"].S().D() * dCenNal;
-
-        //            dTotalInt += row["DesayunosInt"].S().D() * dDesInt;
-        //            dTotalInt += row["ComidasInt"].S().D() * dComInt;
-        //            dTotalInt += row["CenasInt"].S().D() * dCenInt;
+                dtCalculos.Columns["TotalPesos"].ReadOnly = false;
+                dtCalculos.Columns["TotalUSD"].ReadOnly = false;
 
 
-        //            row["TotalPesos"] = dTotalNal;
-        //            row["TotalUSD"] = dTotalInt;
-        //        }
+                foreach (DataRow row in dtCalculos.Rows)
+                {
+                    decimal dTotalNal = 0;
+                    decimal dTotalInt = 0;
+
+                    dTotalNal += row["DesayunosNal"].S().D() * dDesNal;
+                    dTotalNal += row["ComidasNal"].S().D() * dComNal;
+                    dTotalNal += row["CenasNal"].S().D() * dCenNal;
+
+                    dTotalInt += row["DesayunosInt"].S().D() * dDesInt;
+                    dTotalInt += row["ComidasInt"].S().D() * dComInt;
+                    dTotalInt += row["CenasInt"].S().D() * dCenInt;
 
 
+                    row["TotalPesos"] = dTotalNal;
+                    row["TotalUSD"] = dTotalInt;
+                }
 
-        //    }
-        //    catch (Exception)
-        //    {
+                //Se crea tabla para mostrar viaticos
+                string sHtml = string.Empty;
+                string sTablaNacional = string.Empty;
+                string sTablaExtranjera = string.Empty;
 
-        //        throw;
-        //    }
-        //}
+                if (dtCalculos != null && dtCalculos.Rows.Count > 0)
+                {
+                    //MXN columna 4,6,8
+                    sTablaNacional = "<table border='1' width='40%' style='border-radius:4px; border: 1px solid #ccc;'>";
+                    sTablaNacional += "  <tr>";
+                    sTablaNacional += "      <td colspan='2' style='background-color:#ccc; text-align:center;'><label>NACIONALES</label></td>";
+                    sTablaNacional += "  </tr>";
+
+                    for (int x = 0; x < dtConceptos.Rows.Count; x++)
+                    {
+                        if (dtConceptos.Rows[x]["DesConcepto"].S().Contains("Desayuno"))
+                        {
+                            sTablaNacional += "  <tr>";
+                            sTablaNacional += "  <td><label>" + dtConceptos.Rows[x]["DesConcepto"].S().ToUpper() + "</label></td>";
+                            sTablaNacional += "  <td align='center'><label>" + dtCalculos.Rows[0][4].S() + "</label></td>";
+                            sTablaNacional += "  </tr>";
+                        }
+                        else if (dtConceptos.Rows[x]["DesConcepto"].S().Contains("Comida"))
+                        {
+                            sTablaNacional += "  <tr>";
+                            sTablaNacional += "  <td><label>" + dtConceptos.Rows[x]["DesConcepto"].S().ToUpper() + "</label></td>";
+                            sTablaNacional += "  <td align='center'><label>" + dtCalculos.Rows[0][6].S() + "</label></td>";
+                            sTablaNacional += "  </tr>";
+                        }
+                        else if (dtConceptos.Rows[x]["DesConcepto"].S().Contains("Cena"))
+                        {
+                            sTablaNacional += "  <tr>";
+                            sTablaNacional += "  <td><label>" + dtConceptos.Rows[x]["DesConcepto"].S().ToUpper() + "</label></td>";
+                            sTablaNacional += "  <td align='center'><label>" + dtCalculos.Rows[0][8].S() + "</label></td>";
+                            sTablaNacional += "  </tr>";
+                        }
+                    }
+                    sTablaNacional += "  <tr>";
+                    sTablaNacional += "     <td><span><b>TOTAL:</b></span></td>";
+                    sTablaNacional += "     <td align='right'><span>" + dtCalculos.Rows[0][10].S() + "</span></td>";
+                    sTablaNacional += "  </tr>";
+                    sTablaNacional += "  </table>";
+
+                    //USD columna 5,7,9
+                    sTablaExtranjera = "<table border='1' width='40%' style='border-radius:4px; border: 1px solid #ccc;'>";
+                    sTablaExtranjera += "  <tr>";
+                    sTablaExtranjera += "      <td colspan='2' style='background-color:#ccc; text-align:center;'><label>EXTRANJEROS</label></td>";
+                    sTablaExtranjera += "  </tr>";
+
+                    for (int x = 0; x < dtConceptos.Rows.Count; x++)
+                    {
+                        if (dtConceptos.Rows[x]["DesConcepto"].S().Contains("Desayuno"))
+                        {
+                            sTablaExtranjera += "  <tr>";
+                            sTablaExtranjera += "  <td><label>" + dtConceptos.Rows[x]["DesConcepto"].S().ToUpper() + "</label></td>";
+                            sTablaExtranjera += "  <td align='center'><label>" + dtCalculos.Rows[0][5].S() + "</label></td>";
+                            sTablaExtranjera += "  </tr>";
+                        }
+                        else if (dtConceptos.Rows[x]["DesConcepto"].S().Contains("Comida"))
+                        {
+                            sTablaExtranjera += "  <tr>";
+                            sTablaExtranjera += "  <td><label>" + dtConceptos.Rows[x]["DesConcepto"].S().ToUpper() + "</label></td>";
+                            sTablaExtranjera += "  <td align='center'><label>" + dtCalculos.Rows[0][7].S() + "</label></td>";
+                            sTablaExtranjera += "  </tr>";
+                        }
+                        else if (dtConceptos.Rows[x]["DesConcepto"].S().Contains("Cena"))
+                        {
+                            sTablaExtranjera += "  <tr>";
+                            sTablaExtranjera += "  <td><label>" + dtConceptos.Rows[x]["DesConcepto"].S().ToUpper() + "</label></td>";
+                            sTablaExtranjera += "  <td align='center'><label>" + dtCalculos.Rows[0][9].S() + "</label></td>";
+                            sTablaExtranjera += "  </tr>";
+                        }
+                    }
+                    sTablaExtranjera += "  <tr>";
+                    sTablaExtranjera += "     <td><span><b>TOTAL:</b></span></td>";
+                    sTablaExtranjera += "     <td align='right'><span>" + dtCalculos.Rows[0][11].S() + "</span></td>";
+                    sTablaExtranjera += "  </tr>";
+                    sTablaExtranjera += "  </table>";
+
+                    sHtml += "<div class='row'>";
+                    sHtml += "  <div class='col-md-6' align='center'>";
+                    sHtml += sTablaNacional;
+                    sHtml += "  </div>";
+                    sHtml += "  <div class='col-md-6' align='center'>";
+                    sHtml += sTablaExtranjera;
+                    sHtml += "  </div>";
+                    sHtml += "</div>";
+                    divViaticos.InnerHtml = sHtml;
+                }
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
 
     }
 }

@@ -19,9 +19,12 @@ namespace ALE_MexJet.Interfaces
 
         List<CantidadComidas> oLstCant { set; get; }
         void LlenaCalculoPilotos(DataTable dt);
+        void LlenaVuelosPiloto(DataTable dt);
+        DataSet dsParams { set; get; }
 
         event EventHandler eSearchConceptos;
         event EventHandler eSearchVuelos;
         event EventHandler eSearchCalculos;
+        event EventHandler eGetParams;
     }
 }

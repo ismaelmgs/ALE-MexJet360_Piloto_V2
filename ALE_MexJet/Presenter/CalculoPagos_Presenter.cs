@@ -21,6 +21,7 @@ namespace ALE_MexJet.Presenter
             oIView.eSearchVuelos += SearchVuelos_Presenter;
             oIView.eSearchConceptos += SearchConceptos_Presenter;
             oIView.eSearchCalculos += SearchCalculos_Presenter;
+            oIView.eGetParams += eGetParams_Presenter;
         }
 
         protected override void SearchObj_Presenter(object sender, EventArgs e)
@@ -228,21 +229,21 @@ namespace ALE_MexJet.Presenter
                                 float fHoraInicio = 0;
                                 float fHoraFinal = 0;
 
-                                //DateTime dtIni = new DateTime(); //dtLegs.Rows[0][FechaInicio].S().Dt();
-                                //DateTime dtFin = new DateTime(); //dtLegs.Rows[dtLegs.Rows.Count - 1][FechaFin].S().Dt();
+                                DateTime dtIni = dtLegs.Rows[0][FechaInicio].S().Dt();
+                                DateTime dtFin = dtLegs.Rows[dtLegs.Rows.Count - 1][FechaFin].S().Dt();
 
-                                DataTable dtCheckDate = ds.Tables[2];
+                                //DataTable dtCheckDate = ds.Tables[2];
 
-                                DataRow[] rowCheck = dtCheckDate.Select("Dia='" + dtDias.Rows[0]["Dia"].S() + "' ");
+                                //DataRow[] rowCheck = dtCheckDate.Select("Dia='" + dtDias.Rows[0]["Dia"].S() + "' ");
 
-                                DateTime dtIni = rowCheck[0]["CheckIn"].S().Dt();
-                                DateTime dtFin = rowCheck[0]["CheckOut"].S().Dt();
+                                //DateTime dtIni = rowCheck[0]["CheckIn"].S().Dt();
+                                //DateTime dtFin = rowCheck[0]["CheckOut"].S().Dt();
 
                                 bool bEsInterInicio = false;
                                 bool bEsInterFinal = false;
 
-                                //bEsInterInicio = dtLegs.Rows[0]["EsInternacional"].S() == "1" ? true : false;
-                                //bEsInterFinal = dtLegs.Rows[dtLegs.Rows.Count - 1]["EsInternacional"].S() == "1" ? true : false;
+                                bEsInterInicio = dtLegs.Rows[0]["EsInternacional"].S() == "1" ? true : false;
+                                bEsInterFinal = dtLegs.Rows[dtLegs.Rows.Count - 1]["EsInternacional"].S() == "1" ? true : false;
 
                                 fHoraInicio = dtIni.Hour + (dtIni.Minute / float.Parse("60"));
                                 fHoraFinal = dtFin.Hour + (dtFin.Minute / float.Parse("60"));
@@ -1674,7 +1675,7 @@ namespace ALE_MexJet.Presenter
             GC.Collect();
             oIView.oLstCant = oLstCant;
             oIView.LlenaCalculoPilotos(DBGetObtieneTablaCalculos(oLstCant, dtPilotos));
-
+            oIView.LlenaVuelosPiloto(ds.Tables[0]);
         }
 
         private DataTable CreaEstructuraVuelos()
@@ -2363,6 +2364,11 @@ namespace ALE_MexJet.Presenter
             {
                 throw ex;
             }
+        }
+
+        protected void eGetParams_Presenter(object sender, EventArgs e)
+        {
+            oIView.dsParams = oIGestCat.ObtieneParametrosViaticos();
         }
     }
 }
