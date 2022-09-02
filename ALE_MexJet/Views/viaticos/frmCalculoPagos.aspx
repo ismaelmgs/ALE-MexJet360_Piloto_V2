@@ -204,8 +204,9 @@
                                 <SettingsPager PageSize="20"></SettingsPager>
                                 <Columns>
                                     <%--<dx:BootstrapGridViewDataColumn Caption="Trip" FieldName="Trip" VisibleIndex="1" HorizontalAlign="Center" CssClasses-DataCell="dataCell" />--%>
-                                    <dx:BootstrapGridViewDataColumn Caption="LegId" FieldName="LegId" VisibleIndex="1" HorizontalAlign="Center" CssClasses-DataCell="dataCell" />
-                                    <dx:BootstrapGridViewDataColumn Caption="POD Salida" FieldName="POD" VisibleIndex="2" HorizontalAlign="Center" CssClasses-DataCell="dataCell"/>
+                                    <dx:BootstrapGridViewDataColumn Caption="LegId" FieldName="LegId" VisibleIndex="1" HorizontalAlign="Center" CssClasses-DataCell="dataCell"/>
+                                    <dx:BootstrapGridViewDataColumn Caption="POD Salida" FieldName="POD" VisibleIndex="2" HorizontalAlign="Center" CssClasses-DataCell="dataCell">
+                                    </dx:BootstrapGridViewDataColumn>
                                     <dx:BootstrapGridViewDataColumn Caption="POA Destino" FieldName="POA" VisibleIndex="3" HorizontalAlign="Center" CssClasses-DataCell="dataCell"/>
                                     <dx:BootstrapGridViewDataColumn Caption="Fecha de Salida" FieldName="FechaSalida" VisibleIndex="4" HorizontalAlign="Center" CssClasses-DataCell="dataCell"/>
                                     <dx:BootstrapGridViewDataColumn Caption="Fecha de Llegada" FieldName="FechaLlegada" VisibleIndex="5" HorizontalAlign="Center" CssClasses-DataCell="dataCell"/>

@@ -42,6 +42,7 @@ namespace ALE_MexJet.Presenter
 
         protected void SearchCalculos_Presenter(object sender, EventArgs e)
         {
+            #region CONSULTA VUELOS
             DataSet ds = oIGestCat.ObtieneVuelosDelPeriodo(oIView.sFechaDesde.Dt(), oIView.sFechaHasta.Dt(), oIView.sParametro);
             DataTable dtVuelos = ds.Tables[0];
             DataTable dtPilotos = ds.Tables[1]; //new DBCalculoPagos().ObtienePilotosFPK;
@@ -53,7 +54,9 @@ namespace ALE_MexJet.Presenter
             string FechaFin = "LocArr"; //"Locarr";
 
             List<CantidadComidas> oLstCant = new List<CantidadComidas>();
+            #endregion
 
+            #region PRIMERA PARTE DE CODIGO
             foreach (DataRow row in dtPilotos.Rows)
             {
                 DataRow[] rows = dtVuelos.Select("crewcode = '" + row["ClavePiloto"].S() + "'");
@@ -128,7 +131,9 @@ namespace ALE_MexJet.Presenter
 
                 row["NoVuelos"] = iVuelo - 1;
             }
+            #endregion
 
+            #region SEGUNDA PARTE DE CODIGO
             float fInicioDesayuno = 7;
             float fFinDesayuno = 9;
             float fInicioComida = 15;
@@ -151,6 +156,9 @@ namespace ALE_MexJet.Presenter
                 iHorasDayUse = dt.Rows[0]["HorasDayUse"].S().I();
             }
 
+            #endregion
+
+            #region TERCERA PARTE DEL CODIGO
             HorarioAlimentos oHor = new HorarioAlimentos();
             oHor.fInicioDesayuno = fInicioDesayuno;
             oHor.fFinDesayuno = fFinDesayuno;
@@ -210,7 +218,6 @@ namespace ALE_MexJet.Presenter
                             if (dtLegs.Rows.Count > 0)
                             {
                                 ObtienePernoctasYDayUse(oCant, dtLegs, FechaInicio, FechaFin, iHorasPernocta, iHorasDayUse);
-                                //ObtienePernoctasYDayUse(oCant, dtLegs, oIView.sFechaDesde, oIView.sFechaHasta, iHorasPernocta, iHorasDayUse);
 
                                 DataTable dtDias = CreaEstructuraDias();
 
@@ -229,15 +236,15 @@ namespace ALE_MexJet.Presenter
                                 float fHoraInicio = 0;
                                 float fHoraFinal = 0;
 
-                                DateTime dtIni = dtLegs.Rows[0][FechaInicio].S().Dt();
-                                DateTime dtFin = dtLegs.Rows[dtLegs.Rows.Count - 1][FechaFin].S().Dt();
+                                //DateTime dtIni = dtLegs.Rows[0][FechaInicio].S().Dt();
+                                //DateTime dtFin = dtLegs.Rows[dtLegs.Rows.Count - 1][FechaFin].S().Dt();
 
-                                //DataTable dtCheckDate = ds.Tables[2];
+                                DataTable dtCheckDate = ds.Tables[2];
 
-                                //DataRow[] rowCheck = dtCheckDate.Select("Dia='" + dtDias.Rows[0]["Dia"].S() + "' ");
+                                DataRow[] rowCheck = dtCheckDate.Select("Dia='" + dtDias.Rows[0]["Dia"].S() + "' ");
 
-                                //DateTime dtIni = rowCheck[0]["CheckIn"].S().Dt();
-                                //DateTime dtFin = rowCheck[0]["CheckOut"].S().Dt();
+                                DateTime dtIni = rowCheck[0]["CheckIn"].S().Dt();
+                                DateTime dtFin = rowCheck[0]["CheckOut"].S().Dt();
 
                                 bool bEsInterInicio = false;
                                 bool bEsInterFinal = false;
@@ -252,14 +259,12 @@ namespace ALE_MexJet.Presenter
 
                                 if (dtDias.Rows.Count == 1)
                                 {
-                                    //DataRow[] rowsD = dtLegs.Select("Dia = '" + dtDias.Rows[0]["Dia"].S() + "' ");
                                     DataRow[] rowsD = dtLegs.Select("Dia = '" + dtDias.Rows[0]["Dia"].S() + "' ");
 
                                     if (rowsD.Length > 1)
                                     {
                                         for (int k = 0; k < rowsD.Length; k++)
                                         {
-                                            //Recorre los check In y Checkout de los vuelos por día
                                             fHoraInicio = 0;
                                             fHoraFinal = 0;
 
@@ -1671,11 +1676,14 @@ namespace ALE_MexJet.Presenter
                     }
                 }
             }
+            #endregion
 
+            #region CUARTA PARTE DEL CODIGO
             GC.Collect();
             oIView.oLstCant = oLstCant;
             oIView.LlenaCalculoPilotos(DBGetObtieneTablaCalculos(oLstCant, dtPilotos));
             oIView.LlenaVuelosPiloto(ds.Tables[0]);
+            #endregion
         }
 
         private DataTable CreaEstructuraVuelos()
