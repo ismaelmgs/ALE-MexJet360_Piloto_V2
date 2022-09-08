@@ -18,13 +18,25 @@ namespace ALE_MexJet.Interfaces
         void LoadVuelos(DataTable dt);
 
         List<CantidadComidas> oLstCant { set; get; }
+
+        PeriodoPiloto oPer { get; }
+
+        List<ConceptosPiloto> oLst { set; get; }
+        List<ConceptosAdicionalesPiloto> oLstAd { set; get; }
+        List<VuelosPiernasPiloto> oLstVP { set; get; }
+
         void LlenaCalculoPilotos(DataTable dt);
         void LlenaVuelosPiloto(DataTable dt);
         DataSet dsParams { set; get; }
+        int iIdPeriodo { set; get; }
+        string sOk { set; get; }
+
+        void LoadsGrids(DataSet ds);
 
         event EventHandler eSearchConceptos;
         event EventHandler eSearchVuelos;
         event EventHandler eSearchCalculos;
         event EventHandler eGetParams;
+        event EventHandler eGetAdicionales;
     }
 }

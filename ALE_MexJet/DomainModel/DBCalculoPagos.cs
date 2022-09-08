@@ -1,4 +1,5 @@
-﻿using NucleoBase.Core;
+﻿using ALE_MexJet.Objetos;
+using NucleoBase.Core;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -118,5 +119,112 @@ namespace ALE_MexJet.DomainModel
                 throw ex;
             }
         }
+
+        public DataSet ObtieneConceptosAdicionales()
+        {
+            try
+            {
+                return new DBBase().oDB_SP.EjecutarDS("[VB].[spS_MXJ_ConsultaConceptosAdicionales]");
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public int SetInsertaPeriodo(PeriodoPiloto oPer)
+        {
+            try
+            {
+                object oRes;
+                oRes = new DBBase().oDB_SP.EjecutarValor("[VB].[spI_MXJ_InsertaPeriodoPiloto]", "@CvePiloto", oPer.SCvePiloto,
+                                                                                                "@FechaInicio", oPer.SFechaInicio.Dt(),
+                                                                                                "@FechaFinal", oPer.SFechaFinal.Dt(),
+                                                                                                "@Usuario", oPer.SUsuario);
+                return oRes.S().I();
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+        }
+
+        //public bool SetInsertaConceptosPiloto(ConceptosPiloto oCP, int iIdPeriodo)
+        //{
+        //    try
+        //    {
+        //        bool bRes = false;
+        //        object oRes;
+        //        oRes = new DBBase().oDB_SP.EjecutarValor("[VB].[spI_MXJ_InsertaConceptosPiloto]", "@IdPeriodo", iIdPeriodo,
+        //                                                                                          "@IdConcepto", oCP.IIdConcepto,
+        //                                                                                          "@DesConcepto", oCP.SDesConcepto,
+        //                                                                                          "@Cantidad", oCP.ICantidad,
+        //                                                                                          "@MontoConcepto", oCP.DMontoConcepto,
+        //                                                                                          "@Total", oCP.DTotal,
+        //                                                                                          "@Moneda", oCP.SMoneda);
+        //        if (oRes.S().I() == 1)
+        //            bRes = true;
+
+        //        return bRes;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return false;
+        //    }
+        //}
+
+        public bool SetInsertaConceptosPilotoVitacora(List<ConceptosPiloto> oLstCP, int iIdPeriodo)
+        {
+            try
+            {
+                bool bRes = false;
+                object oRes;
+
+                for (int i = 0; i < oLstCP.Count; i++)
+                {
+                    oRes = new DBBase().oDB_SP.EjecutarValor("[VB].[spI_MXJ_InsertaConceptosPiloto]", "@IdPeriodo", iIdPeriodo,
+                                                                                                      "@IdConcepto", oLstCP[i].IIdConcepto,
+                                                                                                      "@DesConcepto", oLstCP[i].SDesConcepto,
+                                                                                                      "@Cantidad", oLstCP[i].ICantidad,
+                                                                                                      "@MontoConcepto", oLstCP[i].DMontoConcepto,
+                                                                                                      "@Total", oLstCP[i].DTotal,
+                                                                                                      "@Moneda", oLstCP[i].SMoneda);
+                    if (oRes.S().I() == 1)
+                        bRes = true;
+                }
+
+                return bRes;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        public bool SetInsertaVuelosPiernasPiloto(List<VuelosPiernasPiloto> oLstPP, int iIdPeriodo)
+        {
+            try
+            {
+                bool bRes = false;
+                object oRes;
+
+                for (int i = 0; i < oLstPP.Count; i++)
+                {
+                    oRes = new DBBase().oDB_SP.EjecutarValor("[VB].[spI_MXJ_InsertaVuelosPiloto]", "@IdPeriodo", iIdPeriodo,
+                                                                                                   "@Trip", oLstPP[i].LTrip,
+                                                                                                   "@LegId", oLstPP[i].LLegId);
+                    if (oRes.S().I() == 1)
+                        bRes = true;
+                }
+
+                return bRes;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+
     }
 }

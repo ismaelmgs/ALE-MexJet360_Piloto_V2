@@ -42,15 +42,6 @@ namespace ALE_MexJet.Views.viaticos
         protected global::System.Web.UI.UpdatePanel upaConceptos;
 
         /// <summary>
-        /// Control btnNuevoConcepto.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnNuevoConcepto;
-
-        /// <summary>
         /// Control gvConceptos.
         /// </summary>
         /// <remarks>
@@ -58,33 +49,6 @@ namespace ALE_MexJet.Views.viaticos
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.Bootstrap.BootstrapGridView gvConceptos;
-
-        /// <summary>
-        /// Control pnlConfiguracionParametros.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlConfiguracionParametros;
-
-        /// <summary>
-        /// Control upaParametros.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel upaParametros;
-
-        /// <summary>
-        /// Control gvParametros.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::DevExpress.Web.Bootstrap.BootstrapGridView gvParametros;
 
         /// <summary>
         /// Control pnlConfiguracionParametrosAdicionales.
@@ -121,6 +85,33 @@ namespace ALE_MexJet.Views.viaticos
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.Bootstrap.BootstrapGridView gvParametrosAdicionales;
+
+        /// <summary>
+        /// Control pnlConfiguracionParametros.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlConfiguracionParametros;
+
+        /// <summary>
+        /// Control upaParametros.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel upaParametros;
+
+        /// <summary>
+        /// Control gvParametros.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::DevExpress.Web.Bootstrap.BootstrapGridView gvParametros;
 
         /// <summary>
         /// Control lblTitulo.

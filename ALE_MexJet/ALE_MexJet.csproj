@@ -1023,6 +1023,7 @@
     <Compile Include="Objetos\TripGuide.cs" />
     <Compile Include="Objetos\Vendedor.cs" />
     <Compile Include="Objetos\VentaFerrys.cs" />
+    <Compile Include="Objetos\ViaticosPiloto.cs" />
     <Compile Include="Objetos\Vuelo.cs" />
     <Compile Include="Presenter\AeronaveRen_Presenter.cs" />
     <Compile Include="Presenter\Ajuste_Presenter.cs" />

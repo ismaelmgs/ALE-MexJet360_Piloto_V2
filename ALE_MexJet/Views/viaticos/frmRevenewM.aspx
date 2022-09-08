@@ -151,11 +151,11 @@
                                     <asp:UpdatePanel ID="upaConceptos" runat="server" UpdateMode="Conditional">
                                         <ContentTemplate>
 
-                                            <div class="row" style="padding-bottom:15px;">
+                                            <%--<div class="row" style="padding-bottom:15px;">
                                                 <div class="col-lg-12" align="right">
                                                     <asp:Button ID="btnNuevoConcepto" runat="server" Text="Agregar Nuevo" CssClass="btn btn-success" OnClick="btnNuevoConcepto_Click" />
                                                 </div>
-                                            </div>
+                                            </div>--%>
 
                                             <div style="height:auto; overflow-y:auto; text-align:center;">
 
@@ -184,8 +184,8 @@
                                                                     <dx:BootstrapButton Text="Actualizar" ID="btnActualiza" runat="server" CommandArgument='<%# Eval("IdConcepto") %>' CommandName="Actualiza" AutoPostBack="true" 
                                                                         ToolTip="Actualiza" SettingsBootstrap-RenderOption="Primary"></dx:BootstrapButton>
 
-                                                                    <asp:Button ID="btnEliminar" runat="server" CommandArgument='<%# Eval("IdConcepto") %>' CommandName="Eliminar" ToolTip="Elimina" 
-                                                                        CssClass="btn btn-danger" Text="Eliminar" OnClientClick="return confirm('¿Desea eliminar el concepto?');" />
+                                                                    <%--<asp:Button ID="btnEliminar" runat="server" CommandArgument='<%# Eval("IdConcepto") %>' CommandName="Eliminar" ToolTip="Elimina" 
+                                                                        CssClass="btn btn-danger" Text="Eliminar" OnClientClick="return confirm('¿Desea eliminar el concepto?');" />--%>
                                                                 </div>
                                                             </DataItemTemplate>
                                                             <CssClasses HeaderCell="spa" />
@@ -203,6 +203,75 @@
                                 </div>
                             </div>
                         </fieldset>
+                    </div>
+                </div>
+            </asp:Panel>
+
+            <asp:Panel ID="pnlConfiguracionParametrosAdicionales" runat="server" Visible="true">
+                <div class="row">
+                    <div class="col-md-12">
+                        <br />
+                        <fieldset class="Personal">
+                            <legend>
+                                <span style="font-family: Helvetica, Arial,sans-serif; text-align: center;">Conceptos Adicionales</span>
+                            </legend>
+                            <div class="row">
+
+                                <div class="col-md-12">
+
+                                    <asp:UpdatePanel ID="upaParametrosAdicionales" runat="server" UpdateMode="Conditional">
+                                        <ContentTemplate>
+
+                                            <div class="row" style="padding-bottom:15px;">
+                                                <div class="col-lg-12" align="right">
+                                                    <asp:Button ID="btnNuevoParametroAdicional" runat="server" Text="Agregar Nuevo" CssClass="btn btn-success" OnClick="btnNuevoParametroAdicional_Click" />
+                                                </div>
+                                            </div>
+
+                                            <div class="table-responsive" style="height: auto;">
+
+                                                 <dx:BootstrapGridView ID="gvParametrosAdicionales" runat="server" KeyFieldName="IdParametro" OnRowCommand="gvParametrosAdicionales_RowCommand">
+                                                    <SettingsSearchPanel Visible="true" ShowApplyButton="true" />
+                                                    <Settings ShowGroupPanel="True" ShowFilterRowMenu="true" />
+                                                    <SettingsAdaptivity AdaptivityMode="HideDataCells" AllowOnlyOneAdaptiveDetailExpanded="true"></SettingsAdaptivity>
+                                                    <SettingsBehavior AllowSort="true" />
+                                            
+                                                    <Columns>
+
+                                                        <dx:BootstrapGridViewDataColumn Caption="Clave" FieldName="Clave" VisibleIndex="1" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" CssClasses-DataCell="dataCell" SortIndex="0" SortOrder="None" Width="20%" />
+                                                        <dx:BootstrapGridViewDataColumn Caption="Descripción" FieldName="Descripcion" VisibleIndex="2" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" CssClasses-DataCell="dataCell" Width="40%" />
+                                                        <dx:BootstrapGridViewDataColumn Caption="Valor" FieldName="Valor" VisibleIndex="3" CssClasses-DataCell="hiddenRow" HeaderBadge-CssClass="hiddenRow" Visible="false" />
+
+                                                        <dx:BootstrapGridViewDataColumn Caption="Acciones" Visible="true" VisibleIndex="4" HorizontalAlign="Center" Width="20%">
+                                                            <DataItemTemplate>
+                                                                <div>
+
+                                                                    <asp:Button ID="btnActualiza" runat="server" CommandArgument='<%# Eval("IdParametro") %>' CommandName="Actualiza" ToolTip="Actualiza" 
+                                                                        CssClass="btn btn-primary" Text="Actualizar" />
+
+                                                                    <asp:Button ID="btnEliminar" runat="server" CommandArgument='<%# Eval("IdParametro") %>' CommandName="Eliminar" ToolTip="Elimina" 
+                                                                        CssClass="btn btn-danger" Text="Eliminar" OnClientClick="return confirm('¿Desea eliminar el parametro ?');" />
+
+                                                                </div>
+                                                            </DataItemTemplate>
+                                                            <CssClasses HeaderCell="spa" />
+                                                        </dx:BootstrapGridViewDataColumn>
+
+                                                        <dx:BootstrapGridViewDataColumn FieldName="IdParametro" VisibleIndex="5" CssClasses-DataCell="hiddenRow" HeaderBadge-CssClass="hiddenRow" Visible="false" />
+                                                    </Columns>
+                                                </dx:BootstrapGridView>
+
+
+
+                                            </div>
+
+                                        </ContentTemplate>
+                                    </asp:UpdatePanel>
+
+                                </div>
+                          </div>
+                        </fieldset>
+                
                     </div>
                 </div>
             </asp:Panel>
@@ -266,83 +335,7 @@
                 </div>
             </asp:Panel>
 
-            <asp:Panel ID="pnlConfiguracionParametrosAdicionales" runat="server" Visible="false">
-                <div class="row">
-                    <div class="col-md-12">
-                        <br />
-                        <fieldset class="Personal">
-                            <legend>
-                                <span style="font-family: Helvetica, Arial,sans-serif; text-align: center;">Parametros Adicionales</span>
-                            </legend>
-                            <div class="row">
-
-                                <div class="col-md-12">
-
-                                    <asp:UpdatePanel ID="upaParametrosAdicionales" runat="server" UpdateMode="Conditional">
-                                        <ContentTemplate>
-
-                                            <div class="row" style="padding-bottom:15px;">
-                                                <div class="col-lg-12" align="right">
-                                                    <asp:Button ID="btnNuevoParametroAdicional" runat="server" Text="Agregar Nuevo" CssClass="btn btn-success" OnClick="btnNuevoParametroAdicional_Click" />
-                                                </div>
-                                            </div>
-
-                                            <div class="table-responsive" style="height: auto;">
-
-                                                 <dx:BootstrapGridView ID="gvParametrosAdicionales" runat="server" KeyFieldName="IdParametro" OnRowCommand="gvParametrosAdicionales_RowCommand">
-                                                    <SettingsSearchPanel Visible="true" ShowApplyButton="true" />
-                                                    <Settings ShowGroupPanel="True" ShowFilterRowMenu="true" />
-                                                    <SettingsAdaptivity AdaptivityMode="HideDataCells" AllowOnlyOneAdaptiveDetailExpanded="true"></SettingsAdaptivity>
-                                                    <SettingsBehavior AllowSort="true" />
-                                            
-                                                    <Columns>
-
-                                                        <dx:BootstrapGridViewDataColumn Caption="Clave" FieldName="Clave" VisibleIndex="1" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" CssClasses-DataCell="dataCell" SortIndex="0" SortOrder="None" Width="20%" />
-                                                        <dx:BootstrapGridViewDataColumn Caption="Descripción" FieldName="Descripcion" VisibleIndex="2" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" CssClasses-DataCell="dataCell" Width="40%" />
-                                                        <dx:BootstrapGridViewDataColumn Caption="Valor" FieldName="Valor" VisibleIndex="3" HorizontalAlign="Right" CssClasses-HeaderCell="centerCell" CssClasses-DataCell="dataCell" Width="20%" />
-
-                                                        <dx:BootstrapGridViewDataColumn Caption="Acciones" Visible="true" VisibleIndex="4" HorizontalAlign="Center" Width="20%">
-                                                            <DataItemTemplate>
-                                                                <div>
-                                                                    <%--<dx:BootstrapButton Text="Actualizar" ID="btnActualiza" runat="server" CommandArgument='<%# Eval("IdParametro") %>' CommandName="Actualiza" AutoPostBack="true" 
-                                                                        ToolTip="Actualiza" SettingsBootstrap-RenderOption="Primary"></dx:BootstrapButton>--%>
-
-                                                                    <%--<dx:BootstrapButton Text="Eliminar" ID="btnEliminar" runat="server" CommandArgument='<%# Eval("IdParametro") %>' CommandName="Eliminar" AutoPostBack="true" 
-                                                                        ToolTip="Elimina" SettingsBootstrap-RenderOption="Danger">
-                                                                        <ClientSideEvents Click="return confirm(Desea borrar el parametro ?);" />
-                                                                    </dx:BootstrapButton>--%>
-
-                                                                    <asp:Button ID="btnActualiza" runat="server" CommandArgument='<%# Eval("IdParametro") %>' CommandName="Actualiza" ToolTip="Actualiza" 
-                                                                        CssClass="btn btn-primary" Text="Actualizar" />
-
-                                                                    <asp:Button ID="btnEliminar" runat="server" CommandArgument='<%# Eval("IdParametro") %>' CommandName="Eliminar" ToolTip="Elimina" 
-                                                                        CssClass="btn btn-danger" Text="Eliminar" OnClientClick="return confirm('¿Desea eliminar el parametro ?');" />
-
-                                                                    
-
-                                                                </div>
-                                                            </DataItemTemplate>
-                                                            <CssClasses HeaderCell="spa" />
-                                                        </dx:BootstrapGridViewDataColumn>
-
-                                                        <dx:BootstrapGridViewDataColumn FieldName="IdParametro" VisibleIndex="5" CssClasses-DataCell="hiddenRow" HeaderBadge-CssClass="hiddenRow" Visible="false" />
-                                                    </Columns>
-                                                </dx:BootstrapGridView>
-
-
-
-                                            </div>
-
-                                        </ContentTemplate>
-                                    </asp:UpdatePanel>
-
-                                </div>
-                          </div>
-                        </fieldset>
-                
-                    </div>
-                </div>
-            </asp:Panel>
+            
 
             <!--Modal Conceptos-->
             <div class="modal fade" data-backdrop="static" data-keyboard="false" tabindex="-1" id="myModalConceptos" role="dialog" aria-hidden="true">
@@ -549,7 +542,7 @@
                                 </div>
                                 <div class="col-md-1">&nbsp;&nbsp;&nbsp;</div>
                             </div>
-                            <div class="row">
+                            <div class="row" style="display:none;">
                                 <div class="col-md-2">&nbsp;&nbsp;&nbsp;</div>
                                 <div class="col-md-3" align="right" style="vertical-align:middle; padding:5px 2px 5px 2px;">
                                     <span>Valor:</span>
@@ -557,7 +550,7 @@
                                 <div class="col-md-6" align="left" style="padding:5px 2px 5px 2px;">
                                     <asp:TextBox ID="txtValorParaAd" runat="server" Width="100%" style="text-align:right;" CssClass="inputText" data-error-msg="Ingrese el Valor"></asp:TextBox>
                                     <asp:RegularExpressionValidator ID="RegexDecimal" runat="server" ValidationExpression="((\d+)((\.\d{1,2})?))$" ErrorMessage="Ingrese un valor decimal ó entero" 
-                                        ControlToValidate="txtValorParaAd" ForeColor="Red" Font-Size="9pt" />
+                                        ControlToValidate="txtValorParaAd" ForeColor="Red" Font-Size="9pt" Enabled="false" />
                                 </div>
                                 <div class="col-md-1">&nbsp;&nbsp;&nbsp;</div>
                             </div>

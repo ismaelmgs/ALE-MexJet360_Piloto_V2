@@ -33,14 +33,14 @@ namespace ALE_MexJet.Views.viaticos
             
 
             oPresenter = new RevenewM_Presenter(this, new DBRevenewM());
-            //gvConceptos.SettingsPager.Position = PagerPosition.TopAndBottom;
-            //gvConceptos.SettingsPager.ShowDisabledButtons = true;
-            //gvConceptos.SettingsPager.ShowNumericButtons = true;
-            //gvConceptos.SettingsPager.ShowSeparators = true;
-            //gvConceptos.SettingsPager.Summary.Visible = true;
-            //gvConceptos.SettingsPager.PageSizeItemSettings.Visible = true;
-            //gvConceptos.SettingsPager.PageSizeItemSettings.Position = PagerPageSizePosition.Right;
-            //gvConceptos.SettingsText.SearchPanelEditorNullText = "Ingresa la información a buscar:";
+            gvConceptos.SettingsPager.Position = PagerPosition.TopAndBottom;
+            gvConceptos.SettingsPager.ShowDisabledButtons = true;
+            gvConceptos.SettingsPager.ShowNumericButtons = true;
+            gvConceptos.SettingsPager.ShowSeparators = true;
+            gvConceptos.SettingsPager.Summary.Visible = true;
+            gvConceptos.SettingsPager.PageSizeItemSettings.Visible = true;
+            gvConceptos.SettingsPager.PageSizeItemSettings.Position = PagerPageSizePosition.Right;
+            gvConceptos.SettingsText.SearchPanelEditorNullText = "Ingresa la información a buscar:";
 
             gvParametros.SettingsPager.Position = PagerPosition.TopAndBottom;
             gvParametros.SettingsPager.ShowDisabledButtons = true;
@@ -51,22 +51,24 @@ namespace ALE_MexJet.Views.viaticos
             gvParametros.SettingsPager.PageSizeItemSettings.Position = PagerPageSizePosition.Right;
             gvParametros.SettingsText.SearchPanelEditorNullText = "Ingresa la información a buscar:";
 
-            //gvParametrosAdicionales.SettingsPager.Position = PagerPosition.TopAndBottom;
-            //gvParametrosAdicionales.SettingsPager.ShowDisabledButtons = true;
-            //gvParametrosAdicionales.SettingsPager.ShowNumericButtons = true;
-            //gvParametrosAdicionales.SettingsPager.ShowSeparators = true;
-            //gvParametrosAdicionales.SettingsPager.Summary.Visible = true;
-            //gvParametrosAdicionales.SettingsPager.PageSizeItemSettings.Visible = true;
-            //gvParametrosAdicionales.SettingsPager.PageSizeItemSettings.Position = PagerPageSizePosition.Right;
-            //gvParametrosAdicionales.SettingsText.SearchPanelEditorNullText = "Ingresa la información a buscar:";
+            gvParametrosAdicionales.SettingsPager.Position = PagerPosition.TopAndBottom;
+            gvParametrosAdicionales.SettingsPager.ShowDisabledButtons = true;
+            gvParametrosAdicionales.SettingsPager.ShowNumericButtons = true;
+            gvParametrosAdicionales.SettingsPager.ShowSeparators = true;
+            gvParametrosAdicionales.SettingsPager.Summary.Visible = true;
+            gvParametrosAdicionales.SettingsPager.PageSizeItemSettings.Visible = true;
+            gvParametrosAdicionales.SettingsPager.PageSizeItemSettings.Position = PagerPageSizePosition.Right;
+            gvParametrosAdicionales.SettingsText.SearchPanelEditorNullText = "Ingresa la información a buscar:";
+
+            if (eSearchObj != null)
+                eSearchObj(sender, e);
+
+            if (eSearchCuentasGrales != null)
+                eSearchCuentasGrales(sender, e);
 
             if (!IsPostBack)
             {
-                if (eSearchObj != null)
-                    eSearchObj(sender, e);
-
-                if (eSearchCuentasGrales != null)
-                    eSearchCuentasGrales(sender, e);
+                
             }
         }
         protected void btnActualizarConceptos_Click(object sender, EventArgs e)

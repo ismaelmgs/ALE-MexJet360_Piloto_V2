@@ -96,13 +96,40 @@ namespace ALE_MexJet.Views.viaticos
         protected global::System.Web.UI.WebControls.Panel pnlCalcularViaticos;
 
         /// <summary>
-        /// Control hdnIdBitacora.
+        /// Control readCvePiloto.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hdnIdBitacora;
+        protected global::System.Web.UI.WebControls.Label readCvePiloto;
+
+        /// <summary>
+        /// Control hdnFechaInicio.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdnFechaInicio;
+
+        /// <summary>
+        /// Control hdnFechaFinal.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdnFechaFinal;
+
+        /// <summary>
+        /// Control readPeríodo.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label readPeríodo;
 
         /// <summary>
         /// Control readPiloto.
@@ -114,31 +141,49 @@ namespace ALE_MexJet.Views.viaticos
         protected global::System.Web.UI.WebControls.Label readPiloto;
 
         /// <summary>
-        /// Control readCvePiloto.
+        /// Control gvNacionales.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label readCvePiloto;
+        protected global::DevExpress.Web.Bootstrap.BootstrapGridView gvNacionales;
 
         /// <summary>
-        /// Control readFechaInicio.
+        /// Control gvHorarios.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label readFechaInicio;
+        protected global::DevExpress.Web.Bootstrap.BootstrapGridView gvHorarios;
 
         /// <summary>
-        /// Control readFechaFin.
+        /// Control gvInternacionales.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label readFechaFin;
+        protected global::DevExpress.Web.Bootstrap.BootstrapGridView gvInternacionales;
+
+        /// <summary>
+        /// Control gvAdicionales.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::DevExpress.Web.Bootstrap.BootstrapGridView gvAdicionales;
+
+        /// <summary>
+        /// Control gvConteoDias.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::DevExpress.Web.Bootstrap.BootstrapGridView gvConteoDias;
 
         /// <summary>
         /// Control divViaticos.
@@ -184,5 +229,59 @@ namespace ALE_MexJet.Views.viaticos
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.Bootstrap.BootstrapButton btnCancelar;
+
+        /// <summary>
+        /// Control ppAlert.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxPopupControl ppAlert;
+
+        /// <summary>
+        /// Control ASPxPanel2.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxPanel ASPxPanel2;
+
+        /// <summary>
+        /// Control ASPxImage2.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxImage ASPxImage2;
+
+        /// <summary>
+        /// Control tbLogin.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxTextBox tbLogin;
+
+        /// <summary>
+        /// Control lbl.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxLabel lbl;
+
+        /// <summary>
+        /// Control btOK.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxButton btOK;
     }
 }

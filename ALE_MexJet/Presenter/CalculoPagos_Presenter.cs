@@ -22,6 +22,12 @@ namespace ALE_MexJet.Presenter
             oIView.eSearchConceptos += SearchConceptos_Presenter;
             oIView.eSearchCalculos += SearchCalculos_Presenter;
             oIView.eGetParams += eGetParams_Presenter;
+            oIView.eGetAdicionales += GetAdicionales_Presenter;
+        }
+
+        protected void GetAdicionales_Presenter(object sender, EventArgs e)
+        {
+            oIView.LoadsGrids(oIGestCat.ObtieneConceptosAdicionales());
         }
 
         protected override void SearchObj_Presenter(object sender, EventArgs e)
@@ -2329,6 +2335,7 @@ namespace ALE_MexJet.Presenter
                 dt.Columns.Add("ComidasInt", typeof(int));
                 dt.Columns.Add("CenasNal", typeof(int));
                 dt.Columns.Add("CenasInt", typeof(int));
+                dt.Columns.Add("Piloto", typeof(string));
 
                 foreach (DataRow row in dtPilotos.Rows)
                 {
@@ -2362,6 +2369,7 @@ namespace ALE_MexJet.Presenter
                     dr["ComidasInt"] = iComInt;
                     dr["CenasNal"] = iCenNal;
                     dr["CenasINT"] = iCenInt;
+                    dr["Piloto"] = row["Piloto"];
 
                     dt.Rows.Add(dr);
                 }
@@ -2377,6 +2385,24 @@ namespace ALE_MexJet.Presenter
         protected void eGetParams_Presenter(object sender, EventArgs e)
         {
             oIView.dsParams = oIGestCat.ObtieneParametrosViaticos();
+        }
+
+        protected override void SaveObj_Presenter(object sender, EventArgs e)
+        {
+            oIView.iIdPeriodo = oIGestCat.SetInsertaPeriodo(oIView.oPer);
+
+            if (oIView.iIdPeriodo != 0)
+            {
+                //Guarda conceptos, adicionales y vuelos
+                if (oIView.oLst.Count > 0)
+                {
+                    if (oIGestCat.SetInsertaConceptosPilotoVitacora(oIView.oLst, oIView.iIdPeriodo))
+                        if (oIGestCat.SetInsertaVuelosPiernasPiloto(oIView.oLstVP, oIView.iIdPeriodo))
+                            oIView.sOk = "ok";
+                        else
+                            oIView.sOk = "error";
+                }
+            }
         }
     }
 }
