@@ -391,6 +391,7 @@
     <Content Include="SwitcherResources\Scripts\popper.min.js" />
     <Content Include="SwitcherResources\Themes.xml" />
     <Content Include="Views\AtencionClientes\frmTripGuide.aspx" />
+    <Content Include="Views\bitacoras\AltaBitacora.aspx" />
     <Content Include="Views\Catalogos\frmFactoresFijos.aspx" />
     <Content Include="Views\Catalogos\frmListaDifusion.aspx" />
     <Content Include="Views\Catalogos\frmMembresias.aspx" />
@@ -437,7 +438,6 @@
     </Content>
     <None Include="Service References\wsSyteline\ws_SyteLine1.wsdl" />
     <Content Include="SwitcherResources\Content\LICENSE" />
-    <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Views\Consultas\CristalReport\ReporteEstatusHoras.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>ReporteEstatusHoras.cs</LastGenOutput>
@@ -706,7 +706,6 @@
     <Content Include="Views\viaticos\frmCalculoPagos.aspx" />
     <Content Include="Views\viaticos\frmConsultaVuelos.aspx" />
     <Content Include="Views\viaticos\frmRevenewM.aspx" />
-    <Content Include="Views\viaticos\frmTest.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -1190,6 +1189,13 @@
     </Compile>
     <Compile Include="Views\AtencionClientes\frmTripGuide.aspx.designer.cs">
       <DependentUpon>frmTripGuide.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\bitacoras\AltaBitacora.aspx.cs">
+      <DependentUpon>AltaBitacora.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\bitacoras\AltaBitacora.aspx.designer.cs">
+      <DependentUpon>AltaBitacora.aspx</DependentUpon>
     </Compile>
     <Compile Include="Views\Catalogos\frmAeronave.aspx.cs">
       <DependentUpon>frmAeronave.aspx</DependentUpon>
@@ -1926,13 +1932,6 @@
     </Compile>
     <Compile Include="Views\viaticos\frmRevenewM.aspx.designer.cs">
       <DependentUpon>frmRevenewM.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Views\viaticos\frmTest.aspx.cs">
-      <DependentUpon>frmTest.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Views\viaticos\frmTest.aspx.designer.cs">
-      <DependentUpon>frmTest.aspx</DependentUpon>
     </Compile>
     <Content Include="App_Code\DataSource.cs" />
     <Compile Include="ALE_Main.Master.cs">

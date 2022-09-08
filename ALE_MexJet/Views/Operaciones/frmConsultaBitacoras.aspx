@@ -82,7 +82,17 @@
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-
+    <dx:PanelContent ID="PanelContent1" runat="server" BackColor="White" Style="border-radius: 21px;">
+        <PanelCollection>
+            <dx:PanelContent>
+                <div class="row header1">
+                    <div class="col-md-12">
+                        <span class="FTitulo">&nbsp;&nbsp; Buscar Vuelos</span>
+                    </div>
+                </div>
+            </dx:PanelContent>
+        <PanelCollection>
+    </dx:PanelContent>
     <asp:Panel ID="pnlBusqueda" runat="server" Visible="true">
          <div class="row">
             <div class="col-md-12">
