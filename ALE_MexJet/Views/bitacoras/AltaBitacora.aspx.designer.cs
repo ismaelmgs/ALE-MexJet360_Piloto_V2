@@ -33,6 +33,15 @@ namespace ALE_MexJet.Views.bitacoras
         protected global::System.Web.UI.WebControls.Panel pnlBusqueda;
 
         /// <summary>
+        /// Control txtBusqueda.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::DevExpress.Web.Bootstrap.BootstrapTextBox txtBusqueda;
+
+        /// <summary>
         /// Control ddlBusquedaBitacora.
         /// </summary>
         /// <remarks>
@@ -69,22 +78,49 @@ namespace ALE_MexJet.Views.bitacoras
         protected global::DevExpress.Web.ASPxButton btnExcelBitacora;
 
         /// <summary>
+        /// Control upaBitacoras.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel upaBitacoras;
+
+        /// <summary>
+        /// Control gvBitacoras.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::DevExpress.Web.Bootstrap.BootstrapGridView gvBitacoras;
+
+        /// <summary>
+        /// Control ppBitacora.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxPopupControl ppBitacora;
+
+        /// <summary>
         /// Control txtMatricula.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtMatricula;
+        protected global::DevExpress.Web.Bootstrap.BootstrapTextBox txtMatricula;
 
         /// <summary>
-        /// Control txtTripNum.
+        /// Control txtTrip.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtTripNum;
+        protected global::DevExpress.Web.Bootstrap.BootstrapTextBox txtTrip;
 
         /// <summary>
         /// Control txtLegNum.
@@ -93,7 +129,7 @@ namespace ALE_MexJet.Views.bitacoras
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtLegNum;
+        protected global::DevExpress.Web.Bootstrap.BootstrapTextBox txtLegNum;
 
         /// <summary>
         /// Control txtFolioReal.
@@ -102,16 +138,16 @@ namespace ALE_MexJet.Views.bitacoras
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtFolioReal;
+        protected global::DevExpress.Web.Bootstrap.BootstrapTextBox txtFolioReal;
 
         /// <summary>
-        /// Control txtVuelocontratoId.
+        /// Control txtVueloContratoId.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtVuelocontratoId;
+        protected global::DevExpress.Web.Bootstrap.BootstrapTextBox txtVueloContratoId;
 
         /// <summary>
         /// Control txtPilotoId.
@@ -120,7 +156,7 @@ namespace ALE_MexJet.Views.bitacoras
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtPilotoId;
+        protected global::DevExpress.Web.Bootstrap.BootstrapTextBox txtPilotoId;
 
         /// <summary>
         /// Control txtCopilotoId.
@@ -129,16 +165,16 @@ namespace ALE_MexJet.Views.bitacoras
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtCopilotoId;
+        protected global::DevExpress.Web.Bootstrap.BootstrapTextBox txtCopilotoId;
 
         /// <summary>
-        /// Control txtFechaBitacoras.
+        /// Control txtFecha.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtFechaBitacoras;
+        protected global::DevExpress.Web.Bootstrap.BootstrapTextBox txtFecha;
 
         /// <summary>
         /// Control txtOrigen.
@@ -147,7 +183,7 @@ namespace ALE_MexJet.Views.bitacoras
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtOrigen;
+        protected global::DevExpress.Web.Bootstrap.BootstrapTextBox txtOrigen;
 
         /// <summary>
         /// Control txtDestino.
@@ -156,7 +192,7 @@ namespace ALE_MexJet.Views.bitacoras
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtDestino;
+        protected global::DevExpress.Web.Bootstrap.BootstrapTextBox txtDestino;
 
         /// <summary>
         /// Control txtOrigenVuelo.
@@ -165,7 +201,7 @@ namespace ALE_MexJet.Views.bitacoras
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtOrigenVuelo;
+        protected global::DevExpress.Web.Bootstrap.BootstrapTextBox txtOrigenVuelo;
 
         /// <summary>
         /// Control txtDestinoVuelo.
@@ -174,16 +210,16 @@ namespace ALE_MexJet.Views.bitacoras
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtDestinoVuelo;
+        protected global::DevExpress.Web.Bootstrap.BootstrapTextBox txtDestinoVuelo;
 
         /// <summary>
-        /// Control txtOrigewnCalzo.
+        /// Control txtOrigenCalzo.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtOrigewnCalzo;
+        protected global::DevExpress.Web.Bootstrap.BootstrapTextBox txtOrigenCalzo;
 
         /// <summary>
         /// Control txtDestinoCalzo.
@@ -192,16 +228,16 @@ namespace ALE_MexJet.Views.bitacoras
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtDestinoCalzo;
+        protected global::DevExpress.Web.Bootstrap.BootstrapTextBox txtDestinoCalzo;
 
         /// <summary>
-        /// Control TextBox11.
+        /// Control txtConsumoOrigen.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox11;
+        protected global::DevExpress.Web.Bootstrap.BootstrapTextBox txtConsumoOrigen;
 
         /// <summary>
         /// Control txtConsumoDestino.
@@ -210,7 +246,7 @@ namespace ALE_MexJet.Views.bitacoras
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtConsumoDestino;
+        protected global::DevExpress.Web.Bootstrap.BootstrapTextBox txtConsumoDestino;
 
         /// <summary>
         /// Control txtCantPax.
@@ -219,7 +255,7 @@ namespace ALE_MexJet.Views.bitacoras
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtCantPax;
+        protected global::DevExpress.Web.Bootstrap.BootstrapTextBox txtCantPax;
 
         /// <summary>
         /// Control txtTipo.
@@ -228,24 +264,96 @@ namespace ALE_MexJet.Views.bitacoras
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtTipo;
+        protected global::DevExpress.Web.Bootstrap.BootstrapTextBox txtTipo;
 
         /// <summary>
-        /// Control btnGuardarBitacora.
+        /// Control txtLongNum.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::DevExpress.Web.Bootstrap.BootstrapButton btnGuardarBitacora;
+        protected global::DevExpress.Web.Bootstrap.BootstrapTextBox txtLongNum;
 
         /// <summary>
-        /// Control btnCerrarModal.
+        /// Control txtLegId.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::DevExpress.Web.Bootstrap.BootstrapButton btnCerrarModal;
+        protected global::DevExpress.Web.Bootstrap.BootstrapTextBox txtLegId;
+
+        /// <summary>
+        /// Control btnOk.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxButton btnOk;
+
+        /// <summary>
+        /// Control btnGuardar.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxButton btnGuardar;
+
+        /// <summary>
+        /// Control ppAlert.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxPopupControl ppAlert;
+
+        /// <summary>
+        /// Control ASPxPanel2.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxPanel ASPxPanel2;
+
+        /// <summary>
+        /// Control ASPxImage2.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxImage ASPxImage2;
+
+        /// <summary>
+        /// Control tbLogin.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxTextBox tbLogin;
+
+        /// <summary>
+        /// Control lbl.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxLabel lbl;
+
+        /// <summary>
+        /// Control btOK.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxButton btOK;
     }
 }

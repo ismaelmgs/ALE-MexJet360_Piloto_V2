@@ -438,6 +438,7 @@
     </Content>
     <None Include="Service References\wsSyteline\ws_SyteLine1.wsdl" />
     <Content Include="SwitcherResources\Content\LICENSE" />
+    <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Views\Consultas\CristalReport\ReporteEstatusHoras.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>ReporteEstatusHoras.cs</LastGenOutput>
@@ -745,6 +746,7 @@
     <Compile Include="DomainModel\DBBaseFlight.cs" />
     <Compile Include="DomainModel\DBBaseFPK.cs" />
     <Compile Include="DomainModel\DBBaseSAP.cs" />
+    <Compile Include="DomainModel\DBBitacoras.cs" />
     <Compile Include="DomainModel\DBCalculoPagos.cs" />
     <Compile Include="DomainModel\DBConsultaBitacoras.cs" />
     <Compile Include="DomainModel\DBConsultaContrato.cs" />
@@ -852,6 +854,7 @@
     <Compile Include="Interfaces\IViewAutorizacionMembresias.cs" />
     <Compile Include="Interfaces\IViewBitacora.cs" />
     <Compile Include="Interfaces\IViewBitacoraAudit.cs" />
+    <Compile Include="Interfaces\IViewBitacoras.cs" />
     <Compile Include="Interfaces\IViewCalculoPagos.cs" />
     <Compile Include="Interfaces\IViewCasos.cs" />
     <Compile Include="Interfaces\IViewConsultaBitacoras.cs" />
@@ -941,6 +944,7 @@
     <Compile Include="Objetos\AppNotification.cs" />
     <Compile Include="Objetos\Bitacora.cs" />
     <Compile Include="Objetos\BitacoraAudit.cs" />
+    <Compile Include="Objetos\Bitacoras.cs" />
     <Compile Include="Objetos\BitacoraVuelo.cs" />
     <Compile Include="Objetos\CalculoPagos.cs" />
     <Compile Include="Objetos\Casos.cs" />
@@ -1032,6 +1036,7 @@
     <Compile Include="Presenter\Autorizacion_Presenter.cs" />
     <Compile Include="Presenter\BitacoraAudit_Presenter.cs" />
     <Compile Include="Presenter\BitacoraPresenter.cs" />
+    <Compile Include="Presenter\Bitacoras_Presenter.cs" />
     <Compile Include="Presenter\CalculoPagos_Presenter.cs" />
     <Compile Include="Presenter\Casos_Presenter.cs" />
     <Compile Include="Presenter\CombustibleMensualInternacional_Presenter.cs" />
