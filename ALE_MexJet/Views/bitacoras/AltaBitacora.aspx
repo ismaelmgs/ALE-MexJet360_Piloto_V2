@@ -153,7 +153,7 @@
 
                                     <dx:BootstrapGridViewDataColumn Caption="Serie" FieldName="AeronaveSerie" VisibleIndex="1" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" CssClasses-DataCell="dataCell" SortIndex="0" SortOrder="None" />
                                     <dx:BootstrapGridViewDataColumn Caption="Matricula" FieldName="AeronaveMatricula" VisibleIndex="2" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" CssClasses-DataCell="dataCell" />
-                                    <dx:BootstrapGridViewDataColumn Caption="VueloClienteId" FieldName="VueloClienteId" VisibleIndex="3" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" CssClasses-DataCell="dataCell" />
+                                    <dx:BootstrapGridViewDataColumn Caption="VueloClienteId" FieldName="VueloClienteId" Visible="false" VisibleIndex="3" CssClasses-DataCell="hiddenRow" HeaderBadge-CssClass="hiddenRow" />
                                     <dx:BootstrapGridViewDataColumn Caption="VueloContratoId" FieldName="VueloContratoId" VisibleIndex="4" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" CssClasses-DataCell="dataCell" />
                                     <dx:BootstrapGridViewDataColumn Caption="PilotoId" FieldName="PilotoId" VisibleIndex="5" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" CssClasses-DataCell="dataCell" />
                                     <dx:BootstrapGridViewDataColumn Caption="CopilotoId" FieldName="CopilotoId" VisibleIndex="6" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" CssClasses-DataCell="dataCell" />
@@ -161,34 +161,31 @@
                                     <dx:BootstrapGridViewDataColumn Caption="Origen" FieldName="Origen" VisibleIndex="8" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" CssClasses-DataCell="dataCell" />
                                     <dx:BootstrapGridViewDataColumn Caption="Destino" FieldName="Destino" VisibleIndex="9" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" CssClasses-DataCell="dataCell" />
                                     <dx:BootstrapGridViewDataColumn Caption="OrigenVuelo" FieldName="OrigenVuelo" VisibleIndex="10" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" CssClasses-DataCell="dataCell" />
-                                    <dx:BootstrapGridViewDataColumn Caption="OrigenCalzo" FieldName="OrigenCalzo" VisibleIndex="11" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" CssClasses-DataCell="dataCell" />
+                                    <dx:BootstrapGridViewDataColumn Caption="OrigenCalzo" FieldName="OrigenCalzo" VisibleIndex="11" Visible="false" HorizontalAlign="Center" CssClasses-DataCell="hiddenRow" HeaderBadge-CssClass="hiddenRow" />
                                     <dx:BootstrapGridViewDataColumn Caption="ConsumoOri" FieldName="ConsumoOri" VisibleIndex="12" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" CssClasses-DataCell="dataCell" />
                                     <dx:BootstrapGridViewDataColumn Caption="CantPax" FieldName="CantPax" VisibleIndex="13" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" CssClasses-DataCell="dataCell" />
                                     <dx:BootstrapGridViewDataColumn Caption="Tipo" FieldName="Tipo" VisibleIndex="14" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" CssClasses-DataCell="dataCell" />
                                     <dx:BootstrapGridViewDataColumn Caption="DestinoVuelo" FieldName="DestinoVuelo" VisibleIndex="15" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" CssClasses-DataCell="dataCell" />
-                                    <dx:BootstrapGridViewDataColumn Caption="DestinoCalzo" FieldName="DestinoCalzo" VisibleIndex="16" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" CssClasses-DataCell="dataCell" />
+                                    <dx:BootstrapGridViewDataColumn Caption="DestinoCalzo" FieldName="DestinoCalzo" VisibleIndex="16" Visible="false" CssClasses-DataCell="hiddenRow" HeaderBadge-CssClass="hiddenRow" />
                                     <dx:BootstrapGridViewDataColumn Caption="ConsumoDes" FieldName="ConsumoDes" VisibleIndex="17" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" CssClasses-DataCell="dataCell" />
                                     <dx:BootstrapGridViewDataColumn Caption="TripNum" FieldName="TripNum" VisibleIndex="18" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" CssClasses-DataCell="dataCell" />
                                     <dx:BootstrapGridViewDataColumn Caption="Leg_Num" FieldName="Leg_Num" VisibleIndex="19" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" CssClasses-DataCell="dataCell" />
-                                    <dx:BootstrapGridViewDataColumn Caption="LogNum" FieldName="LogNum" VisibleIndex="20" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" CssClasses-DataCell="dataCell" />
+                                    <dx:BootstrapGridViewDataColumn Caption="LogNum" FieldName="LogNum" VisibleIndex="20" Visible="false" CssClasses-DataCell="hiddenRow" HeaderBadge-CssClass="hiddenRow" />
                                     <dx:BootstrapGridViewDataColumn Caption="LegId" FieldName="LegId" VisibleIndex="21" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" CssClasses-DataCell="dataCell" />
                                     <dx:BootstrapGridViewDataColumn Caption="FolioReal" FieldName="FolioReal" VisibleIndex="22" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" CssClasses-DataCell="dataCell" />
 
                                     <%--<dx:BootstrapGridViewDataColumn Caption="Valor" FieldName="Valor" VisibleIndex="3" CssClasses-DataCell="hiddenRow" HeaderBadge-CssClass="hiddenRow" Visible="false" />--%>
 
-                                    <dx:BootstrapGridViewDataColumn Caption="Acciones" Visible="true" VisibleIndex="23" HorizontalAlign="Center" Width="20%">
+                                    <dx:BootstrapGridViewDataColumn Caption="Acciones" Visible="true" VisibleIndex="23" HorizontalAlign="Center">
                                         <DataItemTemplate>
+
                                             <div>
-
-                                                <asp:Button ID="btnActualiza" runat="server" CommandArgument='<%# Eval("IdBitacora") %>' CommandName="Actualiza" ToolTip="Actualiza" 
-                                                    CssClass="btn btn-primary" Text="Actualizar" />
-
-                                                <%--<asp:Button ID="btnEliminar" runat="server" CommandArgument='<%# Eval("IdParametro") %>' CommandName="Eliminar" ToolTip="Elimina" 
-                                                    CssClass="btn btn-danger" Text="Eliminar" OnClientClick="return confirm('¿Desea eliminar el parametro ?');" />--%>
-
+                                                <dx:BootstrapButton Text="Actualizar" ID="btnActualizar" runat="server" CommandArgument='<%# Eval("IdBitacora") %>' CommandName="Actualiza" AutoPostBack="true" 
+                                                    ToolTip="Actualiza" SettingsBootstrap-RenderOption="Primary"></dx:BootstrapButton>
                                             </div>
+
                                         </DataItemTemplate>
-                                        <%--<CssClasses HeaderCell="spa" />--%>
+                                        <CssClasses HeaderCell="spa" />
                                     </dx:BootstrapGridViewDataColumn>
                                 </Columns>
                             </dx:BootstrapGridView>

@@ -40,7 +40,7 @@ namespace ALE_MexJet.DomainModel
                                                                           "@CantPax", oB.SCantPax.I(),
                                                                           "@Tipo", oB.STipo,
                                                                           "@DestinoVuelo", oB.DtDestinoVuelo,
-                                                                          "@DestinoCalzo", oB.SDestinoCalzo,
+                                                                          "@DestinoCalzo", oB.SDestinoCalzo.Dt(),
                                                                           "@ConsumoDes", oB.SConsumoDestino.I(),
                                                                           "@LogNum", oB.SLongNum,
                                                                           "@TripNum", oB.LTripNum,
