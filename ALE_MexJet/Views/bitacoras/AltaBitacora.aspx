@@ -106,7 +106,7 @@
                             </dx:BootstrapTextBox>
                         </div>
                         <div class="col-sm-2" align="center">
-                            <dx:BootstrapComboBox ID="ddlBusquedaBitacora" runat="server" Visible="false">
+                            <dx:BootstrapComboBox ID="ddlBusquedaBitacora" runat="server" Visible="true">
                                 <Items>
                                     <dx:BootstrapListEditItem Value="" Text=".:Seleccione:." Selected="true"></dx:BootstrapListEditItem>
                                     <dx:BootstrapListEditItem Value="1" Text="Trip"></dx:BootstrapListEditItem>
