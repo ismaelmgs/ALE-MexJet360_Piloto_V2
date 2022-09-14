@@ -18,10 +18,10 @@ namespace ALE_MexJet.Objetos
         private DateTime _dtFecha;
         private string _sOrigen = string.Empty;
         private string _sDestino = string.Empty;
-        private string _sOrigenVuelo = string.Empty;
+        private DateTime _dtOrigenVuelo;
         private DateTime _dtDestinoVuelo;
         private DateTime _dtOrigenCalzo;
-        private string _sDestinoCalzo = string.Empty;
+        private DateTime _dtDestinoCalzo;
         private string _sConsumoOrigen = string.Empty;
         private string _sConsumoDestino = string.Empty;
         private string _sCantPax = string.Empty;
@@ -40,10 +40,8 @@ namespace ALE_MexJet.Objetos
         public DateTime DtFecha { get => _dtFecha; set => _dtFecha = value; }
         public string SOrigen { get => _sOrigen; set => _sOrigen = value; }
         public string SDestino { get => _sDestino; set => _sDestino = value; }
-        public string SOrigenVuelo { get => _sOrigenVuelo; set => _sOrigenVuelo = value; }
         public DateTime DtDestinoVuelo { get => _dtDestinoVuelo; set => _dtDestinoVuelo = value; }
         public DateTime DtOrigenCalzo { get => _dtOrigenCalzo; set => _dtOrigenCalzo = value; }
-        public string SDestinoCalzo { get => _sDestinoCalzo; set => _sDestinoCalzo = value; }
         public string SConsumoOrigen { get => _sConsumoOrigen; set => _sConsumoOrigen = value; }
         public string SConsumoDestino { get => _sConsumoDestino; set => _sConsumoDestino = value; }
         public string SCantPax { get => _sCantPax; set => _sCantPax = value; }
@@ -51,5 +49,7 @@ namespace ALE_MexJet.Objetos
         public string SUsuario { get => _sUsuario; set => _sUsuario = value; }
         public string SLongNum { get => _sLongNum; set => _sLongNum = value; }
         public long LLegId { get => _lLegId; set => _lLegId = value; }
+        public DateTime DtOrigenVuelo { get => _dtOrigenVuelo; set => _dtOrigenVuelo = value; }
+        public DateTime DtDestinoCalzo { get => _dtDestinoCalzo; set => _dtDestinoCalzo = value; }
     }
 }

@@ -33,11 +33,15 @@ namespace ALE_MexJet.Views.bitacoras
                 sParametro = "";
                 if (eSearchObj != null)
                     eSearchObj(sender, e);
+
+                if (eSearchTipo != null)
+                    eSearchTipo(sender, e);
             }
         }
 
         protected void btnNuevaBitacora_Click(object sender, EventArgs e)
         {
+            LimpiarControles();
             ppBitacora.ShowOnPageLoad = true;
         }
 
@@ -47,6 +51,7 @@ namespace ALE_MexJet.Views.bitacoras
             {
                 if (e.CommandArgs.CommandName.S() == "Actualiza")
                 {
+                    LimpiarControles();
                     int index = e.VisibleIndex.I();
                     int iIdBitacora = gvBitacoras.GetRowValues(index, "IdBitacora").S().I();
                     string[] fieldValues = { "AeronaveSerie", "AeronaveMatricula", "VueloClienteId", "VueloContratoId", "PilotoId", "CopilotoId", "Fecha", "Origen", "Destino", "OrigenVuelo", "OrigenCalzo", 
@@ -60,16 +65,16 @@ namespace ALE_MexJet.Views.bitacoras
                         txtVueloContratoId.Text = oB[3].S();
                         txtPilotoId.Text = oB[4].S();
                         txtCopilotoId.Text = oB[5].S();
-                        txtFecha.Text = oB[6].S();
+                        txtFecha.Value = oB[6].S();
                         txtOrigen.Text = oB[7].S();
                         txtDestino.Text = oB[8].S();
-                        txtOrigenVuelo.Text = oB[9].S();
-                        txtOrigenCalzo.Text = oB[10].S();
+                        txtOrigenVuelo.Value = oB[9].S();
+                        txtOrigenCalzo.Value = oB[10].S();
                         txtConsumoOrigen.Text = oB[11].S();
                         txtCantPax.Text = oB[12].S();
-                        txtTipo.Text = oB[13].S();
-                        txtDestinoVuelo.Text = oB[14].S();
-                        txtDestinoCalzo.Text = oB[15].S();
+                        ddlTipo.Value = oB[13].S();
+                        txtDestinoVuelo.Value = oB[14].S();
+                        txtDestinoCalzo.Value = oB[15].S();
                         txtConsumoDestino.Text = oB[16].S();
                         txtTrip.Text = oB[17].S();
                         txtLegNum.Text = oB[18].S();
@@ -98,6 +103,44 @@ namespace ALE_MexJet.Views.bitacoras
                 throw ex;
             }
         }
+        public void LoadTipo(DataTable dt)
+        {
+            try
+            {
+                ddlTipo.DataSource = dt;
+                ddlTipo.ValueField = "tipo";
+                ddlTipo.TextField = "tipo";
+                ddlTipo.DataBind();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public void LimpiarControles()
+        {
+            txtMatricula.Text = string.Empty;
+            txtVueloContratoId.Text = string.Empty;
+            txtPilotoId.Text = string.Empty;
+            txtCopilotoId.Text = string.Empty;
+            txtFecha.Value = string.Empty;
+            txtOrigen.Text = string.Empty;
+            txtDestino.Text = string.Empty;
+            txtOrigenVuelo.Value = string.Empty;
+            txtOrigenCalzo.Value = string.Empty;
+            txtConsumoOrigen.Text = string.Empty;
+            txtCantPax.Text = string.Empty;
+            ddlTipo.SelectedIndex = -1;
+            txtDestinoVuelo.Value = string.Empty;
+            txtDestinoCalzo.Value = string.Empty;
+            txtConsumoDestino.Text = string.Empty;
+            txtTrip.Text = string.Empty;
+            txtLegNum.Text = string.Empty;
+            txtLongNum.Text = string.Empty;
+            txtLegId.Text = string.Empty;
+            txtFolioReal.Text = string.Empty;
+        }
 
         Bitacoras_Presenter oPresenter;
         public event EventHandler eNewObj;
@@ -105,6 +148,7 @@ namespace ALE_MexJet.Views.bitacoras
         public event EventHandler eSaveObj;
         public event EventHandler eDeleteObj;
         public event EventHandler eSearchObj;
+        public event EventHandler eSearchTipo;
 
         public int iOk
         {
@@ -129,17 +173,17 @@ namespace ALE_MexJet.Views.bitacoras
                 oBit.SVueloContratoId = txtVueloContratoId.Text;
                 oBit.SPilotoId = txtPilotoId.Text;
                 oBit.SCopilotoId = txtCopilotoId.Text;
-                oBit.DtFecha = txtFecha.Text.Dt();
+                oBit.DtFecha = txtFecha.Value.S().Dt();
                 oBit.SOrigen = txtOrigen.Text;
                 oBit.SDestino = txtDestino.Text;
-                oBit.SOrigenVuelo = txtOrigenVuelo.Text;
-                oBit.DtDestinoVuelo = txtDestinoVuelo.Text.Dt();
-                oBit.DtOrigenCalzo = txtOrigenCalzo.Text.Dt();
-                oBit.SDestinoCalzo = txtDestinoCalzo.Text;
+                oBit.DtOrigenVuelo = txtOrigenVuelo.Value.S().Dt();
+                oBit.DtDestinoVuelo = txtDestinoVuelo.Value.S().Dt();
+                oBit.DtOrigenCalzo = txtOrigenCalzo.Value.S().Dt();
+                oBit.DtDestinoCalzo = txtDestinoCalzo.Value.S().Dt();
                 oBit.SConsumoOrigen = txtConsumoOrigen.Text;
                 oBit.SConsumoDestino = txtConsumoDestino.Text;
                 oBit.SCantPax = txtCantPax.Text;
-                oBit.STipo = txtTipo.Text;
+                oBit.STipo = ddlTipo.Value.S();
                 oBit.SLongNum = txtLongNum.Text;
                 oBit.LLegId = txtLegId.Text.L();
                 oBit.SUsuario = ((UserIdentity)Session["UserIdentity"]).sUsuario;

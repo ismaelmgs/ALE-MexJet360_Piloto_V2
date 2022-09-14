@@ -102,7 +102,7 @@ namespace ALE_MexJet.Views.bitacoras
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxPopupControl ppBitacora;
+        protected global::DevExpress.Web.Bootstrap.BootstrapPopupControl ppBitacora;
 
         /// <summary>
         /// Control txtMatricula.
@@ -174,7 +174,7 @@ namespace ALE_MexJet.Views.bitacoras
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::DevExpress.Web.Bootstrap.BootstrapTextBox txtFecha;
+        protected global::DevExpress.Web.Bootstrap.BootstrapDateEdit txtFecha;
 
         /// <summary>
         /// Control txtOrigen.
@@ -201,7 +201,7 @@ namespace ALE_MexJet.Views.bitacoras
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::DevExpress.Web.Bootstrap.BootstrapTextBox txtOrigenVuelo;
+        protected global::DevExpress.Web.Bootstrap.BootstrapDateEdit txtOrigenVuelo;
 
         /// <summary>
         /// Control txtDestinoVuelo.
@@ -210,7 +210,7 @@ namespace ALE_MexJet.Views.bitacoras
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::DevExpress.Web.Bootstrap.BootstrapTextBox txtDestinoVuelo;
+        protected global::DevExpress.Web.Bootstrap.BootstrapDateEdit txtDestinoVuelo;
 
         /// <summary>
         /// Control txtOrigenCalzo.
@@ -219,7 +219,7 @@ namespace ALE_MexJet.Views.bitacoras
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::DevExpress.Web.Bootstrap.BootstrapTextBox txtOrigenCalzo;
+        protected global::DevExpress.Web.Bootstrap.BootstrapDateEdit txtOrigenCalzo;
 
         /// <summary>
         /// Control txtDestinoCalzo.
@@ -228,7 +228,7 @@ namespace ALE_MexJet.Views.bitacoras
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::DevExpress.Web.Bootstrap.BootstrapTextBox txtDestinoCalzo;
+        protected global::DevExpress.Web.Bootstrap.BootstrapDateEdit txtDestinoCalzo;
 
         /// <summary>
         /// Control txtConsumoOrigen.
@@ -258,13 +258,13 @@ namespace ALE_MexJet.Views.bitacoras
         protected global::DevExpress.Web.Bootstrap.BootstrapTextBox txtCantPax;
 
         /// <summary>
-        /// Control txtTipo.
+        /// Control ddlTipo.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::DevExpress.Web.Bootstrap.BootstrapTextBox txtTipo;
+        protected global::DevExpress.Web.Bootstrap.BootstrapComboBox ddlTipo;
 
         /// <summary>
         /// Control txtLongNum.

@@ -14,5 +14,8 @@ namespace ALE_MexJet.Interfaces
         string sParametro { get; set; }
         int iOk { get; set; }
         void LoadBitacoras(DataTable dt);
+        void LoadTipo(DataTable dt);
+
+        event EventHandler eSearchTipo;
     }
 }

@@ -34,13 +34,13 @@ namespace ALE_MexJet.DomainModel
                                                                           "@Fecha", oB.DtFecha,
                                                                           "@Origen", oB.SOrigen,
                                                                           "@Destino", oB.SDestino,
-                                                                          "@OrigenVuelo", oB.SOrigenVuelo.Dt(),
+                                                                          "@OrigenVuelo", oB.DtOrigenVuelo,
                                                                           "@OrigenCalzo", oB.DtOrigenCalzo,
                                                                           "@ConsumoOri", oB.SConsumoOrigen.I(),
                                                                           "@CantPax", oB.SCantPax.I(),
                                                                           "@Tipo", oB.STipo,
                                                                           "@DestinoVuelo", oB.DtDestinoVuelo,
-                                                                          "@DestinoCalzo", oB.SDestinoCalzo.Dt(),
+                                                                          "@DestinoCalzo", oB.DtDestinoCalzo,
                                                                           "@ConsumoDes", oB.SConsumoDestino.I(),
                                                                           "@LogNum", oB.SLongNum,
                                                                           "@TripNum", oB.LTripNum,
@@ -51,6 +51,17 @@ namespace ALE_MexJet.DomainModel
             catch (Exception ex)
             {
                 return 0;
+            }
+        }
+        public DataTable DBGetTipo()
+        {
+            try
+            {
+                return oDB_SP.EjecutarDT("[FLX].[spS_Consulta_TIPO_Bitacora]");
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
         }
     }

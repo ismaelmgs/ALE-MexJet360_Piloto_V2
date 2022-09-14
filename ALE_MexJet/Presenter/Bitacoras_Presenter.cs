@@ -16,6 +16,7 @@ namespace ALE_MexJet.Presenter
            : base(oView)
         {
             oIGestCat = oGC;
+            oIView.eSearchTipo += SearchTipo_Presenter;
         }
         protected override void SearchObj_Presenter(object sender, EventArgs e)
         {
@@ -25,6 +26,11 @@ namespace ALE_MexJet.Presenter
         {
             oIView.iOk = oIGestCat.DBSetBitacoras(oIView.oBi);
         }
-        
+        protected void SearchTipo_Presenter(object sender, EventArgs e)
+        {
+            oIView.LoadTipo(oIGestCat.DBGetTipo());
+        }
+
+
     }
 }

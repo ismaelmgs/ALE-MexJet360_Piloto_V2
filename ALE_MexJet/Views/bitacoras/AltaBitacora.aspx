@@ -203,295 +203,16 @@
 
     <!-- inicio modal -->
     <br />
-    --- Modal ---
         
 
     <%-- MODAL PARA ALTA Y ACTUALIZACION DE BITACORAS --%>
-    <dx:ASPxPopupControl ID="ppBitacora" runat="server" ClientInstanceName="ppBitacora" CloseAction="CloseButton" CloseOnEscape="true" Modal="True" Theme="Office2010Black"
-        PopupHorizontalAlign="WindowCenter" PopupVerticalAlign="Middle" HeaderText="Aviso" AllowDragging="true" ShowCloseButton="true">
-        <ClientSideEvents />
+    <dx:BootstrapPopupControl ID="ppBitacora" runat="server" ClientInstanceName="ppBitacora" 
+        CloseAnimationType="Fade" PopupAnimationType="Fade"
+        PopupHorizontalAlign="WindowCenter" PopupVerticalAlign="WindowCenter" Width="1080px" Height="500px"
+        CloseAction="CloseButton" CloseOnEscape="true" AllowResize="true"
+        HeaderText="Alta de Bitácoras" AllowDragging="true" ShowCloseButton="true">
         <ContentCollection>
-            <dx:PopupControlContentControl runat="server">
-                
-
-                
-
-                    <div class="row" style="width:700px;">
-                        <div class="col-md-12" style="margin-left: 0px; width: 102%;">
-                            <div style="width:100%;text-align:center;"><h3>Alta Bitacora</h3></div><br />
-
-                            <%--<div class="row">
-                                <div class="col-md-6">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <table style="width:100%;">
-                                                <tr>
-                                                    <td style="width:30%;">
-                                                        <dx:ASPxLabel runat="server" Theme="Office2010Black" Text="Matrícula:"></dx:ASPxLabel>
-                                                    </td>
-                                                    <td style="width:70%;">
-                                                        <asp:TextBox ID="txtMatricula" CssClass="" placeholder ="Matrícula" runat="server" Width="100%"></asp:TextBox>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <table style="width:100%;">
-                                                <tr>
-                                                    <td style="width:30%;">
-                                                        <dx:ASPxLabel runat="server" Theme="Office2010Black" Text="TripNum:"></dx:ASPxLabel>
-                                                    </td>
-                                                    <td style="width:70%;">
-                                                        <asp:TextBox ID="txtTripNum" CssClass="" placeholder ="TripNum" runat="server" Width="100%"></asp:TextBox>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <table style="width:100%;">
-                                                <tr>
-                                                    <td style="width:30%;">
-                                                        <dx:ASPxLabel runat="server" Theme="Office2010Black" Text="Leg_Num:"></dx:ASPxLabel>
-                                                    </td>
-                                                    <td style="width:70%;">
-                                                        <asp:TextBox ID="txtLegNum" CssClass="" placeholder ="Leg_Num" runat="server" Width="100%"></asp:TextBox>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <table style="width:100%;">
-                                                <tr>
-                                                    <td style="width:30%;">
-                                                        <dx:ASPxLabel runat="server" Theme="Office2010Black" Text="Folio Real:"></dx:ASPxLabel>
-                                                    </td>
-                                                    <td style="width:70%;">
-                                                        <asp:TextBox ID="txtFolioReal" CssClass="" placeholder ="Folio Real" runat="server" Width="100%"></asp:TextBox>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <br />
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <table style="width:100%;">
-                                                <tr>
-                                                    <td style="width:30%;">
-                                                        <dx:ASPxLabel runat="server" Theme="Office2010Black" Text="VueloContratoId:"></dx:ASPxLabel>
-                                                    </td>
-                                                    <td style="width:70%;">
-                                                        <asp:TextBox ID="txtVuelocontratoId" CssClass="" placeholder ="VueloContratoId" runat="server" Width="100%"></asp:TextBox>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <table style="width:100%;">
-                                                <tr>
-                                                    <td style="width:30%;">
-                                                        <dx:ASPxLabel runat="server" Theme="Office2010Black" Text="PilotoId:"></dx:ASPxLabel>
-                                                    </td>
-                                                    <td style="width:70%;">
-                                                        <asp:TextBox ID="txtPilotoId" CssClass="" placeholder ="TripNum" runat="server" Width="100%"></asp:TextBox>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <table style="width:100%;">
-                                                <tr>
-                                                    <td style="width:30%;">
-                                                        <dx:ASPxLabel runat="server" Theme="Office2010Black" Text="CopiliotoId:"></dx:ASPxLabel>
-                                                    </td>
-                                                    <td style="width:70%;">
-                                                        <asp:TextBox ID="txtCopilotoId" CssClass="" placeholder ="CopilotoId" runat="server" Width="100%"></asp:TextBox>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <table style="width:100%;">
-                                                <tr>
-                                                    <td style="width:30%;">
-                                                        <dx:ASPxLabel runat="server" Theme="Office2010Black" Text="Fecha:"></dx:ASPxLabel>
-                                                    </td>
-                                                    <td style="width:70%;">
-                                                        <asp:TextBox ID="txtFechaBitacoras" CssClass="" placeholder ="Fecha" runat="server" Width="100%"></asp:TextBox>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <br />
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <table style="width:100%;">
-                                                <tr>
-                                                    <td style="width:30%;">
-                                                        <dx:ASPxLabel runat="server" Theme="Office2010Black" Text="Origen:"></dx:ASPxLabel>
-                                                    </td>
-                                                    <td style="width:70%;">
-                                                        <asp:TextBox ID="txtOrigen" CssClass="" placeholder ="Origen" runat="server" Width="100%"></asp:TextBox>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <table style="width:100%;">
-                                                <tr>
-                                                    <td style="width:30%;">
-                                                        <dx:ASPxLabel runat="server" Theme="Office2010Black" Text="Destino:"></dx:ASPxLabel>
-                                                    </td>
-                                                    <td style="width:70%;">
-                                                        <asp:TextBox ID="txtDestino" CssClass="" placeholder ="Destino" runat="server" Width="100%"></asp:TextBox>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <table style="width:100%;">
-                                                <tr>
-                                                    <td style="width:30%;">
-                                                        <dx:ASPxLabel runat="server" Theme="Office2010Black" Text="Origen Vuelo:"></dx:ASPxLabel>
-                                                    </td>
-                                                    <td style="width:70%;">
-                                                        <asp:TextBox ID="txtOrigenVuelo" CssClass="" placeholder ="Origen Vuelo" runat="server" Width="100%"></asp:TextBox>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <table style="width:100%;">
-                                                <tr>
-                                                    <td style="width:30%;">
-                                                        <dx:ASPxLabel runat="server" Theme="Office2010Black" Text="Destino Vuelo:"></dx:ASPxLabel>
-                                                    </td>
-                                                    <td style="width:70%;">
-                                                        <asp:TextBox ID="txtDestinoVuelo" CssClass="" placeholder ="Destino Vuelo" runat="server" Width="100%"></asp:TextBox>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <br />
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <table style="width:100%;">
-                                                <tr>
-                                                    <td style="width:30%;">
-                                                        <dx:ASPxLabel runat="server" Theme="Office2010Black" Text="Origen Calzo:"></dx:ASPxLabel>
-                                                    </td>
-                                                    <td style="width:70%;">
-                                                        <asp:TextBox ID="txtOrigewnCalzo" CssClass="" placeholder ="Origen Calzo" runat="server" Width="100%"></asp:TextBox>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <table style="width:100%;">
-                                                <tr>
-                                                    <td style="width:30%;">
-                                                        <dx:ASPxLabel runat="server" Theme="Office2010Black" Text="Destino Calzo:"></dx:ASPxLabel>
-                                                    </td>
-                                                    <td style="width:70%;">
-                                                        <asp:TextBox ID="txtDestinoCalzo" CssClass="" placeholder ="Destino Calzo" runat="server" Width="100%"></asp:TextBox>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <table style="width:100%;">
-                                                <tr>
-                                                    <td style="width:30%;">
-                                                        <dx:ASPxLabel runat="server" Theme="Office2010Black" Text="Consumo Origen:"></dx:ASPxLabel>
-                                                    </td>
-                                                    <td style="width:70%;">
-                                                        <asp:TextBox ID="TextBox11" CssClass="" placeholder ="Leg_Num" runat="server" Width="100%"></asp:TextBox>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <table style="width:100%;">
-                                                <tr>
-                                                    <td style="width:30%;">
-                                                        <dx:ASPxLabel runat="server" Theme="Office2010Black" Text="Consumo Destino:"></dx:ASPxLabel>
-                                                    </td>
-                                                    <td style="width:70%;">
-                                                        <asp:TextBox ID="txtConsumoDestino" CssClass="" placeholder ="Consumo Destino" runat="server" Width="100%"></asp:TextBox>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <br />
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <table style="width:100%;">
-                                                <tr>
-                                                    <td style="width:30%;">
-                                                        <dx:ASPxLabel runat="server" Theme="Office2010Black" Text="CantPax:"></dx:ASPxLabel>
-                                                    </td>
-                                                    <td style="width:70%;">
-                                                        <asp:TextBox ID="txtCantPax" CssClass="" placeholder ="CantPax" runat="server" Width="100%"></asp:TextBox>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <table style="width:100%;">
-                                                <tr>
-                                                    <td style="width:30%;">
-                                                        <dx:ASPxLabel runat="server" Theme="Office2010Black" Text="Tipo:"></dx:ASPxLabel>
-                                                    </td>
-                                                    <td style="width:70%;">
-                                                        <asp:TextBox ID="txtTipo" CssClass="" placeholder ="Tipo" runat="server" Width="100%"></asp:TextBox>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    
-                                </div>
-                            </div>--%>
-
-                        </div>
-                    </div>
+            <dx:ContentControl>
 
                 <div style="width:100%;">
                     <div class="row">
@@ -527,7 +248,10 @@
                         </div>
                         <div class="col-md-3">
                             <label>Fecha:</label>
-                            <dx:BootstrapTextBox ID="txtFecha" runat="server" NullText="Fecha"></dx:BootstrapTextBox>
+                            <%--<dx:BootstrapTextBox ID="txtFecha" runat="server" NullText="Fecha"></dx:BootstrapTextBox>--%>
+                            <dx:BootstrapDateEdit ID="txtFecha" runat="server" EditFormat="DateTime">
+                                <TimeSectionProperties Visible="true" />
+                            </dx:BootstrapDateEdit>
                         </div>
                     </div>
                     <div class="row">
@@ -541,21 +265,33 @@
                         </div>
                         <div class="col-md-3">
                             <label>Origen Vuelo:</label>
-                            <dx:BootstrapTextBox ID="txtOrigenVuelo" runat="server" NullText="Origen Vuelo"></dx:BootstrapTextBox>
+                            <%--<dx:BootstrapTextBox ID="txtOrigenVuelo" runat="server" NullText="Origen Vuelo"></dx:BootstrapTextBox>--%>
+                            <dx:BootstrapDateEdit ID="txtOrigenVuelo" runat="server" EditFormat="DateTime">
+                                <TimeSectionProperties Visible="true" />
+                            </dx:BootstrapDateEdit>
                         </div>
                         <div class="col-md-3">
                             <label>Destino Vuelo:</label>
-                            <dx:BootstrapTextBox ID="txtDestinoVuelo" runat="server" NullText="Destino Vuelo"></dx:BootstrapTextBox>
+                            <%--<dx:BootstrapTextBox ID="txtDestinoVuelo" runat="server" NullText="Destino Vuelo"></dx:BootstrapTextBox>--%>
+                            <dx:BootstrapDateEdit ID="txtDestinoVuelo" runat="server" EditFormat="DateTime">
+                                <TimeSectionProperties Visible="true" />
+                            </dx:BootstrapDateEdit>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-3">
                             <label>Origen Calzo:</label>
-                            <dx:BootstrapTextBox ID="txtOrigenCalzo" runat="server" NullText="Origen Calzo"></dx:BootstrapTextBox>
+                            <%--<dx:BootstrapTextBox ID="txtOrigenCalzo" runat="server" NullText="Origen Calzo"></dx:BootstrapTextBox>--%>
+                            <dx:BootstrapDateEdit ID="txtOrigenCalzo" runat="server" EditFormat="DateTime">
+                                <TimeSectionProperties Visible="true" />
+                            </dx:BootstrapDateEdit>
                         </div>
                         <div class="col-md-3">
                             <label>Destino Calzo:</label>
-                            <dx:BootstrapTextBox ID="txtDestinoCalzo" runat="server" NullText="Destino Calzo"></dx:BootstrapTextBox>
+                            <%-- <dx:BootstrapTextBox ID="txtDestinoCalzo" runat="server" NullText="Destino Calzo"></dx:BootstrapTextBox>--%>
+                            <dx:BootstrapDateEdit ID="txtDestinoCalzo" runat="server" EditFormat="DateTime">
+                                <TimeSectionProperties Visible="true" />
+                            </dx:BootstrapDateEdit>
                         </div>
                         <div class="col-md-3">
                             <label>Consumo Origen:</label>
@@ -573,20 +309,19 @@
                         </div>
                         <div class="col-md-3">
                             <label>Tipo:</label>
-                            <dx:BootstrapTextBox ID="txtTipo" runat="server" NullText="Tipo"></dx:BootstrapTextBox>
+                            <%--<dx:BootstrapTextBox ID="txtTipo" runat="server" NullText="Tipo"></dx:BootstrapTextBox>--%>
+                            <dx:BootstrapComboBox ID="ddlTipo" runat="server" NullText="Selecciona el tipo"></dx:BootstrapComboBox>
                         </div>
                         <div class="col-md-3">
                             <label>LongNum:</label>
                             <dx:BootstrapTextBox ID="txtLongNum" runat="server" NullText="LongNum"></dx:BootstrapTextBox>
                         </div>
                         <div class="col-md-3">
-                             <label>LegId:</label>
+                                <label>LegId:</label>
                             <dx:BootstrapTextBox ID="txtLegId" runat="server" NullText="LegId"></dx:BootstrapTextBox>
                         </div>
                     </div>
                 </div>
-                
-
 
                 <div class="row" style="padding-top:15px;">
                     <div class="col-lg-12">
@@ -604,10 +339,9 @@
                     
                 </div>
 
-                       
-            </dx:PopupControlContentControl>
+            </dx:ContentControl>
         </ContentCollection>
-    </dx:ASPxPopupControl>
+    </dx:BootstrapPopupControl>
 
 
     <br />
