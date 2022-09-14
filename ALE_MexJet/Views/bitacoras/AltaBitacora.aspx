@@ -222,37 +222,172 @@
             <dx:ContentControl>
 
                 <div style="width:100%;">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <label>Matrícula:</label>
-                            <dx:BootstrapTextBox ID="txtMatricula" runat="server" NullText="Matrícula"></dx:BootstrapTextBox>
-                        </div>
-                        <div class="col-md-3">
-                            <label>TripNum:</label>
-                            <dx:BootstrapTextBox ID="txtTrip" runat="server" NullText="Trip"></dx:BootstrapTextBox>
-                        </div>
-                        <div class="col-md-3">
-                            <label>LegNum:</label>
-                            <dx:BootstrapTextBox ID="txtLegNum" runat="server" NullText="LegNum"></dx:BootstrapTextBox>
-                        </div>
-                        <div class="col-md-3">
-                            <label>Folio Real:</label>
-                            <dx:BootstrapTextBox ID="txtFolioReal" runat="server" NullText="Folio"></dx:BootstrapTextBox>
-                        </div>
+                    <table style="width:95%; margin:0 auto;" border="0">
+                        <tr>
+                            <td style="padding:4px;">
+                                <label>LongNum:</label>
+                                <dx:BootstrapTextBox ID="txtLongNum" runat="server" NullText="LongNum"></dx:BootstrapTextBox>
+                            </td>
+                            <td style="padding:4px;">
+                                <label>LegId:</label>
+                                <dx:BootstrapTextBox ID="txtLegId" runat="server" NullText="LegId"></dx:BootstrapTextBox>
+                            </td>
+                            <td style="padding:4px;">
+                                &nbsp;
+                            </td>
+                            <td style="padding:4px;">
+                                &nbsp;
+                            </td>
+                            <td style="padding:4px;">
+                                &nbsp;
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding:4px;">
+                                <label>Folio Real:</label>
+                                <dx:BootstrapTextBox ID="txtFolioReal" runat="server" NullText="Folio"></dx:BootstrapTextBox>
+                            </td>
+                            <td style="padding:4px;">
+                                <label>Matrícula:</label>
+                                <dx:BootstrapTextBox ID="txtMatricula" runat="server" NullText="Matrícula"></dx:BootstrapTextBox>
+                            </td>
+                            <td style="padding:4px;">
+                                <label>TripNum:</label>
+                                <dx:BootstrapTextBox ID="txtTrip" runat="server" NullText="Trip"></dx:BootstrapTextBox>                                
+                            </td>
+                            <td style="padding:4px;">
+                                <label>VueloContratoId:</label>
+                                <dx:BootstrapTextBox ID="txtVueloContratoId" runat="server" NullText="Vuelo Contrato Id"></dx:BootstrapTextBox>
+                            </td>
+                            <td style="padding:4px;">
+                                <label>LegNum:</label>
+                                <dx:BootstrapTextBox ID="txtLegNum" runat="server" NullText="LegNum"></dx:BootstrapTextBox>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding:4px;">
+                                <label>CopilotoId:</label>
+                                <dx:BootstrapTextBox ID="txtCopilotoId" runat="server" NullText="CopilotoId"></dx:BootstrapTextBox>
+                            </td>
+                            <td style="padding:4px;">
+                                <label>PilotoId:</label>
+                                <dx:BootstrapTextBox ID="txtPilotoId" runat="server" NullText="PilotoId"></dx:BootstrapTextBox>
+                            </td>
+                            <td style="padding:4px;">
+                                <label>Pasajeros:</label>
+                                <dx:BootstrapTextBox ID="txtCantPax" runat="server" NullText="Pax"></dx:BootstrapTextBox>
+                            </td>
+                            <td style="padding:4px;">
+                                <label>Tipo:</label>
+                                <%--<dx:BootstrapTextBox ID="txtTipo" runat="server" NullText="Tipo"></dx:BootstrapTextBox>--%>
+                                <dx:BootstrapComboBox ID="ddlTipo" runat="server" NullText="Selecciona el tipo"></dx:BootstrapComboBox>
+                            </td>
+                            <td style="padding:4px;">
+                                &nbsp;
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding:4px;">
+                                <label>Origen:</label>
+                                <dx:BootstrapTextBox ID="txtOrigen" runat="server" NullText="Origen"></dx:BootstrapTextBox>
+                            </td>
+                            <td style="padding:4px;">
+                                <label>Destino:</label>
+                                <dx:BootstrapTextBox ID="txtDestino" runat="server" NullText="Destino"></dx:BootstrapTextBox>
+                            </td>
+                            <td style="padding:4px;">
+                                &nbsp;
+                            </td>
+                            <td style="padding:4px;">
+                                &nbsp;
+                            </td>
+                            <td style="padding:4px;">
+                                &nbsp;
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding:4px;">
+                                <label>Origen Calzo:</label>
+                                <%--<dx:BootstrapTextBox ID="txtOrigenCalzo" runat="server" NullText="Origen Calzo"></dx:BootstrapTextBox>--%>
+                                <dx:BootstrapDateEdit ID="txtOrigenCalzo" runat="server" EditFormat="DateTime">
+                                    <TimeSectionProperties Visible="true" />
+                                </dx:BootstrapDateEdit>
+                            </td>
+                            <td style="padding:4px;">
+                                <label>Origen Vuelo:</label>
+                                <%--<dx:BootstrapTextBox ID="txtOrigenVuelo" runat="server" NullText="Origen Vuelo"></dx:BootstrapTextBox>--%>
+                                <dx:BootstrapDateEdit ID="txtOrigenVuelo" runat="server" EditFormat="DateTime">
+                                    <TimeSectionProperties Visible="true" />
+                                </dx:BootstrapDateEdit>
+                            </td>
+                            <td style="padding:4px;">
+                                <label>Destino Vuelo:</label>
+                                <%--<dx:BootstrapTextBox ID="txtDestinoVuelo" runat="server" NullText="Destino Vuelo"></dx:BootstrapTextBox>--%>
+                                <dx:BootstrapDateEdit ID="txtDestinoVuelo" runat="server" EditFormat="DateTime">
+                                    <TimeSectionProperties Visible="true" />
+                                </dx:BootstrapDateEdit>
+                            </td>
+                            <td style="padding:4px;">
+                                <label>Destino Calzo:</label>
+                                <%-- <dx:BootstrapTextBox ID="txtDestinoCalzo" runat="server" NullText="Destino Calzo"></dx:BootstrapTextBox>--%>
+                                <dx:BootstrapDateEdit ID="txtDestinoCalzo" runat="server" EditFormat="DateTime">
+                                    <TimeSectionProperties Visible="true" />
+                                </dx:BootstrapDateEdit>
+                            </td>
+                            <td style="padding:4px;">
+                                &nbsp;
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding:4px;">
+<!-- inicio Falta este-->
+                                <label>Tiempo Calzo:</label>
+                                <dx:BootstrapTextBox ID="txtTiempoCalzo" runat="server" NullText="Tiempo Calzo"></dx:BootstrapTextBox>
+<!-- fin Falta este -->
+                            </td>
+                            <td style="padding:4px;">
+<!-- inicio Falta este-->
+                                <label>Tiempo Vuelo:</label>
+                                <dx:BootstrapTextBox ID="txtTiempoVuelo" runat="server" NullText="Tiempo Vuelo"></dx:BootstrapTextBox>
+<!-- fin Falta este -->
+                            </td>
+                            <td style="padding:4px;">
+                                 &nbsp;
+                            </td>
+                            <td style="padding:4px;">
+                                 &nbsp;
+                            </td>
+                            <td style="padding:4px;">
+                                &nbsp;
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding:4px;">
+                                <label>Consumo Origen:</label>
+                                <dx:BootstrapTextBox ID="txtConsumoOrigen" runat="server" NullText="Consumo Origen"></dx:BootstrapTextBox>
+                            </td>
+                            <td style="padding:4px;">
+                                <label>Consumo Destino:</label>
+                                <dx:BootstrapTextBox ID="txtConsumoDestino" runat="server" NullText="Consumo Destino"></dx:BootstrapTextBox>
+                            </td>
+                            <td style="padding:4px;">
+<!-- inicio Falta este-->
+                                <label>Combustible Usado:</label>
+                                <dx:BootstrapTextBox ID="txtCombustibleUsado" runat="server" NullText="Combustible Usado"></dx:BootstrapTextBox>
+<!-- fin Falta este -->
+                            </td>
+                            <td style="padding:4px;">
+                                &nbsp;
+                            </td>
+                            <td style="padding:4px;">
+                                &nbsp;
+                            </td>
+                        </tr>
+                    </table>
+
+<!-- inicio Sobra este-->
                     </div>
                     <div class="row">
-                        <div class="col-md-3">
-                            <label>VueloContratoId:</label>
-                            <dx:BootstrapTextBox ID="txtVueloContratoId" runat="server" NullText="Vuelo Contrato Id"></dx:BootstrapTextBox>
-                        </div>
-                        <div class="col-md-3">
-                            <label>PilotoId:</label>
-                            <dx:BootstrapTextBox ID="txtPilotoId" runat="server" NullText="PilotoId"></dx:BootstrapTextBox>
-                        </div>
-                        <div class="col-md-3">
-                            <label>CopilotoId:</label>
-                            <dx:BootstrapTextBox ID="txtCopilotoId" runat="server" NullText="CopilotoId"></dx:BootstrapTextBox>
-                        </div>
                         <div class="col-md-3">
                             <label>Fecha:</label>
                             <%--<dx:BootstrapTextBox ID="txtFecha" runat="server" NullText="Fecha"></dx:BootstrapTextBox>--%>
@@ -261,74 +396,7 @@
                             </dx:BootstrapDateEdit>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-3">
-                            <label>Origen:</label>
-                            <dx:BootstrapTextBox ID="txtOrigen" runat="server" NullText="Origen"></dx:BootstrapTextBox>
-                        </div>
-                        <div class="col-md-3">
-                            <label>Destino:</label>
-                            <dx:BootstrapTextBox ID="txtDestino" runat="server" NullText="Destino"></dx:BootstrapTextBox>
-                        </div>
-                        <div class="col-md-3">
-                            <label>Origen Vuelo:</label>
-                            <%--<dx:BootstrapTextBox ID="txtOrigenVuelo" runat="server" NullText="Origen Vuelo"></dx:BootstrapTextBox>--%>
-                            <dx:BootstrapDateEdit ID="txtOrigenVuelo" runat="server" EditFormat="DateTime">
-                                <TimeSectionProperties Visible="true" />
-                            </dx:BootstrapDateEdit>
-                        </div>
-                        <div class="col-md-3">
-                            <label>Destino Vuelo:</label>
-                            <%--<dx:BootstrapTextBox ID="txtDestinoVuelo" runat="server" NullText="Destino Vuelo"></dx:BootstrapTextBox>--%>
-                            <dx:BootstrapDateEdit ID="txtDestinoVuelo" runat="server" EditFormat="DateTime">
-                                <TimeSectionProperties Visible="true" />
-                            </dx:BootstrapDateEdit>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-3">
-                            <label>Origen Calzo:</label>
-                            <%--<dx:BootstrapTextBox ID="txtOrigenCalzo" runat="server" NullText="Origen Calzo"></dx:BootstrapTextBox>--%>
-                            <dx:BootstrapDateEdit ID="txtOrigenCalzo" runat="server" EditFormat="DateTime">
-                                <TimeSectionProperties Visible="true" />
-                            </dx:BootstrapDateEdit>
-                        </div>
-                        <div class="col-md-3">
-                            <label>Destino Calzo:</label>
-                            <%-- <dx:BootstrapTextBox ID="txtDestinoCalzo" runat="server" NullText="Destino Calzo"></dx:BootstrapTextBox>--%>
-                            <dx:BootstrapDateEdit ID="txtDestinoCalzo" runat="server" EditFormat="DateTime">
-                                <TimeSectionProperties Visible="true" />
-                            </dx:BootstrapDateEdit>
-                        </div>
-                        <div class="col-md-3">
-                            <label>Consumo Origen:</label>
-                            <dx:BootstrapTextBox ID="txtConsumoOrigen" runat="server" NullText="Consumo Origen"></dx:BootstrapTextBox>
-                        </div>
-                        <div class="col-md-3">
-                            <label>Consumo Destino:</label>
-                            <dx:BootstrapTextBox ID="txtConsumoDestino" runat="server" NullText="Consumo Destino"></dx:BootstrapTextBox>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-3">
-                            <label>Pasajeros:</label>
-                            <dx:BootstrapTextBox ID="txtCantPax" runat="server" NullText="Pax"></dx:BootstrapTextBox>
-                        </div>
-                        <div class="col-md-3">
-                            <label>Tipo:</label>
-                            <%--<dx:BootstrapTextBox ID="txtTipo" runat="server" NullText="Tipo"></dx:BootstrapTextBox>--%>
-                            <dx:BootstrapComboBox ID="ddlTipo" runat="server" NullText="Selecciona el tipo"></dx:BootstrapComboBox>
-                        </div>
-                        <div class="col-md-3">
-                            <label>LongNum:</label>
-                            <dx:BootstrapTextBox ID="txtLongNum" runat="server" NullText="LongNum"></dx:BootstrapTextBox>
-                        </div>
-                        <div class="col-md-3">
-                                <label>LegId:</label>
-                            <dx:BootstrapTextBox ID="txtLegId" runat="server" NullText="LegId"></dx:BootstrapTextBox>
-                        </div>
-                    </div>
-                </div>
+<!-- fin Sobra este -->
 
                 <div class="row" style="padding-top:15px;">
                     <div class="col-lg-12">
