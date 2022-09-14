@@ -144,7 +144,9 @@
                     <ContentTemplate>
 
                         <div class="table-responsive" style="height: auto;">
-                            <dx:BootstrapGridView ID="gvBitacoras" runat="server" KeyFieldName="IdBitacora" OnRowCommand="gvBitacoras_RowCommand">
+                            <dx:BootstrapGridView ID="gvBitacoras" runat="server" KeyFieldName="IdBitacora" OnRowCommand="gvBitacoras_RowCommand"
+                                OnHtmlDataCellPrepared="gvBitacoras_HtmlDataCellPrepared"
+                                OnPageIndexChanged="gvBitacoras_PageIndexChanged">
                                 <SettingsSearchPanel Visible="true" ShowApplyButton="true" />
                                 <Settings ShowGroupPanel="true" ShowFilterRowMenu="true" />
                                 <SettingsAdaptivity AdaptivityMode="HideDataCells" AllowOnlyOneAdaptiveDetailExpanded="true"></SettingsAdaptivity>
@@ -175,19 +177,23 @@
                                     <dx:BootstrapGridViewDataColumn Caption="LegId" FieldName="LegId" VisibleIndex="21" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" CssClasses-DataCell="dataCell" />
                                     <dx:BootstrapGridViewDataColumn Caption="FolioReal" FieldName="FolioReal" VisibleIndex="22" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" CssClasses-DataCell="dataCell" />
 
-                                    <%--<dx:BootstrapGridViewDataColumn Caption="Valor" FieldName="Valor" VisibleIndex="3" CssClasses-DataCell="hiddenRow" HeaderBadge-CssClass="hiddenRow" Visible="false" />--%>
+                                    
 
-                                    <dx:BootstrapGridViewDataColumn Caption="Acciones" Visible="true" VisibleIndex="23" HorizontalAlign="Center">
+                                    <dx:BootstrapGridViewDataColumn Caption="Acciones" FieldName="Remisionado" Visible="true" VisibleIndex="23" HorizontalAlign="Center">
                                         <DataItemTemplate>
 
                                             <div>
+                                                <asp:Label ID="readRemisionado" runat="server" Text='<%# Eval("Remisionado") %>' Visible="false"></asp:Label>
                                                 <dx:BootstrapButton Text="Actualizar" ID="btnActualizar" runat="server" CommandArgument='<%# Eval("IdBitacora") %>' CommandName="Actualiza" AutoPostBack="true" 
-                                                    ToolTip="Actualiza" SettingsBootstrap-RenderOption="Primary"></dx:BootstrapButton>
+                                                    ToolTip="Actualiza" SettingsBootstrap-RenderOption="Primary" Width="100px">
+                                                </dx:BootstrapButton>
                                             </div>
 
                                         </DataItemTemplate>
                                         <CssClasses HeaderCell="spa" />
                                     </dx:BootstrapGridViewDataColumn>
+                                    <%--<dx:BootstrapGridViewDataColumn FieldName="Remisionado" VisibleIndex="24" CssClasses-DataCell="hiddenRow" HeaderBadge-CssClass="hiddenRow" Visible="false" />--%>
+
                                 </Columns>
                             </dx:BootstrapGridView>
                         </div>

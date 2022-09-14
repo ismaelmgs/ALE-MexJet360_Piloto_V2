@@ -3,6 +3,7 @@ using ALE_MexJet.Interfaces;
 using ALE_MexJet.Objetos;
 using ALE_MexJet.Presenter;
 using DevExpress.Web;
+using DevExpress.Web.Bootstrap;
 using NucleoBase.Core;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,7 @@ namespace ALE_MexJet.Views.bitacoras
 {
     public partial class AltaBitacora : System.Web.UI.Page, IViewBitacoras
     {
+        #region EVENTOS
         protected void Page_Load(object sender, EventArgs e)
         {
             oPresenter = new Bitacoras_Presenter(this, new DBBitacoras());
@@ -38,13 +40,6 @@ namespace ALE_MexJet.Views.bitacoras
                     eSearchTipo(sender, e);
             }
         }
-
-        protected void btnNuevaBitacora_Click(object sender, EventArgs e)
-        {
-            LimpiarControles();
-            ppBitacora.ShowOnPageLoad = true;
-        }
-
         protected void gvBitacoras_RowCommand(object sender, DevExpress.Web.ASPxGridViewRowCommandEventArgs e)
         {
             try
@@ -54,7 +49,7 @@ namespace ALE_MexJet.Views.bitacoras
                     LimpiarControles();
                     int index = e.VisibleIndex.I();
                     int iIdBitacora = gvBitacoras.GetRowValues(index, "IdBitacora").S().I();
-                    string[] fieldValues = { "AeronaveSerie", "AeronaveMatricula", "VueloClienteId", "VueloContratoId", "PilotoId", "CopilotoId", "Fecha", "Origen", "Destino", "OrigenVuelo", "OrigenCalzo", 
+                    string[] fieldValues = { "AeronaveSerie", "AeronaveMatricula", "VueloClienteId", "VueloContratoId", "PilotoId", "CopilotoId", "Fecha", "Origen", "Destino", "OrigenVuelo", "OrigenCalzo",
                                              "ConsumoOri", "CantPax", "Tipo", "DestinoVuelo", "DestinoCalzo", "ConsumoDes", "TripNum", "Leg_Num", "LogNum", "LegId", "FolioReal" };
 
                     object obj = gvBitacoras.GetRowValues(index, fieldValues);
@@ -90,11 +85,88 @@ namespace ALE_MexJet.Views.bitacoras
                 throw ex;
             }
         }
+        protected void btnGuardar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (eNewObj != null)
+                    eNewObj(sender, e);
 
+                ppBitacora.ShowOnPageLoad = false;
+
+                if (eSearchObj != null)
+                    eSearchObj(sender, e);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        protected void btnBuscarBitacora_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                //sParametro = ddlBusquedaBitacora.SelectedItem.Value.S();
+                sParametro = txtBusqueda.Text;
+
+                if (eSearchObj != null)
+                    eSearchObj(sender, e);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        protected void gvBitacoras_HtmlDataCellPrepared(object sender, DevExpress.Web.Bootstrap.BootstrapGridViewTableDataCellEventArgs e)
+        {
+            try
+            {
+                if (e.DataColumn.FieldName == "Remisionado")
+                {
+
+                    BootstrapGridView gvB = (BootstrapGridView)(sender as BootstrapGridView);
+                    Label rdRem = gvB.FindRowCellTemplateControl(e.VisibleIndex, e.DataColumn, "readRemisionado") as Label;
+                    ASPxButton btnActualizar = gvB.FindRowCellTemplateControl(e.VisibleIndex, e.DataColumn, "btnActualizar") as ASPxButton;
+
+                    if (rdRem.Text.I() > 0)
+                        btnActualizar.Enabled = false;
+                    else
+                        btnActualizar.Enabled = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        protected void gvBitacoras_PageIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                int pageIndex = gvBitacoras.PageIndex;
+                gvBitacoras.PageIndex = pageIndex;
+                gvBitacoras.DataSource = dtBitacoras;
+                gvBitacoras.DataBind();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        protected void btnNuevaBitacora_Click(object sender, EventArgs e)
+        {
+            LimpiarControles();
+            ppBitacora.ShowOnPageLoad = true;
+        }
+        #endregion
+
+        #region MÉTODOS
         public void LoadBitacoras(DataTable dt)
         {
             try
             {
+                dtBitacoras = null;
+                dtBitacoras = dt;
                 gvBitacoras.DataSource = dt;
                 gvBitacoras.DataBind();
             }
@@ -117,7 +189,6 @@ namespace ALE_MexJet.Views.bitacoras
                 throw ex;
             }
         }
-
         public void LimpiarControles()
         {
             txtMatricula.Text = string.Empty;
@@ -141,7 +212,9 @@ namespace ALE_MexJet.Views.bitacoras
             txtLegId.Text = string.Empty;
             txtFolioReal.Text = string.Empty;
         }
+        #endregion
 
+        #region VARIABLES Y PROPIEDADES
         Bitacoras_Presenter oPresenter;
         public event EventHandler eNewObj;
         public event EventHandler eObjSelected;
@@ -149,7 +222,6 @@ namespace ALE_MexJet.Views.bitacoras
         public event EventHandler eDeleteObj;
         public event EventHandler eSearchObj;
         public event EventHandler eSearchTipo;
-
         public int iOk
         {
             get { return (int)ViewState["VSOK"]; }
@@ -160,7 +232,6 @@ namespace ALE_MexJet.Views.bitacoras
             get { return (string)ViewState["VSParametro"]; }
             set { ViewState["VSParametro"] = value; }
         }
-
         public Bitacoras oBi
         {
             get
@@ -191,39 +262,11 @@ namespace ALE_MexJet.Views.bitacoras
             }
             set { }
         }
-
-        protected void btnGuardar_Click(object sender, EventArgs e)
+        public DataTable dtBitacoras
         {
-            try
-            {
-                if (eNewObj != null)
-                    eNewObj(sender, e);
-
-                ppBitacora.ShowOnPageLoad = false;
-
-                if (eSearchObj != null)
-                    eSearchObj(sender, e);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            get { return (DataTable)ViewState["VSBitacoras"]; }
+            set { ViewState["VSBitacoras"] = value; }
         }
-
-        protected void btnBuscarBitacora_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                //sParametro = ddlBusquedaBitacora.SelectedItem.Value.S();
-                sParametro = txtBusqueda.Text;
-
-                if (eSearchObj != null)
-                    eSearchObj(sender, e);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
+        #endregion
     }
 }
