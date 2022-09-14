@@ -69,15 +69,6 @@ namespace ALE_MexJet.Views.bitacoras
         protected global::DevExpress.Web.ASPxButton btnNuevaBitacora;
 
         /// <summary>
-        /// Control btnExcelBitacora.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::DevExpress.Web.ASPxButton btnExcelBitacora;
-
-        /// <summary>
         /// Control upaBitacoras.
         /// </summary>
         /// <remarks>

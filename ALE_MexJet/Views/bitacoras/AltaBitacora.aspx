@@ -126,12 +126,12 @@
     </asp:Panel>
     <br />
         <div class="row">
-            <div class="col-md-6">
-                <dx:ASPxButton CssClass="btn btn-primary" ID="btnNuevaBitacora" runat="server" Text="Nueva Bitácora" OnClick="btnNuevaBitacora_Click"></dx:ASPxButton>
-            </div>
-            <div class="col-md-6" style="text-align: right;">
+           <%-- <div class="col-md-6">
                 <dx:ASPxLabel CssClass="FExport" runat="server" Text="Exportar a:"></dx:ASPxLabel>
                 &nbsp;<dx:ASPxButton CssClass="btn btn-success" ID="btnExcelBitacora" runat="server" Text="Excel"></dx:ASPxButton>
+            </div>--%>
+            <div class="col-md-12" style="text-align: right;">
+                <dx:ASPxButton CssClass="btn btn-primary" ID="btnNuevaBitacora" runat="server" Text="Nueva Bitácora" OnClick="btnNuevaBitacora_Click"></dx:ASPxButton>
             </div>
         </div>
     <br />
@@ -163,7 +163,7 @@
                                     <dx:BootstrapGridViewDataColumn Caption="OrigenVuelo" FieldName="OrigenVuelo" VisibleIndex="10" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" CssClasses-DataCell="dataCell" />
                                     <dx:BootstrapGridViewDataColumn Caption="OrigenCalzo" FieldName="OrigenCalzo" VisibleIndex="11" Visible="false" HorizontalAlign="Center" CssClasses-DataCell="hiddenRow" HeaderBadge-CssClass="hiddenRow" />
                                     <dx:BootstrapGridViewDataColumn Caption="ConsumoOri" FieldName="ConsumoOri" VisibleIndex="12" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" CssClasses-DataCell="dataCell" />
-                                    <dx:BootstrapGridViewDataColumn Caption="CantPax" FieldName="CantPax" VisibleIndex="13" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" CssClasses-DataCell="dataCell" />
+                                    <dx:BootstrapGridViewDataColumn Caption="Pasajeros" FieldName="CantPax" VisibleIndex="13" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" CssClasses-DataCell="dataCell" />
                                     <dx:BootstrapGridViewDataColumn Caption="Tipo" FieldName="Tipo" VisibleIndex="14" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" CssClasses-DataCell="dataCell" />
                                     <dx:BootstrapGridViewDataColumn Caption="DestinoVuelo" FieldName="DestinoVuelo" VisibleIndex="15" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" CssClasses-DataCell="dataCell" />
                                     <dx:BootstrapGridViewDataColumn Caption="DestinoCalzo" FieldName="DestinoCalzo" VisibleIndex="16" Visible="false" CssClasses-DataCell="hiddenRow" HeaderBadge-CssClass="hiddenRow" />
@@ -304,7 +304,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-3">
-                            <label>CantPax:</label>
+                            <label>Pasajeros:</label>
                             <dx:BootstrapTextBox ID="txtCantPax" runat="server" NullText="Pax"></dx:BootstrapTextBox>
                         </div>
                         <div class="col-md-3">
