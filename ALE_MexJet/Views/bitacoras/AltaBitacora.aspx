@@ -109,9 +109,9 @@
                             <dx:BootstrapComboBox ID="ddlBusquedaBitacora" runat="server">
                                 <Items>
                                     <dx:BootstrapListEditItem Value="" Text=".:Seleccione:." Selected="true"></dx:BootstrapListEditItem>
-                                    <dx:BootstrapListEditItem Value="1" Text="Por Autorizar"></dx:BootstrapListEditItem>
-                                    <dx:BootstrapListEditItem Value="2" Text="Autorizados"></dx:BootstrapListEditItem>
-                                    <dx:BootstrapListEditItem Value="0" Text="Todos"></dx:BootstrapListEditItem>
+                                    <dx:BootstrapListEditItem Value="1" Text="Trip"></dx:BootstrapListEditItem>
+                                    <%--<dx:BootstrapListEditItem Value="2" Text="Autorizados"></dx:BootstrapListEditItem>
+                                    <dx:BootstrapListEditItem Value="0" Text="Todos"></dx:BootstrapListEditItem>--%>
                                 </Items>
                             </dx:BootstrapComboBox> 
                         </div>
