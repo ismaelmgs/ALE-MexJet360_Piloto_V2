@@ -28,12 +28,12 @@ namespace ALE_MexJet.Views.bitacoras
             gvBitacoras.SettingsPager.PageSizeItemSettings.Position = PagerPageSizePosition.Right;
             gvBitacoras.SettingsText.SearchPanelEditorNullText = "Ingresa la información a buscar:";
 
+            sParametro = "";
+            if (eSearchObj != null)
+                eSearchObj(sender, e);
+
             if (!IsPostBack)
             {
-                sParametro = "";
-                if (eSearchObj != null)
-                    eSearchObj(sender, e);
-
                 if (eSearchTipo != null)
                     eSearchTipo(sender, e);
             }
