@@ -129,9 +129,15 @@ namespace ALE_MexJet.Views.bitacoras
                     ASPxButton btnActualizar = gvB.FindRowCellTemplateControl(e.VisibleIndex, e.DataColumn, "btnActualizar") as ASPxButton;
 
                     if (rdRem.Text.I() > 0)
+                    {
                         btnActualizar.Enabled = false;
+                        btnActualizar.Text = "Remisionado";
+                    }
                     else
+                    {
                         btnActualizar.Enabled = true;
+                        btnActualizar.Text = "Actualizar";
+                    }
                 }
             }
             catch (Exception ex)
