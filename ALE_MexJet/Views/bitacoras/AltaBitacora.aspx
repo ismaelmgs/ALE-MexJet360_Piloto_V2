@@ -309,28 +309,28 @@
                             <td style="padding:4px;">
                                 <label>Origen Calzo:</label>
                                 <%--<dx:BootstrapTextBox ID="txtOrigenCalzo" runat="server" NullText="Origen Calzo"></dx:BootstrapTextBox>--%>
-                                <dx:BootstrapDateEdit ID="txtOrigenCalzo" runat="server" EditFormat="DateTime">
+                                <dx:BootstrapDateEdit ID="txtOrigenCalzo" runat="server" EditFormat="DateTime" AutoPostBack="true" OnValueChanged="txtOrigenCalzo_ValueChanged">
                                     <TimeSectionProperties Visible="true" />
                                 </dx:BootstrapDateEdit>
                             </td>
                             <td style="padding:4px;">
                                 <label>Origen Vuelo:</label>
                                 <%--<dx:BootstrapTextBox ID="txtOrigenVuelo" runat="server" NullText="Origen Vuelo"></dx:BootstrapTextBox>--%>
-                                <dx:BootstrapDateEdit ID="txtOrigenVuelo" runat="server" EditFormat="DateTime">
+                                <dx:BootstrapDateEdit ID="txtOrigenVuelo" runat="server" EditFormat="DateTime" AutoPostBack="true" OnValueChanged="txtOrigenVuelo_ValueChanged">
                                     <TimeSectionProperties Visible="true" />
                                 </dx:BootstrapDateEdit>
                             </td>
                             <td style="padding:4px;">
                                 <label>Destino Vuelo:</label>
                                 <%--<dx:BootstrapTextBox ID="txtDestinoVuelo" runat="server" NullText="Destino Vuelo"></dx:BootstrapTextBox>--%>
-                                <dx:BootstrapDateEdit ID="txtDestinoVuelo" runat="server" EditFormat="DateTime">
+                                <dx:BootstrapDateEdit ID="txtDestinoVuelo" runat="server" EditFormat="DateTime" AutoPostBack="true" OnValueChanged="txtDestinoVuelo_ValueChanged">
                                     <TimeSectionProperties Visible="true" />
                                 </dx:BootstrapDateEdit>
                             </td>
                             <td style="padding:4px;">
                                 <label>Destino Calzo:</label>
                                 <%-- <dx:BootstrapTextBox ID="txtDestinoCalzo" runat="server" NullText="Destino Calzo"></dx:BootstrapTextBox>--%>
-                                <dx:BootstrapDateEdit ID="txtDestinoCalzo" runat="server" EditFormat="DateTime">
+                                <dx:BootstrapDateEdit ID="txtDestinoCalzo" runat="server" EditFormat="DateTime" AutoPostBack="true" OnValueChanged="txtDestinoCalzo_ValueChanged">
                                     <TimeSectionProperties Visible="true" />
                                 </dx:BootstrapDateEdit>
                             </td>
@@ -342,13 +342,13 @@
                             <td style="padding:4px;">
 <!-- inicio Falta este-->
                                 <label>Tiempo Calzo:</label>
-                                <dx:BootstrapTextBox ID="txtTiempoCalzo" runat="server" NullText="Tiempo Calzo"></dx:BootstrapTextBox>
+                                <dx:BootstrapTextBox ID="txtTiempoCalzo" runat="server" NullText="Tiempo Calzo" ReadOnly="true"></dx:BootstrapTextBox>
 <!-- fin Falta este -->
                             </td>
                             <td style="padding:4px;">
 <!-- inicio Falta este-->
                                 <label>Tiempo Vuelo:</label>
-                                <dx:BootstrapTextBox ID="txtTiempoVuelo" runat="server" NullText="Tiempo Vuelo"></dx:BootstrapTextBox>
+                                <dx:BootstrapTextBox ID="txtTiempoVuelo" runat="server" NullText="Tiempo Vuelo" ReadOnly="true"></dx:BootstrapTextBox>
 <!-- fin Falta este -->
                             </td>
                             <td style="padding:4px;">
@@ -364,16 +364,16 @@
                         <tr>
                             <td style="padding:4px;">
                                 <label>Consumo Origen:</label>
-                                <dx:BootstrapTextBox ID="txtConsumoOrigen" runat="server" NullText="Consumo Origen"></dx:BootstrapTextBox>
+                                <dx:BootstrapTextBox ID="txtConsumoOrigen" runat="server" NullText="Consumo Origen" AutoPostBack="true" OnValueChanged="txtConsumoOrigen_ValueChanged"></dx:BootstrapTextBox>
                             </td>
                             <td style="padding:4px;">
                                 <label>Consumo Destino:</label>
-                                <dx:BootstrapTextBox ID="txtConsumoDestino" runat="server" NullText="Consumo Destino"></dx:BootstrapTextBox>
+                                <dx:BootstrapTextBox ID="txtConsumoDestino" runat="server" NullText="Consumo Destino" AutoPostBack="true" OnValueChanged="txtConsumoDestino_ValueChanged"></dx:BootstrapTextBox>
                             </td>
                             <td style="padding:4px;">
 <!-- inicio Falta este-->
                                 <label>Combustible Usado:</label>
-                                <dx:BootstrapTextBox ID="txtCombustibleUsado" runat="server" NullText="Combustible Usado"></dx:BootstrapTextBox>
+                                <dx:BootstrapTextBox ID="txtCombustibleUsado" runat="server" NullText="Combustible Usado" ReadOnly="true"></dx:BootstrapTextBox>
 <!-- fin Falta este -->
                             </td>
                             <td style="padding:4px;">

@@ -76,6 +76,9 @@ namespace ALE_MexJet.Views.bitacoras
                         txtLongNum.Text = oB[19].S();
                         txtLegId.Text = oB[20].S();
                         txtFolioReal.Text = oB[21].S();
+                        CalcularTiempoConsumo(1);
+                        CalcularTiempoConsumo(2);
+                        CalcularTiempoConsumo(3);
                         ppBitacora.ShowOnPageLoad = true;
                     }
                 }
@@ -164,6 +167,72 @@ namespace ALE_MexJet.Views.bitacoras
             LimpiarControles();
             ppBitacora.ShowOnPageLoad = true;
         }
+        protected void txtOrigenCalzo_ValueChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                CalcularTiempoConsumo(1);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        protected void txtDestinoCalzo_ValueChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                CalcularTiempoConsumo(1);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        protected void txtConsumoOrigen_ValueChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                CalcularTiempoConsumo(3);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        protected void txtOrigenVuelo_ValueChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                CalcularTiempoConsumo(2);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        protected void txtDestinoVuelo_ValueChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                CalcularTiempoConsumo(2);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        protected void txtConsumoDestino_ValueChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                CalcularTiempoConsumo(3);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
         #endregion
 
         #region MÉTODOS
@@ -217,6 +286,62 @@ namespace ALE_MexJet.Views.bitacoras
             txtLongNum.Text = string.Empty;
             txtLegId.Text = string.Empty;
             txtFolioReal.Text = string.Empty;
+        }
+        public void CalcularTiempoConsumo(int iOpcion)
+        {
+            try
+            {
+                switch (iOpcion)
+                {
+                    //Calcular Tiempo Calzo
+                    case 1:
+                        TimeSpan tsTiempoCalzo;
+
+                        if (!string.IsNullOrEmpty(txtDestinoCalzo.Text) && !string.IsNullOrEmpty(txtOrigenCalzo.Text))
+                        {
+                            DateTime dtOrigen = txtOrigenCalzo.Text.Dt();
+                            DateTime dtDestino = txtDestinoCalzo.Text.Dt();
+                            tsTiempoCalzo = dtDestino.Subtract(dtOrigen).Duration();
+                            txtTiempoCalzo.Text = tsTiempoCalzo.S().Substring(0,5);
+                        }
+                        break;
+                    //Calcular Tiempo Vuelo
+                    case 2:
+                        TimeSpan tsTiempoVuelo;
+
+                        if (!string.IsNullOrEmpty(txtDestinoVuelo.Text) && !string.IsNullOrEmpty(txtOrigenVuelo.Text))
+                        {
+                            DateTime dtOrigen = txtOrigenVuelo.Text.Dt();
+                            DateTime dtDestino = txtDestinoVuelo.Text.Dt();
+                            tsTiempoVuelo = dtDestino.Subtract(dtOrigen).Duration();
+                            txtTiempoVuelo.Text = tsTiempoVuelo.S().Substring(0, 5);
+                        }
+                        break;
+                    //Calcula consumo
+                    case 3:
+                        double dbOrigen = 0;
+                        double dbDestino = 0;
+                        double dbConsumoTotal = 0;
+
+                        if (!string.IsNullOrEmpty(txtConsumoOrigen.Text))
+                            dbOrigen = txtConsumoOrigen.Text.Db();
+
+                        if (!string.IsNullOrEmpty(txtConsumoDestino.Text))
+                            dbDestino = txtConsumoDestino.Text.Db();
+
+                        dbConsumoTotal = dbOrigen - dbDestino;
+                        txtCombustibleUsado.Text = dbConsumoTotal.S();
+
+                        break;
+                    default:
+                        break;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
         #endregion
 
@@ -273,6 +398,8 @@ namespace ALE_MexJet.Views.bitacoras
             get { return (DataTable)ViewState["VSBitacoras"]; }
             set { ViewState["VSBitacoras"] = value; }
         }
+
         #endregion
+
     }
 }
