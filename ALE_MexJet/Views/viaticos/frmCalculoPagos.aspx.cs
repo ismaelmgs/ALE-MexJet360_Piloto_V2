@@ -16,6 +16,7 @@ namespace ALE_MexJet.Views.viaticos
 {
     public partial class frmCalculoPagos : System.Web.UI.Page, IViewCalculoPagos
     {
+        #region EVENTOS
         protected void Page_Load(object sender, EventArgs e)
         {
             oPresenter = new CalculoPagos_Presenter(this, new DBCalculoPagos());
@@ -47,7 +48,6 @@ namespace ALE_MexJet.Views.viaticos
                     eGetParams(sender, e);
             }
         }
-
         protected void btnBuscar_Click(object sender, EventArgs e)
         {
             try
@@ -67,7 +67,6 @@ namespace ALE_MexJet.Views.viaticos
                 throw ex;
             }
         }
-
         protected void gvCalculo_RowCommand(object sender, DevExpress.Web.ASPxGridViewRowCommandEventArgs e)
         {
             try
@@ -95,7 +94,7 @@ namespace ALE_MexJet.Views.viaticos
                         hdnFechaFinal.Value = dtFecha2.ToShortDateString();
 
 
-                        //sParametro = hdnIdBitacora.Value.S();
+                        sParametro = oB[1].S();
                         //if (eSearchVuelos != null)
                         //    eSearchVuelos(sender, e);
 
@@ -109,7 +108,7 @@ namespace ALE_MexJet.Views.viaticos
                         pnlVuelos.Visible = false;
                         pnlCalcularViaticos.Visible = true;
                         upaVuelos.Update();
-                        
+
                         if (eSearchCalculos != null)
                             eSearchCalculos(sender, e);
 
@@ -118,7 +117,7 @@ namespace ALE_MexJet.Views.viaticos
                             CargaViaticos();
                         }
                     }
-                    
+
                 }
             }
             catch (Exception ex)
@@ -126,7 +125,273 @@ namespace ALE_MexJet.Views.viaticos
                 throw ex;
             }
         }
+        protected void btnGuardarPeriodo_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                List<ConceptosPiloto> oLs = new List<ConceptosPiloto>();
+                List<VuelosPiernasPiloto> oLsV = new List<VuelosPiernasPiloto>();
 
+                for (int i = 0; i < dtNal.Rows.Count; i++)
+                {
+                    ConceptosPiloto oP = new ConceptosPiloto();
+                    if (dtNal.Rows[i]["CONCEPTO"].S().ToUpper() != "TOTAL")
+                    {
+                        oP.IIdPeriodo = 0;
+                        int iIdConcepto = 0;
+                        decimal dMonto = 0;
+
+                        for (int x = 0; x < dtConceptos.Rows.Count; x++)
+                        {
+                            if (dtConceptos.Rows[x]["DesConcepto"].S().ToUpper() == dtNal.Rows[i]["CONCEPTO"].S().ToUpper())
+                            {
+                                iIdConcepto = dtConceptos.Rows[x]["IdConcepto"].S().I();
+                                dMonto = dtConceptos.Rows[x]["MontoMXN"].S().D();
+                                break;
+                            }
+                        }
+                        oP.IIdConcepto = iIdConcepto;
+                        oP.SDesConcepto = dtNal.Rows[i]["CONCEPTO"].S();
+                        oP.ICantidad = dtNal.Rows[i]["NACIONAL"].S().I();
+                        oP.DMontoConcepto = dMonto;
+                        oP.SMoneda = "MXN";
+                        oP.DTotal = dtNal.Rows[i]["NACIONAL"].S().I() * dMonto;
+                        oLs.Add(oP);
+                    }
+                }
+
+                for (int i = 0; i < dtInt.Rows.Count; i++)
+                {
+                    ConceptosPiloto oP = new ConceptosPiloto();
+                    if (dtInt.Rows[i]["CONCEPTO"].S().ToUpper() != "TOTAL")
+                    {
+                        oP.IIdPeriodo = 0;
+                        int iIdConcepto = 0;
+                        decimal dMonto = 0;
+
+                        for (int x = 0; x < dtConceptos.Rows.Count; x++)
+                        {
+                            if (dtConceptos.Rows[x]["DesConcepto"].S().ToUpper() == dtInt.Rows[i]["CONCEPTO"].S().ToUpper())
+                            {
+                                iIdConcepto = dtConceptos.Rows[x]["IdConcepto"].S().I();
+                                dMonto = dtConceptos.Rows[x]["MontoUSD"].S().D();
+                                break;
+                            }
+                        }
+                        oP.IIdConcepto = iIdConcepto;
+                        oP.SDesConcepto = dtInt.Rows[i]["CONCEPTO"].S();
+                        oP.ICantidad = dtInt.Rows[i]["INTERNACIONAL"].S().I();
+                        oP.DMontoConcepto = dMonto;
+                        oP.SMoneda = "USD";
+                        oP.DTotal = dtInt.Rows[i]["INTERNACIONAL"].S().I() * dMonto;
+                        oLs.Add(oP);
+                    }
+                }
+                //Enlistamos los conceptos nacionales e internacionales del calculo del piloto
+                oLst = oLs;
+
+                for (int i = 0; i < dtVuelosPiloto.Rows.Count; i++)
+                {
+                    VuelosPiernasPiloto oV = new VuelosPiernasPiloto();
+                    oV.IIdPeriodo = 0;
+                    oV.LTrip = dtVuelosPiloto.Rows[i]["Trip"].S().L();
+                    oV.LLegId = dtVuelosPiloto.Rows[i]["LegId"].S().L();
+                    oLsV.Add(oV);
+                }
+                oLstVP = oLsV;
+
+                if (eSaveObj != null)
+                    eSaveObj(sender, e);
+
+                if (sOk == "ok")
+                {
+                    MostrarMensaje("¡Se ha guardado los datos calculados del piloto!", "Guardado");
+                }
+                else if (sOk == "error")
+                {
+                    MostrarMensaje("Ocurrió un error, favor de verificar", "Error");
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                MostrarMensaje("Error: " + ex.Message, "Error");
+            }
+        }
+        protected void btnAprobar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                for (int i = 0; i < dtCalculos.Rows.Count; i++)
+                {
+                    List<PeriodoPiloto> oLsPer = new List<PeriodoPiloto>();
+                    List<ConceptosPiloto> oLsConPiloto = new List<ConceptosPiloto>();
+                    List<VuelosPiernasPiloto> oLsVuelos = new List<VuelosPiernasPiloto>();
+
+                    PeriodoPiloto oPer = new PeriodoPiloto();
+                    oPer.SCvePiloto = dtCalculos.Rows[i]["CrewCode"].S();
+                    oPer.SFechaInicio = dtCalculos.Rows[i]["FechaInicio"].S();
+                    oPer.SFechaFinal = dtCalculos.Rows[i]["FechaFin"].S();
+                    oPer.SUsuario = ((UserIdentity)Session["UserIdentity"]).sUsuario;
+
+                    int iDesNal = dtCalculos.Rows[i]["DesayunosNal"].S().I();
+                    int iComNal = dtCalculos.Rows[i]["ComidasNal"].S().I();
+                    int iCenNal = dtCalculos.Rows[i]["CenasNal"].S().I();
+
+                    int iDesInt = dtCalculos.Rows[i]["DesayunosInt"].S().I();
+                    int iComInt = dtCalculos.Rows[i]["ComidasInt"].S().I();
+                    int iCenInt = dtCalculos.Rows[i]["CenasInt"].S().I();
+
+                    //Conceptos
+
+                    #region NACIONALES
+                    for (int x = 0; x < dtConceptos.Rows.Count; x++)
+                    {
+                        ConceptosPiloto oCP = new ConceptosPiloto();
+                        oCP.IIdPeriodo = 0;
+                        int iIdConcepto = 0;
+                        decimal dMonto = 0;
+
+                        if (dtConceptos.Rows[x]["DesConcepto"].S().ToUpper() == "DESAYUNO")
+                        {
+                            iIdConcepto = dtConceptos.Rows[x]["IdConcepto"].S().I();
+                            dMonto = dtConceptos.Rows[x]["MontoMXN"].S().D();
+
+                            oCP.IIdConcepto = iIdConcepto;
+                            oCP.SDesConcepto = dtConceptos.Rows[x]["DesConcepto"].S();
+                            oCP.ICantidad = iDesNal;
+                            oCP.DMontoConcepto = dMonto;
+                            oCP.SMoneda = "MXN";
+                            oCP.DTotal = iDesNal * dMonto;
+                            oLsConPiloto.Add(oCP);
+                        }
+                        else if (dtConceptos.Rows[x]["DesConcepto"].S().ToUpper() == "COMIDA")
+                        {
+                            iIdConcepto = dtConceptos.Rows[x]["IdConcepto"].S().I();
+                            dMonto = dtConceptos.Rows[x]["MontoMXN"].S().D();
+
+                            oCP.IIdConcepto = iIdConcepto;
+                            oCP.SDesConcepto = dtConceptos.Rows[x]["DesConcepto"].S();
+                            oCP.ICantidad = iComNal;
+                            oCP.DMontoConcepto = dMonto;
+                            oCP.SMoneda = "MXN";
+                            oCP.DTotal = iComNal * dMonto;
+                            oLsConPiloto.Add(oCP);
+                        }
+                        else if (dtConceptos.Rows[x]["DesConcepto"].S().ToUpper() == "CENA")
+                        {
+                            iIdConcepto = dtConceptos.Rows[x]["IdConcepto"].S().I();
+                            dMonto = dtConceptos.Rows[x]["MontoMXN"].S().D();
+
+                            oCP.IIdConcepto = iIdConcepto;
+                            oCP.SDesConcepto = dtConceptos.Rows[x]["DesConcepto"].S();
+                            oCP.ICantidad = iCenNal;
+                            oCP.DMontoConcepto = dMonto;
+                            oCP.SMoneda = "MXN";
+                            oCP.DTotal = iCenNal * dMonto;
+                            oLsConPiloto.Add(oCP);
+                        }
+                        //oLst = oLsConPiloto;
+                    }
+                    #endregion
+
+                    #region INTERNACIONALES
+                    for (int x = 0; x < dtConceptos.Rows.Count; x++)
+                    {
+                        ConceptosPiloto oCP = new ConceptosPiloto();
+                        oCP.IIdPeriodo = 0;
+                        int iIdConcepto = 0;
+                        decimal dMonto = 0;
+
+                        if (dtConceptos.Rows[x]["DesConcepto"].S().ToUpper() == "DESAYUNO")
+                        {
+                            iIdConcepto = dtConceptos.Rows[x]["IdConcepto"].S().I();
+                            dMonto = dtConceptos.Rows[x]["MontoUSD"].S().D();
+
+                            oCP.IIdConcepto = iIdConcepto;
+                            oCP.SDesConcepto = dtConceptos.Rows[x]["DesConcepto"].S();
+                            oCP.ICantidad = iDesInt;
+                            oCP.DMontoConcepto = dMonto;
+                            oCP.SMoneda = "USD";
+                            oCP.DTotal = iDesInt * dMonto;
+                            oLsConPiloto.Add(oCP);
+                        }
+                        else if (dtConceptos.Rows[x]["DesConcepto"].S().ToUpper() == "COMIDA")
+                        {
+                            iIdConcepto = dtConceptos.Rows[x]["IdConcepto"].S().I();
+                            dMonto = dtConceptos.Rows[x]["MontoUSD"].S().D();
+
+                            oCP.IIdConcepto = iIdConcepto;
+                            oCP.SDesConcepto = dtConceptos.Rows[x]["DesConcepto"].S();
+                            oCP.ICantidad = iComInt;
+                            oCP.DMontoConcepto = dMonto;
+                            oCP.SMoneda = "USD";
+                            oCP.DTotal = iComInt * dMonto;
+                            oLsConPiloto.Add(oCP);
+                        }
+                        else if (dtConceptos.Rows[x]["DesConcepto"].S().ToUpper() == "CENA")
+                        {
+                            iIdConcepto = dtConceptos.Rows[x]["IdConcepto"].S().I();
+                            dMonto = dtConceptos.Rows[x]["MontoUSD"].S().D();
+
+                            oCP.IIdConcepto = iIdConcepto;
+                            oCP.SDesConcepto = dtConceptos.Rows[x]["DesConcepto"].S();
+                            oCP.ICantidad = iCenInt;
+                            oCP.DMontoConcepto = dMonto;
+                            oCP.SMoneda = "USD";
+                            oCP.DTotal = iCenInt * dMonto;
+                            oLsConPiloto.Add(oCP);
+                        }
+
+                    }
+                    #endregion
+
+                    #region VUELOS
+
+                    DataRow[] dr = dtVuelosPiloto.Select("crewcode='" + dtCalculos.Rows[i]["CrewCode"].S() + "'");
+
+                    for (int x = 0; x < dr.Length; x++)
+                    {
+                        VuelosPiernasPiloto oV = new VuelosPiernasPiloto();
+                        oV.IIdPeriodo = 0;
+                        oV.LTrip = dr[x]["Trip"].S().L();
+                        oV.LLegId = dr[x]["LegId"].S().L();
+                        oLsVuelos.Add(oV);
+                    }
+                    oLstVP = oLsVuelos;
+
+                    #endregion
+
+                    oLsPer.Add(oPer);
+
+
+
+                    oLstPeriodo = oLsPer;
+                    oLst = oLsConPiloto;
+
+                    if (eSavePeriodos != null)
+                        eSavePeriodos(sender, e);
+                }
+
+                
+
+
+            }
+            catch (Exception ex)
+            {
+                MostrarMensaje("Error: " + ex.Message, "Aviso");
+            }
+        }
+        #endregion
+
+        #region MÉTODOS
+        public void MostrarMensaje(string sMensaje, string sCaption)
+        {
+            //mpeMensaje.ShowMessage(sMensaje, sCaption);
+            lbl.Text = sMensaje;
+            ppAlert.ShowOnPageLoad = true;
+        }
         public string GetMes(int iMes)
         {
             try
@@ -180,7 +445,6 @@ namespace ALE_MexJet.Views.viaticos
                 return "";
             }
         }
-
         public void LoadsGrids(DataSet ds)
         {
             try
@@ -205,7 +469,6 @@ namespace ALE_MexJet.Views.viaticos
                 throw ex;
             }
         }
-
         public string CalcularViaticos()
         {
             try
@@ -230,9 +493,9 @@ namespace ALE_MexJet.Views.viaticos
                     sArrCheckOut = dtVuelosXPiloto.Rows[x]["CheckOut"].S().Split(' ');
                     sCvePais = dtVuelosXPiloto.Rows[x]["CvePaisDestino"].S();
 
-                    if (dtConceptos != null && dtConceptos.Rows.Count > 0) 
+                    if (dtConceptos != null && dtConceptos.Rows.Count > 0)
                     {
-                        if(dtConceptos.Columns.Contains("CantidadMXN") == false)
+                        if (dtConceptos.Columns.Contains("CantidadMXN") == false)
                             dtConceptos.Columns.Add("CantidadMXN");
 
                         if (dtConceptos.Columns.Contains("CantidadUSD") == false)
@@ -424,7 +687,6 @@ namespace ALE_MexJet.Views.viaticos
                 throw ex;
             }
         }
-
         public void LoadConceptos(DataTable dt)
         {
             try
@@ -474,216 +736,6 @@ namespace ALE_MexJet.Views.viaticos
                 throw ex;
             }
         }
-
-        #region PROPIEDADES Y VARIABLES
-        CalculoPagos_Presenter oPresenter;
-        public event EventHandler eNewObj;
-        public event EventHandler eObjSelected;
-        public event EventHandler eSaveObj;
-        public event EventHandler eDeleteObj;
-        public event EventHandler eSearchObj;
-        public event EventHandler eSearchConceptos;
-        public event EventHandler eSearchVuelos;
-        public event EventHandler eSearchCalculos;
-        public event EventHandler eGetParams;
-        public event EventHandler eGetAdicionales;
-        public DataTable dtConceptos
-        {
-            get { return (DataTable)ViewState["VSConceptos"]; }
-            set { ViewState["VSConceptos"] = value; }
-        }
-        public DataTable dtVuelosXPiloto
-        {
-            get { return (DataTable)ViewState["VSVuelosXPiloto"]; }
-            set { ViewState["VSVuelosXPiloto"] = value; }
-        }
-        public DataTable dtVuelos
-        {
-            get { return (DataTable)ViewState["VSdtVuelos"]; }
-            set { ViewState["VSdtVuelos"] = value; }
-        }
-        public string sParametro
-        {
-            get { return (string)ViewState["VSParametro"]; }
-            set { ViewState["VSParametro"] = value; }
-        }
-        public string sFechaDesde
-        {
-            get { return (string)ViewState["VSFechaDesde"]; }
-            set { ViewState["VSFechaDesde"] = value; }
-        }
-        public string sFechaHasta
-        {
-            get { return (string)ViewState["VSFechaHasta"]; }
-            set { ViewState["VSFechaHasta"] = value; }
-        }
-        public List<CantidadComidas> oLstCant
-        {
-            get { return (List<CantidadComidas>)ViewState["VSCantidadComidas"]; }
-            set { ViewState["VSCantidadComidas"] = value; }
-        }
-        public DataSet dsParams
-        {
-            get { return (DataSet)ViewState["VSParametros"]; }
-            set { ViewState["VSParametros"] = value; }
-        }
-        public int iIdPeriodo
-        {
-            get { return (int)ViewState["VSIdPeriodo"]; }
-            set { ViewState["VSIdPeriodo"] = value; }
-        }
-        public string sOk
-        {
-            get { return (string)ViewState["VSOk"]; }
-            set { ViewState["VSOk"] = value; }
-        }
-
-        public DataTable dtNal
-        {
-            get { return (DataTable)ViewState["VSdtNal"]; }
-            set { ViewState["VSdtNal"] = value; }
-        }
-        public DataTable dtInt
-        {
-            get { return (DataTable)ViewState["VSdtInt"]; }
-            set { ViewState["VSdtInt"] = value; }
-        }
-        public DataTable dtVuelosPiloto
-        {
-            get { return (DataTable)ViewState["VSdtVuelosPiloto"]; }
-            set { ViewState["VSdtVuelosPiloto"] = value; }
-        }
-
-        public List<ConceptosPiloto> oLst
-        {
-            get { return (List<ConceptosPiloto>)ViewState["VSConceptosPilotos"]; }
-            set { ViewState["VSConceptosPilotos"] = value; }
-        }
-        public List<ConceptosAdicionalesPiloto> oLstAd
-        {
-            get { return (List<ConceptosAdicionalesPiloto>)ViewState["VSConceptosAdicionalesPiloto"]; }
-            set { ViewState["VSConceptosAdicionalesPiloto"] = value; }
-        }
-        public List<VuelosPiernasPiloto> oLstVP
-        {
-            get { return (List<VuelosPiernasPiloto>)ViewState["VSVuelosPiernasPiloto"]; }
-            set { ViewState["VSVuelosPiernasPiloto"] = value; }
-        }
-        public PeriodoPiloto oPer
-        {
-            get 
-            {
-                PeriodoPiloto oPer = new PeriodoPiloto();
-                oPer.SCvePiloto = readCvePiloto.Text;
-                oPer.SFechaInicio = hdnFechaInicio.Value;
-                oPer.SFechaFinal = hdnFechaFinal.Value;
-                oPer.SUsuario = ((UserIdentity)Session["UserIdentity"]).sUsuario;
-                return oPer;
-            }
-        }
-        #endregion
-
-        protected void btnGuardarPeriodo_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                List<ConceptosPiloto> oLs = new List<ConceptosPiloto>();
-                List<VuelosPiernasPiloto> oLsV = new List<VuelosPiernasPiloto>();
-
-                for (int i = 0; i < dtNal.Rows.Count; i++)
-                {
-                    ConceptosPiloto oP = new ConceptosPiloto();
-                    if (dtNal.Rows[i]["CONCEPTO"].S().ToUpper() != "TOTAL")
-                    {
-                        oP.IIdPeriodo = 0;
-                        int iIdConcepto = 0;
-                        decimal dMonto = 0;
-
-                        for (int x = 0; x < dtConceptos.Rows.Count; x++)
-                        {
-                            if (dtConceptos.Rows[x]["DesConcepto"].S().ToUpper() == dtNal.Rows[i]["CONCEPTO"].S().ToUpper())
-                            {
-                                iIdConcepto = dtConceptos.Rows[x]["IdConcepto"].S().I();
-                                dMonto = dtConceptos.Rows[x]["MontoMXN"].S().D();
-                                break;
-                            }
-                        }
-                        oP.IIdConcepto = iIdConcepto;
-                        oP.SDesConcepto = dtNal.Rows[i]["CONCEPTO"].S();
-                        oP.ICantidad = dtNal.Rows[i]["NACIONAL"].S().I();
-                        oP.DMontoConcepto = dMonto;
-                        oP.SMoneda = "MXN";
-                        oP.DTotal = dtNal.Rows[i]["NACIONAL"].S().I() * dMonto;
-                        oLs.Add(oP);
-                    }
-                }
-
-                for (int i = 0; i < dtInt.Rows.Count; i++)
-                {
-                    ConceptosPiloto oP = new ConceptosPiloto();
-                    if (dtInt.Rows[i]["CONCEPTO"].S().ToUpper() != "TOTAL")
-                    {
-                        oP.IIdPeriodo = 0;
-                        int iIdConcepto = 0;
-                        decimal dMonto = 0;
-
-                        for (int x = 0; x < dtConceptos.Rows.Count; x++)
-                        {
-                            if (dtConceptos.Rows[x]["DesConcepto"].S().ToUpper() == dtInt.Rows[i]["CONCEPTO"].S().ToUpper())
-                            {
-                                iIdConcepto = dtConceptos.Rows[x]["IdConcepto"].S().I();
-                                dMonto = dtConceptos.Rows[x]["MontoUSD"].S().D();
-                                break;
-                            }
-                        }
-                        oP.IIdConcepto = iIdConcepto;
-                        oP.SDesConcepto = dtInt.Rows[i]["CONCEPTO"].S();
-                        oP.ICantidad = dtInt.Rows[i]["INTERNACIONAL"].S().I();
-                        oP.DMontoConcepto = dMonto;
-                        oP.SMoneda = "USD";
-                        oP.DTotal = dtInt.Rows[i]["INTERNACIONAL"].S().I() * dMonto;
-                        oLs.Add(oP);
-                    }
-                }
-                //Enlistamos los conceptos nacionales e internacionales del calculo del piloto
-                oLst = oLs;
-
-                for (int i = 0; i < dtVuelosPiloto.Rows.Count; i++)
-                {
-                    VuelosPiernasPiloto oV = new VuelosPiernasPiloto();
-                    oV.IIdPeriodo = 0;
-                    oV.LTrip = dtVuelosPiloto.Rows[i]["Trip"].S().L();
-                    oV.LLegId = dtVuelosPiloto.Rows[i]["LegId"].S().L();
-                    oLsV.Add(oV);
-                }
-                oLstVP = oLsV;
-
-                if (eSaveObj != null)
-                    eSaveObj(sender, e);
-
-                if (sOk == "ok")
-                {
-                    MostrarMensaje("¡Se ha guardado los datos calculados del piloto!", "Guardado");
-                }
-                else if (sOk == "error")
-                {
-                    MostrarMensaje("Ocurrió un error, favor de verificar", "Error");
-                }
-
-                    
-            }
-            catch (Exception ex)
-            {
-                MostrarMensaje("Error: " + ex.Message, "Error");
-            }
-        }
-        public void MostrarMensaje(string sMensaje, string sCaption)
-        {
-            //mpeMensaje.ShowMessage(sMensaje, sCaption);
-            lbl.Text = sMensaje;
-            ppAlert.ShowOnPageLoad = true;
-        }
-
         public void LlenaCalculoPilotos(DataTable dt)
         {
             try
@@ -700,7 +752,6 @@ namespace ALE_MexJet.Views.viaticos
                 throw ex;
             }
         }
-
         public void CargaViaticos()
         {
             try
@@ -820,13 +871,6 @@ namespace ALE_MexJet.Views.viaticos
                 throw ex;
             }
         }
-
-        public DataTable dtCalculos
-        {
-            get { return (DataTable)ViewState["VSCalculos"]; }
-            set { ViewState["VSCalculos"] = value; }
-        }
-
         public void LlenaVuelosPiloto(DataTable dt)
         {
             dtVuelosPiloto = null;
@@ -986,6 +1030,125 @@ namespace ALE_MexJet.Views.viaticos
                 throw;
             }
         }
+        #endregion
 
+        #region PROPIEDADES Y VARIABLES
+        CalculoPagos_Presenter oPresenter;
+        public event EventHandler eNewObj;
+        public event EventHandler eObjSelected;
+        public event EventHandler eSaveObj;
+        public event EventHandler eDeleteObj;
+        public event EventHandler eSearchObj;
+        public event EventHandler eSearchConceptos;
+        public event EventHandler eSearchVuelos;
+        public event EventHandler eSearchCalculos;
+        public event EventHandler eGetParams;
+        public event EventHandler eGetAdicionales;
+
+        public event EventHandler eSavePeriodos;
+        
+        public string sParametro
+        {
+            get { return (string)ViewState["VSParametro"]; }
+            set { ViewState["VSParametro"] = value; }
+        }
+        public string sFechaDesde
+        {
+            get { return (string)ViewState["VSFechaDesde"]; }
+            set { ViewState["VSFechaDesde"] = value; }
+        }
+        public string sFechaHasta
+        {
+            get { return (string)ViewState["VSFechaHasta"]; }
+            set { ViewState["VSFechaHasta"] = value; }
+        }
+        public List<CantidadComidas> oLstCant
+        {
+            get { return (List<CantidadComidas>)ViewState["VSCantidadComidas"]; }
+            set { ViewState["VSCantidadComidas"] = value; }
+        }
+        public int iIdPeriodo
+        {
+            get { return (int)ViewState["VSIdPeriodo"]; }
+            set { ViewState["VSIdPeriodo"] = value; }
+        }
+        public string sOk
+        {
+            get { return (string)ViewState["VSOk"]; }
+            set { ViewState["VSOk"] = value; }
+        }
+        public DataSet dsParams
+        {
+            get { return (DataSet)ViewState["VSParametros"]; }
+            set { ViewState["VSParametros"] = value; }
+        }
+        public DataTable dtConceptos
+        {
+            get { return (DataTable)ViewState["VSConceptos"]; }
+            set { ViewState["VSConceptos"] = value; }
+        }
+        public DataTable dtVuelosXPiloto
+        {
+            get { return (DataTable)ViewState["VSVuelosXPiloto"]; }
+            set { ViewState["VSVuelosXPiloto"] = value; }
+        }
+        public DataTable dtVuelos
+        {
+            get { return (DataTable)ViewState["VSdtVuelos"]; }
+            set { ViewState["VSdtVuelos"] = value; }
+        }
+        public DataTable dtNal
+        {
+            get { return (DataTable)ViewState["VSdtNal"]; }
+            set { ViewState["VSdtNal"] = value; }
+        }
+        public DataTable dtInt
+        {
+            get { return (DataTable)ViewState["VSdtInt"]; }
+            set { ViewState["VSdtInt"] = value; }
+        }
+        public DataTable dtVuelosPiloto
+        {
+            get { return (DataTable)ViewState["VSdtVuelosPiloto"]; }
+            set { ViewState["VSdtVuelosPiloto"] = value; }
+        }
+        public DataTable dtCalculos
+        {
+            get { return (DataTable)ViewState["VSCalculos"]; }
+            set { ViewState["VSCalculos"] = value; }
+        }
+        public List<PeriodoPiloto> oLstPeriodo
+        {
+            get { return (List<PeriodoPiloto>)ViewState["VSPeriodos"]; }
+            set { ViewState["VSPeriodos"] = value; }
+        }
+        public List<ConceptosPiloto> oLst
+        {
+            get { return (List<ConceptosPiloto>)ViewState["VSConceptosPilotos"]; }
+            set { ViewState["VSConceptosPilotos"] = value; }
+        }
+        public List<ConceptosAdicionalesPiloto> oLstAd
+        {
+            get { return (List<ConceptosAdicionalesPiloto>)ViewState["VSConceptosAdicionalesPiloto"]; }
+            set { ViewState["VSConceptosAdicionalesPiloto"] = value; }
+        }
+        public List<VuelosPiernasPiloto> oLstVP
+        {
+            get { return (List<VuelosPiernasPiloto>)ViewState["VSVuelosPiernasPiloto"]; }
+            set { ViewState["VSVuelosPiernasPiloto"] = value; }
+        }
+        public PeriodoPiloto oPer
+        {
+            get 
+            {
+                PeriodoPiloto oPer = new PeriodoPiloto();
+                oPer.SCvePiloto = readCvePiloto.Text;
+                oPer.SFechaInicio = hdnFechaInicio.Value;
+                oPer.SFechaFinal = hdnFechaFinal.Value;
+                oPer.SUsuario = ((UserIdentity)Session["UserIdentity"]).sUsuario;
+                return oPer;
+            }
+        }
+        #endregion
     }
 }

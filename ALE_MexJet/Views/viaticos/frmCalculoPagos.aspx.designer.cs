@@ -87,6 +87,15 @@ namespace ALE_MexJet.Views.viaticos
         protected global::DevExpress.Web.Bootstrap.BootstrapGridView gvCalculo;
 
         /// <summary>
+        /// Control btnAprobar.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::DevExpress.Web.Bootstrap.BootstrapButton btnAprobar;
+
+        /// <summary>
         /// Control pnlCalcularViaticos.
         /// </summary>
         /// <remarks>

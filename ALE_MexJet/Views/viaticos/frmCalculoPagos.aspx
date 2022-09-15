@@ -153,6 +153,10 @@
                                 </SettingsPopup>
                             </dx:BootstrapGridView>
                         </div>
+                        <br />
+                        <div class="col-lg-12" align="right">
+                            <dx:BootstrapButton ID="btnAprobar" runat="server" Text="Aprobar" SettingsBootstrap-RenderOption="Primary" AutoPostBack="true" OnClick="btnAprobar_Click" />
+                        </div>
                     </ContentTemplate>
                 </asp:UpdatePanel>
             </div>

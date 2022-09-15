@@ -25,6 +25,8 @@ namespace ALE_MexJet.Interfaces
         List<ConceptosAdicionalesPiloto> oLstAd { set; get; }
         List<VuelosPiernasPiloto> oLstVP { set; get; }
 
+        List<PeriodoPiloto> oLstPeriodo { set; get; }
+
         void LlenaCalculoPilotos(DataTable dt);
         void LlenaVuelosPiloto(DataTable dt);
         DataSet dsParams { set; get; }
@@ -38,5 +40,6 @@ namespace ALE_MexJet.Interfaces
         event EventHandler eSearchCalculos;
         event EventHandler eGetParams;
         event EventHandler eGetAdicionales;
+        event EventHandler eSavePeriodos;
     }
 }

@@ -23,6 +23,7 @@ namespace ALE_MexJet.Presenter
             oIView.eSearchCalculos += SearchCalculos_Presenter;
             oIView.eGetParams += eGetParams_Presenter;
             oIView.eGetAdicionales += GetAdicionales_Presenter;
+            oIView.eSavePeriodos += SavePeriodos_Presenter;
         }
 
         protected void GetAdicionales_Presenter(object sender, EventArgs e)
@@ -2397,10 +2398,34 @@ namespace ALE_MexJet.Presenter
                 if (oIView.oLst.Count > 0)
                 {
                     if (oIGestCat.SetInsertaConceptosPilotoVitacora(oIView.oLst, oIView.iIdPeriodo))
+                    {
                         if (oIGestCat.SetInsertaVuelosPiernasPiloto(oIView.oLstVP, oIView.iIdPeriodo))
                             oIView.sOk = "ok";
                         else
                             oIView.sOk = "error";
+                    }
+                }
+            }
+        }
+        protected void SavePeriodos_Presenter(object sender, EventArgs e)
+        {
+            if (oIView.oLstPeriodo.Count > 0)
+            {
+                for (int i = 0; i < oIView.oLstPeriodo.Count; i++)
+                {
+                    oIView.iIdPeriodo = oIGestCat.SetInsertaPeriodo(oIView.oLstPeriodo[i]);
+
+                    if (oIView.iIdPeriodo > 0)
+                    {
+                        if (oIGestCat.SetInsertaConceptosPilotoVitacora(oIView.oLst, oIView.iIdPeriodo))
+                        {
+                            //Inserta piernas
+                            if (oIGestCat.SetInsertaVuelosPiernasPiloto(oIView.oLstVP, oIView.iIdPeriodo))
+                                oIView.sOk = "ok";
+                            else
+                                oIView.sOk = "error";
+                        }
+                    }
                 }
             }
         }
