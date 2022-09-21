@@ -60,7 +60,7 @@ namespace ALE_MexJet.Views.bitacoras
                         txtVueloContratoId.Text = oB[3].S();
                         txtPilotoId.Text = oB[4].S();
                         txtCopilotoId.Text = oB[5].S();
-                        txtFecha.Value = oB[6].S();
+                        //txtFecha.Value = oB[6].S();
                         txtOrigen.Text = oB[7].S();
                         txtDestino.Text = oB[8].S();
                         txtOrigenVuelo.Value = oB[9].S();
@@ -272,7 +272,7 @@ namespace ALE_MexJet.Views.bitacoras
             txtVueloContratoId.Text = string.Empty;
             txtPilotoId.Text = string.Empty;
             txtCopilotoId.Text = string.Empty;
-            txtFecha.Value = string.Empty;
+            //txtFecha.Value = string.Empty;
             txtOrigen.Text = string.Empty;
             txtDestino.Text = string.Empty;
             txtOrigenVuelo.Value = string.Empty;
@@ -288,6 +288,9 @@ namespace ALE_MexJet.Views.bitacoras
             txtLongNum.Text = string.Empty;
             txtLegId.Text = string.Empty;
             txtFolioReal.Text = string.Empty;
+            txtTiempoCalzo.Text = string.Empty;
+            txtTiempoVuelo.Text = string.Empty;
+            txtCombustibleUsado.Text = string.Empty;
         }
         public void CalcularTiempoConsumo(int iOpcion)
         {
@@ -377,7 +380,7 @@ namespace ALE_MexJet.Views.bitacoras
                 oBit.SVueloContratoId = txtVueloContratoId.Text;
                 oBit.SPilotoId = txtPilotoId.Text;
                 oBit.SCopilotoId = txtCopilotoId.Text;
-                oBit.DtFecha = txtFecha.Value.S().Dt();
+                oBit.DtFecha = txtOrigenCalzo.Value.S().Dt();
                 oBit.SOrigen = txtOrigen.Text;
                 oBit.SDestino = txtDestino.Text;
                 oBit.DtOrigenVuelo = txtOrigenVuelo.Value.S().Dt();

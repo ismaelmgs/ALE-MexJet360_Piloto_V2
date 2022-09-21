@@ -387,15 +387,14 @@
 
 <!-- inicio Sobra este-->
                     </div>
-                    <div class="row">
+                    <%--<div class="row">
                         <div class="col-md-3">
                             <label>Fecha:</label>
-                            <%--<dx:BootstrapTextBox ID="txtFecha" runat="server" NullText="Fecha"></dx:BootstrapTextBox>--%>
                             <dx:BootstrapDateEdit ID="txtFecha" runat="server" EditFormat="DateTime">
                                 <TimeSectionProperties Visible="true" />
                             </dx:BootstrapDateEdit>
                         </div>
-                    </div>
+                    </div>--%>
 <!-- fin Sobra este -->
 
                 <div class="row" style="padding-top:15px;">
