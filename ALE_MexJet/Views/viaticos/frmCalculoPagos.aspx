@@ -105,7 +105,7 @@
                 <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional">
                     <ContentTemplate>
                         <div class="col-sm-12">
-                            <dx:BootstrapGridView ID="gvCalculo" runat="server" KeyFieldName="IdFolio" OnRowCommand="gvCalculo_RowCommand">
+                            <dx:BootstrapGridView ID="gvCalculo" runat="server" KeyFieldName="IdFolio,CrewCode" OnRowCommand="gvCalculo_RowCommand" OnHtmlDataCellPrepared="gvCalculo_HtmlDataCellPrepared">
                                 <SettingsSearchPanel Visible="true" ShowApplyButton="true" />
                                 <Settings ShowGroupPanel="True" ShowFilterRowMenu="true" />
                                 <SettingsAdaptivity AdaptivityMode="HideDataCells" AllowOnlyOneAdaptiveDetailExpanded="true"></SettingsAdaptivity>
@@ -123,22 +123,28 @@
                                     <dx:BootstrapGridViewDataColumn Caption="Cena Nac." FieldName="CenasNal" VisibleIndex="7" HorizontalAlign="Center" CssClasses-DataCell="dataCell" />
                                     <dx:BootstrapGridViewDataColumn Caption="Cena Int." FieldName="CenasInt" VisibleIndex="8" HorizontalAlign="Center" CssClasses-DataCell="dataCell" />
                                     
+                                    <dx:BootstrapGridViewDataColumn VisibleIndex="9" Caption="Estatus" Width="120px" FieldName="Estatus" HorizontalAlign="Center">
+                                        <DataItemTemplate>
+                                            <asp:Label ID="readEstatus" runat="server" Text="" CssClass="dataCell"></asp:Label>
+                                        </DataItemTemplate>
+                                    </dx:BootstrapGridViewDataColumn>
+
                                     <%--<dx:BootstrapGridViewDataColumn Caption="Estatus" FieldName="Estatus" VisibleIndex="5" HorizontalAlign="Center" CssClasses-DataCell="dataCell" />--%>
-                                    <dx:BootstrapGridViewDataColumn VisibleIndex="9" Caption="Acciones" Width="120px" FieldName="IdFolio">
+                                    <dx:BootstrapGridViewDataColumn VisibleIndex="10" Caption="Acciones" Width="120px" FieldName="CrewCode">
                                         <DataItemTemplate>
                                             <%--<dx:BootstrapImage runat="server" ID="imgTemplate" Width="15px" Height="15px" ImageAlign="AbsMiddle"
                                                 ImageUrl='<%# "~/img/iconos/" + Eval("EstatusImg") %>'
                                                 ToolTip='<%# Eval("Tooltip") %>'>
                                             </dx:BootstrapImage>--%>
 
-                                            <dx:BootstrapButton Text="Ver viáticos" ID="btnVerViaticos" runat="server" CommandArgument='<%# Eval("IdFolio") %>' CommandName="Ver" AutoPostBack="true" 
+                                            <dx:BootstrapButton Text="Ver viáticos" ID="btnVerViaticos" runat="server" CommandArgument='<%# Eval("CrewCode") %>' CommandName="Ver" AutoPostBack="true" 
                                                 ToolTip="Calcular viáticos" SettingsBootstrap-RenderOption="Primary"></dx:BootstrapButton>
 
                                         </DataItemTemplate>
                                     </dx:BootstrapGridViewDataColumn>
                                     
-                                    <dx:BootstrapGridViewDataColumn FieldName="FechaInicio" Visible="false" VisibleIndex="10" CssClasses-DataCell="hideColumn" CssClasses-HeaderCell="hideColumn" HorizontalAlign="Center" />
-                                    <dx:BootstrapGridViewDataColumn FieldName="FechaFin" Visible="false" VisibleIndex="11" CssClasses-DataCell="hideColumn" CssClasses-HeaderCell="hideColumn" HorizontalAlign="Center" />
+                                    <dx:BootstrapGridViewDataColumn FieldName="FechaInicio" Visible="false" VisibleIndex="11" CssClasses-DataCell="hideColumn" CssClasses-HeaderCell="hideColumn" HorizontalAlign="Center" />
+                                    <dx:BootstrapGridViewDataColumn FieldName="FechaFin" Visible="false" VisibleIndex="12" CssClasses-DataCell="hideColumn" CssClasses-HeaderCell="hideColumn" HorizontalAlign="Center" />
                                     <%--<dx:BootstrapGridViewDataColumn FieldName="Estatus_Img" Visible="false" VisibleIndex="15" CssClasses-DataCell="hideColumn" CssClasses-HeaderCell="hideColumn" HorizontalAlign="Center" />--%>
 
                                 </Columns>
@@ -361,9 +367,7 @@
                             <dx:ContentControl>
                                 <dx:BootstrapButton ID="btnGuardarPeriodo" runat="server" Text="Guardar Período" SettingsBootstrap-RenderOption="Primary" AutoPostBack="true" OnClick="btnGuardarPeriodo_Click" />
                                 <%--<dx:BootstrapButton ID="btnAutorizar" runat="server" Text="Autorizar" SettingsBootstrap-RenderOption="Success" AutoPostBack="true" OnClick="btnAutorizar_Click" />--%>
-                                <dx:BootstrapButton ID="btnCancelar" runat="server" Text="Regresar" SettingsBootstrap-RenderOption="Warning" AutoPostBack="false">
-                                    <ClientSideEvents Click="function(s, e) { document.location.reload(); }" />
-                                </dx:BootstrapButton>
+                                <dx:BootstrapButton ID="btnCancelar" runat="server" Text="Regresar" SettingsBootstrap-RenderOption="Warning" AutoPostBack="false" OnClick="btnCancelar_Click" />
                             </dx:ContentControl>
                         </ContentCollection>
                     </dx:BootstrapLayoutItem>

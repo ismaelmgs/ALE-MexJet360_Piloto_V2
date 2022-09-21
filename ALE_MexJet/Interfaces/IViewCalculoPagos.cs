@@ -10,6 +10,10 @@ namespace ALE_MexJet.Interfaces
 {
     public interface IViewCalculoPagos : IBaseView
     {
+        string sCvePiloto { get; set; }
+        string sFechaInicio { get; set; }
+        string sFechaFinal { get; set; }
+
         string sParametro { get; set; }
         string sFechaDesde { get; set; }
         string sFechaHasta { get; set; }
@@ -32,7 +36,7 @@ namespace ALE_MexJet.Interfaces
         DataSet dsParams { set; get; }
         int iIdPeriodo { set; get; }
         string sOk { set; get; }
-
+        int iEstatus { set; get; }
         void LoadsGrids(DataSet ds);
 
         event EventHandler eSearchConceptos;
@@ -41,5 +45,6 @@ namespace ALE_MexJet.Interfaces
         event EventHandler eGetParams;
         event EventHandler eGetAdicionales;
         event EventHandler eSavePeriodos;
+        event EventHandler eSearchEstatus;
     }
 }

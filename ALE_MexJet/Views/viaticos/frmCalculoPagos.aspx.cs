@@ -3,6 +3,7 @@ using ALE_MexJet.Interfaces;
 using ALE_MexJet.Objetos;
 using ALE_MexJet.Presenter;
 using DevExpress.Web;
+using DevExpress.Web.Bootstrap;
 using NucleoBase.Core;
 using System;
 using System.Collections.Generic;
@@ -74,8 +75,8 @@ namespace ALE_MexJet.Views.viaticos
                 if (e.CommandArgs.CommandName.S() == "Ver")
                 {
                     int index = e.VisibleIndex.I();
-                    int iIdBitacora = gvCalculo.GetRowValues(index, "IdFolio").S().I();
-                    string[] fieldValues = { "Piloto", "CrewCode", "FechaInicio", "FechaFin" };
+                    string sCrewCode = gvCalculo.GetRowValues(index, "CrewCode").S();
+                    string[] fieldValues = { "Piloto", "CrewCode", "FechaInicio", "FechaFin", "Estatus" };
                     object obj = gvCalculo.GetRowValues(index, fieldValues);
                     object[] oB = (object[])obj;
 
@@ -93,16 +94,24 @@ namespace ALE_MexJet.Views.viaticos
                         hdnFechaInicio.Value = dtFecha1.ToShortDateString();
                         hdnFechaFinal.Value = dtFecha2.ToShortDateString();
 
-
                         sParametro = oB[1].S();
-                        //if (eSearchVuelos != null)
-                        //    eSearchVuelos(sender, e);
-
-                        //string sPlantilla = CalcularViaticos();
-                        //divViaticos.InnerHtml = sPlantilla;
 
                         if (eGetAdicionales != null)
                             eGetAdicionales(sender, e);
+
+                        sCvePiloto = oB[1].S();
+                        sFechaInicio = oB[2].S();
+                        sFechaFinal = oB[3].S();
+
+                        if (eSearchEstatus != null)
+                            eSearchEstatus(sender, e);
+
+                        if (iEstatus == 0 || iEstatus == 1)
+                            btnGuardarPeriodo.Visible = true;
+                        else if (iEstatus == 2)
+                            btnGuardarPeriodo.Visible = false;
+                        else if (iEstatus == 3)
+                            btnGuardarPeriodo.Visible = false;
 
                         pnlBusqueda.Visible = false;
                         pnlVuelos.Visible = false;
@@ -381,6 +390,59 @@ namespace ALE_MexJet.Views.viaticos
             catch (Exception ex)
             {
                 MostrarMensaje("Error: " + ex.Message, "Aviso");
+            }
+        }
+        protected void btnCancelar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                btnBuscar_Click(sender, e);
+                pnlBusqueda.Visible = true;
+                pnlVuelos.Visible = true;
+                pnlCalcularViaticos.Visible = false;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        protected void gvCalculo_HtmlDataCellPrepared(object sender, DevExpress.Web.Bootstrap.BootstrapGridViewTableDataCellEventArgs e)
+        {
+            try
+            {
+                if (e.DataColumn.FieldName == "Estatus")
+                {
+
+                    BootstrapGridView gvB = (BootstrapGridView)(sender as BootstrapGridView);
+                    Label rdEstatus = gvB.FindRowCellTemplateControl(e.VisibleIndex, e.DataColumn, "readEstatus") as Label;
+                    //ASPxButton btnActualizar = gvB.FindRowCellTemplateControl(e.VisibleIndex, e.DataColumn, "btnActualizar") as ASPxButton;
+
+                    //int index = e.VisibleIndex.I();
+                    int iIdBitacora = gvB.GetRowValues(e.VisibleIndex, "IdFolio").S().I();
+                    string[] fieldValues = { "Piloto", "CrewCode", "FechaInicio", "FechaFin" };
+                    object obj = gvB.GetRowValues(e.VisibleIndex, fieldValues);
+                    object[] oB = (object[])obj;
+
+                    sCvePiloto = oB[1].S();
+                    sFechaInicio = oB[2].S();
+                    sFechaFinal = oB[3].S();
+
+                    if (eSearchEstatus != null)
+                        eSearchEstatus(sender, e);
+
+                    if (iEstatus == 0 || iEstatus == 1)
+                        rdEstatus.Text = "Pendiente";
+                    else if (iEstatus == 2)
+                        rdEstatus.Text = "Guardado";
+                    else if (iEstatus == 3)
+                        rdEstatus.Text = "Pagado";
+
+
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
         }
         #endregion
@@ -1044,9 +1106,25 @@ namespace ALE_MexJet.Views.viaticos
         public event EventHandler eSearchCalculos;
         public event EventHandler eGetParams;
         public event EventHandler eGetAdicionales;
-
         public event EventHandler eSavePeriodos;
-        
+        public event EventHandler eSearchEstatus;
+
+        public string sCvePiloto
+        {
+            get { return (string)ViewState["VSCvePiloto"]; }
+            set { ViewState["VSCvePiloto"] = value; }
+        }
+        public string sFechaInicio
+        {
+            get { return (string)ViewState["VSFechaInicio"]; }
+            set { ViewState["VSFechaInicio"] = value; }
+        }
+        public string sFechaFinal
+        {
+            get { return (string)ViewState["VSFechaFinal"]; }
+            set { ViewState["VSFechaFinal"] = value; }
+        }
+
         public string sParametro
         {
             get { return (string)ViewState["VSParametro"]; }
@@ -1071,6 +1149,11 @@ namespace ALE_MexJet.Views.viaticos
         {
             get { return (int)ViewState["VSIdPeriodo"]; }
             set { ViewState["VSIdPeriodo"] = value; }
+        }
+        public int iEstatus
+        {
+            get { return (int)ViewState["VSiEstatus"]; }
+            set { ViewState["VSiEstatus"] = value; }
         }
         public string sOk
         {
@@ -1150,5 +1233,7 @@ namespace ALE_MexJet.Views.viaticos
             }
         }
         #endregion
+
+       
     }
 }
