@@ -172,6 +172,7 @@ namespace ALE_MexJet.Views.bitacoras
             try
             {
                 CalcularTiempoConsumo(1);
+                txtOrigenVuelo.Value = txtOrigenCalzo.Text.Dt().AddMinutes(5).S();
             }
             catch (Exception ex)
             {
@@ -216,6 +217,7 @@ namespace ALE_MexJet.Views.bitacoras
             try
             {
                 CalcularTiempoConsumo(2);
+                txtDestinoCalzo.Value = txtDestinoVuelo.Text.Dt().AddMinutes(5).S();
             }
             catch (Exception ex)
             {
@@ -401,5 +403,19 @@ namespace ALE_MexJet.Views.bitacoras
 
         #endregion
 
+        protected void txtCantPax_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (txtCantPax.Text.I() == 0)
+                    ddlTipo.Value = "CF";
+                else if(txtCantPax.Text.I() > 0)
+                    ddlTipo.Value = "CL";
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

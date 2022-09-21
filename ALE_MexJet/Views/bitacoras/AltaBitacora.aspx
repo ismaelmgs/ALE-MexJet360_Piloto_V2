@@ -275,7 +275,7 @@
                             </td>
                             <td style="padding:4px;">
                                 <label>Pasajeros:</label>
-                                <dx:BootstrapTextBox ID="txtCantPax" runat="server" NullText="Pax"></dx:BootstrapTextBox>
+                                <dx:BootstrapTextBox ID="txtCantPax" runat="server" NullText="Pax" OnTextChanged="txtCantPax_TextChanged" AutoPostBack="true"></dx:BootstrapTextBox>
                             </td>
                             <td style="padding:4px;">
                                 <label>Tipo:</label>
