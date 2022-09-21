@@ -24,6 +24,7 @@ namespace ALE_MexJet.Presenter
             oIView.eGetParams += eGetParams_Presenter;
             oIView.eGetAdicionales += GetAdicionales_Presenter;
             oIView.eSavePeriodos += SavePeriodos_Presenter;
+            oIView.eSearchEstatus += SearchEstatus_Presenter;
         }
 
         protected void GetAdicionales_Presenter(object sender, EventArgs e)
@@ -2428,6 +2429,10 @@ namespace ALE_MexJet.Presenter
                     }
                 }
             }
+        }
+        protected void SearchEstatus_Presenter(object sender, EventArgs e)
+        {
+            oIView.iEstatus = oIGestCat.GetEstatusPeriodo(oIView.sCvePiloto, oIView.sFechaInicio.Dt(), oIView.sFechaFinal.Dt());
         }
     }
 }
