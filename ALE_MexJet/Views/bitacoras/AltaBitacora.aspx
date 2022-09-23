@@ -310,28 +310,28 @@
                                 <label>Origen Calzo:</label>
                                 <%--<dx:BootstrapTextBox ID="txtOrigenCalzo" runat="server" NullText="Origen Calzo"></dx:BootstrapTextBox>--%>
                                 <dx:BootstrapDateEdit ID="txtOrigenCalzo" runat="server" EditFormat="DateTime" AutoPostBack="true" OnValueChanged="txtOrigenCalzo_ValueChanged">
-                                    <TimeSectionProperties Visible="true" />
+                                    <TimeSectionProperties Visible="true" TimeEditProperties-DisplayFormatString="g" />
                                 </dx:BootstrapDateEdit>
                             </td>
                             <td style="padding:4px;">
                                 <label>Origen Vuelo:</label>
                                 <%--<dx:BootstrapTextBox ID="txtOrigenVuelo" runat="server" NullText="Origen Vuelo"></dx:BootstrapTextBox>--%>
                                 <dx:BootstrapDateEdit ID="txtOrigenVuelo" runat="server" EditFormat="DateTime" AutoPostBack="true" OnValueChanged="txtOrigenVuelo_ValueChanged">
-                                    <TimeSectionProperties Visible="true" />
+                                    <TimeSectionProperties Visible="true" TimeEditProperties-DisplayFormatString="g" />
                                 </dx:BootstrapDateEdit>
                             </td>
                             <td style="padding:4px;">
                                 <label>Destino Vuelo:</label>
                                 <%--<dx:BootstrapTextBox ID="txtDestinoVuelo" runat="server" NullText="Destino Vuelo"></dx:BootstrapTextBox>--%>
                                 <dx:BootstrapDateEdit ID="txtDestinoVuelo" runat="server" EditFormat="DateTime" AutoPostBack="true" OnValueChanged="txtDestinoVuelo_ValueChanged">
-                                    <TimeSectionProperties Visible="true" />
+                                    <TimeSectionProperties Visible="true" TimeEditProperties-DisplayFormatString="g" />
                                 </dx:BootstrapDateEdit>
                             </td>
                             <td style="padding:4px;">
                                 <label>Destino Calzo:</label>
                                 <%-- <dx:BootstrapTextBox ID="txtDestinoCalzo" runat="server" NullText="Destino Calzo"></dx:BootstrapTextBox>--%>
                                 <dx:BootstrapDateEdit ID="txtDestinoCalzo" runat="server" EditFormat="DateTime" AutoPostBack="true" OnValueChanged="txtDestinoCalzo_ValueChanged">
-                                    <TimeSectionProperties Visible="true" />
+                                    <TimeSectionProperties Visible="true" TimeEditProperties-DisplayFormatString="g" />
                                 </dx:BootstrapDateEdit>
                             </td>
                             <td style="padding:4px;">
