@@ -240,5 +240,53 @@ namespace ALE_MexJet.DomainModel
                 return 0;
             }
         }
+        public int GetPeriodoPiloto(string sCvePiloto, DateTime dtInicio, DateTime dtFinal)
+        {
+            try
+            {
+                object oRes;
+                oRes = new DBBase().oDB_SP.EjecutarValor("[VB].[spS_MXJ_ConsultaPeriodoxPiloto]", "@CvePiloto", sCvePiloto,
+                                                                                                  "@FechaInicio", dtInicio.ToString("yyyy/MM/dd"),
+                                                                                                  "@FechaFinal", dtFinal.ToString("yyyy/MM/dd"));
+                return oRes.S().I();
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+        }
+        public DataTable GetAjustesPeriodoPiloto(int iIdPeriodo)
+        {
+            try
+            {
+                return new DBBase().oDB_SP.EjecutarDT("[VB].[spS_MXJ_ConsultaConceptosAdicionalesxPeriodo]", "@IdPeriodo", iIdPeriodo);
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+        public bool SetInsertaAjuste(ConceptosAdicionalesPiloto oAj)
+        {
+            try
+            {
+                bool bRes = false;
+                object oRes;
+                oRes = new DBBase().oDB_SP.EjecutarValor("[VB].[spS_MXJ_InsertaAjustesxPeriodo]", "@IdPeriodo", oAj.IIdPeriodo,
+                                                                                                  "@IdConcepto", oAj.IId_Concepto,
+                                                                                                  "@DesConcepto", oAj.SDesConcepto,
+                                                                                                  "@Importe", oAj.DValor,
+                                                                                                  "@Moneda", oAj.SMoneda,
+                                                                                                  "@Comentario", oAj.SComentarios);
+                if (oRes.S().I() != 0)
+                    bRes = true;
+                
+                return bRes;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
     }
 }

@@ -58,6 +58,7 @@ namespace ALE_MexJet.Objetos
         private decimal _dValor = 0;
         private string _sMoneda = string.Empty;
         private int _iEstatus = 0;
+        private string _sComentarios = string.Empty;
 
         public int IIdPeriodo { get => _iIdPeriodo; set => _iIdPeriodo = value; }
         public int IId_Concepto { get => _iId_Concepto; set => _iId_Concepto = value; }
@@ -65,6 +66,7 @@ namespace ALE_MexJet.Objetos
         public decimal DValor { get => _dValor; set => _dValor = value; }
         public string SMoneda { get => _sMoneda; set => _sMoneda = value; }
         public int IEstatus { get => _iEstatus; set => _iEstatus = value; }
+        public string SComentarios { get => _sComentarios; set => _sComentarios = value; }
     }
 
     [Serializable]

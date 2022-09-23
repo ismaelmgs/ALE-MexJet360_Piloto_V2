@@ -96,13 +96,13 @@ namespace ALE_MexJet.Views.viaticos
         protected global::DevExpress.Web.Bootstrap.BootstrapButton btnAprobar;
 
         /// <summary>
-        /// Control pnlCalcularViaticos.
+        /// Control pnlDatosPiloto.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlCalcularViaticos;
+        protected global::System.Web.UI.WebControls.Panel pnlDatosPiloto;
 
         /// <summary>
         /// Control readCvePiloto.
@@ -150,6 +150,15 @@ namespace ALE_MexJet.Views.viaticos
         protected global::System.Web.UI.WebControls.Label readPiloto;
 
         /// <summary>
+        /// Control pnlCalcularViaticos.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlCalcularViaticos;
+
+        /// <summary>
         /// Control gvNacionales.
         /// </summary>
         /// <remarks>
@@ -177,13 +186,13 @@ namespace ALE_MexJet.Views.viaticos
         protected global::DevExpress.Web.Bootstrap.BootstrapGridView gvInternacionales;
 
         /// <summary>
-        /// Control gvAdicionales.
+        /// Control gvAjustesPiloto.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::DevExpress.Web.Bootstrap.BootstrapGridView gvAdicionales;
+        protected global::DevExpress.Web.Bootstrap.BootstrapGridView gvAjustesPiloto;
 
         /// <summary>
         /// Control gvConteoDias.
@@ -240,22 +249,49 @@ namespace ALE_MexJet.Views.viaticos
         protected global::DevExpress.Web.Bootstrap.BootstrapButton btnCancelar;
 
         /// <summary>
+        /// Control pnlAjuste.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlAjuste;
+
+        /// <summary>
+        /// Control btnAgregarAjuste.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::DevExpress.Web.Bootstrap.BootstrapButton btnAgregarAjuste;
+
+        /// <summary>
+        /// Control gvAjustes.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::DevExpress.Web.Bootstrap.BootstrapGridView gvAjustes;
+
+        /// <summary>
+        /// Control btnRegresar.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::DevExpress.Web.Bootstrap.BootstrapButton btnRegresar;
+
+        /// <summary>
         /// Control ppAlert.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxPopupControl ppAlert;
-
-        /// <summary>
-        /// Control ASPxPanel2.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::DevExpress.Web.ASPxPanel ASPxPanel2;
+        protected global::DevExpress.Web.Bootstrap.BootstrapPopupControl ppAlert;
 
         /// <summary>
         /// Control ASPxImage2.
@@ -291,6 +327,78 @@ namespace ALE_MexJet.Views.viaticos
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxButton btOK;
+        protected global::DevExpress.Web.Bootstrap.BootstrapButton btOK;
+
+        /// <summary>
+        /// Control ppAjustes.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::DevExpress.Web.Bootstrap.BootstrapPopupControl ppAjustes;
+
+        /// <summary>
+        /// Control ddlConceptoAdicional.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::DevExpress.Web.Bootstrap.BootstrapComboBox ddlConceptoAdicional;
+
+        /// <summary>
+        /// Control hdnIdPeriodo.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdnIdPeriodo;
+
+        /// <summary>
+        /// Control ddlMoneda.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::DevExpress.Web.Bootstrap.BootstrapComboBox ddlMoneda;
+
+        /// <summary>
+        /// Control txtImporte.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::DevExpress.Web.Bootstrap.BootstrapTextBox txtImporte;
+
+        /// <summary>
+        /// Control txtComentarios.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::DevExpress.Web.Bootstrap.BootstrapMemo txtComentarios;
+
+        /// <summary>
+        /// Control btnCerrar.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxButton btnCerrar;
+
+        /// <summary>
+        /// Control btnGuardarAdicional.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::DevExpress.Web.Bootstrap.BootstrapButton btnGuardarAdicional;
     }
 }

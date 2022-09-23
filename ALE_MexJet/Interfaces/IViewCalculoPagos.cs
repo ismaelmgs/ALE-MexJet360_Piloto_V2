@@ -24,6 +24,7 @@ namespace ALE_MexJet.Interfaces
         List<CantidadComidas> oLstCant { set; get; }
 
         PeriodoPiloto oPer { get; }
+        ConceptosAdicionalesPiloto oAjuste { get; }
 
         List<ConceptosPiloto> oLst { set; get; }
         List<ConceptosAdicionalesPiloto> oLstAd { set; get; }
@@ -38,6 +39,8 @@ namespace ALE_MexJet.Interfaces
         string sOk { set; get; }
         int iEstatus { set; get; }
         void LoadsGrids(DataSet ds);
+        void LlenaAdicionalesPeriodo(DataTable dt);
+        void LlenaAjustesPorPiloto(DataTable dt);
 
         event EventHandler eSearchConceptos;
         event EventHandler eSearchVuelos;
@@ -46,5 +49,9 @@ namespace ALE_MexJet.Interfaces
         event EventHandler eGetAdicionales;
         event EventHandler eSavePeriodos;
         event EventHandler eSearchEstatus;
+        event EventHandler eSearchPeriodo;
+        event EventHandler eSearchConAdPeriodo;
+        event EventHandler eSaveAjustes;
+        event EventHandler eSearchAjustesPiloto;
     }
 }

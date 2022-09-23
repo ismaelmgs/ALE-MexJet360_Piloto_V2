@@ -64,5 +64,17 @@ namespace ALE_MexJet.DomainModel
                 throw ex;
             }
         }
+        public long DBGetLegIdMax()
+        {
+            try
+            {
+                object oBj = oDB_SP.EjecutarValor("[FLX].[spS_Consulta_MaxLegId_Bitacoras]");
+                return oBj.S().L();
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+        }
     }
 }

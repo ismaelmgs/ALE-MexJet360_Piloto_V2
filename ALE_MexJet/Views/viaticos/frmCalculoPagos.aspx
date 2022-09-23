@@ -1,5 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/ALE_Main.Master" AutoEventWireup="true" CodeBehind="frmCalculoPagos.aspx.cs" Inherits="ALE_MexJet.Views.viaticos.frmCalculoPagos" UICulture="es" Culture="es-MX" %>
 
+<%@ Register Assembly="DevExpress.Web.Bootstrap.v18.1" Namespace="DevExpress.Web.Bootstrap" TagPrefix="dx" %>
+
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <%@ Register Assembly="DevExpress.Web.Bootstrap.v18.1, Version=18.1.15.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" Namespace="DevExpress.Web.Bootstrap" TagPrefix="dx" %>
 <%@ Register Assembly="DevExpress.Web.v18.1, Version=18.1.15.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" Namespace="DevExpress.Web" TagPrefix="dx" %>
@@ -9,50 +11,61 @@
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <style>
         .hiddenRow {
-            visibility:hidden !important;
+            visibility: hidden !important;
         }
+
         .centerCell {
-            text-align:center !important;
+            text-align: center !important;
             color: #337ab7 !important;
         }
+
         .centerTxt {
-            text-align:center !important;
+            text-align: center !important;
         }
-        .dirTB{  
-            text-align:center !important;  
+
+        .dirTB {
+            text-align: center !important;
         }
+
         .dataCell {
-            font-size:9pt;
+            font-size: 9pt;
         }
+
         .form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
             cursor: not-allowed !important;
             background-color: #eee !important;
             opacity: 1 !important;
-            text-align:center !important;
+            text-align: center !important;
         }
+
         .form-control {
-            text-align:center !important;
+            text-align: center !important;
         }
+
         .spa {
             font-weight: bold !important;
             color: #337ab7 !important;
             text-align: center !important;
         }
+
         .validateTxt {
             border-color: crimson !important;
         }
+
         th {
-            background-color:#efefef;
-            color:#3974be;
-            border:1px solid #cccccc !important;
-            text-align:center;
-            font-size:9pt !important;
+            background-color: #efefef;
+            color: #3974be;
+            border: 1px solid #cccccc !important;
+            text-align: center;
+            font-size: 9pt !important;
         }
+
         .tdderecha {
-            text-align:right !important;
+            text-align: right !important;
         }
+
         .tdcentro {
-            text-align:center !important;
+            text-align: center !important;
         }
     </style>
 
@@ -60,7 +73,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
     <asp:Panel ID="pnlBusqueda" runat="server" Visible="true">
-         <div class="row">
+        <div class="row">
             <div class="col-md-12">
                 <br />
                 <fieldset class="Personal">
@@ -68,32 +81,30 @@
                         <span style="font-family: Helvetica, Arial,sans-serif; text-align: center;">Búsqueda</span>
                     </legend>
                     <div class="row">
-                    <div class="col-sm-2">&nbsp;</div>
-                    <div class="col-sm-2">
-                        <dx:BootstrapDateEdit ID="date1" runat="server" EditFormat="Custom" Width="100%" Caption="Desde" ClientInstanceName="Fecha1"
-                            DisplayFormatString="dd/MM/yyyy" EditFormatString="dd/MM/yyyy" UseMaskBehavior="true">
-                            <CalendarProperties ShowWeekNumbers="false"></CalendarProperties>
-                        </dx:BootstrapDateEdit>
+                        <div class="col-sm-2">&nbsp;</div>
+                        <div class="col-sm-2">
+                            <dx:BootstrapDateEdit id="date1" runat="server" editformat="Custom" width="100%" caption="Desde" clientinstancename="Fecha1" displayformatstring="dd/MM/yyyy" editformatstring="dd/MM/yyyy" usemaskbehavior="true">
+                                <calendarproperties showweeknumbers="false"></calendarproperties>
+                            </dx:BootstrapDateEdit>
+                        </div>
+                        <div class="col-sm-2">
+                            <dx:bootstrapdateedit id="date2" runat="server" editformat="Custom" width="100%" caption="Hasta" clientinstancename="Fecha2"
+                                displayformatstring="dd/MM/yyyy" editformatstring="dd/MM/yyyy" usemaskbehavior="true">
+                                <calendarproperties showweeknumbers="false"></calendarproperties>
+                            </dx:bootstrapdateedit>
+
+                        </div>
+                        <div class="col-sm-2">
+                            <dx:bootstraptextbox id="txtParametro" runat="server" caption="Piloto" width="100%"></dx:bootstraptextbox>
+                        </div>
+                        <div class="col-sm-2" style="vertical-align: bottom">
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <dx:bootstrapbutton id="btnBuscar" runat="server" text="Buscar" onclick="btnBuscar_Click" width="100%">
+                            <settingsbootstrap renderoption="Success" />
+                        </dx:bootstrapbutton>
+                        </div>
+                        <div class="col-sm-2">&nbsp;</div>
                     </div>
-                    <div class="col-sm-2">
-                        <dx:BootstrapDateEdit ID="date2" runat="server" EditFormat="Custom" Width="100%" Caption="Hasta" ClientInstanceName="Fecha2"
-                            DisplayFormatString="dd/MM/yyyy" EditFormatString="dd/MM/yyyy" UseMaskBehavior="true">
-                            <CalendarProperties ShowWeekNumbers="false"></CalendarProperties>
-                        </dx:BootstrapDateEdit>
-                    </div>
-                    <div class="col-sm-2">
-                        <dx:BootstrapTextBox ID="txtParametro" runat="server" Caption="Piloto" Width="100%">
-                            <%--<MaskSettings Mask="999999999999999" />--%>
-                        </dx:BootstrapTextBox>
-                    </div>
-                    <div class="col-sm-2" style="vertical-align:bottom">
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <dx:BootstrapButton ID="btnBuscar" runat="server" Text="Buscar" OnClick="btnBuscar_Click" Width="100%">
-                            <SettingsBootstrap RenderOption="Success" />
-                        </dx:BootstrapButton>
-                    </div>
-                    <div class="col-sm-2">&nbsp;</div>
-                </div>
                 </fieldset>
             </div>
         </div>
@@ -105,63 +116,67 @@
                 <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional">
                     <ContentTemplate>
                         <div class="col-sm-12">
-                            <dx:BootstrapGridView ID="gvCalculo" runat="server" KeyFieldName="IdFolio,CrewCode" OnRowCommand="gvCalculo_RowCommand" OnHtmlDataCellPrepared="gvCalculo_HtmlDataCellPrepared">
-                                <SettingsSearchPanel Visible="true" ShowApplyButton="true" />
-                                <Settings ShowGroupPanel="True" ShowFilterRowMenu="true" />
-                                <SettingsAdaptivity AdaptivityMode="HideDataCells" AllowOnlyOneAdaptiveDetailExpanded="true"></SettingsAdaptivity>
-                                <SettingsPager PageSize="20"></SettingsPager>
-                                <Columns>
+                            <dx:bootstrapgridview id="gvCalculo" runat="server" keyfieldname="IdFolio" onrowcommand="gvCalculo_RowCommand" onhtmldatacellprepared="gvCalculo_HtmlDataCellPrepared">
+                                <settingssearchpanel visible="true" showapplybutton="true" />
+                                <settings showgrouppanel="True" showfilterrowmenu="true" />
+                                <settingsadaptivity adaptivitymode="HideDataCells" allowonlyoneadaptivedetailexpanded="true"></settingsadaptivity>
+                                <settingspager pagesize="20"></settingspager>
+                                <columns>
                                     <%--<dx:BootstrapGridViewCommandColumn ShowSelectCheckbox="True" SelectAllCheckboxMode="AllPages" ShowClearFilterButton="true" />--%>
 
-                                    <dx:BootstrapGridViewDataColumn Caption="Clave" FieldName="CrewCode" VisibleIndex="1" HorizontalAlign="Center" CssClasses-DataCell="dataCell" />
-                                    <dx:BootstrapGridViewDataColumn Caption="Piloto" FieldName="Piloto" VisibleIndex="2" HorizontalAlign="Center" CssClasses-DataCell="dataCell" />
-                                    
-                                    <dx:BootstrapGridViewDataColumn Caption="Desayuno Nac." FieldName="DesayunosNal" VisibleIndex="3" HorizontalAlign="Center" CssClasses-DataCell="dataCell" />
-                                    <dx:BootstrapGridViewDataColumn Caption="Desayuno Int." FieldName="DesayunosInt" VisibleIndex="4" HorizontalAlign="Center" CssClasses-DataCell="dataCell" />
-                                    <dx:BootstrapGridViewDataColumn Caption="Comida Nac." FieldName="ComidasNal" VisibleIndex="5" HorizontalAlign="Center" CssClasses-DataCell="dataCell" />
-                                    <dx:BootstrapGridViewDataColumn Caption="Comida Int." FieldName="ComidasInt" VisibleIndex="6" HorizontalAlign="Center" CssClasses-DataCell="dataCell" />
-                                    <dx:BootstrapGridViewDataColumn Caption="Cena Nac." FieldName="CenasNal" VisibleIndex="7" HorizontalAlign="Center" CssClasses-DataCell="dataCell" />
-                                    <dx:BootstrapGridViewDataColumn Caption="Cena Int." FieldName="CenasInt" VisibleIndex="8" HorizontalAlign="Center" CssClasses-DataCell="dataCell" />
-                                    
-                                    <dx:BootstrapGridViewDataColumn VisibleIndex="9" Caption="Estatus" Width="120px" FieldName="Estatus" HorizontalAlign="Center">
-                                        <DataItemTemplate>
+                                    <dx:bootstrapgridviewdatacolumn caption="Clave" fieldname="CrewCode" visibleindex="1" horizontalalign="Center" cssclasses-datacell="dataCell" />
+                                    <dx:bootstrapgridviewdatacolumn caption="Piloto" fieldname="Piloto" visibleindex="2" horizontalalign="Center" cssclasses-datacell="dataCell" width="22%" />
+
+                                    <dx:bootstrapgridviewdatacolumn caption="Desayuno Nac." fieldname="DesayunosNal" visibleindex="3" horizontalalign="Center" cssclasses-datacell="dataCell" />
+                                    <dx:bootstrapgridviewdatacolumn caption="Desayuno Int." fieldname="DesayunosInt" visibleindex="4" horizontalalign="Center" cssclasses-datacell="dataCell" />
+                                    <dx:bootstrapgridviewdatacolumn caption="Comida Nac." fieldname="ComidasNal" visibleindex="5" horizontalalign="Center" cssclasses-datacell="dataCell" />
+                                    <dx:bootstrapgridviewdatacolumn caption="Comida Int." fieldname="ComidasInt" visibleindex="6" horizontalalign="Center" cssclasses-datacell="dataCell" />
+                                    <dx:bootstrapgridviewdatacolumn caption="Cena Nac." fieldname="CenasNal" visibleindex="7" horizontalalign="Center" cssclasses-datacell="dataCell" />
+                                    <dx:bootstrapgridviewdatacolumn caption="Cena Int." fieldname="CenasInt" visibleindex="8" horizontalalign="Center" cssclasses-datacell="dataCell" />
+
+                                    <dx:bootstrapgridviewdatacolumn visibleindex="9" caption="Estatus" width="120px" fieldname="Estatus" horizontalalign="Center">
+                                        <dataitemtemplate>
                                             <asp:Label ID="readEstatus" runat="server" Text="" CssClass="dataCell"></asp:Label>
-                                        </DataItemTemplate>
-                                    </dx:BootstrapGridViewDataColumn>
+                                        </dataitemtemplate>
+                                    </dx:bootstrapgridviewdatacolumn>
 
                                     <%--<dx:BootstrapGridViewDataColumn Caption="Estatus" FieldName="Estatus" VisibleIndex="5" HorizontalAlign="Center" CssClasses-DataCell="dataCell" />--%>
-                                    <dx:BootstrapGridViewDataColumn VisibleIndex="10" Caption="Acciones" Width="120px" FieldName="CrewCode">
-                                        <DataItemTemplate>
+                                    <dx:bootstrapgridviewdatacolumn visibleindex="10" caption="Acciones" fieldname="IdFolio" width="13%" horizontalalign="Center">
+                                        <dataitemtemplate>
                                             <%--<dx:BootstrapImage runat="server" ID="imgTemplate" Width="15px" Height="15px" ImageAlign="AbsMiddle"
                                                 ImageUrl='<%# "~/img/iconos/" + Eval("EstatusImg") %>'
                                                 ToolTip='<%# Eval("Tooltip") %>'>
                                             </dx:BootstrapImage>--%>
 
-                                            <dx:BootstrapButton Text="Ver viáticos" ID="btnVerViaticos" runat="server" CommandArgument='<%# Eval("CrewCode") %>' CommandName="Ver" AutoPostBack="true" 
-                                                ToolTip="Calcular viáticos" SettingsBootstrap-RenderOption="Primary"></dx:BootstrapButton>
+                                            <dx:bootstrapbutton text="Ver viáticos" id="btnVerViaticos" runat="server" commandargument='<%# Eval("CrewCode") %>' commandname="Ver" autopostback="true"
+                                                tooltip="Calcular viáticos" settingsbootstrap-renderoption="Primary">
+                                            </dx:bootstrapbutton>
 
-                                        </DataItemTemplate>
-                                    </dx:BootstrapGridViewDataColumn>
-                                    
-                                    <dx:BootstrapGridViewDataColumn FieldName="FechaInicio" Visible="false" VisibleIndex="11" CssClasses-DataCell="hideColumn" CssClasses-HeaderCell="hideColumn" HorizontalAlign="Center" />
-                                    <dx:BootstrapGridViewDataColumn FieldName="FechaFin" Visible="false" VisibleIndex="12" CssClasses-DataCell="hideColumn" CssClasses-HeaderCell="hideColumn" HorizontalAlign="Center" />
+                                            <dx:bootstrapbutton text="Ajustes" id="btnVerAjustes" runat="server" commandargument='<%# Eval("CrewCode") %>' commandname="Ajustes" autopostback="true"
+                                                tooltip="Mostrar Ajustes" settingsbootstrap-renderoption="Primary" width="80px">
+                                            </dx:bootstrapbutton>
+
+                                        </dataitemtemplate>
+                                    </dx:bootstrapgridviewdatacolumn>
+
+                                    <dx:bootstrapgridviewdatacolumn fieldname="FechaInicio" visible="false" visibleindex="11" cssclasses-datacell="hideColumn" cssclasses-headercell="hideColumn" horizontalalign="Center" />
+                                    <dx:bootstrapgridviewdatacolumn fieldname="FechaFin" visible="false" visibleindex="12" cssclasses-datacell="hideColumn" cssclasses-headercell="hideColumn" horizontalalign="Center" />
                                     <%--<dx:BootstrapGridViewDataColumn FieldName="Estatus_Img" Visible="false" VisibleIndex="15" CssClasses-DataCell="hideColumn" CssClasses-HeaderCell="hideColumn" HorizontalAlign="Center" />--%>
-
-                                </Columns>
-                                <SettingsBehavior ConfirmDelete="True" />
-                                <SettingsPager Position="Bottom">
-                                    <PageSizeItemSettings Items="20, 50, 100"></PageSizeItemSettings>
-                                </SettingsPager>
-                                <SettingsEditing Mode="PopupEditForm"></SettingsEditing>
-                                <Settings ShowGroupPanel="True" />
-                                <SettingsPopup>
-                                    <EditForm HorizontalAlign="Center" VerticalAlign="Below" Width="400px" />
-                                </SettingsPopup>
-                            </dx:BootstrapGridView>
+                                </columns>
+                                <settingsbehavior confirmdelete="True" />
+                                <settingspager position="Bottom">
+                                    <pagesizeitemsettings items="20, 50, 100"></pagesizeitemsettings>
+                                </settingspager>
+                                <settingsediting mode="PopupEditForm"></settingsediting>
+                                <settings showgrouppanel="True" />
+                                <settingspopup>
+                                    <editform horizontalalign="Center" verticalalign="Below" width="400px" />
+                                </settingspopup>
+                            </dx:bootstrapgridview>
                         </div>
                         <br />
                         <div class="col-lg-12" align="right">
-                            <dx:BootstrapButton ID="btnAprobar" runat="server" Text="Aprobar" SettingsBootstrap-RenderOption="Primary" AutoPostBack="true" OnClick="btnAprobar_Click" />
+                            <dx:bootstrapbutton id="btnAprobar" runat="server" text="Aprobar" settingsbootstrap-renderoption="Primary" autopostback="true" onclick="btnAprobar_Click" />
                         </div>
                     </ContentTemplate>
                 </asp:UpdatePanel>
@@ -169,93 +184,113 @@
         </div>
     </asp:Panel>
 
+    <asp:Panel ID="pnlDatosPiloto" runat="server" Visible="false">
+        <div style="width: 80%; margin: 0 auto 0 auto;">
+            <div class="row">
+                <div class="col-sm-2">
+                    <label>Clave de Piloto:</label>
+                </div>
+                <div class="col-sm-3">
+                    <asp:Label ID="readCvePiloto" runat="server" Text=""></asp:Label>
+                </div>
+                <div class="col-sm-2">
+                    &nbsp;&nbsp;&nbsp;
+                    <asp:HiddenField ID="hdnFechaInicio" runat="server" />
+                    <asp:HiddenField ID="hdnFechaFinal" runat="server" />
+                </div>
+                <div class="col-sm-2">
+                    <label>Período:</label>
+                </div>
+                <div class="col-sm-3">
+                    <asp:Label ID="readPeríodo" runat="server" Text=""></asp:Label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2">
+                    <label>Piloto:</label>
+                </div>
+                <div class="col-sm-3">
+                    <asp:Label ID="readPiloto" runat="server" Text=""></asp:Label>
+                </div>
+                <div class="col-sm-7">&nbsp;&nbsp;&nbsp;</div>
+            </div>
+        </div>
+    </asp:Panel>
+
     <asp:Panel ID="pnlCalcularViaticos" runat="server" Visible="false">
 
         <div class="row">
-            <div class="col-sm-2"><label>Clave de Piloto:</label></div>
-            <div class="col-sm-3"><asp:Label ID="readCvePiloto" runat="server" Text=""></asp:Label></div>
-            <div class="col-sm-2">&nbsp;&nbsp;&nbsp;
-                <asp:HiddenField ID="hdnFechaInicio" runat="server" />
-                <asp:HiddenField ID="hdnFechaFinal" runat="server" />
-            </div>
-            <div class="col-sm-2"><label>Período:</label></div>
-            <div class="col-sm-3"><asp:Label ID="readPeríodo" runat="server" Text=""></asp:Label></div>
-        </div>
-        <div class="row">
-            <div class="col-sm-2"><label>Piloto:</label></div>
-            <div class="col-sm-3"><asp:Label ID="readPiloto" runat="server" Text=""></asp:Label></div>
-            <div class="col-sm-7">&nbsp;&nbsp;&nbsp;</div>
-        </div>
-
-        <div class="row">
             <div class="col-md-4">
-                <dx:BootstrapGridView ID="gvNacionales" runat="server">
-                    <SettingsSearchPanel Visible="false" ShowApplyButton="false" />
-                    <Settings ShowGroupPanel="false" ShowFilterRowMenu="false" />
-                    <SettingsAdaptivity AdaptivityMode="HideDataCells" AllowOnlyOneAdaptiveDetailExpanded="true"></SettingsAdaptivity>
-                    <Columns>
-                                    
-                        <dx:BootstrapGridViewDataColumn Caption="CONCEPTO" FieldName="CONCEPTO" VisibleIndex="1" HorizontalAlign="Center" CssClasses-DataCell="dataCell" />
-                        <dx:BootstrapGridViewDataColumn Caption="NACIONAL" FieldName="NACIONAL" VisibleIndex="2" HorizontalAlign="Center" CssClasses-DataCell="dataCell" />
+                <dx:bootstrapgridview id="gvNacionales" runat="server">
+                    <settingssearchpanel visible="false" showapplybutton="false" />
+                    <settings showgrouppanel="false" showfilterrowmenu="false" />
+                    <settingsadaptivity adaptivitymode="HideDataCells" allowonlyoneadaptivedetailexpanded="true"></settingsadaptivity>
+                    <columns>
 
-                    </Columns>
-                </dx:BootstrapGridView>
+                        <dx:bootstrapgridviewdatacolumn caption="CONCEPTO" fieldname="CONCEPTO" visibleindex="1" horizontalalign="Center" cssclasses-datacell="dataCell" />
+                        <dx:bootstrapgridviewdatacolumn caption="NACIONAL" fieldname="NACIONAL" visibleindex="2" horizontalalign="Center" cssclasses-datacell="dataCell" />
+
+                    </columns>
+                </dx:bootstrapgridview>
             </div>
             <div class="col-md-4">
-                <dx:BootstrapGridView ID="gvHorarios" runat="server" KeyFieldName="IdConcepto">
-                    <SettingsSearchPanel Visible="false" ShowApplyButton="false" />
-                    <Settings ShowGroupPanel="false" ShowFilterRowMenu="false" />
-                    <SettingsAdaptivity AdaptivityMode="HideDataCells" AllowOnlyOneAdaptiveDetailExpanded="true"></SettingsAdaptivity>
-                    <Columns>        
-                        <dx:BootstrapGridViewDataColumn Caption="CONCEPTO" FieldName="DesConcepto" VisibleIndex="1" HorizontalAlign="Center" CssClasses-DataCell="dataCell" />
-                        <dx:BootstrapGridViewDataColumn Caption="HORARIOS" FieldName="Horario" VisibleIndex="2" HorizontalAlign="Center" CssClasses-DataCell="dataCell" />
-                        <dx:BootstrapGridViewDataColumn Caption="NACIONAL" FieldName="MontoMXN" VisibleIndex="3" HorizontalAlign="Center" CssClasses-DataCell="dataCell" />
-                        <dx:BootstrapGridViewDataColumn Caption="INTERNACIONAL" FieldName="MontoUSD" VisibleIndex="4" HorizontalAlign="Center" CssClasses-DataCell="dataCell" />
-                    </Columns>
-                </dx:BootstrapGridView>
+                <dx:bootstrapgridview id="gvHorarios" runat="server" keyfieldname="IdConcepto">
+                    <settingssearchpanel visible="false" showapplybutton="false" />
+                    <settings showgrouppanel="false" showfilterrowmenu="false" />
+                    <settingsadaptivity adaptivitymode="HideDataCells" allowonlyoneadaptivedetailexpanded="true"></settingsadaptivity>
+                    <columns>
+                        <dx:bootstrapgridviewdatacolumn caption="CONCEPTO" fieldname="DesConcepto" visibleindex="1" horizontalalign="Center" cssclasses-datacell="dataCell" />
+                        <dx:bootstrapgridviewdatacolumn caption="HORARIOS" fieldname="Horario" visibleindex="2" horizontalalign="Center" cssclasses-datacell="dataCell" />
+                        <dx:bootstrapgridviewdatacolumn caption="NACIONAL" fieldname="MontoMXN" visibleindex="3" horizontalalign="Center" cssclasses-datacell="dataCell" />
+                        <dx:bootstrapgridviewdatacolumn caption="INTERNACIONAL" fieldname="MontoUSD" visibleindex="4" horizontalalign="Center" cssclasses-datacell="dataCell" />
+                    </columns>
+                </dx:bootstrapgridview>
             </div>
             <div class="col-md-4">
-                 <dx:BootstrapGridView ID="gvInternacionales" runat="server">
-                    <SettingsSearchPanel Visible="false" ShowApplyButton="false" />
-                    <Settings ShowGroupPanel="false" ShowFilterRowMenu="false" />
-                    <SettingsAdaptivity AdaptivityMode="HideDataCells" AllowOnlyOneAdaptiveDetailExpanded="true"></SettingsAdaptivity>
-                    <Columns>
-                                    
-                        <dx:BootstrapGridViewDataColumn Caption="CONCEPTO" FieldName="CONCEPTO" VisibleIndex="1" HorizontalAlign="Center" CssClasses-DataCell="dataCell" />
-                        <dx:BootstrapGridViewDataColumn Caption="INTERNACIONAL" FieldName="INTERNACIONAL" VisibleIndex="2" HorizontalAlign="Center" CssClasses-DataCell="dataCell" />
+                <dx:bootstrapgridview id="gvInternacionales" runat="server">
+                    <settingssearchpanel visible="false" showapplybutton="false" />
+                    <settings showgrouppanel="false" showfilterrowmenu="false" />
+                    <settingsadaptivity adaptivitymode="HideDataCells" allowonlyoneadaptivedetailexpanded="true"></settingsadaptivity>
+                    <columns>
 
-                    </Columns>
-                </dx:BootstrapGridView>
+                        <dx:bootstrapgridviewdatacolumn caption="CONCEPTO" fieldname="CONCEPTO" visibleindex="1" horizontalalign="Center" cssclasses-datacell="dataCell" />
+                        <dx:bootstrapgridviewdatacolumn caption="INTERNACIONAL" fieldname="INTERNACIONAL" visibleindex="2" horizontalalign="Center" cssclasses-datacell="dataCell" />
+
+                    </columns>
+                </dx:bootstrapgridview>
             </div>
         </div>
 
         <div class="row">
             <div class="col-md-6">
-                <dx:BootstrapGridView ID="gvAdicionales" runat="server" KeyFieldName="IdParametro">
-                    <SettingsSearchPanel Visible="false" ShowApplyButton="false" />
-                    <Settings ShowGroupPanel="false" ShowFilterRowMenu="false" />
-                    <SettingsAdaptivity AdaptivityMode="HideDataCells" AllowOnlyOneAdaptiveDetailExpanded="true"></SettingsAdaptivity>
-                    <Columns>        
-                        <dx:BootstrapGridViewDataColumn Caption="CONCEPTO MANUAL" FieldName="DesConcepto" VisibleIndex="1" HorizontalAlign="Center" CssClasses-DataCell="dataCell" />
-                        <dx:BootstrapGridViewDataColumn Caption="MONEDA" FieldName="Valor" VisibleIndex="2" HorizontalAlign="Center" CssClasses-DataCell="dataCell" />
-                        <dx:BootstrapGridViewDataColumn Caption="IMPORTE" FieldName="Importe" VisibleIndex="3" HorizontalAlign="Center" CssClasses-DataCell="dataCell" />
-                    </Columns>
-                </dx:BootstrapGridView>
+                <dx:bootstrapgridview id="gvAjustesPiloto" runat="server" keyfieldname="IdAdicional" width="100%">
+                    <settingssearchpanel visible="false" showapplybutton="false" />
+                    <settings showgrouppanel="false" showfilterrowmenu="false" />
+                    <settingsadaptivity adaptivitymode="HideDataCells" allowonlyoneadaptivedetailexpanded="true" />
+                    <columns>
+                        <dx:bootstrapgridviewdatacolumn caption="CONCEPTO MANUAL" fieldname="DesConcepto" visibleindex="1" horizontalalign="Center" cssclasses-datacell="dataCell" />
+                        <dx:bootstrapgridviewdatacolumn caption="MONEDA" fieldname="Moneda" visibleindex="2" horizontalalign="Center" cssclasses-datacell="dataCell" />
+                        <dx:BootstrapGridViewTextColumn caption="IMPORTE" fieldname="Valor" visibleindex="3" horizontalalign="Center" cssclasses-datacell="dataCell">
+                            <PropertiesTextEdit DisplayFormatString="c"></PropertiesTextEdit>
+                        </dx:BootstrapGridViewTextColumn>
+                        <dx:bootstrapgridviewdatacolumn caption="COMENTARIOS" fieldname="Comentarios" visibleindex="4" horizontalalign="Left" cssclasses-datacell="dataCell" />
+                    </columns>
+                </dx:bootstrapgridview>
             </div>
             <div class="col-md-6">
-                <dx:BootstrapGridView ID="gvConteoDias" runat="server">
-                    <SettingsSearchPanel Visible="false" ShowApplyButton="false" />
-                    <Settings ShowGroupPanel="false" ShowFilterRowMenu="false" />
-                    <SettingsAdaptivity AdaptivityMode="HideDataCells" AllowOnlyOneAdaptiveDetailExpanded="true"></SettingsAdaptivity>
-                    <Columns>
-                                    
-                        <dx:BootstrapGridViewDataColumn Caption="DIA" FieldName="Dia" VisibleIndex="1" HorizontalAlign="Center" CssClasses-DataCell="dataCell" />
-                        <dx:BootstrapGridViewDataColumn Caption="DESAYUNO" FieldName="Desayuno" VisibleIndex="2" HorizontalAlign="Center" CssClasses-DataCell="dataCell" />
-                        <dx:BootstrapGridViewDataColumn Caption="COMIDA" FieldName="Comida" VisibleIndex="3" HorizontalAlign="Center" CssClasses-DataCell="dataCell" />
-                        <dx:BootstrapGridViewDataColumn Caption="CENA" FieldName="Cena" VisibleIndex="4" HorizontalAlign="Center" CssClasses-DataCell="dataCell" />
+                <dx:bootstrapgridview id="gvConteoDias" runat="server">
+                    <settingssearchpanel visible="false" showapplybutton="false" />
+                    <settings showgrouppanel="false" showfilterrowmenu="false" />
+                    <settingsadaptivity adaptivitymode="HideDataCells" allowonlyoneadaptivedetailexpanded="true"></settingsadaptivity>
+                    <columns>
 
-                    </Columns>
-                </dx:BootstrapGridView>
+                        <dx:bootstrapgridviewdatacolumn caption="DIA" fieldname="Dia" visibleindex="1" horizontalalign="Center" cssclasses-datacell="dataCell" />
+                        <dx:bootstrapgridviewdatacolumn caption="DESAYUNO" fieldname="Desayuno" visibleindex="2" horizontalalign="Center" cssclasses-datacell="dataCell" />
+                        <dx:bootstrapgridviewdatacolumn caption="COMIDA" fieldname="Comida" visibleindex="3" horizontalalign="Center" cssclasses-datacell="dataCell" />
+                        <dx:bootstrapgridviewdatacolumn caption="CENA" fieldname="Cena" visibleindex="4" horizontalalign="Center" cssclasses-datacell="dataCell" />
+
+                    </columns>
+                </dx:bootstrapgridview>
             </div>
         </div>
 
@@ -268,147 +303,238 @@
                 <asp:UpdatePanel ID="upaVuelos" runat="server" UpdateMode="Conditional">
                     <ContentTemplate>
                         <div class="col-sm-12">
-                            <dx:BootstrapGridView ID="gvVuelos" runat="server" KeyFieldName="LegId">
-                                <SettingsSearchPanel Visible="false" ShowApplyButton="false" />
-                                <Settings ShowGroupPanel="false" ShowFilterRowMenu="false" />
-                                <SettingsAdaptivity AdaptivityMode="HideDataCells" AllowOnlyOneAdaptiveDetailExpanded="true"></SettingsAdaptivity>
-                                <SettingsPager PageSize="20"></SettingsPager>
-                                <Columns>
-                                    <%--<dx:BootstrapGridViewDataColumn Caption="Trip" FieldName="Trip" VisibleIndex="1" HorizontalAlign="Center" CssClasses-DataCell="dataCell" />--%>
-                                    <%--<dx:BootstrapGridViewDataColumn Caption="LegId" FieldName="LegId" VisibleIndex="1" HorizontalAlign="Center" CssClasses-DataCell="dataCell"/>--%>
-                                    <%--<dx:BootstrapGridViewDataColumn Caption="Origen" FieldName="POD" VisibleIndex="2" HorizontalAlign="Center" CssClasses-DataCell="dataCell">
-                                    </dx:BootstrapGridViewDataColumn>--%>
-                                    <%--<dx:BootstrapGridViewDataColumn Caption="Destino" FieldName="POA" VisibleIndex="3" HorizontalAlign="Center" CssClasses-DataCell="dataCell"/>--%>
-
-                                    <dx:BootstrapGridViewDataColumn Caption="Trip" FieldName="Trip" Visible="true" VisibleIndex="1" HorizontalAlign="Center" SortOrder="Ascending">
-                                        <DataItemTemplate>
+                            <dx:bootstrapgridview id="gvVuelos" runat="server" keyfieldname="LegId">
+                                <settingssearchpanel visible="false" showapplybutton="false" />
+                                <settings showgrouppanel="false" showfilterrowmenu="false" />
+                                <settingsadaptivity adaptivitymode="HideDataCells" allowonlyoneadaptivedetailexpanded="true" />
+                                <settingspager pagesize="20" />
+                                <columns>
+                                    <dx:bootstrapgridviewdatacolumn caption="Trip" fieldname="Trip" visible="true" visibleindex="1" horizontalalign="Center" sortorder="Ascending">
+                                        <dataitemtemplate>
                                             <div>
                                                 <asp:Label ID="readTrip" runat="server" Text='<%# Eval("Trip") %>' CssClass="dataCell"></asp:Label>
                                             </div>
-                                        </DataItemTemplate>
-                                        <CssClasses HeaderCell="spa"/>
-                                    </dx:BootstrapGridViewDataColumn>
-                                    <dx:BootstrapGridViewDataColumn Caption="Origen" FieldName="POD" Visible="true" VisibleIndex="2" HorizontalAlign="Center" SortOrder="Ascending">
-                                        <DataItemTemplate>
+                                        </dataitemtemplate>
+                                        <cssclasses headercell="spa" />
+                                    </dx:bootstrapgridviewdatacolumn>
+                                    <dx:bootstrapgridviewdatacolumn caption="Origen" fieldname="POD" visible="true" visibleindex="2" horizontalalign="Center" sortorder="Ascending">
+                                        <dataitemtemplate>
                                             <div>
                                                 <asp:Label ID="readPOD" runat="server" Text='<%# Eval("POD") %>' CssClass="dataCell"></asp:Label>
                                             </div>
-                                        </DataItemTemplate>
-                                        <CssClasses HeaderCell="spa"/>
-                                    </dx:BootstrapGridViewDataColumn>
+                                        </dataitemtemplate>
+                                        <cssclasses headercell="spa" />
+                                    </dx:bootstrapgridviewdatacolumn>
 
-                                    <dx:BootstrapGridViewDataColumn Caption="Destino" FieldName="POA" Visible="true" VisibleIndex="3" HorizontalAlign="Center" SortOrder="Ascending">
-                                        <DataItemTemplate>
+                                    <dx:bootstrapgridviewdatacolumn caption="Destino" fieldname="POA" visible="true" visibleindex="3" horizontalalign="Center" sortorder="Ascending">
+                                        <dataitemtemplate>
                                             <div>
                                                 <asp:Label ID="readPOA" runat="server" Text='<%# Eval("POA") %>' CssClass="dataCell"></asp:Label>
                                             </div>
-                                        </DataItemTemplate>
-                                        <CssClasses HeaderCell="spa" />
-                                    </dx:BootstrapGridViewDataColumn>
+                                        </dataitemtemplate>
+                                        <cssclasses headercell="spa" />
+                                    </dx:bootstrapgridviewdatacolumn>
 
 
-                                     <dx:BootstrapGridViewDataColumn Caption="Fecha de Salida" FieldName="FechaSalida" Visible="true" VisibleIndex="4" HorizontalAlign="Center" SortOrder="Ascending">
-                                        <DataItemTemplate>
+                                    <dx:bootstrapgridviewdatacolumn caption="Fecha de Salida" fieldname="FechaSalida" visible="true" visibleindex="4" horizontalalign="Center" sortorder="Ascending">
+                                        <dataitemtemplate>
                                             <div>
                                                 <asp:Label ID="readFechaSalida" runat="server" Text='<%# Eval("FechaSalida") %>' CssClass="dataCell"></asp:Label>
                                             </div>
-                                        </DataItemTemplate>
-                                        <CssClasses HeaderCell="spa" />
-                                    </dx:BootstrapGridViewDataColumn>
-                                    <dx:BootstrapGridViewDataColumn Caption="Fecha de Llegada" FieldName="FechaLlegada" Visible="true" VisibleIndex="5" HorizontalAlign="Center" SortOrder="Ascending">
-                                        <DataItemTemplate>
+                                        </dataitemtemplate>
+                                        <cssclasses headercell="spa" />
+                                    </dx:bootstrapgridviewdatacolumn>
+                                    <dx:bootstrapgridviewdatacolumn caption="Fecha de Llegada" fieldname="FechaLlegada" visible="true" visibleindex="5" horizontalalign="Center" sortorder="Ascending">
+                                        <dataitemtemplate>
                                             <div>
                                                 <asp:Label ID="readFechaLlegada" runat="server" Text='<%# Eval("FechaLlegada") %>' CssClass="dataCell"></asp:Label>
                                             </div>
-                                        </DataItemTemplate>
-                                        <CssClasses HeaderCell="spa" />
-                                    </dx:BootstrapGridViewDataColumn>
+                                        </dataitemtemplate>
+                                        <cssclasses headercell="spa" />
+                                    </dx:bootstrapgridviewdatacolumn>
 
-                                    <dx:BootstrapGridViewDataColumn Caption="CheckIn" FieldName="CheckIn" Visible="true" VisibleIndex="6" HorizontalAlign="Center" SortOrder="Ascending">
-                                        <DataItemTemplate>
+                                    <dx:bootstrapgridviewdatacolumn caption="CheckIn" fieldname="CheckIn" visible="true" visibleindex="6" horizontalalign="Center" sortorder="Ascending">
+                                        <dataitemtemplate>
                                             <div>
                                                 <asp:Label ID="readCheckIn" runat="server" Text='<%# Eval("CheckIn") %>' CssClass="dataCell"></asp:Label>
                                             </div>
-                                        </DataItemTemplate>
-                                        <CssClasses HeaderCell="spa" />
-                                    </dx:BootstrapGridViewDataColumn>
-                                    <dx:BootstrapGridViewDataColumn Caption="CheckOut" FieldName="CheckOut" Visible="true" VisibleIndex="6" HorizontalAlign="Center" SortOrder="Ascending">
-                                        <DataItemTemplate>
+                                        </dataitemtemplate>
+                                        <cssclasses headercell="spa" />
+                                    </dx:bootstrapgridviewdatacolumn>
+                                    <dx:bootstrapgridviewdatacolumn caption="CheckOut" fieldname="CheckOut" visible="true" visibleindex="6" horizontalalign="Center" sortorder="Ascending">
+                                        <dataitemtemplate>
                                             <div>
                                                 <asp:Label ID="readCheckOut" runat="server" Text='<%# Eval("CheckOut") %>' CssClass="dataCell"></asp:Label>
                                             </div>
-                                        </DataItemTemplate>
-                                        <CssClasses HeaderCell="spa" />
-                                    </dx:BootstrapGridViewDataColumn>
-
-
-                                    <%--<dx:BootstrapGridViewDataColumn Caption="Fecha de Salida" FieldName="FechaSalida" VisibleIndex="4" HorizontalAlign="Center" CssClasses-DataCell="dataCell"/>
-                                    <dx:BootstrapGridViewDataColumn Caption="Fecha de Llegada" FieldName="FechaLlegada" VisibleIndex="5" HorizontalAlign="Center" CssClasses-DataCell="dataCell"/>--%>
-
-                                    <%--<dx:BootstrapGridViewDataColumn Caption="Check In" FieldName="CheckIn" VisibleIndex="7" HorizontalAlign="Center" CssClasses-DataCell="dataCell"/>
-                                    <dx:BootstrapGridViewDataColumn Caption="Check Out" FieldName="CheckOut" VisibleIndex="8" HorizontalAlign="Center" CssClasses-DataCell="dataCell"/>--%>
-                                </Columns>
-                                <SettingsPager Position="Bottom">
-                                    <PageSizeItemSettings Items="20, 50, 100"></PageSizeItemSettings>
-                                </SettingsPager>
-                                <SettingsEditing Mode="PopupEditForm"></SettingsEditing>
-                                <Settings ShowGroupPanel="True" />
-                            </dx:BootstrapGridView>
+                                        </dataitemtemplate>
+                                        <cssclasses headercell="spa" />
+                                    </dx:bootstrapgridviewdatacolumn>
+                                </columns>
+                                <settingspager position="Bottom">
+                                    <pagesizeitemsettings items="20, 50, 100"></pagesizeitemsettings>
+                                </settingspager>
+                                <settingsediting mode="PopupEditForm"></settingsediting>
+                                <settings showgrouppanel="True" />
+                            </dx:bootstrapgridview>
                         </div>
                     </ContentTemplate>
                 </asp:UpdatePanel>
             </div>
         </div>
         <div class="row">
-            <dx:BootstrapFormLayout runat="server">
-                <Items>                 
-                    <dx:BootstrapLayoutItem HorizontalAlign="Right" ShowCaption="False" ColSpanMd="12">
-                        <ContentCollection>
-                            <dx:ContentControl>
-                                <dx:BootstrapButton ID="btnGuardarPeriodo" runat="server" Text="Guardar Período" SettingsBootstrap-RenderOption="Primary" AutoPostBack="true" OnClick="btnGuardarPeriodo_Click" />
-                                <%--<dx:BootstrapButton ID="btnAutorizar" runat="server" Text="Autorizar" SettingsBootstrap-RenderOption="Success" AutoPostBack="true" OnClick="btnAutorizar_Click" />--%>
-                                <dx:BootstrapButton ID="btnCancelar" runat="server" Text="Regresar" SettingsBootstrap-RenderOption="Warning" AutoPostBack="false" OnClick="btnCancelar_Click" />
-                            </dx:ContentControl>
-                        </ContentCollection>
-                    </dx:BootstrapLayoutItem>
-                </Items>
-            </dx:BootstrapFormLayout>
+            <dx:bootstrapformlayout runat="server">
+                <items>
+                    <dx:bootstraplayoutitem horizontalalign="Right" showcaption="False" colspanmd="12">
+                        <contentcollection>
+                            <dx:contentcontrol>
+                                <dx:bootstrapbutton id="btnGuardarPeriodo" runat="server" text="Guardar Período" settingsbootstrap-renderoption="Primary" autopostback="true" onclick="btnGuardarPeriodo_Click" />
+                                <dx:bootstrapbutton id="btnCancelar" runat="server" text="Regresar" settingsbootstrap-renderoption="Warning" autopostback="false" onclick="btnCancelar_Click" />
+                            </dx:contentcontrol>
+                        </contentcollection>
+                    </dx:bootstraplayoutitem>
+                </items>
+            </dx:bootstrapformlayout>
         </div>
     </asp:Panel>
 
+    <asp:Panel ID="pnlAjuste" runat="server" Visible="false">
+
+        <div class="row" style="padding-bottom: 20px;">
+            <div class="col-md-3"></div>
+            <div class="col-md-6" align="right">
+                <dx:bootstrapbutton id="btnAgregarAjuste" runat="server" text="Nuevo ajuste" settingsbootstrap-renderoption="Success" autopostback="false" onclick="btnAgregarAjuste_Click" />
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6" align="center">
+                <dx:bootstrapgridview id="gvAjustes" runat="server" keyfieldname="IdAdicional" width="100%">
+                    <settingssearchpanel visible="false" showapplybutton="false" />
+                    <settings showgrouppanel="false" showfilterrowmenu="false" />
+                    <settingsadaptivity adaptivitymode="HideDataCells" allowonlyoneadaptivedetailexpanded="true" />
+                    <columns>
+                        <dx:bootstrapgridviewdatacolumn caption="CONCEPTO MANUAL" fieldname="DesConcepto" visibleindex="1" horizontalalign="Center" cssclasses-datacell="dataCell" />
+                        <dx:bootstrapgridviewdatacolumn caption="MONEDA" fieldname="Moneda" visibleindex="2" horizontalalign="Center" cssclasses-datacell="dataCell" />
+                        <dx:BootstrapGridViewTextColumn caption="IMPORTE" fieldname="Valor" visibleindex="3" horizontalalign="Center" cssclasses-datacell="dataCell">
+                            <PropertiesTextEdit DisplayFormatString="c"></PropertiesTextEdit>
+                        </dx:BootstrapGridViewTextColumn>
+                        <dx:bootstrapgridviewdatacolumn caption="COMENTARIOS" fieldname="Comentarios" visibleindex="4" horizontalalign="Left" cssclasses-datacell="dataCell" />
+                    </columns>
+                </dx:bootstrapgridview>
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+        <div class="row">
+            <dx:bootstrapformlayout runat="server">
+                <items>
+                    <dx:bootstraplayoutitem horizontalalign="Right" showcaption="False" colspanmd="12">
+                        <contentcollection>
+                            <dx:contentcontrol>
+                                <dx:bootstrapbutton id="btnRegresar" runat="server" text="Regresar" settingsbootstrap-renderoption="Warning" autopostback="false" onclick="btnRegresar_Click" />
+                            </dx:contentcontrol>
+                        </contentcollection>
+                    </dx:bootstraplayoutitem>
+                </items>
+            </dx:bootstrapformlayout>
+        </div>
+
+    </asp:Panel>
 
     <%--MODAL PARA MENSAJES--%>
-    <dx:ASPxPopupControl ID="ppAlert" runat="server" ClientInstanceName="ppAlert" CloseAction="CloseButton" CloseOnEscape="true" Modal="True" Theme="Office2010Black"
-        PopupHorizontalAlign="WindowCenter" PopupVerticalAlign="Middle" HeaderText="Aviso" AllowDragging="true" ShowCloseButton="true" Width="300">
-        <ClientSideEvents />
-        <ContentCollection>
-            <dx:PopupControlContentControl runat="server">
-                <dx:ASPxPanel ID="ASPxPanel2" runat="server" DefaultButton="btOK">
-                    <PanelCollection>
-                        <dx:PanelContent runat="server">
-                            <table>
-                                <tr>
-                                    <td>
-                                        <dx:ASPxImage ID="ASPxImage2" runat="server" ShowLoadingImage="true" ImageUrl="~/img/iconos/Information2.ico"></dx:ASPxImage>
-                                        <dx:ASPxTextBox ID="tbLogin" ReadOnly="true" Border-BorderStyle="None" Height="1px" runat="server" Width="1px" ClientInstanceName="tbLogin"></dx:ASPxTextBox>
-                                    </td>
-                                    <td>
-                                        <dx:ASPxLabel ID="lbl" runat="server" ClientInstanceName="lbl" Text="ASPxLabel"></dx:ASPxLabel>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <dx:ASPxButton ID="btOK" runat="server" Text="OK" Theme="PlasticBlue" Width="80px" AutoPostBack="false" Style="float: left; margin-right: 8px" TabIndex="0">
-                                            <ClientSideEvents Click="function(s, e) {ppAlert.Hide(); }" />
-                                        </dx:ASPxButton>
-                                    </td>
-                                </tr>
-                            </table>
-                        </dx:PanelContent>
-                    </PanelCollection>
-                </dx:ASPxPanel>
-            </dx:PopupControlContentControl>
-        </ContentCollection>
-    </dx:ASPxPopupControl>
+    <dx:bootstrappopupcontrol id="ppAlert" runat="server" clientinstancename="ppAlert" closeanimationtype="Fade" popupanimationtype="Fade"
+        popuphorizontalalign="WindowCenter" popupverticalalign="WindowCenter"
+        closeaction="CloseButton" closeonescape="true" allowresize="true"
+        headertext="Listo" allowdragging="true" showclosebutton="true" width="300" height="200">
+        <clientsideevents />
+        <contentcollection>
+            <dx:contentcontrol>
+                <table>
+                    <tr>
+                        <td>
+                            <dx:aspximage id="ASPxImage2" runat="server" showloadingimage="true" imageurl="~/img/iconos/Information2.ico"></dx:aspximage>
+                            <dx:aspxtextbox id="tbLogin" readonly="true" border-borderstyle="None" height="1px" runat="server" width="1px" clientinstancename="tbLogin"></dx:aspxtextbox>
+                        </td>
+                        <td>
+                            <dx:aspxlabel id="lbl" runat="server" clientinstancename="lbl" text="ASPxLabel"></dx:aspxlabel>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <dx:bootstrapbutton id="btOK" runat="server" text="OK" width="80px" settingsbootstrap-renderoption="Primary" autopostback="false" style="float: left; margin-right: 8px" tabindex="0">
+                                <clientsideevents click="function(s, e) {ppAlert.Hide(); }" />
+                            </dx:bootstrapbutton>
+                        </td>
+                    </tr>
+                </table>
+            </dx:contentcontrol>
+        </contentcollection>
+    </dx:bootstrappopupcontrol>
+
+
+    <%-- MODAL PARA AJUSTES --%>
+    <dx:bootstrappopupcontrol id="ppAjustes" runat="server" clientinstancename="ppAjustes"
+        closeanimationtype="Fade" popupanimationtype="Fade"
+        popuphorizontalalign="WindowCenter" popupverticalalign="WindowCenter" width="500px"
+        closeaction="CloseButton" closeonescape="true" allowresize="true"
+        headertext="Ajustes" allowdragging="true" showclosebutton="true">
+        <contentcollection>
+            <dx:contentcontrol>
+
+                <div style="width: 100%;">
+                    <table style="width: 95%; margin: 0 auto;" border="0">
+                        <tr>
+                            <td style="padding: 4px;">
+                                <label>Concepto:</label>
+                                <dx:bootstrapcombobox id="ddlConceptoAdicional" runat="server" nulltext="Selecciona Concepto"></dx:bootstrapcombobox>
+                                <asp:HiddenField ID="hdnIdPeriodo" runat="server" Value="0" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 4px;">
+                                <label>Moneda:</label>
+                                <dx:bootstrapcombobox id="ddlMoneda" runat="server" nulltext="Selecciona moneda">
+                                    <items>
+                                        <dx:bootstraplistedititem value="MXN" text="MXN"></dx:bootstraplistedititem>
+                                        <dx:bootstraplistedititem value="USD" text="USD"></dx:bootstraplistedititem>
+                                    </items>
+                                </dx:bootstrapcombobox>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 4px;">
+                                <label>Importe:</label>
+                                <dx:bootstraptextbox id="txtImporte" runat="server" nulltext="Importe"></dx:bootstraptextbox>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 4px;">
+                                <label>Importe:</label>
+                                <dx:bootstrapmemo id="txtComentarios" runat="server" nulltext="Comentarios" rows="4" width="100%"></dx:bootstrapmemo>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="row">
+                    <dx:bootstrapformlayout runat="server">
+                        <items>
+                            <dx:bootstraplayoutitem horizontalalign="Right" showcaption="False" colspanmd="12">
+                                <contentcollection>
+                                    <dx:contentcontrol>
+                                        <dx:aspxbutton id="btnCerrar" runat="server" text="Cerrar" cssclass="btn btn-warning" width="80px" height="40px" autopostback="false" style="float: right; margin-right: 8px" tabindex="0">
+                                            <clientsideevents click="function(s, e) {ppAjustes.Hide(); }" />
+                                        </dx:aspxbutton>
+                                        &nbsp;
+                                        <dx:bootstrapbutton id="btnGuardarAdicional" runat="server" text="Guardar" settingsbootstrap-renderoption="Success" autopostback="false" onclick="btnGuardarAdicional_Click" />
+                                    </dx:contentcontrol>
+                                </contentcollection>
+                            </dx:bootstraplayoutitem>
+                        </items>
+                    </dx:bootstrapformlayout>
+                </div>
+
+            </dx:contentcontrol>
+        </contentcollection>
+    </dx:bootstrappopupcontrol>
 
 </asp:Content>

@@ -17,6 +17,7 @@ namespace ALE_MexJet.Presenter
         {
             oIGestCat = oGC;
             oIView.eSearchTipo += SearchTipo_Presenter;
+            oIView.eSearchMaxLegId += SearchMaxLegId_Presenter;
         }
         protected override void SearchObj_Presenter(object sender, EventArgs e)
         {
@@ -30,7 +31,10 @@ namespace ALE_MexJet.Presenter
         {
             oIView.LoadTipo(oIGestCat.DBGetTipo());
         }
-
+        protected void SearchMaxLegId_Presenter(object sender, EventArgs e)
+        {
+            oIView.lLegIdMax = oIGestCat.DBGetLegIdMax();
+        }
 
     }
 }

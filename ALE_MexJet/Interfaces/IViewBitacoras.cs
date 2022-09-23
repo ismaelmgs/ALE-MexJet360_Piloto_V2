@@ -13,9 +13,11 @@ namespace ALE_MexJet.Interfaces
         Bitacoras oBi { get; set; }
         string sParametro { get; set; }
         int iOk { get; set; }
+        long lLegIdMax { get; set; }
         void LoadBitacoras(DataTable dt);
         void LoadTipo(DataTable dt);
 
         event EventHandler eSearchTipo;
+        event EventHandler eSearchMaxLegId;
     }
 }

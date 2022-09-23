@@ -165,6 +165,15 @@ namespace ALE_MexJet.Views.bitacoras
         protected void btnNuevaBitacora_Click(object sender, EventArgs e)
         {
             LimpiarControles();
+
+            if (eSearchMaxLegId != null)
+                eSearchMaxLegId(sender, e);
+
+            if (lLegIdMax > 0)
+                txtLegId.Value = lLegIdMax.S();
+            else
+                txtLegId.Value = string.Empty;
+
             ppBitacora.ShowOnPageLoad = true;
         }
         protected void txtOrigenCalzo_ValueChanged(object sender, EventArgs e)
@@ -358,6 +367,12 @@ namespace ALE_MexJet.Views.bitacoras
         public event EventHandler eDeleteObj;
         public event EventHandler eSearchObj;
         public event EventHandler eSearchTipo;
+        public event EventHandler eSearchMaxLegId;
+        public long lLegIdMax
+        {
+            get { return (long)ViewState["VSLegIdMax"]; }
+            set { ViewState["VSLegIdMax"] = value; }
+        }
         public int iOk
         {
             get { return (int)ViewState["VSOK"]; }

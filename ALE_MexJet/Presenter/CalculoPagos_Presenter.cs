@@ -25,7 +25,11 @@ namespace ALE_MexJet.Presenter
             oIView.eGetAdicionales += GetAdicionales_Presenter;
             oIView.eSavePeriodos += SavePeriodos_Presenter;
             oIView.eSearchEstatus += SearchEstatus_Presenter;
-        }
+            oIView.eSearchPeriodo += SearchPeriodo_Presenter;
+            oIView.eSearchConAdPeriodo += SearchConAdPeriodo_Presenter;
+            oIView.eSaveAjustes += SaveAjustes_Presenter;
+            oIView.eSearchAjustesPiloto += SearchAjustesPiloto_Presenter;
+    }
 
         protected void GetAdicionales_Presenter(object sender, EventArgs e)
         {
@@ -2433,6 +2437,26 @@ namespace ALE_MexJet.Presenter
         protected void SearchEstatus_Presenter(object sender, EventArgs e)
         {
             oIView.iEstatus = oIGestCat.GetEstatusPeriodo(oIView.sCvePiloto, oIView.sFechaInicio.Dt(), oIView.sFechaFinal.Dt());
+        }
+        protected void SearchPeriodo_Presenter(object sender, EventArgs e)
+        {
+            oIView.iIdPeriodo = oIGestCat.GetPeriodoPiloto(oIView.sCvePiloto, oIView.sFechaInicio.Dt(), oIView.sFechaFinal.Dt());
+        }
+        protected void SearchConAdPeriodo_Presenter(object sender, EventArgs e)
+        {
+            oIView.LlenaAdicionalesPeriodo(oIGestCat.GetAjustesPeriodoPiloto(oIView.iIdPeriodo));
+        }
+        protected void SaveAjustes_Presenter(object sender, EventArgs e)
+        {
+            bool bRes = oIGestCat.SetInsertaAjuste(oIView.oAjuste);
+            if(bRes)
+                oIView.sOk = "correcto";
+            else
+                oIView.sOk = "error";
+        }
+        protected void SearchAjustesPiloto_Presenter(object sender, EventArgs e)
+        {
+            oIView.LlenaAjustesPorPiloto(oIGestCat.GetAjustesPeriodoPiloto(oIView.iIdPeriodo));
         }
     }
 }

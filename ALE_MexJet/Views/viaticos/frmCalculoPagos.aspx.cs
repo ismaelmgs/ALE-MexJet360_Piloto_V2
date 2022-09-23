@@ -74,6 +74,7 @@ namespace ALE_MexJet.Views.viaticos
             {
                 if (e.CommandArgs.CommandName.S() == "Ver")
                 {
+                    dtAjustes = null;
                     int index = e.VisibleIndex.I();
                     string sCrewCode = gvCalculo.GetRowValues(index, "CrewCode").S();
                     string[] fieldValues = { "Piloto", "CrewCode", "FechaInicio", "FechaFin", "Estatus" };
@@ -113,6 +114,19 @@ namespace ALE_MexJet.Views.viaticos
                         else if (iEstatus == 3)
                             btnGuardarPeriodo.Visible = false;
 
+                        //Consulta periodo si existe muestra ajustes por piloto
+                        if (eSearchPeriodo != null)
+                            eSearchPeriodo(sender, e);
+
+                        
+                        hdnIdPeriodo.Value = iIdPeriodo.S();
+                        if (eSearchAjustesPiloto != null)
+                            eSearchAjustesPiloto(sender, e);
+
+                        //-----------------------------------------------------
+
+
+                        pnlDatosPiloto.Visible = true;
                         pnlBusqueda.Visible = false;
                         pnlVuelos.Visible = false;
                         pnlCalcularViaticos.Visible = true;
@@ -127,6 +141,52 @@ namespace ALE_MexJet.Views.viaticos
                         }
                     }
 
+                }
+                else if (e.CommandArgs.CommandName.S() == "Ajustes")
+                {
+                    dtAjustes = null;
+                    int index = e.VisibleIndex.I();
+                    string sCrewCode = gvCalculo.GetRowValues(index, "CrewCode").S();
+                    string[] fieldValues = { "Piloto", "CrewCode", "FechaInicio", "FechaFin", "Estatus" };
+                    object obj = gvCalculo.GetRowValues(index, fieldValues);
+                    object[] oB = (object[])obj;
+                    if (oB.Length > 0)
+                    {
+                        readPiloto.Text = oB[0].S();
+                        readCvePiloto.Text = oB[1].S();
+                        DateTime dtFecha1 = oB[2].S().Dt();
+                        DateTime dtFecha2 = oB[3].S().Dt();
+                        string sMesDel = GetMes(dtFecha1.Month);
+                        string sMesHasta = GetMes(dtFecha2.Month);
+
+                        readPeríodo.Text = "Del " + dtFecha1.Day.S() + " de " + sMesDel + " de " + dtFecha1.Year.S() + " al " + dtFecha2.Day.S() + " de " + sMesHasta + " de " + dtFecha2.Year.S();
+                        hdnFechaInicio.Value = dtFecha1.ToShortDateString();
+                        hdnFechaFinal.Value = dtFecha2.ToShortDateString();
+
+                        if (eGetAdicionales != null)
+                            eGetAdicionales(sender, e);
+
+                        sCvePiloto = oB[1].S();
+                        sFechaInicio = oB[2].S();
+                        sFechaFinal = oB[3].S();
+
+                        if (eSearchPeriodo != null)
+                            eSearchPeriodo(sender, e);
+
+                        if (iIdPeriodo != 0)
+                        {
+                            hdnIdPeriodo.Value = iIdPeriodo.S();
+                            //Consulta conceptos adicionales por periodo
+                            if (eSearchConAdPeriodo != null)
+                                eSearchConAdPeriodo(sender, e);
+                        }
+
+                        pnlDatosPiloto.Visible = true;
+                        pnlBusqueda.Visible = false;
+                        pnlVuelos.Visible = false;
+                        pnlCalcularViaticos.Visible = false;
+                        pnlAjuste.Visible = true;
+                    }
                 }
             }
             catch (Exception ex)
@@ -214,6 +274,7 @@ namespace ALE_MexJet.Views.viaticos
 
                 if (sOk == "ok")
                 {
+                    btnCancelar_Click(sender, e);
                     MostrarMensaje("¡Se ha guardado los datos calculados del piloto!", "Guardado");
                 }
                 else if (sOk == "error")
@@ -400,6 +461,8 @@ namespace ALE_MexJet.Views.viaticos
                 pnlBusqueda.Visible = true;
                 pnlVuelos.Visible = true;
                 pnlCalcularViaticos.Visible = false;
+                pnlDatosPiloto.Visible = false;
+                hdnIdPeriodo.Value = "0";
             }
             catch (Exception ex)
             {
@@ -415,10 +478,9 @@ namespace ALE_MexJet.Views.viaticos
 
                     BootstrapGridView gvB = (BootstrapGridView)(sender as BootstrapGridView);
                     Label rdEstatus = gvB.FindRowCellTemplateControl(e.VisibleIndex, e.DataColumn, "readEstatus") as Label;
-                    //ASPxButton btnActualizar = gvB.FindRowCellTemplateControl(e.VisibleIndex, e.DataColumn, "btnActualizar") as ASPxButton;
+                    //ASPxButton btnVerAjustes = gvB.FindRowCellTemplateControl(e.VisibleIndex, e.DataColumn, "btnVerAjustes") as ASPxButton;
 
-                    //int index = e.VisibleIndex.I();
-                    int iIdBitacora = gvB.GetRowValues(e.VisibleIndex, "IdFolio").S().I();
+                    //int iIdBitacora = gvB.GetRowValues(e.VisibleIndex, "CrewCode").S().I();
                     string[] fieldValues = { "Piloto", "CrewCode", "FechaInicio", "FechaFin" };
                     object obj = gvB.GetRowValues(e.VisibleIndex, fieldValues);
                     object[] oB = (object[])obj;
@@ -438,6 +500,34 @@ namespace ALE_MexJet.Views.viaticos
                         rdEstatus.Text = "Pagado";
 
 
+                }
+                if (e.DataColumn.FieldName == "IdFolio")
+                {
+                    BootstrapGridView gvB = (BootstrapGridView)(sender as BootstrapGridView);
+                    Label rdEstatus = gvB.FindRowCellTemplateControl(e.VisibleIndex, e.DataColumn, "readEstatus") as Label;
+                    ASPxButton btnVerAjustes = gvB.FindRowCellTemplateControl(e.VisibleIndex, e.DataColumn, "btnVerAjustes") as ASPxButton;
+
+                    //int iIdBitacora = gvB.GetRowValues(e.VisibleIndex, "IdFolio").S().I();
+                    string[] fieldValues = { "Piloto", "CrewCode", "FechaInicio", "FechaFin" };
+                    object obj = gvB.GetRowValues(e.VisibleIndex, fieldValues);
+                    object[] oB = (object[])obj;
+
+                    sCvePiloto = oB[1].S();
+                    sFechaInicio = oB[2].S();
+                    sFechaFinal = oB[3].S();
+
+                    if (eSearchEstatus != null)
+                        eSearchEstatus(sender, e);
+
+                    if (btnVerAjustes != null)
+                    {
+                        if (iEstatus == 0 || iEstatus == 1)
+                            btnVerAjustes.Enabled = false;
+                        else if (iEstatus == 2)
+                            btnVerAjustes.Enabled = true;
+                        else if (iEstatus == 3)
+                            btnVerAjustes.Enabled = true;
+                    }
                 }
             }
             catch (Exception ex)
@@ -521,9 +611,13 @@ namespace ALE_MexJet.Views.viaticos
                     gvHorarios.DataBind();
 
                     dt2 = ds.Tables[1];
-                    gvAdicionales.DataSource = dt2;
-                    gvAdicionales.DataBind();
+                    //gvAdicionales.DataSource = dt2;
+                    //gvAdicionales.DataBind();
 
+                    ddlConceptoAdicional.DataSource = dt2;
+                    ddlConceptoAdicional.ValueField = "IdParametro";
+                    ddlConceptoAdicional.TextField = "DesConcepto";
+                    ddlConceptoAdicional.DataBind();
                 }
             }
             catch (Exception ex)
@@ -770,8 +864,8 @@ namespace ALE_MexJet.Views.viaticos
 
                 if (dtVuelos != null && dtVuelos.Rows.Count > 0)
                 {
-                    gvCalculo.DataSource = dtVuelos;
-                    gvCalculo.DataBind();
+                    //gvCalculo.DataSource = dtVuelos;
+                    //gvCalculo.DataBind();
                     pnlVuelos.Visible = true;
                 }
             }
@@ -1092,6 +1186,37 @@ namespace ALE_MexJet.Views.viaticos
                 throw;
             }
         }
+        public void LlenaAdicionalesPeriodo(DataTable dt)
+        {
+            try
+            {
+                dtAjustes = null;
+                dtAjustes = dt;
+                gvAjustes.DataSource = dtAjustes;
+                gvAjustes.DataBind();
+
+                
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        public void LlenaAjustesPorPiloto(DataTable dt)
+        {
+            try
+            {
+                dtAjustesPiloto = null;
+                dtAjustesPiloto = dt;
+                gvAjustesPiloto.DataSource = dtAjustesPiloto;
+                gvAjustesPiloto.DataBind();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         #endregion
 
         #region PROPIEDADES Y VARIABLES
@@ -1108,6 +1233,10 @@ namespace ALE_MexJet.Views.viaticos
         public event EventHandler eGetAdicionales;
         public event EventHandler eSavePeriodos;
         public event EventHandler eSearchEstatus;
+        public event EventHandler eSearchPeriodo;
+        public event EventHandler eSearchConAdPeriodo;
+        public event EventHandler eSaveAjustes;
+        public event EventHandler eSearchAjustesPiloto;
 
         public string sCvePiloto
         {
@@ -1164,6 +1293,16 @@ namespace ALE_MexJet.Views.viaticos
         {
             get { return (DataSet)ViewState["VSParametros"]; }
             set { ViewState["VSParametros"] = value; }
+        }
+        public DataTable dtAjustes
+        {
+            get { return (DataTable)ViewState["VSAjustes"]; }
+            set { ViewState["VSAjustes"] = value; }
+        }
+        public DataTable dtAjustesPiloto
+        {
+            get { return (DataTable)ViewState["VSAjustesPiloto"]; }
+            set { ViewState["VSAjustesPiloto"] = value; }
         }
         public DataTable dtConceptos
         {
@@ -1232,8 +1371,74 @@ namespace ALE_MexJet.Views.viaticos
                 return oPer;
             }
         }
+
+        public ConceptosAdicionalesPiloto oAjuste
+        {
+            get
+            {
+                ConceptosAdicionalesPiloto oAjuste = new ConceptosAdicionalesPiloto();
+                oAjuste.IIdPeriodo = hdnIdPeriodo.Value.I();
+                oAjuste.IId_Concepto = ddlConceptoAdicional.Value.I();
+                oAjuste.SDesConcepto = ddlConceptoAdicional.Text.S();
+                oAjuste.DValor = txtImporte.Value.S().D();
+                oAjuste.SMoneda = ddlMoneda.Value.S();
+                oAjuste.SComentarios = txtComentarios.Value.S();
+                return oAjuste;
+            }
+        }
+
         #endregion
 
-       
+        protected void btnRegresar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                btnBuscar_Click(sender, e);
+                pnlBusqueda.Visible = true;
+                pnlVuelos.Visible = true;
+                pnlCalcularViaticos.Visible = false;
+                pnlDatosPiloto.Visible = false;
+                pnlAjuste.Visible = false;
+                hdnIdPeriodo.Value = "0";
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        protected void btnAgregarAjuste_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ppAjustes.ShowOnPageLoad = true;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        protected void btnGuardarAdicional_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (eSaveAjustes != null)
+                    eSaveAjustes(sender, e);
+
+                if (sOk == "correcto")
+                {
+                    if (eSearchConAdPeriodo != null)
+                        eSearchConAdPeriodo(sender, e);
+
+                    ppAjustes.ShowOnPageLoad = false;
+                    MostrarMensaje("Se ha registrado el ajuste", "Listo");
+                }
+            }
+            catch (Exception ex)
+            {
+                MostrarMensaje("Error: " + ex.Message, "Error");
+            }
+        }
     }
 }
