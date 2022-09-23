@@ -85,7 +85,10 @@
     <Reference Include="DevExpress.Web.ASPxTreeList.v18.1, Version=18.1.15.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <Private>True</Private>
     </Reference>
-    <Reference Include="DevExpress.Web.Bootstrap.v18.1, Version=18.1.15.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Web.Bootstrap.v18.1, Version=18.1.15.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\DevExpress.Web.Bootstrap.v18.1.dll</HintPath>
+    </Reference>
     <Reference Include="DevExpress.Web.Resources.v18.1, Version=18.1.15.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Web.v18.1, Version=18.1.15.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <Private>True</Private>
@@ -106,7 +109,8 @@
       <HintPath>..\..\..\MexJet360_Produccion_Respaldo\ALE_MexJet\bin\NucleoBase.dll</HintPath>
     </Reference>
     <Reference Include="RestSharp, Version=105.2.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\RestSharp.105.2.3\lib\net45\RestSharp.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\RestSharp.dll</HintPath>
     </Reference>
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data.Linq" />
@@ -743,6 +747,7 @@
     <Compile Include="DomainModel\DBAnalisisFerrys.cs" />
     <Compile Include="DomainModel\DBAutorizacionMembresias.cs" />
     <Compile Include="DomainModel\DBBaseAleSuite.cs" />
+    <Compile Include="DomainModel\DBBaseFlex.cs" />
     <Compile Include="DomainModel\DBBaseFlight.cs" />
     <Compile Include="DomainModel\DBBaseFPK.cs" />
     <Compile Include="DomainModel\DBBaseSAP.cs" />

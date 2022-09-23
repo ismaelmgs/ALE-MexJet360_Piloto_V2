@@ -9,7 +9,7 @@ using ALE_MexJet.Objetos;
 
 namespace ALE_MexJet.DomainModel
 {
-    public class DBBitacoras : DBBase
+    public class DBBitacoras : DBBaseFlex
     {
         public DataTable DBGetBitacoras(string sParametro)
         {
