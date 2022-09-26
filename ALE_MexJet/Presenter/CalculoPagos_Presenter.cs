@@ -29,6 +29,7 @@ namespace ALE_MexJet.Presenter
             oIView.eSearchConAdPeriodo += SearchConAdPeriodo_Presenter;
             oIView.eSaveAjustes += SaveAjustes_Presenter;
             oIView.eSearchAjustesPiloto += SearchAjustesPiloto_Presenter;
+            oIView.eRemoveAjuste += RemoveAjuste_Presenter;
     }
 
         protected void GetAdicionales_Presenter(object sender, EventArgs e)
@@ -2457,6 +2458,14 @@ namespace ALE_MexJet.Presenter
         protected void SearchAjustesPiloto_Presenter(object sender, EventArgs e)
         {
             oIView.LlenaAjustesPorPiloto(oIGestCat.GetAjustesPeriodoPiloto(oIView.iIdPeriodo));
+        }
+        protected void RemoveAjuste_Presenter(object sender, EventArgs e)
+        {
+            bool bRes = oIGestCat.SetEliminarAjuste(oIView.iIdAjuste);
+            if (bRes)
+                oIView.sOk = "correcto";
+            else
+                oIView.sOk = "error";
         }
     }
 }

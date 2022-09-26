@@ -288,5 +288,22 @@ namespace ALE_MexJet.DomainModel
                 return false;
             }
         }
+        public bool SetEliminarAjuste(int IdAjuste)
+        {
+            try
+            {
+                bool bRes = false;
+                object oRes;
+                oRes = new DBBase().oDB_SP.EjecutarValor("[VB].[spD_MXJ_EliminarAjustes]", "@IdAjuste", IdAjuste);
+                if (oRes.S().I() != 0)
+                    bRes = true;
+
+                return bRes;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
     }
 }

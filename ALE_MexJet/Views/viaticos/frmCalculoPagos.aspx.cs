@@ -1237,6 +1237,7 @@ namespace ALE_MexJet.Views.viaticos
         public event EventHandler eSearchConAdPeriodo;
         public event EventHandler eSaveAjustes;
         public event EventHandler eSearchAjustesPiloto;
+        public event EventHandler eRemoveAjuste;
 
         public string sCvePiloto
         {
@@ -1283,6 +1284,11 @@ namespace ALE_MexJet.Views.viaticos
         {
             get { return (int)ViewState["VSiEstatus"]; }
             set { ViewState["VSiEstatus"] = value; }
+        }
+        public int iIdAjuste
+        {
+            get { return (int)ViewState["VSIdAjuste"]; }
+            set { ViewState["VSIdAjuste"] = value; }
         }
         public string sOk
         {
@@ -1411,6 +1417,10 @@ namespace ALE_MexJet.Views.viaticos
         {
             try
             {
+                ddlConceptoAdicional.Value = "";
+                ddlMoneda.Value = "";
+                txtImporte.Text = string.Empty;
+                txtComentarios.Text = string.Empty;
                 ppAjustes.ShowOnPageLoad = true;
             }
             catch (Exception ex)
@@ -1433,6 +1443,51 @@ namespace ALE_MexJet.Views.viaticos
 
                     ppAjustes.ShowOnPageLoad = false;
                     MostrarMensaje("Se ha registrado el ajuste", "Listo");
+                }
+            }
+            catch (Exception ex)
+            {
+                MostrarMensaje("Error: " + ex.Message, "Error");
+            }
+        }
+
+        protected void gvAjustes_RowCommand(object sender, DevExpress.Web.ASPxGridViewRowCommandEventArgs e)
+        {
+            try
+            {
+                if (e.CommandArgs.CommandName.S() == "Eliminar")
+                {
+                    int index = e.VisibleIndex.I();
+                    int IdAdicional = gvAjustes.GetRowValues(index, "IdAdicional").S().I();
+                    iIdAjuste = IdAdicional;
+
+                    ppAlertConfirm.ShowOnPageLoad = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                MostrarMensaje("Error: " + ex.Message, "Error");
+            }
+        }
+
+        protected void btnAccept_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (iIdAjuste != 0)
+                {
+                    if (eRemoveAjuste != null)
+                        eRemoveAjuste(sender, e);
+
+                    if (sOk == "correcto")
+                    {
+                        if (eSearchConAdPeriodo != null)
+                            eSearchConAdPeriodo(sender, e);
+
+                        ppAlertConfirm.ShowOnPageLoad = false;
+
+                        MostrarMensaje("Se ha eliminado el ajuste", "Listo");
+                    }
                 }
             }
             catch (Exception ex)

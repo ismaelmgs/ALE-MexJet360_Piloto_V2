@@ -409,7 +409,7 @@
         <div class="row">
             <div class="col-md-3"></div>
             <div class="col-md-6" align="center">
-                <dx:bootstrapgridview id="gvAjustes" runat="server" keyfieldname="IdAdicional" width="100%">
+                <dx:bootstrapgridview id="gvAjustes" runat="server" keyfieldname="IdAdicional" width="100%" OnRowCommand="gvAjustes_RowCommand">
                     <settingssearchpanel visible="false" showapplybutton="false" />
                     <settings showgrouppanel="false" showfilterrowmenu="false" />
                     <settingsadaptivity adaptivitymode="HideDataCells" allowonlyoneadaptivedetailexpanded="true" />
@@ -420,6 +420,19 @@
                             <PropertiesTextEdit DisplayFormatString="c"></PropertiesTextEdit>
                         </dx:BootstrapGridViewTextColumn>
                         <dx:bootstrapgridviewdatacolumn caption="COMENTARIOS" fieldname="Comentarios" visibleindex="4" horizontalalign="Left" cssclasses-datacell="dataCell" />
+
+                        <dx:BootstrapGridViewDataColumn Caption="Acciones" Visible="true" VisibleIndex="4" HorizontalAlign="Center" Width="20%">
+                            <DataItemTemplate>
+                                <div>
+
+                                    <asp:Button ID="btnEliminar" runat="server" CommandArgument='<%# Eval("IdAdicional") %>' CommandName="Eliminar" ToolTip="Elimina" 
+                                        CssClass="btn btn-danger" Text="Eliminar" />
+
+                                </div>
+                            </DataItemTemplate>
+                            <CssClasses HeaderCell="spa" />
+                        </dx:BootstrapGridViewDataColumn>
+
                     </columns>
                 </dx:bootstrapgridview>
             </div>
@@ -521,7 +534,7 @@
                             <dx:bootstraplayoutitem horizontalalign="Right" showcaption="False" colspanmd="12">
                                 <contentcollection>
                                     <dx:contentcontrol>
-                                        <dx:aspxbutton id="btnCerrar" runat="server" text="Cerrar" cssclass="btn btn-warning" width="80px" height="40px" autopostback="false" style="float: right; margin-right: 8px" tabindex="0">
+                                        <dx:aspxbutton id="btnCerrar" runat="server" text="Cerrar" cssclass="btn btn-warning" width="80px" height="40px" autopostback="false" tabindex="0">
                                             <clientsideevents click="function(s, e) {ppAjustes.Hide(); }" />
                                         </dx:aspxbutton>
                                         &nbsp;
@@ -533,6 +546,39 @@
                     </dx:bootstrapformlayout>
                 </div>
 
+            </dx:contentcontrol>
+        </contentcollection>
+    </dx:bootstrappopupcontrol>
+
+    <%--MODAL PARA MENSAJES CONFIRMACION--%>
+    <dx:bootstrappopupcontrol id="ppAlertConfirm" runat="server" clientinstancename="ppAlertConfirm" closeanimationtype="Fade" popupanimationtype="Fade"
+        popuphorizontalalign="WindowCenter" popupverticalalign="WindowCenter"
+        closeaction="CloseButton" closeonescape="true" allowresize="true"
+        headertext="Confirmación" allowdragging="true" showclosebutton="true" width="300" height="200">
+        <clientsideevents />
+        <contentcollection>
+            <dx:contentcontrol>
+                <table style="width:100%; margin:0 auto 0 auto;">
+                    <tr>
+                        <td>
+                            <dx:aspximage id="ASPxImage1" runat="server" showloadingimage="true" imageurl="~/img/iconos/Information2.ico"></dx:aspximage>
+                            <dx:aspxtextbox id="Aspxtextbox1" readonly="true" border-borderstyle="None" height="1px" runat="server" width="1px" clientinstancename="tbLogin"></dx:aspxtextbox>
+                        </td>
+                        <td>
+                            <dx:aspxlabel id="Aspxlabel1" runat="server" clientinstancename="lbl" text="¿Desea eliminar el registro?"></dx:aspxlabel>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right" style="padding-right:5px;">
+                            <dx:bootstrapbutton id="btnCancel" runat="server" text="Cancelar" width="80px" settingsbootstrap-renderoption="Warning" autopostback="false">
+                                <clientsideevents click="function(s, e) {ppAlertConfirm.Hide(); }" />
+                            </dx:bootstrapbutton>
+                        </td>
+                        <td align="left" style="padding-left:5px;">
+                            <dx:bootstrapbutton id="btnAccept" runat="server" text="Aceptar" settingsbootstrap-renderoption="Success" autopostback="false" onclick="btnAccept_Click" />
+                        </td>
+                    </tr>
+                </table>
             </dx:contentcontrol>
         </contentcollection>
     </dx:bootstrappopupcontrol>

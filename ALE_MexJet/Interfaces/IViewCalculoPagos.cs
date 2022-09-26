@@ -38,6 +38,7 @@ namespace ALE_MexJet.Interfaces
         int iIdPeriodo { set; get; }
         string sOk { set; get; }
         int iEstatus { set; get; }
+        int iIdAjuste { set; get; }
         void LoadsGrids(DataSet ds);
         void LlenaAdicionalesPeriodo(DataTable dt);
         void LlenaAjustesPorPiloto(DataTable dt);
@@ -53,5 +54,6 @@ namespace ALE_MexJet.Interfaces
         event EventHandler eSearchConAdPeriodo;
         event EventHandler eSaveAjustes;
         event EventHandler eSearchAjustesPiloto;
+        event EventHandler eRemoveAjuste;
     }
 }
