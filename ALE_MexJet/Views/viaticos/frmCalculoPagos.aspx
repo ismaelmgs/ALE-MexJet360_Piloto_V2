@@ -10,6 +10,9 @@
     <link rel="stylesheet" type="text/css" href="../../Styles/Controls.css" />
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <style>
+        .container-main {
+            min-height: 740px;
+        }
         .hiddenRow {
             visibility: hidden !important;
         }
@@ -99,7 +102,7 @@
                         </div>
                         <div class="col-sm-2" style="vertical-align: bottom">
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <dx:bootstrapbutton id="btnBuscar" runat="server" text="Buscar" onclick="btnBuscar_Click" width="100%">
+                        <dx:bootstrapbutton id="btnBuscar" runat="server" text="Buscar" onclick="btnBuscar_Click" width="100%" style="margin-top:4px;">
                             <settingsbootstrap renderoption="Success" />
                         </dx:bootstrapbutton>
                         </div>

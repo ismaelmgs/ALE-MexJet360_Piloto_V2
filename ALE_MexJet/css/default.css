@@ -253,3 +253,12 @@ a:hover {
 	border-radius: 50%;
 	padding: 3px;
 }
+.btn-primary.disabled, .btn-primary:disabled, .btn-primary[disabled] {
+	height: 34px !important;
+}
+.input-group .form-control, .input-group-addon, .input-group-btn {
+	height: 36px !important;
+}
+.form-control {
+	height: 36px !important;
+}

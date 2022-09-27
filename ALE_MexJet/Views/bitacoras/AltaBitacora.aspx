@@ -117,7 +117,7 @@
                             </dx:BootstrapComboBox> 
                         </div>
                         <div class="col-sm-2" align="left">
-                            <dx:BootstrapButton ID="btnBuscarBitacora" runat="server" Text="Buscar" SettingsBootstrap-RenderOption="Primary" OnClick="btnBuscarBitacora_Click" />
+                            <dx:BootstrapButton ID="btnBuscarBitacora" runat="server" Text="Buscar" SettingsBootstrap-RenderOption="success" OnClick="btnBuscarBitacora_Click" />
                         </div>
                         <div class="col-sm-3">&nbsp;</div>
                     </div>
@@ -132,7 +132,7 @@
                 &nbsp;<dx:ASPxButton CssClass="btn btn-success" ID="btnExcelBitacora" runat="server" Text="Excel"></dx:ASPxButton>
             </div>--%>
             <div class="col-md-12" style="text-align: right;">
-                <dx:ASPxButton CssClass="btn btn-primary" ID="btnNuevaBitacora" runat="server" Text="Nueva Bitácora" OnClick="btnNuevaBitacora_Click"></dx:ASPxButton>
+                <dx:ASPxButton CssClass="btn btn-success" ID="btnNuevaBitacora" runat="server" Text="Nueva Bitácora" OnClick="btnNuevaBitacora_Click"></dx:ASPxButton>
             </div>
         </div>
     <br />
