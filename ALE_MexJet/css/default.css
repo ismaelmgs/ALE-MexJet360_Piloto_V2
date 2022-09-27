@@ -262,3 +262,9 @@ a:hover {
 .form-control {
 	height: 36px !important;
 }
+.btn {
+	height: 40px;
+}
+.dxbs-3 .dxbs-button-edit .input-group div:not(.input-group-btn) + .input-group-btn:last-child > .btn:not(:hover):not(:active):not(:focus), .dxbs-3 .dxbs-spin-edit .input-group div:not(.input-group-btn) + .input-group-btn:last-child > .btn:not(:hover):not(:active):not(:focus), .dxbs-3 .dxbs-dropdown-edit .input-group div:not(.input-group-btn) + .input-group-btn:last-child > .btn:not(:hover):not(:active):not(:focus) {
+	height: 36px;
+}

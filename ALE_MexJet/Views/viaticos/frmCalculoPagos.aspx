@@ -201,10 +201,10 @@
                     <asp:HiddenField ID="hdnFechaInicio" runat="server" />
                     <asp:HiddenField ID="hdnFechaFinal" runat="server" />
                 </div>
-                <div class="col-sm-2">
+                <div class="col-sm-1">
                     <label>Período:</label>
                 </div>
-                <div class="col-sm-3">
+                <div class="col-sm-4">
                     <asp:Label ID="readPeríodo" runat="server" Text=""></asp:Label>
                 </div>
             </div>
@@ -531,6 +531,7 @@
                         </tr>
                     </table>
                 </div>
+                <br />
                 <div class="row">
                     <dx:bootstrapformlayout runat="server">
                         <items>
@@ -572,12 +573,10 @@
                         </td>
                     </tr>
                     <tr>
-                        <td align="right" style="padding-right:5px;">
+                        <td colspan="2" align="right" style="text-align:right;"><br />
                             <dx:bootstrapbutton id="btnCancel" runat="server" text="Cancelar" width="80px" settingsbootstrap-renderoption="Warning" autopostback="false">
                                 <clientsideevents click="function(s, e) {ppAlertConfirm.Hide(); }" />
                             </dx:bootstrapbutton>
-                        </td>
-                        <td align="left" style="padding-left:5px;">
                             <dx:bootstrapbutton id="btnAccept" runat="server" text="Aceptar" settingsbootstrap-renderoption="Success" autopostback="false" onclick="btnAccept_Click" />
                         </td>
                     </tr>
