@@ -46,7 +46,10 @@
   <ItemGroup>
     <Reference Include="AjaxControlToolkit, Version=1.0.10920.32880, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\MexJet360_Produccion_Respaldo\ALE_MexJet\bin\AjaxControlToolkit.dll</HintPath>
+      <HintPath>bin\AjaxControlToolkit.dll</HintPath>
+    </Reference>
+    <Reference Include="ClosedXML, Version=0.96.0.0, Culture=neutral, PublicKeyToken=fd1eb21b62ae805b, processorArchitecture=MSIL">
+      <HintPath>..\packages\ClosedXML.0.96.0\lib\net40\ClosedXML.dll</HintPath>
     </Reference>
     <Reference Include="CrystalDecisions.CrystalReports.Design, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
@@ -96,6 +99,12 @@
     <Reference Include="DevExpress.XtraPrinting.v18.1, Version=18.1.15.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <Private>True</Private>
     </Reference>
+    <Reference Include="DocumentFormat.OpenXml, Version=2.16.0.0, Culture=neutral, PublicKeyToken=8fb06cb64d019a17, processorArchitecture=MSIL">
+      <HintPath>..\packages\DocumentFormat.OpenXml.2.16.0\lib\net40\DocumentFormat.OpenXml.dll</HintPath>
+    </Reference>
+    <Reference Include="ExcelNumberFormat, Version=1.1.0.0, Culture=neutral, PublicKeyToken=23c6f5d73be07eca, processorArchitecture=MSIL">
+      <HintPath>..\packages\ExcelNumberFormat.1.1.0\lib\net20\ExcelNumberFormat.dll</HintPath>
+    </Reference>
     <Reference Include="itextsharp, Version=5.0.1.1, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\MexJet360_Produccion_Respaldo\ALE_MexJet\bin\itextsharp.dll</HintPath>
@@ -105,8 +114,17 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files (x86)\Microsoft Visual Studio 12.0\Blend\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="NReco.PdfGenerator, Version=1.2.0.0, Culture=neutral, PublicKeyToken=231663d50a41b451, processorArchitecture=MSIL">
+      <HintPath>..\packages\NReco.PdfGenerator.1.2.0\lib\net45\NReco.PdfGenerator.dll</HintPath>
+    </Reference>
     <Reference Include="NucleoBase">
       <HintPath>..\..\..\MexJet360_Produccion_Respaldo\ALE_MexJet\bin\NucleoBase.dll</HintPath>
+    </Reference>
+    <Reference Include="PdfSharp, Version=1.32.3057.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PDFsharp.1.32.3057.0\lib\net20\PdfSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="PdfSharp.Charting, Version=1.32.3057.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PDFsharp.1.32.3057.0\lib\net20\PdfSharp.Charting.dll</HintPath>
     </Reference>
     <Reference Include="RestSharp, Version=105.2.3.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -128,11 +146,13 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
     <Reference Include="System.Xml.Linq" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="AleMain.Master" />
@@ -396,6 +416,7 @@
     <Content Include="SwitcherResources\Themes.xml" />
     <Content Include="Views\AtencionClientes\frmTripGuide.aspx" />
     <Content Include="Views\bitacoras\AltaBitacora.aspx" />
+    <Content Include="Views\bitacoras\frmReporteFl3xx.aspx" />
     <Content Include="Views\Catalogos\frmFactoresFijos.aspx" />
     <Content Include="Views\Catalogos\frmListaDifusion.aspx" />
     <Content Include="Views\Catalogos\frmMembresias.aspx" />
@@ -825,6 +846,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="DomainModel\DBRemision.cs" />
+    <Compile Include="DomainModel\DBReporteFl3xx.cs" />
     <Compile Include="DomainModel\DBReporteTabular.cs" />
     <Compile Include="DomainModel\DBReporteVuelos.cs" />
     <Compile Include="DomainModel\DBResumenContrato.cs" />
@@ -895,6 +917,7 @@
     <Compile Include="Interfaces\iViewPrefactura.cs" />
     <Compile Include="Interfaces\iViewPresupuesto.cs" />
     <Compile Include="Interfaces\IViewPubFerrys.cs" />
+    <Compile Include="Interfaces\IViewReporteFl3xx.cs" />
     <Compile Include="Interfaces\IViewReporteTabular.cs" />
     <Compile Include="Interfaces\IViewReporteVuelos.cs" />
     <Compile Include="Interfaces\IViewResumenContrato.cs" />
@@ -1100,6 +1123,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Presenter\Login_Presenter.cs" />
+    <Compile Include="Presenter\ReporteFl3xx_Presenter.cs" />
     <Compile Include="Presenter\ReporteTabular_Presenter.cs" />
     <Compile Include="Presenter\ReporteVuelos_Presenter.cs" />
     <Compile Include="Presenter\ResumenContrato_Presenter.cs" />
@@ -1206,6 +1230,13 @@
     </Compile>
     <Compile Include="Views\bitacoras\AltaBitacora.aspx.designer.cs">
       <DependentUpon>AltaBitacora.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\bitacoras\frmReporteFl3xx.aspx.cs">
+      <DependentUpon>frmReporteFl3xx.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\bitacoras\frmReporteFl3xx.aspx.designer.cs">
+      <DependentUpon>frmReporteFl3xx.aspx</DependentUpon>
     </Compile>
     <Compile Include="Views\Catalogos\frmAeronave.aspx.cs">
       <DependentUpon>frmAeronave.aspx</DependentUpon>
@@ -1380,8 +1411,8 @@
     <Compile Include="Views\Consultas\CristalReport\RemisionesHoras.cs">
       <DependentUpon>RemisionesHoras.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Views\Consultas\CristalReport\ResumenKardex1.cs">
       <AutoGen>True</AutoGen>
@@ -1392,8 +1423,8 @@
     <Compile Include="Views\Consultas\CristalReport\ResumenRemisiones.cs">
       <DependentUpon>ResumenRemisiones.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Views\Consultas\CristalReport\EdoCuenta.cs">
       <AutoGen>True</AutoGen>
@@ -1423,10 +1454,10 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Views\Consultas\CristalReport\ServicioCargo.cs">
-      <SubType>Component</SubType>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ServicioCargo.rpt</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Views\Consultas\frmConsultaDespacho.aspx.cs">
       <DependentUpon>frmConsultaDespacho.aspx</DependentUpon>
