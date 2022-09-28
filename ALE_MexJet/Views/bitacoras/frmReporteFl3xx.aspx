@@ -163,11 +163,10 @@
                                         <dx:BootstrapGridViewDataColumn Caption="pax_total" FieldName="pax_total" VisibleIndex="10" />
                                         <dx:BootstrapGridViewDataColumn Caption="pic_code" FieldName="pic_code" VisibleIndex="11" />
 
-                                        <dx:BootstrapGridViewDataColumn Caption="pic_code" FieldName="pic_code" VisibleIndex="12" />
-                                        <dx:BootstrapGridViewDataColumn Caption="sic_code" FieldName="sic_code" VisibleIndex="13" />
-                                        <dx:BootstrapGridViewDataColumn Caption="orig_nmbr" FieldName="orig_nmbr" VisibleIndex="14" />
-                                        <dx:BootstrapGridViewDataColumn Caption="legid" FieldName="legid" VisibleIndex="15" />
-                                        <dx:BootstrapGridViewDataColumn Caption="type_code" FieldName="type_code" VisibleIndex="16" />
+                                        <dx:BootstrapGridViewDataColumn Caption="sic_code" FieldName="sic_code" VisibleIndex="12" />
+                                        <dx:BootstrapGridViewDataColumn Caption="orig_nmbr" FieldName="orig_nmbr" VisibleIndex="13" />
+                                        <dx:BootstrapGridViewDataColumn Caption="legid" FieldName="legid" VisibleIndex="14" />
+                                        <dx:BootstrapGridViewDataColumn Caption="type_code" FieldName="type_code" VisibleIndex="15" />
 
                                         <%--<dx:BootstrapGridViewDataColumn FieldName="Estatus" VisibleIndex="9" Caption="Estatus" Width="120px">
                                             <DataItemTemplate>
