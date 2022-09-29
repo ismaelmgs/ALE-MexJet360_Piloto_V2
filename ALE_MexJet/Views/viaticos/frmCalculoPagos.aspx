@@ -78,9 +78,9 @@
             <div class="col-md-12">
                 <br />
                 <fieldset class="Personal">
-                    <legend>
+                    <%--<legend>
                         <span style="font-family: Helvetica, Arial,sans-serif; text-align: center;">Búsqueda</span>
-                    </legend>
+                    </legend>--%>
                     <div class="row">
                         <div class="col-sm-2">&nbsp;</div>
                         <div class="col-sm-2">
@@ -500,7 +500,9 @@
                         <tr>
                             <td style="padding: 4px;">
                                 <label>Concepto:</label>
-                                <dx:bootstrapcombobox id="ddlConceptoAdicional" runat="server" nulltext="Selecciona Concepto"></dx:bootstrapcombobox>
+                                <dx:bootstrapcombobox id="ddlConceptoAdicional" runat="server" nulltext="Selecciona Concepto">
+                                    <ValidationSettings RequiredField-ErrorText="Se requiere seleccionar concepto" ErrorDisplayMode="Text" ValidationGroup="gpAjuste" RequiredField-IsRequired="true"></ValidationSettings>
+                                </dx:bootstrapcombobox>
                                 <asp:HiddenField ID="hdnIdPeriodo" runat="server" Value="0" />
                             </td>
                         </tr>
@@ -512,19 +514,23 @@
                                         <dx:bootstraplistedititem value="MXN" text="MXN"></dx:bootstraplistedititem>
                                         <dx:bootstraplistedititem value="USD" text="USD"></dx:bootstraplistedititem>
                                     </items>
+                                    <ValidationSettings ErrorDisplayMode="Text" RequiredField-ErrorText="Se requiere seleccionar moneda" ValidationGroup="gpAjuste" RequiredField-IsRequired="true"></ValidationSettings>
                                 </dx:bootstrapcombobox>
                             </td>
                         </tr>
                         <tr>
                             <td style="padding: 4px;">
                                 <label>Importe:</label>
-                                <dx:bootstraptextbox id="txtImporte" runat="server" nulltext="Importe"></dx:bootstraptextbox>
+                                <dx:bootstraptextbox id="txtImporte" runat="server" nulltext="Importe">
+                                    <ValidationSettings RequiredField-ErrorText="Se requiere importe" ErrorDisplayMode="Text" ValidationGroup="gpAjuste" RequiredField-IsRequired="true"></ValidationSettings>
+                                </dx:bootstraptextbox>
                             </td>
                         </tr>
                         <tr>
                             <td style="padding: 4px;">
-                                <label>Importe:</label>
-                                <dx:bootstrapmemo id="txtComentarios" runat="server" nulltext="Comentarios" rows="4" width="100%"></dx:bootstrapmemo>
+                                <label>Comentarios:</label>
+                                <dx:bootstrapmemo id="txtComentarios" runat="server" nulltext="Comentarios" rows="6" width="100%">
+                                </dx:bootstrapmemo>
                             </td>
                         </tr>
                     </table>
@@ -540,7 +546,7 @@
                                             <clientsideevents click="function(s, e) {ppAjustes.Hide(); }" />
                                         </dx:aspxbutton>
                                         &nbsp;
-                                        <dx:bootstrapbutton id="btnGuardarAdicional" runat="server" text="Guardar" settingsbootstrap-renderoption="Success" autopostback="false" onclick="btnGuardarAdicional_Click" />
+                                        <dx:bootstrapbutton id="btnGuardarAdicional" runat="server" text="Guardar" settingsbootstrap-renderoption="Success" autopostback="false" onclick="btnGuardarAdicional_Click" ValidationGroup="gpAjuste" />
                                     </dx:contentcontrol>
                                 </contentcollection>
                             </dx:bootstraplayoutitem>

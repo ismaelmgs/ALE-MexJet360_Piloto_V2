@@ -30,6 +30,7 @@ namespace ALE_MexJet.Presenter
             oIView.eSaveAjustes += SaveAjustes_Presenter;
             oIView.eSearchAjustesPiloto += SearchAjustesPiloto_Presenter;
             oIView.eRemoveAjuste += RemoveAjuste_Presenter;
+            oIView.eSearchExistePeriodoPic += SearchExistePeriodoPic_Presenter;
     }
 
         protected void GetAdicionales_Presenter(object sender, EventArgs e)
@@ -2466,6 +2467,10 @@ namespace ALE_MexJet.Presenter
                 oIView.sOk = "correcto";
             else
                 oIView.sOk = "error";
+        }
+        protected void SearchExistePeriodoPic_Presenter(object sender, EventArgs e)
+        {
+            oIView.iExistePeriodo = oIGestCat.GetExistePeriodoPiloto(oIView.sCvePiloto, oIView.sFechaInicio.Dt(), oIView.sFechaFinal.Dt());
         }
     }
 }

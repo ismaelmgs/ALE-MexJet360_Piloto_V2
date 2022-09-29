@@ -107,11 +107,16 @@ namespace ALE_MexJet.Views.viaticos
                         if (eSearchEstatus != null)
                             eSearchEstatus(sender, e);
 
-                        if (iEstatus == 0 || iEstatus == 1)
+                        if (eSearchExistePeriodoPic != null)
+                            eSearchExistePeriodoPic(sender, e);
+
+                        if (iEstatus <= 1 && iExistePeriodo == 0)
                             btnGuardarPeriodo.Visible = true;
-                        else if (iEstatus == 2)
+                        else if (iEstatus == 1 && iExistePeriodo == 1)
+                            btnGuardarPeriodo.Visible = true;
+                        else if (iEstatus == 2 && iExistePeriodo == 1)
                             btnGuardarPeriodo.Visible = false;
-                        else if (iEstatus == 3)
+                        else if (iEstatus == 3 && iExistePeriodo == 1)
                             btnGuardarPeriodo.Visible = false;
 
                         //Consulta periodo si existe muestra ajustes por piloto
@@ -492,6 +497,8 @@ namespace ALE_MexJet.Views.viaticos
                     if (eSearchEstatus != null)
                         eSearchEstatus(sender, e);
 
+                    //Consultar existencia del periodo por piloto
+
                     if (iEstatus == 0 || iEstatus == 1)
                         rdEstatus.Text = "Pendiente";
                     else if (iEstatus == 2)
@@ -519,13 +526,18 @@ namespace ALE_MexJet.Views.viaticos
                     if (eSearchEstatus != null)
                         eSearchEstatus(sender, e);
 
+                    if (eSearchExistePeriodoPic != null)
+                        eSearchExistePeriodoPic(sender, e);
+
                     if (btnVerAjustes != null)
                     {
-                        if (iEstatus == 0 || iEstatus == 1)
+                        if (iEstatus <= 1 && iExistePeriodo == 0)
                             btnVerAjustes.Enabled = false;
-                        else if (iEstatus == 2)
+                        else if (iEstatus == 1 && iExistePeriodo == 1)
+                            btnVerAjustes.Enabled = false;
+                        else if (iEstatus == 2 && iExistePeriodo == 1)
                             btnVerAjustes.Enabled = true;
-                        else if (iEstatus == 3)
+                        else if (iEstatus == 3 && iExistePeriodo == 1)
                             btnVerAjustes.Enabled = true;
                     }
                 }
@@ -1238,6 +1250,7 @@ namespace ALE_MexJet.Views.viaticos
         public event EventHandler eSaveAjustes;
         public event EventHandler eSearchAjustesPiloto;
         public event EventHandler eRemoveAjuste;
+        public event EventHandler eSearchExistePeriodoPic;
 
         public string sCvePiloto
         {
@@ -1284,6 +1297,11 @@ namespace ALE_MexJet.Views.viaticos
         {
             get { return (int)ViewState["VSiEstatus"]; }
             set { ViewState["VSiEstatus"] = value; }
+        }
+        public int iExistePeriodo
+        {
+            get { return (int)ViewState["VSExistePeriodo"]; }
+            set { ViewState["VSExistePeriodo"] = value; }
         }
         public int iIdAjuste
         {
@@ -1433,16 +1451,20 @@ namespace ALE_MexJet.Views.viaticos
         {
             try
             {
-                if (eSaveAjustes != null)
-                    eSaveAjustes(sender, e);
-
-                if (sOk == "correcto")
+                Page.Validate("gpAjuste");
+                if (Page.IsValid)
                 {
-                    if (eSearchConAdPeriodo != null)
-                        eSearchConAdPeriodo(sender, e);
+                    if (eSaveAjustes != null)
+                        eSaveAjustes(sender, e);
 
-                    ppAjustes.ShowOnPageLoad = false;
-                    MostrarMensaje("Se ha registrado el ajuste", "Listo");
+                    if (sOk == "correcto")
+                    {
+                        if (eSearchConAdPeriodo != null)
+                            eSearchConAdPeriodo(sender, e);
+
+                        ppAjustes.ShowOnPageLoad = false;
+                        MostrarMensaje("Se ha registrado el ajuste", "Listo");
+                    }
                 }
             }
             catch (Exception ex)

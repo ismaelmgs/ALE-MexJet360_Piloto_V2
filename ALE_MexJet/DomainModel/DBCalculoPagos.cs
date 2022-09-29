@@ -305,5 +305,20 @@ namespace ALE_MexJet.DomainModel
                 return false;
             }
         }
+        public int GetExistePeriodoPiloto(string sCvePiloto, DateTime dtInicio, DateTime dtFinal)
+        {
+            try
+            {
+                object oRes;
+                oRes = new DBBase().oDB_SP.EjecutarValor("[VB].[spS_MXJ_ConsultaExistenciaPeriodoPiloto]", "@CvePiloto", sCvePiloto,
+                                                                                                  "@FechaInicio", dtInicio.ToString("yyyy/MM/dd"),
+                                                                                                  "@FechaFinal", dtFinal.ToString("yyyy/MM/dd"));
+                return oRes.S().I();
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+        }
     }
 }
