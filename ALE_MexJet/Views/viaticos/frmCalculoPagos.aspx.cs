@@ -74,6 +74,7 @@ namespace ALE_MexJet.Views.viaticos
             {
                 if (e.CommandArgs.CommandName.S() == "Ver")
                 {
+                    dtDiasViaticos = null;
                     dtAjustes = null;
                     int index = e.VisibleIndex.I();
                     string sCrewCode = gvCalculo.GetRowValues(index, "CrewCode").S();
@@ -94,7 +95,7 @@ namespace ALE_MexJet.Views.viaticos
                         readPeríodo.Text = "Del " + dtFecha1.Day.S() + " de " + sMesDel + " de " + dtFecha1.Year.S() + " al " + dtFecha2.Day.S() + " de " + sMesHasta + " de " + dtFecha2.Year.S();
                         hdnFechaInicio.Value = dtFecha1.ToShortDateString();
                         hdnFechaFinal.Value = dtFecha2.ToShortDateString();
-
+                        
                         sParametro = oB[1].S();
 
                         if (eGetAdicionales != null)
@@ -1033,12 +1034,73 @@ namespace ALE_MexJet.Views.viaticos
                 gvInternacionales.DataBind();
 
                 pnlVuelos.Visible = false;
+
+                //------------------------------------------------------------------------------
+
+                if (dtDiasViaticos != null && dtDiasViaticos.Rows.Count > 0)
+                {
+                    DataRow drow;
+                    DataTable dt = new DataTable();
+                    dt.Columns.Add("Fecha");
+                    dt.Columns.Add("Moneda");
+                    dt.Columns.Add("Desayuno");
+                    dt.Columns.Add("Comida");
+                    dt.Columns.Add("Cena");
+                    dt.Columns.Add("Total");
+
+                    for (int i = 0; i < dtDiasViaticos.Rows.Count; i++)
+                    {
+
+                        for (int x = 0; x < 2; x++)
+                        {
+                            if (x == 0)
+                            {
+                                drow = dt.NewRow();
+                                drow["Fecha"] = dtDiasViaticos.Rows[i]["FechaDia"].S().Dt();
+                                drow["Moneda"] = "MXN";
+                                drow["Desayuno"] = dtDiasViaticos.Rows[i]["DesNal"].S().D() * ObtenValorConcepto(1, "MXN");
+                                drow["Comida"] = "";
+                                drow["Cena"] = "";
+                                drow["Total"] = "";
+                            }
+                            else
+                            {
+                                drow = dt.NewRow();
+                                drow["Fecha"] = dtDiasViaticos.Rows[i]["FechaDia"].S().Dt();
+                                drow["Moneda"] = "USD";
+                                drow["Desayuno"] = "";
+                                drow["Comida"] = "";
+                                drow["Cena"] = "";
+                                drow["Total"] = "";
+                            }
+                        }
+
+                        
+                    }
+                }
             }
             catch (Exception ex)
             {
                 throw ex;
             }
         }
+
+        public decimal ObtenValorConcepto(int IdConcepto, string sMoneda)
+        {
+            try
+            {
+                decimal dValor = 0;
+
+                DataRow[] dr = dtConceptos.Select("IdConcepto=" + IdConcepto + " AND Moneda='" + sMoneda + "'");
+
+                return dValor;
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+        }
+
         public void LlenaVuelosPiloto(DataTable dt)
         {
             dtVuelosPiloto = null;
@@ -1409,6 +1471,12 @@ namespace ALE_MexJet.Views.viaticos
                 oAjuste.SComentarios = txtComentarios.Value.S();
                 return oAjuste;
             }
+        }
+
+        public DataTable dtDiasViaticos 
+        {
+            get { return (DataTable)ViewState["VSdtDiasViaticos"]; }
+            set { ViewState["VSdtDiasViaticos"] = value; }
         }
 
         #endregion
