@@ -151,7 +151,7 @@
                                     <SettingsSearchPanel Visible="false" ShowApplyButton="false" />
                                     <Settings ShowGroupPanel="false" ShowFilterRowMenu="false" ShowTitlePanel="false" />
                                     <SettingsAdaptivity AdaptivityMode="HideDataCells" AllowOnlyOneAdaptiveDetailExpanded="true"></SettingsAdaptivity>
-                                    <SettingsPager PageSize="20" PageSizeItemSettings-Caption="Páginas" NextPageButton-Text="Siguiente" PrevPageButton-Text="Anterior"></SettingsPager>
+                                    <SettingsPager PageSize="20" PageSizeItemSettings-Caption="Registros por Página" NextPageButton-Text="Siguiente" PrevPageButton-Text="Anterior"></SettingsPager>
                                     <SettingsBehavior AllowDragDrop="false" />
                                     <Columns>
 
