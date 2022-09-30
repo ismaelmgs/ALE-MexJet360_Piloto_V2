@@ -8,15 +8,15 @@
     <%--<link rel="stylesheet" type="text/css" href="../../Styles/Controls.css" />
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>--%>
   
-    <%--<style>
-        .hiddenRow {
+    <style>
+       /* .hiddenRow {
             visibility:hidden !important;
-        }
+        }*/
         .centerCell {
             text-align:center !important;
             color: #337ab7 !important;
         }
-        .centerTxt {
+        /*.centerTxt {
             text-align:center !important;
         }
         .dirTB{  
@@ -33,20 +33,24 @@
         }
         .form-control {
             text-align:center !important;
-        }
-        .spa {
+        }*/
+        /*.spa {
             font-weight: bold !important;
             color: #337ab7 !important;
             text-align: center !important;
             font-size:9pt;
-        }
-        .validateTxt {
+        }*/
+       /* .validateTxt {
             border-color: crimson !important;
-        }
+        }*/
         th {
-            font-size:10pt !important;
+            /*font-size:10pt !important;*/
+            font-weight: bold !important;
+            color: #337ab7 !important;
+            text-align: center !important;
+            font-size:11pt;
         }
-        .inputText {
+        /*.inputText {
             font-family: inherit !important;
             font-size: inherit !important;
             line-height: inherit !important;
@@ -73,9 +77,9 @@
             position: absolute !important;
             left: 125px !important;
             top: 2px !important;
-        }
+        }*/
 
-    </style>--%>
+    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
@@ -143,30 +147,31 @@
 
                             <div class="col-sm-12">
 
-                                <dx:BootstrapGridView ID="gvFl3xx" runat="server" KeyFieldName="flightId">
-                                    <SettingsSearchPanel Visible="true" ShowApplyButton="true" />
-                                    <Settings ShowGroupPanel="True" ShowFilterRowMenu="true" />
+                                <dx:BootstrapGridView ID="gvFl3xx" runat="server" KeyFieldName="flightId" SettingsBehavior-AllowDragDrop="false">
+                                    <SettingsSearchPanel Visible="false" ShowApplyButton="false" />
+                                    <Settings ShowGroupPanel="false" ShowFilterRowMenu="false" ShowTitlePanel="false" />
                                     <SettingsAdaptivity AdaptivityMode="HideDataCells" AllowOnlyOneAdaptiveDetailExpanded="true"></SettingsAdaptivity>
-                                    <SettingsPager PageSize="20"></SettingsPager>
+                                    <SettingsPager PageSize="20" PageSizeItemSettings-Caption="Páginas" NextPageButton-Text="Siguiente" PrevPageButton-Text="Anterior"></SettingsPager>
+                                    <SettingsBehavior AllowDragDrop="false" />
                                     <Columns>
 
-                                        <dx:BootstrapGridViewDataColumn Caption="tail_nmbr" FieldName="tail_nmbr" VisibleIndex="1" HorizontalAlign="Center"/>
-                                        <dx:BootstrapGridViewDataColumn Caption="activedate" FieldName="activedate" VisibleIndex="2" />
-                                        <dx:BootstrapGridViewDataColumn Caption="locdep" FieldName="locdep" VisibleIndex="3" />
-                                        <dx:BootstrapGridViewDataColumn Caption="depicao_id" FieldName="depicao_id" VisibleIndex="4" />
-                                        <dx:BootstrapGridViewDataColumn Caption="locarr" FieldName="locarr" VisibleIndex="5" />
-                                        <dx:BootstrapGridViewDataColumn Caption="arricao_id" FieldName="arricao_id" VisibleIndex="6" />
-                                        <dx:BootstrapGridViewDataColumn Caption="requestor" FieldName="requestor" VisibleIndex="7" />
+                                        <dx:BootstrapGridViewDataColumn Caption="tail_nmbr" FieldName="tail_nmbr" VisibleIndex="1" HorizontalAlign="Center" SortOrder="None" Settings-AllowDragDrop="False" Settings-AllowSort="False"/>
+                                        <dx:BootstrapGridViewDataColumn Caption="activedate" FieldName="activedate" VisibleIndex="2" SortOrder="None" Settings-AllowDragDrop="False" Settings-AllowSort="False" />
+                                        <dx:BootstrapGridViewDataColumn Caption="locdep" FieldName="locdep" VisibleIndex="3" SortOrder="None" Settings-AllowDragDrop="False" Settings-AllowSort="False" />
+                                        <dx:BootstrapGridViewDataColumn Caption="depicao_id" FieldName="depicao_id" VisibleIndex="4" SortOrder="None" Settings-AllowDragDrop="False" Settings-AllowSort="False" />
+                                        <dx:BootstrapGridViewDataColumn Caption="locarr" FieldName="locarr" VisibleIndex="5" SortOrder="None" Settings-AllowDragDrop="False" Settings-AllowSort="False" />
+                                        <dx:BootstrapGridViewDataColumn Caption="arricao_id" FieldName="arricao_id" VisibleIndex="6" SortOrder="None" Settings-AllowDragDrop="False" Settings-AllowSort="False" />
+                                        <dx:BootstrapGridViewDataColumn Caption="requestor" FieldName="requestor" VisibleIndex="7" SortOrder="None" Settings-AllowDragDrop="False" Settings-AllowSort="False" />
 
-                                        <dx:BootstrapGridViewDataColumn Caption="cat_code" FieldName="cat_code" VisibleIndex="8" />
-                                        <dx:BootstrapGridViewDataColumn Caption="elp_time" FieldName="elp_time" VisibleIndex="9" />
-                                        <dx:BootstrapGridViewDataColumn Caption="pax_total" FieldName="pax_total" VisibleIndex="10" />
-                                        <dx:BootstrapGridViewDataColumn Caption="pic_code" FieldName="pic_code" VisibleIndex="11" />
+                                        <dx:BootstrapGridViewDataColumn Caption="cat_code" FieldName="cat_code" VisibleIndex="8" SortOrder="None" Settings-AllowDragDrop="False" Settings-AllowSort="False" />
+                                        <dx:BootstrapGridViewDataColumn Caption="elp_time" FieldName="elp_time" VisibleIndex="9" SortOrder="None" Settings-AllowDragDrop="False" Settings-AllowSort="False" />
+                                        <dx:BootstrapGridViewDataColumn Caption="pax_total" FieldName="pax_total" VisibleIndex="10" SortOrder="None" Settings-AllowDragDrop="False" Settings-AllowSort="False" />
+                                        <dx:BootstrapGridViewDataColumn Caption="pic_code" FieldName="pic_code" VisibleIndex="11" SortOrder="None" Settings-AllowDragDrop="False" Settings-AllowSort="False" />
 
-                                        <dx:BootstrapGridViewDataColumn Caption="sic_code" FieldName="sic_code" VisibleIndex="12" />
-                                        <dx:BootstrapGridViewDataColumn Caption="orig_nmbr" FieldName="orig_nmbr" VisibleIndex="13" />
-                                        <dx:BootstrapGridViewDataColumn Caption="legid" FieldName="legid" VisibleIndex="14" />
-                                        <dx:BootstrapGridViewDataColumn Caption="type_code" FieldName="type_code" VisibleIndex="15" />
+                                        <dx:BootstrapGridViewDataColumn Caption="sic_code" FieldName="sic_code" VisibleIndex="12" SortOrder="None" Settings-AllowDragDrop="False" Settings-AllowSort="False" />
+                                        <dx:BootstrapGridViewDataColumn Caption="orig_nmbr" FieldName="orig_nmbr" VisibleIndex="13" SortOrder="None" Settings-AllowDragDrop="False" Settings-AllowSort="False" />
+                                        <dx:BootstrapGridViewDataColumn Caption="legid" FieldName="legid" VisibleIndex="14" SortOrder="None" Settings-AllowDragDrop="False" Settings-AllowSort="False" />
+                                        <dx:BootstrapGridViewDataColumn Caption="type_code" FieldName="type_code" VisibleIndex="15" SortOrder="None" Settings-AllowDragDrop="False" Settings-AllowSort="False" />
 
                                         <%--<dx:BootstrapGridViewDataColumn FieldName="Estatus" VisibleIndex="9" Caption="Estatus" Width="120px">
                                             <DataItemTemplate>

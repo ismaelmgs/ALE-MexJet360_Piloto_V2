@@ -29,6 +29,7 @@ namespace ALE_MexJet.Views.bitacoras
             gvFl3xx.SettingsPager.PageSizeItemSettings.Visible = true;
             gvFl3xx.SettingsPager.PageSizeItemSettings.Position = PagerPageSizePosition.Right;
             gvFl3xx.SettingsText.SearchPanelEditorNullText = "Ingresa la información a buscar:";
+            gvFl3xx.Settings.ShowGroupPanel = false;
 
             ////Si envia error al registrar el boton de exportar excel, agrear estas dos lineas
             //ScriptManager scriptManager = ScriptManager.GetCurrent(this.Page);
@@ -50,11 +51,12 @@ namespace ALE_MexJet.Views.bitacoras
         {
             try
             {
-
-
                 if (dtFl3xx.Rows.Count > 0)
                 {
                     dtFl3xx.TableName = "Fl3xx";
+                    dtFl3xx.Columns.Remove("flightId");
+                    dtFl3xx.AcceptChanges();
+
                     DataTable dt = dtFl3xx;
                     //Name of File  
                     string fileName = "ReporteFl3xx.xlsx";

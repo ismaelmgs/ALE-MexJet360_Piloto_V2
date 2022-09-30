@@ -44,6 +44,8 @@ namespace ALE_MexJet.Interfaces
         void LlenaAdicionalesPeriodo(DataTable dt);
         void LlenaAjustesPorPiloto(DataTable dt);
 
+        DataTable dtDiasViaticos { set; get; }
+
         event EventHandler eSearchConceptos;
         event EventHandler eSearchVuelos;
         event EventHandler eSearchCalculos;
