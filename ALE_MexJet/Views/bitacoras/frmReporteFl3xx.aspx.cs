@@ -159,8 +159,22 @@ namespace ALE_MexJet.Views.bitacoras
             get { return (DataTable)ViewState["VSdtFl3xx"]; }
             set { ViewState["VSdtFl3xx"] = value; }
         }
+
         #endregion
 
-
+        protected void gvFl3xx_PageIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                int pageIndex = gvFl3xx.PageIndex;
+                gvFl3xx.PageIndex = pageIndex;
+                gvFl3xx.DataSource = dtFl3xx;
+                gvFl3xx.DataBind();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

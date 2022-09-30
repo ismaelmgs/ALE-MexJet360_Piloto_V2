@@ -147,7 +147,7 @@
 
                             <div class="col-sm-12">
 
-                                <dx:BootstrapGridView ID="gvFl3xx" runat="server" KeyFieldName="flightId" SettingsBehavior-AllowDragDrop="false">
+                                <dx:BootstrapGridView ID="gvFl3xx" runat="server" KeyFieldName="flightId" SettingsBehavior-AllowDragDrop="false" OnPageIndexChanged="gvFl3xx_PageIndexChanged">
                                     <SettingsSearchPanel Visible="false" ShowApplyButton="false" />
                                     <Settings ShowGroupPanel="false" ShowFilterRowMenu="false" ShowTitlePanel="false" />
                                     <SettingsAdaptivity AdaptivityMode="HideDataCells" AllowOnlyOneAdaptiveDetailExpanded="true"></SettingsAdaptivity>
