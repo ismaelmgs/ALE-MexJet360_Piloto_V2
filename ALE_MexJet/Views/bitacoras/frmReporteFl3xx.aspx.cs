@@ -59,7 +59,7 @@ namespace ALE_MexJet.Views.bitacoras
 
                     DataTable dt = dtFl3xx;
                     //Name of File  
-                    string fileName = "ReporteFl3xx.xlsx";
+                    string fileName = "mientras.xls";
                     using (XLWorkbook wb = new XLWorkbook())
                     {
                         //Add DataTable in worksheet  
