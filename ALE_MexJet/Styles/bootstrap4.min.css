@@ -1098,6 +1098,10 @@ pre {
         border-bottom-width: 2px
     }
 
+.table-nobordered {
+    border: 0px solid none;
+}
+
 /*.table-striped tbody tr:nth-of-type(odd) {
     background-color: rgba(0,0,0,.05)
 }
