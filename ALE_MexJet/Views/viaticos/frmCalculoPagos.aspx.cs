@@ -319,7 +319,7 @@ namespace ALE_MexJet.Views.viaticos
                 sHtml += "                  <br />";
                 sHtml += "                  <h4>Aerolíneas Ejecutivas</h4>";
                 sHtml += "                  <img src='data:image/png;base64," + base64ImageRepresentation + "' alt='Fancy Image' />";
-                sHtml += "                  <h1>Reporte de Viáticos</h1><br />";
+                sHtml += "                  <h1>Reporte de Viaticos</h1><br />";
                 sHtml += "                  <h5><label>" + dtHeader.Rows[0]["Piloto"].S() + "</label></h5>";
                 sHtml += "              </div><br />";
                 sHtml += "          <div class='row'>";
@@ -398,7 +398,7 @@ namespace ALE_MexJet.Views.viaticos
                     sHtml += "  <tr>";
                     sHtml += "      <td colspan='2'>";
                     sHtml += "          <hr />";
-                    sHtml += "          <h4>MOVIMIENTOS Y VIÁTICOS POR DÍA</h4><br />";
+                    sHtml += "          <h4>MOVIMIENTOS Y VIATICOS POR DÍA</h4><br />";
                     sHtml += "      </td>";
                     sHtml += "  </tr>";
 
