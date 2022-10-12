@@ -31,7 +31,8 @@ namespace ALE_MexJet.Presenter
             oIView.eSearchAjustesPiloto += SearchAjustesPiloto_Presenter;
             oIView.eRemoveAjuste += RemoveAjuste_Presenter;
             oIView.eSearchExistePeriodoPic += SearchExistePeriodoPic_Presenter;
-    }
+            oIView.eSearchReporte += SearchReporte_Presenter;
+        }
 
         protected void GetAdicionales_Presenter(object sender, EventArgs e)
         {
@@ -1677,6 +1678,7 @@ namespace ALE_MexJet.Presenter
                                 }
 
                                 oCant.oLstPorDia = oLsComDia;
+                                ObtieneDiasViaticos(oLsComDia);
                             }
 
                             oLstCant.Add(oCant);
@@ -1698,6 +1700,60 @@ namespace ALE_MexJet.Presenter
             oIView.LlenaCalculoPilotos(DBGetObtieneTablaCalculos(oLstCant, dtPilotos));
             oIView.LlenaVuelosPiloto(ds.Tables[0]);
             #endregion
+        }
+
+        public void ObtieneDiasViaticos(List<ComidasPorDia> oLstAlimentos)
+        {
+            try
+            {
+                for (int i = 0; i < oLstAlimentos.Count; i++)
+                {
+                    ComidasPorDia oCom = new ComidasPorDia();
+                    oCom = oLstAlimentos[i];
+
+                    if (oIView.dtDiasViaticos == null)
+                    {
+                        DataRow dr;
+                        oIView.dtDiasViaticos = new DataTable();
+                        oIView.dtDiasViaticos.Columns.Add("FechaDia");
+                        oIView.dtDiasViaticos.Columns.Add("DesNal");
+                        oIView.dtDiasViaticos.Columns.Add("ComNal");
+                        oIView.dtDiasViaticos.Columns.Add("CenNal");
+                        oIView.dtDiasViaticos.Columns.Add("DesInt");
+                        oIView.dtDiasViaticos.Columns.Add("ComInt");
+                        oIView.dtDiasViaticos.Columns.Add("CenInt");
+
+                        dr = oIView.dtDiasViaticos.NewRow();
+                        dr["FechaDia"] = oCom.dtFechaDia;
+                        dr["DesNal"] = oCom.iDesayunosNal;
+                        dr["ComNal"] = oCom.iComidaNal;
+                        dr["CenNal"] = oCom.iCenaNal;
+                        dr["DesInt"] = oCom.iDesayunosInt;
+                        dr["ComInt"] = oCom.iComidaInt;
+                        dr["CenInt"] = oCom.iCenaInt;
+                        oIView.dtDiasViaticos.Rows.Add(dr);
+                    }
+                    else
+                    {
+                        DataRow dr;
+                        dr = oIView.dtDiasViaticos.NewRow();
+                        dr["FechaDia"] = oCom.dtFechaDia;
+                        dr["DesNal"] = oCom.iDesayunosNal;
+                        dr["ComNal"] = oCom.iComidaNal;
+                        dr["CenNal"] = oCom.iCenaNal;
+                        dr["DesInt"] = oCom.iDesayunosInt;
+                        dr["ComInt"] = oCom.iComidaInt;
+                        dr["CenInt"] = oCom.iCenaInt;
+                        oIView.dtDiasViaticos.Rows.Add(dr);
+                    }
+                }
+
+                
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         private DataTable CreaEstructuraVuelos()
@@ -2407,9 +2463,12 @@ namespace ALE_MexJet.Presenter
                     if (oIGestCat.SetInsertaConceptosPilotoVitacora(oIView.oLst, oIView.iIdPeriodo))
                     {
                         if (oIGestCat.SetInsertaVuelosPiernasPiloto(oIView.oLstVP, oIView.iIdPeriodo))
-                            oIView.sOk = "ok";
-                        else
-                            oIView.sOk = "error";
+                        {
+                            if(oIGestCat.SetInsertaViaticosPorDia(oIView.oLstPorDia, oIView.iIdPeriodo))
+                                oIView.sOk = "ok";
+                            else
+                                oIView.sOk = "error";
+                        }                            
                     }
                 }
             }
@@ -2471,6 +2530,10 @@ namespace ALE_MexJet.Presenter
         protected void SearchExistePeriodoPic_Presenter(object sender, EventArgs e)
         {
             oIView.iExistePeriodo = oIGestCat.GetExistePeriodoPiloto(oIView.sCvePiloto, oIView.sFechaInicio.Dt(), oIView.sFechaFinal.Dt());
+        }
+        protected void SearchReporte_Presenter(object sender, EventArgs e)
+        {
+            oIView.LlenaReporte(oIGestCat.ObtieneDatosReporte(oIView.iIdPeriodo));
         }
     }
 }

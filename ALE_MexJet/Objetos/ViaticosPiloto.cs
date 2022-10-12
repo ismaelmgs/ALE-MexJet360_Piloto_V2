@@ -50,6 +50,26 @@ namespace ALE_MexJet.Objetos
     }
 
     [Serializable]
+    public class ConceptosViaticosPorDia
+    {
+        private int _iIdPeriodo = 0;
+        private string _sMoneda = string.Empty;
+        private DateTime _dtFecha;
+        private decimal _dDesayuno = 0;
+        private decimal _dComida = 0;
+        private decimal _dCena = 0;
+        private decimal _dTotal = 0;
+
+        public int IIdPeriodo { get => _iIdPeriodo; set => _iIdPeriodo = value; }
+        public string SMoneda { get => _sMoneda; set => _sMoneda = value; }
+        public DateTime DtFecha { get => _dtFecha; set => _dtFecha = value; }
+        public decimal DDesayuno { get => _dDesayuno; set => _dDesayuno = value; }
+        public decimal DComida { get => _dComida; set => _dComida = value; }
+        public decimal DCena { get => _dCena; set => _dCena = value; }
+        public decimal DTotal { get => _dTotal; set => _dTotal = value; }
+    }
+
+    [Serializable]
     public class ConceptosAdicionalesPiloto
     {
         private int _iIdPeriodo = 0;

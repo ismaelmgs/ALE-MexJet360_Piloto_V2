@@ -224,6 +224,7 @@
     <Content Include="img\iconos\premier.jpg" />
     <Content Include="img\iconos\tache.png" />
     <Content Include="img\iconos\warning_icon.png" />
+    <Content Include="img\logo-ale.jpg" />
     <Content Include="img\logo-ale2.jpg" />
     <Content Include="img\logo-ale3.jpg" />
     <Content Include="img\logoALE.png" />
@@ -386,6 +387,7 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\wsSyteline\ws_SyteLine.wsdl" />
+    <Content Include="Styles\bootstrap4.min.css" />
     <Content Include="SwitcherResources\Content\bootstrap.min.css" />
     <Content Include="SwitcherResources\Content\Cerulean\bootstrap.min.css" />
     <Content Include="SwitcherResources\Content\Cosmo\bootstrap.min.css" />

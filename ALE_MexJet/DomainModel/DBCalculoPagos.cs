@@ -320,5 +320,46 @@ namespace ALE_MexJet.DomainModel
                 return 0;
             }
         }
+
+        public bool SetInsertaViaticosPorDia(List<ConceptosViaticosPorDia> oLst, int iIdPeriodo)
+        {
+            try
+            {
+                bool bRes = false;
+                object oRes;
+
+                for (int i = 0; i < oLst.Count; i++)
+                {
+                    oRes = new DBBase().oDB_SP.EjecutarValor("[VB].[spI_MXJ_InsertaConceptosPilotoXDia]", "@IdPeriodo", iIdPeriodo,
+                                                                                                          "@Moneda", oLst[i].SMoneda,
+                                                                                                          "@Fecha", oLst[i].DtFecha,
+                                                                                                          "@Desayuno", oLst[i].DDesayuno,
+                                                                                                          "@Comida", oLst[i].DComida,
+                                                                                                          "@Cena", oLst[i].DCena,
+                                                                                                          "@Total", oLst[i].DTotal);
+                    if (oRes.S().I() == 1)
+                        bRes = true;
+                }
+
+                return bRes;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        public DataSet ObtieneDatosReporte(int iPeriodo)
+        {
+            try
+            {
+                return new DBBase().oDB_SP.EjecutarDS("[VB].[spS_MXJ_ConsultaReporteViaticosXPiloto_]", "@IdPeriodo", iPeriodo);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
     }
 }

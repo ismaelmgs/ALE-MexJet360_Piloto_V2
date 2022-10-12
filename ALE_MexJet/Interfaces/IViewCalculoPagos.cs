@@ -32,6 +32,8 @@ namespace ALE_MexJet.Interfaces
 
         List<PeriodoPiloto> oLstPeriodo { set; get; }
 
+        List<ConceptosViaticosPorDia> oLstPorDia { set; get; }
+
         void LlenaCalculoPilotos(DataTable dt);
         void LlenaVuelosPiloto(DataTable dt);
         DataSet dsParams { set; get; }
@@ -46,6 +48,8 @@ namespace ALE_MexJet.Interfaces
 
         DataTable dtDiasViaticos { set; get; }
 
+        void LlenaReporte(DataSet ds);
+
         event EventHandler eSearchConceptos;
         event EventHandler eSearchVuelos;
         event EventHandler eSearchCalculos;
@@ -59,5 +63,6 @@ namespace ALE_MexJet.Interfaces
         event EventHandler eSearchAjustesPiloto;
         event EventHandler eRemoveAjuste;
         event EventHandler eSearchExistePeriodoPic;
+        event EventHandler eSearchReporte;
     }
 }
