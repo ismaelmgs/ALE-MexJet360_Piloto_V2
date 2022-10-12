@@ -302,6 +302,12 @@ namespace ALE_MexJet.Views.viaticos
                 sHtml += "          margin-right: 0px;";
                 sHtml += "          margin-left: 0px; }";
 
+                sHtml += ".table td, .table th {";
+                sHtml += "    padding: .75rem;";
+                sHtml += "    vertical-align: top;";
+                sHtml += "    border-top: 0px solid #ffffff !important;";
+                sHtml += "}";
+
 
                 sHtml += "  </style>";
                 sHtml += "</head>";
@@ -393,7 +399,7 @@ namespace ALE_MexJet.Views.viaticos
 
 
 
-                    sHtml += "<table width='100%' class='table'>";
+                    sHtml += "<table width='100%' border='0' class='table'>";
 
                     sHtml += "  <tr>";
                     sHtml += "      <td colspan='2'>";
@@ -614,11 +620,11 @@ namespace ALE_MexJet.Views.viaticos
                                 dAjusteUSD += dtAjustes.Rows[i]["Valor"].S().D();
                         }
 
-                        if (dAjusteMXN != 0)
-                            CargarTotales("- Ajuste -", 0, dAjusteMXN);
+                        //if (dAjusteMXN != 0)
+                            CargarTotales("- Ajuste -", dAjusteUSD, dAjusteMXN);
 
-                        if (dAjusteUSD != 0)
-                            CargarTotales("- Ajuste -", dAjusteUSD, 0);
+                        //if (dAjusteUSD != 0)
+                        //    CargarTotales("- Ajuste -", dAjusteUSD, 0);
 
                         sHtml += "      </table>";
                         sHtml += "  </div>";
