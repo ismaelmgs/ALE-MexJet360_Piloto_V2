@@ -159,13 +159,13 @@ namespace ALE_MexJet.Views.viaticos
         protected global::System.Web.UI.WebControls.Panel pnlCalcularViaticos;
 
         /// <summary>
-        /// Control gvNacionales.
+        /// Control gvMXNUSD.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::DevExpress.Web.Bootstrap.BootstrapGridView gvNacionales;
+        protected global::DevExpress.Web.Bootstrap.BootstrapGridView gvMXNUSD;
 
         /// <summary>
         /// Control gvHorarios.
@@ -177,6 +177,15 @@ namespace ALE_MexJet.Views.viaticos
         protected global::DevExpress.Web.Bootstrap.BootstrapGridView gvHorarios;
 
         /// <summary>
+        /// Control gvNacionales.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::DevExpress.Web.Bootstrap.BootstrapGridView gvNacionales;
+
+        /// <summary>
         /// Control gvInternacionales.
         /// </summary>
         /// <remarks>
@@ -184,6 +193,15 @@ namespace ALE_MexJet.Views.viaticos
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.Bootstrap.BootstrapGridView gvInternacionales;
+
+        /// <summary>
+        /// Control gvDiasViaticos.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::DevExpress.Web.Bootstrap.BootstrapGridView gvDiasViaticos;
 
         /// <summary>
         /// Control gvAjustesPiloto.
@@ -202,15 +220,6 @@ namespace ALE_MexJet.Views.viaticos
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.Bootstrap.BootstrapGridView gvConteoDias;
-
-        /// <summary>
-        /// Control gvDiasViaticos.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::DevExpress.Web.Bootstrap.BootstrapGridView gvDiasViaticos;
 
         /// <summary>
         /// Control divViaticos.
