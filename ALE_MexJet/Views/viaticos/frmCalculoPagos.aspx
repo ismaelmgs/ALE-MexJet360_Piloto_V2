@@ -437,7 +437,7 @@
         </div>
 
 
-        <div class="card_vi" style="margin:0 auto 0 auto; width:98%;">
+        <div class="card_vi" style="margin: 10px auto 0 auto; width:98%;">
             <h5 class="card-header_vi" style="font-weight:700;">VIÁTICOS POR DÍA</h5>
             <div class="card-body">
                 <div style="width: 90%; margin: 0 auto 0 auto;">
@@ -465,7 +465,7 @@
             </div>
         </div>
 
-        <div class="card_vi" style="margin:0 auto 0 auto; width:98%;">
+        <div class="card_vi" style="margin:10px auto 0 auto; width:98%;">
             <h5 class="card-header_vi" style="font-weight:700;">LISTADO DE AJUSTES</h5>
             <div class="card-body">
                 <div style="width: 90%; margin: 0 auto 0 auto;">
@@ -510,14 +510,9 @@
             </div>
         </div>
 
-        
-
-
-        <br />
         <div id="divViaticos" runat="server"></div>
-        <br />
 
-        <div class="card_vi" style="margin:0 auto 0 auto; width:98%;">
+        <div class="card_vi" style="margin:10px auto 0 auto; width:98%;">
             <h5 class="card-header_vi" style="font-weight:700;">VUELOS DEL PERÍODO</h5>
             <div class="card-body">
                 <div style="width: 90%; margin: 0 auto 0 auto;">
@@ -608,8 +603,8 @@
             </div>
         </div>
 
-        
-        <div class="row">
+        <br />
+        <div class="row" style="margin-top:10px;">
             <dx:bootstrapformlayout runat="server">
                 <items>
                     <dx:bootstraplayoutitem horizontalalign="Right" showcaption="False" colspanmd="12">
