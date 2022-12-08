@@ -127,8 +127,7 @@
       <HintPath>..\packages\PDFsharp.1.32.3057.0\lib\net20\PdfSharp.Charting.dll</HintPath>
     </Reference>
     <Reference Include="RestSharp, Version=105.2.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\RestSharp.dll</HintPath>
+      <HintPath>..\packages\RestSharp.105.2.3\lib\net45\RestSharp.dll</HintPath>
     </Reference>
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data.Linq" />
@@ -418,6 +417,7 @@
     <Content Include="SwitcherResources\Themes.xml" />
     <Content Include="Views\AtencionClientes\frmTripGuide.aspx" />
     <Content Include="Views\bitacoras\AltaBitacora.aspx" />
+    <Content Include="Views\bitacoras\frmBitacoraPeticion.aspx" />
     <Content Include="Views\bitacoras\frmReporteFl3xx.aspx" />
     <Content Include="Views\Catalogos\frmFactoresFijos.aspx" />
     <Content Include="Views\Catalogos\frmListaDifusion.aspx" />
@@ -465,7 +465,6 @@
     </Content>
     <None Include="Service References\wsSyteline\ws_SyteLine1.wsdl" />
     <Content Include="SwitcherResources\Content\LICENSE" />
-    <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Views\Consultas\CristalReport\ReporteEstatusHoras.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>ReporteEstatusHoras.cs</LastGenOutput>
@@ -770,6 +769,7 @@
     <Compile Include="DomainModel\DBAnalisisFerrys.cs" />
     <Compile Include="DomainModel\DBAutorizacionMembresias.cs" />
     <Compile Include="DomainModel\DBBaseAleSuite.cs" />
+    <Compile Include="DomainModel\DBBaseFlexFli.cs" />
     <Compile Include="DomainModel\DBBaseFlex.cs" />
     <Compile Include="DomainModel\DBBaseFlight.cs" />
     <Compile Include="DomainModel\DBBaseFPK.cs" />
@@ -848,6 +848,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="DomainModel\DBRemision.cs" />
+    <Compile Include="DomainModel\DBBitacoraPeticion.cs" />
     <Compile Include="DomainModel\DBReporteFl3xx.cs" />
     <Compile Include="DomainModel\DBReporteTabular.cs" />
     <Compile Include="DomainModel\DBReporteVuelos.cs" />
@@ -919,6 +920,7 @@
     <Compile Include="Interfaces\iViewPrefactura.cs" />
     <Compile Include="Interfaces\iViewPresupuesto.cs" />
     <Compile Include="Interfaces\IViewPubFerrys.cs" />
+    <Compile Include="Interfaces\IViewBitacoraPeticion.cs" />
     <Compile Include="Interfaces\IViewReporteFl3xx.cs" />
     <Compile Include="Interfaces\IViewReporteTabular.cs" />
     <Compile Include="Interfaces\IViewReporteVuelos.cs" />
@@ -1012,6 +1014,7 @@
     <Compile Include="Objetos\FacturaPaso3.cs" />
     <Compile Include="Objetos\FacturaProveedor.cs" />
     <Compile Include="Objetos\FechaPico.cs" />
+    <Compile Include="Objetos\FlightsFlexx.cs" />
     <Compile Include="Objetos\FormulaRem.cs" />
     <Compile Include="Objetos\GastoInterno.cs" />
     <Compile Include="Objetos\Imagen.cs" />
@@ -1036,8 +1039,10 @@
     <Compile Include="Objetos\ParametrosAdicionales.cs" />
     <Compile Include="Objetos\ParametrosGrales.cs" />
     <Compile Include="Objetos\Pasajero.cs" />
+    <Compile Include="Objetos\PeriodosFlexx.cs" />
     <Compile Include="Objetos\PermisosContrato.cs" />
     <Compile Include="Objetos\PersonaDifusion.cs" />
+    <Compile Include="Objetos\PostFlightFlexx.cs" />
     <Compile Include="Objetos\Prefactura.cs" />
     <Compile Include="Objetos\Presupuesto.cs" />
     <Compile Include="Objetos\RangoCombustible.cs">
@@ -1125,6 +1130,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Presenter\Login_Presenter.cs" />
+    <Compile Include="Presenter\BitacoraPeticion_Presenter.cs" />
     <Compile Include="Presenter\ReporteFl3xx_Presenter.cs" />
     <Compile Include="Presenter\ReporteTabular_Presenter.cs" />
     <Compile Include="Presenter\ReporteVuelos_Presenter.cs" />
@@ -1232,6 +1238,13 @@
     </Compile>
     <Compile Include="Views\bitacoras\AltaBitacora.aspx.designer.cs">
       <DependentUpon>AltaBitacora.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\bitacoras\frmBitacoraPeticion.aspx.cs">
+      <DependentUpon>frmBitacoraPeticion.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\bitacoras\frmBitacoraPeticion.aspx.designer.cs">
+      <DependentUpon>frmBitacoraPeticion.aspx</DependentUpon>
     </Compile>
     <Compile Include="Views\bitacoras\frmReporteFl3xx.aspx.cs">
       <DependentUpon>frmReporteFl3xx.aspx</DependentUpon>

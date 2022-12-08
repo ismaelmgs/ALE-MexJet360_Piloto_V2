@@ -14,5 +14,10 @@ namespace ALE_MexJet.Clases
         public const string UrlLogin = "http://201.163.208.231/" + DominioWS + "/ws/pc/valAccesoUsuarios";
         public const string US_UrlObtieneParametros = "http://201.163.208.231/" + DominioWS + "/ws/pc/obtieneParams";
         public const string US_UrlObtieneValidacionUusario = "http://201.163.208.231/" + DominioWS + "/ws/pc/existeUsr";
+
+        //FLEXX
+        public const string UrlBase = "https://app.fl3xx.us/api/external/"; //prod
+        public const string Urlflights = "flight/flights";
+        public const string Urlpostflight = "flight/{1}/postflight";
     }
 }

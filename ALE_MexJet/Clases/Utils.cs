@@ -72,6 +72,39 @@ namespace ALE_MexJet.Clases
             }
         }
 
+        public static List<PeriodosFlexx> getPeriodos(string fechaInicio, string fechaFin)
+        {
+            try
+            {
+                DateTime fechaI = Convert.ToDateTime(fechaInicio);
+                DateTime fechaF = Convert.ToDateTime(fechaFin);
+
+                TimeSpan difFechas = fechaF - fechaI;
+
+                int dias = difFechas.Days;
+
+                List<PeriodosFlexx> ps = new List<PeriodosFlexx>();
+
+                for (var i = 0; i < dias; i++)
+                {
+                    PeriodosFlexx p = new PeriodosFlexx();
+
+                    p.id = i + 1;
+                    p.Inicio = Convert.ToDateTime(fechaI.AddDays(i).ToString("yyyy-MM-dd") + " 00:00:01");
+                    p.Fin = Convert.ToDateTime(p.Inicio.AddDays(1).ToString("yyyy-MM-dd") + " 00:00:01");
+
+                    ps.Add(p);
+                }
+
+                return ps;
+            }
+            catch (Exception)
+            {
+                return null;
+                throw;
+            }
+        }
+
         public static string SaveErrorEnBitacora(string sError, string sPagina, string sClase, string sMetodo)
         {
             try
