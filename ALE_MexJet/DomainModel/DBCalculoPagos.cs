@@ -173,7 +173,7 @@ namespace ALE_MexJet.DomainModel
         //    }
         //}
 
-        public bool SetInsertaConceptosPilotoVitacora(List<ConceptosPiloto> oLstCP, int iIdPeriodo)
+        public bool SetInsertaConceptosPilotoBitacora(List<ConceptosPiloto> oLstCP, int iIdPeriodo)
         {
             try
             {

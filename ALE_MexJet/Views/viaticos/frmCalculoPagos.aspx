@@ -232,14 +232,15 @@
                 <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional">
                     <ContentTemplate>
                         <div class="col-sm-12">
-                            <dx:BootstrapGridView ID="gvCalculo" runat="server" KeyFieldName="IdFolio" OnRowCommand="gvCalculo_RowCommand" OnHtmlDataCellPrepared="gvCalculo_HtmlDataCellPrepared">
+                            <dx:BootstrapGridView ID="gvCalculo" runat="server" KeyFieldName="IdFolio" OnRowCommand="gvCalculo_RowCommand" OnHtmlDataCellPrepared="gvCalculo_HtmlDataCellPrepared"
+                                OnPageIndexChanged="gvCalculo_PageIndexChanged">
                                 <SettingsSearchPanel Visible="true" ShowApplyButton="true" />
                                 <Settings ShowGroupPanel="true" ShowFilterRowMenu="true" ShowTitlePanel="true" />
                                 <SettingsAdaptivity AdaptivityMode="HideDataCells" AllowOnlyOneAdaptiveDetailExpanded="true"></SettingsAdaptivity>
-                                <SettingsPager PageSize="20" PageSizeItemSettings-Caption="Páginas" NextPageButton-Text="Siguiente" PrevPageButton-Text="Anterior"></SettingsPager>
+                                <SettingsPager PageSize="10" PageSizeItemSettings-Caption="Páginas" NextPageButton-Text="Siguiente" PrevPageButton-Text="Anterior"></SettingsPager>
                                 <SettingsBehavior AllowDragDrop="true" />
                                 <columns>
-                                    <%--<dx:BootstrapGridViewCommandColumn ShowSelectCheckbox="True" SelectAllCheckboxMode="AllPages" ShowClearFilterButton="true" />--%>
+                                   
 
                                     <dx:bootstrapgridviewdatacolumn caption="Clave" fieldname="CrewCode" visibleindex="1" horizontalalign="Center" cssclasses-datacell="dataCell" SortOrder="None" Settings-AllowDragDrop="False" Settings-AllowSort="False" />
                                     <dx:bootstrapgridviewdatacolumn caption="Piloto" fieldname="Piloto" visibleindex="2" horizontalalign="Center" cssclasses-datacell="dataCell" width="22%" SortOrder="None" Settings-AllowDragDrop="False" Settings-AllowSort="False" />
@@ -257,7 +258,6 @@
                                         </dataitemtemplate>
                                     </dx:bootstrapgridviewdatacolumn>
 
-                                    <%--<dx:BootstrapGridViewDataColumn Caption="Estatus" FieldName="Estatus" VisibleIndex="5" HorizontalAlign="Center" CssClasses-DataCell="dataCell" />--%>
                                     <dx:BootstrapGridViewDataColumn Visibleindex="10" Caption="Acciones" FieldName="IdFolio" HorizontalAlign="Center" width="20%" SortOrder="None" Settings-AllowDragDrop="False" Settings-AllowSort="False">
                                         <DataItemTemplate>
 
@@ -393,8 +393,17 @@
                                 <columns>
                                     <dx:bootstrapgridviewdatacolumn caption="CONCEPTO" fieldname="DesConcepto" visibleindex="1" horizontalalign="Center" cssclasses-datacell="dataCell" SortOrder="None" Settings-AllowDragDrop="False" Settings-AllowSort="False" />
                                     <dx:bootstrapgridviewdatacolumn caption="HORARIOS" fieldname="Horario" visibleindex="2" horizontalalign="Center" cssclasses-datacell="dataCell" SortOrder="None" Settings-AllowDragDrop="False" Settings-AllowSort="False" />
-                                    <dx:bootstrapgridviewdatacolumn caption="NACIONAL" fieldname="MontoMXN" visibleindex="3" horizontalalign="Center" cssclasses-datacell="dataCell" SortOrder="None" Settings-AllowDragDrop="False" Settings-AllowSort="False" />
-                                    <dx:bootstrapgridviewdatacolumn caption="INTERNACIONAL" fieldname="MontoUSD" visibleindex="4" horizontalalign="Center" cssclasses-datacell="dataCell" SortOrder="None" Settings-AllowDragDrop="False" Settings-AllowSort="False" />
+
+                                    <dx:BootstrapGridViewTextColumn Caption="NACIONAL" FieldName="MontoMXN" VisibleIndex="3" horizontalalign="Center" CssClasses-DataCell="dataCell" SortOrder="None" Settings-AllowDragDrop="False" Settings-AllowSort="False">
+                                        <PropertiesTextEdit DisplayFormatString="c"></PropertiesTextEdit>
+                                    </dx:BootstrapGridViewTextColumn>
+
+                                    <dx:BootstrapGridViewTextColumn Caption="INTERNACIONAL" FieldName="MontoUSD" VisibleIndex="4" horizontalalign="Center" CssClasses-DataCell="dataCell" SortOrder="None" Settings-AllowDragDrop="False" Settings-AllowSort="False">
+                                        <PropertiesTextEdit DisplayFormatString="c"></PropertiesTextEdit>
+                                    </dx:BootstrapGridViewTextColumn>
+
+                                    <%--<dx:bootstrapgridviewdatacolumn caption="NACIONAL" fieldname="MontoMXN" visibleindex="3" horizontalalign="Center" cssclasses-datacell="dataCell" SortOrder="None" Settings-AllowDragDrop="False" Settings-AllowSort="False" />--%>
+                                    <%--<dx:bootstrapgridviewdatacolumn caption="INTERNACIONAL" fieldname="MontoUSD" visibleindex="4" horizontalalign="Center" cssclasses-datacell="dataCell" SortOrder="None" Settings-AllowDragDrop="False" Settings-AllowSort="False" />--%>
                                 </columns>
                             </dx:bootstrapgridview>
                         </div>

@@ -66,8 +66,8 @@ namespace ALE_MexJet.Views.viaticos
                 if (eSearchCalculos != null)
                     eSearchCalculos(sender, e);
 
-                //if (eSearchObj != null)
-                //    eSearchObj(sender, e);
+                if (eSearchObj != null)
+                    eSearchObj(sender, e);
             }
             catch (Exception ex)
             {
@@ -191,13 +191,14 @@ namespace ALE_MexJet.Views.viaticos
                             //Consulta conceptos adicionales por periodo
                             if (eSearchConAdPeriodo != null)
                                 eSearchConAdPeriodo(sender, e);
-                        }
+                            //}
 
-                        pnlDatosPiloto.Visible = true;
-                        pnlBusqueda.Visible = false;
-                        pnlVuelos.Visible = false;
-                        pnlCalcularViaticos.Visible = false;
-                        pnlAjuste.Visible = true;
+                            pnlDatosPiloto.Visible = true;
+                            pnlBusqueda.Visible = false;
+                            pnlVuelos.Visible = false;
+                            pnlCalcularViaticos.Visible = false;
+                            pnlAjuste.Visible = true;
+                        }
                     }
                 }
                 else if (e.CommandArgs.CommandName.S() == "Reporte")
@@ -530,9 +531,7 @@ namespace ALE_MexJet.Views.viaticos
 
                     BootstrapGridView gvB = (BootstrapGridView)(sender as BootstrapGridView);
                     Label rdEstatus = gvB.FindRowCellTemplateControl(e.VisibleIndex, e.DataColumn, "readEstatus") as Label;
-                    //ASPxButton btnVerAjustes = gvB.FindRowCellTemplateControl(e.VisibleIndex, e.DataColumn, "btnVerAjustes") as ASPxButton;
 
-                    //int iIdBitacora = gvB.GetRowValues(e.VisibleIndex, "CrewCode").S().I();
                     string[] fieldValues = { "Piloto", "CrewCode", "FechaInicio", "FechaFin" };
                     object obj = gvB.GetRowValues(e.VisibleIndex, fieldValues);
                     object[] oB = (object[])obj;
@@ -560,6 +559,7 @@ namespace ALE_MexJet.Views.viaticos
                     BootstrapGridView gvB = (BootstrapGridView)(sender as BootstrapGridView);
                     Label rdEstatus = gvB.FindRowCellTemplateControl(e.VisibleIndex, e.DataColumn, "readEstatus") as Label;
                     ASPxButton btnVerAjustes = gvB.FindRowCellTemplateControl(e.VisibleIndex, e.DataColumn, "btnVerAjustes") as ASPxButton;
+                    ASPxButton btnReporte = gvB.FindRowCellTemplateControl(e.VisibleIndex, e.DataColumn, "btnReporte") as ASPxButton;
 
                     //int iIdBitacora = gvB.GetRowValues(e.VisibleIndex, "IdFolio").S().I();
                     string[] fieldValues = { "Piloto", "CrewCode", "FechaInicio", "FechaFin" };
@@ -579,13 +579,25 @@ namespace ALE_MexJet.Views.viaticos
                     if (btnVerAjustes != null)
                     {
                         if (iEstatus <= 1 && iExistePeriodo == 0)
+                        {
                             btnVerAjustes.Enabled = false;
+                            btnReporte.Enabled = false;
+                        }
                         else if (iEstatus == 1 && iExistePeriodo == 1)
+                        {
                             btnVerAjustes.Enabled = false;
+                            btnReporte.Enabled = false;
+                        }
                         else if (iEstatus == 2 && iExistePeriodo == 1)
+                        {
                             btnVerAjustes.Enabled = true;
+                            btnReporte.Enabled = true;
+                        }
                         else if (iEstatus == 3 && iExistePeriodo == 1)
+                        {
                             btnVerAjustes.Enabled = true;
+                            btnReporte.Enabled = true;
+                        }
                     }
                 }
             }
@@ -707,6 +719,21 @@ namespace ALE_MexJet.Views.viaticos
             {
                 throw ex;
             }
+        }
+        protected void gvCalculo_PageIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                int pageIndex = gvCalculo.PageIndex;
+                gvCalculo.PageIndex = pageIndex;
+                gvCalculo.DataSource = dtCalculos;
+                gvCalculo.DataBind();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
         }
         #endregion
 
@@ -1582,8 +1609,6 @@ namespace ALE_MexJet.Views.viaticos
                 dtAjustes = dt;
                 gvAjustes.DataSource = dtAjustes;
                 gvAjustes.DataBind();
-
-                
             }
             catch (Exception ex)
             {
@@ -2145,132 +2170,132 @@ namespace ALE_MexJet.Views.viaticos
                 //sHtml += "      <td width='70%'>";
 
                 //ALIMENTOS
-                #region ALIMENTOS
+                //#region ALIMENTOS
                 //sHtml += "  <div class='col-md-7 table'>";
 
                 //if (ds.Tables[3] != null && ds.Tables[3].Rows.Count > 0)
                 //{
-                //DataTable dtAlimentos = new DataTable();
-                //dtAlimentos = ds.Tables[3].Clone();
-                //dtAlimentos.Columns["Fecha"].DataType = typeof(String);
-                //foreach (DataRow row in ds.Tables[3].Rows)
-                //{
-                //    dtAlimentos.ImportRow(row);
-                //}
-                ////FORMATEAR FECHAS DE ALIMENTOS
-                //for (int x = 0; x < dtAlimentos.Rows.Count; x++)
-                //{
-                //    dtAlimentos.Rows[x]["Fecha"] = dtAlimentos.Rows[x]["Fecha"].S().Dt().ToString("dd/MM/yyyy");
-                //}
-                //dtAlimentos.AcceptChanges();
-
-                //for (int i = 0; i < dtMovDis.Rows.Count; i++)
-                //{
-                //ALIMENTOS
-                //sHtml += "  <table class='table table-bordered' style='margin: 25px auto; width:100%; color:#ffffff;'>";
-                //sHtml += "      <tr>";
-                //sHtml += "          <td style='background-color:#64beed;text-align:center;background-color:#315497;width:20%;'>";
-                //sHtml += "              <br /><label>MONEDA</label>";
-                //sHtml += "          </td>";
-                //sHtml += "          <td style='background-color:#64beed;text-align:center;background-color:#a9d08f;width:20%;'>";
-                //sHtml += "              <label>DESAYUNO</label><br /><label>07:00 a 08:00</label>";
-                //sHtml += "          </td>";
-                //sHtml += "          <td style='background-color:#64beed;text-align:center;background-color:#c65811;width:20%;'>";
-                //sHtml += "              <label>COMIDA</label><br /><label>14:00 a 15:00</label>";
-                //sHtml += "          </td>";
-                //sHtml += "          <td style='background-color:#64beed;text-align:center;background-color:#6600cd;width:20%;'>";
-                //sHtml += "              <label>CENA</label><br /></label>20:00 a 21:00</label>";
-                //sHtml += "          </td>";
-                //sHtml += "          <td style='background-color:#64beed;text-align:center;background-color:#335398;width:20%;'>";
-                //sHtml += "              <br /><label>TOTAL</label>";
-                //sHtml += "          </td>";
-                //sHtml += "      </tr>";
-
-                ////Content
-                //DataRow[] dRow = dtAlimentos.Select("Fecha='" + dtMovDis.Rows[i]["FechaMov"].S() + "'");
-
-                //decimal dTotalDesayunoMXN = 0;
-                //decimal dTotalComidaMXN = 0;
-                //decimal dTotalCenaMXN = 0;
-                //decimal dTotalMXN = 0;
-
-                //decimal dTotalDesayunoUSD = 0;
-                //decimal dTotalComidaUSD = 0;
-                //decimal dTotalCenaUSD = 0;
-                //decimal dTotalUSD = 0;
-
-                ////PESOS MXN
-                //for (int y = 0; y < dRow.Length; y++)
-                //{
-                //    if (dRow[y]["Moneda"].S() == "MXN")
+                //    DataTable dtAlimentos = new DataTable();
+                //    dtAlimentos = ds.Tables[3].Clone();
+                //    dtAlimentos.Columns["Fecha"].DataType = typeof(String);
+                //    foreach (DataRow row in ds.Tables[3].Rows)
                 //    {
-                //        dTotalDesayunoMXN += dRow[y]["Desayuno"].S().D();
-                //        dTotalComidaMXN += dRow[y]["Comida"].S().D();
-                //        dTotalCenaMXN += dRow[y]["Cena"].S().D();
+                //        dtAlimentos.ImportRow(row);
                 //    }
-                //}
-                //dTotalMXN = ((dTotalDesayunoMXN + dTotalComidaMXN) + dTotalCenaMXN);
-
-                //for (int z = 0; z < dRow.Length; z++)
-                //{
-                //    if (dRow[z]["Moneda"].S() == "USD")
+                //    //FORMATEAR FECHAS DE ALIMENTOS
+                //    for (int x = 0; x < dtAlimentos.Rows.Count; x++)
                 //    {
-                //        dTotalDesayunoUSD += dRow[z]["Desayuno"].S().D();
-                //        dTotalComidaUSD += dRow[z]["Comida"].S().D();
-                //        dTotalCenaUSD += dRow[z]["Cena"].S().D();
+                //        dtAlimentos.Rows[x]["Fecha"] = dtAlimentos.Rows[x]["Fecha"].S().Dt().ToString("dd/MM/yyyy");
                 //    }
-                //}
-                //dTotalUSD = ((dTotalDesayunoUSD + dTotalComidaUSD) + dTotalCenaUSD);
+                //    dtAlimentos.AcceptChanges();
 
-                ////MXN
-                //sHtml += "<tr style='color:#000000;'>";
-                //sHtml += "  <td style='background-color:#ffffff;text-align:center;'>";
-                //sHtml += "      MXN";
-                //sHtml += "  </td>";
-                //sHtml += "  <td style='background-color:#ffffff;text-align:right;'>";
-                //sHtml += dTotalDesayunoMXN.ToString("c");
-                //sHtml += "  </td>";
-                //sHtml += "  <td style='background-color:#ffffff;text-align:right;'>";
-                //sHtml += dTotalComidaMXN.ToString("c");
-                //sHtml += "  </td>";
-                //sHtml += "  <td style='background-color:#ffffff;text-align:right;'>";
-                //sHtml += dTotalCenaMXN.ToString("c");
-                //sHtml += "  </td>";
-                //sHtml += "  <td style='background-color:#ffffff;text-align:right;'>";
-                //sHtml += dTotalMXN.ToString("c");
-                //sHtml += "  </td>";
-                //sHtml += "</tr>";
+                //    for (int i = 0; i < dtMovDis.Rows.Count; i++)
+                //    {
+                //        //ALIMENTOS
+                //        sHtml += "  <table class='table table-bordered' style='margin: 25px auto; width:100%; color:#ffffff;'>";
+                //        sHtml += "      <tr>";
+                //        sHtml += "          <td style='background-color:#64beed;text-align:center;background-color:#315497;width:20%;'>";
+                //        sHtml += "              <br /><label>MONEDA</label>";
+                //        sHtml += "          </td>";
+                //        sHtml += "          <td style='background-color:#64beed;text-align:center;background-color:#a9d08f;width:20%;'>";
+                //        sHtml += "              <label>DESAYUNO</label><br /><label>07:00 a 08:00</label>";
+                //        sHtml += "          </td>";
+                //        sHtml += "          <td style='background-color:#64beed;text-align:center;background-color:#c65811;width:20%;'>";
+                //        sHtml += "              <label>COMIDA</label><br /><label>14:00 a 15:00</label>";
+                //        sHtml += "          </td>";
+                //        sHtml += "          <td style='background-color:#64beed;text-align:center;background-color:#6600cd;width:20%;'>";
+                //        sHtml += "              <label>CENA</label><br /></label>20:00 a 21:00</label>";
+                //        sHtml += "          </td>";
+                //        sHtml += "          <td style='background-color:#64beed;text-align:center;background-color:#335398;width:20%;'>";
+                //        sHtml += "              <br /><label>TOTAL</label>";
+                //        sHtml += "          </td>";
+                //        sHtml += "      </tr>";
 
-                ////USD
-                //sHtml += "<tr style='color:#000000;'>";
-                //sHtml += "  <td style='background-color:#ffffff;text-align:center;'>";
-                //sHtml += "      USD";
-                //sHtml += "  </td>";
-                //sHtml += "  <td style='background-color:#ffffff;text-align:right;'>";
-                //sHtml += dTotalDesayunoUSD.ToString("c");
-                //sHtml += "  </td>";
-                //sHtml += "  <td style='background-color:#ffffff;text-align:right;'>";
-                //sHtml += dTotalComidaUSD.ToString("c");
-                //sHtml += "  </td>";
-                //sHtml += "  <td style='background-color:#ffffff;text-align:right;'>";
-                //sHtml += dTotalCenaUSD.ToString("c");
-                //sHtml += "  </td>";
-                //sHtml += "  <td style='background-color:#ffffff;text-align:right;'>";
-                //sHtml += dTotalUSD.ToString("c");
-                //sHtml += "  </td>";
-                //sHtml += "</tr>";
+                //        //Content
+                //        DataRow[] dRow = dtAlimentos.Select("Fecha='" + dtMovDis.Rows[i]["FechaMov"].S() + "'");
 
-                ////ENVIO TOTALES PARA CARGAR ULTIMA TABLA
-                //CargarTotales(dtMovDis.Rows[i]["FechaMov"].S(), dTotalUSD, dTotalMXN);
+                //        decimal dTotalDesayunoMXN = 0;
+                //        decimal dTotalComidaMXN = 0;
+                //        decimal dTotalCenaMXN = 0;
+                //        decimal dTotalMXN = 0;
 
-                ////sHtml += ""; CONTENIDO DE TABLA DE ALIMENTOS
-                //sHtml += " </table><br />";
+                //        decimal dTotalDesayunoUSD = 0;
+                //        decimal dTotalComidaUSD = 0;
+                //        decimal dTotalCenaUSD = 0;
+                //        decimal dTotalUSD = 0;
 
-                //}
+                //        //PESOS MXN
+                //        for (int y = 0; y < dRow.Length; y++)
+                //        {
+                //            if (dRow[y]["Moneda"].S() == "MXN")
+                //            {
+                //                dTotalDesayunoMXN += dRow[y]["Desayuno"].S().D();
+                //                dTotalComidaMXN += dRow[y]["Comida"].S().D();
+                //                dTotalCenaMXN += dRow[y]["Cena"].S().D();
+                //            }
+                //        }
+                //        dTotalMXN = ((dTotalDesayunoMXN + dTotalComidaMXN) + dTotalCenaMXN);
+
+                //        for (int z = 0; z < dRow.Length; z++)
+                //        {
+                //            if (dRow[z]["Moneda"].S() == "USD")
+                //            {
+                //                dTotalDesayunoUSD += dRow[z]["Desayuno"].S().D();
+                //                dTotalComidaUSD += dRow[z]["Comida"].S().D();
+                //                dTotalCenaUSD += dRow[z]["Cena"].S().D();
+                //            }
+                //        }
+                //        dTotalUSD = ((dTotalDesayunoUSD + dTotalComidaUSD) + dTotalCenaUSD);
+
+                //        //MXN
+                //        sHtml += "<tr style='color:#000000;'>";
+                //        sHtml += "  <td style='background-color:#ffffff;text-align:center;'>";
+                //        sHtml += "      MXN";
+                //        sHtml += "  </td>";
+                //        sHtml += "  <td style='background-color:#ffffff;text-align:right;'>";
+                //        sHtml += dTotalDesayunoMXN.ToString("c");
+                //        sHtml += "  </td>";
+                //        sHtml += "  <td style='background-color:#ffffff;text-align:right;'>";
+                //        sHtml += dTotalComidaMXN.ToString("c");
+                //        sHtml += "  </td>";
+                //        sHtml += "  <td style='background-color:#ffffff;text-align:right;'>";
+                //        sHtml += dTotalCenaMXN.ToString("c");
+                //        sHtml += "  </td>";
+                //        sHtml += "  <td style='background-color:#ffffff;text-align:right;'>";
+                //        sHtml += dTotalMXN.ToString("c");
+                //        sHtml += "  </td>";
+                //        sHtml += "</tr>";
+
+                //        //USD
+                //        sHtml += "<tr style='color:#000000;'>";
+                //        sHtml += "  <td style='background-color:#ffffff;text-align:center;'>";
+                //        sHtml += "      USD";
+                //        sHtml += "  </td>";
+                //        sHtml += "  <td style='background-color:#ffffff;text-align:right;'>";
+                //        sHtml += dTotalDesayunoUSD.ToString("c");
+                //        sHtml += "  </td>";
+                //        sHtml += "  <td style='background-color:#ffffff;text-align:right;'>";
+                //        sHtml += dTotalComidaUSD.ToString("c");
+                //        sHtml += "  </td>";
+                //        sHtml += "  <td style='background-color:#ffffff;text-align:right;'>";
+                //        sHtml += dTotalCenaUSD.ToString("c");
+                //        sHtml += "  </td>";
+                //        sHtml += "  <td style='background-color:#ffffff;text-align:right;'>";
+                //        sHtml += dTotalUSD.ToString("c");
+                //        sHtml += "  </td>";
+                //        sHtml += "</tr>";
+
+                //        //ENVIO TOTALES PARA CARGAR ULTIMA TABLA
+                //        CargarTotales(dtMovDis.Rows[i]["FechaMov"].S(), dTotalUSD, dTotalMXN);
+
+                //        //sHtml += ""; CONTENIDO DE TABLA DE ALIMENTOS
+                //        sHtml += " </table><br />";
+
+                //    }
                 //}
 
                 //sHtml += "</div>";
-                #endregion
+                //#endregion
 
 
 

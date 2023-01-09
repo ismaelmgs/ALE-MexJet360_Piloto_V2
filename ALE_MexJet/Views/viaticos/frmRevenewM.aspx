@@ -1,8 +1,11 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/ALE_Main.Master" AutoEventWireup="true" CodeBehind="frmRevenewM.aspx.cs" Inherits="ALE_MexJet.Views.viaticos.frmRevenewM" %>
 
-<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
+<%@ Register Assembly="DevExpress.Web.Bootstrap.v18.1" Namespace="DevExpress.Web.Bootstrap" TagPrefix="dx" %>
+
 <%@ Register Assembly="DevExpress.Web.Bootstrap.v18.1, Version=18.1.15.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" Namespace="DevExpress.Web.Bootstrap" TagPrefix="dx" %>
 <%@ Register Assembly="DevExpress.Web.v18.1, Version=18.1.15.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" Namespace="DevExpress.Web" TagPrefix="dx" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
+
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link rel="stylesheet" type="text/css" href="../../Styles/Controls.css" />
@@ -122,6 +125,12 @@
                 backdrop: 'static'
             });
         }
+        function HidePopup() {
+            $("#myModalConceptos").modal({
+                show: false,
+                backdrop: 'static'
+            });
+        }
         function ShowPopupParam() {
             $("#myModalParametros").modal();
         }
@@ -135,7 +144,7 @@
 
     <asp:UpdatePanel ID="upaGeneral" runat="server" UpdateMode="Conditional" ChildrenAsTriggers="true">
         <ContentTemplate>
-
+            
             <asp:Panel ID="pnlAdminConceptos" runat="server" Visible="true">
                 <div class="row">
                     <div class="col-md-12">
@@ -158,7 +167,7 @@
                                             </div>--%>
 
                                             <div style="height:auto; overflow-y:auto; text-align:center;">
-
+                                                
                                                 <dx:BootstrapGridView ID="gvConceptos" runat="server" KeyFieldName="IdConcepto" OnRowCommand="gvConceptos_RowCommand">
                                                     <SettingsSearchPanel Visible="true" ShowApplyButton="true" />
                                                     <Settings ShowGroupPanel="True" ShowFilterRowMenu="true" />
@@ -181,11 +190,15 @@
                                                         <dx:BootstrapGridViewDataColumn Caption="Acciones" Visible="true" VisibleIndex="6" HorizontalAlign="Center" Width="20%">
                                                             <DataItemTemplate>
                                                                 <div>
-                                                                    <dx:BootstrapButton Text="Actualizar" ID="btnActualiza" runat="server" CommandArgument='<%# Eval("IdConcepto") %>' CommandName="Actualiza" AutoPostBack="true" 
-                                                                        ToolTip="Actualiza" SettingsBootstrap-RenderOption="Primary"></dx:BootstrapButton>
-
-                                                                    <%--<asp:Button ID="btnEliminar" runat="server" CommandArgument='<%# Eval("IdConcepto") %>' CommandName="Eliminar" ToolTip="Elimina" 
-                                                                        CssClass="btn btn-danger" Text="Eliminar" OnClientClick="return confirm('¿Desea eliminar el concepto?');" />--%>
+                                                                    <asp:UpdatePanel ID="upaConActualiza" runat="server" UpdateMode="Conditional">
+                                                                        <ContentTemplate>
+                                                                            <dx:BootstrapButton Text="Actualizar" ID="BootstrapButton1" runat="server" CommandArgument='<%# Eval("IdConcepto") %>' CommandName="Actualiza" AutoPostBack="true" 
+                                                                                ToolTip="Actualiza" SettingsBootstrap-RenderOption="Primary"></dx:BootstrapButton>
+                                                                            <%--<asp:Button ID="btnEliminar" runat="server" CommandArgument='<%# Eval("IdConcepto") %>' CommandName="Eliminar" ToolTip="Elimina" 
+                                                                                CssClass="btn btn-danger" Text="Eliminar" OnClientClick="return confirm('¿Desea eliminar el concepto?');" />--%>
+                                                                        </ContentTemplate>
+                                                                    </asp:UpdatePanel>
+                                                                    
                                                                 </div>
                                                             </DataItemTemplate>
                                                             <CssClasses HeaderCell="spa" />
@@ -230,6 +243,7 @@
 
                                             <div class="table-responsive" style="height: auto;">
 
+
                                                  <dx:BootstrapGridView ID="gvParametrosAdicionales" runat="server" KeyFieldName="IdParametro" OnRowCommand="gvParametrosAdicionales_RowCommand">
                                                     <SettingsSearchPanel Visible="true" ShowApplyButton="true" />
                                                     <Settings ShowGroupPanel="True" ShowFilterRowMenu="true" />
@@ -245,12 +259,17 @@
                                                         <dx:BootstrapGridViewDataColumn Caption="Acciones" Visible="true" VisibleIndex="4" HorizontalAlign="Center" Width="20%">
                                                             <DataItemTemplate>
                                                                 <div>
+                                                                    <asp:UpdatePanel ID="upaParamAcciones" runat="server" UpdateMode="Conditional">
+                                                                        <ContentTemplate>
 
-                                                                    <asp:Button ID="btnActualiza" runat="server" CommandArgument='<%# Eval("IdParametro") %>' CommandName="Actualiza" ToolTip="Actualiza" 
-                                                                        CssClass="btn btn-primary" Text="Actualizar" />
+                                                                            <dx:BootstrapButton Text="Actualizar" ID="BootstrapButton2" runat="server" CommandArgument='<%# Eval("IdParametro") %>' CommandName="Actualiza" AutoPostBack="true" 
+                                                                                ToolTip="Actualiza" SettingsBootstrap-RenderOption="Primary"></dx:BootstrapButton>
 
-                                                                    <asp:Button ID="btnEliminar" runat="server" CommandArgument='<%# Eval("IdParametro") %>' CommandName="Eliminar" ToolTip="Elimina" 
-                                                                        CssClass="btn btn-danger" Text="Eliminar" OnClientClick="return confirm('¿Desea eliminar el parametro ?');" />
+                                                                            <dx:bootstrapbutton ID="BootstrapButton3" runat="server" autopostback="true" CommandArgument='<%# Eval("IdParametro") %>' CommandName="Eliminar" 
+                                                                                SettingsBootstrap-RenderOption="Danger" Text="Eliminar"></dx:bootstrapbutton>
+
+                                                                        </ContentTemplate>
+                                                                    </asp:UpdatePanel>
 
                                                                 </div>
                                                             </DataItemTemplate>
@@ -335,6 +354,66 @@
                 </div>
             </asp:Panel>
 
+            <%--MODAL PARA MENSAJES--%>
+            <dx:bootstrappopupcontrol id="ppAlert" runat="server" clientinstancename="ppAlert" closeanimationtype="Fade" popupanimationtype="Fade"
+                popuphorizontalalign="WindowCenter" popupverticalalign="WindowCenter"
+                closeaction="CloseButton" closeonescape="true" allowresize="true"
+                headertext="Listo" allowdragging="true" showclosebutton="true" width="300" height="200">
+                <clientsideevents />
+                <contentcollection>
+                    <dx:contentcontrol>
+                        <table>
+                            <tr>
+                                <td>
+                                    <dx:aspximage id="ASPxImage2" runat="server" showloadingimage="true" imageurl="~/img/iconos/Information2.ico"></dx:aspximage>
+                                    <dx:aspxtextbox id="tbLogin" readonly="true" border-borderstyle="None" height="1px" runat="server" width="1px" clientinstancename="tbLogin"></dx:aspxtextbox>
+                                </td>
+                                <td>
+                                    <dx:aspxlabel id="lbl" runat="server" clientinstancename="lbl" text="ASPxLabel"></dx:aspxlabel>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <dx:bootstrapbutton id="btOK" runat="server" text="OK" width="80px" settingsbootstrap-renderoption="Primary" autopostback="false" style="float: left; margin-right: 8px" tabindex="0">
+                                        <clientsideevents click="function(s, e) {ppAlert.Hide(); }" />
+                                    </dx:bootstrapbutton>
+                                </td>
+                            </tr>
+                        </table>
+                    </dx:contentcontrol>
+                </contentcollection>
+            </dx:bootstrappopupcontrol>
+
+           <%--MODAL PARA MENSAJES CONFIRMACION--%>
+            <dx:bootstrappopupcontrol id="ppAlertConfirm" runat="server" clientinstancename="ppAlertConfirm" closeanimationtype="Fade" popupanimationtype="Fade"
+                popuphorizontalalign="WindowCenter" popupverticalalign="WindowCenter"
+                closeaction="CloseButton" closeonescape="true" allowresize="true"
+                headertext="Confirmación" allowdragging="true" showclosebutton="true" width="300" height="200">
+                <clientsideevents />
+                <contentcollection>
+                    <dx:contentcontrol>
+                        <table style="width:100%; margin:0 auto 0 auto;">
+                            <tr>
+                                <td>
+                                    <dx:aspximage id="ASPxImage1" runat="server" showloadingimage="true" imageurl="~/img/iconos/Information2.ico"></dx:aspximage>
+                                    <dx:aspxtextbox id="Aspxtextbox1" readonly="true" border-borderstyle="None" height="1px" runat="server" width="1px" clientinstancename="tbLogin"></dx:aspxtextbox>
+                                </td>
+                                <td>
+                                    <dx:aspxlabel id="Aspxlabel1" runat="server" clientinstancename="lbl" text="¿Desea eliminar el registro?"></dx:aspxlabel>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" align="right" style="text-align:right;"><br />
+                                    <dx:bootstrapbutton id="btnCancel" runat="server" text="Cancelar" width="80px" settingsbootstrap-renderoption="Warning" autopostback="false">
+                                        <clientsideevents click="function(s, e) {ppAlertConfirm.Hide(); }" />
+                                    </dx:bootstrapbutton>
+                                    <dx:bootstrapbutton id="btnAccept" runat="server" text="Aceptar" settingsbootstrap-renderoption="Success" autopostback="false" onclick="btnAccept_Click" />
+                                </td>
+                            </tr>
+                        </table>
+                    </dx:contentcontrol>
+                </contentcollection>
+            </dx:bootstrappopupcontrol>
             
 
             <!--Modal Conceptos-->
@@ -665,35 +744,11 @@
                                             &nbsp; Cambios Encontrados!&nbsp;</strong><asp:Label ID="lblWarning" runat="server" Text="" Font-Size="9pt"></asp:Label>
                                     </div>
 
-                                    <div style="max-height:500px; text-align:center; margin-top: -14px;">
+                                    
                                         <asp:UpdatePanel ID="upaCarga" runat="server">
                                             <ContentTemplate>
 
-                                                <div class="">
-                                                    <%--<dx:BootstrapGridView ID="gvCargaCuentas" runat="server" Style="width:100%;" OnHtmlRowCreated="gvCargaCuentas_HtmlRowCreated">
-                                                        <SettingsSearchPanel Visible="false" ShowApplyButton="false" />
-                                                        <Settings ShowGroupPanel="false" ShowFilterRowMenu="false" />
-                                                        <SettingsAdaptivity AdaptivityMode="HideDataCells" AllowOnlyOneAdaptiveDetailExpanded="true"></SettingsAdaptivity>
-                                                        <SettingsPager PageSize="20"></SettingsPager>
-                                                        <SettingsBehavior AllowSort="false" />
-                                                        <Columns>
-                                                            <dx:BootstrapGridViewDataColumn Caption="Titular" FieldName="Titular" VisibleIndex="1" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" CssClasses-DataCell="dataCell" SortIndex="0" SortOrder="None" Width="30%" />
-                                                            <dx:BootstrapGridViewDataColumn Caption="Cuenta" FieldName="Cuenta" VisibleIndex="2" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" CssClasses-DataCell="dataCell" Width="20%" />
-                                                            <dx:BootstrapGridViewDataColumn Caption="Tarjeta" FieldName="Tarjeta" VisibleIndex="3" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" CssClasses-DataCell="dataCell" Width="20%" />
-                                                            <dx:BootstrapGridViewDateColumn Caption="Estado al Corte" FieldName="EstadoCorte" VisibleIndex="4" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" CssClasses-DataCell="dataCell" Width="10%" />
-                                                            <dx:BootstrapGridViewDataColumn Caption="Cuarta Linea" FieldName="CuartaLinea" VisibleIndex="5" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" CssClasses-DataCell="dataCell" Width="10%" />
-
-                                                            <dx:BootstrapGridViewDataColumn Caption="Clave Piloto" FieldName="CvePiloto" Width="10%" Settings-AllowDragDrop="False" VisibleIndex="6" HorizontalAlign="Center" CssClasses-HeaderCell="centerCell" CssClasses-DataCell="dataCell">
-                                                                <DataItemTemplate>
-
-                                                                    <asp:TextBox ID="txtCvePiloto" runat="server" CssClass="inputText" Placeholder="Clave Piloto" Text='<%#Eval("CvePiloto") %>' style="text-align:center; text-transform: uppercase;"
-                                                                        onkeypress="return alpha(event)" MaxLength="4"></asp:TextBox>
-
-                                                                </DataItemTemplate>
-                                                            </dx:BootstrapGridViewDataColumn>
-
-                                                        </Columns>
-                                                    </dx:BootstrapGridView>--%>
+                                                <div style="text-align:center !important; margin-top: -14px !important;">
 
                                                     <asp:GridView ID="gvCargaCuentas" runat="server" style="border:2px solid #f1eded;" class="table table-bordered table-condensed"
                                                         AutoGenerateColumns="false" Width="100%">
@@ -725,7 +780,6 @@
 
                                             </ContentTemplate>
                                         </asp:UpdatePanel>
-                                    </div>
 
                                 </div>
                             </div>

@@ -60,15 +60,14 @@ namespace ALE_MexJet.Views.viaticos
             gvParametrosAdicionales.SettingsPager.PageSizeItemSettings.Position = PagerPageSizePosition.Right;
             gvParametrosAdicionales.SettingsText.SearchPanelEditorNullText = "Ingresa la información a buscar:";
 
-            if (eSearchObj != null)
-                eSearchObj(sender, e);
-
-            if (eSearchCuentasGrales != null)
-                eSearchCuentasGrales(sender, e);
 
             if (!IsPostBack)
             {
-                
+                if (eSearchObj != null)
+                    eSearchObj(sender, e);
+
+                if (eSearchCuentasGrales != null)
+                    eSearchCuentasGrales(sender, e);
             }
         }
         protected void btnActualizarConceptos_Click(object sender, EventArgs e)
@@ -110,8 +109,8 @@ namespace ALE_MexJet.Views.viaticos
                     string sDesConcepto = oB[0].S();
                     string sHoraInicial = oB[1].S();
                     string sHoraFinal = oB[2].S();
-                    string sMontoMXN = oB[3].S();
-                    string sMontoUSD = oB[4].S();
+                    string sMontoMXN = oB[3].D().ToString("c");
+                    string sMontoUSD = oB[4].D().ToString("c");
 
                     txtHorarioInicial.Text = sHoraInicial;
                     txtHorarioFinal.Text = sHoraFinal;
@@ -171,6 +170,7 @@ namespace ALE_MexJet.Views.viaticos
                             eSearchObj(sender, e);
 
                         //upaGeneral.Update();
+                        ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "MyScript", "HidePopup();", true);
                     }
                 }
             }
@@ -276,10 +276,26 @@ namespace ALE_MexJet.Views.viaticos
                 }
                 else if (e.CommandArgs.CommandName.S() == "Eliminar")
                 {
-                    iOpcion = 3;
                     int index = e.VisibleIndex.I();
                     int iIdParametro = gvParametrosAdicionales.GetRowValues(index, "IdParametro").S().I();
                     hdnIdParaAd.Value = iIdParametro.S();
+
+                    ppAlertConfirm.ShowOnPageLoad = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        protected void btnAccept_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (!string.IsNullOrEmpty(hdnIdParaAd.Value))
+                {
+                    iOpcion = 3;
 
                     if (eSaveParametroAd != null)
                         eSaveParametroAd(sender, e);
@@ -289,13 +305,14 @@ namespace ALE_MexJet.Views.viaticos
                         if (eSearchObj != null)
                             eSearchObj(sender, e);
 
+                        ppAlertConfirm.ShowOnPageLoad = false;
                         upaGeneral.Update();
                     }
                 }
             }
             catch (Exception ex)
             {
-                throw ex;
+                MostrarMensaje("Error: " + ex.Message, "Error");
             }
         }
 
@@ -453,7 +470,12 @@ namespace ALE_MexJet.Views.viaticos
             txtClave.Enabled = true;
             txtDescripcionParaAd.Enabled = true;
         }
-
+        public void MostrarMensaje(string sMensaje, string sCaption)
+        {
+            //mpeMensaje.ShowMessage(sMensaje, sCaption);
+            lbl.Text = sMensaje;
+            ppAlert.ShowOnPageLoad = true;
+        }
         #endregion
 
         #region VARIABLES Y PROPIEDADES
@@ -616,7 +638,7 @@ namespace ALE_MexJet.Views.viaticos
             }
             catch (Exception ex)
             {
-                throw ex;
+                MostrarMensaje("Error: " + ex.Message, "Error");
             }
         }
         private void GetDataTable(string FilePath, string Extension)
