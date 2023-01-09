@@ -292,16 +292,16 @@ namespace ALE_MexJet.Presenter
                                         float fHoraInicio = 0;
                                         float fHoraFinal = 0;
 
-                                        //DateTime dtIni = dtLegs.Rows[0][FechaInicio].S().Dt();
-                                        //DateTime dtFin = dtLegs.Rows[dtLegs.Rows.Count - 1][FechaFin].S().Dt();
+                                        DateTime dtIni = dtLegs.Rows[0][FechaInicio].S().Dt();
+                                        DateTime dtFin = dtLegs.Rows[dtLegs.Rows.Count - 1][FechaFin].S().Dt();
 
-                                        DataTable dtCheckDate = ds.Tables[2];
+                                        //DataTable dtCheckDate = ds.Tables[2];
 
-                                        DataRow[] rowCheck = dtCheckDate.Select("Dia='" + dtDias.Rows[0]["Dia"].S() + "' ");
+                                        //DataRow[] rowCheck = dtCheckDate.Select("Dia='" + dtDias.Rows[0]["Dia"].S() + "' ");
 
 
-                                        DateTime dtIni = rowCheck[0]["CheckIn"].S().Dt();
-                                        DateTime dtFin = rowCheck[0]["CheckOut"].S().Dt();
+                                        //DateTime dtIni = rowCheck[0]["CheckIn"].S().Dt();
+                                        //DateTime dtFin = rowCheck[0]["CheckOut"].S().Dt();
 
                                         bool bEsInterInicio = false;
                                         bool bEsInterFinal = false;
