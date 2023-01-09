@@ -394,7 +394,7 @@ namespace ALE_MexJet.Presenter
                                                         }
                                                     }
 
-                                                    //oLsComDia.Add(oComDia1);
+                                                    oLsComDia.Add(oComDia1);
                                                 }
                                             }
                                             else
@@ -632,7 +632,7 @@ namespace ALE_MexJet.Presenter
                                                                 }
                                                             }
 
-                                                            //oLsComDia.Add(oComDia1);
+                                                            oLsComDia.Add(oComDia1);
                                                         }
                                                     }
                                                     else
@@ -859,7 +859,7 @@ namespace ALE_MexJet.Presenter
                                                                 #endregion
                                                             }
 
-                                                            //oLsComDia.Add(oComDia1);
+                                                            oLsComDia.Add(oComDia1);
                                                         }
                                                     }
                                                 }
@@ -1015,7 +1015,7 @@ namespace ALE_MexJet.Presenter
                                                         }
                                                     }
 
-                                                    //oLsComDia.Add(oComDia1);
+                                                    oLsComDia.Add(oComDia1);
                                                 }
                                             }
                                         }
@@ -1313,7 +1313,7 @@ namespace ALE_MexJet.Presenter
 
                                                         }
 
-                                                        //oLsComDia.Add(oComDia1);
+                                                        oLsComDia.Add(oComDia1);
                                                     }
                                                 }
                                                 else
@@ -1579,7 +1579,7 @@ namespace ALE_MexJet.Presenter
                                                         //}
                                                         #endregion
 
-                                                        //oLsComDia.Add(oCom);
+                                                        oLsComDia.Add(oCom);
                                                     }
                                                     else
                                                     {
@@ -1723,24 +1723,25 @@ namespace ALE_MexJet.Presenter
                                                             }
                                                         }
 
-                                                        //oLsComDia.Add(oCom);
+                                                        oLsComDia.Add(oCom);
                                                     }
                                                 }
                                             }
                                         }
 
-                                        //oCant.oLstPorDia = oLsComDia;
-                                       //ObtieneDiasViaticos(oLsComDia);
+                                        oCant.oLstPorDia = oLsComDia;
+                                        //ObtieneDiasViaticos(oLsComDia);
                                     }
 
                                     oLstCant.Add(oCant);
+                                    //ObtieneDiasViaticos(oLsComDia);
                                 }
 
                                 if (rowsNC.Length > 0)
                                 {
                                     oIGestCat.ActualizaVuelosNoCobrables(rowsNC);
                                 }
-
+                                ObtieneDiasViaticos(oLsComDia);
                             }
                         }
                     }
