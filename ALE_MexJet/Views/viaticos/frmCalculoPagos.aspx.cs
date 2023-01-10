@@ -84,7 +84,7 @@ namespace ALE_MexJet.Views.viaticos
                     dtAjustes = null;
                     int index = e.VisibleIndex.I();
                     string sCrewCode = gvCalculo.GetRowValues(index, "CrewCode").S();
-                    string[] fieldValues = { "Piloto", "CrewCode", "FechaInicio", "FechaFin", "Estatus" };
+                    string[] fieldValues = { "Piloto", "CrewCode", "FechaInicio", "FechaFin", "Estatus", "HomeBase" };
                     object obj = gvCalculo.GetRowValues(index, fieldValues);
                     object[] oB = (object[])obj;
 
@@ -97,10 +97,12 @@ namespace ALE_MexJet.Views.viaticos
                         DateTime dtFecha2 = oB[3].S().Dt();
                         string sMesDel = GetMes(dtFecha1.Month);
                         string sMesHasta = GetMes(dtFecha2.Month);
+                        string sHomeBase = oB[5].S();
 
                         readPeríodo.Text = "Del " + dtFecha1.Day.S() + " de " + sMesDel + " de " + dtFecha1.Year.S() + " al " + dtFecha2.Day.S() + " de " + sMesHasta + " de " + dtFecha2.Year.S();
                         hdnFechaInicio.Value = dtFecha1.ToShortDateString();
                         hdnFechaFinal.Value = dtFecha2.ToShortDateString();
+                        readBase.Text = sHomeBase;
 
                         sParametro = oB[1].S();
 

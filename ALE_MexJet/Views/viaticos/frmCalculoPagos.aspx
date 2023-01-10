@@ -181,7 +181,18 @@
             margin-top: 0px !important;
             margin-bottom: 10px;
         }
-
+        .btn-primary {
+	        height: 34px !important;
+            /*width: 80px !important;*/
+        }
+        .btnSize.disabled, .btnSize:disabled, .btnSize[disabled] {
+            height: 34px !important;
+            width: 80px !important;
+        }
+        .btn-primary.disabled, .btn-primary:disabled, .btn-primary[disabled] {
+	        height: 34px !important;
+            /*width: 80px !important;*/
+        }
         /*Card*/
     </style>
 
@@ -243,7 +254,7 @@
                                    
 
                                     <dx:bootstrapgridviewdatacolumn caption="Clave" fieldname="CrewCode" visibleindex="1" horizontalalign="Center" cssclasses-datacell="dataCell" SortOrder="None" Settings-AllowDragDrop="False" Settings-AllowSort="False" />
-                                    <dx:bootstrapgridviewdatacolumn caption="Piloto" fieldname="Piloto" visibleindex="2" horizontalalign="Center" cssclasses-datacell="dataCell" width="22%" SortOrder="None" Settings-AllowDragDrop="False" Settings-AllowSort="False" />
+                                    <dx:bootstrapgridviewdatacolumn caption="Piloto" fieldname="Piloto" visibleindex="2" horizontalalign="Left" cssclasses-datacell="dataCell" width="22%" SortOrder="None" Settings-AllowDragDrop="False" Settings-AllowSort="False" />
 
                                     <dx:bootstrapgridviewdatacolumn caption="Desayuno Nac." fieldname="DesayunosNal" visibleindex="3" horizontalalign="Center" cssclasses-datacell="dataCell" width="8%" SortOrder="None" Settings-AllowDragDrop="False" Settings-AllowSort="False"  />
                                     <dx:bootstrapgridviewdatacolumn caption="Desayuno Int." fieldname="DesayunosInt" visibleindex="4" horizontalalign="Center" cssclasses-datacell="dataCell" width="8%" SortOrder="None" Settings-AllowDragDrop="False" Settings-AllowSort="False" />
@@ -265,21 +276,22 @@
                                                 <div class="col-md-12" align="center">
                                                     <asp:UpdatePanel ID="upaReporte" runat="server" ChildrenAsTriggers="false" UpdateMode="Conditional">
                                                         <ContentTemplate>
-                                                    <dx:BootstrapButton Text="Ver viáticos" ID="btnVerViaticos" runat="server" CommandArgument='<%# Eval("IdFolio") %>' CommandName="Ver" Autopostback="true"
-                                                        Tooltip="Calcular viáticos" SettingsBootstrap-RenderOption="Primary" CausesValidation="false">
-                                                    </dx:BootstrapButton>
-                                                    &nbsp;
+                                                            <dx:BootstrapButton Text="Viáticos" ID="btnVerViaticos" runat="server" CommandArgument='<%# Eval("IdFolio") %>' CommandName="Ver" Autopostback="true"
+                                                                Tooltip="Calcular viáticos" SettingsBootstrap-RenderOption="Primary" CausesValidation="false" Class="btnSize">
+                                                                <%--<CssClasses Icon="btnSize" />--%>
+                                                            </dx:BootstrapButton>
+                                                            &nbsp;
                                                 <%--</div>
                                                 <div class="col-md-4">--%>
-                                                    <dx:BootstrapButton text="Ajustes" id="btnVerAjustes" runat="server" commandargument='<%# Eval("CrewCode") %>' commandname="Ajustes" autopostback="true"
-                                                        tooltip="Mostrar Ajustes" settingsbootstrap-renderoption="Primary" CausesValidation="false">
-                                                    </dx:BootstrapButton>
-                                                    &nbsp;
+                                                            <dx:BootstrapButton text="Ajustes" id="btnVerAjustes" runat="server" commandargument='<%# Eval("CrewCode") %>' commandname="Ajustes" autopostback="true"
+                                                                tooltip="Mostrar Ajustes" settingsbootstrap-renderoption="Primary" CausesValidation="false" Class="btnSize">
+                                                            </dx:BootstrapButton>
+                                                            &nbsp;
                                                 <%--</div>
                                                 <div class="col-md-4" align="left">--%>
                                                     
                                                             <dx:BootstrapButton Text="Reporte" ID="btnReporte" runat="server" CommandArgument='<%# Eval("CrewCode") %>' CommandName="Reporte" AutoPostback="true"
-                                                                Tooltip="Imprimir Reporte de Viáticos" SettingsBootstrap-RenderOption="Primary" CausesValidation="false">
+                                                                Tooltip="Imprimir Reporte de Viáticos" SettingsBootstrap-RenderOption="Primary" CausesValidation="false" Class="btnSize">
                                                             </dx:BootstrapButton>
                                                         </ContentTemplate>
                                                         <Triggers>
@@ -295,7 +307,7 @@
 
                                     <dx:bootstrapgridviewdatacolumn fieldname="FechaInicio" visible="false" visibleindex="11" cssclasses-datacell="hideColumn" cssclasses-headercell="hideColumn" horizontalalign="Center" />
                                     <dx:bootstrapgridviewdatacolumn fieldname="FechaFin" visible="false" visibleindex="12" cssclasses-datacell="hideColumn" cssclasses-headercell="hideColumn" horizontalalign="Center" />
-                                    <%--<dx:BootstrapGridViewDataColumn FieldName="Estatus_Img" Visible="false" VisibleIndex="15" CssClasses-DataCell="hideColumn" CssClasses-HeaderCell="hideColumn" HorizontalAlign="Center" />--%>
+                                    <dx:BootstrapGridViewDataColumn FieldName="HomeBase" Visible="false" VisibleIndex="13" CssClasses-DataCell="hideColumn" CssClasses-HeaderCell="hideColumn" HorizontalAlign="Center" />
                                 </columns>
                                 <settingsbehavior confirmdelete="True" />
                                 <settingspager position="Bottom">
@@ -340,10 +352,10 @@
                                     <asp:HiddenField ID="hdnFechaFinal" runat="server" />
                                 </div>
                                 <div class="col-sm-1">
-                                    <label>Período:</label>
+                                    <label>Base:</label>
                                 </div>
                                 <div class="col-sm-4">
-                                    <asp:Label ID="readPeríodo" runat="server" Text=""></asp:Label>
+                                    <asp:Label ID="readBase" runat="server" Text=""></asp:Label>
                                 </div>
                             </div>
                             <div class="row">
@@ -353,7 +365,15 @@
                                 <div class="col-sm-3">
                                     <asp:Label ID="readPiloto" runat="server" Text=""></asp:Label>
                                 </div>
-                                <div class="col-sm-7">&nbsp;&nbsp;&nbsp;</div>
+                                <div class="col-sm-2">
+                                    &nbsp;&nbsp;&nbsp;
+                                </div>
+                                 <div class="col-sm-1">
+                                    <label>Período:</label>
+                                </div>
+                                <div class="col-sm-4">
+                                    <asp:Label ID="readPeríodo" runat="server" Text=""></asp:Label>
+                                </div>
                             </div>
                         </div>
                       </div>
@@ -597,9 +617,9 @@
                                                     <cssclasses headercell="spa" />
                                                 </dx:bootstrapgridviewdatacolumn>
                                             </columns>
-                                            <settingspager position="Bottom">
+                                            <%--<settingspager position="Bottom">
                                                 <pagesizeitemsettings items="20, 50, 100"></pagesizeitemsettings>
-                                            </settingspager>
+                                            </settingspager>--%>
                                             <settingsediting mode="PopupEditForm"></settingsediting>
                                             <settings showgrouppanel="True" />
                                         </dx:bootstrapgridview>

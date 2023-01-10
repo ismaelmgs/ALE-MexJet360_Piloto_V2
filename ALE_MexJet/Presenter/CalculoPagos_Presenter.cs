@@ -81,6 +81,7 @@ namespace ALE_MexJet.Presenter
                     dtPilotos.Columns.Add("NoVuelos");
                     dtPilotos.Columns.Add("Piloto");
                     dtPilotos.Columns.Add("Estatus");
+                    dtPilotos.Columns.Add("HomeBase");
 
                     drPiloto = dtPilotos.NewRow();
                     drPiloto["Id"] = dtPilotSrc.Rows[x]["Id"].S();
@@ -88,6 +89,7 @@ namespace ALE_MexJet.Presenter
                     drPiloto["NoVuelos"] = dtPilotSrc.Rows[x]["NoVuelos"].S();
                     drPiloto["Piloto"] = dtPilotSrc.Rows[x]["Piloto"].S();
                     drPiloto["Estatus"] = dtPilotSrc.Rows[x]["Estatus"].S();
+                    drPiloto["HomeBase"] = dtPilotSrc.Rows[x]["HomeBase"].S();
                     dtPilotos.Rows.Add(drPiloto);
 
                     //dtPilotos.Columns.Add("NoVuelos", typeof(int));
@@ -2473,6 +2475,7 @@ namespace ALE_MexJet.Presenter
                         dtComidas.Columns.Add("CenasNal", typeof(int));
                         dtComidas.Columns.Add("CenasInt", typeof(int));
                         dtComidas.Columns.Add("Piloto", typeof(string));
+                        dtComidas.Columns.Add("HomeBase", typeof(string));
 
                         foreach (DataRow row in dtPilotos.Rows)
                         {
@@ -2507,6 +2510,7 @@ namespace ALE_MexJet.Presenter
                             dr["CenasNal"] = iCenNal;
                             dr["CenasINT"] = iCenInt;
                             dr["Piloto"] = row["Piloto"];
+                            dr["HomeBase"] = row["HomeBase"];
 
                             dtComidas.Rows.Add(dr);
                         }
@@ -2546,6 +2550,7 @@ namespace ALE_MexJet.Presenter
                             dr["CenasNal"] = iCenNal;
                             dr["CenasINT"] = iCenInt;
                             dr["Piloto"] = row["Piloto"];
+                            dr["HomeBase"] = row["HomeBase"];
 
                             dtComidas.Rows.Add(dr);
                         }

@@ -132,13 +132,13 @@ namespace ALE_MexJet.Views.viaticos
         protected global::System.Web.UI.WebControls.HiddenField hdnFechaFinal;
 
         /// <summary>
-        /// Control readPeríodo.
+        /// Control readBase.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label readPeríodo;
+        protected global::System.Web.UI.WebControls.Label readBase;
 
         /// <summary>
         /// Control readPiloto.
@@ -148,6 +148,15 @@ namespace ALE_MexJet.Views.viaticos
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label readPiloto;
+
+        /// <summary>
+        /// Control readPeríodo.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label readPeríodo;
 
         /// <summary>
         /// Control pnlCalcularViaticos.
