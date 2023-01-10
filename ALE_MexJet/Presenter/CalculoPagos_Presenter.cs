@@ -224,7 +224,7 @@ namespace ALE_MexJet.Presenter
                         {
                             string sCo = "0";
                         }
-                        List<ComidasPorDia> oLsComDia = new List<ComidasPorDia>();
+                        //List<ComidasPorDia> oLsComDia = new List<ComidasPorDia>();
 
                         int iVlos = drP["NoVuelos"].S().I();
                         if (iVlos > 0)
@@ -269,7 +269,7 @@ namespace ALE_MexJet.Presenter
                                     oCant.dtVuelos = dtLegs;
                                     oCant.iVuelo = i;
 
-                                    //List<ComidasPorDia> oLsComDia = new List<ComidasPorDia>();
+                                    List<ComidasPorDia> oLsComDia = new List<ComidasPorDia>();
 
                                     if (dtLegs.Rows.Count > 0)
                                     {
@@ -452,8 +452,9 @@ namespace ALE_MexJet.Presenter
                                                         oComDia.iCenaNal++;
                                                     }
                                                 }
-
+                                                
                                                 oLsComDia.Add(oComDia);
+
                                             }
                                         }
                                         else if (dtDias.Rows.Count == 2)
@@ -1039,7 +1040,6 @@ namespace ALE_MexJet.Presenter
 
                                                     try
                                                     {
-                                                        
                                                         if (dtDias.Rows[l + 1] != null)
                                                             bTieneDiasDespues = true;
                                                     }
@@ -1047,6 +1047,11 @@ namespace ALE_MexJet.Presenter
                                                     {
                                                         bTieneDiasDespues = false;
                                                     }
+
+                                                    //if (l > 0)
+                                                    //    bTieneDiasAntes = true;
+                                                    //if (dtDias.Rows[l + 1] != null)
+                                                    //    bTieneDiasDespues = true;
 
                                                     CalculaAlimentos(rowsD[0][FechaInicio].S().Dt(), rowsD[0][FechaFin].S().Dt(), oCant, oHor, sPod, sBase, bTieneDiasAntes, bTieneDiasDespues, bEsInterInicio, bEsInterFinal, drP["ClavePiloto"].S(), oLsComDia, rowsD[0]["DutyType"].S(), rowsD[0]["POD"].S(), rowsD[0]["POA"].S(), dtLegs);
                                                 }
@@ -1730,18 +1735,17 @@ namespace ALE_MexJet.Presenter
                                         }
 
                                         oCant.oLstPorDia = oLsComDia;
-                                        //ObtieneDiasViaticos(oLsComDia);
+                                        ObtieneDiasViaticos(oLsComDia);
                                     }
 
                                     oLstCant.Add(oCant);
-                                    //ObtieneDiasViaticos(oLsComDia);
                                 }
 
                                 if (rowsNC.Length > 0)
                                 {
                                     oIGestCat.ActualizaVuelosNoCobrables(rowsNC);
                                 }
-                                ObtieneDiasViaticos(oLsComDia);
+
                             }
                         }
                     }

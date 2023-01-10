@@ -1130,6 +1130,7 @@ namespace ALE_MexJet.Views.viaticos
 
                 foreach (DataRow row in dsParams.Tables[0].Rows)
                 {
+
                     if (row["Concepto"].S() == "Desayuno")
                     {
                         dDesNal = row["MontoMXN"].S().D();
@@ -1287,6 +1288,16 @@ namespace ALE_MexJet.Views.viaticos
                         //    drow["Desayuno"] = dtDiasViaticos.Rows[i]["DesNal"].S().D() * ObtenValorConcepto(1, "MXN");
                         //}
 
+                        //decimal dTotalDesNal = 0;
+                        //decimal dTotalComNal = 0;
+                        //decimal dTotalCenNal = 0;
+                        //decimal dTotalNal = 0;
+
+                        //decimal dTotalDesInt = 0;
+                        //decimal dTotalComInt = 0;
+                        //decimal dTotalCenInt = 0;
+                        //decimal dTotalInt = 0;
+
 
                         for (int x = 0; x < 2; x++)
                         {
@@ -1393,6 +1404,9 @@ namespace ALE_MexJet.Views.viaticos
 
                         drDias = dt.NewRow();
                         drDias["Fecha"] = dtDiasDistinct.Rows[i]["Dia"].S();
+
+                        //DataView dvDV = new DataView(dtDiasVia);
+                        //DataTable dtDiasDV = dvDV.ToTable(true, "FechaDia", "DesNal", "ComNal", "CenNal", "DesInt", "ComInt", "CenInt");
 
                         DataRow[] dr = dtDiasVia.Select("FechaDia='" + dtDiasDistinct.Rows[i]["Dia"].S() + "'");
 
