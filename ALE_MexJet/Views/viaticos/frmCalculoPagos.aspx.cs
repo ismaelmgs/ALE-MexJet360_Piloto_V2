@@ -505,7 +505,7 @@ namespace ALE_MexJet.Views.viaticos
                     if (eSavePeriodos != null)
                         eSavePeriodos(sender, e);
                 }
-
+                btnExportar.Enabled = true;
                 
 
 
@@ -1693,12 +1693,20 @@ namespace ALE_MexJet.Views.viaticos
             {
                 if (ds != null)
                 {
-                    string sContent = CrearReporteGral(ds);
-                    if (!string.IsNullOrEmpty(sContent))
+                    if (ds.Tables[0].Rows.Count > 0)
                     {
-                        divReporte.InnerHtml = sContent;
+                        btnExportar.Enabled = true;
+                        string sContent = CrearReporteGral(ds);
+                        if (!string.IsNullOrEmpty(sContent))
+                        {
+                            divReporte.InnerHtml = sContent;
+                        }
                     }
+                    else
+                        btnExportar.Enabled = false;
                 }
+                else
+                    btnExportar.Enabled = false;
             }
             catch (Exception ex)
             {

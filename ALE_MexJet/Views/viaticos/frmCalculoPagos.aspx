@@ -242,7 +242,7 @@
             <div class="col-md-12" align="right">
                 <asp:UpdatePanel ID="upaExportar" runat="server" UpdateMode="Conditional">
                     <ContentTemplate>
-                        <asp:Button ID="btnExportar" runat="server" Text="Exportar a Excel" CssClass="btn btn-success" OnClick="btnExportar_Click" />
+                        <asp:Button ID="btnExportar" runat="server" Text="Exportar a Excel" CssClass="btn btn-success" OnClick="btnExportar_Click" Enabled="false" />
                     </ContentTemplate>
                     <Triggers>
                         <asp:PostBackTrigger ControlID="btnExportar" />
