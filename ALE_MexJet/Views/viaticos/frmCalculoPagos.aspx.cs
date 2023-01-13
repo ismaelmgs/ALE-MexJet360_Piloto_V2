@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -68,6 +69,12 @@ namespace ALE_MexJet.Views.viaticos
 
                 if (eSearchObj != null)
                     eSearchObj(sender, e);
+
+                sFechaInicio = sFechaDesde;
+                sFechaFinal = sFechaHasta;
+
+                if (eSearchReporteGral != null)
+                    eSearchReporteGral(sender, e);
             }
             catch (Exception ex)
             {
@@ -1680,6 +1687,326 @@ namespace ALE_MexJet.Views.viaticos
                 throw ex;
             }
         }
+        public void LlenaReporteGral(DataSet ds)
+        {
+            try
+            {
+                if (ds != null)
+                {
+                    string sContent = CrearReporteGral(ds);
+                    if (!string.IsNullOrEmpty(sContent))
+                    {
+                        divReporte.InnerHtml = sContent;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        public string CrearReporteGral(DataSet dsGral)
+        {
+            try
+            {
+                decimal dTotalMXN = 0;
+                decimal dTotalUSD = 0;
+                string sFechaActual = string.Empty;
+                DateTime dtActual = DateTime.Now;
+                DataTable dtAli = new DataTable();
+                DataTable dtAjustes = new DataTable();
+                dtAli = dsGral.Tables[0];
+                dtAjustes = dsGral.Tables[1];
+
+                string sPeriodo = string.Empty;
+                string sDel = string.Empty;
+                string sAl = string.Empty;
+                string style = @"<style> " + System.IO.File.ReadAllText(Server.MapPath("~/Styles/bootstrap4.min.css")) + "</style>";
+                //string css = System.IO.File.ReadAllText(Server.MapPath("~/Styles/bootstrap4.min.css"));
+                byte[] imageArray = System.IO.File.ReadAllBytes(Server.MapPath(@"~/img/logo-ale.jpg"));
+                string base64ImageRepresentation = Convert.ToBase64String(imageArray);
+
+                sFechaActual = dtActual.Day.S() + " de " + GetMes(dtActual.Month) + " de " + dtActual.Year.S() + " a las " + dtActual.Hour.S() + ":" + dtActual.Minute.S() + " hrs.";
+                sDel = "Del " + dsGral.Tables[2].Rows[0]["FechaInicio"].S().Dt().Day.S() + " " + GetMes(dsGral.Tables[2].Rows[0]["FechaInicio"].S().Dt().Month) + " " + dsGral.Tables[2].Rows[0]["FechaInicio"].S().Dt().Year.S();
+                sAl = "al " + dsGral.Tables[2].Rows[0]["FechaFinal"].S().Dt().Day.S() + " " + GetMes(dsGral.Tables[2].Rows[0]["FechaFinal"].S().Dt().Month) + " " + dsGral.Tables[2].Rows[0]["FechaFinal"].S().Dt().Year.S();
+                sPeriodo = sDel + " " + sAl;
+
+                string sHtml = string.Empty;
+                sHtml += "<!doctype html>";
+                sHtml += "<html>";
+                sHtml += "<head>";
+                sHtml += "  <title></title>";
+                sHtml += "  <meta charset='utf-8' />";
+                sHtml += "  <meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no'>";
+                sHtml += "  <style>";
+                //sHtml += css;
+                sHtml += "      .row {";
+                sHtml += "          margin-right: 0px;";
+                sHtml += "          margin-left: 0px; }";
+
+                sHtml += ".table td, .table th {";
+                sHtml += "    padding: .75rem;";
+                sHtml += "    vertical-align: top;";
+                sHtml += "    border-top: 0px solid #ffffff !important;";
+                sHtml += "}";
+
+                sHtml += "      .header {";
+                sHtml += "          color: #2065D5;";
+                sHtml += "          font-size: 12px; }";
+
+                sHtml += "  </style>";
+                //sHtml += style;
+
+                sHtml += "</head>";
+                sHtml += "<body>";
+
+                sHtml += "  <div>";
+
+                #region ENCABEZADO;
+
+                sHtml += "      <div class='row'>";
+                sHtml += "          <div class='col-md-4' style='width:300px; top:50px;'>";
+                sHtml += "              <img src='" + Server.MapPath(@"~/img/logo-ale.jpg") + "' alt='Logo Ale' width='300px' height='100px' />";
+                sHtml += "          </div>";
+                sHtml += "          <div class='col-md-8'>";
+                sHtml += "              <div style='text-align:center; width:800px; margin-top:-400px;'>";
+                sHtml += "                  <h1>Total de Viáticos por Periodo</h1><br />";
+                sHtml += "              </div>";
+                sHtml += "          </div>";
+                sHtml += "      </div>";
+                sHtml += "      <div class='row'>";
+                sHtml += "          <div class='col-md-12' style='text-align:center; '>";
+                sHtml += "              <label Style='font-weight:bold;'>Periodo</label><br />";
+                sHtml += "              <label>" + sPeriodo + "</label>";
+                sHtml += "          </div>";
+                sHtml += "      </div>";
+
+                sHtml += "      <div class='row' style='margin-top:-50px;'>";
+                sHtml += "          <div class='col-md-8' style='width:1000px;'>";
+                //sHtml += "              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+                sHtml += "          </div>";
+                sHtml += "          <div class='col-md-4' style='text-align:right;width:400px;'>";
+                sHtml += "              <label>Fecha: " + sFechaActual + "</label><br />";
+                sHtml += "              <label Style='font-weight:bold; '>Usuario: </label>";
+                sHtml += "              <label>" + ((UserIdentity)Session["UserIdentity"]).sName + "</label>";
+                sHtml += "          </div>";
+                sHtml += "      </div>";
+
+
+                #endregion
+
+                #region VUELOS
+
+                sHtml += "      <div class='row'>";
+                sHtml += "          <div class='col-md-12'>";
+                sHtml += "              <table width='100%' border='0' class='table'>";
+                sHtml += "                  <tr>";
+                sHtml += "                    <td colspan='17' style='font-size:12pt;font-weight:600;'>Vuelos</td>";
+                sHtml += "                  </tr>";
+                sHtml += "                  <tr>";
+                sHtml += "                    <td class='header'><label>Clave Piloto</label></td>";
+                sHtml += "                    <td class='header'><label>Piloto</label></td>";
+                sHtml += "                    <td class='header'><label>Desayuno Nac.</label></td>";
+                sHtml += "                    <td class='header'><label>Importe</label></td>";
+                sHtml += "                    <td class='header'><label>Desayuno Int.</label></td>";
+                sHtml += "                    <td class='header'><label>Importe</label></td>";
+                sHtml += "                    <td class='header'><label>Comida Nac.</label></td>";
+                sHtml += "                    <td class='header'><label>Importe</label></td>";
+                sHtml += "                    <td class='header'><label>Comida Int.</label></td>";
+                sHtml += "                    <td class='header'><label>Importe</label></td>";
+                sHtml += "                    <td class='header'><label>Cena Nac.</label></td>";
+                sHtml += "                    <td class='header'><label>Importe</label></td>";
+                sHtml += "                    <td class='header'><label>Cena Int.</label></td>";
+                sHtml += "                    <td class='header'><label>Importe</label></td>";
+                sHtml += "                    <td class='header'><label>Estatus</label></td>";
+                sHtml += "                    <td class='header'><label>Total en MXN</label></td>";
+                sHtml += "                    <td class='header'><label>Total en USD</label></td>";
+
+                sHtml += "                  </tr>";
+
+                for (int i = 0; i < dtAli.Rows.Count; i++)
+                {
+                    sHtml += "<tr>";
+                    sHtml += "  <td>" + dtAli.Rows[i]["CvePiloto"].S() + "</td>";
+                    sHtml += "  <td>" + dtAli.Rows[i]["Piloto"].S() + "</td>";
+
+                    sHtml += "  <td>" + dtAli.Rows[i]["DesNac"].S() + "</td>";
+                    sHtml += "  <td>" + dtAli.Rows[i]["ImpDesNac"].S().D().ToString("C") + "</td>";
+                    sHtml += "  <td>" + dtAli.Rows[i]["DesInt"].S() + "</td>";
+                    sHtml += "  <td>" + dtAli.Rows[i]["ImpDesInt"].S().D().ToString("C2") + "</td>";
+                    sHtml += "  <td>" + dtAli.Rows[i]["ComNac"].S() + "</td>";
+                    sHtml += "  <td>" + dtAli.Rows[i]["ImpComNac"].S().D().ToString("C") + "</td>";
+                    sHtml += "  <td>" + dtAli.Rows[i]["ComInt"].S() + "</td>";
+                    sHtml += "  <td>" + dtAli.Rows[i]["ImpComInt"].S().D().ToString("C2") + "</td>";
+                    sHtml += "  <td>" + dtAli.Rows[i]["CenNac"].S() + "</td>";
+                    sHtml += "  <td>" + dtAli.Rows[i]["ImpCenNac"].S().D().ToString("C") + "</td>";
+                    sHtml += "  <td>" + dtAli.Rows[i]["CenInt"].S() + "</td>";
+                    sHtml += "  <td>" + dtAli.Rows[i]["ImpCenInt"].S().D().ToString("C2") + "</td>";
+
+                    sHtml += "  <td>" + dtAli.Rows[i]["Estatus"].S() + "</td>";
+                    sHtml += "  <td>" + dtAli.Rows[i]["TotalMXN"].S().D().ToString("C") + "</td>";
+                    sHtml += "  <td>" + dtAli.Rows[i]["TotalUSD"].S().D().ToString("C2") + "</td>";
+
+                    sHtml += "</tr>";
+
+                    dTotalMXN += dtAli.Rows[i]["TotalMXN"].S().D();
+                    dTotalUSD += dtAli.Rows[i]["TotalUSD"].S().D();
+                }
+
+                sHtml += "                  <tr>";
+                sHtml += "                    <td class='header' colspan='15' align='right'><label>Total</label></td>";
+                sHtml += "                    <td style='font-weight:600;'><label>" + dTotalMXN.ToString("C") + "</label></td>";
+                sHtml += "                    <td style='font-weight:600;'><label>" + dTotalUSD.ToString("C2") + "</label></td>";
+
+                sHtml += "                  </tr>";
+
+                sHtml += "              </table>";
+
+                sHtml += "          </div>";
+                sHtml += "      </div>";
+                #endregion
+
+                #region AJUSTES
+                sHtml += "      <div class='row'>";
+                sHtml += "          <div class='col-md-12'>";
+                sHtml += "              <table width='100%' border='0' class='table'>";
+                sHtml += "                  <tr>";
+                sHtml += "                    <td colspan='17' style='font-size:12pt;font-weight:600;'>Especiales</td>";
+                sHtml += "                  </tr>";
+                sHtml += "                  <tr>";
+                sHtml += "                    <td class='header'><label>Clave Piloto</label></td>";
+                sHtml += "                    <td class='header'><label>Piloto</label></td>";
+                sHtml += "                    <td class='header' colspan='2'><label>Concepto Adicional</label></td>";
+                sHtml += "                    <td class='header' colspan='2'><label>Descripción</label></td>";
+                sHtml += "                    <td class='header'><label>MXN</label></td>";
+                sHtml += "                    <td class='header'><label>USD</label></td>";
+                
+                sHtml += "                  </tr>";
+
+                decimal dTotalAjustesMXN = 0;
+                decimal dTotalAjustesUSD = 0;
+
+                for (int x = 0; x < dtAjustes.Rows.Count; x++)
+                {
+                    sHtml += "              <tr>";
+                    sHtml += "                <td>" + dtAjustes.Rows[x]["CvePiloto"].S() + "</td>";
+                    sHtml += "                <td>" + dtAjustes.Rows[x]["Piloto"].S() + "</td>";
+                    sHtml += "                <td colspan='2'>" + dtAjustes.Rows[x]["ConceptoAdicional"].S() + "</td>";
+                    sHtml += "                <td colspan='2'>" + dtAjustes.Rows[x]["Descripcion"].S() + "</td>";
+                    sHtml += "                <td>" + dtAjustes.Rows[x]["MXN"].S().D().ToString("C") + "</td>";
+                    sHtml += "                <td>" + dtAjustes.Rows[x]["USD"].S().D().ToString("C2") + "</td>";
+                    sHtml += "              </tr>";
+                    dTotalAjustesMXN += dtAjustes.Rows[x]["MXN"].S().D();
+                    dTotalAjustesUSD += dtAjustes.Rows[x]["USD"].S().D();
+                }
+                sHtml += "                  <tr>";
+                sHtml += "                    <td class='header' colspan='6' align='right'><label>Total</label></td>";
+                sHtml += "                    <td style='font-weight:600;'><label>" + dTotalAjustesMXN.ToString("C") + "</label></td>";
+                sHtml += "                    <td style='font-weight:600;'><label>" + dTotalAjustesUSD.ToString("C2") + "</label></td>";
+
+                sHtml += "                  </tr>";
+
+                sHtml += "              </table>";
+                sHtml += "          </div>";
+                sHtml += "      </div>";
+                #endregion
+
+                #region Total General
+                decimal dTotalVuelosMXN = 0;
+                decimal dTotalVuelosUSD = 0;
+
+                dTotalVuelosMXN = dTotalMXN;
+                dTotalVuelosUSD = dTotalUSD;
+
+                decimal dTotalEspecialesMXN = 0;
+                decimal dTotalEspecialesUSD = 0;
+
+                dTotalEspecialesMXN = dTotalAjustesMXN;
+                dTotalEspecialesUSD = dTotalAjustesUSD;
+
+                decimal dTotalGralMXN = 0;
+                decimal dTotalGralUSD = 0;
+
+                dTotalGralMXN = dTotalVuelosMXN + dTotalEspecialesMXN;
+                dTotalGralUSD = dTotalVuelosUSD + dTotalEspecialesUSD;
+
+                sHtml += "      <div class='row'>";
+                sHtml += "          <div class='col-md-12'>";
+                sHtml += "              <table width='100%' border='0' class='table'>";
+                //sHtml += "                  <tr>";
+                //sHtml += "                    <td colspan='17' style='font-size:12pt;font-weight:600;'>Total General</td>";
+                //sHtml += "                  </tr>";
+
+                sHtml += "                  <tr>";
+                sHtml += "                    <td colspan='2' style='font-size:12pt;font-weight:600;'>Total General</td>";
+                sHtml += "                    <td class='header'><label>MXN</label></td>";
+                sHtml += "                    <td class='header'><label>USD</label></td>";
+                sHtml += "                  </tr>";
+
+                sHtml += "                  <tr>";
+                sHtml += "                    <td colspan='2'>Total Vuelos</td>";
+                sHtml += "                    <td><label>" + dTotalVuelosMXN.ToString("C") + "</label></td>";
+                sHtml += "                    <td><label>" + dTotalVuelosUSD.ToString("C2") + "</label></td>";
+                sHtml += "                  </tr>";
+
+                sHtml += "                  <tr>";
+                sHtml += "                    <td colspan='2'>Total Especiales</td>";
+                sHtml += "                    <td><label>" + dTotalEspecialesMXN.ToString("C") + "</label></td>";
+                sHtml += "                    <td><label>" + dTotalEspecialesUSD.ToString("C2") + "</label></td>";
+                sHtml += "                  </tr>";
+
+                sHtml += "                  <tr>";
+                sHtml += "                    <td colspan='2'> </td>";
+                sHtml += "                    <td style='font-weight:600;'><label>" + dTotalGralMXN.ToString("C") + "</label></td>";
+                sHtml += "                    <td style='font-weight:600;'><label>" + dTotalGralUSD.ToString("C2") + "</label></td>";
+                sHtml += "                  </tr>";
+
+                sHtml += "              </table>";
+                sHtml += "          </div>";
+                sHtml += "      </div>";
+
+                #endregion
+
+
+                sHtml += "  </div>";
+
+                sHtml += "</body>";
+                sHtml += "</html>";
+                return sHtml;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        protected void btnExportar_Click(object sender, EventArgs e)
+        {
+            Response.Clear();
+            Response.Buffer = true;
+            Response.ContentType = "application/vnd.ms-excel";
+            Response.AddHeader("content-disposition", "attachment;filename=ReporteGeneral.xls");
+            Response.Charset = Encoding.UTF8.WebName; //"UTF-8";
+            Response.ContentEncoding = Encoding.UTF8;
+            this.EnableViewState = false;
+
+            StringWriter stringWrite = new StringWriter();
+            HtmlTextWriter htmlWrite = new HtmlTextWriter(stringWrite);
+            pnlReporte.RenderControl(htmlWrite);
+
+            //string style = @"<style> " + System.IO.File.ReadAllText(Server.MapPath("~/Styles/bootstrap4.min.css")) + "</style>";
+            //Response.Write(style);
+            Response.Write(stringWrite.ToString());
+            Response.Flush();
+            //Response.End();
+            Response.SuppressContent = true;
+            HttpContext.Current.ApplicationInstance.CompleteRequest();
+        }
+        public override void VerifyRenderingInServerForm(Control control)
+        {
+            /* Verifies that the control is rendered */
+        }
+
         public string ImprimirReporte(DataSet ds)
         {
             try
@@ -2395,6 +2722,7 @@ namespace ALE_MexJet.Views.viaticos
         public event EventHandler eSearchExistePeriodoPic;
         public event EventHandler eSaveViaticosDia;
         public event EventHandler eSearchReporte;
+        public event EventHandler eSearchReporteGral;
 
         public string sCvePiloto
         {
@@ -2577,9 +2905,10 @@ namespace ALE_MexJet.Views.viaticos
             get { return (DataTable)ViewState["VSdtTotales"]; }
             set { ViewState["VSdtTotales"] = value; }
         }
-        #endregion 
+
+
+        #endregion
 
         
-
     }
 }

@@ -239,6 +239,19 @@
     <br />
     <asp:Panel ID="pnlVuelos" runat="server" Visible="false">
         <div class="row">
+            <div class="col-md-12" align="right">
+                <asp:UpdatePanel ID="upaExportar" runat="server" UpdateMode="Conditional">
+                    <ContentTemplate>
+                        <asp:Button ID="btnExportar" runat="server" Text="Exportar a Excel" CssClass="btn btn-success" OnClick="btnExportar_Click" />
+                    </ContentTemplate>
+                    <Triggers>
+                        <asp:PostBackTrigger ControlID="btnExportar" />
+                    </Triggers>
+                </asp:UpdatePanel>
+                
+            </div>
+        </div>
+        <div class="row">
             <div class="col-md-12" style="margin-left: -15px; width: 102%;">
                 <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional">
                     <ContentTemplate>
@@ -330,7 +343,9 @@
         </div>
     </asp:Panel>
 
-
+    <asp:Panel ID="pnlReporte" runat="server" Visible="true" Width="100%">
+        <div id="divReporte" runat="server" style="display:none;"></div>
+    </asp:Panel>
     
         
           <asp:Panel ID="pnlDatosPiloto" runat="server" Visible="false" style="padding-bottom: 10px;">

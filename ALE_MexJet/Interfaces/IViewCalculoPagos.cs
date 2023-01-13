@@ -49,6 +49,7 @@ namespace ALE_MexJet.Interfaces
         DataTable dtDiasViaticos { set; get; }
 
         void LlenaReporte(DataSet ds);
+        void LlenaReporteGral(DataSet ds);
 
         event EventHandler eSearchConceptos;
         event EventHandler eSearchVuelos;
@@ -64,5 +65,6 @@ namespace ALE_MexJet.Interfaces
         event EventHandler eRemoveAjuste;
         event EventHandler eSearchExistePeriodoPic;
         event EventHandler eSearchReporte;
+        event EventHandler eSearchReporteGral;
     }
 }

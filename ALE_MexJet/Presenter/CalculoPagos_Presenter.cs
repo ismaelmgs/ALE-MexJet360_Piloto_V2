@@ -32,6 +32,7 @@ namespace ALE_MexJet.Presenter
             oIView.eRemoveAjuste += RemoveAjuste_Presenter;
             oIView.eSearchExistePeriodoPic += SearchExistePeriodoPic_Presenter;
             oIView.eSearchReporte += SearchReporte_Presenter;
+            oIView.eSearchReporteGral += SearchReporteGral_Presenter;
         }
 
         protected void GetAdicionales_Presenter(object sender, EventArgs e)
@@ -2652,6 +2653,10 @@ namespace ALE_MexJet.Presenter
         protected void SearchReporte_Presenter(object sender, EventArgs e)
         {
             oIView.LlenaReporte(oIGestCat.ObtieneDatosReporte(oIView.iIdPeriodo));
+        }
+        protected void SearchReporteGral_Presenter(object sender, EventArgs e)
+        {
+            oIView.LlenaReporteGral(oIGestCat.ObtieneDatosReporteGral(oIView.sFechaInicio, oIView.sFechaFinal));
         }
     }
 }

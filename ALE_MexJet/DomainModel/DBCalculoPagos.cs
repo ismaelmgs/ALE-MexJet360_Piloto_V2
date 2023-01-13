@@ -360,6 +360,18 @@ namespace ALE_MexJet.DomainModel
                 throw ex;
             }
         }
+        public DataSet ObtieneDatosReporteGral(string sFechaInicio, string sFechaFinal)
+        {
+            try
+            {
+                return new DBBase().oDB_SP.EjecutarDS("[VB].[spS_MXJ_ConsultaReporteGeneral]", "@FechaInicio", sFechaInicio.Dt().ToString("yyyy-MM-dd"),
+                                                                                               "@FechaFin", sFechaFinal.Dt().ToString("yyyy-MM-dd"));
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
 
     }
 }
