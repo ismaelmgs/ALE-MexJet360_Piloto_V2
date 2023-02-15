@@ -60,6 +60,8 @@ namespace ALE_MexJet.Objetos
         private decimal _dCena = 0;
         private decimal _dTotal = 0;
 
+        private decimal _dTipoCambio = 0;
+
         public int IIdPeriodo { get => _iIdPeriodo; set => _iIdPeriodo = value; }
         public string SMoneda { get => _sMoneda; set => _sMoneda = value; }
         public DateTime DtFecha { get => _dtFecha; set => _dtFecha = value; }
@@ -67,6 +69,7 @@ namespace ALE_MexJet.Objetos
         public decimal DComida { get => _dComida; set => _dComida = value; }
         public decimal DCena { get => _dCena; set => _dCena = value; }
         public decimal DTotal { get => _dTotal; set => _dTotal = value; }
+        public decimal DTipoCambio { get => _dTipoCambio; set => _dTipoCambio = value; }
     }
 
     [Serializable]

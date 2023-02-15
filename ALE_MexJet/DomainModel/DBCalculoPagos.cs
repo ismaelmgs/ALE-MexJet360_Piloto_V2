@@ -336,7 +336,8 @@ namespace ALE_MexJet.DomainModel
                                                                                                           "@Desayuno", oLst[i].DDesayuno,
                                                                                                           "@Comida", oLst[i].DComida,
                                                                                                           "@Cena", oLst[i].DCena,
-                                                                                                          "@Total", oLst[i].DTotal);
+                                                                                                          "@Total", oLst[i].DTotal,
+                                                                                                          "@TipoCambio", oLst[i].DTipoCambio);
                     if (oRes.S().I() == 1)
                         bRes = true;
                 }
@@ -373,5 +374,17 @@ namespace ALE_MexJet.DomainModel
             }
         }
 
+        public decimal ObtenerTipoCambio(string sFechaVuelo)
+        {
+            try
+            {
+                object oRes = new DBBaseSAP().oDB_SP.EjecutarValor_DeQuery("SELECT Rate FROM ORTT WHERE RateDate='" + sFechaVuelo.Dt().ToString("yyyy-MM-dd") + " 00:00:00.000' AND Currency = 'USD'");
+                return oRes.S().D();
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+        }
     }
 }

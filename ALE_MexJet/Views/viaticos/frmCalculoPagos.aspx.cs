@@ -34,6 +34,20 @@ namespace ALE_MexJet.Views.viaticos
             gvCalculo.SettingsPager.PageSizeItemSettings.Position = PagerPageSizePosition.Right;
             gvCalculo.SettingsText.SearchPanelEditorNullText = "Ingresa la información a buscar:";
             gvCalculo.Settings.ShowGroupPanel = true;
+            gvCalculo.Settings.ShowTitlePanel = true;
+            gvCalculo.SettingsText.Title = "Periodos Guardados";
+
+            gvPeriodosGuardados.SettingsPager.Position = PagerPosition.TopAndBottom;
+            gvPeriodosGuardados.SettingsPager.ShowDisabledButtons = true;
+            gvPeriodosGuardados.SettingsPager.ShowNumericButtons = true;
+            gvPeriodosGuardados.SettingsPager.ShowSeparators = true;
+            gvPeriodosGuardados.SettingsPager.Summary.Visible = true;
+            gvPeriodosGuardados.SettingsPager.PageSizeItemSettings.Visible = true;
+            gvPeriodosGuardados.SettingsPager.PageSizeItemSettings.Position = PagerPageSizePosition.Right;
+            gvPeriodosGuardados.SettingsText.SearchPanelEditorNullText = "Ingresa la información a buscar:";
+            gvPeriodosGuardados.Settings.ShowGroupPanel = true;
+            gvPeriodosGuardados.Settings.ShowTitlePanel = true;
+            gvPeriodosGuardados.SettingsText.Title = "Periodos Pendientes";
 
             gvVuelos.Settings.ShowGroupPanel = false;
 
@@ -239,6 +253,166 @@ namespace ALE_MexJet.Views.viaticos
                 throw ex;
             }
         }
+
+        protected void gvPeriodosGuardados_RowCommand(object sender, DevExpress.Web.ASPxGridViewRowCommandEventArgs e)
+        {
+            try
+            {
+                if (e.CommandArgs.CommandName.S() == "Ver")
+                {
+                    dtDiasViaticos = null;
+                    dtAjustes = null;
+                    int index = e.VisibleIndex.I();
+                    string sCrewCode = gvPeriodosGuardados.GetRowValues(index, "CrewCode").S();
+                    string[] fieldValues = { "Piloto", "CrewCode", "FechaInicio", "FechaFin", "Estatus", "HomeBase" };
+                    object obj = gvPeriodosGuardados.GetRowValues(index, fieldValues);
+                    object[] oB = (object[])obj;
+
+                    if (oB.Length > 0)
+                    {
+                        //hdnIdBitacora.Value = iIdBitacora.S();
+                        readPiloto.Text = oB[0].S();
+                        readCvePiloto.Text = oB[1].S();
+                        DateTime dtFecha1 = oB[2].S().Dt();
+                        DateTime dtFecha2 = oB[3].S().Dt();
+                        string sMesDel = GetMes(dtFecha1.Month);
+                        string sMesHasta = GetMes(dtFecha2.Month);
+                        string sHomeBase = oB[5].S();
+
+                        readPeríodo.Text = "Del " + dtFecha1.Day.S() + " de " + sMesDel + " de " + dtFecha1.Year.S() + " al " + dtFecha2.Day.S() + " de " + sMesHasta + " de " + dtFecha2.Year.S();
+                        hdnFechaInicio.Value = dtFecha1.ToShortDateString();
+                        hdnFechaFinal.Value = dtFecha2.ToShortDateString();
+                        readBase.Text = sHomeBase;
+
+                        sParametro = oB[1].S();
+
+                        if (eGetAdicionales != null)
+                            eGetAdicionales(sender, e);
+
+                        sCvePiloto = oB[1].S();
+                        sFechaInicio = oB[2].S();
+                        sFechaFinal = oB[3].S();
+
+                        if (eSearchEstatus != null)
+                            eSearchEstatus(sender, e);
+
+                        if (eSearchExistePeriodoPic != null)
+                            eSearchExistePeriodoPic(sender, e);
+
+                        if (iEstatus <= 1 && iExistePeriodo == 0)
+                            btnGuardarPeriodo.Visible = true;
+                        else if (iEstatus == 1 && iExistePeriodo == 1)
+                            btnGuardarPeriodo.Visible = true;
+                        else if (iEstatus == 2 && iExistePeriodo == 1)
+                            btnGuardarPeriodo.Visible = false;
+                        else if (iEstatus == 3 && iExistePeriodo == 1)
+                            btnGuardarPeriodo.Visible = false;
+
+                        //Consulta periodo si existe muestra ajustes por piloto
+                        if (eSearchPeriodo != null)
+                            eSearchPeriodo(sender, e);
+
+
+                        hdnIdPeriodo.Value = iIdPeriodo.S();
+                        if (eSearchAjustesPiloto != null)
+                            eSearchAjustesPiloto(sender, e);
+
+                        //-----------------------------------------------------
+
+
+                        pnlDatosPiloto.Visible = true;
+                        pnlBusqueda.Visible = false;
+                        pnlVuelos.Visible = false;
+                        pnlCalcularViaticos.Visible = true;
+                        upaVuelos.Update();
+
+                        if (eSearchCalculos != null)
+                            eSearchCalculos(sender, e);
+
+                        if (dtCalculos != null && dtCalculos.Rows.Count > 0)
+                        {
+                            CargaViaticos();
+                        }
+                    }
+
+                }
+                //else if (e.CommandArgs.CommandName.S() == "Ajustes")
+                //{
+                //    dtAjustes = null;
+                //    int index = e.VisibleIndex.I();
+                //    string sCrewCode = gvPeriodosGuardados.GetRowValues(index, "CrewCode").S();
+                //    string[] fieldValues = { "Piloto", "CrewCode", "FechaInicio", "FechaFin", "Estatus" };
+                //    object obj = gvPeriodosGuardados.GetRowValues(index, fieldValues);
+                //    object[] oB = (object[])obj;
+                //    if (oB.Length > 0)
+                //    {
+                //        readPiloto.Text = oB[0].S();
+                //        readCvePiloto.Text = oB[1].S();
+                //        DateTime dtFecha1 = oB[2].S().Dt();
+                //        DateTime dtFecha2 = oB[3].S().Dt();
+                //        string sMesDel = GetMes(dtFecha1.Month);
+                //        string sMesHasta = GetMes(dtFecha2.Month);
+
+                //        readPeríodo.Text = "Del " + dtFecha1.Day.S() + " de " + sMesDel + " de " + dtFecha1.Year.S() + " al " + dtFecha2.Day.S() + " de " + sMesHasta + " de " + dtFecha2.Year.S();
+                //        hdnFechaInicio.Value = dtFecha1.ToShortDateString();
+                //        hdnFechaFinal.Value = dtFecha2.ToShortDateString();
+
+                //        if (eGetAdicionales != null)
+                //            eGetAdicionales(sender, e);
+
+                //        sCvePiloto = oB[1].S();
+                //        sFechaInicio = oB[2].S();
+                //        sFechaFinal = oB[3].S();
+
+                //        if (eSearchPeriodo != null)
+                //            eSearchPeriodo(sender, e);
+
+                //        if (iIdPeriodo != 0)
+                //        {
+                //            hdnIdPeriodo.Value = iIdPeriodo.S();
+                //            //Consulta conceptos adicionales por periodo
+                //            if (eSearchConAdPeriodo != null)
+                //                eSearchConAdPeriodo(sender, e);
+                //            //}
+
+                //            pnlDatosPiloto.Visible = true;
+                //            pnlBusqueda.Visible = false;
+                //            pnlVuelos.Visible = false;
+                //            pnlCalcularViaticos.Visible = false;
+                //            pnlAjuste.Visible = true;
+                //        }
+                //    }
+                //}
+                //else if (e.CommandArgs.CommandName.S() == "Reporte")
+                //{
+                //    int index = e.VisibleIndex.I();
+                //    string sCrewCode = gvPeriodosGuardados.GetRowValues(index, "CrewCode").S();
+                //    string[] fieldValues = { "Piloto", "CrewCode", "FechaInicio", "FechaFin", "Estatus" };
+                //    object obj = gvPeriodosGuardados.GetRowValues(index, fieldValues);
+                //    object[] oB = (object[])obj;
+                //    if (oB.Length > 0)
+                //    {
+                //        sCvePiloto = oB[1].S();
+                //        sFechaInicio = oB[2].S();
+                //        sFechaFinal = oB[3].S();
+
+                //        if (eSearchPeriodo != null)
+                //            eSearchPeriodo(sender, e);
+
+                //        if (iIdPeriodo != 0)
+                //        {
+                //            if (eSearchReporte != null)
+                //                eSearchReporte(sender, e);
+                //        }
+                //    }
+                //}
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         protected void btnGuardarPeriodo_Click(object sender, EventArgs e)
         {
             try
@@ -327,6 +501,12 @@ namespace ALE_MexJet.Views.viaticos
                     oCD.DComida = dtViaticosDiaInsert.Rows[i]["Comida"].S().Replace("$", "").D();
                     oCD.DCena = dtViaticosDiaInsert.Rows[i]["Cena"].S().Replace("$", "").D();
                     oCD.DTotal = dtViaticosDiaInsert.Rows[i]["Total"].S().Replace("$", "").D();
+
+                    if (dtViaticosDiaInsert.Rows[i]["Moneda"].S() == "USD")
+                        oCD.DTipoCambio = new DBCalculoPagos().ObtenerTipoCambio(dtViaticosDiaInsert.Rows[i]["Fecha"].S());
+                    else
+                        oCD.DTipoCambio = 0;
+
                     oLsViPorDia.Add(oCD);
                 }
                 oLstPorDia = oLsViPorDia;
@@ -615,6 +795,98 @@ namespace ALE_MexJet.Views.viaticos
                 throw ex;
             }
         }
+
+        protected void gvPeriodosGuardados_HtmlDataCellPrepared(object sender, DevExpress.Web.Bootstrap.BootstrapGridViewTableDataCellEventArgs e)
+        {
+            try
+            {
+                if (e.DataColumn.FieldName == "Estatus")
+                {
+                    sCvePiloto = string.Empty;
+                    sFechaInicio = string.Empty;
+                    sFechaFinal = string.Empty;
+
+                    BootstrapGridView gvB = (BootstrapGridView)(sender as BootstrapGridView);
+                    Label rdEstatus = gvB.FindRowCellTemplateControl(e.VisibleIndex, e.DataColumn, "readEstatusPendientes") as Label;
+
+                    string[] fieldValues = { "Piloto", "CrewCode", "FechaInicio", "FechaFin" };
+                    object obj = gvB.GetRowValues(e.VisibleIndex, fieldValues);
+                    object[] oB = (object[])obj;
+
+                    sCvePiloto = oB[1].S();
+                    sFechaInicio = oB[2].S();
+                    sFechaFinal = oB[3].S();
+
+                    if (eSearchEstatus != null)
+                        eSearchEstatus(sender, e);
+
+                    //Consultar existencia del periodo por piloto
+
+                    if (iEstatus == 0 || iEstatus == 1)
+                        rdEstatus.Text = "Pendiente";
+                    //else if (iEstatus == 2)
+                    //    rdEstatus.Text = "Guardado";
+                    //else if (iEstatus == 3)
+                    //    rdEstatus.Text = "Pagado";
+
+
+                }
+                if (e.DataColumn.FieldName == "IdFolio")
+                {
+                    sCvePiloto = string.Empty;
+                    sFechaInicio = string.Empty;
+                    sFechaFinal = string.Empty;
+
+                    BootstrapGridView gvB = (BootstrapGridView)(sender as BootstrapGridView);
+                    Label rdEstatus = gvB.FindRowCellTemplateControl(e.VisibleIndex, e.DataColumn, "readEstatusPendientes") as Label;
+                    //ASPxButton btnVerAjustes = gvB.FindRowCellTemplateControl(e.VisibleIndex, e.DataColumn, "btnVerAjustes") as ASPxButton;
+                    //ASPxButton btnReporte = gvB.FindRowCellTemplateControl(e.VisibleIndex, e.DataColumn, "btnReporte") as ASPxButton;
+
+                    //int iIdBitacora = gvB.GetRowValues(e.VisibleIndex, "IdFolio").S().I();
+                    string[] fieldValues = { "Piloto", "CrewCode", "FechaInicio", "FechaFin" };
+                    object obj = gvB.GetRowValues(e.VisibleIndex, fieldValues);
+                    object[] oB = (object[])obj;
+
+                    sCvePiloto = oB[1].S();
+                    sFechaInicio = oB[2].S();
+                    sFechaFinal = oB[3].S();
+
+                    if (eSearchEstatus != null)
+                        eSearchEstatus(sender, e);
+
+                    if (eSearchExistePeriodoPic != null)
+                        eSearchExistePeriodoPic(sender, e);
+
+                    //if (btnVerAjustes != null)
+                    //{
+                    //    if (iEstatus <= 1 && iExistePeriodo == 0)
+                    //    {
+                    //        btnVerAjustes.Enabled = false;
+                    //        btnReporte.Enabled = false;
+                    //    }
+                    //    else if (iEstatus == 1 && iExistePeriodo == 1)
+                    //    {
+                    //        btnVerAjustes.Enabled = false;
+                    //        btnReporte.Enabled = false;
+                    //    }
+                    //    else if (iEstatus == 2 && iExistePeriodo == 1)
+                    //    {
+                    //        btnVerAjustes.Enabled = true;
+                    //        btnReporte.Enabled = true;
+                    //    }
+                    //    else if (iEstatus == 3 && iExistePeriodo == 1)
+                    //    {
+                    //        btnVerAjustes.Enabled = true;
+                    //        btnReporte.Enabled = true;
+                    //    }
+                    //}
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
         protected void btnRegresar_Click(object sender, EventArgs e)
         {
             try
@@ -735,8 +1007,23 @@ namespace ALE_MexJet.Views.viaticos
             {
                 int pageIndex = gvCalculo.PageIndex;
                 gvCalculo.PageIndex = pageIndex;
-                gvCalculo.DataSource = dtCalculos;
+                gvCalculo.DataSource = dtCalculos2;
                 gvCalculo.DataBind();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
+        protected void gvPeriodosGuardados_PageIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                int pageIndex = gvPeriodosGuardados.PageIndex;
+                gvPeriodosGuardados.PageIndex = pageIndex;
+                gvPeriodosGuardados.DataSource = dtCalculos;
+                gvPeriodosGuardados.DataBind();
             }
             catch (Exception ex)
             {
@@ -1106,16 +1393,64 @@ namespace ALE_MexJet.Views.viaticos
             try
             {
                 dtCalculos = dt;
+                dtCalculos2 = dt;
+
+                DataTable dt1 = new DataTable();
+                DataTable dt2 = new DataTable();
+
+                dt1 = dtCalculos.Copy();
+                dt2 = dtCalculos2.Copy();
+
+                dt1.TableName = "Calculos";
+                dt2.TableName = "Calculos2";
+
+                DataSet ds = new DataSet();
+                ds.Tables.Add(dt1);
+                ds.Tables.Add(dt2);
+
                 //GeneraCalculo();
                 if (dtCalculos != null && dtCalculos.Rows.Count > 0)
                 {
-                    gvCalculo.DataSource = dtCalculos;
-                    gvCalculo.DataBind();
                     btnAprobar.Visible = true;
                     pnlVuelos.Visible = true;
+
+                    string sPeriodoBusqueda = string.Empty;
+                    sPeriodoBusqueda = "Del " + date1.Text.Dt().Day.S() + " de " + GetMes(date1.Text.Dt().Month) + " al " + date2.Text.Dt().Day.S() + " de " + GetMes(date2.Text.Dt().Month) + " de " + date2.Text.Dt().Year.S();
+                    lblPeriodoBusqueda.Text = sPeriodoBusqueda;
+
+                    //Periodos sin guardar
+                    //gvCalculo.DataSource = dtCalculos;
+                    //gvCalculo.DataBind();
+
+                    DataTable dtPendientes = new DataTable();
+                    dtPendientes = EliminarPeriodosGuardado(ds.Tables["Calculos2"], 1);
+
+                    //Periodos pendientes
+                    gvPeriodosGuardados.DataSource = dtPendientes;
+                    gvPeriodosGuardados.DataBind();
+
+                    dtCalculos = null;
+                    dtCalculos = dtPendientes;
+
+
+                    DataTable dtGuardados = new DataTable();
+                    dtGuardados = EliminarPeriodosGuardado(ds.Tables["Calculos"], 2);
+                    //Periodos guadados
+                    gvCalculo.DataSource = dtGuardados; //dt;
+                    gvCalculo.DataBind();
+
+                    dtCalculos2 = null;
+                    dtCalculos2 = dtGuardados;
+
+
+                    //Periodos guardados
+                    //gvPeriodosGuardados.DataSource = dtCalculos;
+                    //gvPeriodosGuardados.DataBind();
+
                 }
                 else
                 {
+                    lblPeriodoBusqueda.Text = string.Empty;
                     btnAprobar.Visible = false;
                     pnlVuelos.Visible = false;
                 }
@@ -1123,6 +1458,64 @@ namespace ALE_MexJet.Views.viaticos
             catch (Exception ex)
             {
                 throw ex;
+            }
+        }
+        public DataTable EliminarPeriodosGuardado(DataTable dtSource, int ban)
+        {
+            try
+            {
+                //DataTable dtRes = new DataTable();
+                //dtRes = dtSource;
+
+                //for (int i = dtSource.Rows.Count - 1; i >= 0; i
+
+                if (ban == 1)
+                {
+                    for (int i = dtSource.Rows.Count - 1; i >= 0; i--)
+                    {
+                        sCvePiloto = dtSource.Rows[i]["CrewCode"].S();
+                        sFechaInicio = dtSource.Rows[i]["FechaInicio"].S();
+                        sFechaFinal = dtSource.Rows[i]["FechaFin"].S();
+
+                        if (eSearchEstatus != null)
+                            eSearchEstatus(null, null);
+
+                        if (eSearchExistePeriodoPic != null)
+                            eSearchExistePeriodoPic(null, null);
+
+                        DataRow dr1 = dtSource.Rows[i];
+
+                        if (iExistePeriodo == 1 && iEstatus == 2)
+                            dtSource.Rows.Remove(dr1);
+                    }
+                    dtSource.AcceptChanges();
+                }
+                else if (ban == 2)
+                {
+                    for (int i = dtSource.Rows.Count - 1; i >= 0; i--)
+                    {
+                        sCvePiloto = dtSource.Rows[i]["CrewCode"].S();
+                        sFechaInicio = dtSource.Rows[i]["FechaInicio"].S();
+                        sFechaFinal = dtSource.Rows[i]["FechaFin"].S();
+
+                        if (eSearchEstatus != null)
+                            eSearchEstatus(null, null);
+
+                        if (eSearchExistePeriodoPic != null)
+                            eSearchExistePeriodoPic(null, null);
+
+                        DataRow dr2 = dtSource.Rows[i];
+
+                        if ((iExistePeriodo == 0) && (iEstatus == 0 || iEstatus == 1))
+                            dtSource.Rows.Remove(dr2);
+                    }
+                    dtSource.AcceptChanges();
+                }
+                return dtSource;
+            }
+            catch (Exception ex)
+            {
+                return null;
             }
         }
         public void CargaViaticos()
@@ -1375,6 +1768,24 @@ namespace ALE_MexJet.Views.viaticos
         {
             try
             {
+                decimal dDesayunoMXN = 0;
+                decimal dDesayunoUSD = 0;
+                decimal dComidaMXN = 0;
+                decimal dComidaUSD = 0;
+                decimal dCenaMXN = 0;
+                decimal dCenaUSD = 0;
+
+                if (dsParams.Tables[0] != null && dsParams.Tables[0].Rows.Count > 0)
+                {
+                    dDesayunoMXN = dsParams.Tables[0].Rows[0]["MontoMXN"].S().D();
+                    dDesayunoUSD = dsParams.Tables[0].Rows[0]["MontoUSD"].S().D();
+                    dComidaMXN = dsParams.Tables[0].Rows[1]["MontoMXN"].S().D();
+                    dComidaUSD = dsParams.Tables[0].Rows[1]["MontoUSD"].S().D();
+                    dCenaMXN = dsParams.Tables[0].Rows[2]["MontoMXN"].S().D();
+                    dCenaUSD = dsParams.Tables[0].Rows[2]["MontoUSD"].S().D();
+                }
+
+
                 DataRow dRow;
                 DataTable dtDiasDistinct = new DataTable();
                 DataTable dtDiasFecha = new DataTable();
@@ -1395,9 +1806,19 @@ namespace ALE_MexJet.Views.viaticos
                     DataRow drDias;
                     DataTable dt = new DataTable();
                     dt.Columns.Add("Fecha");
+                    dt.Columns.Add("TipoCambio");
                     dt.Columns.Add("Desayuno");
                     dt.Columns.Add("Comida");
                     dt.Columns.Add("Cena");
+
+                    dt.Columns.Add("DesayunoNac");
+                    dt.Columns.Add("DesayunoInt");
+                    dt.Columns.Add("ComidaNac");
+                    dt.Columns.Add("ComidaInt");
+                    dt.Columns.Add("CenaNac");
+                    dt.Columns.Add("CenaInt");
+                    dt.Columns.Add("Total");
+
 
                     for (int i = 0; i < dtDiasVia.Rows.Count; i++)
                     {
@@ -1411,8 +1832,19 @@ namespace ALE_MexJet.Views.viaticos
                         int iCountComida = 0;
                         int iCountCena = 0;
 
+                        decimal dTipoCambio = 0;
+                        decimal dDesNac = 0;
+                        decimal dDesInt = 0;
+                        decimal dComNac = 0;
+                        decimal dComInt = 0;
+                        decimal dCenNac = 0;
+                        decimal dCenInt = 0;
+                        decimal dTotal = 0;
+
                         drDias = dt.NewRow();
-                        drDias["Fecha"] = dtDiasDistinct.Rows[i]["Dia"].S();
+                        drDias["Fecha"] = dtDiasDistinct.Rows[i]["Dia"].S().Dt().Day.S() + " " + GetMes(dtDiasDistinct.Rows[i]["Dia"].S().Dt().Month).Substring(0,3) + " " + dtDiasDistinct.Rows[i]["Dia"].S().Dt().Year.S();
+
+                        dTipoCambio = new DBCalculoPagos().ObtenerTipoCambio(drDias["Fecha"].S());
 
                         //DataView dvDV = new DataView(dtDiasVia);
                         //DataTable dtDiasDV = dvDV.ToTable(true, "FechaDia", "DesNal", "ComNal", "CenNal", "DesInt", "ComInt", "CenInt");
@@ -1421,14 +1853,42 @@ namespace ALE_MexJet.Views.viaticos
 
                         for (int x = 0; x < dr.Length; x++)
                         {
+                            dDesNac = 0;
+                            dDesInt = 0;
+                            dComNac = 0;
+                            dComInt = 0;
+                            dCenNac = 0;
+                            dCenInt = 0;
+                            dTotal = 0;
+
                             iCountDesayuno += dr[x]["DesNal"].S().I() + dr[x]["DesInt"].S().I();
                             iCountComida += dr[x]["ComNal"].S().I() + dr[x]["ComInt"].S().I();
                             iCountCena += dr[x]["CenNal"].S().I() + dr[x]["CenInt"].S().I();
+
+                            dDesNac = dr[x]["DesNal"].S().I() * dDesayunoMXN;
+                            dDesInt = (dr[x]["DesInt"].S().I() * dDesayunoUSD) * dTipoCambio;
+
+                            dComNac = dr[x]["ComNal"].S().I() * dComidaMXN;
+                            dComInt = (dr[x]["ComInt"].S().I() * dComidaUSD) * dTipoCambio;
+
+                            dCenNac = dr[x]["CenNal"].S().I() * dCenaMXN;
+                            dCenInt = (dr[x]["CenInt"].S().I() * dCenaUSD) * dTipoCambio;
+
+                            dTotal = ((((dDesNac + dDesInt) + dComNac) + dComInt) + dCenNac) + dCenInt;
                         }
 
+                        drDias["TipoCambio"] = dTipoCambio.ToString("c");
                         drDias["Desayuno"] = iCountDesayuno;
                         drDias["Comida"] = iCountComida;
                         drDias["Cena"] = iCountCena;
+
+                        drDias["DesayunoNac"] = dDesNac.ToString("c");
+                        drDias["DesayunoInt"] = dDesInt.ToString("c");
+                        drDias["ComidaNac"] = dComNac.ToString("c");
+                        drDias["ComidaInt"] = dComInt.ToString("c");
+                        drDias["CenaNac"] = dCenNac.ToString("c");
+                        drDias["CenaInt"] = dCenInt.ToString("c");
+                        drDias["Total"] = dTotal.ToString("c");
                         dt.Rows.Add(drDias);
                     }
 
@@ -1774,7 +2234,9 @@ namespace ALE_MexJet.Views.viaticos
 
                 sHtml += "      <div class='row'>";
                 sHtml += "          <div class='col-md-4' style='width:300px; top:50px;'>";
-                sHtml += "              <img src='" + Server.MapPath(@"~/img/logo-ale.jpg") + "' alt='Logo Ale' width='300px' height='100px' />";
+                //sHtml += "              <img src='" + Server.MapPath(@"~/img/logo-ale.jpg") + "' alt='Logo Ale' width='300px' height='100px' />";
+                sHtml += "              <img src='http://172.16.23.30/MexJet360_FL3XX/img/logo-ale.jpg' alt='Logo Ale' width='300px' height='100px' />";
+                
                 sHtml += "          </div>";
                 sHtml += "          <div class='col-md-8'>";
                 sHtml += "              <div style='text-align:center; width:800px; margin-top:-400px;'>";
@@ -2846,6 +3308,11 @@ namespace ALE_MexJet.Views.viaticos
         {
             get { return (DataTable)ViewState["VSCalculos"]; }
             set { ViewState["VSCalculos"] = value; }
+        }
+        public DataTable dtCalculos2
+        {
+            get { return (DataTable)ViewState["VSCalculos2"]; }
+            set { ViewState["VSCalculos2"] = value; }
         }
         public List<PeriodoPiloto> oLstPeriodo
         {

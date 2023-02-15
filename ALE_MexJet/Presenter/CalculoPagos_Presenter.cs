@@ -317,6 +317,9 @@ namespace ALE_MexJet.Presenter
 
                                         string sPod = dtLegs.Rows[0]["POD"].S();
 
+                                        #region CÓDIGO DE CALCULO
+
+                                        #region CUANDO ES SÓLO UN DÍA
                                         if (dtDias.Rows.Count == 1)
                                         {
                                             DataRow[] rowsD = dtLegs.Select("Dia = '" + dtDias.Rows[0]["Dia"].S() + "' ");
@@ -346,7 +349,7 @@ namespace ALE_MexJet.Presenter
                                                     oComDia1.dtFechaFin = rowsD[k][FechaFin].S().Dt();
                                                     oComDia1.sduty_type = rowsD[k]["DutyType"].S();
                                                     oComDia1.sOrigen = rowsD[k]["POD"].S();
-                                                    oComDia1.sDestino = rowsD[k]["POA"].S();
+                                                    oComDia1.sDestino = rowsD[k]["POA"].S();   
 
                                                     if (k + 1 == rowsD.Length)
                                                     {
@@ -356,45 +359,138 @@ namespace ALE_MexJet.Presenter
                                                         fHoraInicio = dtIniDia.Hour + (dtIniDia.Minute / float.Parse("60"));
                                                         fHoraFinal = dtFinDia.Hour + (dtFinDia.Minute / float.Parse("60"));
 
-                                                        if (fHoraInicio < fInicioDesayuno || (fHoraInicio > fInicioDesayuno && fHoraInicio < fFinDesayuno))
+                                                        #region DESAYUNO
+                                                        //if (fHoraInicio < fInicioDesayuno || (fHoraInicio > fInicioDesayuno && fHoraInicio < fFinDesayuno)) //Linea origen
+
+                                                        //Primera condicion
+                                                        if (((fHoraInicio < fInicioDesayuno && fHoraFinal > fInicioDesayuno) && fHoraFinal < fFinDesayuno) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S()))
                                                         {
-                                                            if (bEsInterFinal)
-                                                            {
-                                                                oCant.iCantDesayunosInt++;
-                                                                oComDia1.iDesayunosInt++;
-                                                            }
-                                                            else
-                                                            {
-                                                                oCant.iCantDesayunos++;
-                                                                oComDia1.iDesayunosNal++;
-                                                            }
+                                                            if (bEsInterFinal) { oCant.iCantDesayunosInt++; oComDia1.iDesayunosInt++; } else { oCant.iCantDesayunos++; oComDia1.iDesayunosNal++; }
                                                         }
-                                                        if ((fHoraInicio <= fInicioComida && (fHoraFinal > fInicioComida)) || (fHoraInicio > fInicioComida && fHoraInicio <= fFinComida) || (fHoraInicio < fInicioComida && fHoraFinal > fFinComida))
+                                                        //Segunda condición
+                                                        else if ((fHoraInicio > fInicioDesayuno && fHoraInicio < fFinDesayuno) && (fHoraFinal > fFinDesayuno && fHoraFinal > fInicioDesayuno) && (oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioComida)) //Evaluar antes de comida
                                                         {
-                                                            if (bEsInterFinal)
-                                                            {
-                                                                oCant.iCantComidasInt++;
-                                                                oComDia1.iComidaInt++;
-                                                            }
-                                                            else
-                                                            {
-                                                                oCant.iCantComidas++;
-                                                                oComDia1.iComidaNal++;
-                                                            }
+                                                            if (bEsInterFinal) { oCant.iCantDesayunosInt++; oComDia1.iDesayunosInt++; } else { oCant.iCantDesayunos++; oComDia1.iDesayunosNal++; }
                                                         }
-                                                        if ((fHoraInicio < fInicioCena && fHoraFinal >= fInicioCena) || (fHoraInicio <= fFinCena && fHoraFinal > fInicioCena))
+                                                        //Tercera condición
+                                                        else if ((fHoraInicio >= fInicioDesayuno && fHoraFinal > fFinDesayuno) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
                                                         {
-                                                            if (bEsInterFinal)
-                                                            {
-                                                                oCant.iCantCenasInt++;
-                                                                oComDia1.iCenaInt++;
-                                                            }
-                                                            else
-                                                            {
-                                                                oCant.iCantCenas++;
-                                                                oComDia1.iCenaNal++;
-                                                            }
+                                                            if (bEsInterFinal) { oCant.iCantDesayunosInt++; oComDia1.iDesayunosInt++; } else { oCant.iCantDesayunos++; oComDia1.iDesayunosNal++; }
                                                         }
+                                                        //Cuarta condición
+                                                        else if ((fHoraInicio < fInicioDesayuno && fHoraFinal <= fInicioDesayuno) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S()))
+                                                        {
+                                                            if (bEsInterFinal) { oCant.iCantDesayunosInt++; oComDia1.iDesayunosInt++; } else { oCant.iCantDesayunos++; oComDia1.iDesayunosNal++; }
+                                                        }
+                                                        //Quinta condición
+                                                        else if ((fHoraInicio < fInicioDesayuno && fHoraFinal < fInicioDesayuno) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S()))
+                                                        {
+                                                            if (bEsInterFinal) { oCant.iCantDesayunosInt++; oComDia1.iDesayunosInt++; } else { oCant.iCantDesayunos++; oComDia1.iDesayunosNal++; }
+                                                        }
+                                                        //Sexta condición
+                                                        else if ((fHoraInicio < fInicioDesayuno && (fHoraFinal > fInicioDesayuno && fHoraFinal <= fFinDesayuno)) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                        {
+                                                            if (bEsInterFinal) { oCant.iCantDesayunosInt++; oComDia1.iDesayunosInt++; } else { oCant.iCantDesayunos++; oComDia1.iDesayunosNal++; }
+                                                        }
+                                                        //Septima condición
+                                                        else if ((fHoraInicio >= fInicioDesayuno && fHoraInicio <= fFinDesayuno) && (fHoraFinal > fInicioDesayuno && fHoraFinal <= fFinDesayuno) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                        {
+                                                            if (bEsInterFinal) { oCant.iCantDesayunosInt++; oComDia1.iDesayunosInt++; } else { oCant.iCantDesayunos++; oComDia1.iDesayunosNal++; }
+                                                        }
+
+                                                        //Octava condición
+                                                        else if ((fHoraInicio < fInicioDesayuno && (fHoraFinal > fInicioDesayuno && fHoraFinal >= fFinDesayuno)) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                        {
+                                                            if (bEsInterFinal) { oCant.iCantDesayunosInt++; oComDia1.iDesayunosInt++; } else { oCant.iCantDesayunos++; oComDia1.iDesayunosNal++; }
+                                                        }
+                                                        #endregion
+
+                                                        #region COMIDA
+                                                        //Primera condicion Comidas
+                                                        if (((fHoraInicio < fInicioComida && fHoraFinal > fInicioComida) && fHoraFinal < fFinComida) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S()))
+                                                        {
+                                                            if (bEsInterFinal) { oCant.iCantComidasInt++; oComDia1.iComidaInt++; } else { oCant.iCantComidas++; oComDia1.iComidaNal++; }
+                                                        }
+                                                        //Segunda condición Comidas
+                                                        else if ((fHoraInicio > fInicioComida && fHoraInicio < fFinComida) && (fHoraFinal > fFinComida && fHoraFinal > fInicioComida) && (oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioCena)) //Evaluar antes de cena
+                                                        {
+                                                            if (bEsInterFinal) { oCant.iCantComidasInt++; oComDia1.iComidaInt++; } else { oCant.iCantComidas++; oComDia1.iComidaNal++; }
+                                                        }
+                                                        //Tercera condición Comidas
+                                                        else if ((fHoraInicio >= fInicioComida && fHoraFinal > fFinComida) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                        {
+                                                            if (bEsInterFinal) { oCant.iCantComidasInt++; oComDia1.iComidaInt++; } else { oCant.iCantComidas++; oComDia1.iComidaNal++; }
+                                                        }
+                                                        //Cuarta condición Comidas
+                                                        else if ((fHoraInicio < fInicioComida && fHoraFinal <= fInicioComida) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S()))
+                                                        {
+                                                            if (bEsInterFinal) { oCant.iCantComidasInt++; oComDia1.iComidaInt++; } else { oCant.iCantComidas++; oComDia1.iComidaNal++; }
+                                                        }
+                                                        //Quinta condición Comidas
+                                                        else if ((fHoraInicio < fInicioComida && fHoraFinal < fInicioComida) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S()))
+                                                        {
+                                                            if (bEsInterFinal) { oCant.iCantComidasInt++; oComDia1.iComidaInt++; } else { oCant.iCantComidas++; oComDia1.iComidaNal++; }
+                                                        }
+                                                        //Sexta condición Comidas
+                                                        else if ((fHoraInicio < fInicioComida && (fHoraFinal > fInicioComida && fHoraFinal <= fFinComida)) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                        {
+                                                            if (bEsInterFinal) { oCant.iCantComidasInt++; oComDia1.iComidaInt++; } else { oCant.iCantComidas++; oComDia1.iComidaNal++; }
+                                                        }
+                                                        //Septima condición Comidas
+                                                        else if ((fHoraInicio >= fInicioComida && fHoraInicio <= fFinComida) && (fHoraFinal > fInicioComida && fHoraFinal <= fFinComida) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                        {
+                                                            if (bEsInterFinal) { oCant.iCantComidasInt++; oComDia1.iComidaInt++; } else { oCant.iCantComidas++; oComDia1.iComidaNal++; }
+                                                        }
+                                                        //Octava condición
+                                                        else if ((fHoraInicio < fInicioComida && (fHoraFinal > fInicioComida && fHoraFinal >= fFinComida)) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                        {
+                                                            if (bEsInterFinal) { oCant.iCantComidasInt++; oComDia1.iComidaInt++; } else { oCant.iCantComidas++; oComDia1.iComidaNal++; }
+                                                        }
+                                                        #endregion
+
+                                                        #region CENA
+                                                        //Primera condicion Cenas
+                                                        if (((fHoraInicio < fInicioCena && fHoraFinal > fInicioCena) && fHoraFinal < fFinCena) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S()))
+                                                        {
+                                                            if (bEsInterFinal) { oCant.iCantCenasInt++; oComDia1.iCenaInt++; } else { oCant.iCantCenas++; oComDia1.iCenaNal++; }
+                                                        }
+                                                        //Segunda condición Cenas
+                                                        else if ((fHoraInicio > fInicioCena && fHoraInicio < fFinCena) && (fHoraFinal > fFinCena && fHoraFinal > fInicioCena) && (oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                        {
+                                                            if (bEsInterFinal) { oCant.iCantCenasInt++; oComDia1.iCenaInt++; } else { oCant.iCantCenas++; oComDia1.iCenaNal++; }
+                                                        }
+                                                        //Tercera condición Cenas
+                                                        else if ((fHoraInicio >= fInicioCena && fHoraFinal > fFinCena) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                        {
+                                                            if (bEsInterFinal) { oCant.iCantCenasInt++; oComDia1.iCenaInt++; } else { oCant.iCantCenas++; oComDia1.iCenaNal++; }
+                                                        }
+                                                        //Cuarta condición Cenas
+                                                        else if ((fHoraInicio < fInicioCena && fHoraFinal <= fInicioCena) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S()))
+                                                        {
+                                                            if (bEsInterFinal) { oCant.iCantCenasInt++; oComDia1.iCenaInt++; } else { oCant.iCantCenas++; oComDia1.iCenaNal++; }
+                                                        }
+                                                        //Quinta condición Cenas
+                                                        else if ((fHoraInicio < fInicioCena && fHoraFinal < fInicioCena) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S()))
+                                                        {
+                                                            if (bEsInterFinal) { oCant.iCantCenasInt++; oComDia1.iCenaInt++; } else { oCant.iCantCenas++; oComDia1.iCenaNal++; }
+                                                        }
+                                                        //Sexta condición Cenas
+                                                        else if ((fHoraInicio < fInicioCena && (fHoraFinal > fInicioCena && fHoraFinal <= fFinCena)) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                        {
+                                                            if (bEsInterFinal) { oCant.iCantCenasInt++; oComDia1.iCenaInt++; } else { oCant.iCantCenas++; oComDia1.iCenaNal++; }
+                                                        }
+                                                        //Septima condición Cenas
+                                                        else if ((fHoraInicio >= fInicioCena && fHoraInicio <= fFinCena) && (fHoraFinal > fInicioCena && fHoraFinal <= fFinCena) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                        {
+                                                            if (bEsInterFinal) { oCant.iCantCenasInt++; oComDia1.iCenaInt++; } else { oCant.iCantCenas++; oComDia1.iCenaNal++; }
+                                                        }
+                                                        //Octava condición Cenas
+                                                        else if ((fHoraInicio < fInicioCena && (fHoraFinal > fInicioCena && fHoraFinal >= fFinCena)) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                        {
+                                                            if (bEsInterFinal) { oCant.iCantCenasInt++; oComDia1.iCenaInt++; } else { oCant.iCantCenas++; oComDia1.iCenaNal++; }
+                                                        }
+                                                        #endregion
+
                                                     }
 
                                                     oLsComDia.Add(oComDia1);
@@ -410,56 +506,169 @@ namespace ALE_MexJet.Presenter
                                                 oComDia.sOrigen = dtLegs.Rows[0]["POD"].S();
                                                 oComDia.sDestino = dtLegs.Rows[dtLegs.Rows.Count - 1]["POA"].S();
 
-                                                if ((fHoraInicio < fInicioDesayuno || (fHoraInicio > fInicioDesayuno && fHoraInicio < fFinDesayuno)) && oComDia.sDestino != dtLegs.Rows[0]["HomeBase"].S())
+                                                #region DESAYUNO
+                                                //if (fHoraInicio < fInicioDesayuno || (fHoraInicio > fInicioDesayuno && fHoraInicio < fFinDesayuno)) //Linea origen
+
+                                                //Primera condicion
+                                                if (((fHoraInicio < fInicioDesayuno && fHoraFinal > fInicioDesayuno) && fHoraFinal < fFinDesayuno) && (oComDia.sDestino != dtLegs.Rows[0]["HomeBase"].S()))
                                                 {
-                                                    if (bEsInterFinal)
-                                                    {
-                                                        oCant.iCantDesayunosInt++;
-
-                                                        oComDia.iDesayunosInt++;
-                                                    }
-                                                    else
-                                                    {
-                                                        oCant.iCantDesayunos++;
-
-                                                        oComDia.iDesayunosNal++;
-                                                    }
+                                                    if (bEsInterFinal) { oCant.iCantDesayunosInt++; oComDia.iDesayunosInt++; }
+                                                    else { oCant.iCantDesayunos++; oComDia.iDesayunosNal++; }
                                                 }
-                                                if (((fHoraInicio <= fInicioComida && (fHoraFinal > fInicioComida)) || (fHoraInicio > fInicioComida && fHoraInicio <= fFinComida) || (fHoraInicio < fInicioComida && fHoraFinal > fFinComida)) && oComDia.sDestino != dtLegs.Rows[0]["HomeBase"].S())
+                                                //Segunda condición
+                                                else if ((fHoraInicio > fInicioDesayuno && fHoraInicio < fFinDesayuno) && (fHoraFinal > fFinDesayuno && fHoraFinal > fInicioDesayuno) && (oComDia.sDestino == dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioComida)) //Evaluar antes de comida
                                                 {
-                                                    if (bEsInterFinal)
-                                                    {
-                                                        oCant.iCantComidasInt++;
-
-                                                        oComDia.iComidaInt++;
-                                                    }
-                                                    else
-                                                    {
-                                                        oCant.iCantComidas++;
-
-                                                        oComDia.iComidaNal++;
-                                                    }
+                                                    if (bEsInterFinal) { oCant.iCantDesayunosInt++; oComDia.iDesayunosInt++; }
+                                                    else { oCant.iCantDesayunos++; oComDia.iDesayunosNal++; }
                                                 }
-                                                if (((fHoraInicio < fInicioCena && fHoraFinal >= fInicioCena) || (fHoraInicio <= fFinCena && fHoraFinal > fInicioCena)) && oComDia.sDestino != dtLegs.Rows[0]["HomeBase"].S())
+                                                //Tercera condición
+                                                else if ((fHoraInicio >= fInicioDesayuno && fHoraFinal > fFinDesayuno) && (oComDia.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
                                                 {
-                                                    if (bEsInterFinal)
-                                                    {
-                                                        oCant.iCantCenasInt++;
-
-                                                        oComDia.iCenaInt++;
-                                                    }
-                                                    else
-                                                    {
-                                                        oCant.iCantCenas++;
-
-                                                        oComDia.iCenaNal++;
-                                                    }
+                                                    if (bEsInterFinal) { oCant.iCantDesayunosInt++; oComDia.iDesayunosInt++; }
+                                                    else { oCant.iCantDesayunos++; oComDia.iDesayunosNal++; }
                                                 }
-                                                
+                                                //Cuarta condición
+                                                else if ((fHoraInicio < fInicioDesayuno && fHoraFinal <= fInicioDesayuno) && (oComDia.sDestino != dtLegs.Rows[0]["HomeBase"].S()))
+                                                {
+                                                    if (bEsInterFinal) { oCant.iCantDesayunosInt++; oComDia.iDesayunosInt++; }
+                                                    else { oCant.iCantDesayunos++; oComDia.iDesayunosNal++; }
+                                                }
+                                                //Quinta condición
+                                                else if ((fHoraInicio < fInicioDesayuno && fHoraFinal < fInicioDesayuno) && (oComDia.sDestino != dtLegs.Rows[0]["HomeBase"].S()))
+                                                {
+                                                    if (bEsInterFinal) { oCant.iCantDesayunosInt++; oComDia.iDesayunosInt++; }
+                                                    else { oCant.iCantDesayunos++; oComDia.iDesayunosNal++; }
+                                                }
+                                                //Sexta condición
+                                                else if ((fHoraInicio < fInicioDesayuno && (fHoraFinal > fInicioDesayuno && fHoraFinal <= fFinDesayuno)) && (oComDia.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                {
+                                                    if (bEsInterFinal) { oCant.iCantDesayunosInt++; oComDia.iDesayunosInt++; }
+                                                    else { oCant.iCantDesayunos++; oComDia.iDesayunosNal++; }
+                                                }
+                                                //Septima condición
+                                                else if ((fHoraInicio >= fInicioDesayuno && fHoraInicio <= fFinDesayuno) && (fHoraFinal > fInicioDesayuno && fHoraFinal <= fFinDesayuno) && (oComDia.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                {
+                                                    if (bEsInterFinal) { oCant.iCantDesayunosInt++; oComDia.iDesayunosInt++; }
+                                                    else { oCant.iCantDesayunos++; oComDia.iDesayunosNal++; }
+                                                }
+
+                                                //Octava condición
+                                                else if ((fHoraInicio < fInicioDesayuno && (fHoraFinal > fInicioDesayuno && fHoraFinal >= fFinDesayuno)) && (oComDia.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                {
+                                                    if (bEsInterFinal) { oCant.iCantDesayunosInt++; oComDia.iDesayunosInt++; }
+                                                    else { oCant.iCantDesayunos++; oComDia.iDesayunosNal++; }
+                                                }
+                                                #endregion
+
+                                                #region COMIDA
+                                                //Primera condicion Comidas
+                                                if (((fHoraInicio < fInicioComida && fHoraFinal > fInicioComida) && fHoraFinal < fFinComida) && (oComDia.sDestino != dtLegs.Rows[0]["HomeBase"].S()))
+                                                {
+                                                    if (bEsInterFinal) { oCant.iCantComidasInt++; oComDia.iComidaInt++; }
+                                                    else { oCant.iCantComidas++; oComDia.iComidaNal++; }
+                                                }
+                                                //Segunda condición Comidas
+                                                else if ((fHoraInicio > fInicioComida && fHoraInicio < fFinComida) && (fHoraFinal > fFinComida && fHoraFinal > fInicioComida) && (oComDia.sDestino == dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioCena)) //Evaluar antes de cena
+                                                {
+                                                    if (bEsInterFinal) { oCant.iCantComidasInt++; oComDia.iComidaInt++; }
+                                                    else { oCant.iCantComidas++; oComDia.iComidaNal++; }
+                                                }
+                                                //Tercera condición Comidas
+                                                else if ((fHoraInicio >= fInicioComida && fHoraFinal > fFinComida) && (oComDia.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                {
+                                                    if (bEsInterFinal) { oCant.iCantComidasInt++; oComDia.iComidaInt++; }
+                                                    else { oCant.iCantComidas++; oComDia.iComidaNal++; }
+                                                }
+                                                //Cuarta condición Comidas
+                                                else if ((fHoraInicio < fInicioComida && fHoraFinal <= fInicioComida) && (oComDia.sDestino != dtLegs.Rows[0]["HomeBase"].S()))
+                                                {
+                                                    if (bEsInterFinal) { oCant.iCantComidasInt++; oComDia.iComidaInt++; }
+                                                    else { oCant.iCantComidas++; oComDia.iComidaNal++; }
+                                                }
+                                                //Quinta condición Comidas
+                                                else if ((fHoraInicio < fInicioComida && fHoraFinal < fInicioComida) && (oComDia.sDestino != dtLegs.Rows[0]["HomeBase"].S()))
+                                                {
+                                                    if (bEsInterFinal) { oCant.iCantComidasInt++; oComDia.iComidaInt++; }
+                                                    else { oCant.iCantComidas++; oComDia.iComidaNal++; }
+                                                }
+                                                //Sexta condición Comidas
+                                                else if ((fHoraInicio < fInicioComida && (fHoraFinal > fInicioComida && fHoraFinal <= fFinComida)) && (oComDia.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                {
+                                                    if (bEsInterFinal) { oCant.iCantComidasInt++; oComDia.iComidaInt++; }
+                                                    else { oCant.iCantComidas++; oComDia.iComidaNal++; }
+                                                }
+                                                //Septima condición Comidas
+                                                else if ((fHoraInicio >= fInicioComida && fHoraInicio <= fFinComida) && (fHoraFinal > fInicioComida && fHoraFinal <= fFinComida) && (oComDia.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                {
+                                                    if (bEsInterFinal) { oCant.iCantComidasInt++; oComDia.iComidaInt++; }
+                                                    else { oCant.iCantComidas++; oComDia.iComidaNal++; }
+                                                }
+                                                //Octava condición
+                                                else if ((fHoraInicio < fInicioComida && (fHoraFinal > fInicioComida && fHoraFinal >= fFinComida)) && (oComDia.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                {
+                                                    if (bEsInterFinal) { oCant.iCantComidasInt++; oComDia.iComidaInt++; }
+                                                    else { oCant.iCantComidas++; oComDia.iComidaNal++; }
+                                                }
+                                                #endregion
+
+                                                #region CENA
+                                                //Primera condicion Cenas
+                                                if (((fHoraInicio < fInicioCena && fHoraFinal > fInicioCena) && fHoraFinal < fFinCena) && (oComDia.sDestino != dtLegs.Rows[0]["HomeBase"].S()))
+                                                {
+                                                    if (bEsInterFinal) { oCant.iCantCenasInt++; oComDia.iCenaInt++; }
+                                                    else { oCant.iCantCenas++; oComDia.iCenaNal++; }
+                                                }
+                                                //Segunda condición Cenas
+                                                else if ((fHoraInicio > fInicioCena && fHoraInicio < fFinCena) && (fHoraFinal > fFinCena && fHoraFinal > fInicioCena) && (oComDia.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                {
+                                                    if (bEsInterFinal) { oCant.iCantCenasInt++; oComDia.iCenaInt++; }
+                                                    else { oCant.iCantCenas++; oComDia.iCenaNal++; }
+                                                }
+                                                //Tercera condición Cenas
+                                                else if ((fHoraInicio >= fInicioCena && fHoraFinal > fFinCena) && (oComDia.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                {
+                                                    if (bEsInterFinal) { oCant.iCantCenasInt++; oComDia.iCenaInt++; }
+                                                    else { oCant.iCantCenas++; oComDia.iCenaNal++; }
+                                                }
+                                                //Cuarta condición Cenas
+                                                else if ((fHoraInicio < fInicioCena && fHoraFinal <= fInicioCena) && (oComDia.sDestino != dtLegs.Rows[0]["HomeBase"].S()))
+                                                {
+                                                    if (bEsInterFinal) { oCant.iCantCenasInt++; oComDia.iCenaInt++; }
+                                                    else { oCant.iCantCenas++; oComDia.iCenaNal++; }
+                                                }
+                                                //Quinta condición Cenas
+                                                else if ((fHoraInicio < fInicioCena && fHoraFinal < fInicioCena) && (oComDia.sDestino != dtLegs.Rows[0]["HomeBase"].S()))
+                                                {
+                                                    if (bEsInterFinal) { oCant.iCantCenasInt++; oComDia.iCenaInt++; }
+                                                    else { oCant.iCantCenas++; oComDia.iCenaNal++; }
+                                                }
+                                                //Sexta condición Cenas
+                                                else if ((fHoraInicio < fInicioCena && (fHoraFinal > fInicioCena && fHoraFinal <= fFinCena)) && (oComDia.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                {
+                                                    if (bEsInterFinal) { oCant.iCantCenasInt++; oComDia.iCenaInt++; }
+                                                    else { oCant.iCantCenas++; oComDia.iCenaNal++; }
+                                                }
+                                                //Septima condición Cenas
+                                                else if ((fHoraInicio >= fInicioCena && fHoraInicio <= fFinCena) && (fHoraFinal > fInicioCena && fHoraFinal <= fFinCena) && (oComDia.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                {
+                                                    if (bEsInterFinal) { oCant.iCantCenasInt++; oComDia.iCenaInt++; }
+                                                    else { oCant.iCantCenas++; oComDia.iCenaNal++; }
+                                                }
+                                                //Octava condición Cenas
+                                                else if ((fHoraInicio < fInicioCena && (fHoraFinal > fInicioCena && fHoraFinal >= fFinCena)) && (oComDia.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                {
+                                                    if (bEsInterFinal) { oCant.iCantCenasInt++; oComDia.iCenaInt++; }
+                                                    else { oCant.iCantCenas++; oComDia.iCenaNal++; }
+                                                }
+                                                #endregion
+
                                                 oLsComDia.Add(oComDia);
 
                                             }
                                         }
+                                        #endregion
+
+                                        #region CUANDO SON 2 DÍAS
                                         else if (dtDias.Rows.Count == 2)
                                         {
                                             for (int l = 0; l < dtDias.Rows.Count; l++)
@@ -468,404 +677,1547 @@ namespace ALE_MexJet.Presenter
 
                                                 if (rowsD.Length > 1)
                                                 {
-                                                    if (rowsD[0]["PaisPOA"].S() != rowsD[rowsD.Length - 1]["PaisPOA"].S())
+                                                    #region PIERNAS EN MEXICO Y EN EL EXTRANJERO COMENTADO TEMPORALMENTE
+                                                    //if (rowsD[0]["PaisPOA"].S() != rowsD[rowsD.Length - 1]["PaisPOA"].S())
+                                                    //{
+                                                    //    // PIERNAS EN MEXICO Y EL EXTRANJERO
+
+                                                    //    for (int k = 0; k < rowsD.Length; k++)
+                                                    //    {
+                                                    //        ComidasPorDia oComDia1 = new ComidasPorDia();
+                                                    //        oComDia1.sClavePiloto = drP["ClavePiloto"].S();
+                                                    //        oComDia1.dtFechaDia = rowsD[k][FechaInicio].S().Dt();
+                                                    //        oComDia1.dtFechaFin = rowsD[k][FechaFin].S().Dt();
+                                                    //        oComDia1.sduty_type = rowsD[k]["DutyType"].S();
+                                                    //        oComDia1.sOrigen = rowsD[k]["POD"].S();
+                                                    //        oComDia1.sDestino = rowsD[k]["POA"].S();
+
+                                                    //        bEsInterInicio = rowsD[k]["PaisPOD"].S() == "MX" ? false : true;
+                                                    //        bEsInterFinal = rowsD[k]["PaisPOA"].S() == "MX" ? false : true;
+
+                                                    //        DateTime dtIniDia = rowsD[k][FechaInicio].S().Dt();
+                                                    //        DateTime dtFinDia = rowsD[k][FechaFin].S().Dt();
+
+                                                    //        fHoraInicio = dtIniDia.Hour + (dtIniDia.Minute / float.Parse("60"));
+                                                    //        fHoraFinal = dtFinDia.Hour + (dtFinDia.Minute / float.Parse("60"));
+
+                                                    //        if (l > 0 && k == 0)
+                                                    //            fHoraInicio = 0;
+
+                                                    //        #region DESAYUNO
+                                                    //        ////Primera condicion
+                                                    //        //if (((fHoraInicio < fInicioDesayuno && fHoraFinal > fInicioDesayuno) && fHoraFinal < fFinDesayuno) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S()))
+                                                    //        //{
+                                                    //        //    if (bEsInterFinal) { oCant.iCantDesayunosInt++; oComDia1.iDesayunosInt++; }
+                                                    //        //    else { oCant.iCantDesayunos++; oComDia1.iDesayunosNal++; }
+                                                    //        //}
+                                                    //        ////Segunda condición
+                                                    //        //else if ((fHoraInicio > fInicioDesayuno && fHoraInicio < fFinDesayuno) && (fHoraFinal > fFinDesayuno && fHoraFinal > fInicioDesayuno) && (oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioComida)) //Evaluar antes de comida
+                                                    //        //{
+                                                    //        //    if (bEsInterFinal) { oCant.iCantDesayunosInt++; oComDia1.iDesayunosInt++; }
+                                                    //        //    else { oCant.iCantDesayunos++; oComDia1.iDesayunosNal++; }
+                                                    //        //}
+                                                    //        ////Tercera condición
+                                                    //        //else if ((fHoraInicio >= fInicioDesayuno && fHoraFinal > fFinDesayuno) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                    //        //{
+                                                    //        //    if (bEsInterFinal) { oCant.iCantDesayunosInt++; oComDia1.iDesayunosInt++; }
+                                                    //        //    else { oCant.iCantDesayunos++; oComDia1.iDesayunosNal++; }
+                                                    //        //}
+                                                    //        ////Cuarta condición
+                                                    //        //else if ((fHoraInicio < fInicioDesayuno && fHoraFinal <= fInicioDesayuno) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S()))
+                                                    //        //{
+                                                    //        //    if (bEsInterFinal) { oCant.iCantDesayunosInt++; oComDia1.iDesayunosInt++; }
+                                                    //        //    else { oCant.iCantDesayunos++; oComDia1.iDesayunosNal++; }
+                                                    //        //}
+                                                    //        ////Quinta condición
+                                                    //        //else if ((fHoraInicio < fInicioDesayuno && fHoraFinal < fInicioDesayuno) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S()))
+                                                    //        //{
+                                                    //        //    if (bEsInterFinal) { oCant.iCantDesayunosInt++; oComDia1.iDesayunosInt++; }
+                                                    //        //    else { oCant.iCantDesayunos++; oComDia1.iDesayunosNal++; }
+                                                    //        //}
+                                                    //        ////Sexta condición
+                                                    //        //else if ((fHoraInicio < fInicioDesayuno && (fHoraFinal > fInicioDesayuno && fHoraFinal <= fFinDesayuno)) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                    //        //{
+                                                    //        //    if (bEsInterFinal) { oCant.iCantDesayunosInt++; oComDia1.iDesayunosInt++; }
+                                                    //        //    else { oCant.iCantDesayunos++; oComDia1.iDesayunosNal++; }
+                                                    //        //}
+                                                    //        ////Septima condición
+                                                    //        //else if ((fHoraInicio >= fInicioDesayuno && fHoraInicio <= fFinDesayuno) && (fHoraFinal > fInicioDesayuno && fHoraFinal <= fFinDesayuno) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                    //        //{
+                                                    //        //    if (bEsInterFinal) { oCant.iCantDesayunosInt++; oComDia1.iDesayunosInt++; }
+                                                    //        //    else { oCant.iCantDesayunos++; oComDia1.iDesayunosNal++; }
+                                                    //        //}
+                                                    //        ////Octava condición
+                                                    //        //else if ((fHoraInicio < fInicioDesayuno && (fHoraFinal > fInicioDesayuno && fHoraFinal >= fFinDesayuno)) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                    //        //{
+                                                    //        //    if (bEsInterFinal) { oCant.iCantDesayunosInt++; oComDia1.iDesayunosInt++; }
+                                                    //        //    else { oCant.iCantDesayunos++; oComDia1.iDesayunosNal++; }
+                                                    //        //}
+                                                    //        //else
+                                                    //        //{
+                                                    //        //    if (l == 0 && k == 0)
+                                                    //        //    {
+                                                    //        //        if (bEsInterFinal)
+                                                    //        //        {
+                                                    //        //            oCant.iCantCenasInt++;
+                                                    //        //            oComDia1.iCenaInt++;
+                                                    //        //        }
+                                                    //        //        else
+                                                    //        //        {
+                                                    //        //            oCant.iCantCenas++;
+                                                    //        //            oComDia1.iCenaNal++;
+                                                    //        //        }
+                                                    //        //    }
+                                                    //        //}
+                                                    //        #endregion
+
+                                                    //        #region CODIGO ANTERIOR
+                                                    //        //// SI - CENA
+                                                    //        //if ((fHoraInicio < fInicioCena && fHoraFinal >= fInicioCena) || (fHoraInicio <= fFinCena && fHoraFinal > fInicioCena))
+                                                    //        //{
+                                                    //        //    if (bEsInterFinal)
+                                                    //        //    {
+                                                    //        //        if (l > 0 && k == 0)
+                                                    //        //        {
+                                                    //        //            if (!bEsInterInicio)
+                                                    //        //            {
+                                                    //        //                oCant.iCantDesayunos++;
+                                                    //        //                oCant.iCantComidas++;
+
+                                                    //        //                oComDia1.iDesayunosNal++;
+                                                    //        //                oComDia1.iComidaNal++;
+                                                    //        //            }
+                                                    //        //            else
+                                                    //        //            {
+                                                    //        //                oCant.iCantDesayunosInt++;
+                                                    //        //                oCant.iCantComidasInt++;
+
+                                                    //        //                oComDia1.iDesayunosInt++;
+                                                    //        //                oComDia1.iComidaInt++;
+                                                    //        //            }
+                                                    //        //        }
+
+
+                                                    //        //        oCant.iCantCenasInt++;
+                                                    //        //        oComDia1.iCenaInt++;
+                                                    //        //    }
+                                                    //        //    else
+                                                    //        //    {
+                                                    //        //        if (l > 0 && k == 0)
+                                                    //        //        {
+                                                    //        //            if (bEsInterInicio)
+                                                    //        //            {
+                                                    //        //                oCant.iCantDesayunosInt++;
+                                                    //        //                oCant.iCantComidasInt++;
+
+                                                    //        //                oComDia1.iDesayunosInt++;
+                                                    //        //                oComDia1.iComidaInt++;
+                                                    //        //            }
+                                                    //        //            else
+                                                    //        //            {
+                                                    //        //                oCant.iCantDesayunos++;
+                                                    //        //                oCant.iCantComidas++;
+
+                                                    //        //                oComDia1.iDesayunosNal++;
+                                                    //        //                oComDia1.iComidaNal++;
+                                                    //        //            }
+                                                    //        //        }
+
+                                                    //        //        oCant.iCantCenas++;
+                                                    //        //        oComDia1.iCenaNal++;
+                                                    //        //    }
+                                                    //        //}
+                                                    //        //// SI - DESAYUNO / COMIDA
+                                                    //        //else if ((fHoraInicio <= fInicioComida && (fHoraFinal > fInicioComida)) || (fHoraInicio > fInicioComida && fHoraInicio <= fFinComida) || (fHoraInicio < fInicioComida && fHoraFinal > fFinComida))
+                                                    //        //{
+                                                    //        //    if (bEsInterFinal)
+                                                    //        //    {
+                                                    //        //        if (l > 0 && k == 0)
+                                                    //        //        {
+                                                    //        //            if (!bEsInterInicio)
+                                                    //        //            {
+                                                    //        //                oCant.iCantDesayunos++;
+                                                    //        //                oComDia1.iDesayunosNal++;
+                                                    //        //            }
+                                                    //        //            else
+                                                    //        //            {
+                                                    //        //                oCant.iCantDesayunosInt++;
+                                                    //        //                oComDia1.iDesayunosInt++;
+                                                    //        //            }
+                                                    //        //        }
+
+                                                    //        //        oCant.iCantComidasInt++;
+                                                    //        //        oComDia1.iComidaInt++;
+                                                    //        //    }
+                                                    //        //    else
+                                                    //        //    {
+                                                    //        //        if (l > 0 && k == 0)
+                                                    //        //        {
+                                                    //        //            if (bEsInterInicio)
+                                                    //        //            {
+                                                    //        //                oCant.iCantDesayunosInt++;
+                                                    //        //                oComDia1.iDesayunosInt++;
+                                                    //        //            }
+                                                    //        //            else
+                                                    //        //            {
+                                                    //        //                oCant.iCantDesayunos++;
+                                                    //        //                oComDia1.iDesayunosNal++;
+                                                    //        //            }
+                                                    //        //        }
+
+                                                    //        //        oCant.iCantComidas++;
+                                                    //        //        oComDia1.iComidaNal++;
+                                                    //        //    }
+
+                                                    //        //    if (l == 0 && k == 0)
+                                                    //        //    {
+                                                    //        //        if (bEsInterFinal)
+                                                    //        //        {
+                                                    //        //            oCant.iCantCenasInt++;
+                                                    //        //            oComDia1.iCenaInt++;
+                                                    //        //        }
+                                                    //        //        else
+                                                    //        //        {
+                                                    //        //            oCant.iCantCenas++;
+                                                    //        //            oComDia1.iCenaNal++;
+                                                    //        //        }
+                                                    //        //    }
+                                                    //        //}
+                                                    //        //// SI - DESAYUNO / COMIDA / CENA
+                                                    //        //else if (fHoraInicio < fInicioDesayuno || (fHoraInicio > fInicioDesayuno && fHoraInicio < fFinDesayuno))
+                                                    //        //{
+                                                    //        //    if (bEsInterFinal)
+                                                    //        //    {
+                                                    //        //        oCant.iCantDesayunosInt++;
+                                                    //        //        oComDia1.iDesayunosInt++;
+                                                    //        //    }
+                                                    //        //    else
+                                                    //        //    {
+                                                    //        //        oCant.iCantDesayunos++;
+                                                    //        //        oComDia1.iDesayunosNal++;
+                                                    //        //    }
+                                                    //        //}
+                                                    //        //else
+                                                    //        //{
+                                                    //        //    if (l == 0 && k == 0)
+                                                    //        //    {
+                                                    //        //        if (bEsInterFinal)
+                                                    //        //        {
+                                                    //        //            oCant.iCantCenasInt++;
+                                                    //        //            oComDia1.iCenaInt++;
+                                                    //        //        }
+                                                    //        //        else
+                                                    //        //        {
+                                                    //        //            oCant.iCantCenas++;
+                                                    //        //            oComDia1.iCenaNal++;
+                                                    //        //        }
+                                                    //        //    }
+                                                    //        //}
+                                                    //        #endregion
+
+                                                    //        oLsComDia.Add(oComDia1);
+                                                    //    }
+                                                    //}
+                                                    //else
+                                                    //{
+                                                    //    // PRIMERA PIERNA Y ULTIMA DEL MISMO PAIS
+                                                    //    for (int k = 0; k < rowsD.Length; k++)
+                                                    //    {
+                                                    //        ComidasPorDia oComDia1 = new ComidasPorDia();
+                                                    //        oComDia1.sClavePiloto = drP["ClavePiloto"].S();
+                                                    //        oComDia1.dtFechaDia = rowsD[k][FechaInicio].S().Dt();
+                                                    //        oComDia1.dtFechaFin = rowsD[k][FechaFin].S().Dt();
+                                                    //        oComDia1.sduty_type = rowsD[k]["DutyType"].S();
+                                                    //        oComDia1.sOrigen = rowsD[k]["POD"].S();
+                                                    //        oComDia1.sDestino = rowsD[k]["POA"].S();
+
+                                                    //        if (k + 1 == rowsD.Length)
+                                                    //        {
+                                                    //            bEsInterInicio = rowsD[rowsD.Length - 1]["PaisPOD"].S() == "MX" ? false : true;
+                                                    //            bEsInterFinal = rowsD[rowsD.Length - 1]["PaisPOA"].S() == "MX" ? false : true;
+
+                                                    //            DateTime dtIniDia = rowsD[0][FechaInicio].S().Dt();
+                                                    //            DateTime dtFinDia = rowsD[rowsD.Length - 1][FechaFin].S().Dt();
+
+                                                    //            fHoraInicio = dtIniDia.Hour + (dtIniDia.Minute / float.Parse("60"));
+                                                    //            fHoraFinal = dtFinDia.Hour + (dtFinDia.Minute / float.Parse("60"));
+
+                                                    //            if (l > 0)
+                                                    //                fHoraInicio = 0;
+
+                                                    //            #region DESAYUNO
+                                                    //            //Primera condicion
+                                                    //            if (((fHoraInicio < fInicioDesayuno && fHoraFinal > fInicioDesayuno) && fHoraFinal < fFinDesayuno) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S()))
+                                                    //            {
+                                                    //                if (bEsInterFinal) { oCant.iCantDesayunosInt++; oComDia1.iDesayunosInt++; }
+                                                    //                else { oCant.iCantDesayunos++; oComDia1.iDesayunosNal++; }
+                                                    //            }
+                                                    //            //Segunda condición
+                                                    //            else if ((fHoraInicio > fInicioDesayuno && fHoraInicio < fFinDesayuno) && (fHoraFinal > fFinDesayuno && fHoraFinal > fInicioDesayuno) && (oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioComida)) //Evaluar antes de comida
+                                                    //            {
+                                                    //                if (bEsInterFinal) { oCant.iCantDesayunosInt++; oComDia1.iDesayunosInt++; }
+                                                    //                else { oCant.iCantDesayunos++; oComDia1.iDesayunosNal++; }
+                                                    //            }
+                                                    //            //Tercera condición
+                                                    //            else if ((fHoraInicio >= fInicioDesayuno && fHoraFinal > fFinDesayuno) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                    //            {
+                                                    //                if (bEsInterFinal) { oCant.iCantDesayunosInt++; oComDia1.iDesayunosInt++; }
+                                                    //                else { oCant.iCantDesayunos++; oComDia1.iDesayunosNal++; }
+                                                    //            }
+                                                    //            //Cuarta condición
+                                                    //            else if ((fHoraInicio < fInicioDesayuno && fHoraFinal <= fInicioDesayuno) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S()))
+                                                    //            {
+                                                    //                if (bEsInterFinal) { oCant.iCantDesayunosInt++; oComDia1.iDesayunosInt++; }
+                                                    //                else { oCant.iCantDesayunos++; oComDia1.iDesayunosNal++; }
+                                                    //            }
+                                                    //            //Quinta condición
+                                                    //            else if ((fHoraInicio < fInicioDesayuno && fHoraFinal < fInicioDesayuno) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S()))
+                                                    //            {
+                                                    //                if (bEsInterFinal) { oCant.iCantDesayunosInt++; oComDia1.iDesayunosInt++; }
+                                                    //                else { oCant.iCantDesayunos++; oComDia1.iDesayunosNal++; }
+                                                    //            }
+                                                    //            //Sexta condición
+                                                    //            else if ((fHoraInicio < fInicioDesayuno && (fHoraFinal > fInicioDesayuno && fHoraFinal <= fFinDesayuno)) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                    //            {
+                                                    //                if (bEsInterFinal) { oCant.iCantDesayunosInt++; oComDia1.iDesayunosInt++; }
+                                                    //                else { oCant.iCantDesayunos++; oComDia1.iDesayunosNal++; }
+                                                    //            }
+                                                    //            //Septima condición
+                                                    //            else if ((fHoraInicio >= fInicioDesayuno && fHoraInicio <= fFinDesayuno) && (fHoraFinal > fInicioDesayuno && fHoraFinal <= fFinDesayuno) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                    //            {
+                                                    //                if (bEsInterFinal) { oCant.iCantDesayunosInt++; oComDia1.iDesayunosInt++; }
+                                                    //                else { oCant.iCantDesayunos++; oComDia1.iDesayunosNal++; }
+                                                    //            }
+                                                    //            //Octava condición
+                                                    //            else if ((fHoraInicio < fInicioDesayuno && (fHoraFinal > fInicioDesayuno && fHoraFinal >= fFinDesayuno)) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                    //            {
+                                                    //                if (bEsInterFinal) { oCant.iCantDesayunosInt++; oComDia1.iDesayunosInt++; }
+                                                    //                else { oCant.iCantDesayunos++; oComDia1.iDesayunosNal++; }
+                                                    //            }
+                                                    //            //else
+                                                    //            //{
+                                                    //            //    if (l == 0)
+                                                    //            //    {
+                                                    //            //        if (bEsInterFinal)
+                                                    //            //        {
+                                                    //            //            oCant.iCantCenasInt++;
+                                                    //            //            oComDia1.iCenaInt++;
+                                                    //            //        }
+                                                    //            //        else
+                                                    //            //        {
+                                                    //            //            oCant.iCantCenas++;
+                                                    //            //            oComDia1.iCenaNal++;
+                                                    //            //        }
+                                                    //            //    }
+                                                    //            //}
+                                                    //            #endregion
+
+                                                    //            #region COMIDAS
+                                                    //            ////Primera condicion Comidas
+                                                    //            //if (((fHoraInicio < fInicioComida && fHoraFinal > fInicioComida) && fHoraFinal < fFinComida) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S()))
+                                                    //            //{
+                                                    //            //    if (bEsInterFinal)
+                                                    //            //    {
+                                                    //            //        if (l > 0)
+                                                    //            //        {
+                                                    //            //            if (!bEsInterInicio)
+                                                    //            //            {
+                                                    //            //                oCant.iCantDesayunos++;
+                                                    //            //                oComDia1.iDesayunosNal++;
+                                                    //            //            }
+                                                    //            //            else
+                                                    //            //            {
+                                                    //            //                oCant.iCantDesayunosInt++;
+                                                    //            //                oComDia1.iDesayunosInt++;
+                                                    //            //            }
+                                                    //            //        }
+
+                                                    //            //        oCant.iCantComidasInt++;
+                                                    //            //        oComDia1.iComidaInt++;
+                                                    //            //    }
+                                                    //            //    else
+                                                    //            //    {
+                                                    //            //        if (l > 0)
+                                                    //            //        {
+                                                    //            //            if (bEsInterInicio)
+                                                    //            //            {
+                                                    //            //                oCant.iCantDesayunosInt++;
+                                                    //            //                oComDia1.iDesayunosInt++;
+                                                    //            //            }
+                                                    //            //            else
+                                                    //            //            {
+                                                    //            //                oCant.iCantDesayunos++;
+                                                    //            //                oComDia1.iDesayunosNal++;
+                                                    //            //            }
+                                                    //            //        }
+
+                                                    //            //        oCant.iCantComidas++;
+                                                    //            //        oComDia1.iComidaNal++;
+                                                    //            //    }
+
+                                                    //            //    if (l == 0)
+                                                    //            //    {
+                                                    //            //        if (bEsInterFinal)
+                                                    //            //        {
+                                                    //            //            oCant.iCantCenasInt++;
+                                                    //            //            oComDia1.iCenaInt++;
+                                                    //            //        }
+                                                    //            //        else
+                                                    //            //        {
+                                                    //            //            oCant.iCantCenas++;
+                                                    //            //            oComDia1.iCenaNal++;
+                                                    //            //        }
+                                                    //            //    }
+                                                    //            //}
+                                                    //            ////Segunda condición Comidas
+                                                    //            //else if ((fHoraInicio > fInicioComida && fHoraInicio < fFinComida) && (fHoraFinal > fFinComida && fHoraFinal > fInicioComida) && (oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioCena)) //Evaluar antes de cena
+                                                    //            //{
+                                                    //            //    if (bEsInterFinal)
+                                                    //            //    {
+                                                    //            //        if (l > 0)
+                                                    //            //        {
+                                                    //            //            if (!bEsInterInicio)
+                                                    //            //            {
+                                                    //            //                oCant.iCantDesayunos++;
+                                                    //            //                oComDia1.iDesayunosNal++;
+                                                    //            //            }
+                                                    //            //            else
+                                                    //            //            {
+                                                    //            //                oCant.iCantDesayunosInt++;
+                                                    //            //                oComDia1.iDesayunosInt++;
+                                                    //            //            }
+                                                    //            //        }
+
+                                                    //            //        oCant.iCantComidasInt++;
+                                                    //            //        oComDia1.iComidaInt++;
+                                                    //            //    }
+                                                    //            //    else
+                                                    //            //    {
+                                                    //            //        if (l > 0)
+                                                    //            //        {
+                                                    //            //            if (bEsInterInicio)
+                                                    //            //            {
+                                                    //            //                oCant.iCantDesayunosInt++;
+                                                    //            //                oComDia1.iDesayunosInt++;
+                                                    //            //            }
+                                                    //            //            else
+                                                    //            //            {
+                                                    //            //                oCant.iCantDesayunos++;
+                                                    //            //                oComDia1.iDesayunosNal++;
+                                                    //            //            }
+                                                    //            //        }
+
+                                                    //            //        oCant.iCantComidas++;
+                                                    //            //        oComDia1.iComidaNal++;
+                                                    //            //    }
+
+                                                    //            //    if (l == 0)
+                                                    //            //    {
+                                                    //            //        if (bEsInterFinal)
+                                                    //            //        {
+                                                    //            //            oCant.iCantCenasInt++;
+                                                    //            //            oComDia1.iCenaInt++;
+                                                    //            //        }
+                                                    //            //        else
+                                                    //            //        {
+                                                    //            //            oCant.iCantCenas++;
+                                                    //            //            oComDia1.iCenaNal++;
+                                                    //            //        }
+                                                    //            //    }
+                                                    //            //}
+                                                    //            ////Tercera condición Comidas
+                                                    //            //else if ((fHoraInicio >= fInicioComida && fHoraFinal > fFinComida) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                    //            //{
+                                                    //            //    if (bEsInterFinal)
+                                                    //            //    {
+                                                    //            //        if (l > 0)
+                                                    //            //        {
+                                                    //            //            if (!bEsInterInicio)
+                                                    //            //            {
+                                                    //            //                oCant.iCantDesayunos++;
+                                                    //            //                oComDia1.iDesayunosNal++;
+                                                    //            //            }
+                                                    //            //            else
+                                                    //            //            {
+                                                    //            //                oCant.iCantDesayunosInt++;
+                                                    //            //                oComDia1.iDesayunosInt++;
+                                                    //            //            }
+                                                    //            //        }
+
+                                                    //            //        oCant.iCantComidasInt++;
+                                                    //            //        oComDia1.iComidaInt++;
+                                                    //            //    }
+                                                    //            //    else
+                                                    //            //    {
+                                                    //            //        if (l > 0)
+                                                    //            //        {
+                                                    //            //            if (bEsInterInicio)
+                                                    //            //            {
+                                                    //            //                oCant.iCantDesayunosInt++;
+                                                    //            //                oComDia1.iDesayunosInt++;
+                                                    //            //            }
+                                                    //            //            else
+                                                    //            //            {
+                                                    //            //                oCant.iCantDesayunos++;
+                                                    //            //                oComDia1.iDesayunosNal++;
+                                                    //            //            }
+                                                    //            //        }
+
+                                                    //            //        oCant.iCantComidas++;
+                                                    //            //        oComDia1.iComidaNal++;
+                                                    //            //    }
+
+                                                    //            //    if (l == 0)
+                                                    //            //    {
+                                                    //            //        if (bEsInterFinal)
+                                                    //            //        {
+                                                    //            //            oCant.iCantCenasInt++;
+                                                    //            //            oComDia1.iCenaInt++;
+                                                    //            //        }
+                                                    //            //        else
+                                                    //            //        {
+                                                    //            //            oCant.iCantCenas++;
+                                                    //            //            oComDia1.iCenaNal++;
+                                                    //            //        }
+                                                    //            //    }
+                                                    //            //}
+                                                    //            ////Cuarta condición Comidas
+                                                    //            //else if ((fHoraInicio < fInicioComida && fHoraFinal <= fInicioComida) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S()))
+                                                    //            //{
+                                                    //            //    if (bEsInterFinal)
+                                                    //            //    {
+                                                    //            //        if (l > 0)
+                                                    //            //        {
+                                                    //            //            if (!bEsInterInicio)
+                                                    //            //            {
+                                                    //            //                oCant.iCantDesayunos++;
+                                                    //            //                oComDia1.iDesayunosNal++;
+                                                    //            //            }
+                                                    //            //            else
+                                                    //            //            {
+                                                    //            //                oCant.iCantDesayunosInt++;
+                                                    //            //                oComDia1.iDesayunosInt++;
+                                                    //            //            }
+                                                    //            //        }
+
+                                                    //            //        oCant.iCantComidasInt++;
+                                                    //            //        oComDia1.iComidaInt++;
+                                                    //            //    }
+                                                    //            //    else
+                                                    //            //    {
+                                                    //            //        if (l > 0)
+                                                    //            //        {
+                                                    //            //            if (bEsInterInicio)
+                                                    //            //            {
+                                                    //            //                oCant.iCantDesayunosInt++;
+                                                    //            //                oComDia1.iDesayunosInt++;
+                                                    //            //            }
+                                                    //            //            else
+                                                    //            //            {
+                                                    //            //                oCant.iCantDesayunos++;
+                                                    //            //                oComDia1.iDesayunosNal++;
+                                                    //            //            }
+                                                    //            //        }
+
+                                                    //            //        oCant.iCantComidas++;
+                                                    //            //        oComDia1.iComidaNal++;
+                                                    //            //    }
+
+                                                    //            //    if (l == 0)
+                                                    //            //    {
+                                                    //            //        if (bEsInterFinal)
+                                                    //            //        {
+                                                    //            //            oCant.iCantCenasInt++;
+                                                    //            //            oComDia1.iCenaInt++;
+                                                    //            //        }
+                                                    //            //        else
+                                                    //            //        {
+                                                    //            //            oCant.iCantCenas++;
+                                                    //            //            oComDia1.iCenaNal++;
+                                                    //            //        }
+                                                    //            //    }
+                                                    //            //}
+                                                    //            ////Quinta condición Comidas
+                                                    //            //else if ((fHoraInicio < fInicioComida && fHoraFinal < fInicioComida) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S()))
+                                                    //            //{
+                                                    //            //    if (bEsInterFinal)
+                                                    //            //    {
+                                                    //            //        if (l > 0)
+                                                    //            //        {
+                                                    //            //            if (!bEsInterInicio)
+                                                    //            //            {
+                                                    //            //                oCant.iCantDesayunos++;
+                                                    //            //                oComDia1.iDesayunosNal++;
+                                                    //            //            }
+                                                    //            //            else
+                                                    //            //            {
+                                                    //            //                oCant.iCantDesayunosInt++;
+                                                    //            //                oComDia1.iDesayunosInt++;
+                                                    //            //            }
+                                                    //            //        }
+
+                                                    //            //        oCant.iCantComidasInt++;
+                                                    //            //        oComDia1.iComidaInt++;
+                                                    //            //    }
+                                                    //            //    else
+                                                    //            //    {
+                                                    //            //        if (l > 0)
+                                                    //            //        {
+                                                    //            //            if (bEsInterInicio)
+                                                    //            //            {
+                                                    //            //                oCant.iCantDesayunosInt++;
+                                                    //            //                oComDia1.iDesayunosInt++;
+                                                    //            //            }
+                                                    //            //            else
+                                                    //            //            {
+                                                    //            //                oCant.iCantDesayunos++;
+                                                    //            //                oComDia1.iDesayunosNal++;
+                                                    //            //            }
+                                                    //            //        }
+
+                                                    //            //        oCant.iCantComidas++;
+                                                    //            //        oComDia1.iComidaNal++;
+                                                    //            //    }
+
+                                                    //            //    if (l == 0)
+                                                    //            //    {
+                                                    //            //        if (bEsInterFinal)
+                                                    //            //        {
+                                                    //            //            oCant.iCantCenasInt++;
+                                                    //            //            oComDia1.iCenaInt++;
+                                                    //            //        }
+                                                    //            //        else
+                                                    //            //        {
+                                                    //            //            oCant.iCantCenas++;
+                                                    //            //            oComDia1.iCenaNal++;
+                                                    //            //        }
+                                                    //            //    }
+                                                    //            //}
+                                                    //            ////Sexta condición Comidas
+                                                    //            //else if ((fHoraInicio < fInicioComida && (fHoraFinal > fInicioComida && fHoraFinal <= fFinComida)) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                    //            //{
+                                                    //            //    if (bEsInterFinal)
+                                                    //            //    {
+                                                    //            //        if (l > 0)
+                                                    //            //        {
+                                                    //            //            if (!bEsInterInicio)
+                                                    //            //            {
+                                                    //            //                oCant.iCantDesayunos++;
+                                                    //            //                oComDia1.iDesayunosNal++;
+                                                    //            //            }
+                                                    //            //            else
+                                                    //            //            {
+                                                    //            //                oCant.iCantDesayunosInt++;
+                                                    //            //                oComDia1.iDesayunosInt++;
+                                                    //            //            }
+                                                    //            //        }
+
+                                                    //            //        oCant.iCantComidasInt++;
+                                                    //            //        oComDia1.iComidaInt++;
+                                                    //            //    }
+                                                    //            //    else
+                                                    //            //    {
+                                                    //            //        if (l > 0)
+                                                    //            //        {
+                                                    //            //            if (bEsInterInicio)
+                                                    //            //            {
+                                                    //            //                oCant.iCantDesayunosInt++;
+                                                    //            //                oComDia1.iDesayunosInt++;
+                                                    //            //            }
+                                                    //            //            else
+                                                    //            //            {
+                                                    //            //                oCant.iCantDesayunos++;
+                                                    //            //                oComDia1.iDesayunosNal++;
+                                                    //            //            }
+                                                    //            //        }
+
+                                                    //            //        oCant.iCantComidas++;
+                                                    //            //        oComDia1.iComidaNal++;
+                                                    //            //    }
+
+                                                    //            //    if (l == 0)
+                                                    //            //    {
+                                                    //            //        if (bEsInterFinal)
+                                                    //            //        {
+                                                    //            //            oCant.iCantCenasInt++;
+                                                    //            //            oComDia1.iCenaInt++;
+                                                    //            //        }
+                                                    //            //        else
+                                                    //            //        {
+                                                    //            //            oCant.iCantCenas++;
+                                                    //            //            oComDia1.iCenaNal++;
+                                                    //            //        }
+                                                    //            //    }
+                                                    //            //}
+                                                    //            ////Septima condición Comidas
+                                                    //            //else if ((fHoraInicio >= fInicioComida && fHoraInicio <= fFinComida) && (fHoraFinal > fInicioComida && fHoraFinal <= fFinComida) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                    //            //{
+                                                    //            //    if (bEsInterFinal)
+                                                    //            //    {
+                                                    //            //        if (l > 0)
+                                                    //            //        {
+                                                    //            //            if (!bEsInterInicio)
+                                                    //            //            {
+                                                    //            //                oCant.iCantDesayunos++;
+                                                    //            //                oComDia1.iDesayunosNal++;
+                                                    //            //            }
+                                                    //            //            else
+                                                    //            //            {
+                                                    //            //                oCant.iCantDesayunosInt++;
+                                                    //            //                oComDia1.iDesayunosInt++;
+                                                    //            //            }
+                                                    //            //        }
+
+                                                    //            //        oCant.iCantComidasInt++;
+                                                    //            //        oComDia1.iComidaInt++;
+                                                    //            //    }
+                                                    //            //    else
+                                                    //            //    {
+                                                    //            //        if (l > 0)
+                                                    //            //        {
+                                                    //            //            if (bEsInterInicio)
+                                                    //            //            {
+                                                    //            //                oCant.iCantDesayunosInt++;
+                                                    //            //                oComDia1.iDesayunosInt++;
+                                                    //            //            }
+                                                    //            //            else
+                                                    //            //            {
+                                                    //            //                oCant.iCantDesayunos++;
+                                                    //            //                oComDia1.iDesayunosNal++;
+                                                    //            //            }
+                                                    //            //        }
+
+                                                    //            //        oCant.iCantComidas++;
+                                                    //            //        oComDia1.iComidaNal++;
+                                                    //            //    }
+
+                                                    //            //    if (l == 0)
+                                                    //            //    {
+                                                    //            //        if (bEsInterFinal)
+                                                    //            //        {
+                                                    //            //            oCant.iCantCenasInt++;
+                                                    //            //            oComDia1.iCenaInt++;
+                                                    //            //        }
+                                                    //            //        else
+                                                    //            //        {
+                                                    //            //            oCant.iCantCenas++;
+                                                    //            //            oComDia1.iCenaNal++;
+                                                    //            //        }
+                                                    //            //    }
+                                                    //            //}
+                                                    //            ////Octava condición
+                                                    //            //else if ((fHoraInicio < fInicioComida && (fHoraFinal > fInicioComida && fHoraFinal >= fFinComida)) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                    //            //{
+                                                    //            //    if (bEsInterFinal)
+                                                    //            //    {
+                                                    //            //        if (l > 0)
+                                                    //            //        {
+                                                    //            //            if (!bEsInterInicio)
+                                                    //            //            {
+                                                    //            //                oCant.iCantDesayunos++;
+                                                    //            //                oComDia1.iDesayunosNal++;
+                                                    //            //            }
+                                                    //            //            else
+                                                    //            //            {
+                                                    //            //                oCant.iCantDesayunosInt++;
+                                                    //            //                oComDia1.iDesayunosInt++;
+                                                    //            //            }
+                                                    //            //        }
+
+                                                    //            //        oCant.iCantComidasInt++;
+                                                    //            //        oComDia1.iComidaInt++;
+                                                    //            //    }
+                                                    //            //    else
+                                                    //            //    {
+                                                    //            //        if (l > 0)
+                                                    //            //        {
+                                                    //            //            if (bEsInterInicio)
+                                                    //            //            {
+                                                    //            //                oCant.iCantDesayunosInt++;
+                                                    //            //                oComDia1.iDesayunosInt++;
+                                                    //            //            }
+                                                    //            //            else
+                                                    //            //            {
+                                                    //            //                oCant.iCantDesayunos++;
+                                                    //            //                oComDia1.iDesayunosNal++;
+                                                    //            //            }
+                                                    //            //        }
+
+                                                    //            //        oCant.iCantComidas++;
+                                                    //            //        oComDia1.iComidaNal++;
+                                                    //            //    }
+
+                                                    //            //    if (l == 0)
+                                                    //            //    {
+                                                    //            //        if (bEsInterFinal)
+                                                    //            //        {
+                                                    //            //            oCant.iCantCenasInt++;
+                                                    //            //            oComDia1.iCenaInt++;
+                                                    //            //        }
+                                                    //            //        else
+                                                    //            //        {
+                                                    //            //            oCant.iCantCenas++;
+                                                    //            //            oComDia1.iCenaNal++;
+                                                    //            //        }
+                                                    //            //    }
+                                                    //            //}
+                                                    //            #endregion
+
+                                                    //            #region CENA
+                                                    //            ////Primera condicion Cenas
+                                                    //            //if (((fHoraInicio < fInicioCena && fHoraFinal > fInicioCena) && fHoraFinal < fFinCena) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S()))
+                                                    //            //{
+                                                    //            //    if (bEsInterFinal)
+                                                    //            //    {
+                                                    //            //        if (l > 0)
+                                                    //            //        {
+                                                    //            //            if (!bEsInterInicio)
+                                                    //            //            {
+                                                    //            //                oCant.iCantDesayunos++;
+                                                    //            //                oCant.iCantComidas++;
+
+                                                    //            //                oComDia1.iDesayunosNal++;
+                                                    //            //                oComDia1.iComidaNal++;
+                                                    //            //            }
+                                                    //            //            else
+                                                    //            //            {
+                                                    //            //                oCant.iCantDesayunosInt++;
+                                                    //            //                oCant.iCantComidasInt++;
+
+                                                    //            //                oComDia1.iDesayunosInt++;
+                                                    //            //                oComDia1.iComidaInt++;
+                                                    //            //            }
+                                                    //            //        }
+
+                                                    //            //        oCant.iCantCenasInt++;
+                                                    //            //        oComDia1.iCenaInt++;
+                                                    //            //    }
+                                                    //            //    else
+                                                    //            //    {
+                                                    //            //        if (l > 0)
+                                                    //            //        {
+                                                    //            //            if (bEsInterInicio)
+                                                    //            //            {
+                                                    //            //                oCant.iCantDesayunosInt++;
+                                                    //            //                oCant.iCantComidasInt++;
+
+                                                    //            //                oComDia1.iDesayunosInt++;
+                                                    //            //                oComDia1.iComidaInt++;
+                                                    //            //            }
+                                                    //            //            else
+                                                    //            //            {
+                                                    //            //                oCant.iCantDesayunos++;
+                                                    //            //                oCant.iCantComidas++;
+
+                                                    //            //                oComDia1.iDesayunosNal++;
+                                                    //            //                oComDia1.iComidaNal++;
+                                                    //            //            }
+                                                    //            //        }
+
+                                                    //            //        oCant.iCantCenas++;
+                                                    //            //        oComDia1.iCenaNal++;
+                                                    //            //    }
+                                                    //            //}
+                                                    //            ////Segunda condición Cenas
+                                                    //            //else if ((fHoraInicio > fInicioCena && fHoraInicio < fFinCena) && (fHoraFinal > fFinCena && fHoraFinal > fInicioCena) && (oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                    //            //{
+                                                    //            //    if (bEsInterFinal)
+                                                    //            //    {
+                                                    //            //        if (l > 0)
+                                                    //            //        {
+                                                    //            //            if (!bEsInterInicio)
+                                                    //            //            {
+                                                    //            //                oCant.iCantDesayunos++;
+                                                    //            //                oCant.iCantComidas++;
+
+                                                    //            //                oComDia1.iDesayunosNal++;
+                                                    //            //                oComDia1.iComidaNal++;
+                                                    //            //            }
+                                                    //            //            else
+                                                    //            //            {
+                                                    //            //                oCant.iCantDesayunosInt++;
+                                                    //            //                oCant.iCantComidasInt++;
+
+                                                    //            //                oComDia1.iDesayunosInt++;
+                                                    //            //                oComDia1.iComidaInt++;
+                                                    //            //            }
+                                                    //            //        }
+
+                                                    //            //        oCant.iCantCenasInt++;
+                                                    //            //        oComDia1.iCenaInt++;
+                                                    //            //    }
+                                                    //            //    else
+                                                    //            //    {
+                                                    //            //        if (l > 0)
+                                                    //            //        {
+                                                    //            //            if (bEsInterInicio)
+                                                    //            //            {
+                                                    //            //                oCant.iCantDesayunosInt++;
+                                                    //            //                oCant.iCantComidasInt++;
+
+                                                    //            //                oComDia1.iDesayunosInt++;
+                                                    //            //                oComDia1.iComidaInt++;
+                                                    //            //            }
+                                                    //            //            else
+                                                    //            //            {
+                                                    //            //                oCant.iCantDesayunos++;
+                                                    //            //                oCant.iCantComidas++;
+
+                                                    //            //                oComDia1.iDesayunosNal++;
+                                                    //            //                oComDia1.iComidaNal++;
+                                                    //            //            }
+                                                    //            //        }
+
+                                                    //            //        oCant.iCantCenas++;
+                                                    //            //        oComDia1.iCenaNal++;
+                                                    //            //    }
+                                                    //            //}
+                                                    //            ////Tercera condición Cenas
+                                                    //            //else if ((fHoraInicio >= fInicioCena && fHoraFinal > fFinCena) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                    //            //{
+                                                    //            //    if (bEsInterFinal)
+                                                    //            //    {
+                                                    //            //        if (l > 0)
+                                                    //            //        {
+                                                    //            //            if (!bEsInterInicio)
+                                                    //            //            {
+                                                    //            //                oCant.iCantDesayunos++;
+                                                    //            //                oCant.iCantComidas++;
+
+                                                    //            //                oComDia1.iDesayunosNal++;
+                                                    //            //                oComDia1.iComidaNal++;
+                                                    //            //            }
+                                                    //            //            else
+                                                    //            //            {
+                                                    //            //                oCant.iCantDesayunosInt++;
+                                                    //            //                oCant.iCantComidasInt++;
+
+                                                    //            //                oComDia1.iDesayunosInt++;
+                                                    //            //                oComDia1.iComidaInt++;
+                                                    //            //            }
+                                                    //            //        }
+
+                                                    //            //        oCant.iCantCenasInt++;
+                                                    //            //        oComDia1.iCenaInt++;
+                                                    //            //    }
+                                                    //            //    else
+                                                    //            //    {
+                                                    //            //        if (l > 0)
+                                                    //            //        {
+                                                    //            //            if (bEsInterInicio)
+                                                    //            //            {
+                                                    //            //                oCant.iCantDesayunosInt++;
+                                                    //            //                oCant.iCantComidasInt++;
+
+                                                    //            //                oComDia1.iDesayunosInt++;
+                                                    //            //                oComDia1.iComidaInt++;
+                                                    //            //            }
+                                                    //            //            else
+                                                    //            //            {
+                                                    //            //                oCant.iCantDesayunos++;
+                                                    //            //                oCant.iCantComidas++;
+
+                                                    //            //                oComDia1.iDesayunosNal++;
+                                                    //            //                oComDia1.iComidaNal++;
+                                                    //            //            }
+                                                    //            //        }
+
+                                                    //            //        oCant.iCantCenas++;
+                                                    //            //        oComDia1.iCenaNal++;
+                                                    //            //    }
+                                                    //            //}
+                                                    //            ////Cuarta condición Cenas
+                                                    //            //else if ((fHoraInicio < fInicioCena && fHoraFinal <= fInicioCena) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S()))
+                                                    //            //{
+                                                    //            //    if (bEsInterFinal)
+                                                    //            //    {
+                                                    //            //        if (l > 0)
+                                                    //            //        {
+                                                    //            //            if (!bEsInterInicio)
+                                                    //            //            {
+                                                    //            //                oCant.iCantDesayunos++;
+                                                    //            //                oCant.iCantComidas++;
+
+                                                    //            //                oComDia1.iDesayunosNal++;
+                                                    //            //                oComDia1.iComidaNal++;
+                                                    //            //            }
+                                                    //            //            else
+                                                    //            //            {
+                                                    //            //                oCant.iCantDesayunosInt++;
+                                                    //            //                oCant.iCantComidasInt++;
+
+                                                    //            //                oComDia1.iDesayunosInt++;
+                                                    //            //                oComDia1.iComidaInt++;
+                                                    //            //            }
+                                                    //            //        }
+
+                                                    //            //        oCant.iCantCenasInt++;
+                                                    //            //        oComDia1.iCenaInt++;
+                                                    //            //    }
+                                                    //            //    else
+                                                    //            //    {
+                                                    //            //        if (l > 0)
+                                                    //            //        {
+                                                    //            //            if (bEsInterInicio)
+                                                    //            //            {
+                                                    //            //                oCant.iCantDesayunosInt++;
+                                                    //            //                oCant.iCantComidasInt++;
+
+                                                    //            //                oComDia1.iDesayunosInt++;
+                                                    //            //                oComDia1.iComidaInt++;
+                                                    //            //            }
+                                                    //            //            else
+                                                    //            //            {
+                                                    //            //                oCant.iCantDesayunos++;
+                                                    //            //                oCant.iCantComidas++;
+
+                                                    //            //                oComDia1.iDesayunosNal++;
+                                                    //            //                oComDia1.iComidaNal++;
+                                                    //            //            }
+                                                    //            //        }
+
+                                                    //            //        oCant.iCantCenas++;
+                                                    //            //        oComDia1.iCenaNal++;
+                                                    //            //    }
+                                                    //            //}
+                                                    //            ////Quinta condición Cenas
+                                                    //            //else if ((fHoraInicio < fInicioCena && fHoraFinal < fInicioCena) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S()))
+                                                    //            //{
+                                                    //            //    if (bEsInterFinal)
+                                                    //            //    {
+                                                    //            //        if (l > 0)
+                                                    //            //        {
+                                                    //            //            if (!bEsInterInicio)
+                                                    //            //            {
+                                                    //            //                oCant.iCantDesayunos++;
+                                                    //            //                oCant.iCantComidas++;
+
+                                                    //            //                oComDia1.iDesayunosNal++;
+                                                    //            //                oComDia1.iComidaNal++;
+                                                    //            //            }
+                                                    //            //            else
+                                                    //            //            {
+                                                    //            //                oCant.iCantDesayunosInt++;
+                                                    //            //                oCant.iCantComidasInt++;
+
+                                                    //            //                oComDia1.iDesayunosInt++;
+                                                    //            //                oComDia1.iComidaInt++;
+                                                    //            //            }
+                                                    //            //        }
+
+                                                    //            //        oCant.iCantCenasInt++;
+                                                    //            //        oComDia1.iCenaInt++;
+                                                    //            //    }
+                                                    //            //    else
+                                                    //            //    {
+                                                    //            //        if (l > 0)
+                                                    //            //        {
+                                                    //            //            if (bEsInterInicio)
+                                                    //            //            {
+                                                    //            //                oCant.iCantDesayunosInt++;
+                                                    //            //                oCant.iCantComidasInt++;
+
+                                                    //            //                oComDia1.iDesayunosInt++;
+                                                    //            //                oComDia1.iComidaInt++;
+                                                    //            //            }
+                                                    //            //            else
+                                                    //            //            {
+                                                    //            //                oCant.iCantDesayunos++;
+                                                    //            //                oCant.iCantComidas++;
+
+                                                    //            //                oComDia1.iDesayunosNal++;
+                                                    //            //                oComDia1.iComidaNal++;
+                                                    //            //            }
+                                                    //            //        }
+
+                                                    //            //        oCant.iCantCenas++;
+                                                    //            //        oComDia1.iCenaNal++;
+                                                    //            //    }
+                                                    //            //}
+                                                    //            ////Sexta condición Cenas
+                                                    //            //else if ((fHoraInicio < fInicioCena && (fHoraFinal > fInicioCena && fHoraFinal <= fFinCena)) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                    //            //{
+                                                    //            //    if (bEsInterFinal)
+                                                    //            //    {
+                                                    //            //        if (l > 0)
+                                                    //            //        {
+                                                    //            //            if (!bEsInterInicio)
+                                                    //            //            {
+                                                    //            //                oCant.iCantDesayunos++;
+                                                    //            //                oCant.iCantComidas++;
+
+                                                    //            //                oComDia1.iDesayunosNal++;
+                                                    //            //                oComDia1.iComidaNal++;
+                                                    //            //            }
+                                                    //            //            else
+                                                    //            //            {
+                                                    //            //                oCant.iCantDesayunosInt++;
+                                                    //            //                oCant.iCantComidasInt++;
+
+                                                    //            //                oComDia1.iDesayunosInt++;
+                                                    //            //                oComDia1.iComidaInt++;
+                                                    //            //            }
+                                                    //            //        }
+
+                                                    //            //        oCant.iCantCenasInt++;
+                                                    //            //        oComDia1.iCenaInt++;
+                                                    //            //    }
+                                                    //            //    else
+                                                    //            //    {
+                                                    //            //        if (l > 0)
+                                                    //            //        {
+                                                    //            //            if (bEsInterInicio)
+                                                    //            //            {
+                                                    //            //                oCant.iCantDesayunosInt++;
+                                                    //            //                oCant.iCantComidasInt++;
+
+                                                    //            //                oComDia1.iDesayunosInt++;
+                                                    //            //                oComDia1.iComidaInt++;
+                                                    //            //            }
+                                                    //            //            else
+                                                    //            //            {
+                                                    //            //                oCant.iCantDesayunos++;
+                                                    //            //                oCant.iCantComidas++;
+
+                                                    //            //                oComDia1.iDesayunosNal++;
+                                                    //            //                oComDia1.iComidaNal++;
+                                                    //            //            }
+                                                    //            //        }
+
+                                                    //            //        oCant.iCantCenas++;
+                                                    //            //        oComDia1.iCenaNal++;
+                                                    //            //    }
+                                                    //            //}
+                                                    //            ////Septima condición Cenas
+                                                    //            //else if ((fHoraInicio >= fInicioCena && fHoraInicio <= fFinCena) && (fHoraFinal > fInicioCena && fHoraFinal <= fFinCena) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                    //            //{
+                                                    //            //    if (bEsInterFinal)
+                                                    //            //    {
+                                                    //            //        if (l > 0)
+                                                    //            //        {
+                                                    //            //            if (!bEsInterInicio)
+                                                    //            //            {
+                                                    //            //                oCant.iCantDesayunos++;
+                                                    //            //                oCant.iCantComidas++;
+
+                                                    //            //                oComDia1.iDesayunosNal++;
+                                                    //            //                oComDia1.iComidaNal++;
+                                                    //            //            }
+                                                    //            //            else
+                                                    //            //            {
+                                                    //            //                oCant.iCantDesayunosInt++;
+                                                    //            //                oCant.iCantComidasInt++;
+
+                                                    //            //                oComDia1.iDesayunosInt++;
+                                                    //            //                oComDia1.iComidaInt++;
+                                                    //            //            }
+                                                    //            //        }
+
+                                                    //            //        oCant.iCantCenasInt++;
+                                                    //            //        oComDia1.iCenaInt++;
+                                                    //            //    }
+                                                    //            //    else
+                                                    //            //    {
+                                                    //            //        if (l > 0)
+                                                    //            //        {
+                                                    //            //            if (bEsInterInicio)
+                                                    //            //            {
+                                                    //            //                oCant.iCantDesayunosInt++;
+                                                    //            //                oCant.iCantComidasInt++;
+
+                                                    //            //                oComDia1.iDesayunosInt++;
+                                                    //            //                oComDia1.iComidaInt++;
+                                                    //            //            }
+                                                    //            //            else
+                                                    //            //            {
+                                                    //            //                oCant.iCantDesayunos++;
+                                                    //            //                oCant.iCantComidas++;
+
+                                                    //            //                oComDia1.iDesayunosNal++;
+                                                    //            //                oComDia1.iComidaNal++;
+                                                    //            //            }
+                                                    //            //        }
+
+                                                    //            //        oCant.iCantCenas++;
+                                                    //            //        oComDia1.iCenaNal++;
+                                                    //            //    }
+                                                    //            //}
+                                                    //            ////Octava condición Cenas
+                                                    //            //else if ((fHoraInicio < fInicioCena && (fHoraFinal > fInicioCena && fHoraFinal >= fFinCena)) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                    //            //{
+                                                    //            //    if (bEsInterFinal)
+                                                    //            //    {
+                                                    //            //        if (l > 0)
+                                                    //            //        {
+                                                    //            //            if (!bEsInterInicio)
+                                                    //            //            {
+                                                    //            //                oCant.iCantDesayunos++;
+                                                    //            //                oCant.iCantComidas++;
+
+                                                    //            //                oComDia1.iDesayunosNal++;
+                                                    //            //                oComDia1.iComidaNal++;
+                                                    //            //            }
+                                                    //            //            else
+                                                    //            //            {
+                                                    //            //                oCant.iCantDesayunosInt++;
+                                                    //            //                oCant.iCantComidasInt++;
+
+                                                    //            //                oComDia1.iDesayunosInt++;
+                                                    //            //                oComDia1.iComidaInt++;
+                                                    //            //            }
+                                                    //            //        }
+
+                                                    //            //        oCant.iCantCenasInt++;
+                                                    //            //        oComDia1.iCenaInt++;
+                                                    //            //    }
+                                                    //            //    else
+                                                    //            //    {
+                                                    //            //        if (l > 0)
+                                                    //            //        {
+                                                    //            //            if (bEsInterInicio)
+                                                    //            //            {
+                                                    //            //                oCant.iCantDesayunosInt++;
+                                                    //            //                oCant.iCantComidasInt++;
+
+                                                    //            //                oComDia1.iDesayunosInt++;
+                                                    //            //                oComDia1.iComidaInt++;
+                                                    //            //            }
+                                                    //            //            else
+                                                    //            //            {
+                                                    //            //                oCant.iCantDesayunos++;
+                                                    //            //                oCant.iCantComidas++;
+
+                                                    //            //                oComDia1.iDesayunosNal++;
+                                                    //            //                oComDia1.iComidaNal++;
+                                                    //            //            }
+                                                    //            //        }
+
+                                                    //            //        oCant.iCantCenas++;
+                                                    //            //        oComDia1.iCenaNal++;
+                                                    //            //    }
+                                                    //            //}
+                                                    //            #endregion
+
+                                                    //            #region CODIGO ANTERIOR
+                                                    //            //// SI - CENA
+                                                    //            //if ((fHoraInicio < fInicioCena && fHoraFinal >= fInicioCena) || (fHoraInicio <= fFinCena && fHoraFinal > fInicioCena))
+                                                    //            //{
+                                                    //            //    if (bEsInterFinal)
+                                                    //            //    {
+                                                    //            //        if (l > 0)
+                                                    //            //        {
+                                                    //            //            if (!bEsInterInicio)
+                                                    //            //            {
+                                                    //            //                oCant.iCantDesayunos++;
+                                                    //            //                oCant.iCantComidas++;
+
+                                                    //            //                oComDia1.iDesayunosNal++;
+                                                    //            //                oComDia1.iComidaNal++;
+                                                    //            //            }
+                                                    //            //            else
+                                                    //            //            {
+                                                    //            //                oCant.iCantDesayunosInt++;
+                                                    //            //                oCant.iCantComidasInt++;
+
+                                                    //            //                oComDia1.iDesayunosInt++;
+                                                    //            //                oComDia1.iComidaInt++;
+                                                    //            //            }
+                                                    //            //        }
+
+                                                    //            //        oCant.iCantCenasInt++;
+                                                    //            //        oComDia1.iCenaInt++;
+                                                    //            //    }
+                                                    //            //    else
+                                                    //            //    {
+                                                    //            //        if (l > 0)
+                                                    //            //        {
+                                                    //            //            if (bEsInterInicio)
+                                                    //            //            {
+                                                    //            //                oCant.iCantDesayunosInt++;
+                                                    //            //                oCant.iCantComidasInt++;
+
+                                                    //            //                oComDia1.iDesayunosInt++;
+                                                    //            //                oComDia1.iComidaInt++;
+                                                    //            //            }
+                                                    //            //            else
+                                                    //            //            {
+                                                    //            //                oCant.iCantDesayunos++;
+                                                    //            //                oCant.iCantComidas++;
+
+                                                    //            //                oComDia1.iDesayunosNal++;
+                                                    //            //                oComDia1.iComidaNal++;
+                                                    //            //            }
+                                                    //            //        }
+
+                                                    //            //        oCant.iCantCenas++;
+                                                    //            //        oComDia1.iCenaNal++;
+                                                    //            //    }
+                                                    //            //}
+                                                    //            //// SI - DESAYUNO / COMIDA
+                                                    //            //else if ((fHoraInicio <= fInicioComida && (fHoraFinal > fInicioComida)) || (fHoraInicio > fInicioComida && fHoraInicio <= fFinComida) || (fHoraInicio < fInicioComida && fHoraFinal > fFinComida))
+                                                    //            //{
+                                                    //            //    if (bEsInterFinal)
+                                                    //            //    {
+                                                    //            //        if (l > 0)
+                                                    //            //        {
+                                                    //            //            if (!bEsInterInicio)
+                                                    //            //            {
+                                                    //            //                oCant.iCantDesayunos++;
+                                                    //            //                oComDia1.iDesayunosNal++;
+                                                    //            //            }
+                                                    //            //            else
+                                                    //            //            {
+                                                    //            //                oCant.iCantDesayunosInt++;
+                                                    //            //                oComDia1.iDesayunosInt++;
+                                                    //            //            }
+                                                    //            //        }
+
+                                                    //            //        oCant.iCantComidasInt++;
+                                                    //            //        oComDia1.iComidaInt++;
+                                                    //            //    }
+                                                    //            //    else
+                                                    //            //    {
+                                                    //            //        if (l > 0)
+                                                    //            //        {
+                                                    //            //            if (bEsInterInicio)
+                                                    //            //            {
+                                                    //            //                oCant.iCantDesayunosInt++;
+                                                    //            //                oComDia1.iDesayunosInt++;
+                                                    //            //            }
+                                                    //            //            else
+                                                    //            //            {
+                                                    //            //                oCant.iCantDesayunos++;
+                                                    //            //                oComDia1.iDesayunosNal++;
+                                                    //            //            }
+                                                    //            //        }
+
+                                                    //            //        oCant.iCantComidas++;
+                                                    //            //        oComDia1.iComidaNal++;
+                                                    //            //    }
+
+                                                    //            //    if (l == 0)
+                                                    //            //    {
+                                                    //            //        if (bEsInterFinal)
+                                                    //            //        {
+                                                    //            //            oCant.iCantCenasInt++;
+                                                    //            //            oComDia1.iCenaInt++;
+                                                    //            //        }
+                                                    //            //        else
+                                                    //            //        {
+                                                    //            //            oCant.iCantCenas++;
+                                                    //            //            oComDia1.iCenaNal++;
+                                                    //            //        }
+                                                    //            //    }
+                                                    //            //}
+                                                    //            //// SI - DESAYUNO / COMIDA / CENA
+                                                    //            //else if (fHoraInicio < fInicioDesayuno || (fHoraInicio > fInicioDesayuno && fHoraInicio < fFinDesayuno))
+                                                    //            //{
+                                                    //            //    if (bEsInterFinal)
+                                                    //            //    {
+                                                    //            //        oCant.iCantDesayunosInt++;
+                                                    //            //        oComDia1.iDesayunosInt++;
+                                                    //            //    }
+                                                    //            //    else
+                                                    //            //    {
+                                                    //            //        oCant.iCantDesayunos++;
+                                                    //            //        oComDia1.iDesayunosNal++;
+                                                    //            //    }
+                                                    //            //}
+                                                    //            //else
+                                                    //            //{
+                                                    //            //    if (l == 0)
+                                                    //            //    {
+                                                    //            //        if (bEsInterFinal)
+                                                    //            //        {
+                                                    //            //            oCant.iCantCenasInt++;
+                                                    //            //            oComDia1.iCenaInt++;
+                                                    //            //        }
+                                                    //            //        else
+                                                    //            //        {
+                                                    //            //            oCant.iCantCenas++;
+                                                    //            //            oComDia1.iCenaNal++;
+                                                    //            //        }
+                                                    //            //    }
+                                                    //            //}
+                                                    //            #endregion
+
+
+                                                    //        }
+
+                                                    //        oLsComDia.Add(oComDia1);
+                                                    //    }
+                                                    //}
+                                                    #endregion
+
+                                                    #region CODIGO CUANDO ES UN DIA AGREGADO TEMPORALMENTE PARA REVISAR FUNCIONAMIENTO PARA MAS DE DOS DÍAS
+                                                    for (int k = 0; k < rowsD.Length; k++)
                                                     {
-                                                        // PIERNAS EN MEXICO Y EL EXTRANJERO
+                                                        ComidasPorDia oComDia1 = new ComidasPorDia();
+                                                        oComDia1.sClavePiloto = drP["ClavePiloto"].S();
+                                                        oComDia1.dtFechaDia = rowsD[k][FechaInicio].S().Dt();
+                                                        oComDia1.dtFechaFin = rowsD[k][FechaFin].S().Dt();
+                                                        oComDia1.sduty_type = rowsD[k]["DutyType"].S();
+                                                        oComDia1.sOrigen = rowsD[k]["POD"].S();
+                                                        oComDia1.sDestino = rowsD[k]["POA"].S();
 
-                                                        for (int k = 0; k < rowsD.Length; k++)
+                                                        fHoraInicio = 0;
+                                                        fHoraFinal = 0;
+
+                                                        bEsInterInicio = false;
+                                                        bEsInterFinal = false;
+
+                                                        bEsInterInicio = rowsD[k]["PaisPOD"].S() == "MX" ? false : true;
+                                                        bEsInterFinal = rowsD[k]["PaisPOA"].S() == "MX" ? false : true;
+
+                                                        DateTime dtIniDia = rowsD[0][FechaInicio].S().Dt();
+                                                        DateTime dtFinDia = rowsD[k][FechaFin].S().Dt();
+
+                                                        fHoraInicio = dtIniDia.Hour + (dtIniDia.Minute / float.Parse("60"));
+                                                        fHoraFinal = dtFinDia.Hour + (dtFinDia.Minute / float.Parse("60"));
+
+                                                        if (l > 0 && k == 0)
+                                                            fHoraInicio = 0;
+
+                                                        if (k + 1 == rowsD.Length)
                                                         {
-                                                            ComidasPorDia oComDia1 = new ComidasPorDia();
-                                                            oComDia1.sClavePiloto = drP["ClavePiloto"].S();
-                                                            oComDia1.dtFechaDia = rowsD[k][FechaInicio].S().Dt();
-                                                            oComDia1.dtFechaFin = rowsD[k][FechaFin].S().Dt();
-                                                            oComDia1.sduty_type = rowsD[k]["DutyType"].S();
-                                                            oComDia1.sOrigen = rowsD[k]["POD"].S();
-                                                            oComDia1.sDestino = rowsD[k]["POA"].S();
 
-                                                            bEsInterInicio = rowsD[k]["PaisPOD"].S() == "MX" ? false : true;
-                                                            bEsInterFinal = rowsD[k]["PaisPOA"].S() == "MX" ? false : true;
+                                                            #region DESAYUNO
+                                                            //if (fHoraInicio < fInicioDesayuno || (fHoraInicio > fInicioDesayuno && fHoraInicio < fFinDesayuno)) //Linea origen
 
-                                                            DateTime dtIniDia = rowsD[k][FechaInicio].S().Dt();
-                                                            DateTime dtFinDia = rowsD[k][FechaFin].S().Dt();
-
-                                                            fHoraInicio = dtIniDia.Hour + (dtIniDia.Minute / float.Parse("60"));
-                                                            fHoraFinal = dtFinDia.Hour + (dtFinDia.Minute / float.Parse("60"));
-
-                                                            if (l > 0 && k == 0)
-                                                                fHoraInicio = 0;
-
-                                                            // SI - CENA
-                                                            if ((fHoraInicio < fInicioCena && fHoraFinal >= fInicioCena) || (fHoraInicio <= fFinCena && fHoraFinal > fInicioCena))
+                                                            //Primera condicion
+                                                            if (((fHoraInicio < fInicioDesayuno && fHoraFinal > fInicioDesayuno) && fHoraFinal < fFinDesayuno) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S()))
                                                             {
-                                                                if (bEsInterFinal)
-                                                                {
-                                                                    if (l > 0 && k == 0)
-                                                                    {
-                                                                        if (!bEsInterInicio)
-                                                                        {
-                                                                            oCant.iCantDesayunos++;
-                                                                            oCant.iCantComidas++;
-
-                                                                            oComDia1.iDesayunosNal++;
-                                                                            oComDia1.iComidaNal++;
-                                                                        }
-                                                                        else
-                                                                        {
-                                                                            oCant.iCantDesayunosInt++;
-                                                                            oCant.iCantComidasInt++;
-
-                                                                            oComDia1.iDesayunosInt++;
-                                                                            oComDia1.iComidaInt++;
-                                                                        }
-                                                                    }
-
-
-                                                                    oCant.iCantCenasInt++;
-                                                                    oComDia1.iCenaInt++;
-                                                                }
-                                                                else
-                                                                {
-                                                                    if (l > 0 && k == 0)
-                                                                    {
-                                                                        if (bEsInterInicio)
-                                                                        {
-                                                                            oCant.iCantDesayunosInt++;
-                                                                            oCant.iCantComidasInt++;
-
-                                                                            oComDia1.iDesayunosInt++;
-                                                                            oComDia1.iComidaInt++;
-                                                                        }
-                                                                        else
-                                                                        {
-                                                                            oCant.iCantDesayunos++;
-                                                                            oCant.iCantComidas++;
-
-                                                                            oComDia1.iDesayunosNal++;
-                                                                            oComDia1.iComidaNal++;
-                                                                        }
-                                                                    }
-
-                                                                    oCant.iCantCenas++;
-                                                                    oComDia1.iCenaNal++;
-                                                                }
+                                                                if (bEsInterFinal) { oCant.iCantDesayunosInt++; oComDia1.iDesayunosInt++; } else { oCant.iCantDesayunos++; oComDia1.iDesayunosNal++; }
                                                             }
-                                                            // SI - DESAYUNO / COMIDA
-                                                            else if ((fHoraInicio <= fInicioComida && (fHoraFinal > fInicioComida)) || (fHoraInicio > fInicioComida && fHoraInicio <= fFinComida) || (fHoraInicio < fInicioComida && fHoraFinal > fFinComida))
+                                                            //Segunda condición
+                                                            else if ((fHoraInicio > fInicioDesayuno && fHoraInicio < fFinDesayuno) && (fHoraFinal > fFinDesayuno && fHoraFinal > fInicioDesayuno) && (oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioComida)) //Evaluar antes de comida
                                                             {
-                                                                if (bEsInterFinal)
-                                                                {
-                                                                    if (l > 0 && k == 0)
-                                                                    {
-                                                                        if (!bEsInterInicio)
-                                                                        {
-                                                                            oCant.iCantDesayunos++;
-                                                                            oComDia1.iDesayunosNal++;
-                                                                        }
-                                                                        else
-                                                                        {
-                                                                            oCant.iCantDesayunosInt++;
-                                                                            oComDia1.iDesayunosInt++;
-                                                                        }
-                                                                    }
-
-                                                                    oCant.iCantComidasInt++;
-                                                                    oComDia1.iComidaInt++;
-                                                                }
-                                                                else
-                                                                {
-                                                                    if (l > 0 && k == 0)
-                                                                    {
-                                                                        if (bEsInterInicio)
-                                                                        {
-                                                                            oCant.iCantDesayunosInt++;
-                                                                            oComDia1.iDesayunosInt++;
-                                                                        }
-                                                                        else
-                                                                        {
-                                                                            oCant.iCantDesayunos++;
-                                                                            oComDia1.iDesayunosNal++;
-                                                                        }
-                                                                    }
-
-                                                                    oCant.iCantComidas++;
-                                                                    oComDia1.iComidaNal++;
-                                                                }
-
-                                                                if (l == 0 && k == 0)
-                                                                {
-                                                                    if (bEsInterFinal)
-                                                                    {
-                                                                        oCant.iCantCenasInt++;
-                                                                        oComDia1.iCenaInt++;
-                                                                    }
-                                                                    else
-                                                                    {
-                                                                        oCant.iCantCenas++;
-                                                                        oComDia1.iCenaNal++;
-                                                                    }
-                                                                }
+                                                                if (bEsInterFinal) { oCant.iCantDesayunosInt++; oComDia1.iDesayunosInt++; } else { oCant.iCantDesayunos++; oComDia1.iDesayunosNal++; }
                                                             }
-                                                            // SI - DESAYUNO / COMIDA / CENA
-                                                            else if (fHoraInicio < fInicioDesayuno || (fHoraInicio > fInicioDesayuno && fHoraInicio < fFinDesayuno))
+                                                            //Tercera condición
+                                                            else if ((fHoraInicio >= fInicioDesayuno && fHoraFinal > fFinDesayuno) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
                                                             {
-                                                                if (bEsInterFinal)
-                                                                {
-                                                                    oCant.iCantDesayunosInt++;
-                                                                    oComDia1.iDesayunosInt++;
-                                                                }
-                                                                else
-                                                                {
-                                                                    oCant.iCantDesayunos++;
-                                                                    oComDia1.iDesayunosNal++;
-                                                                }
+                                                                if (bEsInterFinal) { oCant.iCantDesayunosInt++; oComDia1.iDesayunosInt++; } else { oCant.iCantDesayunos++; oComDia1.iDesayunosNal++; }
                                                             }
-                                                            else
+                                                            //Cuarta condición
+                                                            else if ((fHoraInicio < fInicioDesayuno && fHoraFinal <= fInicioDesayuno) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S()))
                                                             {
-                                                                if (l == 0 && k == 0)
-                                                                {
-                                                                    if (bEsInterFinal)
-                                                                    {
-                                                                        oCant.iCantCenasInt++;
-                                                                        oComDia1.iCenaInt++;
-                                                                    }
-                                                                    else
-                                                                    {
-                                                                        oCant.iCantCenas++;
-                                                                        oComDia1.iCenaNal++;
-                                                                    }
-                                                                }
+                                                                if (bEsInterFinal) { oCant.iCantDesayunosInt++; oComDia1.iDesayunosInt++; } else { oCant.iCantDesayunos++; oComDia1.iDesayunosNal++; }
+                                                            }
+                                                            //Quinta condición
+                                                            else if ((fHoraInicio < fInicioDesayuno && fHoraFinal < fInicioDesayuno) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S()))
+                                                            {
+                                                                if (bEsInterFinal) { oCant.iCantDesayunosInt++; oComDia1.iDesayunosInt++; } else { oCant.iCantDesayunos++; oComDia1.iDesayunosNal++; }
+                                                            }
+                                                            //Sexta condición
+                                                            else if ((fHoraInicio < fInicioDesayuno && (fHoraFinal > fInicioDesayuno && fHoraFinal <= fFinDesayuno)) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                            {
+                                                                if (bEsInterFinal) { oCant.iCantDesayunosInt++; oComDia1.iDesayunosInt++; } else { oCant.iCantDesayunos++; oComDia1.iDesayunosNal++; }
+                                                            }
+                                                            //Septima condición
+                                                            else if ((fHoraInicio >= fInicioDesayuno && fHoraInicio <= fFinDesayuno) && (fHoraFinal > fInicioDesayuno && fHoraFinal <= fFinDesayuno) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                            {
+                                                                if (bEsInterFinal) { oCant.iCantDesayunosInt++; oComDia1.iDesayunosInt++; } else { oCant.iCantDesayunos++; oComDia1.iDesayunosNal++; }
                                                             }
 
-                                                            oLsComDia.Add(oComDia1);
+                                                            //Octava condición
+                                                            else if ((fHoraInicio < fInicioDesayuno && (fHoraFinal > fInicioDesayuno && fHoraFinal >= fFinDesayuno)) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                            {
+                                                                if (bEsInterFinal) { oCant.iCantDesayunosInt++; oComDia1.iDesayunosInt++; } else { oCant.iCantDesayunos++; oComDia1.iDesayunosNal++; }
+                                                            }
+                                                            #endregion
+
+                                                            #region COMIDA
+                                                            //Primera condicion Comidas
+                                                            if (((fHoraInicio < fInicioComida && fHoraFinal > fInicioComida) && fHoraFinal < fFinComida) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S()))
+                                                            {
+                                                                if (bEsInterFinal) { oCant.iCantComidasInt++; oComDia1.iComidaInt++; } else { oCant.iCantComidas++; oComDia1.iComidaNal++; }
+                                                            }
+                                                            //Segunda condición Comidas
+                                                            else if ((fHoraInicio > fInicioComida && fHoraInicio < fFinComida) && (fHoraFinal > fFinComida && fHoraFinal > fInicioComida) && (oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioCena)) //Evaluar antes de cena
+                                                            {
+                                                                if (bEsInterFinal) { oCant.iCantComidasInt++; oComDia1.iComidaInt++; } else { oCant.iCantComidas++; oComDia1.iComidaNal++; }
+                                                            }
+                                                            //Tercera condición Comidas
+                                                            else if ((fHoraInicio >= fInicioComida && fHoraFinal > fFinComida) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                            {
+                                                                if (bEsInterFinal) { oCant.iCantComidasInt++; oComDia1.iComidaInt++; } else { oCant.iCantComidas++; oComDia1.iComidaNal++; }
+                                                            }
+                                                            //Cuarta condición Comidas
+                                                            else if ((fHoraInicio < fInicioComida && fHoraFinal <= fInicioComida) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S()))
+                                                            {
+                                                                if (bEsInterFinal) { oCant.iCantComidasInt++; oComDia1.iComidaInt++; } else { oCant.iCantComidas++; oComDia1.iComidaNal++; }
+                                                            }
+                                                            //Quinta condición Comidas
+                                                            else if ((fHoraInicio < fInicioComida && fHoraFinal < fInicioComida) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S()))
+                                                            {
+                                                                if (bEsInterFinal) { oCant.iCantComidasInt++; oComDia1.iComidaInt++; } else { oCant.iCantComidas++; oComDia1.iComidaNal++; }
+                                                            }
+                                                            //Sexta condición Comidas
+                                                            else if ((fHoraInicio < fInicioComida && (fHoraFinal > fInicioComida && fHoraFinal <= fFinComida)) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                            {
+                                                                if (bEsInterFinal) { oCant.iCantComidasInt++; oComDia1.iComidaInt++; } else { oCant.iCantComidas++; oComDia1.iComidaNal++; }
+                                                            }
+                                                            //Septima condición Comidas
+                                                            else if ((fHoraInicio >= fInicioComida && fHoraInicio <= fFinComida) && (fHoraFinal > fInicioComida && fHoraFinal <= fFinComida) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                            {
+                                                                if (bEsInterFinal) { oCant.iCantComidasInt++; oComDia1.iComidaInt++; } else { oCant.iCantComidas++; oComDia1.iComidaNal++; }
+                                                            }
+                                                            //Octava condición
+                                                            else if ((fHoraInicio < fInicioComida && (fHoraFinal > fInicioComida && fHoraFinal >= fFinComida)) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                            {
+                                                                if (bEsInterFinal) { oCant.iCantComidasInt++; oComDia1.iComidaInt++; } else { oCant.iCantComidas++; oComDia1.iComidaNal++; }
+                                                            }
+                                                            #endregion
+
+                                                            #region CENA
+                                                            //Primera condicion Cenas
+                                                            if (((fHoraInicio < fInicioCena && fHoraFinal > fInicioCena) && fHoraFinal < fFinCena) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S()))
+                                                            {
+                                                                if (bEsInterFinal) { oCant.iCantCenasInt++; oComDia1.iCenaInt++; } else { oCant.iCantCenas++; oComDia1.iCenaNal++; }
+                                                            }
+                                                            //Segunda condición Cenas
+                                                            else if ((fHoraInicio > fInicioCena && fHoraInicio < fFinCena) && (fHoraFinal > fFinCena && fHoraFinal > fInicioCena) && (oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                            {
+                                                                if (bEsInterFinal) { oCant.iCantCenasInt++; oComDia1.iCenaInt++; } else { oCant.iCantCenas++; oComDia1.iCenaNal++; }
+                                                            }
+                                                            //Tercera condición Cenas
+                                                            else if ((fHoraInicio >= fInicioCena && fHoraFinal > fFinCena) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                            {
+                                                                if (bEsInterFinal) { oCant.iCantCenasInt++; oComDia1.iCenaInt++; } else { oCant.iCantCenas++; oComDia1.iCenaNal++; }
+                                                            }
+                                                            //Cuarta condición Cenas
+                                                            else if ((fHoraInicio < fInicioCena && fHoraFinal <= fInicioCena) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S()))
+                                                            {
+                                                                if (bEsInterFinal) { oCant.iCantCenasInt++; oComDia1.iCenaInt++; } else { oCant.iCantCenas++; oComDia1.iCenaNal++; }
+                                                            }
+                                                            //Quinta condición Cenas
+                                                            else if ((fHoraInicio < fInicioCena && fHoraFinal < fInicioCena) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S()))
+                                                            {
+                                                                if (bEsInterFinal) { oCant.iCantCenasInt++; oComDia1.iCenaInt++; } else { oCant.iCantCenas++; oComDia1.iCenaNal++; }
+                                                            }
+                                                            //Sexta condición Cenas
+                                                            else if ((fHoraInicio < fInicioCena && (fHoraFinal > fInicioCena && fHoraFinal <= fFinCena)) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                            {
+                                                                if (bEsInterFinal) { oCant.iCantCenasInt++; oComDia1.iCenaInt++; } else { oCant.iCantCenas++; oComDia1.iCenaNal++; }
+                                                            }
+                                                            //Septima condición Cenas
+                                                            else if ((fHoraInicio >= fInicioCena && fHoraInicio <= fFinCena) && (fHoraFinal > fInicioCena && fHoraFinal <= fFinCena) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                            {
+                                                                if (bEsInterFinal) { oCant.iCantCenasInt++; oComDia1.iCenaInt++; } else { oCant.iCantCenas++; oComDia1.iCenaNal++; }
+                                                            }
+                                                            //Octava condición Cenas
+                                                            else if ((fHoraInicio < fInicioCena && (fHoraFinal > fInicioCena && fHoraFinal >= fFinCena)) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                            {
+                                                                if (bEsInterFinal) { oCant.iCantCenasInt++; oComDia1.iCenaInt++; } else { oCant.iCantCenas++; oComDia1.iCenaNal++; }
+                                                            }
+                                                            #endregion
+
                                                         }
+
+                                                        oLsComDia.Add(oComDia1);
                                                     }
-                                                    else
-                                                    {
-                                                        // PRIMERA PIERNA Y ULTIMA DEL MISMO PAIS
-                                                        for (int k = 0; k < rowsD.Length; k++)
-                                                        {
-                                                            ComidasPorDia oComDia1 = new ComidasPorDia();
-                                                            oComDia1.sClavePiloto = drP["ClavePiloto"].S();
-                                                            oComDia1.dtFechaDia = rowsD[k][FechaInicio].S().Dt();
-                                                            oComDia1.dtFechaFin = rowsD[k][FechaFin].S().Dt();
-                                                            oComDia1.sduty_type = rowsD[k]["DutyType"].S();
-                                                            oComDia1.sOrigen = rowsD[k]["POD"].S();
-                                                            oComDia1.sDestino = rowsD[k]["POA"].S();
-
-                                                            if (k + 1 == rowsD.Length)
-                                                            {
-                                                                bEsInterInicio = rowsD[rowsD.Length - 1]["PaisPOD"].S() == "MX" ? false : true;
-                                                                bEsInterFinal = rowsD[rowsD.Length - 1]["PaisPOA"].S() == "MX" ? false : true;
-
-                                                                DateTime dtIniDia = rowsD[0][FechaInicio].S().Dt();
-                                                                DateTime dtFinDia = rowsD[rowsD.Length - 1][FechaFin].S().Dt();
-
-                                                                fHoraInicio = dtIniDia.Hour + (dtIniDia.Minute / float.Parse("60"));
-                                                                fHoraFinal = dtFinDia.Hour + (dtFinDia.Minute / float.Parse("60"));
-
-                                                                if (l > 0)
-                                                                    fHoraInicio = 0;
-
-                                                                // SI - CENA
-                                                                if ((fHoraInicio < fInicioCena && fHoraFinal >= fInicioCena) || (fHoraInicio <= fFinCena && fHoraFinal > fInicioCena))
-                                                                {
-                                                                    if (bEsInterFinal)
-                                                                    {
-                                                                        if (l > 0)
-                                                                        {
-                                                                            if (!bEsInterInicio)
-                                                                            {
-                                                                                oCant.iCantDesayunos++;
-                                                                                oCant.iCantComidas++;
-
-                                                                                oComDia1.iDesayunosNal++;
-                                                                                oComDia1.iComidaNal++;
-                                                                            }
-                                                                            else
-                                                                            {
-                                                                                oCant.iCantDesayunosInt++;
-                                                                                oCant.iCantComidasInt++;
-
-                                                                                oComDia1.iDesayunosInt++;
-                                                                                oComDia1.iComidaInt++;
-                                                                            }
-                                                                        }
-
-                                                                        oCant.iCantCenasInt++;
-                                                                        oComDia1.iCenaInt++;
-                                                                    }
-                                                                    else
-                                                                    {
-                                                                        if (l > 0)
-                                                                        {
-                                                                            if (bEsInterInicio)
-                                                                            {
-                                                                                oCant.iCantDesayunosInt++;
-                                                                                oCant.iCantComidasInt++;
-
-                                                                                oComDia1.iDesayunosInt++;
-                                                                                oComDia1.iComidaInt++;
-                                                                            }
-                                                                            else
-                                                                            {
-                                                                                oCant.iCantDesayunos++;
-                                                                                oCant.iCantComidas++;
-
-                                                                                oComDia1.iDesayunosNal++;
-                                                                                oComDia1.iComidaNal++;
-                                                                            }
-                                                                        }
-
-                                                                        oCant.iCantCenas++;
-                                                                        oComDia1.iCenaNal++;
-                                                                    }
-                                                                }
-                                                                // SI - DESAYUNO / COMIDA
-                                                                else if ((fHoraInicio <= fInicioComida && (fHoraFinal > fInicioComida)) || (fHoraInicio > fInicioComida && fHoraInicio <= fFinComida) || (fHoraInicio < fInicioComida && fHoraFinal > fFinComida))
-                                                                {
-                                                                    if (bEsInterFinal)
-                                                                    {
-                                                                        if (l > 0)
-                                                                        {
-                                                                            if (!bEsInterInicio)
-                                                                            {
-                                                                                oCant.iCantDesayunos++;
-                                                                                oComDia1.iDesayunosNal++;
-                                                                            }
-                                                                            else
-                                                                            {
-                                                                                oCant.iCantDesayunosInt++;
-                                                                                oComDia1.iDesayunosInt++;
-                                                                            }
-                                                                        }
-
-                                                                        oCant.iCantComidasInt++;
-                                                                        oComDia1.iComidaInt++;
-                                                                    }
-                                                                    else
-                                                                    {
-                                                                        if (l > 0)
-                                                                        {
-                                                                            if (bEsInterInicio)
-                                                                            {
-                                                                                oCant.iCantDesayunosInt++;
-                                                                                oComDia1.iDesayunosInt++;
-                                                                            }
-                                                                            else
-                                                                            {
-                                                                                oCant.iCantDesayunos++;
-                                                                                oComDia1.iDesayunosNal++;
-                                                                            }
-                                                                        }
-
-                                                                        oCant.iCantComidas++;
-                                                                        oComDia1.iComidaNal++;
-                                                                    }
-
-                                                                    if (l == 0)
-                                                                    {
-                                                                        if (bEsInterFinal)
-                                                                        {
-                                                                            oCant.iCantCenasInt++;
-                                                                            oComDia1.iCenaInt++;
-                                                                        }
-                                                                        else
-                                                                        {
-                                                                            oCant.iCantCenas++;
-                                                                            oComDia1.iCenaNal++;
-                                                                        }
-                                                                    }
-                                                                }
-                                                                // SI - DESAYUNO / COMIDA / CENA
-                                                                else if (fHoraInicio < fInicioDesayuno || (fHoraInicio > fInicioDesayuno && fHoraInicio < fFinDesayuno))
-                                                                {
-                                                                    if (bEsInterFinal)
-                                                                    {
-                                                                        oCant.iCantDesayunosInt++;
-                                                                        oComDia1.iDesayunosInt++;
-                                                                    }
-                                                                    else
-                                                                    {
-                                                                        oCant.iCantDesayunos++;
-                                                                        oComDia1.iDesayunosNal++;
-                                                                    }
-                                                                }
-                                                                else
-                                                                {
-                                                                    if (l == 0)
-                                                                    {
-                                                                        if (bEsInterFinal)
-                                                                        {
-                                                                            oCant.iCantCenasInt++;
-                                                                            oComDia1.iCenaInt++;
-                                                                        }
-                                                                        else
-                                                                        {
-                                                                            oCant.iCantCenas++;
-                                                                            oComDia1.iCenaNal++;
-                                                                        }
-                                                                    }
-                                                                }
-
-                                                                #region COMENTADO
-                                                                //if (fHoraInicio < fInicioDesayuno || (fHoraInicio > fInicioDesayuno && fHoraInicio < fFinDesayuno))
-                                                                //{
-                                                                //    if (bEsInterFinal)
-                                                                //    {
-                                                                //        oCant.iCantDesayunosInt++;
-                                                                //        oCant.iCantComidasInt++;
-                                                                //        oCant.iCantCenasInt++;
-
-                                                                //        oComDia1.iDesayunosInt++;
-                                                                //        oComDia1.iComidaInt++;
-                                                                //        oComDia1.iCenaInt++;
-                                                                //    }
-                                                                //    else
-                                                                //    {
-                                                                //        oComDia1.iDesayunosNal++;
-                                                                //        oComDia1.iComidaNal++;
-                                                                //        oComDia1.iCenaNal++;
-                                                                //    }
-                                                                //}
-                                                                //else if ((fHoraInicio <= fInicioComida && (fHoraFinal > fInicioComida)) || (fHoraInicio > fInicioComida && fHoraInicio <= fFinComida) || (fHoraInicio < fInicioComida && fHoraFinal > fFinComida))
-                                                                //{
-                                                                //    if (bEsInterFinal)
-                                                                //    {
-                                                                //        oCant.iCantComidasInt++;
-                                                                //        oCant.iCantCenasInt++;
-
-                                                                //        oComDia1.iComidaInt++;
-                                                                //        oComDia1.iCenaInt++;
-                                                                //    }
-                                                                //    else
-                                                                //    {
-                                                                //        oCant.iCantComidas++;
-                                                                //        oCant.iCantCenas++;
-
-                                                                //        oComDia1.iComidaNal++;
-                                                                //        oComDia1.iCenaNal++;
-                                                                //    }
-                                                                //}
-                                                                //else if ((fHoraInicio < fInicioCena && fHoraFinal >= fInicioCena) || (fHoraInicio <= fFinCena && fHoraFinal > fInicioCena))
-                                                                //{
-                                                                //    if (bEsInterFinal)
-                                                                //    {
-                                                                //        oCant.iCantCenasInt++;
-
-                                                                //        oComDia1.iCenaInt++;
-                                                                //    }
-                                                                //    else
-                                                                //    {
-                                                                //        oCant.iCantCenas++;
-                                                                //        oComDia1.iCenaNal++;
-                                                                //    }
-                                                                //}
-                                                                #endregion
-                                                            }
-
-                                                            oLsComDia.Add(oComDia1);
-                                                        }
-                                                    }
+                                                    #endregion
                                                 }
                                                 else
                                                 {
@@ -888,119 +2240,187 @@ namespace ALE_MexJet.Presenter
                                                     fHoraInicio = dtInicial.Hour + (dtInicial.Minute / float.Parse("60"));
                                                     fHoraFinal = dtFinal.Hour + (dtFinal.Minute / float.Parse("60"));
 
-                                                    if (l > 0)
+                                                    //if (l > 0)
+                                                    //{
+                                                    //    fHoraInicio = 0;
+                                                    //}
+
+                                                    #region CODIGO ANTERIOR
+                                                    //// SI - CENA
+                                                    //if ((fHoraInicio < fInicioCena && fHoraFinal >= fInicioCena) || (fHoraInicio <= fFinCena && fHoraFinal > fInicioCena))
+                                                    //{
+                                                    //    if (bEsInterFinal)
+                                                    //    {
+                                                    //        if (l > 0)
+                                                    //        {
+                                                    //            if (!bEsInterInicio)
+                                                    //            {
+                                                    //                oCant.iCantDesayunos++;
+                                                    //                oCant.iCantComidas++;
+
+                                                    //                oComDia1.iDesayunosNal++;
+                                                    //                oComDia1.iComidaNal++;
+                                                    //            }
+                                                    //        }
+
+
+                                                    //        oCant.iCantCenasInt++;
+                                                    //        oComDia1.iCenaInt++;
+                                                    //    }
+                                                    //    else
+                                                    //    {
+                                                    //        if (l > 0)
+                                                    //        {
+                                                    //            if (bEsInterInicio)
+                                                    //            {
+                                                    //                oCant.iCantDesayunosInt++;
+                                                    //                oCant.iCantComidasInt++;
+
+                                                    //                oComDia1.iDesayunosInt++;
+                                                    //                oComDia1.iComidaInt++;
+                                                    //            }
+                                                    //        }
+
+                                                    //        oCant.iCantCenas++;
+                                                    //        oComDia1.iCenaNal++;
+                                                    //    }
+                                                    //}
+                                                    //// SI - DESAYUNO / COMIDA
+                                                    //else if ((fHoraInicio <= fInicioComida && (fHoraFinal > fInicioComida)) || (fHoraInicio > fInicioComida && fHoraInicio <= fFinComida) || (fHoraInicio < fInicioComida && fHoraFinal > fFinComida))
+                                                    //{
+                                                    //    if (bEsInterFinal)
+                                                    //    {
+                                                    //        if (l > 0)
+                                                    //        {
+                                                    //            if (!bEsInterInicio)
+                                                    //            {
+                                                    //                oCant.iCantDesayunos++;
+                                                    //                oComDia1.iDesayunosNal++;
+                                                    //            }
+                                                    //        }
+
+                                                    //        oCant.iCantComidasInt++;
+                                                    //        oComDia1.iComidaInt++;
+                                                    //    }
+                                                    //    else
+                                                    //    {
+                                                    //        if (l > 0)
+                                                    //        {
+                                                    //            if (bEsInterInicio)
+                                                    //            {
+                                                    //                oCant.iCantDesayunosInt++;
+                                                    //                oComDia1.iDesayunosInt++;
+                                                    //            }
+                                                    //        }
+
+                                                    //        oCant.iCantComidas++;
+                                                    //        oComDia1.iComidaNal++;
+                                                    //    }
+
+                                                    //    if (l == 0)
+                                                    //    {
+                                                    //        if (bEsInterFinal)
+                                                    //        {
+                                                    //            oCant.iCantCenasInt++;
+                                                    //            oComDia1.iCenaInt++;
+                                                    //        }
+                                                    //        else
+                                                    //        {
+                                                    //            oCant.iCantCenas++;
+                                                    //            oComDia1.iCenaNal++;
+                                                    //        }
+                                                    //    }
+                                                    //}
+                                                    //// SI - DESAYUNO / COMIDA / CENA
+                                                    //else if (fHoraInicio < fInicioDesayuno || (fHoraInicio > fInicioDesayuno && fHoraInicio < fFinDesayuno))
+                                                    //{
+                                                    //    if (bEsInterFinal)
+                                                    //    {
+                                                    //        oCant.iCantDesayunosInt++;
+                                                    //        //oCant.iCantComidasInt++;
+                                                    //        //oCant.iCantCenasInt++;
+
+                                                    //        oComDia1.iDesayunosInt++;
+                                                    //        //oComDia1.iComidaInt++;
+                                                    //        //oComDia1.iCenaInt++;
+                                                    //    }
+                                                    //    else
+                                                    //    {
+                                                    //        oCant.iCantDesayunos++;
+                                                    //        //oCant.iCantComidas++;
+                                                    //        //oCant.iCantCenas++;
+
+                                                    //        oComDia1.iDesayunosNal++;
+                                                    //        //oComDia1.iComidaNal++;
+                                                    //        //oComDia1.iCenaNal++;
+                                                    //    }
+                                                    //}
+                                                    //else
+                                                    //{
+                                                    //    if (l == 0)
+                                                    //    {
+                                                    //        if (bEsInterFinal)
+                                                    //        {
+                                                    //            oCant.iCantCenasInt++;
+                                                    //            oComDia1.iCenaInt++;
+                                                    //        }
+                                                    //        else
+                                                    //        {
+                                                    //            oCant.iCantCenas++;
+                                                    //            oComDia1.iCenaNal++;
+                                                    //        }
+                                                    //    }
+                                                    //}
+                                                    #endregion
+
+                                                    #region DESAYUNO
+                                                    //Primera condicion
+                                                    if (((fHoraInicio < fInicioDesayuno && fHoraFinal > fInicioDesayuno) && fHoraFinal < fFinDesayuno) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S()))
                                                     {
-                                                        fHoraInicio = 0;
+                                                        if (bEsInterFinal) { oCant.iCantDesayunosInt++; oComDia1.iDesayunosInt++; }
+                                                        else { oCant.iCantDesayunos++; oComDia1.iDesayunosNal++; }
                                                     }
-
-                                                    // SI - CENA
-                                                    if ((fHoraInicio < fInicioCena && fHoraFinal >= fInicioCena) || (fHoraInicio <= fFinCena && fHoraFinal > fInicioCena))
+                                                    //Segunda condición
+                                                    else if ((fHoraInicio > fInicioDesayuno && fHoraInicio < fFinDesayuno) && (fHoraFinal > fFinDesayuno && fHoraFinal > fInicioDesayuno) && (oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioComida)) //Evaluar antes de comida
                                                     {
-                                                        if (bEsInterFinal)
-                                                        {
-                                                            if (l > 0)
-                                                            {
-                                                                if (!bEsInterInicio)
-                                                                {
-                                                                    oCant.iCantDesayunos++;
-                                                                    oCant.iCantComidas++;
-
-                                                                    oComDia1.iDesayunosNal++;
-                                                                    oComDia1.iComidaNal++;
-                                                                }
-                                                            }
-
-
-                                                            oCant.iCantCenasInt++;
-                                                            oComDia1.iCenaInt++;
-                                                        }
-                                                        else
-                                                        {
-                                                            if (l > 0)
-                                                            {
-                                                                if (bEsInterInicio)
-                                                                {
-                                                                    oCant.iCantDesayunosInt++;
-                                                                    oCant.iCantComidasInt++;
-
-                                                                    oComDia1.iDesayunosInt++;
-                                                                    oComDia1.iComidaInt++;
-                                                                }
-                                                            }
-
-                                                            oCant.iCantCenas++;
-                                                            oComDia1.iCenaNal++;
-                                                        }
+                                                        if (bEsInterFinal) { oCant.iCantDesayunosInt++; oComDia1.iDesayunosInt++; }
+                                                        else { oCant.iCantDesayunos++; oComDia1.iDesayunosNal++; }
                                                     }
-                                                    // SI - DESAYUNO / COMIDA
-                                                    else if ((fHoraInicio <= fInicioComida && (fHoraFinal > fInicioComida)) || (fHoraInicio > fInicioComida && fHoraInicio <= fFinComida) || (fHoraInicio < fInicioComida && fHoraFinal > fFinComida))
+                                                    //Tercera condición
+                                                    else if ((fHoraInicio >= fInicioDesayuno && fHoraFinal > fFinDesayuno) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioComida))
                                                     {
-                                                        if (bEsInterFinal)
-                                                        {
-                                                            if (l > 0)
-                                                            {
-                                                                if (!bEsInterInicio)
-                                                                {
-                                                                    oCant.iCantDesayunos++;
-                                                                    oComDia1.iDesayunosNal++;
-                                                                }
-                                                            }
-
-                                                            oCant.iCantComidasInt++;
-                                                            oComDia1.iComidaInt++;
-                                                        }
-                                                        else
-                                                        {
-                                                            if (l > 0)
-                                                            {
-                                                                if (bEsInterInicio)
-                                                                {
-                                                                    oCant.iCantDesayunosInt++;
-                                                                    oComDia1.iDesayunosInt++;
-                                                                }
-                                                            }
-
-                                                            oCant.iCantComidas++;
-                                                            oComDia1.iComidaNal++;
-                                                        }
-
-                                                        if (l == 0)
-                                                        {
-                                                            if (bEsInterFinal)
-                                                            {
-                                                                oCant.iCantCenasInt++;
-                                                                oComDia1.iCenaInt++;
-                                                            }
-                                                            else
-                                                            {
-                                                                oCant.iCantCenas++;
-                                                                oComDia1.iCenaNal++;
-                                                            }
-                                                        }
+                                                        if (bEsInterFinal) { oCant.iCantDesayunosInt++; oComDia1.iDesayunosInt++; }
+                                                        else { oCant.iCantDesayunos++; oComDia1.iDesayunosNal++; }
                                                     }
-                                                    // SI - DESAYUNO / COMIDA / CENA
-                                                    else if (fHoraInicio < fInicioDesayuno || (fHoraInicio > fInicioDesayuno && fHoraInicio < fFinDesayuno))
+                                                    //Cuarta condición
+                                                    else if ((fHoraInicio < fInicioDesayuno && fHoraFinal <= fInicioDesayuno) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioComida))
                                                     {
-                                                        if (bEsInterFinal)
-                                                        {
-                                                            oCant.iCantDesayunosInt++;
-                                                            //oCant.iCantComidasInt++;
-                                                            //oCant.iCantCenasInt++;
-
-                                                            oComDia1.iDesayunosInt++;
-                                                            //oComDia1.iComidaInt++;
-                                                            //oComDia1.iCenaInt++;
-                                                        }
-                                                        else
-                                                        {
-                                                            oCant.iCantDesayunos++;
-                                                            //oCant.iCantComidas++;
-                                                            //oCant.iCantCenas++;
-
-                                                            oComDia1.iDesayunosNal++;
-                                                            //oComDia1.iComidaNal++;
-                                                            //oComDia1.iCenaNal++;
-                                                        }
+                                                        if (bEsInterFinal) { oCant.iCantDesayunosInt++; oComDia1.iDesayunosInt++; }
+                                                        else { oCant.iCantDesayunos++; oComDia1.iDesayunosNal++; }
+                                                    }
+                                                    //Quinta condición
+                                                    else if ((fHoraInicio < fInicioDesayuno && fHoraFinal < fInicioDesayuno) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioComida))
+                                                    {
+                                                        if (bEsInterFinal) { oCant.iCantDesayunosInt++; oComDia1.iDesayunosInt++; }
+                                                        else { oCant.iCantDesayunos++; oComDia1.iDesayunosNal++; }
+                                                    }
+                                                    //Sexta condición
+                                                    else if ((fHoraInicio < fInicioDesayuno && (fHoraFinal > fInicioDesayuno && fHoraFinal <= fFinDesayuno)) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioComida))
+                                                    {
+                                                        if (bEsInterFinal) { oCant.iCantDesayunosInt++; oComDia1.iDesayunosInt++; }
+                                                        else { oCant.iCantDesayunos++; oComDia1.iDesayunosNal++; }
+                                                    }
+                                                    //Septima condición
+                                                    else if ((fHoraInicio >= fInicioDesayuno && fHoraInicio <= fFinDesayuno) && (fHoraFinal > fInicioDesayuno && fHoraFinal <= fFinDesayuno) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioComida))
+                                                    {
+                                                        if (bEsInterFinal) { oCant.iCantDesayunosInt++; oComDia1.iDesayunosInt++; }
+                                                        else { oCant.iCantDesayunos++; oComDia1.iDesayunosNal++; }
+                                                    }
+                                                    //Octava condición
+                                                    else if ((fHoraInicio < fInicioDesayuno && (fHoraFinal > fInicioDesayuno && fHoraFinal >= fFinDesayuno)) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioComida))
+                                                    {
+                                                        if (bEsInterFinal) { oCant.iCantDesayunosInt++; oComDia1.iDesayunosInt++; }
+                                                        else { oCant.iCantDesayunos++; oComDia1.iDesayunosNal++; }
                                                     }
                                                     else
                                                     {
@@ -1008,21 +2428,728 @@ namespace ALE_MexJet.Presenter
                                                         {
                                                             if (bEsInterFinal)
                                                             {
-                                                                oCant.iCantCenasInt++;
-                                                                oComDia1.iCenaInt++;
+                                                                oCant.iCantDesayunosInt++;
+                                                                oComDia1.iDesayunosInt++;
                                                             }
                                                             else
                                                             {
-                                                                oCant.iCantCenas++;
-                                                                oComDia1.iCenaNal++;
+                                                                oCant.iCantDesayunos++;
+                                                                oComDia1.iDesayunosNal++;
                                                             }
                                                         }
                                                     }
+                                                    #endregion
+
+                                                    #region COMIDA
+                                                    //Primera condicion Comidas
+                                                    if (((fHoraInicio < fInicioComida && fHoraFinal > fInicioComida) && fHoraFinal < fFinComida) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioCena))
+                                                    {
+                                                        if (bEsInterFinal) { oCant.iCantComidasInt++; oComDia1.iComidaInt++; } else { oCant.iCantComidas++; oComDia1.iComidaNal++; }
+                                                        //if (bEsInterFinal)
+                                                        //{
+                                                        //    if (l > 0)
+                                                        //    {
+                                                        //        if (!bEsInterInicio)
+                                                        //        {
+                                                        //            oCant.iCantDesayunos++;
+                                                        //            oComDia1.iDesayunosNal++;
+                                                        //        }
+                                                        //    }
+
+                                                        //    oCant.iCantComidasInt++;
+                                                        //    oComDia1.iComidaInt++;
+                                                        //}
+                                                        //else
+                                                        //{
+                                                        //    if (l > 0)
+                                                        //    {
+                                                        //        if (bEsInterInicio)
+                                                        //        {
+                                                        //            oCant.iCantDesayunosInt++;
+                                                        //            oComDia1.iDesayunosInt++;
+                                                        //        }
+                                                        //    }
+
+                                                        //    oCant.iCantComidas++;
+                                                        //    oComDia1.iComidaNal++;
+                                                        //}
+
+                                                        //if (l == 0)
+                                                        //{
+                                                        //    if (bEsInterFinal)
+                                                        //    {
+                                                        //        oCant.iCantCenasInt++;
+                                                        //        oComDia1.iCenaInt++;
+                                                        //    }
+                                                        //    else
+                                                        //    {
+                                                        //        oCant.iCantCenas++;
+                                                        //        oComDia1.iCenaNal++;
+                                                        //    }
+                                                        //}
+                                                    }
+                                                    //Segunda condición Comidas
+                                                    else if ((fHoraInicio > fInicioComida && fHoraInicio < fFinComida) && (fHoraFinal > fFinComida && fHoraFinal > fInicioComida) && (oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioCena)) //Evaluar antes de cena
+                                                    {
+                                                        if (bEsInterFinal) { oCant.iCantComidasInt++; oComDia1.iComidaInt++; } else { oCant.iCantComidas++; oComDia1.iComidaNal++; }
+                                                        //if (bEsInterFinal)
+                                                        //{
+                                                        //    if (l > 0)
+                                                        //    {
+                                                        //        if (!bEsInterInicio)
+                                                        //        {
+                                                        //            oCant.iCantDesayunos++;
+                                                        //            oComDia1.iDesayunosNal++;
+                                                        //        }
+                                                        //    }
+
+                                                        //    oCant.iCantComidasInt++;
+                                                        //    oComDia1.iComidaInt++;
+                                                        //}
+                                                        //else
+                                                        //{
+                                                        //    if (l > 0)
+                                                        //    {
+                                                        //        if (bEsInterInicio)
+                                                        //        {
+                                                        //            oCant.iCantDesayunosInt++;
+                                                        //            oComDia1.iDesayunosInt++;
+                                                        //        }
+                                                        //    }
+
+                                                        //    oCant.iCantComidas++;
+                                                        //    oComDia1.iComidaNal++;
+                                                        //}
+
+                                                        //if (l == 0)
+                                                        //{
+                                                        //    if (bEsInterFinal)
+                                                        //    {
+                                                        //        oCant.iCantCenasInt++;
+                                                        //        oComDia1.iCenaInt++;
+                                                        //    }
+                                                        //    else
+                                                        //    {
+                                                        //        oCant.iCantCenas++;
+                                                        //        oComDia1.iCenaNal++;
+                                                        //    }
+                                                        //}
+                                                    }
+                                                    //Tercera condición Comidas
+                                                    else if ((fHoraInicio >= fInicioComida && fHoraFinal > fFinComida) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioCena))
+                                                    {
+                                                        if (bEsInterFinal) { oCant.iCantComidasInt++; oComDia1.iComidaInt++; } else { oCant.iCantComidas++; oComDia1.iComidaNal++; }
+                                                        //if (bEsInterFinal)
+                                                        //{
+                                                        //    if (l > 0)
+                                                        //    {
+                                                        //        if (!bEsInterInicio)
+                                                        //        {
+                                                        //            oCant.iCantDesayunos++;
+                                                        //            oComDia1.iDesayunosNal++;
+                                                        //        }
+                                                        //    }
+
+                                                        //    oCant.iCantComidasInt++;
+                                                        //    oComDia1.iComidaInt++;
+                                                        //}
+                                                        //else
+                                                        //{
+                                                        //    if (l > 0)
+                                                        //    {
+                                                        //        if (bEsInterInicio)
+                                                        //        {
+                                                        //            oCant.iCantDesayunosInt++;
+                                                        //            oComDia1.iDesayunosInt++;
+                                                        //        }
+                                                        //    }
+
+                                                        //    oCant.iCantComidas++;
+                                                        //    oComDia1.iComidaNal++;
+                                                        //}
+
+                                                        //if (l == 0)
+                                                        //{
+                                                        //    if (bEsInterFinal)
+                                                        //    {
+                                                        //        oCant.iCantCenasInt++;
+                                                        //        oComDia1.iCenaInt++;
+                                                        //    }
+                                                        //    else
+                                                        //    {
+                                                        //        oCant.iCantCenas++;
+                                                        //        oComDia1.iCenaNal++;
+                                                        //    }
+                                                        //}
+                                                    }
+                                                    //Cuarta condición Comidas
+                                                    else if ((fHoraInicio < fInicioComida && fHoraFinal <= fInicioComida) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioCena))
+                                                    {
+                                                        if (bEsInterFinal) { oCant.iCantComidasInt++; oComDia1.iComidaInt++; } else { oCant.iCantComidas++; oComDia1.iComidaNal++; }
+                                                        //if (bEsInterFinal)
+                                                        //{
+                                                        //    if (l > 0)
+                                                        //    {
+                                                        //        if (!bEsInterInicio)
+                                                        //        {
+                                                        //            oCant.iCantDesayunos++;
+                                                        //            oComDia1.iDesayunosNal++;
+                                                        //        }
+                                                        //    }
+
+                                                        //    oCant.iCantComidasInt++;
+                                                        //    oComDia1.iComidaInt++;
+                                                        //}
+                                                        //else
+                                                        //{
+                                                        //    if (l > 0)
+                                                        //    {
+                                                        //        if (bEsInterInicio)
+                                                        //        {
+                                                        //            oCant.iCantDesayunosInt++;
+                                                        //            oComDia1.iDesayunosInt++;
+                                                        //        }
+                                                        //    }
+
+                                                        //    oCant.iCantComidas++;
+                                                        //    oComDia1.iComidaNal++;
+                                                        //}
+
+                                                        //if (l == 0)
+                                                        //{
+                                                        //    if (bEsInterFinal)
+                                                        //    {
+                                                        //        oCant.iCantCenasInt++;
+                                                        //        oComDia1.iCenaInt++;
+                                                        //    }
+                                                        //    else
+                                                        //    {
+                                                        //        oCant.iCantCenas++;
+                                                        //        oComDia1.iCenaNal++;
+                                                        //    }
+                                                        //}
+                                                    }
+                                                    //Quinta condición Comidas
+                                                    else if ((fHoraInicio < fInicioComida && fHoraFinal < fInicioComida) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioCena))
+                                                    {
+                                                        if (bEsInterFinal) { oCant.iCantComidasInt++; oComDia1.iComidaInt++; } else { oCant.iCantComidas++; oComDia1.iComidaNal++; }
+                                                        //if (bEsInterFinal)
+                                                        //{
+                                                        //    if (l > 0)
+                                                        //    {
+                                                        //        if (!bEsInterInicio)
+                                                        //        {
+                                                        //            oCant.iCantDesayunos++;
+                                                        //            oComDia1.iDesayunosNal++;
+                                                        //        }
+                                                        //    }
+
+                                                        //    oCant.iCantComidasInt++;
+                                                        //    oComDia1.iComidaInt++;
+                                                        //}
+                                                        //else
+                                                        //{
+                                                        //    if (l > 0)
+                                                        //    {
+                                                        //        if (bEsInterInicio)
+                                                        //        {
+                                                        //            oCant.iCantDesayunosInt++;
+                                                        //            oComDia1.iDesayunosInt++;
+                                                        //        }
+                                                        //    }
+
+                                                        //    oCant.iCantComidas++;
+                                                        //    oComDia1.iComidaNal++;
+                                                        //}
+
+                                                        //if (l == 0)
+                                                        //{
+                                                        //    if (bEsInterFinal)
+                                                        //    {
+                                                        //        oCant.iCantCenasInt++;
+                                                        //        oComDia1.iCenaInt++;
+                                                        //    }
+                                                        //    else
+                                                        //    {
+                                                        //        oCant.iCantCenas++;
+                                                        //        oComDia1.iCenaNal++;
+                                                        //    }
+                                                        //}
+                                                    }
+                                                    //Sexta condición Comidas
+                                                    else if ((fHoraInicio < fInicioComida && (fHoraFinal > fInicioComida && fHoraFinal <= fFinComida)) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioCena))
+                                                    {
+                                                        if (bEsInterFinal) { oCant.iCantComidasInt++; oComDia1.iComidaInt++; } else { oCant.iCantComidas++; oComDia1.iComidaNal++; }
+                                                        //if (bEsInterFinal)
+                                                        //{
+                                                        //    if (l > 0)
+                                                        //    {
+                                                        //        if (!bEsInterInicio)
+                                                        //        {
+                                                        //            oCant.iCantDesayunos++;
+                                                        //            oComDia1.iDesayunosNal++;
+                                                        //        }
+                                                        //    }
+
+                                                        //    oCant.iCantComidasInt++;
+                                                        //    oComDia1.iComidaInt++;
+                                                        //}
+                                                        //else
+                                                        //{
+                                                        //    if (l > 0)
+                                                        //    {
+                                                        //        if (bEsInterInicio)
+                                                        //        {
+                                                        //            oCant.iCantDesayunosInt++;
+                                                        //            oComDia1.iDesayunosInt++;
+                                                        //        }
+                                                        //    }
+
+                                                        //    oCant.iCantComidas++;
+                                                        //    oComDia1.iComidaNal++;
+                                                        //}
+
+                                                        //if (l == 0)
+                                                        //{
+                                                        //    if (bEsInterFinal)
+                                                        //    {
+                                                        //        oCant.iCantCenasInt++;
+                                                        //        oComDia1.iCenaInt++;
+                                                        //    }
+                                                        //    else
+                                                        //    {
+                                                        //        oCant.iCantCenas++;
+                                                        //        oComDia1.iCenaNal++;
+                                                        //    }
+                                                        //}
+                                                    }
+                                                    //Septima condición Comidas
+                                                    else if ((fHoraInicio >= fInicioComida && fHoraInicio <= fFinComida) && (fHoraFinal > fInicioComida && fHoraFinal <= fFinComida) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioCena))
+                                                    {
+                                                        if (bEsInterFinal) { oCant.iCantComidasInt++; oComDia1.iComidaInt++; } else { oCant.iCantComidas++; oComDia1.iComidaNal++; }
+                                                        //if (bEsInterFinal)
+                                                        //{
+                                                        //    if (l > 0)
+                                                        //    {
+                                                        //        if (!bEsInterInicio)
+                                                        //        {
+                                                        //            oCant.iCantDesayunos++;
+                                                        //            oComDia1.iDesayunosNal++;
+                                                        //        }
+                                                        //    }
+
+                                                        //    oCant.iCantComidasInt++;
+                                                        //    oComDia1.iComidaInt++;
+                                                        //}
+                                                        //else
+                                                        //{
+                                                        //    if (l > 0)
+                                                        //    {
+                                                        //        if (bEsInterInicio)
+                                                        //        {
+                                                        //            oCant.iCantDesayunosInt++;
+                                                        //            oComDia1.iDesayunosInt++;
+                                                        //        }
+                                                        //    }
+
+                                                        //    oCant.iCantComidas++;
+                                                        //    oComDia1.iComidaNal++;
+                                                        //}
+
+                                                        //if (l == 0)
+                                                        //{
+                                                        //    if (bEsInterFinal)
+                                                        //    {
+                                                        //        oCant.iCantCenasInt++;
+                                                        //        oComDia1.iCenaInt++;
+                                                        //    }
+                                                        //    else
+                                                        //    {
+                                                        //        oCant.iCantCenas++;
+                                                        //        oComDia1.iCenaNal++;
+                                                        //    }
+                                                        //}
+                                                    }
+                                                    //Octava condición
+                                                    else if ((fHoraInicio < fInicioComida && (fHoraFinal > fInicioComida && fHoraFinal >= fFinComida)) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioCena))
+                                                    {
+                                                        if (bEsInterFinal) { oCant.iCantComidasInt++; oComDia1.iComidaInt++; } else { oCant.iCantComidas++; oComDia1.iComidaNal++; }
+                                                        //if (bEsInterFinal)
+                                                        //{
+                                                        //    if (l > 0)
+                                                        //    {
+                                                        //        if (!bEsInterInicio)
+                                                        //        {
+                                                        //            oCant.iCantDesayunos++;
+                                                        //            oComDia1.iDesayunosNal++;
+                                                        //        }
+                                                        //    }
+
+                                                        //    oCant.iCantComidasInt++;
+                                                        //    oComDia1.iComidaInt++;
+                                                        //}
+                                                        //else
+                                                        //{
+                                                        //    if (l > 0)
+                                                        //    {
+                                                        //        if (bEsInterInicio)
+                                                        //        {
+                                                        //            oCant.iCantDesayunosInt++;
+                                                        //            oComDia1.iDesayunosInt++;
+                                                        //        }
+                                                        //    }
+
+                                                        //    oCant.iCantComidas++;
+                                                        //    oComDia1.iComidaNal++;
+                                                        //}
+
+                                                        //if (l == 0)
+                                                        //{
+                                                        //    if (bEsInterFinal)
+                                                        //    {
+                                                        //        oCant.iCantCenasInt++;
+                                                        //        oComDia1.iCenaInt++;
+                                                        //    }
+                                                        //    else
+                                                        //    {
+                                                        //        oCant.iCantCenas++;
+                                                        //        oComDia1.iCenaNal++;
+                                                        //    }
+                                                        //}
+                                                    }
+                                                    #endregion
+
+                                                    #region CENA
+                                                    //Primera condicion Cenas
+                                                    if (((fHoraInicio < fInicioCena && fHoraFinal > fInicioCena) && fHoraFinal < fFinCena) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S()))
+                                                    {
+                                                        if (bEsInterFinal) { oCant.iCantCenasInt++; oComDia1.iCenaInt++; } else { oCant.iCantCenas++; oComDia1.iCenaNal++; }
+                                                        //if (bEsInterFinal)
+                                                        //{
+                                                        //    if (l > 0)
+                                                        //    {
+                                                        //        if (!bEsInterInicio)
+                                                        //        {
+                                                        //            oCant.iCantDesayunos++;
+                                                        //            oCant.iCantComidas++;
+
+                                                        //            oComDia1.iDesayunosNal++;
+                                                        //            oComDia1.iComidaNal++;
+                                                        //        }
+                                                        //    }
+
+
+                                                        //    oCant.iCantCenasInt++;
+                                                        //    oComDia1.iCenaInt++;
+                                                        //}
+                                                        //else
+                                                        //{
+                                                        //    if (l > 0)
+                                                        //    {
+                                                        //        if (bEsInterInicio)
+                                                        //        {
+                                                        //            oCant.iCantDesayunosInt++;
+                                                        //            oCant.iCantComidasInt++;
+
+                                                        //            oComDia1.iDesayunosInt++;
+                                                        //            oComDia1.iComidaInt++;
+                                                        //        }
+                                                        //    }
+
+                                                        //    oCant.iCantCenas++;
+                                                        //    oComDia1.iCenaNal++;
+                                                    //}
+                                                    }
+                                                    //Segunda condición Cenas
+                                                    else if ((fHoraInicio > fInicioCena && fHoraInicio < fFinCena) && (fHoraFinal > fFinCena && fHoraFinal > fInicioCena) && (oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                    {
+                                                        if (bEsInterFinal) { oCant.iCantCenasInt++; oComDia1.iCenaInt++; } else { oCant.iCantCenas++; oComDia1.iCenaNal++; }
+                                                        //if (bEsInterFinal)
+                                                        //{
+                                                        //    if (l > 0)
+                                                        //    {
+                                                        //        if (!bEsInterInicio)
+                                                        //        {
+                                                        //            oCant.iCantDesayunos++;
+                                                        //            oCant.iCantComidas++;
+
+                                                        //            oComDia1.iDesayunosNal++;
+                                                        //            oComDia1.iComidaNal++;
+                                                        //        }
+                                                        //    }
+
+
+                                                        //    oCant.iCantCenasInt++;
+                                                        //    oComDia1.iCenaInt++;
+                                                        //}
+                                                        //else
+                                                        //{
+                                                        //    if (l > 0)
+                                                        //    {
+                                                        //        if (bEsInterInicio)
+                                                        //        {
+                                                        //            oCant.iCantDesayunosInt++;
+                                                        //            oCant.iCantComidasInt++;
+
+                                                        //            oComDia1.iDesayunosInt++;
+                                                        //            oComDia1.iComidaInt++;
+                                                        //        }
+                                                        //    }
+
+                                                        //    oCant.iCantCenas++;
+                                                        //    oComDia1.iCenaNal++;
+                                                        //}
+                                                    }
+                                                    //Tercera condición Cenas
+                                                    else if ((fHoraInicio >= fInicioCena && fHoraFinal > fFinCena) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                    {
+                                                        if (bEsInterFinal) { oCant.iCantCenasInt++; oComDia1.iCenaInt++; } else { oCant.iCantCenas++; oComDia1.iCenaNal++; }
+
+                                                        //if (bEsInterFinal)
+                                                        //{
+                                                        //    if (l > 0)
+                                                        //    {
+                                                        //        if (!bEsInterInicio)
+                                                        //        {
+                                                        //            oCant.iCantDesayunos++;
+                                                        //            oCant.iCantComidas++;
+
+                                                        //            oComDia1.iDesayunosNal++;
+                                                        //            oComDia1.iComidaNal++;
+                                                        //        }
+                                                        //    }
+
+
+                                                        //    oCant.iCantCenasInt++;
+                                                        //    oComDia1.iCenaInt++;
+                                                        //}
+                                                        //else
+                                                        //{
+                                                        //    if (l > 0)
+                                                        //    {
+                                                        //        if (bEsInterInicio)
+                                                        //        {
+                                                        //            oCant.iCantDesayunosInt++;
+                                                        //            oCant.iCantComidasInt++;
+
+                                                        //            oComDia1.iDesayunosInt++;
+                                                        //            oComDia1.iComidaInt++;
+                                                        //        }
+                                                        //    }
+
+                                                        //    oCant.iCantCenas++;
+                                                        //    oComDia1.iCenaNal++;
+                                                        //}
+                                                    }
+                                                    //Cuarta condición Cenas
+                                                    else if ((fHoraInicio < fInicioCena && fHoraFinal <= fInicioCena) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S()))
+                                                    {
+                                                        if (bEsInterFinal) { oCant.iCantCenasInt++; oComDia1.iCenaInt++; } else { oCant.iCantCenas++; oComDia1.iCenaNal++; }
+                                                        //if (bEsInterFinal)
+                                                        //{
+                                                        //    if (l > 0)
+                                                        //    {
+                                                        //        if (!bEsInterInicio)
+                                                        //        {
+                                                        //            oCant.iCantDesayunos++;
+                                                        //            oCant.iCantComidas++;
+
+                                                        //            oComDia1.iDesayunosNal++;
+                                                        //            oComDia1.iComidaNal++;
+                                                        //        }
+                                                        //    }
+
+
+                                                        //    oCant.iCantCenasInt++;
+                                                        //    oComDia1.iCenaInt++;
+                                                        //}
+                                                        //else
+                                                        //{
+                                                        //    if (l > 0)
+                                                        //    {
+                                                        //        if (bEsInterInicio)
+                                                        //        {
+                                                        //            oCant.iCantDesayunosInt++;
+                                                        //            oCant.iCantComidasInt++;
+
+                                                        //            oComDia1.iDesayunosInt++;
+                                                        //            oComDia1.iComidaInt++;
+                                                        //        }
+                                                        //    }
+
+                                                        //    oCant.iCantCenas++;
+                                                        //    oComDia1.iCenaNal++;
+                                                        //}
+                                                    }
+                                                    //Quinta condición Cenas
+                                                    else if ((fHoraInicio < fInicioCena && fHoraFinal < fInicioCena) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S()))
+                                                    {
+                                                        if (bEsInterFinal) { oCant.iCantCenasInt++; oComDia1.iCenaInt++; } else { oCant.iCantCenas++; oComDia1.iCenaNal++; }
+                                                        //if (bEsInterFinal)
+                                                        //{
+                                                        //    if (l > 0)
+                                                        //    {
+                                                        //        if (!bEsInterInicio)
+                                                        //        {
+                                                        //            oCant.iCantDesayunos++;
+                                                        //            oCant.iCantComidas++;
+
+                                                        //            oComDia1.iDesayunosNal++;
+                                                        //            oComDia1.iComidaNal++;
+                                                        //        }
+                                                        //    }
+
+
+                                                        //    oCant.iCantCenasInt++;
+                                                        //    oComDia1.iCenaInt++;
+                                                        //}
+                                                        //else
+                                                        //{
+                                                        //    if (l > 0)
+                                                        //    {
+                                                        //        if (bEsInterInicio)
+                                                        //        {
+                                                        //            oCant.iCantDesayunosInt++;
+                                                        //            oCant.iCantComidasInt++;
+
+                                                        //            oComDia1.iDesayunosInt++;
+                                                        //            oComDia1.iComidaInt++;
+                                                        //        }
+                                                        //    }
+
+                                                        //    oCant.iCantCenas++;
+                                                        //    oComDia1.iCenaNal++;
+                                                        //}
+                                                    }
+                                                    //Sexta condición Cenas
+                                                    else if ((fHoraInicio < fInicioCena && (fHoraFinal > fInicioCena && fHoraFinal <= fFinCena)) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                    {
+                                                        if (bEsInterFinal) { oCant.iCantCenasInt++; oComDia1.iCenaInt++; } else { oCant.iCantCenas++; oComDia1.iCenaNal++; }
+                                                        //if (bEsInterFinal)
+                                                        //{
+                                                        //    if (l > 0)
+                                                        //    {
+                                                        //        if (!bEsInterInicio)
+                                                        //        {
+                                                        //            oCant.iCantDesayunos++;
+                                                        //            oCant.iCantComidas++;
+
+                                                        //            oComDia1.iDesayunosNal++;
+                                                        //            oComDia1.iComidaNal++;
+                                                        //        }
+                                                        //    }
+
+
+                                                        //    oCant.iCantCenasInt++;
+                                                        //    oComDia1.iCenaInt++;
+                                                        //}
+                                                        //else
+                                                        //{
+                                                        //    if (l > 0)
+                                                        //    {
+                                                        //        if (bEsInterInicio)
+                                                        //        {
+                                                        //            oCant.iCantDesayunosInt++;
+                                                        //            oCant.iCantComidasInt++;
+
+                                                        //            oComDia1.iDesayunosInt++;
+                                                        //            oComDia1.iComidaInt++;
+                                                        //        }
+                                                        //    }
+
+                                                        //    oCant.iCantCenas++;
+                                                        //    oComDia1.iCenaNal++;
+                                                        //}
+                                                    }
+                                                    //Septima condición Cenas
+                                                    else if ((fHoraInicio >= fInicioCena && fHoraInicio <= fFinCena) && (fHoraFinal > fInicioCena && fHoraFinal <= fFinCena) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                    {
+                                                        if (bEsInterFinal) { oCant.iCantCenasInt++; oComDia1.iCenaInt++; } else { oCant.iCantCenas++; oComDia1.iCenaNal++; }
+                                                        //if (bEsInterFinal)
+                                                        //{
+                                                        //    if (l > 0)
+                                                        //    {
+                                                        //        if (!bEsInterInicio)
+                                                        //        {
+                                                        //            oCant.iCantDesayunos++;
+                                                        //            oCant.iCantComidas++;
+
+                                                        //            oComDia1.iDesayunosNal++;
+                                                        //            oComDia1.iComidaNal++;
+                                                        //        }
+                                                        //    }
+
+
+                                                        //    oCant.iCantCenasInt++;
+                                                        //    oComDia1.iCenaInt++;
+                                                        //}
+                                                        //else
+                                                        //{
+                                                        //    if (l > 0)
+                                                        //    {
+                                                        //        if (bEsInterInicio)
+                                                        //        {
+                                                        //            oCant.iCantDesayunosInt++;
+                                                        //            oCant.iCantComidasInt++;
+
+                                                        //            oComDia1.iDesayunosInt++;
+                                                        //            oComDia1.iComidaInt++;
+                                                        //        }
+                                                        //    }
+
+                                                        //    oCant.iCantCenas++;
+                                                        //    oComDia1.iCenaNal++;
+                                                        //}
+                                                    }
+                                                    //Octava condición Cenas
+                                                    else if ((fHoraInicio < fInicioCena && (fHoraFinal > fInicioCena && fHoraFinal >= fFinCena)) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                    {
+                                                        if (bEsInterFinal) { oCant.iCantCenasInt++; oComDia1.iCenaInt++; } else { oCant.iCantCenas++; oComDia1.iCenaNal++; }
+                                                        //if (bEsInterFinal)
+                                                        //{
+                                                        //    if (l > 0)
+                                                        //    {
+                                                        //        if (!bEsInterInicio)
+                                                        //        {
+                                                        //            oCant.iCantDesayunos++;
+                                                        //            oCant.iCantComidas++;
+
+                                                        //            oComDia1.iDesayunosNal++;
+                                                        //            oComDia1.iComidaNal++;
+                                                        //        }
+                                                        //    }
+
+
+                                                        //    oCant.iCantCenasInt++;
+                                                        //    oComDia1.iCenaInt++;
+                                                        //}
+                                                        //else
+                                                        //{
+                                                        //    if (l > 0)
+                                                        //    {
+                                                        //        if (bEsInterInicio)
+                                                        //        {
+                                                        //            oCant.iCantDesayunosInt++;
+                                                        //            oCant.iCantComidasInt++;
+
+                                                        //            oComDia1.iDesayunosInt++;
+                                                        //            oComDia1.iComidaInt++;
+                                                        //        }
+                                                        //    }
+
+                                                        //    oCant.iCantCenas++;
+                                                        //    oComDia1.iCenaNal++;
+                                                        //}
+                                                    }
+                                                    #endregion
 
                                                     oLsComDia.Add(oComDia1);
                                                 }
                                             }
                                         }
+                                        #endregion
+
+                                        #region CUANDO SON MÁS DE DOS DÍAS
                                         else if (dtDias.Rows.Count > 2)
                                         {
                                             for (int l = 0; l < dtDias.Rows.Count; l++)
@@ -1056,7 +3183,13 @@ namespace ALE_MexJet.Presenter
                                                     //if (dtDias.Rows[l + 1] != null)
                                                     //    bTieneDiasDespues = true;
 
-                                                    CalculaAlimentos(rowsD[0][FechaInicio].S().Dt(), rowsD[0][FechaFin].S().Dt(), oCant, oHor, sPod, sBase, bTieneDiasAntes, bTieneDiasDespues, bEsInterInicio, bEsInterFinal, drP["ClavePiloto"].S(), oLsComDia, rowsD[0]["DutyType"].S(), rowsD[0]["POD"].S(), rowsD[0]["POA"].S(), dtLegs);
+                                                    //for (int k = 0; k < rowsD.Length; k++)
+                                                    //{
+                                                    //    CalculaAlimentos(rowsD[0][FechaInicio].S().Dt(), rowsD[0][FechaFin].S().Dt(), oCant, oHor, sPod, sBase, bTieneDiasAntes, bTieneDiasDespues, bEsInterInicio, bEsInterFinal, drP["ClavePiloto"].S(), oLsComDia, rowsD[0]["DutyType"].S(), rowsD[0]["POD"].S(), rowsD[0]["POA"].S(), dtLegs);
+                                                    //}
+
+
+                                                        CalculaAlimentos(rowsD[0][FechaInicio].S().Dt(), rowsD[0][FechaFin].S().Dt(), oCant, oHor, sPod, sBase, bTieneDiasAntes, bTieneDiasDespues, bEsInterInicio, bEsInterFinal, drP["ClavePiloto"].S(), oLsComDia, rowsD[0]["DutyType"].S(), rowsD[0]["POD"].S(), rowsD[0]["POA"].S(), dtLegs);
                                                 }
                                                 else if (rowsD.Length > 1)
                                                 {
@@ -1082,134 +3215,1206 @@ namespace ALE_MexJet.Presenter
 
                                                             if (bEsInterInicio != bEsInterFinal)
                                                             {
-                                                                if ((fHoraInicio < fInicioCena && fHoraFinal >= fInicioCena) || (fHoraInicio <= fFinCena && fHoraFinal > fInicioCena))
-                                                                {
-                                                                    if (bEsInterFinal)
-                                                                    {
-                                                                        if (l > 0)
-                                                                        {
-                                                                            if (!bEsInterInicio)
-                                                                            {
-                                                                                oCant.iCantDesayunos++;
-                                                                                oCant.iCantComidas++;
+                                                                #region COMENTADO CONDICONES ANTERIORES
+                                                                //if ((fHoraInicio < fInicioCena && fHoraFinal >= fInicioCena) || (fHoraInicio <= fFinCena && fHoraFinal > fInicioCena))
+                                                                //{
+                                                                //    if (bEsInterFinal)
+                                                                //    {
+                                                                //        if (l > 0)
+                                                                //        {
+                                                                //            if (!bEsInterInicio)
+                                                                //            {
+                                                                //                oCant.iCantDesayunos++;
+                                                                //                oCant.iCantComidas++;
 
-                                                                                oComDia1.iDesayunosNal++;
-                                                                                oComDia1.iComidaNal++;
-                                                                            }
-                                                                        }
+                                                                //                oComDia1.iDesayunosNal++;
+                                                                //                oComDia1.iComidaNal++;
+                                                                //            }
+                                                                //        }
 
-                                                                        oCant.iCantCenasInt++;
-                                                                        oComDia1.iCenaInt++;
-                                                                    }
-                                                                    else
-                                                                    {
-                                                                        if (l > 0)
-                                                                        {
-                                                                            if (bEsInterInicio)
-                                                                            {
-                                                                                oCant.iCantDesayunosInt++;
-                                                                                oCant.iCantComidasInt++;
+                                                                //        oCant.iCantCenasInt++;
+                                                                //        oComDia1.iCenaInt++;
+                                                                //    }
+                                                                //    else
+                                                                //    {
+                                                                //        if (l > 0)
+                                                                //        {
+                                                                //            if (bEsInterInicio)
+                                                                //            {
+                                                                //                oCant.iCantDesayunosInt++;
+                                                                //                oCant.iCantComidasInt++;
 
-                                                                                oComDia1.iDesayunosInt++;
-                                                                                oComDia1.iComidaInt++;
-                                                                            }
-                                                                        }
+                                                                //                oComDia1.iDesayunosInt++;
+                                                                //                oComDia1.iComidaInt++;
+                                                                //            }
+                                                                //        }
 
-                                                                        oCant.iCantCenas++;
-                                                                        oComDia1.iCenaNal++;
-                                                                    }
-                                                                }
-                                                                else if ((fHoraInicio <= fInicioComida && (fHoraFinal > fInicioComida)) || (fHoraInicio > fInicioComida && fHoraInicio <= fFinComida) || (fHoraInicio < fInicioComida && fHoraFinal > fFinComida))
-                                                                {
-                                                                    if (bEsInterFinal)
-                                                                    {
-                                                                        if (l > 0)
-                                                                        {
-                                                                            if (!bEsInterInicio)
-                                                                            {
-                                                                                oCant.iCantDesayunos++;
-                                                                                oComDia1.iDesayunosNal++;
-                                                                            }
-                                                                        }
+                                                                //        oCant.iCantCenas++;
+                                                                //        oComDia1.iCenaNal++;
+                                                                //    }
+                                                                //}
+                                                                //else if ((fHoraInicio <= fInicioComida && (fHoraFinal > fInicioComida)) || (fHoraInicio > fInicioComida && fHoraInicio <= fFinComida) || (fHoraInicio < fInicioComida && fHoraFinal > fFinComida))
+                                                                //{
+                                                                //    if (bEsInterFinal)
+                                                                //    {
+                                                                //        if (l > 0)
+                                                                //        {
+                                                                //            if (!bEsInterInicio)
+                                                                //            {
+                                                                //                oCant.iCantDesayunos++;
+                                                                //                oComDia1.iDesayunosNal++;
+                                                                //            }
+                                                                //        }
 
 
-                                                                        oCant.iCantComidasInt++;
-                                                                        oCant.iCantCenasInt++;
+                                                                //        oCant.iCantComidasInt++;
+                                                                //        oCant.iCantCenasInt++;
 
-                                                                        oComDia1.iComidaInt++;
-                                                                        oComDia1.iCenaInt++;
-                                                                    }
-                                                                    else
-                                                                    {
-                                                                        if (l > 0)
-                                                                        {
-                                                                            if (bEsInterInicio)
-                                                                            {
-                                                                                oCant.iCantDesayunosInt++;
-                                                                                oComDia1.iDesayunosInt++;
-                                                                            }
-                                                                        }
+                                                                //        oComDia1.iComidaInt++;
+                                                                //        oComDia1.iCenaInt++;
+                                                                //    }
+                                                                //    else
+                                                                //    {
+                                                                //        if (l > 0)
+                                                                //        {
+                                                                //            if (bEsInterInicio)
+                                                                //            {
+                                                                //                oCant.iCantDesayunosInt++;
+                                                                //                oComDia1.iDesayunosInt++;
+                                                                //            }
+                                                                //        }
 
-                                                                        oCant.iCantComidas++;
-                                                                        oCant.iCantCenas++;
+                                                                //        oCant.iCantComidas++;
+                                                                //        oCant.iCantCenas++;
 
-                                                                        oComDia1.iComidaNal++;
-                                                                        oComDia1.iCenaNal++;
-                                                                    }
-                                                                }
-                                                                else if (fHoraInicio < fInicioDesayuno || (fHoraInicio > fInicioDesayuno && fHoraInicio < fFinDesayuno))
+                                                                //        oComDia1.iComidaNal++;
+                                                                //        oComDia1.iCenaNal++;
+                                                                //    }
+                                                                //}
+                                                                //else if (fHoraInicio < fInicioDesayuno || (fHoraInicio > fInicioDesayuno && fHoraInicio < fFinDesayuno))
+                                                                //{
+                                                                //    if (bEsInterFinal)
+                                                                //    {
+                                                                //        oCant.iCantDesayunosInt++;
+                                                                //        oCant.iCantComidasInt++;
+                                                                //        oCant.iCantCenasInt++;
+
+                                                                //        oComDia1.iDesayunosInt++;
+                                                                //        oComDia1.iComidaInt++;
+                                                                //        oComDia1.iCenaInt++;
+                                                                //    }
+                                                                //    else
+                                                                //    {
+                                                                //        oComDia1.iDesayunosNal++;
+                                                                //        oComDia1.iComidaNal++;
+                                                                //        oComDia1.iCenaNal++;
+
+                                                                //        oCant.iCantDesayunos++;
+                                                                //        oCant.iCantComidas++;
+                                                                //        oCant.iCantCenas++;
+                                                                //    }
+                                                                //}
+                                                                #endregion
+
+                                                                #region DESAYUNO
+                                                                //Primera condicion
+                                                                if (((fHoraInicio < fInicioDesayuno && fHoraFinal > fInicioDesayuno) && fHoraFinal < fFinDesayuno) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S()))
                                                                 {
                                                                     if (bEsInterFinal)
                                                                     {
                                                                         oCant.iCantDesayunosInt++;
-                                                                        oCant.iCantComidasInt++;
-                                                                        oCant.iCantCenasInt++;
+                                                                        //oCant.iCantComidasInt++;
+                                                                        //oCant.iCantCenasInt++;
 
                                                                         oComDia1.iDesayunosInt++;
-                                                                        oComDia1.iComidaInt++;
-                                                                        oComDia1.iCenaInt++;
+                                                                        //oComDia1.iComidaInt++;
+                                                                        //oComDia1.iCenaInt++;
                                                                     }
                                                                     else
                                                                     {
                                                                         oComDia1.iDesayunosNal++;
-                                                                        oComDia1.iComidaNal++;
-                                                                        oComDia1.iCenaNal++;
+                                                                        //oComDia1.iComidaNal++;
+                                                                        //oComDia1.iCenaNal++;
 
                                                                         oCant.iCantDesayunos++;
-                                                                        oCant.iCantComidas++;
-                                                                        oCant.iCantCenas++;
+                                                                        //oCant.iCantComidas++;
+                                                                        //oCant.iCantCenas++;
                                                                     }
                                                                 }
+                                                                //Segunda condición
+                                                                else if ((fHoraInicio > fInicioDesayuno && fHoraInicio < fFinDesayuno) && (fHoraFinal > fFinDesayuno && fHoraFinal > fInicioDesayuno) && (oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioComida)) //Evaluar antes de comida
+                                                                {
+                                                                    if (bEsInterFinal)
+                                                                    {
+                                                                        oCant.iCantDesayunosInt++;
+                                                                        //oCant.iCantComidasInt++;
+                                                                        //oCant.iCantCenasInt++;
+
+                                                                        oComDia1.iDesayunosInt++;
+                                                                        //oComDia1.iComidaInt++;
+                                                                        //oComDia1.iCenaInt++;
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        oComDia1.iDesayunosNal++;
+                                                                        //oComDia1.iComidaNal++;
+                                                                        //oComDia1.iCenaNal++;
+
+                                                                        oCant.iCantDesayunos++;
+                                                                        //oCant.iCantComidas++;
+                                                                        //oCant.iCantCenas++;
+                                                                    }
+                                                                }
+                                                                //Tercera condición
+                                                                else if ((fHoraInicio >= fInicioDesayuno && fHoraFinal > fFinDesayuno) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                                {
+                                                                    if (bEsInterFinal)
+                                                                    {
+                                                                        oCant.iCantDesayunosInt++;
+                                                                        //oCant.iCantComidasInt++;
+                                                                        //oCant.iCantCenasInt++;
+
+                                                                        oComDia1.iDesayunosInt++;
+                                                                        //oComDia1.iComidaInt++;
+                                                                        //oComDia1.iCenaInt++;
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        oComDia1.iDesayunosNal++;
+                                                                        //oComDia1.iComidaNal++;
+                                                                        //oComDia1.iCenaNal++;
+
+                                                                        oCant.iCantDesayunos++;
+                                                                        //oCant.iCantComidas++;
+                                                                        //oCant.iCantCenas++;
+                                                                    }
+                                                                }
+                                                                //Cuarta condición
+                                                                else if ((fHoraInicio < fInicioDesayuno && fHoraFinal <= fInicioDesayuno) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S()))
+                                                                {
+                                                                    if (bEsInterFinal)
+                                                                    {
+                                                                        oCant.iCantDesayunosInt++;
+                                                                        //oCant.iCantComidasInt++;
+                                                                        //oCant.iCantCenasInt++;
+
+                                                                        oComDia1.iDesayunosInt++;
+                                                                        //oComDia1.iComidaInt++;
+                                                                        //oComDia1.iCenaInt++;
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        oComDia1.iDesayunosNal++;
+                                                                        //oComDia1.iComidaNal++;
+                                                                        //oComDia1.iCenaNal++;
+
+                                                                        oCant.iCantDesayunos++;
+                                                                        //oCant.iCantComidas++;
+                                                                        //oCant.iCantCenas++;
+                                                                    }
+                                                                }
+                                                                //Quinta condición
+                                                                else if ((fHoraInicio < fInicioDesayuno && fHoraFinal < fInicioDesayuno) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S()))
+                                                                {
+                                                                    if (bEsInterFinal)
+                                                                    {
+                                                                        oCant.iCantDesayunosInt++;
+                                                                        //oCant.iCantComidasInt++;
+                                                                        //oCant.iCantCenasInt++;
+
+                                                                        oComDia1.iDesayunosInt++;
+                                                                        //oComDia1.iComidaInt++;
+                                                                        //oComDia1.iCenaInt++;
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        oComDia1.iDesayunosNal++;
+                                                                        //oComDia1.iComidaNal++;
+                                                                        //oComDia1.iCenaNal++;
+
+                                                                        oCant.iCantDesayunos++;
+                                                                        //oCant.iCantComidas++;
+                                                                        //oCant.iCantCenas++;
+                                                                    }
+                                                                }
+                                                                //Sexta condición
+                                                                else if ((fHoraInicio < fInicioDesayuno && (fHoraFinal > fInicioDesayuno && fHoraFinal <= fFinDesayuno)) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                                {
+                                                                    if (bEsInterFinal)
+                                                                    {
+                                                                        oCant.iCantDesayunosInt++;
+                                                                        //oCant.iCantComidasInt++;
+                                                                        //oCant.iCantCenasInt++;
+
+                                                                        oComDia1.iDesayunosInt++;
+                                                                        //oComDia1.iComidaInt++;
+                                                                        //oComDia1.iCenaInt++;
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        oComDia1.iDesayunosNal++;
+                                                                        //oComDia1.iComidaNal++;
+                                                                        //oComDia1.iCenaNal++;
+
+                                                                        oCant.iCantDesayunos++;
+                                                                        //oCant.iCantComidas++;
+                                                                        //oCant.iCantCenas++;
+                                                                    }
+                                                                }
+                                                                //Septima condición
+                                                                else if ((fHoraInicio >= fInicioDesayuno && fHoraInicio <= fFinDesayuno) && (fHoraFinal > fInicioDesayuno && fHoraFinal <= fFinDesayuno) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                                {
+                                                                    if (bEsInterFinal)
+                                                                    {
+                                                                        oCant.iCantDesayunosInt++;
+                                                                        //oCant.iCantComidasInt++;
+                                                                        //oCant.iCantCenasInt++;
+
+                                                                        oComDia1.iDesayunosInt++;
+                                                                        //oComDia1.iComidaInt++;
+                                                                        //oComDia1.iCenaInt++;
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        oComDia1.iDesayunosNal++;
+                                                                        //oComDia1.iComidaNal++;
+                                                                        //oComDia1.iCenaNal++;
+
+                                                                        oCant.iCantDesayunos++;
+                                                                        //oCant.iCantComidas++;
+                                                                        //oCant.iCantCenas++;
+                                                                    }
+                                                                }
+                                                                //Octava condición
+                                                                else if ((fHoraInicio < fInicioDesayuno && (fHoraFinal > fInicioDesayuno && fHoraFinal >= fFinDesayuno)) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                                {
+                                                                    if (bEsInterFinal)
+                                                                    {
+                                                                        oCant.iCantDesayunosInt++;
+                                                                        //oCant.iCantComidasInt++;
+                                                                        //oCant.iCantCenasInt++;
+
+                                                                        oComDia1.iDesayunosInt++;
+                                                                        //oComDia1.iComidaInt++;
+                                                                        //oComDia1.iCenaInt++;
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        oComDia1.iDesayunosNal++;
+                                                                        //oComDia1.iComidaNal++;
+                                                                        //oComDia1.iCenaNal++;
+
+                                                                        oCant.iCantDesayunos++;
+                                                                        //oCant.iCantComidas++;
+                                                                        //oCant.iCantCenas++;
+                                                                    }
+                                                                }
+                                                                #endregion
+
+                                                                #region COMIDA
+                                                                //Primera condicion Comidas
+                                                                if (((fHoraInicio < fInicioComida && fHoraFinal > fInicioComida) && fHoraFinal < fFinComida) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioCena))
+                                                                {
+                                                                    if (bEsInterFinal)
+                                                                    {
+                                                                        //if (l > 0)
+                                                                        //{
+                                                                        //    if (!bEsInterInicio)
+                                                                        //    {
+                                                                        //        oCant.iCantDesayunos++;
+                                                                        //        oComDia1.iDesayunosNal++;
+                                                                        //    }
+                                                                        //}
+
+
+                                                                        oCant.iCantComidasInt++;
+                                                                        //oCant.iCantCenasInt++;
+
+                                                                        oComDia1.iComidaInt++;
+                                                                        //oComDia1.iCenaInt++;
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        //if (l > 0)
+                                                                        //{
+                                                                        //    if (bEsInterInicio)
+                                                                        //    {
+                                                                        //        oCant.iCantDesayunosInt++;
+                                                                        //        oComDia1.iDesayunosInt++;
+                                                                        //    }
+                                                                        //}
+
+                                                                        oCant.iCantComidas++;
+                                                                        //oCant.iCantCenas++;
+
+                                                                        oComDia1.iComidaNal++;
+                                                                        //oComDia1.iCenaNal++;
+                                                                    }
+                                                                }
+                                                                //Segunda condición Comidas
+                                                                else if ((fHoraInicio > fInicioComida && fHoraInicio < fFinComida) && (fHoraFinal > fFinComida && fHoraFinal > fInicioComida) && (oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioCena)) //Evaluar antes de cena
+                                                                {
+                                                                    if (bEsInterFinal)
+                                                                    {
+                                                                        //if (l > 0)
+                                                                        //{
+                                                                        //    if (!bEsInterInicio)
+                                                                        //    {
+                                                                        //        oCant.iCantDesayunos++;
+                                                                        //        oComDia1.iDesayunosNal++;
+                                                                        //    }
+                                                                        //}
+
+
+                                                                        oCant.iCantComidasInt++;
+                                                                        //oCant.iCantCenasInt++;
+
+                                                                        oComDia1.iComidaInt++;
+                                                                        //oComDia1.iCenaInt++;
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        //if (l > 0)
+                                                                        //{
+                                                                        //    if (bEsInterInicio)
+                                                                        //    {
+                                                                        //        oCant.iCantDesayunosInt++;
+                                                                        //        oComDia1.iDesayunosInt++;
+                                                                        //    }
+                                                                        //}
+
+                                                                        oCant.iCantComidas++;
+                                                                        //oCant.iCantCenas++;
+
+                                                                        oComDia1.iComidaNal++;
+                                                                        //oComDia1.iCenaNal++;
+                                                                    }
+                                                                }
+                                                                //Tercera condición Comidas
+                                                                else if ((fHoraInicio >= fInicioComida && fHoraFinal > fFinComida) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioCena))
+                                                                {
+                                                                    if (bEsInterFinal)
+                                                                    {
+                                                                        //if (l > 0)
+                                                                        //{
+                                                                        //    if (!bEsInterInicio)
+                                                                        //    {
+                                                                        //        oCant.iCantDesayunos++;
+                                                                        //        oComDia1.iDesayunosNal++;
+                                                                        //    }
+                                                                        //}
+
+
+                                                                        oCant.iCantComidasInt++;
+                                                                        //oCant.iCantCenasInt++;
+
+                                                                        oComDia1.iComidaInt++;
+                                                                        //oComDia1.iCenaInt++;
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        //if (l > 0)
+                                                                        //{
+                                                                        //    if (bEsInterInicio)
+                                                                        //    {
+                                                                        //        oCant.iCantDesayunosInt++;
+                                                                        //        oComDia1.iDesayunosInt++;
+                                                                        //    }
+                                                                        //}
+
+                                                                        oCant.iCantComidas++;
+                                                                        //oCant.iCantCenas++;
+
+                                                                        oComDia1.iComidaNal++;
+                                                                        //oComDia1.iCenaNal++;
+                                                                    }
+                                                                }
+                                                                //Cuarta condición Comidas
+                                                                else if ((fHoraInicio < fInicioComida && fHoraFinal <= fInicioComida) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioCena))
+                                                                {
+                                                                    if (bEsInterFinal)
+                                                                    {
+                                                                        //if (l > 0)
+                                                                        //{
+                                                                        //    if (!bEsInterInicio)
+                                                                        //    {
+                                                                        //        oCant.iCantDesayunos++;
+                                                                        //        oComDia1.iDesayunosNal++;
+                                                                        //    }
+                                                                        //}
+
+
+                                                                        oCant.iCantComidasInt++;
+                                                                        //oCant.iCantCenasInt++;
+
+                                                                        oComDia1.iComidaInt++;
+                                                                        //oComDia1.iCenaInt++;
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        //if (l > 0)
+                                                                        //{
+                                                                        //    if (bEsInterInicio)
+                                                                        //    {
+                                                                        //        oCant.iCantDesayunosInt++;
+                                                                        //        oComDia1.iDesayunosInt++;
+                                                                        //    }
+                                                                        //}
+
+                                                                        oCant.iCantComidas++;
+                                                                        //oCant.iCantCenas++;
+
+                                                                        oComDia1.iComidaNal++;
+                                                                        //oComDia1.iCenaNal++;
+                                                                    }
+                                                                }
+                                                                //Quinta condición Comidas
+                                                                else if ((fHoraInicio < fInicioComida && fHoraFinal < fInicioComida) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioCena))
+                                                                {
+                                                                    if (bEsInterFinal)
+                                                                    {
+                                                                        //if (l > 0)
+                                                                        //{
+                                                                        //    if (!bEsInterInicio)
+                                                                        //    {
+                                                                        //        oCant.iCantDesayunos++;
+                                                                        //        oComDia1.iDesayunosNal++;
+                                                                        //    }
+                                                                        //}
+
+
+                                                                        oCant.iCantComidasInt++;
+                                                                        //oCant.iCantCenasInt++;
+
+                                                                        oComDia1.iComidaInt++;
+                                                                        //oComDia1.iCenaInt++;
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        //if (l > 0)
+                                                                        //{
+                                                                        //    if (bEsInterInicio)
+                                                                        //    {
+                                                                        //        oCant.iCantDesayunosInt++;
+                                                                        //        oComDia1.iDesayunosInt++;
+                                                                        //    }
+                                                                        //}
+
+                                                                        oCant.iCantComidas++;
+                                                                        //oCant.iCantCenas++;
+
+                                                                        oComDia1.iComidaNal++;
+                                                                        //oComDia1.iCenaNal++;
+                                                                    }
+                                                                }
+                                                                //Sexta condición Comidas
+                                                                else if ((fHoraInicio < fInicioComida && (fHoraFinal > fInicioComida && fHoraFinal <= fFinComida)) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioCena))
+                                                                {
+                                                                    if (bEsInterFinal)
+                                                                    {
+                                                                        //if (l > 0)
+                                                                        //{
+                                                                        //    if (!bEsInterInicio)
+                                                                        //    {
+                                                                        //        oCant.iCantDesayunos++;
+                                                                        //        oComDia1.iDesayunosNal++;
+                                                                        //    }
+                                                                        //}
+
+
+                                                                        oCant.iCantComidasInt++;
+                                                                        //oCant.iCantCenasInt++;
+
+                                                                        oComDia1.iComidaInt++;
+                                                                        //oComDia1.iCenaInt++;
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        //if (l > 0)
+                                                                        //{
+                                                                        //    if (bEsInterInicio)
+                                                                        //    {
+                                                                        //        oCant.iCantDesayunosInt++;
+                                                                        //        oComDia1.iDesayunosInt++;
+                                                                        //    }
+                                                                        //}
+
+                                                                        oCant.iCantComidas++;
+                                                                        //oCant.iCantCenas++;
+
+                                                                        oComDia1.iComidaNal++;
+                                                                        //oComDia1.iCenaNal++;
+                                                                    }
+                                                                }
+                                                                //Septima condición Comidas
+                                                                else if ((fHoraInicio >= fInicioComida && fHoraInicio <= fFinComida) && (fHoraFinal > fInicioComida && fHoraFinal <= fFinComida) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal > fInicioCena))
+                                                                {
+                                                                    if (bEsInterFinal)
+                                                                    {
+                                                                        //if (l > 0)
+                                                                        //{
+                                                                        //    if (!bEsInterInicio)
+                                                                        //    {
+                                                                        //        oCant.iCantDesayunos++;
+                                                                        //        oComDia1.iDesayunosNal++;
+                                                                        //    }
+                                                                        //}
+
+
+                                                                        oCant.iCantComidasInt++;
+                                                                        //oCant.iCantCenasInt++;
+
+                                                                        oComDia1.iComidaInt++;
+                                                                        //oComDia1.iCenaInt++;
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        //if (l > 0)
+                                                                        //{
+                                                                        //    if (bEsInterInicio)
+                                                                        //    {
+                                                                        //        oCant.iCantDesayunosInt++;
+                                                                        //        oComDia1.iDesayunosInt++;
+                                                                        //    }
+                                                                        //}
+
+                                                                        oCant.iCantComidas++;
+                                                                        //oCant.iCantCenas++;
+
+                                                                        oComDia1.iComidaNal++;
+                                                                        //oComDia1.iCenaNal++;
+                                                                    }
+                                                                }
+                                                                //Octava condición
+                                                                else if ((fHoraInicio < fInicioComida && (fHoraFinal > fInicioComida && fHoraFinal >= fFinComida)) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal > fInicioCena))
+                                                                {
+                                                                    if (bEsInterFinal)
+                                                                    {
+                                                                        //if (l > 0)
+                                                                        //{
+                                                                        //    if (!bEsInterInicio)
+                                                                        //    {
+                                                                        //        oCant.iCantDesayunos++;
+                                                                        //        oComDia1.iDesayunosNal++;
+                                                                        //    }
+                                                                        //}
+
+
+                                                                        oCant.iCantComidasInt++;
+                                                                        //oCant.iCantCenasInt++;
+
+                                                                        oComDia1.iComidaInt++;
+                                                                        //oComDia1.iCenaInt++;
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        //if (l > 0)
+                                                                        //{
+                                                                        //    if (bEsInterInicio)
+                                                                        //    {
+                                                                        //        oCant.iCantDesayunosInt++;
+                                                                        //        oComDia1.iDesayunosInt++;
+                                                                        //    }
+                                                                        //}
+
+                                                                        oCant.iCantComidas++;
+                                                                        //oCant.iCantCenas++;
+
+                                                                        oComDia1.iComidaNal++;
+                                                                        //oComDia1.iCenaNal++;
+                                                                    }
+                                                                }
+                                                                #endregion
+
+                                                                #region CENA
+                                                                //Primera condicion Cenas
+                                                                if (((fHoraInicio < fInicioCena && fHoraFinal > fInicioCena) && fHoraFinal < fFinCena) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S()))
+                                                                {
+                                                                    if (bEsInterFinal)
+                                                                    {
+                                                                        //if (l > 0)
+                                                                        //{
+                                                                        //    if (!bEsInterInicio)
+                                                                        //    {
+                                                                        //        oCant.iCantDesayunos++;
+                                                                        //        oCant.iCantComidas++;
+
+                                                                        //        oComDia1.iDesayunosNal++;
+                                                                        //        oComDia1.iComidaNal++;
+                                                                        //    }
+                                                                        //}
+
+                                                                        oCant.iCantCenasInt++;
+                                                                        oComDia1.iCenaInt++;
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        //if (l > 0)
+                                                                        //{
+                                                                        //    if (bEsInterInicio)
+                                                                        //    {
+                                                                        //        oCant.iCantDesayunosInt++;
+                                                                        //        oCant.iCantComidasInt++;
+
+                                                                        //        oComDia1.iDesayunosInt++;
+                                                                        //        oComDia1.iComidaInt++;
+                                                                        //    }
+                                                                        //}
+
+                                                                        oCant.iCantCenas++;
+                                                                        oComDia1.iCenaNal++;
+                                                                    }
+                                                                }
+                                                                //Segunda condición Cenas
+                                                                else if ((fHoraInicio > fInicioCena && fHoraInicio < fFinCena) && (fHoraFinal > fFinCena && fHoraFinal > fInicioCena) && (oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                                {
+                                                                    if (bEsInterFinal)
+                                                                    {
+                                                                        //if (l > 0)
+                                                                        //{
+                                                                        //    if (!bEsInterInicio)
+                                                                        //    {
+                                                                        //        oCant.iCantDesayunos++;
+                                                                        //        oCant.iCantComidas++;
+
+                                                                        //        oComDia1.iDesayunosNal++;
+                                                                        //        oComDia1.iComidaNal++;
+                                                                        //    }
+                                                                        //}
+
+                                                                        oCant.iCantCenasInt++;
+                                                                        oComDia1.iCenaInt++;
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        //if (l > 0)
+                                                                        //{
+                                                                        //    if (bEsInterInicio)
+                                                                        //    {
+                                                                        //        oCant.iCantDesayunosInt++;
+                                                                        //        oCant.iCantComidasInt++;
+
+                                                                        //        oComDia1.iDesayunosInt++;
+                                                                        //        oComDia1.iComidaInt++;
+                                                                        //    }
+                                                                        //}
+
+                                                                        oCant.iCantCenas++;
+                                                                        oComDia1.iCenaNal++;
+                                                                    }
+                                                                }
+                                                                //Tercera condición Cenas
+                                                                else if ((fHoraInicio >= fInicioCena && fHoraFinal > fFinCena) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                                {
+                                                                    if (bEsInterFinal)
+                                                                    {
+                                                                        //if (l > 0)
+                                                                        //{
+                                                                        //    if (!bEsInterInicio)
+                                                                        //    {
+                                                                        //        oCant.iCantDesayunos++;
+                                                                        //        oCant.iCantComidas++;
+
+                                                                        //        oComDia1.iDesayunosNal++;
+                                                                        //        oComDia1.iComidaNal++;
+                                                                        //    }
+                                                                        //}
+
+                                                                        oCant.iCantCenasInt++;
+                                                                        oComDia1.iCenaInt++;
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        //if (l > 0)
+                                                                        //{
+                                                                        //    if (bEsInterInicio)
+                                                                        //    {
+                                                                        //        oCant.iCantDesayunosInt++;
+                                                                        //        oCant.iCantComidasInt++;
+
+                                                                        //        oComDia1.iDesayunosInt++;
+                                                                        //        oComDia1.iComidaInt++;
+                                                                        //    }
+                                                                        //}
+
+                                                                        oCant.iCantCenas++;
+                                                                        oComDia1.iCenaNal++;
+                                                                    }
+                                                                }
+                                                                //Cuarta condición Cenas
+                                                                else if ((fHoraInicio < fInicioCena && fHoraFinal <= fInicioCena) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S()))
+                                                                {
+                                                                    if (bEsInterFinal)
+                                                                    {
+                                                                        //if (l > 0)
+                                                                        //{
+                                                                        //    if (!bEsInterInicio)
+                                                                        //    {
+                                                                        //        oCant.iCantDesayunos++;
+                                                                        //        oCant.iCantComidas++;
+
+                                                                        //        oComDia1.iDesayunosNal++;
+                                                                        //        oComDia1.iComidaNal++;
+                                                                        //    }
+                                                                        //}
+
+                                                                        oCant.iCantCenasInt++;
+                                                                        oComDia1.iCenaInt++;
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        //if (l > 0)
+                                                                        //{
+                                                                        //    if (bEsInterInicio)
+                                                                        //    {
+                                                                        //        oCant.iCantDesayunosInt++;
+                                                                        //        oCant.iCantComidasInt++;
+
+                                                                        //        oComDia1.iDesayunosInt++;
+                                                                        //        oComDia1.iComidaInt++;
+                                                                        //    }
+                                                                        //}
+
+                                                                        oCant.iCantCenas++;
+                                                                        oComDia1.iCenaNal++;
+                                                                    }
+                                                                }
+                                                                //Quinta condición Cenas
+                                                                else if ((fHoraInicio < fInicioCena && fHoraFinal < fInicioCena) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S()))
+                                                                {
+                                                                    if (bEsInterFinal)
+                                                                    {
+                                                                        //if (l > 0)
+                                                                        //{
+                                                                        //    if (!bEsInterInicio)
+                                                                        //    {
+                                                                        //        oCant.iCantDesayunos++;
+                                                                        //        oCant.iCantComidas++;
+
+                                                                        //        oComDia1.iDesayunosNal++;
+                                                                        //        oComDia1.iComidaNal++;
+                                                                        //    }
+                                                                        //}
+
+                                                                        oCant.iCantCenasInt++;
+                                                                        oComDia1.iCenaInt++;
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        //if (l > 0)
+                                                                        //{
+                                                                        //    if (bEsInterInicio)
+                                                                        //    {
+                                                                        //        oCant.iCantDesayunosInt++;
+                                                                        //        oCant.iCantComidasInt++;
+
+                                                                        //        oComDia1.iDesayunosInt++;
+                                                                        //        oComDia1.iComidaInt++;
+                                                                        //    }
+                                                                        //}
+
+                                                                        oCant.iCantCenas++;
+                                                                        oComDia1.iCenaNal++;
+                                                                    }
+                                                                }
+                                                                //Sexta condición Cenas
+                                                                else if ((fHoraInicio < fInicioCena && (fHoraFinal > fInicioCena && fHoraFinal <= fFinCena)) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                                {
+                                                                    if (bEsInterFinal)
+                                                                    {
+                                                                        //if (l > 0)
+                                                                        //{
+                                                                        //    if (!bEsInterInicio)
+                                                                        //    {
+                                                                        //        oCant.iCantDesayunos++;
+                                                                        //        oCant.iCantComidas++;
+
+                                                                        //        oComDia1.iDesayunosNal++;
+                                                                        //        oComDia1.iComidaNal++;
+                                                                        //    }
+                                                                        //}
+
+                                                                        oCant.iCantCenasInt++;
+                                                                        oComDia1.iCenaInt++;
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        //if (l > 0)
+                                                                        //{
+                                                                        //    if (bEsInterInicio)
+                                                                        //    {
+                                                                        //        oCant.iCantDesayunosInt++;
+                                                                        //        oCant.iCantComidasInt++;
+
+                                                                        //        oComDia1.iDesayunosInt++;
+                                                                        //        oComDia1.iComidaInt++;
+                                                                        //    }
+                                                                        //}
+
+                                                                        oCant.iCantCenas++;
+                                                                        oComDia1.iCenaNal++;
+                                                                    }
+                                                                }
+                                                                //Septima condición Cenas
+                                                                else if ((fHoraInicio >= fInicioCena && fHoraInicio <= fFinCena) && (fHoraFinal > fInicioCena && fHoraFinal <= fFinCena) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                                {
+                                                                    if (bEsInterFinal)
+                                                                    {
+                                                                        //if (l > 0)
+                                                                        //{
+                                                                        //    if (!bEsInterInicio)
+                                                                        //    {
+                                                                        //        oCant.iCantDesayunos++;
+                                                                        //        oCant.iCantComidas++;
+
+                                                                        //        oComDia1.iDesayunosNal++;
+                                                                        //        oComDia1.iComidaNal++;
+                                                                        //    }
+                                                                        //}
+
+                                                                        oCant.iCantCenasInt++;
+                                                                        oComDia1.iCenaInt++;
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        //if (l > 0)
+                                                                        //{
+                                                                        //    if (bEsInterInicio)
+                                                                        //    {
+                                                                        //        oCant.iCantDesayunosInt++;
+                                                                        //        oCant.iCantComidasInt++;
+
+                                                                        //        oComDia1.iDesayunosInt++;
+                                                                        //        oComDia1.iComidaInt++;
+                                                                        //    }
+                                                                        //}
+
+                                                                        oCant.iCantCenas++;
+                                                                        oComDia1.iCenaNal++;
+                                                                    }
+                                                                }
+                                                                //Octava condición Cenas
+                                                                else if ((fHoraInicio < fInicioCena && (fHoraFinal > fInicioCena && fHoraFinal >= fFinCena)) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal > fInicioCena))
+                                                                {
+                                                                    if (bEsInterFinal)
+                                                                    {
+                                                                        //if (l > 0)
+                                                                        //{
+                                                                        //    if (!bEsInterInicio)
+                                                                        //    {
+                                                                        //        oCant.iCantDesayunos++;
+                                                                        //        oCant.iCantComidas++;
+
+                                                                        //        oComDia1.iDesayunosNal++;
+                                                                        //        oComDia1.iComidaNal++;
+                                                                        //    }
+                                                                        //}
+
+                                                                        oCant.iCantCenasInt++;
+                                                                        oComDia1.iCenaInt++;
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        //if (l > 0)
+                                                                        //{
+                                                                        //    if (bEsInterInicio)
+                                                                        //    {
+                                                                        //        oCant.iCantDesayunosInt++;
+                                                                        //        oCant.iCantComidasInt++;
+
+                                                                        //        oComDia1.iDesayunosInt++;
+                                                                        //        oComDia1.iComidaInt++;
+                                                                        //    }
+                                                                        //}
+
+                                                                        oCant.iCantCenas++;
+                                                                        oComDia1.iCenaNal++;
+                                                                    }
+                                                                }
+                                                                #endregion
+
                                                             }
                                                             else
                                                             {
                                                                 int iAux = 0;
 
-                                                                if (fHoraInicio < fInicioDesayuno || (fHoraInicio > fInicioDesayuno && fHoraInicio < fFinDesayuno))
+                                                                #region COMENTADO CONDIONES ANTERIORES
+                                                                //if (fHoraInicio < fInicioDesayuno || (fHoraInicio > fInicioDesayuno && fHoraInicio < fFinDesayuno))
+                                                                //{
+                                                                //    if (bEsInterFinal)
+                                                                //    {
+                                                                //        oCant.iCantDesayunosInt++;
+                                                                //        oCant.iCantComidasInt++;
+                                                                //        oCant.iCantCenasInt++;
+
+                                                                //        oComDia1.iDesayunosInt++;
+                                                                //        oComDia1.iComidaInt++;
+                                                                //        oComDia1.iCenaInt++;
+                                                                //    }
+                                                                //    else
+                                                                //    {
+                                                                //        oComDia1.iDesayunosNal++;
+                                                                //        oComDia1.iComidaNal++;
+                                                                //        oComDia1.iCenaNal++;
+                                                                //    }
+
+                                                                //    iAux = 1;
+                                                                //}
+                                                                //else if ((fHoraInicio <= fInicioComida && (fHoraFinal > fInicioComida)) || (fHoraInicio > fInicioComida && fHoraInicio <= fFinComida) || (fHoraInicio < fInicioComida && fHoraFinal > fFinComida))
+                                                                //{
+                                                                //    // Valida si tiene un día anterior
+
+                                                                //    if (bEsInterFinal)
+                                                                //    {
+                                                                //        if (l != 0 || l != dtDias.Rows.Count - 1)
+                                                                //        {
+                                                                //            oCant.iCantDesayunosInt++;
+                                                                //            oComDia1.iDesayunosInt++;
+                                                                //        }
+
+                                                                //        oCant.iCantComidasInt++;
+                                                                //        oCant.iCantCenasInt++;
+
+                                                                //        oComDia1.iComidaInt++;
+                                                                //        oComDia1.iCenaInt++;
+                                                                //    }
+                                                                //    else
+                                                                //    {
+                                                                //        if (l != 0 || l != dtDias.Rows.Count - 1)
+                                                                //        {
+                                                                //            oCant.iCantDesayunos++;
+                                                                //            oComDia1.iDesayunosNal++;
+                                                                //        }
+
+                                                                //        oCant.iCantComidas++;
+                                                                //        oCant.iCantCenas++;
+
+                                                                //        oComDia1.iComidaNal++;
+                                                                //        oComDia1.iCenaNal++;
+                                                                //    }
+
+                                                                //    iAux = 2;
+                                                                //}
+                                                                //else if ((fHoraInicio < fInicioCena && fHoraFinal >= fInicioCena) || (fHoraInicio <= fFinCena && fHoraFinal > fInicioCena))
+                                                                //{
+                                                                //    if (bEsInterFinal)
+                                                                //    {
+                                                                //        if (l != 0 || l != dtDias.Rows.Count - 1)
+                                                                //        {
+                                                                //            oCant.iCantDesayunosInt++;
+                                                                //            oCant.iCantComidasInt++;
+
+                                                                //            oComDia1.iDesayunosInt++;
+                                                                //            oComDia1.iComidaInt++;
+                                                                //        }
+
+                                                                //        oCant.iCantCenasInt++;
+                                                                //        oComDia1.iCenaInt++;
+                                                                //    }
+                                                                //    else
+                                                                //    {
+                                                                //        if (l != 0 || l != dtDias.Rows.Count - 1)
+                                                                //        {
+                                                                //            oCant.iCantDesayunos++;
+                                                                //            oCant.iCantComidas++;
+
+                                                                //            oComDia1.iDesayunosNal++;
+                                                                //            oComDia1.iComidaNal++;
+                                                                //        }
+
+                                                                //        oCant.iCantCenas++;
+                                                                //        oComDia1.iCenaNal++;
+                                                                //    }
+
+                                                                //    iAux = 3;
+                                                                //}
+                                                                #endregion
+
+                                                                #region DESAYUNO
+                                                                //Primera condicion
+                                                                if (((fHoraInicio < fInicioDesayuno && fHoraFinal > fInicioDesayuno) && fHoraFinal < fFinDesayuno) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S()))
                                                                 {
                                                                     if (bEsInterFinal)
                                                                     {
                                                                         oCant.iCantDesayunosInt++;
-                                                                        oCant.iCantComidasInt++;
-                                                                        oCant.iCantCenasInt++;
+                                                                        //oCant.iCantComidasInt++;
+                                                                        //oCant.iCantCenasInt++;
 
                                                                         oComDia1.iDesayunosInt++;
-                                                                        oComDia1.iComidaInt++;
-                                                                        oComDia1.iCenaInt++;
+                                                                        //oComDia1.iComidaInt++;
+                                                                        //oComDia1.iCenaInt++;
                                                                     }
                                                                     else
                                                                     {
                                                                         oComDia1.iDesayunosNal++;
-                                                                        oComDia1.iComidaNal++;
-                                                                        oComDia1.iCenaNal++;
+                                                                        //oComDia1.iComidaNal++;
+                                                                        //oComDia1.iCenaNal++;
                                                                     }
 
                                                                     iAux = 1;
                                                                 }
-                                                                else if ((fHoraInicio <= fInicioComida && (fHoraFinal > fInicioComida)) || (fHoraInicio > fInicioComida && fHoraInicio <= fFinComida) || (fHoraInicio < fInicioComida && fHoraFinal > fFinComida))
+                                                                //Segunda condición
+                                                                else if ((fHoraInicio > fInicioDesayuno && fHoraInicio < fFinDesayuno) && (fHoraFinal > fFinDesayuno && fHoraFinal > fInicioDesayuno) && (oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioComida)) //Evaluar antes de comida
+                                                                {
+                                                                    if (bEsInterFinal)
+                                                                    {
+                                                                        oCant.iCantDesayunosInt++;
+                                                                        //oCant.iCantComidasInt++;
+                                                                        //oCant.iCantCenasInt++;
+
+                                                                        oComDia1.iDesayunosInt++;
+                                                                        //oComDia1.iComidaInt++;
+                                                                        //oComDia1.iCenaInt++;
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        oComDia1.iDesayunosNal++;
+                                                                        //oComDia1.iComidaNal++;
+                                                                        //oComDia1.iCenaNal++;
+                                                                    }
+
+                                                                    iAux = 1;
+                                                                }
+                                                                //Tercera condición
+                                                                else if ((fHoraInicio >= fInicioDesayuno && fHoraFinal > fFinDesayuno) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                                {
+                                                                    if (bEsInterFinal)
+                                                                    {
+                                                                        oCant.iCantDesayunosInt++;
+                                                                        //oCant.iCantComidasInt++;
+                                                                        //oCant.iCantCenasInt++;
+
+                                                                        oComDia1.iDesayunosInt++;
+                                                                        //oComDia1.iComidaInt++;
+                                                                        //oComDia1.iCenaInt++;
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        oComDia1.iDesayunosNal++;
+                                                                        //oComDia1.iComidaNal++;
+                                                                        //oComDia1.iCenaNal++;
+                                                                    }
+
+                                                                    iAux = 1;
+                                                                }
+                                                                //Cuarta condición
+                                                                else if ((fHoraInicio < fInicioDesayuno && fHoraFinal <= fInicioDesayuno) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S()))
+                                                                {
+                                                                    if (bEsInterFinal)
+                                                                    {
+                                                                        oCant.iCantDesayunosInt++;
+                                                                        //oCant.iCantComidasInt++;
+                                                                        //oCant.iCantCenasInt++;
+
+                                                                        oComDia1.iDesayunosInt++;
+                                                                        //oComDia1.iComidaInt++;
+                                                                        //oComDia1.iCenaInt++;
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        oComDia1.iDesayunosNal++;
+                                                                        //oComDia1.iComidaNal++;
+                                                                        //oComDia1.iCenaNal++;
+                                                                    }
+
+                                                                    iAux = 1;
+                                                                }
+                                                                //Quinta condición
+                                                                else if ((fHoraInicio < fInicioDesayuno && fHoraFinal < fInicioDesayuno) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S()))
+                                                                {
+                                                                    if (bEsInterFinal)
+                                                                    {
+                                                                        oCant.iCantDesayunosInt++;
+                                                                        //oCant.iCantComidasInt++;
+                                                                        //oCant.iCantCenasInt++;
+
+                                                                        oComDia1.iDesayunosInt++;
+                                                                        //oComDia1.iComidaInt++;
+                                                                        //oComDia1.iCenaInt++;
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        oComDia1.iDesayunosNal++;
+                                                                        //oComDia1.iComidaNal++;
+                                                                        //oComDia1.iCenaNal++;
+                                                                    }
+
+                                                                    iAux = 1;
+                                                                }
+                                                                //Sexta condición
+                                                                else if ((fHoraInicio < fInicioDesayuno && (fHoraFinal > fInicioDesayuno && fHoraFinal <= fFinDesayuno)) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                                {
+                                                                    if (bEsInterFinal)
+                                                                    {
+                                                                        oCant.iCantDesayunosInt++;
+                                                                        //oCant.iCantComidasInt++;
+                                                                        //oCant.iCantCenasInt++;
+
+                                                                        oComDia1.iDesayunosInt++;
+                                                                        //oComDia1.iComidaInt++;
+                                                                        //oComDia1.iCenaInt++;
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        oComDia1.iDesayunosNal++;
+                                                                        //oComDia1.iComidaNal++;
+                                                                        //oComDia1.iCenaNal++;
+                                                                    }
+
+                                                                    iAux = 1;
+                                                                }
+                                                                //Septima condición
+                                                                else if ((fHoraInicio >= fInicioDesayuno && fHoraInicio <= fFinDesayuno) && (fHoraFinal > fInicioDesayuno && fHoraFinal <= fFinDesayuno) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                                {
+                                                                    if (bEsInterFinal)
+                                                                    {
+                                                                        oCant.iCantDesayunosInt++;
+                                                                        //oCant.iCantComidasInt++;
+                                                                        //oCant.iCantCenasInt++;
+
+                                                                        oComDia1.iDesayunosInt++;
+                                                                        //oComDia1.iComidaInt++;
+                                                                        //oComDia1.iCenaInt++;
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        oComDia1.iDesayunosNal++;
+                                                                        //oComDia1.iComidaNal++;
+                                                                        //oComDia1.iCenaNal++;
+                                                                    }
+
+                                                                    iAux = 1;
+                                                                }
+                                                                //Octava condición
+                                                                else if ((fHoraInicio < fInicioDesayuno && (fHoraFinal > fInicioDesayuno && fHoraFinal >= fFinDesayuno)) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                                {
+                                                                    if (bEsInterFinal)
+                                                                    {
+                                                                        oCant.iCantDesayunosInt++;
+                                                                        //oCant.iCantComidasInt++;
+                                                                        //oCant.iCantCenasInt++;
+
+                                                                        oComDia1.iDesayunosInt++;
+                                                                        //oComDia1.iComidaInt++;
+                                                                        //oComDia1.iCenaInt++;
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        oCant.iCantDesayunos++;
+                                                                        oComDia1.iDesayunosNal++;
+                                                                        //oComDia1.iComidaNal++;
+                                                                        //oComDia1.iCenaNal++;
+                                                                    }
+
+                                                                    iAux = 1;
+                                                                }
+                                                                #endregion
+
+                                                                #region COMIDA
+                                                                //Primera condicion Comidas
+                                                                if (((fHoraInicio < fInicioComida && fHoraFinal > fInicioComida) && fHoraFinal < fFinComida) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioCena))
                                                                 {
                                                                     // Valida si tiene un día anterior
-
                                                                     if (bEsInterFinal)
                                                                     {
                                                                         if (l != 0 || l != dtDias.Rows.Count - 1)
@@ -1219,10 +4424,10 @@ namespace ALE_MexJet.Presenter
                                                                         }
 
                                                                         oCant.iCantComidasInt++;
-                                                                        oCant.iCantCenasInt++;
+                                                                        //oCant.iCantCenasInt++;
 
                                                                         oComDia1.iComidaInt++;
-                                                                        oComDia1.iCenaInt++;
+                                                                        //oComDia1.iCenaInt++;
                                                                     }
                                                                     else
                                                                     {
@@ -1233,15 +4438,264 @@ namespace ALE_MexJet.Presenter
                                                                         }
 
                                                                         oCant.iCantComidas++;
-                                                                        oCant.iCantCenas++;
+                                                                        //oCant.iCantCenas++;
 
                                                                         oComDia1.iComidaNal++;
-                                                                        oComDia1.iCenaNal++;
+                                                                        //oComDia1.iCenaNal++;
                                                                     }
 
                                                                     iAux = 2;
                                                                 }
-                                                                else if ((fHoraInicio < fInicioCena && fHoraFinal >= fInicioCena) || (fHoraInicio <= fFinCena && fHoraFinal > fInicioCena))
+                                                                //Segunda condición Comidas
+                                                                else if ((fHoraInicio > fInicioComida && fHoraInicio < fFinComida) && (fHoraFinal > fFinComida && fHoraFinal > fInicioComida) && (oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioCena)) //Evaluar antes de cena
+                                                                {
+                                                                    // Valida si tiene un día anterior
+                                                                    if (bEsInterFinal)
+                                                                    {
+                                                                        if (l != 0 || l != dtDias.Rows.Count - 1)
+                                                                        {
+                                                                            oCant.iCantDesayunosInt++;
+                                                                            oComDia1.iDesayunosInt++;
+                                                                        }
+
+                                                                        oCant.iCantComidasInt++;
+                                                                        //oCant.iCantCenasInt++;
+
+                                                                        oComDia1.iComidaInt++;
+                                                                        //oComDia1.iCenaInt++;
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        if (l != 0 || l != dtDias.Rows.Count - 1)
+                                                                        {
+                                                                            oCant.iCantDesayunos++;
+                                                                            oComDia1.iDesayunosNal++;
+                                                                        }
+
+                                                                        oCant.iCantComidas++;
+                                                                        //oCant.iCantCenas++;
+
+                                                                        oComDia1.iComidaNal++;
+                                                                        //oComDia1.iCenaNal++;
+                                                                    }
+
+                                                                    iAux = 2;
+                                                                }
+                                                                //Tercera condición Comidas
+                                                                else if ((fHoraInicio >= fInicioComida && fHoraFinal > fFinComida) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioCena))
+                                                                {
+                                                                    // Valida si tiene un día anterior
+                                                                    if (bEsInterFinal)
+                                                                    {
+                                                                        if (l != 0 || l != dtDias.Rows.Count - 1)
+                                                                        {
+                                                                            oCant.iCantDesayunosInt++;
+                                                                            oComDia1.iDesayunosInt++;
+                                                                        }
+
+                                                                        oCant.iCantComidasInt++;
+                                                                        //oCant.iCantCenasInt++;
+
+                                                                        oComDia1.iComidaInt++;
+                                                                        //oComDia1.iCenaInt++;
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        if (l != 0 || l != dtDias.Rows.Count - 1)
+                                                                        {
+                                                                            oCant.iCantDesayunos++;
+                                                                            oComDia1.iDesayunosNal++;
+                                                                        }
+
+                                                                        oCant.iCantComidas++;
+                                                                        //oCant.iCantCenas++;
+
+                                                                        oComDia1.iComidaNal++;
+                                                                        //oComDia1.iCenaNal++;
+                                                                    }
+
+                                                                    iAux = 2;
+                                                                }
+                                                                //Cuarta condición Comidas
+                                                                else if ((fHoraInicio < fInicioComida && fHoraFinal <= fInicioComida) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioCena))
+                                                                {
+                                                                    // Valida si tiene un día anterior
+                                                                    if (bEsInterFinal)
+                                                                    {
+                                                                        if (l != 0 || l != dtDias.Rows.Count - 1)
+                                                                        {
+                                                                            oCant.iCantDesayunosInt++;
+                                                                            oComDia1.iDesayunosInt++;
+                                                                        }
+
+                                                                        oCant.iCantComidasInt++;
+                                                                        //oCant.iCantCenasInt++;
+
+                                                                        oComDia1.iComidaInt++;
+                                                                        //oComDia1.iCenaInt++;
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        if (l != 0 || l != dtDias.Rows.Count - 1)
+                                                                        {
+                                                                            oCant.iCantDesayunos++;
+                                                                            oComDia1.iDesayunosNal++;
+                                                                        }
+
+                                                                        oCant.iCantComidas++;
+                                                                        //oCant.iCantCenas++;
+
+                                                                        oComDia1.iComidaNal++;
+                                                                        //oComDia1.iCenaNal++;
+                                                                    }
+
+                                                                    iAux = 2;
+                                                                }
+                                                                //Quinta condición Comidas
+                                                                else if ((fHoraInicio < fInicioComida && fHoraFinal < fInicioComida) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioCena))
+                                                                {
+                                                                    // Valida si tiene un día anterior
+                                                                    if (bEsInterFinal)
+                                                                    {
+                                                                        if (l != 0 || l != dtDias.Rows.Count - 1)
+                                                                        {
+                                                                            oCant.iCantDesayunosInt++;
+                                                                            oComDia1.iDesayunosInt++;
+                                                                        }
+
+                                                                        oCant.iCantComidasInt++;
+                                                                        //oCant.iCantCenasInt++;
+
+                                                                        oComDia1.iComidaInt++;
+                                                                        //oComDia1.iCenaInt++;
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        if (l != 0 || l != dtDias.Rows.Count - 1)
+                                                                        {
+                                                                            oCant.iCantDesayunos++;
+                                                                            oComDia1.iDesayunosNal++;
+                                                                        }
+
+                                                                        oCant.iCantComidas++;
+                                                                        //oCant.iCantCenas++;
+
+                                                                        oComDia1.iComidaNal++;
+                                                                        //oComDia1.iCenaNal++;
+                                                                    }
+
+                                                                    iAux = 2;
+                                                                }
+                                                                //Sexta condición Comidas
+                                                                else if ((fHoraInicio < fInicioComida && (fHoraFinal > fInicioComida && fHoraFinal <= fFinComida)) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioCena))
+                                                                {
+                                                                    // Valida si tiene un día anterior
+                                                                    if (bEsInterFinal)
+                                                                    {
+                                                                        if (l != 0 || l != dtDias.Rows.Count - 1)
+                                                                        {
+                                                                            oCant.iCantDesayunosInt++;
+                                                                            oComDia1.iDesayunosInt++;
+                                                                        }
+
+                                                                        oCant.iCantComidasInt++;
+                                                                        //oCant.iCantCenasInt++;
+
+                                                                        oComDia1.iComidaInt++;
+                                                                        //oComDia1.iCenaInt++;
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        if (l != 0 || l != dtDias.Rows.Count - 1)
+                                                                        {
+                                                                            oCant.iCantDesayunos++;
+                                                                            oComDia1.iDesayunosNal++;
+                                                                        }
+
+                                                                        oCant.iCantComidas++;
+                                                                        //oCant.iCantCenas++;
+
+                                                                        oComDia1.iComidaNal++;
+                                                                        //oComDia1.iCenaNal++;
+                                                                    }
+
+                                                                    iAux = 2;
+                                                                }
+                                                                //Septima condición Comidas
+                                                                else if ((fHoraInicio >= fInicioComida && fHoraInicio <= fFinComida) && (fHoraFinal > fInicioComida && fHoraFinal <= fFinComida) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioCena))
+                                                                {
+                                                                    // Valida si tiene un día anterior
+                                                                    if (bEsInterFinal)
+                                                                    {
+                                                                        if (l != 0 || l != dtDias.Rows.Count - 1)
+                                                                        {
+                                                                            oCant.iCantDesayunosInt++;
+                                                                            oComDia1.iDesayunosInt++;
+                                                                        }
+
+                                                                        oCant.iCantComidasInt++;
+                                                                        //oCant.iCantCenasInt++;
+
+                                                                        oComDia1.iComidaInt++;
+                                                                        //oComDia1.iCenaInt++;
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        if (l != 0 || l != dtDias.Rows.Count - 1)
+                                                                        {
+                                                                            oCant.iCantDesayunos++;
+                                                                            oComDia1.iDesayunosNal++;
+                                                                        }
+
+                                                                        oCant.iCantComidas++;
+                                                                        //oCant.iCantCenas++;
+
+                                                                        oComDia1.iComidaNal++;
+                                                                        //oComDia1.iCenaNal++;
+                                                                    }
+
+                                                                    iAux = 2;
+                                                                }
+                                                                //Octava condición
+                                                                else if ((fHoraInicio < fInicioComida && (fHoraFinal > fInicioComida && fHoraFinal >= fFinComida)) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal > fInicioCena))
+                                                                {
+                                                                    // Valida si tiene un día anterior
+                                                                    if (bEsInterFinal)
+                                                                    {
+                                                                        if (l != 0 || l != dtDias.Rows.Count - 1)
+                                                                        {
+                                                                            //oCant.iCantDesayunosInt++;
+                                                                            //oComDia1.iDesayunosInt++;
+                                                                        }
+
+                                                                        oCant.iCantComidasInt++;
+                                                                        //oCant.iCantCenasInt++;
+
+                                                                        oComDia1.iComidaInt++;
+                                                                        //oComDia1.iCenaInt++;
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        if (l != 0 || l != dtDias.Rows.Count - 1)
+                                                                        {
+                                                                            //oCant.iCantDesayunos++;
+                                                                            //oComDia1.iDesayunosNal++;
+                                                                        }
+
+                                                                        oCant.iCantComidas++;
+                                                                        //oCant.iCantCenas++;
+
+                                                                        oComDia1.iComidaNal++;
+                                                                        //oComDia1.iCenaNal++;
+                                                                    }
+
+                                                                    iAux = 2;
+                                                                }
+                                                                #endregion
+
+                                                                #region CENA
+                                                                //Primera condicion Cenas
+                                                                if (((fHoraInicio < fInicioCena && fHoraFinal > fInicioCena) && fHoraFinal < fFinCena) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S()))
                                                                 {
                                                                     if (bEsInterFinal)
                                                                     {
@@ -1274,6 +4728,245 @@ namespace ALE_MexJet.Presenter
 
                                                                     iAux = 3;
                                                                 }
+                                                                //Segunda condición Cenas
+                                                                else if ((fHoraInicio > fInicioCena && fHoraInicio < fFinCena) && (fHoraFinal > fFinCena && fHoraFinal > fInicioCena) && (oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                                {
+                                                                    if (bEsInterFinal)
+                                                                    {
+                                                                        if (l != 0 || l != dtDias.Rows.Count - 1)
+                                                                        {
+                                                                            oCant.iCantDesayunosInt++;
+                                                                            oCant.iCantComidasInt++;
+
+                                                                            oComDia1.iDesayunosInt++;
+                                                                            oComDia1.iComidaInt++;
+                                                                        }
+
+                                                                        oCant.iCantCenasInt++;
+                                                                        oComDia1.iCenaInt++;
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        if (l != 0 || l != dtDias.Rows.Count - 1)
+                                                                        {
+                                                                            oCant.iCantDesayunos++;
+                                                                            oCant.iCantComidas++;
+
+                                                                            oComDia1.iDesayunosNal++;
+                                                                            oComDia1.iComidaNal++;
+                                                                        }
+
+                                                                        oCant.iCantCenas++;
+                                                                        oComDia1.iCenaNal++;
+                                                                    }
+
+                                                                    iAux = 3;
+                                                                }
+                                                                //Tercera condición Cenas
+                                                                else if ((fHoraInicio >= fInicioCena && fHoraFinal > fFinCena) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                                {
+                                                                    if (bEsInterFinal)
+                                                                    {
+                                                                        if (l != 0 || l != dtDias.Rows.Count - 1)
+                                                                        {
+                                                                            oCant.iCantDesayunosInt++;
+                                                                            oCant.iCantComidasInt++;
+
+                                                                            oComDia1.iDesayunosInt++;
+                                                                            oComDia1.iComidaInt++;
+                                                                        }
+
+                                                                        oCant.iCantCenasInt++;
+                                                                        oComDia1.iCenaInt++;
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        if (l != 0 || l != dtDias.Rows.Count - 1)
+                                                                        {
+                                                                            oCant.iCantDesayunos++;
+                                                                            oCant.iCantComidas++;
+
+                                                                            oComDia1.iDesayunosNal++;
+                                                                            oComDia1.iComidaNal++;
+                                                                        }
+
+                                                                        oCant.iCantCenas++;
+                                                                        oComDia1.iCenaNal++;
+                                                                    }
+
+                                                                    iAux = 3;
+                                                                }
+                                                                //Cuarta condición Cenas
+                                                                else if ((fHoraInicio < fInicioCena && fHoraFinal <= fInicioCena) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S()))
+                                                                {
+                                                                    if (bEsInterFinal)
+                                                                    {
+                                                                        if (l != 0 || l != dtDias.Rows.Count - 1)
+                                                                        {
+                                                                            oCant.iCantDesayunosInt++;
+                                                                            oCant.iCantComidasInt++;
+
+                                                                            oComDia1.iDesayunosInt++;
+                                                                            oComDia1.iComidaInt++;
+                                                                        }
+
+                                                                        oCant.iCantCenasInt++;
+                                                                        oComDia1.iCenaInt++;
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        if (l != 0 || l != dtDias.Rows.Count - 1)
+                                                                        {
+                                                                            oCant.iCantDesayunos++;
+                                                                            oCant.iCantComidas++;
+
+                                                                            oComDia1.iDesayunosNal++;
+                                                                            oComDia1.iComidaNal++;
+                                                                        }
+
+                                                                        oCant.iCantCenas++;
+                                                                        oComDia1.iCenaNal++;
+                                                                    }
+
+                                                                    iAux = 3;
+                                                                }
+                                                                //Quinta condición Cenas
+                                                                else if ((fHoraInicio < fInicioCena && fHoraFinal < fInicioCena) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S()))
+                                                                {
+                                                                    if (bEsInterFinal)
+                                                                    {
+                                                                        if (l != 0 || l != dtDias.Rows.Count - 1)
+                                                                        {
+                                                                            oCant.iCantDesayunosInt++;
+                                                                            oCant.iCantComidasInt++;
+
+                                                                            oComDia1.iDesayunosInt++;
+                                                                            oComDia1.iComidaInt++;
+                                                                        }
+
+                                                                        oCant.iCantCenasInt++;
+                                                                        oComDia1.iCenaInt++;
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        if (l != 0 || l != dtDias.Rows.Count - 1)
+                                                                        {
+                                                                            oCant.iCantDesayunos++;
+                                                                            oCant.iCantComidas++;
+
+                                                                            oComDia1.iDesayunosNal++;
+                                                                            oComDia1.iComidaNal++;
+                                                                        }
+
+                                                                        oCant.iCantCenas++;
+                                                                        oComDia1.iCenaNal++;
+                                                                    }
+
+                                                                    iAux = 3;
+                                                                }
+                                                                //Sexta condición Cenas
+                                                                else if ((fHoraInicio < fInicioCena && (fHoraFinal > fInicioCena && fHoraFinal <= fFinCena)) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                                {
+                                                                    if (bEsInterFinal)
+                                                                    {
+                                                                        if (l != 0 || l != dtDias.Rows.Count - 1)
+                                                                        {
+                                                                            //oCant.iCantDesayunosInt++;
+                                                                            //oCant.iCantComidasInt++;
+
+                                                                            //oComDia1.iDesayunosInt++;
+                                                                            //oComDia1.iComidaInt++;
+                                                                        }
+
+                                                                        oCant.iCantCenasInt++;
+                                                                        oComDia1.iCenaInt++;
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        if (l != 0 || l != dtDias.Rows.Count - 1)
+                                                                        {
+                                                                            //oCant.iCantDesayunos++;
+                                                                            //oCant.iCantComidas++;
+
+                                                                            //oComDia1.iDesayunosNal++;
+                                                                            //oComDia1.iComidaNal++;
+                                                                        }
+
+                                                                        oCant.iCantCenas++;
+                                                                        oComDia1.iCenaNal++;
+                                                                    }
+
+                                                                    iAux = 3;
+                                                                }
+                                                                //Septima condición Cenas
+                                                                else if ((fHoraInicio >= fInicioCena && fHoraInicio <= fFinCena) && (fHoraFinal > fInicioCena && fHoraFinal <= fFinCena) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                                {
+                                                                    if (bEsInterFinal)
+                                                                    {
+                                                                        if (l != 0 || l != dtDias.Rows.Count - 1)
+                                                                        {
+                                                                            oCant.iCantDesayunosInt++;
+                                                                            oCant.iCantComidasInt++;
+
+                                                                            oComDia1.iDesayunosInt++;
+                                                                            oComDia1.iComidaInt++;
+                                                                        }
+
+                                                                        oCant.iCantCenasInt++;
+                                                                        oComDia1.iCenaInt++;
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        if (l != 0 || l != dtDias.Rows.Count - 1)
+                                                                        {
+                                                                            oCant.iCantDesayunos++;
+                                                                            oCant.iCantComidas++;
+
+                                                                            oComDia1.iDesayunosNal++;
+                                                                            oComDia1.iComidaNal++;
+                                                                        }
+
+                                                                        oCant.iCantCenas++;
+                                                                        oComDia1.iCenaNal++;
+                                                                    }
+
+                                                                    iAux = 3;
+                                                                }
+                                                                //Octava condición Cenas
+                                                                else if ((fHoraInicio < fInicioCena && (fHoraFinal > fInicioCena && fHoraFinal >= fFinCena)) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal > fInicioCena))
+                                                                {
+                                                                    if (bEsInterFinal)
+                                                                    {
+                                                                        //if (l != 0 || l != dtDias.Rows.Count - 1)
+                                                                        //{
+                                                                        //    oCant.iCantDesayunosInt++;
+                                                                        //    oCant.iCantComidasInt++;
+
+                                                                        //    oComDia1.iDesayunosInt++;
+                                                                        //    oComDia1.iComidaInt++;
+                                                                        //}
+
+                                                                        oCant.iCantCenasInt++;
+                                                                        oComDia1.iCenaInt++;
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        if (l != 0 || l != dtDias.Rows.Count - 1)
+                                                                        {
+                                                                            //oCant.iCantDesayunos++;
+                                                                            //oCant.iCantComidas++;
+
+                                                                            //oComDia1.iDesayunosNal++;
+                                                                            //oComDia1.iComidaNal++;
+                                                                        }
+
+                                                                        oCant.iCantCenas++;
+                                                                        oComDia1.iCenaNal++;
+                                                                    }
+
+                                                                    iAux = 3;
+                                                                }
+                                                                #endregion
 
                                                                 if (iAux == 0)
                                                                 {
@@ -1362,7 +5055,101 @@ namespace ALE_MexJet.Presenter
 
                                                         int iAux = 0;
 
-                                                        if (fHoraInicio < fInicioDesayuno || (fHoraInicio > fInicioDesayuno && fHoraInicio < fFinDesayuno))
+                                                        #region COMENTADO CONDICIONES ANTERIORES
+                                                        //if (fHoraInicio < fInicioDesayuno || (fHoraInicio > fInicioDesayuno && fHoraInicio < fFinDesayuno))
+                                                        //{
+                                                        //    if (bEsInterFinal)
+                                                        //    {
+                                                        //        oCant.iCantDesayunosInt++;
+                                                        //        oCant.iCantComidasInt++;
+                                                        //        oCant.iCantCenasInt++;
+
+                                                        //        oCom.iDesayunosInt++;
+                                                        //        oCom.iComidaInt++;
+                                                        //        oCom.iCenaInt++;
+                                                        //    }
+                                                        //    else
+                                                        //    {
+                                                        //        oCom.iDesayunosNal++;
+                                                        //        oCom.iComidaNal++;
+                                                        //        oCom.iCenaNal++;
+                                                        //    }
+
+                                                        //    iAux = 1;
+                                                        //}
+                                                        //else if ((fHoraInicio <= fInicioComida && (fHoraFinal > fInicioComida)) || (fHoraInicio > fInicioComida && fHoraInicio <= fFinComida) || (fHoraInicio < fInicioComida && fHoraFinal > fFinComida))
+                                                        //{
+                                                        //    // Valida si tiene un día anterior
+
+                                                        //    if (bEsInterFinal)
+                                                        //    {
+                                                        //        if (l != 0 || l != dtDias.Rows.Count - 1)
+                                                        //        {
+                                                        //            oCant.iCantDesayunosInt++;
+                                                        //            oCom.iDesayunosInt++;
+                                                        //        }
+
+                                                        //        oCant.iCantComidasInt++;
+                                                        //        oCant.iCantCenasInt++;
+
+                                                        //        oCom.iComidaInt++;
+                                                        //        oCom.iCenaInt++;
+                                                        //    }
+                                                        //    else
+                                                        //    {
+                                                        //        if (l != 0 || l != dtDias.Rows.Count - 1)
+                                                        //        {
+                                                        //            oCant.iCantDesayunos++;
+                                                        //            oCom.iDesayunosNal++;
+                                                        //        }
+
+                                                        //        oCant.iCantComidas++;
+                                                        //        oCant.iCantCenas++;
+
+                                                        //        oCom.iComidaNal++;
+                                                        //        oCom.iCenaNal++;
+                                                        //    }
+
+                                                        //    iAux = 2;
+                                                        //}
+                                                        //else if ((fHoraInicio < fInicioCena && fHoraFinal >= fInicioCena) || (fHoraInicio <= fFinCena && fHoraFinal > fInicioCena))
+                                                        //{
+                                                        //    if (bEsInterFinal)
+                                                        //    {
+                                                        //        if (l != 0 || l != dtDias.Rows.Count - 1)
+                                                        //        {
+                                                        //            oCant.iCantDesayunosInt++;
+                                                        //            oCant.iCantComidasInt++;
+
+                                                        //            oCom.iDesayunosInt++;
+                                                        //            oCom.iComidaInt++;
+                                                        //        }
+
+                                                        //        oCant.iCantCenasInt++;
+                                                        //        oCom.iCenaInt++;
+                                                        //    }
+                                                        //    else
+                                                        //    {
+                                                        //        if (l != 0 || l != dtDias.Rows.Count - 1)
+                                                        //        {
+                                                        //            oCant.iCantDesayunos++;
+                                                        //            oCant.iCantComidas++;
+
+                                                        //            oCom.iDesayunosNal++;
+                                                        //            oCom.iComidaNal++;
+                                                        //        }
+
+                                                        //        oCant.iCantCenas++;
+                                                        //        oCom.iCenaNal++;
+                                                        //    }
+
+                                                        //    iAux = 3;
+                                                        //}
+                                                        #endregion
+
+                                                        #region DESAYUNO
+                                                        //Primera condicion
+                                                        if (((fHoraInicio < fInicioDesayuno && fHoraFinal > fInicioDesayuno) && fHoraFinal < fFinDesayuno) && (oCom.sDestino != dtLegs.Rows[0]["HomeBase"].S()))
                                                         {
                                                             if (bEsInterFinal)
                                                             {
@@ -1383,10 +5170,167 @@ namespace ALE_MexJet.Presenter
 
                                                             iAux = 1;
                                                         }
-                                                        else if ((fHoraInicio <= fInicioComida && (fHoraFinal > fInicioComida)) || (fHoraInicio > fInicioComida && fHoraInicio <= fFinComida) || (fHoraInicio < fInicioComida && fHoraFinal > fFinComida))
+                                                        //Segunda condición
+                                                        else if ((fHoraInicio > fInicioDesayuno && fHoraInicio < fFinDesayuno) && (fHoraFinal > fFinDesayuno && fHoraFinal > fInicioDesayuno) && (oCom.sDestino == dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioComida)) //Evaluar antes de comida
+                                                        {
+                                                            if (bEsInterFinal)
+                                                            {
+                                                                oCant.iCantDesayunosInt++;
+                                                                oCant.iCantComidasInt++;
+                                                                oCant.iCantCenasInt++;
+
+                                                                oCom.iDesayunosInt++;
+                                                                oCom.iComidaInt++;
+                                                                oCom.iCenaInt++;
+                                                            }
+                                                            else
+                                                            {
+                                                                oCom.iDesayunosNal++;
+                                                                oCom.iComidaNal++;
+                                                                oCom.iCenaNal++;
+                                                            }
+
+                                                            iAux = 1;
+                                                        }
+                                                        //Tercera condición
+                                                        else if ((fHoraInicio >= fInicioDesayuno && fHoraFinal > fFinDesayuno) && (oCom.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oCom.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                        {
+                                                            if (bEsInterFinal)
+                                                            {
+                                                                oCant.iCantDesayunosInt++;
+                                                                oCant.iCantComidasInt++;
+                                                                oCant.iCantCenasInt++;
+
+                                                                oCom.iDesayunosInt++;
+                                                                oCom.iComidaInt++;
+                                                                oCom.iCenaInt++;
+                                                            }
+                                                            else
+                                                            {
+                                                                oCom.iDesayunosNal++;
+                                                                oCom.iComidaNal++;
+                                                                oCom.iCenaNal++;
+                                                            }
+
+                                                            iAux = 1;
+                                                        }
+                                                        //Cuarta condición
+                                                        else if ((fHoraInicio < fInicioDesayuno && fHoraFinal <= fInicioDesayuno) && (oCom.sDestino != dtLegs.Rows[0]["HomeBase"].S()))
+                                                        {
+                                                            if (bEsInterFinal)
+                                                            {
+                                                                oCant.iCantDesayunosInt++;
+                                                                oCant.iCantComidasInt++;
+                                                                oCant.iCantCenasInt++;
+
+                                                                oCom.iDesayunosInt++;
+                                                                oCom.iComidaInt++;
+                                                                oCom.iCenaInt++;
+                                                            }
+                                                            else
+                                                            {
+                                                                oCom.iDesayunosNal++;
+                                                                oCom.iComidaNal++;
+                                                                oCom.iCenaNal++;
+                                                            }
+
+                                                            iAux = 1;
+                                                        }
+                                                        //Quinta condición
+                                                        else if ((fHoraInicio < fInicioDesayuno && fHoraFinal < fInicioDesayuno) && (oCom.sDestino != dtLegs.Rows[0]["HomeBase"].S()))
+                                                        {
+                                                            if (bEsInterFinal)
+                                                            {
+                                                                oCant.iCantDesayunosInt++;
+                                                                oCant.iCantComidasInt++;
+                                                                oCant.iCantCenasInt++;
+
+                                                                oCom.iDesayunosInt++;
+                                                                oCom.iComidaInt++;
+                                                                oCom.iCenaInt++;
+                                                            }
+                                                            else
+                                                            {
+                                                                oCom.iDesayunosNal++;
+                                                                oCom.iComidaNal++;
+                                                                oCom.iCenaNal++;
+                                                            }
+
+                                                            iAux = 1;
+                                                        }
+                                                        //Sexta condición
+                                                        else if ((fHoraInicio < fInicioDesayuno && (fHoraFinal > fInicioDesayuno && fHoraFinal <= fFinDesayuno)) && (oCom.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oCom.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                        {
+                                                            if (bEsInterFinal)
+                                                            {
+                                                                oCant.iCantDesayunosInt++;
+                                                                oCant.iCantComidasInt++;
+                                                                oCant.iCantCenasInt++;
+
+                                                                oCom.iDesayunosInt++;
+                                                                oCom.iComidaInt++;
+                                                                oCom.iCenaInt++;
+                                                            }
+                                                            else
+                                                            {
+                                                                oCom.iDesayunosNal++;
+                                                                oCom.iComidaNal++;
+                                                                oCom.iCenaNal++;
+                                                            }
+
+                                                            iAux = 1;
+                                                        }
+                                                        //Septima condición
+                                                        else if ((fHoraInicio >= fInicioDesayuno && fHoraInicio <= fFinDesayuno) && (fHoraFinal > fInicioDesayuno && fHoraFinal <= fFinDesayuno) && (oCom.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oCom.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                        {
+                                                            if (bEsInterFinal)
+                                                            {
+                                                                oCant.iCantDesayunosInt++;
+                                                                oCant.iCantComidasInt++;
+                                                                oCant.iCantCenasInt++;
+
+                                                                oCom.iDesayunosInt++;
+                                                                oCom.iComidaInt++;
+                                                                oCom.iCenaInt++;
+                                                            }
+                                                            else
+                                                            {
+                                                                oCom.iDesayunosNal++;
+                                                                oCom.iComidaNal++;
+                                                                oCom.iCenaNal++;
+                                                            }
+
+                                                            iAux = 1;
+                                                        }
+                                                        //Octava condición
+                                                        else if ((fHoraInicio < fInicioDesayuno && (fHoraFinal > fInicioDesayuno && fHoraFinal >= fFinDesayuno)) && (oCom.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oCom.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                        {
+                                                            if (bEsInterFinal)
+                                                            {
+                                                                oCant.iCantDesayunosInt++;
+                                                                oCant.iCantComidasInt++;
+                                                                oCant.iCantCenasInt++;
+
+                                                                oCom.iDesayunosInt++;
+                                                                oCom.iComidaInt++;
+                                                                oCom.iCenaInt++;
+                                                            }
+                                                            else
+                                                            {
+                                                                oCom.iDesayunosNal++;
+                                                                oCom.iComidaNal++;
+                                                                oCom.iCenaNal++;
+                                                            }
+
+                                                            iAux = 1;
+                                                        }
+                                                        #endregion
+
+                                                        #region COMIDA
+                                                        //Primera condicion Comidas
+                                                        if (((fHoraInicio < fInicioComida && fHoraFinal > fInicioComida) && fHoraFinal < fFinComida) && (oCom.sDestino != dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioCena))
                                                         {
                                                             // Valida si tiene un día anterior
-
                                                             if (bEsInterFinal)
                                                             {
                                                                 if (l != 0 || l != dtDias.Rows.Count - 1)
@@ -1418,7 +5362,256 @@ namespace ALE_MexJet.Presenter
 
                                                             iAux = 2;
                                                         }
-                                                        else if ((fHoraInicio < fInicioCena && fHoraFinal >= fInicioCena) || (fHoraInicio <= fFinCena && fHoraFinal > fInicioCena))
+                                                        //Segunda condición Comidas
+                                                        else if ((fHoraInicio > fInicioComida && fHoraInicio < fFinComida) && (fHoraFinal > fFinComida && fHoraFinal > fInicioComida) && (oCom.sDestino == dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioCena)) //Evaluar antes de cena
+                                                        {
+                                                            // Valida si tiene un día anterior
+                                                            if (bEsInterFinal)
+                                                            {
+                                                                if (l != 0 || l != dtDias.Rows.Count - 1)
+                                                                {
+                                                                    oCant.iCantDesayunosInt++;
+                                                                    oCom.iDesayunosInt++;
+                                                                }
+
+                                                                oCant.iCantComidasInt++;
+                                                                oCant.iCantCenasInt++;
+
+                                                                oCom.iComidaInt++;
+                                                                oCom.iCenaInt++;
+                                                            }
+                                                            else
+                                                            {
+                                                                if (l != 0 || l != dtDias.Rows.Count - 1)
+                                                                {
+                                                                    oCant.iCantDesayunos++;
+                                                                    oCom.iDesayunosNal++;
+                                                                }
+
+                                                                oCant.iCantComidas++;
+                                                                oCant.iCantCenas++;
+
+                                                                oCom.iComidaNal++;
+                                                                oCom.iCenaNal++;
+                                                            }
+
+                                                            iAux = 2;
+                                                        }
+                                                        //Tercera condición Comidas
+                                                        else if ((fHoraInicio >= fInicioComida && fHoraFinal > fFinComida) && (oCom.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oCom.sDestino == dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioCena))
+                                                        {
+                                                            // Valida si tiene un día anterior
+                                                            if (bEsInterFinal)
+                                                            {
+                                                                if (l != 0 || l != dtDias.Rows.Count - 1)
+                                                                {
+                                                                    oCant.iCantDesayunosInt++;
+                                                                    oCom.iDesayunosInt++;
+                                                                }
+
+                                                                oCant.iCantComidasInt++;
+                                                                oCant.iCantCenasInt++;
+
+                                                                oCom.iComidaInt++;
+                                                                oCom.iCenaInt++;
+                                                            }
+                                                            else
+                                                            {
+                                                                if (l != 0 || l != dtDias.Rows.Count - 1)
+                                                                {
+                                                                    oCant.iCantDesayunos++;
+                                                                    oCom.iDesayunosNal++;
+                                                                }
+
+                                                                oCant.iCantComidas++;
+                                                                oCant.iCantCenas++;
+
+                                                                oCom.iComidaNal++;
+                                                                oCom.iCenaNal++;
+                                                            }
+
+                                                            iAux = 2;
+                                                        }
+                                                        //Cuarta condición Comidas
+                                                        else if ((fHoraInicio < fInicioComida && fHoraFinal <= fInicioComida) && (oCom.sDestino != dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioCena))
+                                                        {
+                                                            // Valida si tiene un día anterior
+                                                            if (bEsInterFinal)
+                                                            {
+                                                                if (l != 0 || l != dtDias.Rows.Count - 1)
+                                                                {
+                                                                    oCant.iCantDesayunosInt++;
+                                                                    oCom.iDesayunosInt++;
+                                                                }
+
+                                                                oCant.iCantComidasInt++;
+                                                                oCant.iCantCenasInt++;
+
+                                                                oCom.iComidaInt++;
+                                                                oCom.iCenaInt++;
+                                                            }
+                                                            else
+                                                            {
+                                                                if (l != 0 || l != dtDias.Rows.Count - 1)
+                                                                {
+                                                                    oCant.iCantDesayunos++;
+                                                                    oCom.iDesayunosNal++;
+                                                                }
+
+                                                                oCant.iCantComidas++;
+                                                                oCant.iCantCenas++;
+
+                                                                oCom.iComidaNal++;
+                                                                oCom.iCenaNal++;
+                                                            }
+
+                                                            iAux = 2;
+                                                        }
+                                                        //Quinta condición Comidas
+                                                        else if ((fHoraInicio < fInicioComida && fHoraFinal < fInicioComida) && (oCom.sDestino != dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioCena))
+                                                        {
+                                                            // Valida si tiene un día anterior
+                                                            if (bEsInterFinal)
+                                                            {
+                                                                if (l != 0 || l != dtDias.Rows.Count - 1)
+                                                                {
+                                                                    oCant.iCantDesayunosInt++;
+                                                                    oCom.iDesayunosInt++;
+                                                                }
+
+                                                                oCant.iCantComidasInt++;
+                                                                oCant.iCantCenasInt++;
+
+                                                                oCom.iComidaInt++;
+                                                                oCom.iCenaInt++;
+                                                            }
+                                                            else
+                                                            {
+                                                                if (l != 0 || l != dtDias.Rows.Count - 1)
+                                                                {
+                                                                    oCant.iCantDesayunos++;
+                                                                    oCom.iDesayunosNal++;
+                                                                }
+
+                                                                oCant.iCantComidas++;
+                                                                oCant.iCantCenas++;
+
+                                                                oCom.iComidaNal++;
+                                                                oCom.iCenaNal++;
+                                                            }
+
+                                                            iAux = 2;
+                                                        }
+                                                        //Sexta condición Comidas
+                                                        else if ((fHoraInicio < fInicioComida && (fHoraFinal > fInicioComida && fHoraFinal <= fFinComida)) && (oCom.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oCom.sDestino == dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioCena))
+                                                        {
+                                                            // Valida si tiene un día anterior
+                                                            if (bEsInterFinal)
+                                                            {
+                                                                if (l != 0 || l != dtDias.Rows.Count - 1)
+                                                                {
+                                                                    oCant.iCantDesayunosInt++;
+                                                                    oCom.iDesayunosInt++;
+                                                                }
+
+                                                                oCant.iCantComidasInt++;
+                                                                oCant.iCantCenasInt++;
+
+                                                                oCom.iComidaInt++;
+                                                                oCom.iCenaInt++;
+                                                            }
+                                                            else
+                                                            {
+                                                                if (l != 0 || l != dtDias.Rows.Count - 1)
+                                                                {
+                                                                    oCant.iCantDesayunos++;
+                                                                    oCom.iDesayunosNal++;
+                                                                }
+
+                                                                oCant.iCantComidas++;
+                                                                oCant.iCantCenas++;
+
+                                                                oCom.iComidaNal++;
+                                                                oCom.iCenaNal++;
+                                                            }
+
+                                                            iAux = 2;
+                                                        }
+                                                        //Septima condición Comidas
+                                                        else if ((fHoraInicio >= fInicioComida && fHoraInicio <= fFinComida) && (fHoraFinal > fInicioComida && fHoraFinal <= fFinComida) && (oCom.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oCom.sDestino == dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioCena))
+                                                        {
+                                                            // Valida si tiene un día anterior
+                                                            if (bEsInterFinal)
+                                                            {
+                                                                if (l != 0 || l != dtDias.Rows.Count - 1)
+                                                                {
+                                                                    oCant.iCantDesayunosInt++;
+                                                                    oCom.iDesayunosInt++;
+                                                                }
+
+                                                                oCant.iCantComidasInt++;
+                                                                oCant.iCantCenasInt++;
+
+                                                                oCom.iComidaInt++;
+                                                                oCom.iCenaInt++;
+                                                            }
+                                                            else
+                                                            {
+                                                                if (l != 0 || l != dtDias.Rows.Count - 1)
+                                                                {
+                                                                    oCant.iCantDesayunos++;
+                                                                    oCom.iDesayunosNal++;
+                                                                }
+
+                                                                oCant.iCantComidas++;
+                                                                oCant.iCantCenas++;
+
+                                                                oCom.iComidaNal++;
+                                                                oCom.iCenaNal++;
+                                                            }
+
+                                                            iAux = 2;
+                                                        }
+                                                        //Octava condición
+                                                        else if ((fHoraInicio < fInicioComida && (fHoraFinal > fInicioComida && fHoraFinal >= fFinComida)) && (oCom.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oCom.sDestino == dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioCena))
+                                                        {
+                                                            // Valida si tiene un día anterior
+                                                            if (bEsInterFinal)
+                                                            {
+                                                                if (l != 0 || l != dtDias.Rows.Count - 1)
+                                                                {
+                                                                    oCant.iCantDesayunosInt++;
+                                                                    oCom.iDesayunosInt++;
+                                                                }
+
+                                                                oCant.iCantComidasInt++;
+                                                                oCant.iCantCenasInt++;
+
+                                                                oCom.iComidaInt++;
+                                                                oCom.iCenaInt++;
+                                                            }
+                                                            else
+                                                            {
+                                                                if (l != 0 || l != dtDias.Rows.Count - 1)
+                                                                {
+                                                                    oCant.iCantDesayunos++;
+                                                                    oCom.iDesayunosNal++;
+                                                                }
+
+                                                                oCant.iCantComidas++;
+                                                                oCant.iCantCenas++;
+
+                                                                oCom.iComidaNal++;
+                                                                oCom.iCenaNal++;
+                                                            }
+
+                                                            iAux = 2;
+                                                        }
+                                                        #endregion
+
+                                                        #region CENA
+                                                        //Primera condicion Cenas
+                                                        if (((fHoraInicio < fInicioCena && fHoraFinal > fInicioCena) && fHoraFinal < fFinCena) && (oCom.sDestino != dtLegs.Rows[0]["HomeBase"].S()))
                                                         {
                                                             if (bEsInterFinal)
                                                             {
@@ -1451,6 +5644,245 @@ namespace ALE_MexJet.Presenter
 
                                                             iAux = 3;
                                                         }
+                                                        //Segunda condición Cenas
+                                                        else if ((fHoraInicio > fInicioCena && fHoraInicio < fFinCena) && (fHoraFinal > fFinCena && fHoraFinal > fInicioCena) && (oCom.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                        {
+                                                            if (bEsInterFinal)
+                                                            {
+                                                                if (l != 0 || l != dtDias.Rows.Count - 1)
+                                                                {
+                                                                    oCant.iCantDesayunosInt++;
+                                                                    oCant.iCantComidasInt++;
+
+                                                                    oCom.iDesayunosInt++;
+                                                                    oCom.iComidaInt++;
+                                                                }
+
+                                                                oCant.iCantCenasInt++;
+                                                                oCom.iCenaInt++;
+                                                            }
+                                                            else
+                                                            {
+                                                                if (l != 0 || l != dtDias.Rows.Count - 1)
+                                                                {
+                                                                    oCant.iCantDesayunos++;
+                                                                    oCant.iCantComidas++;
+
+                                                                    oCom.iDesayunosNal++;
+                                                                    oCom.iComidaNal++;
+                                                                }
+
+                                                                oCant.iCantCenas++;
+                                                                oCom.iCenaNal++;
+                                                            }
+
+                                                            iAux = 3;
+                                                        }
+                                                        //Tercera condición Cenas
+                                                        else if ((fHoraInicio >= fInicioCena && fHoraFinal > fFinCena) && (oCom.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oCom.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                        {
+                                                            if (bEsInterFinal)
+                                                            {
+                                                                if (l != 0 || l != dtDias.Rows.Count - 1)
+                                                                {
+                                                                    oCant.iCantDesayunosInt++;
+                                                                    oCant.iCantComidasInt++;
+
+                                                                    oCom.iDesayunosInt++;
+                                                                    oCom.iComidaInt++;
+                                                                }
+
+                                                                oCant.iCantCenasInt++;
+                                                                oCom.iCenaInt++;
+                                                            }
+                                                            else
+                                                            {
+                                                                if (l != 0 || l != dtDias.Rows.Count - 1)
+                                                                {
+                                                                    oCant.iCantDesayunos++;
+                                                                    oCant.iCantComidas++;
+
+                                                                    oCom.iDesayunosNal++;
+                                                                    oCom.iComidaNal++;
+                                                                }
+
+                                                                oCant.iCantCenas++;
+                                                                oCom.iCenaNal++;
+                                                            }
+
+                                                            iAux = 3;
+                                                        }
+                                                        //Cuarta condición Cenas
+                                                        else if ((fHoraInicio < fInicioCena && fHoraFinal <= fInicioCena) && (oCom.sDestino != dtLegs.Rows[0]["HomeBase"].S()))
+                                                        {
+                                                            if (bEsInterFinal)
+                                                            {
+                                                                if (l != 0 || l != dtDias.Rows.Count - 1)
+                                                                {
+                                                                    oCant.iCantDesayunosInt++;
+                                                                    oCant.iCantComidasInt++;
+
+                                                                    oCom.iDesayunosInt++;
+                                                                    oCom.iComidaInt++;
+                                                                }
+
+                                                                oCant.iCantCenasInt++;
+                                                                oCom.iCenaInt++;
+                                                            }
+                                                            else
+                                                            {
+                                                                if (l != 0 || l != dtDias.Rows.Count - 1)
+                                                                {
+                                                                    oCant.iCantDesayunos++;
+                                                                    oCant.iCantComidas++;
+
+                                                                    oCom.iDesayunosNal++;
+                                                                    oCom.iComidaNal++;
+                                                                }
+
+                                                                oCant.iCantCenas++;
+                                                                oCom.iCenaNal++;
+                                                            }
+
+                                                            iAux = 3;
+                                                        }
+                                                        //Quinta condición Cenas
+                                                        else if ((fHoraInicio < fInicioCena && fHoraFinal < fInicioCena) && (oCom.sDestino != dtLegs.Rows[0]["HomeBase"].S()))
+                                                        {
+                                                            if (bEsInterFinal)
+                                                            {
+                                                                if (l != 0 || l != dtDias.Rows.Count - 1)
+                                                                {
+                                                                    oCant.iCantDesayunosInt++;
+                                                                    oCant.iCantComidasInt++;
+
+                                                                    oCom.iDesayunosInt++;
+                                                                    oCom.iComidaInt++;
+                                                                }
+
+                                                                oCant.iCantCenasInt++;
+                                                                oCom.iCenaInt++;
+                                                            }
+                                                            else
+                                                            {
+                                                                if (l != 0 || l != dtDias.Rows.Count - 1)
+                                                                {
+                                                                    oCant.iCantDesayunos++;
+                                                                    oCant.iCantComidas++;
+
+                                                                    oCom.iDesayunosNal++;
+                                                                    oCom.iComidaNal++;
+                                                                }
+
+                                                                oCant.iCantCenas++;
+                                                                oCom.iCenaNal++;
+                                                            }
+
+                                                            iAux = 3;
+                                                        }
+                                                        //Sexta condición Cenas
+                                                        else if ((fHoraInicio < fInicioCena && (fHoraFinal > fInicioCena && fHoraFinal <= fFinCena)) && (oCom.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oCom.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                        {
+                                                            if (bEsInterFinal)
+                                                            {
+                                                                if (l != 0 || l != dtDias.Rows.Count - 1)
+                                                                {
+                                                                    oCant.iCantDesayunosInt++;
+                                                                    oCant.iCantComidasInt++;
+
+                                                                    oCom.iDesayunosInt++;
+                                                                    oCom.iComidaInt++;
+                                                                }
+
+                                                                oCant.iCantCenasInt++;
+                                                                oCom.iCenaInt++;
+                                                            }
+                                                            else
+                                                            {
+                                                                if (l != 0 || l != dtDias.Rows.Count - 1)
+                                                                {
+                                                                    oCant.iCantDesayunos++;
+                                                                    oCant.iCantComidas++;
+
+                                                                    oCom.iDesayunosNal++;
+                                                                    oCom.iComidaNal++;
+                                                                }
+
+                                                                oCant.iCantCenas++;
+                                                                oCom.iCenaNal++;
+                                                            }
+
+                                                            iAux = 3;
+                                                        }
+                                                        //Septima condición Cenas
+                                                        else if ((fHoraInicio >= fInicioCena && fHoraInicio <= fFinCena) && (fHoraFinal > fInicioCena && fHoraFinal <= fFinCena) && (oCom.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oCom.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                        {
+                                                            if (bEsInterFinal)
+                                                            {
+                                                                if (l != 0 || l != dtDias.Rows.Count - 1)
+                                                                {
+                                                                    oCant.iCantDesayunosInt++;
+                                                                    oCant.iCantComidasInt++;
+
+                                                                    oCom.iDesayunosInt++;
+                                                                    oCom.iComidaInt++;
+                                                                }
+
+                                                                oCant.iCantCenasInt++;
+                                                                oCom.iCenaInt++;
+                                                            }
+                                                            else
+                                                            {
+                                                                if (l != 0 || l != dtDias.Rows.Count - 1)
+                                                                {
+                                                                    oCant.iCantDesayunos++;
+                                                                    oCant.iCantComidas++;
+
+                                                                    oCom.iDesayunosNal++;
+                                                                    oCom.iComidaNal++;
+                                                                }
+
+                                                                oCant.iCantCenas++;
+                                                                oCom.iCenaNal++;
+                                                            }
+
+                                                            iAux = 3;
+                                                        }
+                                                        //Octava condición Cenas
+                                                        else if ((fHoraInicio < fInicioCena && (fHoraFinal > fInicioCena && fHoraFinal >= fFinCena)) && (oCom.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oCom.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                        {
+                                                            if (bEsInterFinal)
+                                                            {
+                                                                if (l != 0 || l != dtDias.Rows.Count - 1)
+                                                                {
+                                                                    oCant.iCantDesayunosInt++;
+                                                                    oCant.iCantComidasInt++;
+
+                                                                    oCom.iDesayunosInt++;
+                                                                    oCom.iComidaInt++;
+                                                                }
+
+                                                                oCant.iCantCenasInt++;
+                                                                oCom.iCenaInt++;
+                                                            }
+                                                            else
+                                                            {
+                                                                if (l != 0 || l != dtDias.Rows.Count - 1)
+                                                                {
+                                                                    oCant.iCantDesayunos++;
+                                                                    oCant.iCantComidas++;
+
+                                                                    oCom.iDesayunosNal++;
+                                                                    oCom.iComidaNal++;
+                                                                }
+
+                                                                oCant.iCantCenas++;
+                                                                oCom.iCenaNal++;
+                                                            }
+
+                                                            iAux = 3;
+                                                        }
+                                                        #endregion
 
                                                         if (iAux == 0)
                                                         {
@@ -1608,7 +6040,620 @@ namespace ALE_MexJet.Presenter
 
                                                         if (bEsInterInicio != bEsInterFinal)
                                                         {
-                                                            if ((fHoraInicio < fInicioCena && fHoraFinal >= fInicioCena) || (fHoraInicio <= fFinCena && fHoraFinal > fInicioCena))
+                                                            #region COMENTADO CONDICIONES ANTERIORES
+                                                            //if ((fHoraInicio < fInicioCena && fHoraFinal >= fInicioCena) || (fHoraInicio <= fFinCena && fHoraFinal > fInicioCena))
+                                                            //{
+                                                            //    if (bEsInterFinal)
+                                                            //    {
+                                                            //        if (l > 0)
+                                                            //        {
+                                                            //            if (!bEsInterInicio)
+                                                            //            {
+                                                            //                oCant.iCantDesayunos++;
+                                                            //                oCant.iCantComidas++;
+
+                                                            //                oCom.iDesayunosNal++;
+                                                            //                oCom.iComidaNal++;
+                                                            //            }
+                                                            //        }
+
+                                                            //        oCant.iCantCenasInt++;
+                                                            //        oCom.iCenaInt++;
+                                                            //    }
+                                                            //    else
+                                                            //    {
+                                                            //        if (l > 0)
+                                                            //        {
+                                                            //            if (bEsInterInicio)
+                                                            //            {
+                                                            //                oCant.iCantDesayunosInt++;
+                                                            //                oCant.iCantComidasInt++;
+
+                                                            //                oCom.iDesayunosInt++;
+                                                            //                oCom.iComidaInt++;
+                                                            //            }
+                                                            //        }
+
+                                                            //        oCant.iCantCenas++;
+                                                            //        oCom.iCenaNal++;
+                                                            //    }
+                                                            //}
+                                                            //else if ((fHoraInicio <= fInicioComida && (fHoraFinal > fInicioComida)) || (fHoraInicio > fInicioComida && fHoraInicio <= fFinComida) || (fHoraInicio < fInicioComida && fHoraFinal > fFinComida))
+                                                            //{
+                                                            //    if (bEsInterFinal)
+                                                            //    {
+                                                            //        if (l > 0)
+                                                            //        {
+                                                            //            if (!bEsInterInicio)
+                                                            //            {
+                                                            //                oCant.iCantDesayunos++;
+                                                            //                oCom.iDesayunosNal++;
+                                                            //            }
+                                                            //        }
+
+
+                                                            //        oCant.iCantComidasInt++;
+                                                            //        oCant.iCantCenasInt++;
+
+                                                            //        oCom.iComidaInt++;
+                                                            //        oCom.iCenaInt++;
+                                                            //    }
+                                                            //    else
+                                                            //    {
+                                                            //        if (l > 0)
+                                                            //        {
+                                                            //            if (bEsInterInicio)
+                                                            //            {
+                                                            //                oCant.iCantDesayunosInt++;
+                                                            //                oCom.iDesayunosInt++;
+                                                            //            }
+                                                            //        }
+
+                                                            //        oCant.iCantComidas++;
+                                                            //        oCant.iCantCenas++;
+
+                                                            //        oCom.iComidaNal++;
+                                                            //        oCom.iCenaNal++;
+                                                            //    }
+                                                            //}
+                                                            //else if (fHoraInicio < fInicioDesayuno || (fHoraInicio > fInicioDesayuno && fHoraInicio < fFinDesayuno))
+                                                            //{
+                                                            //    if (bEsInterFinal)
+                                                            //    {
+                                                            //        oCant.iCantDesayunosInt++;
+                                                            //        oCant.iCantComidasInt++;
+                                                            //        oCant.iCantCenasInt++;
+
+                                                            //        oCom.iDesayunosInt++;
+                                                            //        oCom.iComidaInt++;
+                                                            //        oCom.iCenaInt++;
+                                                            //    }
+                                                            //    else
+                                                            //    {
+                                                            //        oCom.iDesayunosNal++;
+                                                            //        oCom.iComidaNal++;
+                                                            //        oCom.iCenaNal++;
+
+                                                            //        oCant.iCantDesayunos++;
+                                                            //        oCant.iCantComidas++;
+                                                            //        oCant.iCantCenas++;
+                                                            //    }
+                                                            //}
+                                                            #endregion
+
+                                                            #region DESAYUNO
+                                                            //Primera condicion
+                                                            if (((fHoraInicio < fInicioDesayuno && fHoraFinal > fInicioDesayuno) && fHoraFinal < fFinDesayuno) && (oCom.sDestino != dtLegs.Rows[0]["HomeBase"].S()))
+                                                            {
+                                                                if (bEsInterFinal)
+                                                                {
+                                                                    oCant.iCantDesayunosInt++;
+                                                                    //oCant.iCantComidasInt++;
+                                                                    //oCant.iCantCenasInt++;
+
+                                                                    oCom.iDesayunosInt++;
+                                                                    //oCom.iComidaInt++;
+                                                                    //oCom.iCenaInt++;
+                                                                }
+                                                                else
+                                                                {
+                                                                    oCom.iDesayunosNal++;
+                                                                    //oCom.iComidaNal++;
+                                                                    //oCom.iCenaNal++;
+
+                                                                    oCant.iCantDesayunos++;
+                                                                    //oCant.iCantComidas++;
+                                                                    //oCant.iCantCenas++;
+                                                                }
+                                                            }
+                                                            //Segunda condición
+                                                            else if ((fHoraInicio > fInicioDesayuno && fHoraInicio < fFinDesayuno) && (fHoraFinal > fFinDesayuno && fHoraFinal > fInicioDesayuno) && (oCom.sDestino == dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioComida)) //Evaluar antes de comida
+                                                            {
+                                                                if (bEsInterFinal)
+                                                                {
+                                                                    oCant.iCantDesayunosInt++;
+                                                                    //oCant.iCantComidasInt++;
+                                                                    //oCant.iCantCenasInt++;
+
+                                                                    oCom.iDesayunosInt++;
+                                                                    //oCom.iComidaInt++;
+                                                                    //oCom.iCenaInt++;
+                                                                }
+                                                                else
+                                                                {
+                                                                    oCom.iDesayunosNal++;
+                                                                    //oCom.iComidaNal++;
+                                                                    //oCom.iCenaNal++;
+
+                                                                    oCant.iCantDesayunos++;
+                                                                    //oCant.iCantComidas++;
+                                                                    //oCant.iCantCenas++;
+                                                                }
+                                                            }
+                                                            //Tercera condición
+                                                            else if ((fHoraInicio >= fInicioDesayuno && fHoraFinal > fFinDesayuno) && (oCom.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oCom.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                            {
+                                                                if (bEsInterFinal)
+                                                                {
+                                                                    oCant.iCantDesayunosInt++;
+                                                                    //oCant.iCantComidasInt++;
+                                                                    //oCant.iCantCenasInt++;
+
+                                                                    oCom.iDesayunosInt++;
+                                                                    //oCom.iComidaInt++;
+                                                                    //oCom.iCenaInt++;
+                                                                }
+                                                                else
+                                                                {
+                                                                    oCom.iDesayunosNal++;
+                                                                    //oCom.iComidaNal++;
+                                                                    //oCom.iCenaNal++;
+
+                                                                    oCant.iCantDesayunos++;
+                                                                    //oCant.iCantComidas++;
+                                                                    //oCant.iCantCenas++;
+                                                                }
+                                                            }
+                                                            //Cuarta condición
+                                                            else if ((fHoraInicio < fInicioDesayuno && fHoraFinal <= fInicioDesayuno) && (oCom.sDestino != dtLegs.Rows[0]["HomeBase"].S()))
+                                                            {
+                                                                if (bEsInterFinal)
+                                                                {
+                                                                    oCant.iCantDesayunosInt++;
+                                                                    //oCant.iCantComidasInt++;
+                                                                    //oCant.iCantCenasInt++;
+
+                                                                    oCom.iDesayunosInt++;
+                                                                    //oCom.iComidaInt++;
+                                                                    //oCom.iCenaInt++;
+                                                                }
+                                                                else
+                                                                {
+                                                                    oCom.iDesayunosNal++;
+                                                                    //oCom.iComidaNal++;
+                                                                    //oCom.iCenaNal++;
+
+                                                                    oCant.iCantDesayunos++;
+                                                                    //oCant.iCantComidas++;
+                                                                    //oCant.iCantCenas++;
+                                                                }
+                                                            }
+                                                            //Quinta condición
+                                                            else if ((fHoraInicio < fInicioDesayuno && fHoraFinal < fInicioDesayuno) && (oCom.sDestino != dtLegs.Rows[0]["HomeBase"].S()))
+                                                            {
+                                                                if (bEsInterFinal)
+                                                                {
+                                                                    oCant.iCantDesayunosInt++;
+                                                                    //oCant.iCantComidasInt++;
+                                                                    //oCant.iCantCenasInt++;
+
+                                                                    oCom.iDesayunosInt++;
+                                                                    //oCom.iComidaInt++;
+                                                                    //oCom.iCenaInt++;
+                                                                }
+                                                                else
+                                                                {
+                                                                    oCom.iDesayunosNal++;
+                                                                    //oCom.iComidaNal++;
+                                                                    //oCom.iCenaNal++;
+
+                                                                    oCant.iCantDesayunos++;
+                                                                    //oCant.iCantComidas++;
+                                                                    //oCant.iCantCenas++;
+                                                                }
+                                                            }
+                                                            //Sexta condición
+                                                            else if ((fHoraInicio < fInicioDesayuno && (fHoraFinal > fInicioDesayuno && fHoraFinal <= fFinDesayuno)) && (oCom.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oCom.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                            {
+                                                                if (bEsInterFinal)
+                                                                {
+                                                                    oCant.iCantDesayunosInt++;
+                                                                    //oCant.iCantComidasInt++;
+                                                                    //oCant.iCantCenasInt++;
+
+                                                                    oCom.iDesayunosInt++;
+                                                                    //oCom.iComidaInt++;
+                                                                    //oCom.iCenaInt++;
+                                                                }
+                                                                else
+                                                                {
+                                                                    oCom.iDesayunosNal++;
+                                                                    //oCom.iComidaNal++;
+                                                                    //oCom.iCenaNal++;
+
+                                                                    oCant.iCantDesayunos++;
+                                                                    //oCant.iCantComidas++;
+                                                                    //oCant.iCantCenas++;
+                                                                }
+                                                            }
+                                                            //Septima condición
+                                                            else if ((fHoraInicio >= fInicioDesayuno && fHoraInicio <= fFinDesayuno) && (fHoraFinal > fInicioDesayuno && fHoraFinal <= fFinDesayuno) && (oCom.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oCom.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                            {
+                                                                if (bEsInterFinal)
+                                                                {
+                                                                    oCant.iCantDesayunosInt++;
+                                                                    //oCant.iCantComidasInt++;
+                                                                    //oCant.iCantCenasInt++;
+
+                                                                    oCom.iDesayunosInt++;
+                                                                    //oCom.iComidaInt++;
+                                                                    //oCom.iCenaInt++;
+                                                                }
+                                                                else
+                                                                {
+                                                                    oCom.iDesayunosNal++;
+                                                                    //oCom.iComidaNal++;
+                                                                    //oCom.iCenaNal++;
+
+                                                                    oCant.iCantDesayunos++;
+                                                                    //oCant.iCantComidas++;
+                                                                    //oCant.iCantCenas++;
+                                                                }
+                                                            }
+                                                            //Octava condición
+                                                            else if ((fHoraInicio < fInicioDesayuno && (fHoraFinal > fInicioDesayuno && fHoraFinal >= fFinDesayuno)) && (oCom.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oCom.sDestino == dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioComida))
+                                                            {
+                                                                if (bEsInterFinal)
+                                                                {
+                                                                    oCant.iCantDesayunosInt++;
+                                                                    //oCant.iCantComidasInt++;
+                                                                    //oCant.iCantCenasInt++;
+
+                                                                    oCom.iDesayunosInt++;
+                                                                    //oCom.iComidaInt++;
+                                                                    //oCom.iCenaInt++;
+                                                                }
+                                                                else
+                                                                {
+                                                                    oCom.iDesayunosNal++;
+                                                                    //oCom.iComidaNal++;
+                                                                    //oCom.iCenaNal++;
+
+                                                                    oCant.iCantDesayunos++;
+                                                                    //oCant.iCantComidas++;
+                                                                    //oCant.iCantCenas++;
+                                                                }
+                                                            }
+                                                            #endregion
+
+                                                            #region COMIDA
+                                                            //Primera condicion Comidas
+                                                            if (((fHoraInicio < fInicioComida && fHoraFinal > fInicioComida) && fHoraFinal < fFinComida) && (oCom.sDestino != dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioCena))
+                                                            {
+                                                                if (bEsInterFinal)
+                                                                {
+                                                                    if (l > 0)
+                                                                    {
+                                                                        if (!bEsInterInicio)
+                                                                        {
+                                                                            oCant.iCantDesayunos++;
+                                                                            oCom.iDesayunosNal++;
+                                                                        }
+                                                                    }
+
+
+                                                                    oCant.iCantComidasInt++;
+                                                                    //oCant.iCantCenasInt++;
+
+                                                                    oCom.iComidaInt++;
+                                                                    //oCom.iCenaInt++;
+                                                                }
+                                                                else
+                                                                {
+                                                                    if (l > 0)
+                                                                    {
+                                                                        if (bEsInterInicio)
+                                                                        {
+                                                                            oCant.iCantDesayunosInt++;
+                                                                            oCom.iDesayunosInt++;
+                                                                        }
+                                                                    }
+
+                                                                    oCant.iCantComidas++;
+                                                                    //oCant.iCantCenas++;
+
+                                                                    oCom.iComidaNal++;
+                                                                    //oCom.iCenaNal++;
+                                                                }
+                                                            }
+                                                            //Segunda condición Comidas
+                                                            else if ((fHoraInicio > fInicioComida && fHoraInicio < fFinComida) && (fHoraFinal > fFinComida && fHoraFinal > fInicioComida) && (oCom.sDestino == dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioCena)) //Evaluar antes de cena
+                                                            {
+                                                                if (bEsInterFinal)
+                                                                {
+                                                                    if (l > 0)
+                                                                    {
+                                                                        if (!bEsInterInicio)
+                                                                        {
+                                                                            oCant.iCantDesayunos++;
+                                                                            oCom.iDesayunosNal++;
+                                                                        }
+                                                                    }
+
+
+                                                                    oCant.iCantComidasInt++;
+                                                                    //oCant.iCantCenasInt++;
+
+                                                                    oCom.iComidaInt++;
+                                                                    //oCom.iCenaInt++;
+                                                                }
+                                                                else
+                                                                {
+                                                                    if (l > 0)
+                                                                    {
+                                                                        if (bEsInterInicio)
+                                                                        {
+                                                                            oCant.iCantDesayunosInt++;
+                                                                            oCom.iDesayunosInt++;
+                                                                        }
+                                                                    }
+
+                                                                    oCant.iCantComidas++;
+                                                                    //oCant.iCantCenas++;
+
+                                                                    oCom.iComidaNal++;
+                                                                    //oCom.iCenaNal++;
+                                                                }
+                                                            }
+                                                            //Tercera condición Comidas
+                                                            else if ((fHoraInicio >= fInicioComida && fHoraFinal > fFinComida) && (oCom.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oCom.sDestino == dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioCena))
+                                                            {
+                                                                if (bEsInterFinal)
+                                                                {
+                                                                    if (l > 0)
+                                                                    {
+                                                                        if (!bEsInterInicio)
+                                                                        {
+                                                                            oCant.iCantDesayunos++;
+                                                                            oCom.iDesayunosNal++;
+                                                                        }
+                                                                    }
+
+
+                                                                    oCant.iCantComidasInt++;
+                                                                    //oCant.iCantCenasInt++;
+
+                                                                    oCom.iComidaInt++;
+                                                                    //oCom.iCenaInt++;
+                                                                }
+                                                                else
+                                                                {
+                                                                    if (l > 0)
+                                                                    {
+                                                                        if (bEsInterInicio)
+                                                                        {
+                                                                            oCant.iCantDesayunosInt++;
+                                                                            oCom.iDesayunosInt++;
+                                                                        }
+                                                                    }
+
+                                                                    oCant.iCantComidas++;
+                                                                    //oCant.iCantCenas++;
+
+                                                                    oCom.iComidaNal++;
+                                                                    //oCom.iCenaNal++;
+                                                                }
+                                                            }
+                                                            //Cuarta condición Comidas
+                                                            else if ((fHoraInicio < fInicioComida && fHoraFinal <= fInicioComida) && (oCom.sDestino != dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioCena))
+                                                            {
+                                                                if (bEsInterFinal)
+                                                                {
+                                                                    if (l > 0)
+                                                                    {
+                                                                        if (!bEsInterInicio)
+                                                                        {
+                                                                            oCant.iCantDesayunos++;
+                                                                            oCom.iDesayunosNal++;
+                                                                        }
+                                                                    }
+
+
+                                                                    oCant.iCantComidasInt++;
+                                                                    //oCant.iCantCenasInt++;
+
+                                                                    oCom.iComidaInt++;
+                                                                    //oCom.iCenaInt++;
+                                                                }
+                                                                else
+                                                                {
+                                                                    if (l > 0)
+                                                                    {
+                                                                        if (bEsInterInicio)
+                                                                        {
+                                                                            oCant.iCantDesayunosInt++;
+                                                                            oCom.iDesayunosInt++;
+                                                                        }
+                                                                    }
+
+                                                                    oCant.iCantComidas++;
+                                                                    //oCant.iCantCenas++;
+
+                                                                    oCom.iComidaNal++;
+                                                                    //oCom.iCenaNal++;
+                                                                }
+                                                            }
+                                                            //Quinta condición Comidas
+                                                            else if ((fHoraInicio < fInicioComida && fHoraFinal < fInicioComida) && (oCom.sDestino != dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioCena))
+                                                            {
+                                                                if (bEsInterFinal)
+                                                                {
+                                                                    if (l > 0)
+                                                                    {
+                                                                        if (!bEsInterInicio)
+                                                                        {
+                                                                            oCant.iCantDesayunos++;
+                                                                            oCom.iDesayunosNal++;
+                                                                        }
+                                                                    }
+
+
+                                                                    oCant.iCantComidasInt++;
+                                                                    //oCant.iCantCenasInt++;
+
+                                                                    oCom.iComidaInt++;
+                                                                    //oCom.iCenaInt++;
+                                                                }
+                                                                else
+                                                                {
+                                                                    if (l > 0)
+                                                                    {
+                                                                        if (bEsInterInicio)
+                                                                        {
+                                                                            oCant.iCantDesayunosInt++;
+                                                                            oCom.iDesayunosInt++;
+                                                                        }
+                                                                    }
+
+                                                                    oCant.iCantComidas++;
+                                                                    //oCant.iCantCenas++;
+
+                                                                    oCom.iComidaNal++;
+                                                                    //oCom.iCenaNal++;
+                                                                }
+                                                            }
+                                                            //Sexta condición Comidas
+                                                            else if ((fHoraInicio < fInicioComida && (fHoraFinal > fInicioComida && fHoraFinal <= fFinComida)) && (oCom.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oCom.sDestino == dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioCena))
+                                                            {
+                                                                if (bEsInterFinal)
+                                                                {
+                                                                    if (l > 0)
+                                                                    {
+                                                                        if (!bEsInterInicio)
+                                                                        {
+                                                                            oCant.iCantDesayunos++;
+                                                                            oCom.iDesayunosNal++;
+                                                                        }
+                                                                    }
+
+
+                                                                    oCant.iCantComidasInt++;
+                                                                    //oCant.iCantCenasInt++;
+
+                                                                    oCom.iComidaInt++;
+                                                                    //oCom.iCenaInt++;
+                                                                }
+                                                                else
+                                                                {
+                                                                    if (l > 0)
+                                                                    {
+                                                                        if (bEsInterInicio)
+                                                                        {
+                                                                            oCant.iCantDesayunosInt++;
+                                                                            oCom.iDesayunosInt++;
+                                                                        }
+                                                                    }
+
+                                                                    oCant.iCantComidas++;
+                                                                    //oCant.iCantCenas++;
+
+                                                                    oCom.iComidaNal++;
+                                                                    //oCom.iCenaNal++;
+                                                                }
+                                                            }
+                                                            //Septima condición Comidas
+                                                            else if ((fHoraInicio >= fInicioComida && fHoraInicio <= fFinComida) && (fHoraFinal > fInicioComida && fHoraFinal <= fFinComida) && (oCom.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oCom.sDestino == dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioCena))
+                                                            {
+                                                                if (bEsInterFinal)
+                                                                {
+                                                                    if (l > 0)
+                                                                    {
+                                                                        if (!bEsInterInicio)
+                                                                        {
+                                                                            oCant.iCantDesayunos++;
+                                                                            oCom.iDesayunosNal++;
+                                                                        }
+                                                                    }
+
+
+                                                                    oCant.iCantComidasInt++;
+                                                                    //oCant.iCantCenasInt++;
+
+                                                                    oCom.iComidaInt++;
+                                                                    //oCom.iCenaInt++;
+                                                                }
+                                                                else
+                                                                {
+                                                                    if (l > 0)
+                                                                    {
+                                                                        if (bEsInterInicio)
+                                                                        {
+                                                                            oCant.iCantDesayunosInt++;
+                                                                            oCom.iDesayunosInt++;
+                                                                        }
+                                                                    }
+
+                                                                    oCant.iCantComidas++;
+                                                                    //oCant.iCantCenas++;
+
+                                                                    oCom.iComidaNal++;
+                                                                    //oCom.iCenaNal++;
+                                                                }
+                                                            }
+                                                            //Octava condición
+                                                            else if ((fHoraInicio < fInicioComida && (fHoraFinal > fInicioComida && fHoraFinal >= fFinComida)) && (oCom.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oCom.sDestino == dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioCena))
+                                                            {
+                                                                if (bEsInterFinal)
+                                                                {
+                                                                    if (l > 0)
+                                                                    {
+                                                                        if (!bEsInterInicio)
+                                                                        {
+                                                                            oCant.iCantDesayunos++;
+                                                                            oCom.iDesayunosNal++;
+                                                                        }
+                                                                    }
+
+
+                                                                    oCant.iCantComidasInt++;
+                                                                    //oCant.iCantCenasInt++;
+
+                                                                    oCom.iComidaInt++;
+                                                                    //oCom.iCenaInt++;
+                                                                }
+                                                                else
+                                                                {
+                                                                    if (l > 0)
+                                                                    {
+                                                                        if (bEsInterInicio)
+                                                                        {
+                                                                            oCant.iCantDesayunosInt++;
+                                                                            oCom.iDesayunosInt++;
+                                                                        }
+                                                                    }
+
+                                                                    oCant.iCantComidas++;
+                                                                    //oCant.iCantCenas++;
+
+                                                                    oCom.iComidaNal++;
+                                                                    //oCom.iCenaNal++;
+                                                                }
+                                                            }
+                                                            #endregion
+
+                                                            #region CENA
+                                                            //Primera condicion Cenas
+                                                            if (((fHoraInicio < fInicioCena && fHoraFinal > fInicioCena) && fHoraFinal < fFinCena) && (oCom.sDestino != dtLegs.Rows[0]["HomeBase"].S()))
                                                             {
                                                                 if (bEsInterFinal)
                                                                 {
@@ -1645,7 +6690,8 @@ namespace ALE_MexJet.Presenter
                                                                     oCom.iCenaNal++;
                                                                 }
                                                             }
-                                                            else if ((fHoraInicio <= fInicioComida && (fHoraFinal > fInicioComida)) || (fHoraInicio > fInicioComida && fHoraInicio <= fFinComida) || (fHoraInicio < fInicioComida && fHoraFinal > fFinComida))
+                                                            //Segunda condición Cenas
+                                                            else if ((fHoraInicio > fInicioCena && fHoraInicio < fFinCena) && (fHoraFinal > fFinCena && fHoraFinal > fInicioCena) && (oCom.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
                                                             {
                                                                 if (bEsInterFinal)
                                                                 {
@@ -1654,15 +6700,14 @@ namespace ALE_MexJet.Presenter
                                                                         if (!bEsInterInicio)
                                                                         {
                                                                             oCant.iCantDesayunos++;
+                                                                            oCant.iCantComidas++;
+
                                                                             oCom.iDesayunosNal++;
+                                                                            oCom.iComidaNal++;
                                                                         }
                                                                     }
 
-
-                                                                    oCant.iCantComidasInt++;
                                                                     oCant.iCantCenasInt++;
-
-                                                                    oCom.iComidaInt++;
                                                                     oCom.iCenaInt++;
                                                                 }
                                                                 else
@@ -1672,63 +6717,270 @@ namespace ALE_MexJet.Presenter
                                                                         if (bEsInterInicio)
                                                                         {
                                                                             oCant.iCantDesayunosInt++;
+                                                                            oCant.iCantComidasInt++;
+
                                                                             oCom.iDesayunosInt++;
+                                                                            oCom.iComidaInt++;
                                                                         }
                                                                     }
 
-                                                                    oCant.iCantComidas++;
                                                                     oCant.iCantCenas++;
-
-                                                                    oCom.iComidaNal++;
                                                                     oCom.iCenaNal++;
                                                                 }
                                                             }
-                                                            else if (fHoraInicio < fInicioDesayuno || (fHoraInicio > fInicioDesayuno && fHoraInicio < fFinDesayuno))
+                                                            //Tercera condición Cenas
+                                                            else if ((fHoraInicio >= fInicioCena && fHoraFinal > fFinCena) && (oCom.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oCom.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
                                                             {
                                                                 if (bEsInterFinal)
                                                                 {
-                                                                    oCant.iCantDesayunosInt++;
-                                                                    oCant.iCantComidasInt++;
-                                                                    oCant.iCantCenasInt++;
+                                                                    if (l > 0)
+                                                                    {
+                                                                        if (!bEsInterInicio)
+                                                                        {
+                                                                            oCant.iCantDesayunos++;
+                                                                            oCant.iCantComidas++;
 
-                                                                    oCom.iDesayunosInt++;
-                                                                    oCom.iComidaInt++;
+                                                                            oCom.iDesayunosNal++;
+                                                                            oCom.iComidaNal++;
+                                                                        }
+                                                                    }
+
+                                                                    oCant.iCantCenasInt++;
                                                                     oCom.iCenaInt++;
                                                                 }
                                                                 else
                                                                 {
-                                                                    oCom.iDesayunosNal++;
-                                                                    oCom.iComidaNal++;
-                                                                    oCom.iCenaNal++;
+                                                                    if (l > 0)
+                                                                    {
+                                                                        if (bEsInterInicio)
+                                                                        {
+                                                                            oCant.iCantDesayunosInt++;
+                                                                            oCant.iCantComidasInt++;
 
-                                                                    oCant.iCantDesayunos++;
-                                                                    oCant.iCantComidas++;
+                                                                            oCom.iDesayunosInt++;
+                                                                            oCom.iComidaInt++;
+                                                                        }
+                                                                    }
+
                                                                     oCant.iCantCenas++;
+                                                                    oCom.iCenaNal++;
                                                                 }
                                                             }
+                                                            //Cuarta condición Cenas
+                                                            else if ((fHoraInicio < fInicioCena && fHoraFinal <= fInicioCena) && (oCom.sDestino != dtLegs.Rows[0]["HomeBase"].S()))
+                                                            {
+                                                                if (bEsInterFinal)
+                                                                {
+                                                                    if (l > 0)
+                                                                    {
+                                                                        if (!bEsInterInicio)
+                                                                        {
+                                                                            oCant.iCantDesayunos++;
+                                                                            oCant.iCantComidas++;
+
+                                                                            oCom.iDesayunosNal++;
+                                                                            oCom.iComidaNal++;
+                                                                        }
+                                                                    }
+
+                                                                    oCant.iCantCenasInt++;
+                                                                    oCom.iCenaInt++;
+                                                                }
+                                                                else
+                                                                {
+                                                                    if (l > 0)
+                                                                    {
+                                                                        if (bEsInterInicio)
+                                                                        {
+                                                                            oCant.iCantDesayunosInt++;
+                                                                            oCant.iCantComidasInt++;
+
+                                                                            oCom.iDesayunosInt++;
+                                                                            oCom.iComidaInt++;
+                                                                        }
+                                                                    }
+
+                                                                    oCant.iCantCenas++;
+                                                                    oCom.iCenaNal++;
+                                                                }
+                                                            }
+                                                            //Quinta condición Cenas
+                                                            else if ((fHoraInicio < fInicioCena && fHoraFinal < fInicioCena) && (oCom.sDestino != dtLegs.Rows[0]["HomeBase"].S()))
+                                                            {
+                                                                if (bEsInterFinal)
+                                                                {
+                                                                    if (l > 0)
+                                                                    {
+                                                                        if (!bEsInterInicio)
+                                                                        {
+                                                                            oCant.iCantDesayunos++;
+                                                                            oCant.iCantComidas++;
+
+                                                                            oCom.iDesayunosNal++;
+                                                                            oCom.iComidaNal++;
+                                                                        }
+                                                                    }
+
+                                                                    oCant.iCantCenasInt++;
+                                                                    oCom.iCenaInt++;
+                                                                }
+                                                                else
+                                                                {
+                                                                    if (l > 0)
+                                                                    {
+                                                                        if (bEsInterInicio)
+                                                                        {
+                                                                            oCant.iCantDesayunosInt++;
+                                                                            oCant.iCantComidasInt++;
+
+                                                                            oCom.iDesayunosInt++;
+                                                                            oCom.iComidaInt++;
+                                                                        }
+                                                                    }
+
+                                                                    oCant.iCantCenas++;
+                                                                    oCom.iCenaNal++;
+                                                                }
+                                                            }
+                                                            //Sexta condición Cenas
+                                                            else if ((fHoraInicio < fInicioCena && (fHoraFinal > fInicioCena && fHoraFinal <= fFinCena)) && (oCom.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oCom.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                            {
+                                                                if (bEsInterFinal)
+                                                                {
+                                                                    if (l > 0)
+                                                                    {
+                                                                        if (!bEsInterInicio)
+                                                                        {
+                                                                            oCant.iCantDesayunos++;
+                                                                            oCant.iCantComidas++;
+
+                                                                            oCom.iDesayunosNal++;
+                                                                            oCom.iComidaNal++;
+                                                                        }
+                                                                    }
+
+                                                                    oCant.iCantCenasInt++;
+                                                                    oCom.iCenaInt++;
+                                                                }
+                                                                else
+                                                                {
+                                                                    if (l > 0)
+                                                                    {
+                                                                        if (bEsInterInicio)
+                                                                        {
+                                                                            oCant.iCantDesayunosInt++;
+                                                                            oCant.iCantComidasInt++;
+
+                                                                            oCom.iDesayunosInt++;
+                                                                            oCom.iComidaInt++;
+                                                                        }
+                                                                    }
+
+                                                                    oCant.iCantCenas++;
+                                                                    oCom.iCenaNal++;
+                                                                }
+                                                            }
+                                                            //Septima condición Cenas
+                                                            else if ((fHoraInicio >= fInicioCena && fHoraInicio <= fFinCena) && (fHoraFinal > fInicioCena && fHoraFinal <= fFinCena) && (oCom.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oCom.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                            {
+                                                                if (bEsInterFinal)
+                                                                {
+                                                                    if (l > 0)
+                                                                    {
+                                                                        if (!bEsInterInicio)
+                                                                        {
+                                                                            oCant.iCantDesayunos++;
+                                                                            oCant.iCantComidas++;
+
+                                                                            oCom.iDesayunosNal++;
+                                                                            oCom.iComidaNal++;
+                                                                        }
+                                                                    }
+
+                                                                    oCant.iCantCenasInt++;
+                                                                    oCom.iCenaInt++;
+                                                                }
+                                                                else
+                                                                {
+                                                                    if (l > 0)
+                                                                    {
+                                                                        if (bEsInterInicio)
+                                                                        {
+                                                                            oCant.iCantDesayunosInt++;
+                                                                            oCant.iCantComidasInt++;
+
+                                                                            oCom.iDesayunosInt++;
+                                                                            oCom.iComidaInt++;
+                                                                        }
+                                                                    }
+
+                                                                    oCant.iCantCenas++;
+                                                                    oCom.iCenaNal++;
+                                                                }
+                                                            }
+                                                            //Octava condición Cenas
+                                                            else if ((fHoraInicio < fInicioCena && (fHoraFinal > fInicioCena && fHoraFinal >= fFinCena)) && (oCom.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oCom.sDestino == dtLegs.Rows[0]["HomeBase"].S()) || (fHoraFinal > fInicioCena))
+                                                            {
+                                                                if (bEsInterFinal)
+                                                                {
+                                                                    if (l > 0)
+                                                                    {
+                                                                        if (!bEsInterInicio)
+                                                                        {
+                                                                            //oCant.iCantDesayunos++;
+                                                                            //oCant.iCantComidas++;
+
+                                                                            //oCom.iDesayunosNal++;
+                                                                            //oCom.iComidaNal++;
+                                                                        }
+                                                                    }
+
+                                                                    oCant.iCantCenasInt++;
+                                                                    oCom.iCenaInt++;
+                                                                }
+                                                                else
+                                                                {
+                                                                    if (l > 0)
+                                                                    {
+                                                                        if (bEsInterInicio)
+                                                                        {
+                                                                            //oCant.iCantDesayunosInt++;
+                                                                            //oCant.iCantComidasInt++;
+
+                                                                            //oCom.iDesayunosInt++;
+                                                                            //oCom.iComidaInt++;
+                                                                        }
+                                                                    }
+
+                                                                    oCant.iCantCenas++;
+                                                                    oCom.iCenaNal++;
+                                                                }
+                                                            }
+                                                            #endregion
+
                                                         }
                                                         else
                                                         {
-                                                            if (bEsInterFinal)
-                                                            {
-                                                                oCant.iCantDesayunosInt++;
-                                                                oCant.iCantComidasInt++;
-                                                                oCant.iCantCenasInt++;
+                                                            //if (bEsInterFinal)
+                                                            //{
+                                                            //    oCant.iCantDesayunosInt++;
+                                                            //    oCant.iCantComidasInt++;
+                                                            //    oCant.iCantCenasInt++;
 
-                                                                oCom.iDesayunosInt++;
-                                                                oCom.iComidaInt++;
-                                                                oCom.iCenaInt++;
-                                                            }
-                                                            else
-                                                            {
-                                                                oCant.iCantDesayunos++;
-                                                                oCant.iCantComidas++;
-                                                                oCant.iCantCenas++;
+                                                            //    oCom.iDesayunosInt++;
+                                                            //    oCom.iComidaInt++;
+                                                            //    oCom.iCenaInt++;
+                                                            //}
+                                                            //else
+                                                            //{
+                                                            //    oCant.iCantDesayunos++;
+                                                            //    oCant.iCantComidas++;
+                                                            //    oCant.iCantCenas++;
 
-                                                                oCom.iDesayunosNal++;
-                                                                oCom.iComidaNal++;
-                                                                oCom.iCenaNal++;
-                                                            }
+                                                            //    oCom.iDesayunosNal++;
+                                                            //    oCom.iComidaNal++;
+                                                            //    oCom.iCenaNal++;
+                                                            //}
                                                         }
 
                                                         oLsComDia.Add(oCom);
@@ -1736,6 +6988,1432 @@ namespace ALE_MexJet.Presenter
                                                 }
                                             }
                                         }
+                                        #endregion
+
+                                        #endregion
+
+
+                                        #region CÓDIGO DE CALCULO ORIGINAL
+                                        //if (dtDias.Rows.Count == 1)
+                                        //{
+                                        //    DataRow[] rowsD = dtLegs.Select("Dia = '" + dtDias.Rows[0]["Dia"].S() + "' ");
+
+                                        //    if (rowsD.Length > 1)
+                                        //    {
+                                        //        for (int k = 0; k < rowsD.Length; k++)
+                                        //        {
+                                        //            fHoraInicio = 0;
+                                        //            fHoraFinal = 0;
+
+                                        //            dtIni = dtLegs.Rows[0][FechaInicio].S().Dt();
+                                        //            dtFin = dtLegs.Rows[dtLegs.Rows.Count - 1][FechaFin].S().Dt();
+
+                                        //            bEsInterInicio = false;
+                                        //            bEsInterFinal = false;
+
+                                        //            bEsInterInicio = dtLegs.Rows[0]["EsInternacional"].S() == "1" ? true : false;
+                                        //            bEsInterFinal = dtLegs.Rows[dtLegs.Rows.Count - 1]["EsInternacional"].S() == "1" ? true : false;
+
+                                        //            fHoraInicio = dtIni.Hour + (dtIni.Minute / float.Parse("60"));
+                                        //            fHoraFinal = dtFin.Hour + (dtFin.Minute / float.Parse("60"));
+
+                                        //            ComidasPorDia oComDia1 = new ComidasPorDia();
+                                        //            oComDia1.sClavePiloto = drP["ClavePiloto"].S();
+                                        //            oComDia1.dtFechaDia = rowsD[k][FechaInicio].S().Dt();
+                                        //            oComDia1.dtFechaFin = rowsD[k][FechaFin].S().Dt();
+                                        //            oComDia1.sduty_type = rowsD[k]["DutyType"].S();
+                                        //            oComDia1.sOrigen = rowsD[k]["POD"].S();
+                                        //            oComDia1.sDestino = rowsD[k]["POA"].S();
+
+                                        //            if (k + 1 == rowsD.Length)
+                                        //            {
+                                        //                DateTime dtIniDia = rowsD[0][FechaInicio].S().Dt();
+                                        //                DateTime dtFinDia = rowsD[rowsD.Length - 1][FechaFin].S().Dt();
+
+                                        //                fHoraInicio = dtIniDia.Hour + (dtIniDia.Minute / float.Parse("60"));
+                                        //                fHoraFinal = dtFinDia.Hour + (dtFinDia.Minute / float.Parse("60"));
+
+                                        //                if (fHoraInicio < fInicioDesayuno || (fHoraInicio > fInicioDesayuno && fHoraInicio < fFinDesayuno))
+                                        //                {
+                                        //                    if (bEsInterFinal)
+                                        //                    {
+                                        //                        oCant.iCantDesayunosInt++;
+                                        //                        oComDia1.iDesayunosInt++;
+                                        //                    }
+                                        //                    else
+                                        //                    {
+                                        //                        oCant.iCantDesayunos++;
+                                        //                        oComDia1.iDesayunosNal++;
+                                        //                    }
+                                        //                }
+                                        //                if ((fHoraInicio <= fInicioComida && (fHoraFinal > fInicioComida)) || (fHoraInicio > fInicioComida && fHoraInicio <= fFinComida) || (fHoraInicio < fInicioComida && fHoraFinal > fFinComida))
+                                        //                {
+                                        //                    if (bEsInterFinal)
+                                        //                    {
+                                        //                        oCant.iCantComidasInt++;
+                                        //                        oComDia1.iComidaInt++;
+                                        //                    }
+                                        //                    else
+                                        //                    {
+                                        //                        oCant.iCantComidas++;
+                                        //                        oComDia1.iComidaNal++;
+                                        //                    }
+                                        //                }
+                                        //                if ((fHoraInicio < fInicioCena && fHoraFinal >= fInicioCena) || (fHoraInicio <= fFinCena && fHoraFinal > fInicioCena))
+                                        //                {
+                                        //                    if (bEsInterFinal)
+                                        //                    {
+                                        //                        oCant.iCantCenasInt++;
+                                        //                        oComDia1.iCenaInt++;
+                                        //                    }
+                                        //                    else
+                                        //                    {
+                                        //                        oCant.iCantCenas++;
+                                        //                        oComDia1.iCenaNal++;
+                                        //                    }
+                                        //                }
+                                        //            }
+
+                                        //            oLsComDia.Add(oComDia1);
+                                        //        }
+                                        //    }
+                                        //    else
+                                        //    {
+                                        //        ComidasPorDia oComDia = new ComidasPorDia();
+                                        //        oComDia.dtFechaDia = dtIni;
+                                        //        oComDia.dtFechaFin = dtFin;
+                                        //        oComDia.sClavePiloto = drP["ClavePiloto"].S();
+                                        //        oComDia.sduty_type = dtLegs.Rows[0]["DutyType"].S();
+                                        //        oComDia.sOrigen = dtLegs.Rows[0]["POD"].S();
+                                        //        oComDia.sDestino = dtLegs.Rows[dtLegs.Rows.Count - 1]["POA"].S();
+
+                                        //        if ((fHoraInicio < fInicioDesayuno || (fHoraInicio > fInicioDesayuno && fHoraInicio < fFinDesayuno)) && oComDia.sDestino != dtLegs.Rows[0]["HomeBase"].S())
+                                        //        {
+                                        //            if (bEsInterFinal)
+                                        //            {
+                                        //                oCant.iCantDesayunosInt++;
+
+                                        //                oComDia.iDesayunosInt++;
+                                        //            }
+                                        //            else
+                                        //            {
+                                        //                oCant.iCantDesayunos++;
+
+                                        //                oComDia.iDesayunosNal++;
+                                        //            }
+                                        //        }
+                                        //        if (((fHoraInicio <= fInicioComida && (fHoraFinal > fInicioComida)) || (fHoraInicio > fInicioComida && fHoraInicio <= fFinComida) || (fHoraInicio < fInicioComida && fHoraFinal > fFinComida)) && oComDia.sDestino != dtLegs.Rows[0]["HomeBase"].S())
+                                        //        {
+                                        //            if (bEsInterFinal)
+                                        //            {
+                                        //                oCant.iCantComidasInt++;
+
+                                        //                oComDia.iComidaInt++;
+                                        //            }
+                                        //            else
+                                        //            {
+                                        //                oCant.iCantComidas++;
+
+                                        //                oComDia.iComidaNal++;
+                                        //            }
+                                        //        }
+                                        //        if (((fHoraInicio < fInicioCena && fHoraFinal >= fInicioCena) || (fHoraInicio <= fFinCena && fHoraFinal > fInicioCena)) && oComDia.sDestino != dtLegs.Rows[0]["HomeBase"].S())
+                                        //        {
+                                        //            if (bEsInterFinal)
+                                        //            {
+                                        //                oCant.iCantCenasInt++;
+
+                                        //                oComDia.iCenaInt++;
+                                        //            }
+                                        //            else
+                                        //            {
+                                        //                oCant.iCantCenas++;
+
+                                        //                oComDia.iCenaNal++;
+                                        //            }
+                                        //        }
+
+                                        //        oLsComDia.Add(oComDia);
+
+                                        //    }
+                                        //}
+                                        //else if (dtDias.Rows.Count == 2)
+                                        //{
+                                        //    for (int l = 0; l < dtDias.Rows.Count; l++)
+                                        //    {
+                                        //        DataRow[] rowsD = dtLegs.Select("Dia = '" + dtDias.Rows[l]["Dia"].S() + "' ");
+
+                                        //        if (rowsD.Length > 1)
+                                        //        {
+                                        //            if (rowsD[0]["PaisPOA"].S() != rowsD[rowsD.Length - 1]["PaisPOA"].S())
+                                        //            {
+                                        //                // PIERNAS EN MEXICO Y EL EXTRANJERO
+
+                                        //                for (int k = 0; k < rowsD.Length; k++)
+                                        //                {
+                                        //                    ComidasPorDia oComDia1 = new ComidasPorDia();
+                                        //                    oComDia1.sClavePiloto = drP["ClavePiloto"].S();
+                                        //                    oComDia1.dtFechaDia = rowsD[k][FechaInicio].S().Dt();
+                                        //                    oComDia1.dtFechaFin = rowsD[k][FechaFin].S().Dt();
+                                        //                    oComDia1.sduty_type = rowsD[k]["DutyType"].S();
+                                        //                    oComDia1.sOrigen = rowsD[k]["POD"].S();
+                                        //                    oComDia1.sDestino = rowsD[k]["POA"].S();
+
+                                        //                    bEsInterInicio = rowsD[k]["PaisPOD"].S() == "MX" ? false : true;
+                                        //                    bEsInterFinal = rowsD[k]["PaisPOA"].S() == "MX" ? false : true;
+
+                                        //                    DateTime dtIniDia = rowsD[k][FechaInicio].S().Dt();
+                                        //                    DateTime dtFinDia = rowsD[k][FechaFin].S().Dt();
+
+                                        //                    fHoraInicio = dtIniDia.Hour + (dtIniDia.Minute / float.Parse("60"));
+                                        //                    fHoraFinal = dtFinDia.Hour + (dtFinDia.Minute / float.Parse("60"));
+
+                                        //                    if (l > 0 && k == 0)
+                                        //                        fHoraInicio = 0;
+
+                                        //                    // SI - CENA
+                                        //                    if ((fHoraInicio < fInicioCena && fHoraFinal >= fInicioCena) || (fHoraInicio <= fFinCena && fHoraFinal > fInicioCena))
+                                        //                    {
+                                        //                        if (bEsInterFinal)
+                                        //                        {
+                                        //                            if (l > 0 && k == 0)
+                                        //                            {
+                                        //                                if (!bEsInterInicio)
+                                        //                                {
+                                        //                                    oCant.iCantDesayunos++;
+                                        //                                    oCant.iCantComidas++;
+
+                                        //                                    oComDia1.iDesayunosNal++;
+                                        //                                    oComDia1.iComidaNal++;
+                                        //                                }
+                                        //                                else
+                                        //                                {
+                                        //                                    oCant.iCantDesayunosInt++;
+                                        //                                    oCant.iCantComidasInt++;
+
+                                        //                                    oComDia1.iDesayunosInt++;
+                                        //                                    oComDia1.iComidaInt++;
+                                        //                                }
+                                        //                            }
+
+
+                                        //                            oCant.iCantCenasInt++;
+                                        //                            oComDia1.iCenaInt++;
+                                        //                        }
+                                        //                        else
+                                        //                        {
+                                        //                            if (l > 0 && k == 0)
+                                        //                            {
+                                        //                                if (bEsInterInicio)
+                                        //                                {
+                                        //                                    oCant.iCantDesayunosInt++;
+                                        //                                    oCant.iCantComidasInt++;
+
+                                        //                                    oComDia1.iDesayunosInt++;
+                                        //                                    oComDia1.iComidaInt++;
+                                        //                                }
+                                        //                                else
+                                        //                                {
+                                        //                                    oCant.iCantDesayunos++;
+                                        //                                    oCant.iCantComidas++;
+
+                                        //                                    oComDia1.iDesayunosNal++;
+                                        //                                    oComDia1.iComidaNal++;
+                                        //                                }
+                                        //                            }
+
+                                        //                            oCant.iCantCenas++;
+                                        //                            oComDia1.iCenaNal++;
+                                        //                        }
+                                        //                    }
+                                        //                    // SI - DESAYUNO / COMIDA
+                                        //                    else if ((fHoraInicio <= fInicioComida && (fHoraFinal > fInicioComida)) || (fHoraInicio > fInicioComida && fHoraInicio <= fFinComida) || (fHoraInicio < fInicioComida && fHoraFinal > fFinComida))
+                                        //                    {
+                                        //                        if (bEsInterFinal)
+                                        //                        {
+                                        //                            if (l > 0 && k == 0)
+                                        //                            {
+                                        //                                if (!bEsInterInicio)
+                                        //                                {
+                                        //                                    oCant.iCantDesayunos++;
+                                        //                                    oComDia1.iDesayunosNal++;
+                                        //                                }
+                                        //                                else
+                                        //                                {
+                                        //                                    oCant.iCantDesayunosInt++;
+                                        //                                    oComDia1.iDesayunosInt++;
+                                        //                                }
+                                        //                            }
+
+                                        //                            oCant.iCantComidasInt++;
+                                        //                            oComDia1.iComidaInt++;
+                                        //                        }
+                                        //                        else
+                                        //                        {
+                                        //                            if (l > 0 && k == 0)
+                                        //                            {
+                                        //                                if (bEsInterInicio)
+                                        //                                {
+                                        //                                    oCant.iCantDesayunosInt++;
+                                        //                                    oComDia1.iDesayunosInt++;
+                                        //                                }
+                                        //                                else
+                                        //                                {
+                                        //                                    oCant.iCantDesayunos++;
+                                        //                                    oComDia1.iDesayunosNal++;
+                                        //                                }
+                                        //                            }
+
+                                        //                            oCant.iCantComidas++;
+                                        //                            oComDia1.iComidaNal++;
+                                        //                        }
+
+                                        //                        if (l == 0 && k == 0)
+                                        //                        {
+                                        //                            if (bEsInterFinal)
+                                        //                            {
+                                        //                                oCant.iCantCenasInt++;
+                                        //                                oComDia1.iCenaInt++;
+                                        //                            }
+                                        //                            else
+                                        //                            {
+                                        //                                oCant.iCantCenas++;
+                                        //                                oComDia1.iCenaNal++;
+                                        //                            }
+                                        //                        }
+                                        //                    }
+                                        //                    // SI - DESAYUNO / COMIDA / CENA
+                                        //                    else if (fHoraInicio < fInicioDesayuno || (fHoraInicio > fInicioDesayuno && fHoraInicio < fFinDesayuno))
+                                        //                    {
+                                        //                        if (bEsInterFinal)
+                                        //                        {
+                                        //                            oCant.iCantDesayunosInt++;
+                                        //                            oComDia1.iDesayunosInt++;
+                                        //                        }
+                                        //                        else
+                                        //                        {
+                                        //                            oCant.iCantDesayunos++;
+                                        //                            oComDia1.iDesayunosNal++;
+                                        //                        }
+                                        //                    }
+                                        //                    else
+                                        //                    {
+                                        //                        if (l == 0 && k == 0)
+                                        //                        {
+                                        //                            if (bEsInterFinal)
+                                        //                            {
+                                        //                                oCant.iCantCenasInt++;
+                                        //                                oComDia1.iCenaInt++;
+                                        //                            }
+                                        //                            else
+                                        //                            {
+                                        //                                oCant.iCantCenas++;
+                                        //                                oComDia1.iCenaNal++;
+                                        //                            }
+                                        //                        }
+                                        //                    }
+
+                                        //                    oLsComDia.Add(oComDia1);
+                                        //                }
+                                        //            }
+                                        //            else
+                                        //            {
+                                        //                // PRIMERA PIERNA Y ULTIMA DEL MISMO PAIS
+                                        //                for (int k = 0; k < rowsD.Length; k++)
+                                        //                {
+                                        //                    ComidasPorDia oComDia1 = new ComidasPorDia();
+                                        //                    oComDia1.sClavePiloto = drP["ClavePiloto"].S();
+                                        //                    oComDia1.dtFechaDia = rowsD[k][FechaInicio].S().Dt();
+                                        //                    oComDia1.dtFechaFin = rowsD[k][FechaFin].S().Dt();
+                                        //                    oComDia1.sduty_type = rowsD[k]["DutyType"].S();
+                                        //                    oComDia1.sOrigen = rowsD[k]["POD"].S();
+                                        //                    oComDia1.sDestino = rowsD[k]["POA"].S();
+
+                                        //                    if (k + 1 == rowsD.Length)
+                                        //                    {
+                                        //                        bEsInterInicio = rowsD[rowsD.Length - 1]["PaisPOD"].S() == "MX" ? false : true;
+                                        //                        bEsInterFinal = rowsD[rowsD.Length - 1]["PaisPOA"].S() == "MX" ? false : true;
+
+                                        //                        DateTime dtIniDia = rowsD[0][FechaInicio].S().Dt();
+                                        //                        DateTime dtFinDia = rowsD[rowsD.Length - 1][FechaFin].S().Dt();
+
+                                        //                        fHoraInicio = dtIniDia.Hour + (dtIniDia.Minute / float.Parse("60"));
+                                        //                        fHoraFinal = dtFinDia.Hour + (dtFinDia.Minute / float.Parse("60"));
+
+                                        //                        if (l > 0)
+                                        //                            fHoraInicio = 0;
+
+                                        //                        // SI - CENA
+                                        //                        if ((fHoraInicio < fInicioCena && fHoraFinal >= fInicioCena) || (fHoraInicio <= fFinCena && fHoraFinal > fInicioCena))
+                                        //                        {
+                                        //                            if (bEsInterFinal)
+                                        //                            {
+                                        //                                if (l > 0)
+                                        //                                {
+                                        //                                    if (!bEsInterInicio)
+                                        //                                    {
+                                        //                                        oCant.iCantDesayunos++;
+                                        //                                        oCant.iCantComidas++;
+
+                                        //                                        oComDia1.iDesayunosNal++;
+                                        //                                        oComDia1.iComidaNal++;
+                                        //                                    }
+                                        //                                    else
+                                        //                                    {
+                                        //                                        oCant.iCantDesayunosInt++;
+                                        //                                        oCant.iCantComidasInt++;
+
+                                        //                                        oComDia1.iDesayunosInt++;
+                                        //                                        oComDia1.iComidaInt++;
+                                        //                                    }
+                                        //                                }
+
+                                        //                                oCant.iCantCenasInt++;
+                                        //                                oComDia1.iCenaInt++;
+                                        //                            }
+                                        //                            else
+                                        //                            {
+                                        //                                if (l > 0)
+                                        //                                {
+                                        //                                    if (bEsInterInicio)
+                                        //                                    {
+                                        //                                        oCant.iCantDesayunosInt++;
+                                        //                                        oCant.iCantComidasInt++;
+
+                                        //                                        oComDia1.iDesayunosInt++;
+                                        //                                        oComDia1.iComidaInt++;
+                                        //                                    }
+                                        //                                    else
+                                        //                                    {
+                                        //                                        oCant.iCantDesayunos++;
+                                        //                                        oCant.iCantComidas++;
+
+                                        //                                        oComDia1.iDesayunosNal++;
+                                        //                                        oComDia1.iComidaNal++;
+                                        //                                    }
+                                        //                                }
+
+                                        //                                oCant.iCantCenas++;
+                                        //                                oComDia1.iCenaNal++;
+                                        //                            }
+                                        //                        }
+                                        //                        // SI - DESAYUNO / COMIDA
+                                        //                        else if ((fHoraInicio <= fInicioComida && (fHoraFinal > fInicioComida)) || (fHoraInicio > fInicioComida && fHoraInicio <= fFinComida) || (fHoraInicio < fInicioComida && fHoraFinal > fFinComida))
+                                        //                        {
+                                        //                            if (bEsInterFinal)
+                                        //                            {
+                                        //                                if (l > 0)
+                                        //                                {
+                                        //                                    if (!bEsInterInicio)
+                                        //                                    {
+                                        //                                        oCant.iCantDesayunos++;
+                                        //                                        oComDia1.iDesayunosNal++;
+                                        //                                    }
+                                        //                                    else
+                                        //                                    {
+                                        //                                        oCant.iCantDesayunosInt++;
+                                        //                                        oComDia1.iDesayunosInt++;
+                                        //                                    }
+                                        //                                }
+
+                                        //                                oCant.iCantComidasInt++;
+                                        //                                oComDia1.iComidaInt++;
+                                        //                            }
+                                        //                            else
+                                        //                            {
+                                        //                                if (l > 0)
+                                        //                                {
+                                        //                                    if (bEsInterInicio)
+                                        //                                    {
+                                        //                                        oCant.iCantDesayunosInt++;
+                                        //                                        oComDia1.iDesayunosInt++;
+                                        //                                    }
+                                        //                                    else
+                                        //                                    {
+                                        //                                        oCant.iCantDesayunos++;
+                                        //                                        oComDia1.iDesayunosNal++;
+                                        //                                    }
+                                        //                                }
+
+                                        //                                oCant.iCantComidas++;
+                                        //                                oComDia1.iComidaNal++;
+                                        //                            }
+
+                                        //                            if (l == 0)
+                                        //                            {
+                                        //                                if (bEsInterFinal)
+                                        //                                {
+                                        //                                    oCant.iCantCenasInt++;
+                                        //                                    oComDia1.iCenaInt++;
+                                        //                                }
+                                        //                                else
+                                        //                                {
+                                        //                                    oCant.iCantCenas++;
+                                        //                                    oComDia1.iCenaNal++;
+                                        //                                }
+                                        //                            }
+                                        //                        }
+                                        //                        // SI - DESAYUNO / COMIDA / CENA
+                                        //                        else if (fHoraInicio < fInicioDesayuno || (fHoraInicio > fInicioDesayuno && fHoraInicio < fFinDesayuno))
+                                        //                        {
+                                        //                            if (bEsInterFinal)
+                                        //                            {
+                                        //                                oCant.iCantDesayunosInt++;
+                                        //                                oComDia1.iDesayunosInt++;
+                                        //                            }
+                                        //                            else
+                                        //                            {
+                                        //                                oCant.iCantDesayunos++;
+                                        //                                oComDia1.iDesayunosNal++;
+                                        //                            }
+                                        //                        }
+                                        //                        else
+                                        //                        {
+                                        //                            if (l == 0)
+                                        //                            {
+                                        //                                if (bEsInterFinal)
+                                        //                                {
+                                        //                                    oCant.iCantCenasInt++;
+                                        //                                    oComDia1.iCenaInt++;
+                                        //                                }
+                                        //                                else
+                                        //                                {
+                                        //                                    oCant.iCantCenas++;
+                                        //                                    oComDia1.iCenaNal++;
+                                        //                                }
+                                        //                            }
+                                        //                        }
+
+                                        //                        #region COMENTADO
+                                        //                        //if (fHoraInicio < fInicioDesayuno || (fHoraInicio > fInicioDesayuno && fHoraInicio < fFinDesayuno))
+                                        //                        //{
+                                        //                        //    if (bEsInterFinal)
+                                        //                        //    {
+                                        //                        //        oCant.iCantDesayunosInt++;
+                                        //                        //        oCant.iCantComidasInt++;
+                                        //                        //        oCant.iCantCenasInt++;
+
+                                        //                        //        oComDia1.iDesayunosInt++;
+                                        //                        //        oComDia1.iComidaInt++;
+                                        //                        //        oComDia1.iCenaInt++;
+                                        //                        //    }
+                                        //                        //    else
+                                        //                        //    {
+                                        //                        //        oComDia1.iDesayunosNal++;
+                                        //                        //        oComDia1.iComidaNal++;
+                                        //                        //        oComDia1.iCenaNal++;
+                                        //                        //    }
+                                        //                        //}
+                                        //                        //else if ((fHoraInicio <= fInicioComida && (fHoraFinal > fInicioComida)) || (fHoraInicio > fInicioComida && fHoraInicio <= fFinComida) || (fHoraInicio < fInicioComida && fHoraFinal > fFinComida))
+                                        //                        //{
+                                        //                        //    if (bEsInterFinal)
+                                        //                        //    {
+                                        //                        //        oCant.iCantComidasInt++;
+                                        //                        //        oCant.iCantCenasInt++;
+
+                                        //                        //        oComDia1.iComidaInt++;
+                                        //                        //        oComDia1.iCenaInt++;
+                                        //                        //    }
+                                        //                        //    else
+                                        //                        //    {
+                                        //                        //        oCant.iCantComidas++;
+                                        //                        //        oCant.iCantCenas++;
+
+                                        //                        //        oComDia1.iComidaNal++;
+                                        //                        //        oComDia1.iCenaNal++;
+                                        //                        //    }
+                                        //                        //}
+                                        //                        //else if ((fHoraInicio < fInicioCena && fHoraFinal >= fInicioCena) || (fHoraInicio <= fFinCena && fHoraFinal > fInicioCena))
+                                        //                        //{
+                                        //                        //    if (bEsInterFinal)
+                                        //                        //    {
+                                        //                        //        oCant.iCantCenasInt++;
+
+                                        //                        //        oComDia1.iCenaInt++;
+                                        //                        //    }
+                                        //                        //    else
+                                        //                        //    {
+                                        //                        //        oCant.iCantCenas++;
+                                        //                        //        oComDia1.iCenaNal++;
+                                        //                        //    }
+                                        //                        //}
+                                        //                        #endregion
+                                        //                    }
+
+                                        //                    oLsComDia.Add(oComDia1);
+                                        //                }
+                                        //            }
+                                        //        }
+                                        //        else
+                                        //        {
+                                        //            ComidasPorDia oComDia1 = new ComidasPorDia();
+                                        //            oComDia1.sClavePiloto = drP["ClavePiloto"].S();
+                                        //            oComDia1.dtFechaDia = rowsD[0][FechaInicio].S().Dt();
+                                        //            oComDia1.dtFechaFin = rowsD[0][FechaFin].S().Dt();
+                                        //            oComDia1.sduty_type = rowsD[0]["DutyType"].S();
+                                        //            oComDia1.sOrigen = rowsD[0]["POD"].S();
+                                        //            oComDia1.sDestino = rowsD[0]["POA"].S();
+
+
+                                        //            DateTime dtInicial = rowsD[0][FechaInicio].S().Dt();
+                                        //            DateTime dtFinal = rowsD[0][FechaFin].S().Dt();
+
+                                        //            bEsInterFinal = rowsD[0]["EsInternacional"].S() == "1" ? true : false;
+                                        //            bEsInterInicio = rowsD[0]["PaisPOD"].S() == "MX" ? false : true;
+
+
+                                        //            fHoraInicio = dtInicial.Hour + (dtInicial.Minute / float.Parse("60"));
+                                        //            fHoraFinal = dtFinal.Hour + (dtFinal.Minute / float.Parse("60"));
+
+                                        //            if (l > 0)
+                                        //            {
+                                        //                fHoraInicio = 0;
+                                        //            }
+
+                                        //            // SI - CENA
+                                        //            if ((fHoraInicio < fInicioCena && fHoraFinal >= fInicioCena) || (fHoraInicio <= fFinCena && fHoraFinal > fInicioCena))
+                                        //            {
+                                        //                if (bEsInterFinal)
+                                        //                {
+                                        //                    if (l > 0)
+                                        //                    {
+                                        //                        if (!bEsInterInicio)
+                                        //                        {
+                                        //                            oCant.iCantDesayunos++;
+                                        //                            oCant.iCantComidas++;
+
+                                        //                            oComDia1.iDesayunosNal++;
+                                        //                            oComDia1.iComidaNal++;
+                                        //                        }
+                                        //                    }
+
+
+                                        //                    oCant.iCantCenasInt++;
+                                        //                    oComDia1.iCenaInt++;
+                                        //                }
+                                        //                else
+                                        //                {
+                                        //                    if (l > 0)
+                                        //                    {
+                                        //                        if (bEsInterInicio)
+                                        //                        {
+                                        //                            oCant.iCantDesayunosInt++;
+                                        //                            oCant.iCantComidasInt++;
+
+                                        //                            oComDia1.iDesayunosInt++;
+                                        //                            oComDia1.iComidaInt++;
+                                        //                        }
+                                        //                    }
+
+                                        //                    oCant.iCantCenas++;
+                                        //                    oComDia1.iCenaNal++;
+                                        //                }
+                                        //            }
+                                        //            // SI - DESAYUNO / COMIDA
+                                        //            else if ((fHoraInicio <= fInicioComida && (fHoraFinal > fInicioComida)) || (fHoraInicio > fInicioComida && fHoraInicio <= fFinComida) || (fHoraInicio < fInicioComida && fHoraFinal > fFinComida))
+                                        //            {
+                                        //                if (bEsInterFinal)
+                                        //                {
+                                        //                    if (l > 0)
+                                        //                    {
+                                        //                        if (!bEsInterInicio)
+                                        //                        {
+                                        //                            oCant.iCantDesayunos++;
+                                        //                            oComDia1.iDesayunosNal++;
+                                        //                        }
+                                        //                    }
+
+                                        //                    oCant.iCantComidasInt++;
+                                        //                    oComDia1.iComidaInt++;
+                                        //                }
+                                        //                else
+                                        //                {
+                                        //                    if (l > 0)
+                                        //                    {
+                                        //                        if (bEsInterInicio)
+                                        //                        {
+                                        //                            oCant.iCantDesayunosInt++;
+                                        //                            oComDia1.iDesayunosInt++;
+                                        //                        }
+                                        //                    }
+
+                                        //                    oCant.iCantComidas++;
+                                        //                    oComDia1.iComidaNal++;
+                                        //                }
+
+                                        //                if (l == 0)
+                                        //                {
+                                        //                    if (bEsInterFinal)
+                                        //                    {
+                                        //                        oCant.iCantCenasInt++;
+                                        //                        oComDia1.iCenaInt++;
+                                        //                    }
+                                        //                    else
+                                        //                    {
+                                        //                        oCant.iCantCenas++;
+                                        //                        oComDia1.iCenaNal++;
+                                        //                    }
+                                        //                }
+                                        //            }
+                                        //            // SI - DESAYUNO / COMIDA / CENA
+                                        //            else if (fHoraInicio < fInicioDesayuno || (fHoraInicio > fInicioDesayuno && fHoraInicio < fFinDesayuno))
+                                        //            {
+                                        //                if (bEsInterFinal)
+                                        //                {
+                                        //                    oCant.iCantDesayunosInt++;
+                                        //                    //oCant.iCantComidasInt++;
+                                        //                    //oCant.iCantCenasInt++;
+
+                                        //                    oComDia1.iDesayunosInt++;
+                                        //                    //oComDia1.iComidaInt++;
+                                        //                    //oComDia1.iCenaInt++;
+                                        //                }
+                                        //                else
+                                        //                {
+                                        //                    oCant.iCantDesayunos++;
+                                        //                    //oCant.iCantComidas++;
+                                        //                    //oCant.iCantCenas++;
+
+                                        //                    oComDia1.iDesayunosNal++;
+                                        //                    //oComDia1.iComidaNal++;
+                                        //                    //oComDia1.iCenaNal++;
+                                        //                }
+                                        //            }
+                                        //            else
+                                        //            {
+                                        //                if (l == 0)
+                                        //                {
+                                        //                    if (bEsInterFinal)
+                                        //                    {
+                                        //                        oCant.iCantCenasInt++;
+                                        //                        oComDia1.iCenaInt++;
+                                        //                    }
+                                        //                    else
+                                        //                    {
+                                        //                        oCant.iCantCenas++;
+                                        //                        oComDia1.iCenaNal++;
+                                        //                    }
+                                        //                }
+                                        //            }
+
+                                        //            oLsComDia.Add(oComDia1);
+                                        //        }
+                                        //    }
+                                        //}
+                                        //else if (dtDias.Rows.Count > 2)
+                                        //{
+                                        //    for (int l = 0; l < dtDias.Rows.Count; l++)
+                                        //    {
+                                        //        DataRow[] rowsD = dtLegs.Select("Dia = '" + dtDias.Rows[l]["Dia"].S() + "' ");
+
+                                        //        bEsInterInicio = rowsD[0]["EsInternacional"].S() == "1" ? true : false;
+                                        //        bEsInterFinal = rowsD[rowsD.Length - 1]["EsInternacional"].S() == "1" ? true : false;
+
+                                        //        // una pierna que tiene mas de un dia.
+                                        //        if (rowsD.Length == 1 && ((rowsD[0][FechaFin].S().Dt().Day) - (rowsD[0][FechaInicio].S().Dt().Day)) > 0)
+                                        //        {
+                                        //            bool bTieneDiasAntes = false;
+                                        //            bool bTieneDiasDespues = false;
+
+                                        //            if (l > 0)
+                                        //                bTieneDiasAntes = true;
+
+                                        //            try
+                                        //            {
+                                        //                if (dtDias.Rows[l + 1] != null)
+                                        //                    bTieneDiasDespues = true;
+                                        //            }
+                                        //            catch (Exception)
+                                        //            {
+                                        //                bTieneDiasDespues = false;
+                                        //            }
+
+                                        //            //if (l > 0)
+                                        //            //    bTieneDiasAntes = true;
+                                        //            //if (dtDias.Rows[l + 1] != null)
+                                        //            //    bTieneDiasDespues = true;
+
+                                        //            CalculaAlimentos(rowsD[0][FechaInicio].S().Dt(), rowsD[0][FechaFin].S().Dt(), oCant, oHor, sPod, sBase, bTieneDiasAntes, bTieneDiasDespues, bEsInterInicio, bEsInterFinal, drP["ClavePiloto"].S(), oLsComDia, rowsD[0]["DutyType"].S(), rowsD[0]["POD"].S(), rowsD[0]["POA"].S(), dtLegs);
+                                        //        }
+                                        //        else if (rowsD.Length > 1)
+                                        //        {
+                                        //            for (int k = 0; k < rowsD.Length; k++)
+                                        //            {
+                                        //                ComidasPorDia oComDia1 = new ComidasPorDia();
+                                        //                oComDia1.sClavePiloto = drP["ClavePiloto"].S();
+                                        //                oComDia1.dtFechaDia = rowsD[k][FechaInicio].S().Dt();
+                                        //                oComDia1.dtFechaFin = rowsD[k][FechaFin].S().Dt();
+                                        //                oComDia1.sduty_type = rowsD[k]["DutyType"].S();
+                                        //                oComDia1.sOrigen = rowsD[k]["POD"].S();
+                                        //                oComDia1.sDestino = rowsD[k]["POA"].S();
+
+                                        //                if (k + 1 == rowsD.Length)
+                                        //                {
+                                        //                    DateTime dtIniDia = rowsD[0][FechaInicio].S().Dt();
+                                        //                    DateTime dtFinDia = rowsD[rowsD.Length - 1][FechaFin].S().Dt();
+
+                                        //                    fHoraInicio = dtIniDia.Hour + (dtIniDia.Minute / float.Parse("60"));
+                                        //                    fHoraFinal = dtFinDia.Hour + (dtFinDia.Minute / float.Parse("60"));
+
+                                        //                    bEsInterInicio = rowsD[k]["PaisPOD"].S() == "MX" ? false : true;
+
+                                        //                    if (bEsInterInicio != bEsInterFinal)
+                                        //                    {
+                                        //                        if ((fHoraInicio < fInicioCena && fHoraFinal >= fInicioCena) || (fHoraInicio <= fFinCena && fHoraFinal > fInicioCena))
+                                        //                        {
+                                        //                            if (bEsInterFinal)
+                                        //                            {
+                                        //                                if (l > 0)
+                                        //                                {
+                                        //                                    if (!bEsInterInicio)
+                                        //                                    {
+                                        //                                        oCant.iCantDesayunos++;
+                                        //                                        oCant.iCantComidas++;
+
+                                        //                                        oComDia1.iDesayunosNal++;
+                                        //                                        oComDia1.iComidaNal++;
+                                        //                                    }
+                                        //                                }
+
+                                        //                                oCant.iCantCenasInt++;
+                                        //                                oComDia1.iCenaInt++;
+                                        //                            }
+                                        //                            else
+                                        //                            {
+                                        //                                if (l > 0)
+                                        //                                {
+                                        //                                    if (bEsInterInicio)
+                                        //                                    {
+                                        //                                        oCant.iCantDesayunosInt++;
+                                        //                                        oCant.iCantComidasInt++;
+
+                                        //                                        oComDia1.iDesayunosInt++;
+                                        //                                        oComDia1.iComidaInt++;
+                                        //                                    }
+                                        //                                }
+
+                                        //                                oCant.iCantCenas++;
+                                        //                                oComDia1.iCenaNal++;
+                                        //                            }
+                                        //                        }
+                                        //                        else if ((fHoraInicio <= fInicioComida && (fHoraFinal > fInicioComida)) || (fHoraInicio > fInicioComida && fHoraInicio <= fFinComida) || (fHoraInicio < fInicioComida && fHoraFinal > fFinComida))
+                                        //                        {
+                                        //                            if (bEsInterFinal)
+                                        //                            {
+                                        //                                if (l > 0)
+                                        //                                {
+                                        //                                    if (!bEsInterInicio)
+                                        //                                    {
+                                        //                                        oCant.iCantDesayunos++;
+                                        //                                        oComDia1.iDesayunosNal++;
+                                        //                                    }
+                                        //                                }
+
+
+                                        //                                oCant.iCantComidasInt++;
+                                        //                                oCant.iCantCenasInt++;
+
+                                        //                                oComDia1.iComidaInt++;
+                                        //                                oComDia1.iCenaInt++;
+                                        //                            }
+                                        //                            else
+                                        //                            {
+                                        //                                if (l > 0)
+                                        //                                {
+                                        //                                    if (bEsInterInicio)
+                                        //                                    {
+                                        //                                        oCant.iCantDesayunosInt++;
+                                        //                                        oComDia1.iDesayunosInt++;
+                                        //                                    }
+                                        //                                }
+
+                                        //                                oCant.iCantComidas++;
+                                        //                                oCant.iCantCenas++;
+
+                                        //                                oComDia1.iComidaNal++;
+                                        //                                oComDia1.iCenaNal++;
+                                        //                            }
+                                        //                        }
+                                        //                        else if (fHoraInicio < fInicioDesayuno || (fHoraInicio > fInicioDesayuno && fHoraInicio < fFinDesayuno))
+                                        //                        {
+                                        //                            if (bEsInterFinal)
+                                        //                            {
+                                        //                                oCant.iCantDesayunosInt++;
+                                        //                                oCant.iCantComidasInt++;
+                                        //                                oCant.iCantCenasInt++;
+
+                                        //                                oComDia1.iDesayunosInt++;
+                                        //                                oComDia1.iComidaInt++;
+                                        //                                oComDia1.iCenaInt++;
+                                        //                            }
+                                        //                            else
+                                        //                            {
+                                        //                                oComDia1.iDesayunosNal++;
+                                        //                                oComDia1.iComidaNal++;
+                                        //                                oComDia1.iCenaNal++;
+
+                                        //                                oCant.iCantDesayunos++;
+                                        //                                oCant.iCantComidas++;
+                                        //                                oCant.iCantCenas++;
+                                        //                            }
+                                        //                        }
+                                        //                    }
+                                        //                    else
+                                        //                    {
+                                        //                        int iAux = 0;
+
+                                        //                        if (fHoraInicio < fInicioDesayuno || (fHoraInicio > fInicioDesayuno && fHoraInicio < fFinDesayuno))
+                                        //                        {
+                                        //                            if (bEsInterFinal)
+                                        //                            {
+                                        //                                oCant.iCantDesayunosInt++;
+                                        //                                oCant.iCantComidasInt++;
+                                        //                                oCant.iCantCenasInt++;
+
+                                        //                                oComDia1.iDesayunosInt++;
+                                        //                                oComDia1.iComidaInt++;
+                                        //                                oComDia1.iCenaInt++;
+                                        //                            }
+                                        //                            else
+                                        //                            {
+                                        //                                oComDia1.iDesayunosNal++;
+                                        //                                oComDia1.iComidaNal++;
+                                        //                                oComDia1.iCenaNal++;
+                                        //                            }
+
+                                        //                            iAux = 1;
+                                        //                        }
+                                        //                        else if ((fHoraInicio <= fInicioComida && (fHoraFinal > fInicioComida)) || (fHoraInicio > fInicioComida && fHoraInicio <= fFinComida) || (fHoraInicio < fInicioComida && fHoraFinal > fFinComida))
+                                        //                        {
+                                        //                            // Valida si tiene un día anterior
+
+                                        //                            if (bEsInterFinal)
+                                        //                            {
+                                        //                                if (l != 0 || l != dtDias.Rows.Count - 1)
+                                        //                                {
+                                        //                                    oCant.iCantDesayunosInt++;
+                                        //                                    oComDia1.iDesayunosInt++;
+                                        //                                }
+
+                                        //                                oCant.iCantComidasInt++;
+                                        //                                oCant.iCantCenasInt++;
+
+                                        //                                oComDia1.iComidaInt++;
+                                        //                                oComDia1.iCenaInt++;
+                                        //                            }
+                                        //                            else
+                                        //                            {
+                                        //                                if (l != 0 || l != dtDias.Rows.Count - 1)
+                                        //                                {
+                                        //                                    oCant.iCantDesayunos++;
+                                        //                                    oComDia1.iDesayunosNal++;
+                                        //                                }
+
+                                        //                                oCant.iCantComidas++;
+                                        //                                oCant.iCantCenas++;
+
+                                        //                                oComDia1.iComidaNal++;
+                                        //                                oComDia1.iCenaNal++;
+                                        //                            }
+
+                                        //                            iAux = 2;
+                                        //                        }
+                                        //                        else if ((fHoraInicio < fInicioCena && fHoraFinal >= fInicioCena) || (fHoraInicio <= fFinCena && fHoraFinal > fInicioCena))
+                                        //                        {
+                                        //                            if (bEsInterFinal)
+                                        //                            {
+                                        //                                if (l != 0 || l != dtDias.Rows.Count - 1)
+                                        //                                {
+                                        //                                    oCant.iCantDesayunosInt++;
+                                        //                                    oCant.iCantComidasInt++;
+
+                                        //                                    oComDia1.iDesayunosInt++;
+                                        //                                    oComDia1.iComidaInt++;
+                                        //                                }
+
+                                        //                                oCant.iCantCenasInt++;
+                                        //                                oComDia1.iCenaInt++;
+                                        //                            }
+                                        //                            else
+                                        //                            {
+                                        //                                if (l != 0 || l != dtDias.Rows.Count - 1)
+                                        //                                {
+                                        //                                    oCant.iCantDesayunos++;
+                                        //                                    oCant.iCantComidas++;
+
+                                        //                                    oComDia1.iDesayunosNal++;
+                                        //                                    oComDia1.iComidaNal++;
+                                        //                                }
+
+                                        //                                oCant.iCantCenas++;
+                                        //                                oComDia1.iCenaNal++;
+                                        //                            }
+
+                                        //                            iAux = 3;
+                                        //                        }
+
+                                        //                        if (iAux == 0)
+                                        //                        {
+                                        //                            if (bEsInterInicio)
+                                        //                            {
+                                        //                                if (l == 0 || l == dtDias.Rows.Count - 1)
+                                        //                                {
+                                        //                                    if (fHoraFinal > fFinComida)
+                                        //                                    {
+                                        //                                        oCant.iCantDesayunosInt++;
+                                        //                                        oCant.iCantComidasInt++;
+
+                                        //                                        oComDia1.iDesayunosInt++;
+                                        //                                        oComDia1.iComidaInt++;
+                                        //                                    }
+                                        //                                    else
+                                        //                                    {
+                                        //                                        oCant.iCantDesayunosInt++;
+                                        //                                        oComDia1.iDesayunosInt++;
+                                        //                                    }
+                                        //                                }
+                                        //                            }
+                                        //                            else
+                                        //                            {
+                                        //                                if (l == 0 || l == dtDias.Rows.Count - 1)
+                                        //                                {
+                                        //                                    if (fHoraFinal > fFinComida)
+                                        //                                    {
+                                        //                                        oCant.iCantDesayunos++;
+                                        //                                        oCant.iCantComidas++;
+
+                                        //                                        oComDia1.iDesayunosNal++;
+                                        //                                        oComDia1.iComidaNal++;
+                                        //                                    }
+                                        //                                    else
+                                        //                                    {
+                                        //                                        oCant.iCantDesayunos++;
+                                        //                                        oComDia1.iDesayunosNal++;
+                                        //                                    }
+                                        //                                }
+                                        //                            }
+                                        //                        }
+                                        //                    }
+
+
+                                        //                }
+
+                                        //                oLsComDia.Add(oComDia1);
+                                        //            }
+                                        //        }
+                                        //        else
+                                        //        {
+                                        //            if (l == 0 || l == dtDias.Rows.Count - 1)
+                                        //            {
+                                        //                ComidasPorDia oCom = new ComidasPorDia();
+                                        //                oCom.sClavePiloto = drP["ClavePiloto"].S();
+
+                                        //                dtIni = rowsD[0][FechaInicio].S().Dt();
+                                        //                dtFin = rowsD[rowsD.Length - 1][FechaFin].S().Dt();
+
+                                        //                if (l == 0)
+                                        //                {
+                                        //                    oCom.dtFechaDia = dtIni;
+                                        //                    oCom.dtFechaFin = dtFin;
+
+                                        //                    oCom.sduty_type = rowsD[l]["DutyType"].S();
+                                        //                    oCom.sOrigen = rowsD[l]["POD"].S();
+                                        //                    oCom.sDestino = rowsD[l]["POA"].S();
+                                        //                }
+                                        //                else
+                                        //                {
+                                        //                    oCom.dtFechaDia = dtIni;
+                                        //                    oCom.dtFechaFin = dtFin;
+
+                                        //                    oCom.sduty_type = rowsD[rowsD.Length - 1]["DutyType"].S();
+                                        //                    oCom.sOrigen = rowsD[rowsD.Length - 1]["POD"].S();
+                                        //                    oCom.sDestino = rowsD[rowsD.Length - 1]["POA"].S();
+                                        //                }
+
+
+                                        //                fHoraInicio = dtIni.Hour + (dtIni.Minute / float.Parse("60"));
+                                        //                fHoraFinal = dtFin.Hour + (dtFin.Minute / float.Parse("60"));
+
+                                        //                bEsInterInicio = rowsD[0]["PaisPOD"].S() == "MX" ? false : true;
+                                        //                bEsInterFinal = rowsD[rowsD.Length - 1]["EsInternacional"].S() == "1" ? true : false;
+
+                                        //                int iAux = 0;
+
+                                        //                if (fHoraInicio < fInicioDesayuno || (fHoraInicio > fInicioDesayuno && fHoraInicio < fFinDesayuno))
+                                        //                {
+                                        //                    if (bEsInterFinal)
+                                        //                    {
+                                        //                        oCant.iCantDesayunosInt++;
+                                        //                        oCant.iCantComidasInt++;
+                                        //                        oCant.iCantCenasInt++;
+
+                                        //                        oCom.iDesayunosInt++;
+                                        //                        oCom.iComidaInt++;
+                                        //                        oCom.iCenaInt++;
+                                        //                    }
+                                        //                    else
+                                        //                    {
+                                        //                        oCom.iDesayunosNal++;
+                                        //                        oCom.iComidaNal++;
+                                        //                        oCom.iCenaNal++;
+                                        //                    }
+
+                                        //                    iAux = 1;
+                                        //                }
+                                        //                else if ((fHoraInicio <= fInicioComida && (fHoraFinal > fInicioComida)) || (fHoraInicio > fInicioComida && fHoraInicio <= fFinComida) || (fHoraInicio < fInicioComida && fHoraFinal > fFinComida))
+                                        //                {
+                                        //                    // Valida si tiene un día anterior
+
+                                        //                    if (bEsInterFinal)
+                                        //                    {
+                                        //                        if (l != 0 || l != dtDias.Rows.Count - 1)
+                                        //                        {
+                                        //                            oCant.iCantDesayunosInt++;
+                                        //                            oCom.iDesayunosInt++;
+                                        //                        }
+
+                                        //                        oCant.iCantComidasInt++;
+                                        //                        oCant.iCantCenasInt++;
+
+                                        //                        oCom.iComidaInt++;
+                                        //                        oCom.iCenaInt++;
+                                        //                    }
+                                        //                    else
+                                        //                    {
+                                        //                        if (l != 0 || l != dtDias.Rows.Count - 1)
+                                        //                        {
+                                        //                            oCant.iCantDesayunos++;
+                                        //                            oCom.iDesayunosNal++;
+                                        //                        }
+
+                                        //                        oCant.iCantComidas++;
+                                        //                        oCant.iCantCenas++;
+
+                                        //                        oCom.iComidaNal++;
+                                        //                        oCom.iCenaNal++;
+                                        //                    }
+
+                                        //                    iAux = 2;
+                                        //                }
+                                        //                else if ((fHoraInicio < fInicioCena && fHoraFinal >= fInicioCena) || (fHoraInicio <= fFinCena && fHoraFinal > fInicioCena))
+                                        //                {
+                                        //                    if (bEsInterFinal)
+                                        //                    {
+                                        //                        if (l != 0 || l != dtDias.Rows.Count - 1)
+                                        //                        {
+                                        //                            oCant.iCantDesayunosInt++;
+                                        //                            oCant.iCantComidasInt++;
+
+                                        //                            oCom.iDesayunosInt++;
+                                        //                            oCom.iComidaInt++;
+                                        //                        }
+
+                                        //                        oCant.iCantCenasInt++;
+                                        //                        oCom.iCenaInt++;
+                                        //                    }
+                                        //                    else
+                                        //                    {
+                                        //                        if (l != 0 || l != dtDias.Rows.Count - 1)
+                                        //                        {
+                                        //                            oCant.iCantDesayunos++;
+                                        //                            oCant.iCantComidas++;
+
+                                        //                            oCom.iDesayunosNal++;
+                                        //                            oCom.iComidaNal++;
+                                        //                        }
+
+                                        //                        oCant.iCantCenas++;
+                                        //                        oCom.iCenaNal++;
+                                        //                    }
+
+                                        //                    iAux = 3;
+                                        //                }
+
+                                        //                if (iAux == 0)
+                                        //                {
+                                        //                    if (bEsInterInicio)
+                                        //                    {
+                                        //                        if (l == 0 || l == dtDias.Rows.Count - 1)
+                                        //                        {
+                                        //                            if (fHoraFinal > fFinComida)
+                                        //                            {
+                                        //                                oCant.iCantDesayunosInt++;
+                                        //                                oCant.iCantComidasInt++;
+
+                                        //                                oCom.iDesayunosInt++;
+                                        //                                oCom.iComidaInt++;
+                                        //                            }
+                                        //                            else
+                                        //                            {
+                                        //                                oCant.iCantDesayunosInt++;
+                                        //                                oCom.iDesayunosInt++;
+                                        //                            }
+                                        //                        }
+                                        //                    }
+                                        //                    else
+                                        //                    {
+                                        //                        if (l == 0 || l == dtDias.Rows.Count - 1)
+                                        //                        {
+                                        //                            if (fHoraFinal > fFinComida)
+                                        //                            {
+                                        //                                oCant.iCantDesayunos++;
+                                        //                                oCant.iCantComidas++;
+
+                                        //                                oCom.iDesayunosNal++;
+                                        //                                oCom.iComidaNal++;
+                                        //                            }
+                                        //                            else
+                                        //                            {
+                                        //                                oCant.iCantDesayunos++;
+                                        //                                oCom.iDesayunosNal++;
+                                        //                            }
+                                        //                        }
+                                        //                    }
+                                        //                }
+
+                                        //                #region COMENTADO
+                                        //                //if (fHoraInicio < fInicioDesayuno || (fHoraInicio > fInicioDesayuno && fHoraInicio < fFinDesayuno) || (fHoraInicio >= fInicioDesayuno && rowsD[0]["POD"].S() != sBase))
+                                        //                //{
+                                        //                //    if (bEsInterFinal)
+                                        //                //    {
+                                        //                //        oCant.iCantDesayunosInt++;
+
+                                        //                //        oCom.iDesayunosInt++;
+                                        //                //    }
+                                        //                //    else
+                                        //                //    {
+                                        //                //        oCant.iCantDesayunos++;
+
+                                        //                //        oCom.iDesayunosNal++;
+                                        //                //    }
+
+                                        //                //    iAux = 1;
+                                        //                //}
+                                        //                //if ((fHoraInicio <= fInicioComida && (fHoraFinal > fInicioComida)) || (fHoraInicio > fInicioComida && fHoraInicio <= fFinComida) || (fHoraInicio < fInicioComida && fHoraFinal > fFinComida))
+                                        //                //{
+                                        //                //    if (bEsInterFinal)
+                                        //                //    {
+                                        //                //        oCant.iCantComidasInt++;
+
+                                        //                //        oCom.iComidaInt++;
+                                        //                //    }
+                                        //                //    else
+                                        //                //    {
+                                        //                //        oCant.iCantComidas++;
+
+                                        //                //        oCom.iComidaNal++;
+                                        //                //    }
+
+                                        //                //    iAux = 2;
+                                        //                //}
+                                        //                //if ((fHoraInicio < fInicioCena && fHoraFinal > fInicioCena) || (fHoraInicio <= fFinCena && fHoraFinal > fInicioCena))
+                                        //                //{
+                                        //                //    if (bEsInterFinal)
+                                        //                //    {
+                                        //                //        oCant.iCantCenasInt++;
+
+                                        //                //        oCom.iCenaInt++;
+                                        //                //    }
+                                        //                //    else
+                                        //                //    {
+                                        //                //        oCant.iCantCenas++;
+
+                                        //                //        oCom.iCenaNal++;
+                                        //                //    }
+
+                                        //                //    iAux = 3;
+                                        //                //}
+
+                                        //                //if (iAux == 1)
+                                        //                //{
+                                        //                //    if (l != dtDias.Rows.Count - 1)
+                                        //                //    {
+                                        //                //        if (bEsInterFinal)
+                                        //                //        {
+                                        //                //            oCant.iCantComidasInt++;
+                                        //                //            oCant.iCantCenasInt++;
+
+                                        //                //            oCom.iCenaInt++;
+                                        //                //            oCom.iComidaInt++;
+                                        //                //        }
+                                        //                //        else
+                                        //                //        {
+                                        //                //            oCant.iCantCenas++;
+                                        //                //            oCant.iCantComidas++;
+
+                                        //                //            oCom.iCenaNal++;
+                                        //                //            oCom.iComidaNal++;
+                                        //                //        }
+                                        //                //    }
+                                        //                //}
+                                        //                //if (iAux == 2)
+                                        //                //{
+                                        //                //    if (l != dtDias.Rows.Count - 1)
+                                        //                //    {
+                                        //                //        if (bEsInterFinal)
+                                        //                //        {
+                                        //                //            oCant.iCantCenasInt++;
+                                        //                //            oCom.iCenaInt++;
+                                        //                //        }
+                                        //                //        else
+                                        //                //        {
+                                        //                //            oCant.iCantCenas++;
+                                        //                //            oCom.iCenaNal++;
+                                        //                //        }
+                                        //                //    }
+                                        //                //}
+                                        //                #endregion
+
+                                        //                oLsComDia.Add(oCom);
+                                        //            }
+                                        //            else
+                                        //            {
+                                        //                DataTable dtDias2 = dtDias;
+                                        //                DateTime dtIniAux = rowsD[0][FechaInicio].S().Dt();
+                                        //                DateTime dtFinAux = rowsD[0][FechaFin].S().Dt();
+
+                                        //                bEsInterInicio = rowsD[0]["PaisPOD"].S() == "MX" ? false : true;
+
+                                        //                ComidasPorDia oCom = new ComidasPorDia();
+                                        //                oCom.sClavePiloto = drP["ClavePiloto"].S();
+                                        //                oCom.dtFechaDia = dtIniAux;// dtIni.AddDays(l);
+                                        //                oCom.dtFechaFin = dtFinAux;// dtFin.AddDays(l);
+                                        //                oCom.sduty_type = rowsD[0]["DutyType"].S();
+                                        //                oCom.sOrigen = rowsD[0]["POD"].S();
+                                        //                oCom.sDestino = rowsD[0]["POA"].S();
+
+
+                                        //                if (bEsInterInicio != bEsInterFinal)
+                                        //                {
+                                        //                    if ((fHoraInicio < fInicioCena && fHoraFinal >= fInicioCena) || (fHoraInicio <= fFinCena && fHoraFinal > fInicioCena))
+                                        //                    {
+                                        //                        if (bEsInterFinal)
+                                        //                        {
+                                        //                            if (l > 0)
+                                        //                            {
+                                        //                                if (!bEsInterInicio)
+                                        //                                {
+                                        //                                    oCant.iCantDesayunos++;
+                                        //                                    oCant.iCantComidas++;
+
+                                        //                                    oCom.iDesayunosNal++;
+                                        //                                    oCom.iComidaNal++;
+                                        //                                }
+                                        //                            }
+
+                                        //                            oCant.iCantCenasInt++;
+                                        //                            oCom.iCenaInt++;
+                                        //                        }
+                                        //                        else
+                                        //                        {
+                                        //                            if (l > 0)
+                                        //                            {
+                                        //                                if (bEsInterInicio)
+                                        //                                {
+                                        //                                    oCant.iCantDesayunosInt++;
+                                        //                                    oCant.iCantComidasInt++;
+
+                                        //                                    oCom.iDesayunosInt++;
+                                        //                                    oCom.iComidaInt++;
+                                        //                                }
+                                        //                            }
+
+                                        //                            oCant.iCantCenas++;
+                                        //                            oCom.iCenaNal++;
+                                        //                        }
+                                        //                    }
+                                        //                    else if ((fHoraInicio <= fInicioComida && (fHoraFinal > fInicioComida)) || (fHoraInicio > fInicioComida && fHoraInicio <= fFinComida) || (fHoraInicio < fInicioComida && fHoraFinal > fFinComida))
+                                        //                    {
+                                        //                        if (bEsInterFinal)
+                                        //                        {
+                                        //                            if (l > 0)
+                                        //                            {
+                                        //                                if (!bEsInterInicio)
+                                        //                                {
+                                        //                                    oCant.iCantDesayunos++;
+                                        //                                    oCom.iDesayunosNal++;
+                                        //                                }
+                                        //                            }
+
+
+                                        //                            oCant.iCantComidasInt++;
+                                        //                            oCant.iCantCenasInt++;
+
+                                        //                            oCom.iComidaInt++;
+                                        //                            oCom.iCenaInt++;
+                                        //                        }
+                                        //                        else
+                                        //                        {
+                                        //                            if (l > 0)
+                                        //                            {
+                                        //                                if (bEsInterInicio)
+                                        //                                {
+                                        //                                    oCant.iCantDesayunosInt++;
+                                        //                                    oCom.iDesayunosInt++;
+                                        //                                }
+                                        //                            }
+
+                                        //                            oCant.iCantComidas++;
+                                        //                            oCant.iCantCenas++;
+
+                                        //                            oCom.iComidaNal++;
+                                        //                            oCom.iCenaNal++;
+                                        //                        }
+                                        //                    }
+                                        //                    else if (fHoraInicio < fInicioDesayuno || (fHoraInicio > fInicioDesayuno && fHoraInicio < fFinDesayuno))
+                                        //                    {
+                                        //                        if (bEsInterFinal)
+                                        //                        {
+                                        //                            oCant.iCantDesayunosInt++;
+                                        //                            oCant.iCantComidasInt++;
+                                        //                            oCant.iCantCenasInt++;
+
+                                        //                            oCom.iDesayunosInt++;
+                                        //                            oCom.iComidaInt++;
+                                        //                            oCom.iCenaInt++;
+                                        //                        }
+                                        //                        else
+                                        //                        {
+                                        //                            oCom.iDesayunosNal++;
+                                        //                            oCom.iComidaNal++;
+                                        //                            oCom.iCenaNal++;
+
+                                        //                            oCant.iCantDesayunos++;
+                                        //                            oCant.iCantComidas++;
+                                        //                            oCant.iCantCenas++;
+                                        //                        }
+                                        //                    }
+                                        //                }
+                                        //                else
+                                        //                {
+                                        //                    if (bEsInterFinal)
+                                        //                    {
+                                        //                        oCant.iCantDesayunosInt++;
+                                        //                        oCant.iCantComidasInt++;
+                                        //                        oCant.iCantCenasInt++;
+
+                                        //                        oCom.iDesayunosInt++;
+                                        //                        oCom.iComidaInt++;
+                                        //                        oCom.iCenaInt++;
+                                        //                    }
+                                        //                    else
+                                        //                    {
+                                        //                        oCant.iCantDesayunos++;
+                                        //                        oCant.iCantComidas++;
+                                        //                        oCant.iCantCenas++;
+
+                                        //                        oCom.iDesayunosNal++;
+                                        //                        oCom.iComidaNal++;
+                                        //                        oCom.iCenaNal++;
+                                        //                    }
+                                        //                }
+
+                                        //                oLsComDia.Add(oCom);
+                                        //            }
+                                        //        }
+                                        //    }
+                                        //}
+                                        #endregion
 
                                         oCant.oLstPorDia = oLsComDia;
                                         ObtieneDiasViaticos(oLsComDia);
@@ -2040,27 +8718,233 @@ namespace ALE_MexJet.Presenter
                     oCom.sOrigen = sPOD;
                     oCom.sDestino = sPOA;
 
-                    if (fHoraInicio < fInicioDesayuno || (fHoraInicio > fInicioDesayuno && fHoraInicio < fFinDesayuno) || (fHoraInicio >= fInicioDesayuno && sPOD != sBase))
+                    #region DESAYUNO
+                    //if (fHoraInicio < fInicioDesayuno || (fHoraInicio > fInicioDesayuno && fHoraInicio < fFinDesayuno) || (fHoraInicio >= fInicioDesayuno && sPOD != sBase))
+                    //{
+                    //    if (bEsInterFinal)
+                    //        oCant.iCantDesayunosInt++;
+                    //    else
+                    //        oCant.iCantDesayunos++;
+                    //}
+
+                    //Primera condicion
+                    if (((fHoraInicio < fInicioDesayuno && fHoraFinal > fInicioDesayuno) && fHoraFinal < fFinDesayuno) && (sPOD != sBase))
+                    {
+                        //if (bEsInterFinal) { oCant.iCantDesayunosInt++; oComDia1.iDesayunosInt++; } else { oCant.iCantDesayunos++; oComDia1.iDesayunosNal++; }
+                        if (bEsInterFinal)
+                            oCant.iCantDesayunosInt++;
+                        else
+                            oCant.iCantDesayunos++;
+                    }
+                    //Segunda condición
+                    else if ((fHoraInicio > fInicioDesayuno && fHoraInicio < fFinDesayuno) && (fHoraFinal > fFinDesayuno && fHoraFinal > fInicioDesayuno) && (sPOD == sBase) && (fHoraFinal < fInicioComida)) //Evaluar antes de comida
+                    {
+                        //if (bEsInterFinal) { oCant.iCantDesayunosInt++; oComDia1.iDesayunosInt++; } else { oCant.iCantDesayunos++; oComDia1.iDesayunosNal++; }
+                        if (bEsInterFinal)
+                            oCant.iCantDesayunosInt++;
+                        else
+                            oCant.iCantDesayunos++;
+                    }
+                    //Tercera condición
+                    else if ((fHoraInicio >= fInicioDesayuno && fHoraFinal > fFinDesayuno) && (sPOD != sBase || sPOD == sBase))
                     {
                         if (bEsInterFinal)
                             oCant.iCantDesayunosInt++;
                         else
                             oCant.iCantDesayunos++;
                     }
-                    if ((fHoraInicio < fInicioComida && (fHoraFinal > fInicioComida)) || (fHoraInicio > fInicioComida && fHoraInicio < fFinComida) || (fHoraInicio < fInicioComida && fHoraFinal > fFinComida))
+                    //Cuarta condición
+                    else if ((fHoraInicio < fInicioDesayuno && fHoraFinal <= fInicioDesayuno) && (sPOD != sBase))
+                    {
+                        if (bEsInterFinal)
+                            oCant.iCantDesayunosInt++;
+                        else
+                            oCant.iCantDesayunos++;
+                    }
+                    //Quinta condición
+                    else if ((fHoraInicio < fInicioDesayuno && fHoraFinal < fInicioDesayuno) && (sPOD != sBase))
+                    {
+                        if (bEsInterFinal)
+                            oCant.iCantDesayunosInt++;
+                        else
+                            oCant.iCantDesayunos++;
+                    }
+                    //Sexta condición
+                    else if ((fHoraInicio < fInicioDesayuno && (fHoraFinal > fInicioDesayuno && fHoraFinal <= fFinDesayuno)) && (sPOD != sBase || sPOD == sBase))
+                    {
+                        if (bEsInterFinal)
+                            oCant.iCantDesayunosInt++;
+                        else
+                            oCant.iCantDesayunos++;
+                    }
+                    //Septima condición
+                    else if ((fHoraInicio >= fInicioDesayuno && fHoraInicio <= fFinDesayuno) && (fHoraFinal > fInicioDesayuno && fHoraFinal <= fFinDesayuno) && (sPOD != sBase || sPOD == sBase))
+                    {
+                        if (bEsInterFinal)
+                            oCant.iCantDesayunosInt++;
+                        else
+                            oCant.iCantDesayunos++;
+                    }
+
+                    //Octava condición
+                    else if ((fHoraInicio < fInicioDesayuno && (fHoraFinal > fInicioDesayuno && fHoraFinal >= fFinDesayuno)) && (sPOD != sBase || sPOD == sBase))
+                    {
+                        if (bEsInterFinal)
+                            oCant.iCantDesayunosInt++;
+                        else
+                            oCant.iCantDesayunos++;
+                    }
+                    #endregion
+
+                    #region COMIDA
+                    //if ((fHoraInicio < fInicioComida && (fHoraFinal > fInicioComida)) || (fHoraInicio > fInicioComida && fHoraInicio < fFinComida) || (fHoraInicio < fInicioComida && fHoraFinal > fFinComida))
+                    //{
+                    //    if (bEsInterFinal)
+                    //        oCant.iCantComidasInt++;
+                    //    else
+                    //        oCant.iCantComidas++;
+                    //}
+
+                    //Primera condicion Comidas
+                    if (((fHoraInicio < fInicioComida && fHoraFinal > fInicioComida) && fHoraFinal < fFinComida) && (sPOD != sBase))
                     {
                         if (bEsInterFinal)
                             oCant.iCantComidasInt++;
                         else
                             oCant.iCantComidas++;
                     }
-                    if ((fHoraInicio < fInicioCena && fHoraFinal > fInicioCena) || (fHoraInicio <= fFinCena && fHoraFinal > fInicioCena))
+                    //Segunda condición Comidas
+                    else if ((fHoraInicio > fInicioComida && fHoraInicio < fFinComida) && (fHoraFinal > fFinComida && fHoraFinal > fInicioComida) && (sPOD == sBase) && (fHoraFinal < fInicioCena)) //Evaluar antes de cena
+                    {
+                        if (bEsInterFinal)
+                            oCant.iCantComidasInt++;
+                        else
+                            oCant.iCantComidas++;
+                    }
+                    //Tercera condición Comidas
+                    else if ((fHoraInicio >= fInicioComida && fHoraFinal > fFinComida) && (sPOD != sBase || sPOD == sBase))
+                    {
+                        if (bEsInterFinal)
+                            oCant.iCantComidasInt++;
+                        else
+                            oCant.iCantComidas++;
+                    }
+                    //Cuarta condición Comidas
+                    else if ((fHoraInicio < fInicioComida && fHoraFinal <= fInicioComida) && (sPOD != sBase))
+                    {
+                        if (bEsInterFinal)
+                            oCant.iCantComidasInt++;
+                        else
+                            oCant.iCantComidas++;
+                    }
+                    //Quinta condición Comidas
+                    else if ((fHoraInicio < fInicioComida && fHoraFinal < fInicioComida) && (sPOD != sBase))
+                    {
+                        if (bEsInterFinal)
+                            oCant.iCantComidasInt++;
+                        else
+                            oCant.iCantComidas++;
+                    }
+                    //Sexta condición Comidas
+                    else if ((fHoraInicio < fInicioComida && (fHoraFinal > fInicioComida && fHoraFinal <= fFinComida)) && (sPOD != sBase || sPOD == sBase))
+                    {
+                        if (bEsInterFinal)
+                            oCant.iCantComidasInt++;
+                        else
+                            oCant.iCantComidas++;
+                    }
+                    //Septima condición Comidas
+                    else if ((fHoraInicio >= fInicioComida && fHoraInicio <= fFinComida) && (fHoraFinal > fInicioComida && fHoraFinal <= fFinComida) && (sPOD != sBase || sPOD == sBase))
+                    {
+                        if (bEsInterFinal)
+                            oCant.iCantComidasInt++;
+                        else
+                            oCant.iCantComidas++;
+                    }
+                    //Octava condición
+                    else if ((fHoraInicio < fInicioComida && (fHoraFinal > fInicioComida && fHoraFinal >= fFinComida)) && (sPOD != sBase || sPOD == sBase))
+                    {
+                        if (bEsInterFinal)
+                            oCant.iCantComidasInt++;
+                        else
+                            oCant.iCantComidas++;
+                    }
+                    #endregion
+
+                    #region CENA
+                    //if ((fHoraInicio < fInicioCena && fHoraFinal > fInicioCena) || (fHoraInicio <= fFinCena && fHoraFinal > fInicioCena))
+                    //{
+                    //    if (bEsInterFinal)
+                    //        oCant.iCantCenasInt++;
+                    //    else
+                    //        oCant.iCantCenas++;
+                    //}
+
+                    //Primera condicion Cenas
+                    if (((fHoraInicio < fInicioCena && fHoraFinal > fInicioCena) && fHoraFinal < fFinCena) && (sPOD != sBase))
                     {
                         if (bEsInterFinal)
                             oCant.iCantCenasInt++;
                         else
                             oCant.iCantCenas++;
                     }
+                    //Segunda condición Cenas
+                    else if ((fHoraInicio > fInicioCena && fHoraInicio < fFinCena) && (fHoraFinal > fFinCena && fHoraFinal > fInicioCena) && (sPOD == sBase))
+                    {
+                        if (bEsInterFinal)
+                            oCant.iCantCenasInt++;
+                        else
+                            oCant.iCantCenas++;
+                    }
+                    //Tercera condición Cenas
+                    else if ((fHoraInicio >= fInicioCena && fHoraFinal > fFinCena) && (sPOD != sBase || sPOD == sBase))
+                    {
+                        if (bEsInterFinal)
+                            oCant.iCantCenasInt++;
+                        else
+                            oCant.iCantCenas++;
+                    }
+                    //Cuarta condición Cenas
+                    else if ((fHoraInicio < fInicioCena && fHoraFinal <= fInicioCena) && (sPOD != sBase))
+                    {
+                        if (bEsInterFinal)
+                            oCant.iCantCenasInt++;
+                        else
+                            oCant.iCantCenas++;
+                    }
+                    //Quinta condición Cenas
+                    else if ((fHoraInicio < fInicioCena && fHoraFinal < fInicioCena) && (sPOD != sBase))
+                    {
+                        if (bEsInterFinal)
+                            oCant.iCantCenasInt++;
+                        else
+                            oCant.iCantCenas++;
+                    }
+                    //Sexta condición Cenas
+                    else if ((fHoraInicio < fInicioCena && (fHoraFinal > fInicioCena && fHoraFinal <= fFinCena)) && (sPOD != sBase || sPOD == sBase))
+                    {
+                        if (bEsInterFinal)
+                            oCant.iCantCenasInt++;
+                        else
+                            oCant.iCantCenas++;
+                    }
+                    //Septima condición Cenas
+                    else if ((fHoraInicio >= fInicioCena && fHoraInicio <= fFinCena) && (fHoraFinal > fInicioCena && fHoraFinal <= fFinCena) && (sPOD != sBase || sPOD == sBase))
+                    {
+                        if (bEsInterFinal)
+                            oCant.iCantCenasInt++;
+                        else
+                            oCant.iCantCenas++;
+                    }
+                    //Octava condición Cenas
+                    else if ((fHoraInicio < fInicioCena && (fHoraFinal > fInicioCena && fHoraFinal >= fFinCena)) && (sPOD != sBase || sPOD == sBase))
+                    {
+                        if (bEsInterFinal)
+                            oCant.iCantCenasInt++;
+                        else
+                            oCant.iCantCenas++;
+                    }
+                    #endregion
 
                     oCom.iDesayunosNal = oCant.iCantDesayunos;
                     oCom.iDesayunosInt = oCant.iCantDesayunosInt;
@@ -2079,7 +8963,7 @@ namespace ALE_MexJet.Presenter
                     oComDia1.sOrigen = sPOD;
                     oComDia1.sDestino = sPOA;
 
-
+                    #region COMENTADO CONDICIONES ANTERIORES
                     // DIA INICIAL
                     if (fHoraInicio < fInicioDesayuno || (fHoraInicio > fInicioDesayuno && fHoraInicio < fFinDesayuno))
                     {
@@ -2116,6 +9000,320 @@ namespace ALE_MexJet.Presenter
                         else
                             oCant.iCantCenas++;
                     }
+                    #endregion
+
+                    #region DESAYUNO
+                    //Primera condicion
+                    if (((fHoraInicio < fInicioDesayuno && fHoraFinal > fInicioDesayuno) && fHoraFinal < fFinDesayuno) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S()))
+                    {
+                        if (bEsInterFinal)
+                        {
+                            oCant.iCantDesayunosInt++;
+                            //oCant.iCantComidasInt++;
+                            //oCant.iCantCenasInt++;
+                        }
+                        else
+                        {
+                            oCant.iCantDesayunos++;
+                            //oCant.iCantComidas++;
+                            //oCant.iCantCenas++;
+                        }
+                    }
+                    //Segunda condición
+                    else if ((fHoraInicio > fInicioDesayuno && fHoraInicio < fFinDesayuno) && (fHoraFinal > fFinDesayuno && fHoraFinal > fInicioDesayuno) && (oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioComida)) //Evaluar antes de comida
+                    {
+                        if (bEsInterFinal)
+                        {
+                            oCant.iCantDesayunosInt++;
+                            //oCant.iCantComidasInt++;
+                            //oCant.iCantCenasInt++;
+                        }
+                        else
+                        {
+                            oCant.iCantDesayunos++;
+                            //oCant.iCantComidas++;
+                            //oCant.iCantCenas++;
+                        }
+                    }
+                    //Tercera condición
+                    else if ((fHoraInicio >= fInicioDesayuno && fHoraFinal > fFinDesayuno) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                    {
+                        if (bEsInterFinal)
+                        {
+                            oCant.iCantDesayunosInt++;
+                            //oCant.iCantComidasInt++;
+                            //oCant.iCantCenasInt++;
+                        }
+                        else
+                        {
+                            oCant.iCantDesayunos++;
+                            //oCant.iCantComidas++;
+                            //oCant.iCantCenas++;
+                        }
+                    }
+                    //Cuarta condición
+                    else if ((fHoraInicio < fInicioDesayuno && fHoraFinal <= fInicioDesayuno) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S()))
+                    {
+                        if (bEsInterFinal)
+                        {
+                            oCant.iCantDesayunosInt++;
+                            //oCant.iCantComidasInt++;
+                            //oCant.iCantCenasInt++;
+                        }
+                        else
+                        {
+                            oCant.iCantDesayunos++;
+                            //oCant.iCantComidas++;
+                            //oCant.iCantCenas++;
+                        }
+                    }
+                    //Quinta condición
+                    else if ((fHoraInicio < fInicioDesayuno && fHoraFinal < fInicioDesayuno) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S()))
+                    {
+                        if (bEsInterFinal)
+                        {
+                            oCant.iCantDesayunosInt++;
+                            //oCant.iCantComidasInt++;
+                            //oCant.iCantCenasInt++;
+                        }
+                        else
+                        {
+                            oCant.iCantDesayunos++;
+                            //oCant.iCantComidas++;
+                            //oCant.iCantCenas++;
+                        }
+                    }
+                    //Sexta condición
+                    else if ((fHoraInicio < fInicioDesayuno && (fHoraFinal > fInicioDesayuno && fHoraFinal <= fFinDesayuno)) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                    {
+                        if (bEsInterFinal)
+                        {
+                            oCant.iCantDesayunosInt++;
+                            //oCant.iCantComidasInt++;
+                            //oCant.iCantCenasInt++;
+                        }
+                        else
+                        {
+                            oCant.iCantDesayunos++;
+                            //oCant.iCantComidas++;
+                            //oCant.iCantCenas++;
+                        }
+                    }
+                    //Septima condición
+                    else if ((fHoraInicio >= fInicioDesayuno && fHoraInicio <= fFinDesayuno) && (fHoraFinal > fInicioDesayuno && fHoraFinal <= fFinDesayuno) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                    {
+                        if (bEsInterFinal)
+                        {
+                            oCant.iCantDesayunosInt++;
+                            //oCant.iCantComidasInt++;
+                            //oCant.iCantCenasInt++;
+                        }
+                        else
+                        {
+                            oCant.iCantDesayunos++;
+                            //oCant.iCantComidas++;
+                            //oCant.iCantCenas++;
+                        }
+                    }
+                    //Octava condición
+                    else if ((fHoraInicio < fInicioDesayuno && (fHoraFinal > fInicioDesayuno && fHoraFinal >= fFinDesayuno)) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                    {
+                        if (bEsInterFinal)
+                        {
+                            oCant.iCantDesayunosInt++;
+                            //oCant.iCantComidasInt++;
+                            //oCant.iCantCenasInt++;
+                        }
+                        else
+                        {
+                            oCant.iCantDesayunos++;
+                            //oCant.iCantComidas++;
+                            //oCant.iCantCenas++;
+                        }
+                    }
+                    #endregion
+
+                    #region COMIDA
+                    //Primera condicion Comidas
+                    if (((fHoraInicio < fInicioComida && fHoraFinal > fInicioComida) && fHoraFinal < fFinComida) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioCena))
+                    {
+                        if (bEsInterFinal)
+                        {
+                            oCant.iCantComidasInt++;
+                            //oCant.iCantCenasInt++;
+                        }
+                        else
+                        {
+                            oCant.iCantComidas++;
+                            //oCant.iCantCenas++;
+                        }
+                    }
+                    //Segunda condición Comidas
+                    else if ((fHoraInicio > fInicioComida && fHoraInicio < fFinComida) && (fHoraFinal > fFinComida && fHoraFinal > fInicioComida) && (oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioCena)) //Evaluar antes de cena
+                    {
+                        if (bEsInterFinal)
+                        {
+                            oCant.iCantComidasInt++;
+                            //oCant.iCantCenasInt++;
+                        }
+                        else
+                        {
+                            oCant.iCantComidas++;
+                            //oCant.iCantCenas++;
+                        }
+                    }
+                    //Tercera condición Comidas
+                    else if ((fHoraInicio >= fInicioComida && fHoraFinal > fFinComida) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioCena))
+                    {
+                        if (bEsInterFinal)
+                        {
+                            oCant.iCantComidasInt++;
+                            //oCant.iCantCenasInt++;
+                        }
+                        else
+                        {
+                            oCant.iCantComidas++;
+                            //oCant.iCantCenas++;
+                        }
+                    }
+                    //Cuarta condición Comidas
+                    else if ((fHoraInicio < fInicioComida && fHoraFinal <= fInicioComida) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioCena))
+                    {
+                        if (bEsInterFinal)
+                        {
+                            oCant.iCantComidasInt++;
+                            //oCant.iCantCenasInt++;
+                        }
+                        else
+                        {
+                            oCant.iCantComidas++;
+                            //oCant.iCantCenas++;
+                        }
+                    }
+                    //Quinta condición Comidas
+                    else if ((fHoraInicio < fInicioComida && fHoraFinal < fInicioComida) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioCena))
+                    {
+                        if (bEsInterFinal)
+                        {
+                            oCant.iCantComidasInt++;
+                            //oCant.iCantCenasInt++;
+                        }
+                        else
+                        {
+                            oCant.iCantComidas++;
+                            //oCant.iCantCenas++;
+                        }
+                    }
+                    //Sexta condición Comidas
+                    else if ((fHoraInicio < fInicioComida && (fHoraFinal > fInicioComida && fHoraFinal <= fFinComida)) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioCena))
+                    {
+                        if (bEsInterFinal)
+                        {
+                            oCant.iCantComidasInt++;
+                            //oCant.iCantCenasInt++;
+                        }
+                        else
+                        {
+                            oCant.iCantComidas++;
+                            //oCant.iCantCenas++;
+                        }
+                    }
+                    //Septima condición Comidas
+                    else if ((fHoraInicio >= fInicioComida && fHoraInicio <= fFinComida) && (fHoraFinal > fInicioComida && fHoraFinal <= fFinComida) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioCena))
+                    {
+                        if (bEsInterFinal)
+                        {
+                            oCant.iCantComidasInt++;
+                            //oCant.iCantCenasInt++;
+                        }
+                        else
+                        {
+                            oCant.iCantComidas++;
+                            //oCant.iCantCenas++;
+                        }
+                    }
+                    //Octava condición
+                    else if ((fHoraInicio < fInicioComida && (fHoraFinal > fInicioComida && fHoraFinal >= fFinComida)) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioCena))
+                    {
+                        if (bEsInterFinal)
+                        {
+                            oCant.iCantComidasInt++;
+                            //oCant.iCantCenasInt++;
+                        }
+                        else
+                        {
+                            oCant.iCantComidas++;
+                            //oCant.iCantCenas++;
+                        }
+                    }
+                    #endregion
+
+                    #region CENA
+                    //Primera condicion Cenas
+                    if (((fHoraInicio < fInicioCena && fHoraFinal > fInicioCena) && fHoraFinal < fFinCena) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S()))
+                    {
+                        if (bEsInterFinal)
+                            oCant.iCantCenasInt++;
+                        else
+                            oCant.iCantCenas++;
+                    }
+                    //Segunda condición Cenas
+                    else if ((fHoraInicio > fInicioCena && fHoraInicio < fFinCena) && (fHoraFinal > fFinCena && fHoraFinal > fInicioCena) && (oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                    {
+                        if (bEsInterFinal)
+                            oCant.iCantCenasInt++;
+                        else
+                            oCant.iCantCenas++;
+                    }
+                    //Tercera condición Cenas
+                    else if ((fHoraInicio >= fInicioCena && fHoraFinal > fFinCena) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                    {
+                        if (bEsInterFinal)
+                            oCant.iCantCenasInt++;
+                        else
+                            oCant.iCantCenas++;
+                    }
+                    //Cuarta condición Cenas
+                    else if ((fHoraInicio < fInicioCena && fHoraFinal <= fInicioCena) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S()))
+                    {
+                        if (bEsInterFinal)
+                            oCant.iCantCenasInt++;
+                        else
+                            oCant.iCantCenas++;
+                    }
+                    //Quinta condición Cenas
+                    else if ((fHoraInicio < fInicioCena && fHoraFinal < fInicioCena) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S()))
+                    {
+                        if (bEsInterFinal)
+                            oCant.iCantCenasInt++;
+                        else
+                            oCant.iCantCenas++;
+                    }
+                    //Sexta condición Cenas
+                    else if ((fHoraInicio < fInicioCena && (fHoraFinal > fInicioCena && fHoraFinal <= fFinCena)) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                    {
+                        if (bEsInterFinal)
+                            oCant.iCantCenasInt++;
+                        else
+                            oCant.iCantCenas++;
+                    }
+                    //Septima condición Cenas
+                    else if ((fHoraInicio >= fInicioCena && fHoraInicio <= fFinCena) && (fHoraFinal > fInicioCena && fHoraFinal <= fFinCena) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                    {
+                        if (bEsInterFinal)
+                            oCant.iCantCenasInt++;
+                        else
+                            oCant.iCantCenas++;
+                    }
+                    //Octava condición Cenas
+                    else if ((fHoraInicio < fInicioCena && (fHoraFinal > fInicioCena && fHoraFinal >= fFinCena)) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                    {
+                        if (bEsInterFinal)
+                            oCant.iCantCenasInt++;
+                        else
+                            oCant.iCantCenas++;
+                    }
+                    #endregion
 
                     oComDia1.dtFechaDia = dtInicial;
                     oComDia1.iDesayunosNal = oCant.iCantDesayunos;
@@ -2136,63 +9334,538 @@ namespace ALE_MexJet.Presenter
                     oComDia2.sOrigen = sPOD;
                     oComDia2.sDestino = sPOA;
 
-                    if (fHoraFinal > fFinCena || (fHoraFinal > fInicioCena && fHoraFinal < fFinCena))
+                    #region COMENTADO CONDICIONES ANTERIORES
+                    //if (fHoraFinal > fFinCena || (fHoraFinal > fInicioCena && fHoraFinal < fFinCena))
+                    //{
+                    //    if (bEsInterFinal)
+                    //    {
+                    //        oCant.iCantDesayunosInt++;
+                    //        oCant.iCantComidasInt++;
+                    //        oCant.iCantCenasInt++;
+
+                    //        oComDia2.iDesayunosInt++;
+                    //        oComDia2.iComidaInt++;
+                    //        oComDia2.iCenaInt++;
+                    //    }
+                    //    else
+                    //    {
+                    //        oCant.iCantDesayunos++;
+                    //        oCant.iCantComidas++;
+                    //        oCant.iCantCenas++;
+
+                    //        oComDia2.iDesayunosNal++;
+                    //        oComDia2.iComidaNal++;
+                    //        oComDia2.iCenaNal++;
+                    //    }
+                    //}
+                    //else if (fHoraFinal < fInicioCena && fHoraFinal > fInicioComida)
+                    //{
+                    //    if (bEsInterFinal)
+                    //    {
+                    //        oCant.iCantComidasInt++;
+                    //        oCant.iCantCenasInt++;
+
+                    //        oComDia2.iComidaInt++;
+                    //        oComDia2.iCenaInt++;
+                    //    }
+                    //    else
+                    //    {
+                    //        oCant.iCantComidas++;
+                    //        oCant.iCantCenas++;
+
+                    //        oComDia2.iComidaNal++;
+                    //        oComDia2.iCenaNal++;
+                    //    }
+                    //}
+                    //else if (fHoraFinal < fInicioComida && fHoraFinal > fInicioDesayuno)
+                    //{
+                    //    if (bEsInterFinal)
+                    //    {
+                    //        oCant.iCantDesayunosInt++;
+
+                    //        oComDia2.iDesayunosInt++;
+                    //    }
+                    //    else
+                    //    {
+                    //        oCant.iCantDesayunos++;
+
+                    //        oComDia2.iDesayunosNal++;
+                    //    }
+                    //}
+                    #endregion
+
+                    #region DESAYUNO
+                    //Primera condicion
+                    if (((fHoraInicio < fInicioDesayuno && fHoraFinal > fInicioDesayuno) && fHoraFinal < fFinDesayuno) && (oComDia2.sDestino != dtLegs.Rows[0]["HomeBase"].S()))
                     {
                         if (bEsInterFinal)
                         {
                             oCant.iCantDesayunosInt++;
-                            oCant.iCantComidasInt++;
-                            oCant.iCantCenasInt++;
-
                             oComDia2.iDesayunosInt++;
-                            oComDia2.iComidaInt++;
-                            oComDia2.iCenaInt++;
                         }
                         else
                         {
                             oCant.iCantDesayunos++;
-                            oCant.iCantComidas++;
-                            oCant.iCantCenas++;
-
                             oComDia2.iDesayunosNal++;
-                            oComDia2.iComidaNal++;
-                            oComDia2.iCenaNal++;
                         }
                     }
-                    else if (fHoraFinal < fInicioCena && fHoraFinal > fInicioComida)
-                    {
-                        if (bEsInterFinal)
-                        {
-                            oCant.iCantComidasInt++;
-                            oCant.iCantCenasInt++;
-
-                            oComDia2.iComidaInt++;
-                            oComDia2.iCenaInt++;
-                        }
-                        else
-                        {
-                            oCant.iCantComidas++;
-                            oCant.iCantCenas++;
-
-                            oComDia2.iComidaNal++;
-                            oComDia2.iCenaNal++;
-                        }
-                    }
-                    else if (fHoraFinal < fInicioComida && fHoraFinal > fInicioDesayuno)
+                    //Segunda condición
+                    else if ((fHoraInicio > fInicioDesayuno && fHoraInicio < fFinDesayuno) && (fHoraFinal > fFinDesayuno && fHoraFinal > fInicioDesayuno) && (oComDia2.sDestino == dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioComida)) //Evaluar antes de comida
                     {
                         if (bEsInterFinal)
                         {
                             oCant.iCantDesayunosInt++;
-
                             oComDia2.iDesayunosInt++;
                         }
                         else
                         {
                             oCant.iCantDesayunos++;
-
                             oComDia2.iDesayunosNal++;
                         }
                     }
+                    //Tercera condición
+                    else if ((fHoraInicio >= fInicioDesayuno && fHoraFinal > fFinDesayuno) && (oComDia2.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia2.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                    {
+                        if (bEsInterFinal)
+                        {
+                            oCant.iCantDesayunosInt++;
+                            oComDia2.iDesayunosInt++;
+                        }
+                        else
+                        {
+                            oCant.iCantDesayunos++;
+                            oComDia2.iDesayunosNal++;
+                        }
+                    }
+                    //Cuarta condición
+                    else if ((fHoraInicio < fInicioDesayuno && fHoraFinal <= fInicioDesayuno) && (oComDia2.sDestino != dtLegs.Rows[0]["HomeBase"].S()))
+                    {
+                        if (bEsInterFinal)
+                        {
+                            oCant.iCantDesayunosInt++;
+                            oComDia2.iDesayunosInt++;
+                        }
+                        else
+                        {
+                            oCant.iCantDesayunos++;
+                            oComDia2.iDesayunosNal++;
+                        }
+                    }
+                    //Quinta condición
+                    else if ((fHoraInicio < fInicioDesayuno && fHoraFinal < fInicioDesayuno) && (oComDia2.sDestino != dtLegs.Rows[0]["HomeBase"].S()))
+                    {
+                        if (bEsInterFinal)
+                        {
+                            oCant.iCantDesayunosInt++;
+                            oComDia2.iDesayunosInt++;
+                        }
+                        else
+                        {
+                            oCant.iCantDesayunos++;
+                            oComDia2.iDesayunosNal++;
+                        }
+                    }
+                    //Sexta condición
+                    else if ((fHoraInicio < fInicioDesayuno && (fHoraFinal > fInicioDesayuno && fHoraFinal <= fFinDesayuno)) && (oComDia2.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia2.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                    {
+                        if (bEsInterFinal)
+                        {
+                            oCant.iCantDesayunosInt++;
+                            oComDia2.iDesayunosInt++;
+                        }
+                        else
+                        {
+                            oCant.iCantDesayunos++;
+                            oComDia2.iDesayunosNal++;
+                        }
+                    }
+                    //Septima condición
+                    else if ((fHoraInicio >= fInicioDesayuno && fHoraInicio <= fFinDesayuno) && (fHoraFinal > fInicioDesayuno && fHoraFinal <= fFinDesayuno) && (oComDia2.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia2.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                    {
+                        if (bEsInterFinal)
+                        {
+                            oCant.iCantDesayunosInt++;
+                            oComDia2.iDesayunosInt++;
+                        }
+                        else
+                        {
+                            oCant.iCantDesayunos++;
+                            oComDia2.iDesayunosNal++;
+                        }
+                    }
+                    //Octava condición
+                    else if ((fHoraInicio < fInicioDesayuno && (fHoraFinal > fInicioDesayuno && fHoraFinal >= fFinDesayuno)) && (oComDia2.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia2.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                    {
+                        if (bEsInterFinal)
+                        {
+                            oCant.iCantDesayunosInt++;
+                            oComDia2.iDesayunosInt++;
+                        }
+                        else
+                        {
+                            oCant.iCantDesayunos++;
+                            oComDia2.iDesayunosNal++;
+                        }
+                    }
+                    #endregion
+
+                    #region COMIDA
+                    //Primera condicion Comidas
+                    if (((fHoraInicio < fInicioComida && fHoraFinal > fInicioComida) && fHoraFinal < fFinComida) && (oComDia2.sDestino != dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioCena))
+                    {
+                        if (bEsInterFinal)
+                        {
+                            oCant.iCantComidasInt++;
+                            //oCant.iCantCenasInt++;
+
+                            oComDia2.iComidaInt++;
+                            //oComDia2.iCenaInt++;
+                        }
+                        else
+                        {
+                            oCant.iCantComidas++;
+                            //oCant.iCantCenas++;
+
+                            oComDia2.iComidaNal++;
+                            //oComDia2.iCenaNal++;
+                        }
+                    }
+                    //Segunda condición Comidas
+                    else if ((fHoraInicio > fInicioComida && fHoraInicio < fFinComida) && (fHoraFinal > fFinComida && fHoraFinal > fInicioComida) && (oComDia2.sDestino == dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioCena)) //Evaluar antes de cena
+                    {
+                        if (bEsInterFinal)
+                        {
+                            oCant.iCantComidasInt++;
+                            //oCant.iCantCenasInt++;
+
+                            oComDia2.iComidaInt++;
+                            //oComDia2.iCenaInt++;
+                        }
+                        else
+                        {
+                            oCant.iCantComidas++;
+                            //oCant.iCantCenas++;
+
+                            oComDia2.iComidaNal++;
+                            //oComDia2.iCenaNal++;
+                        }
+                    }
+                    //Tercera condición Comidas
+                    else if ((fHoraInicio >= fInicioComida && fHoraFinal > fFinComida) && (oComDia2.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia2.sDestino == dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioCena))
+                    {
+                        if (bEsInterFinal)
+                        {
+                            oCant.iCantComidasInt++;
+                            //oCant.iCantCenasInt++;
+
+                            oComDia2.iComidaInt++;
+                            //oComDia2.iCenaInt++;
+                        }
+                        else
+                        {
+                            oCant.iCantComidas++;
+                            //oCant.iCantCenas++;
+
+                            oComDia2.iComidaNal++;
+                            //oComDia2.iCenaNal++;
+                        }
+                    }
+                    //Cuarta condición Comidas
+                    else if ((fHoraInicio < fInicioComida && fHoraFinal <= fInicioComida) && (oComDia2.sDestino != dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioCena))
+                    {
+                        if (bEsInterFinal)
+                        {
+                            oCant.iCantComidasInt++;
+                            //oCant.iCantCenasInt++;
+
+                            oComDia2.iComidaInt++;
+                            //oComDia2.iCenaInt++;
+                        }
+                        else
+                        {
+                            oCant.iCantComidas++;
+                            //oCant.iCantCenas++;
+
+                            oComDia2.iComidaNal++;
+                            //oComDia2.iCenaNal++;
+                        }
+                    }
+                    //Quinta condición Comidas
+                    else if ((fHoraInicio < fInicioComida && fHoraFinal < fInicioComida) && (oComDia2.sDestino != dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioCena))
+                    {
+                        if (bEsInterFinal)
+                        {
+                            oCant.iCantComidasInt++;
+                            //oCant.iCantCenasInt++;
+
+                            oComDia2.iComidaInt++;
+                            //oComDia2.iCenaInt++;
+                        }
+                        else
+                        {
+                            oCant.iCantComidas++;
+                            //oCant.iCantCenas++;
+
+                            oComDia2.iComidaNal++;
+                            //oComDia2.iCenaNal++;
+                        }
+                    }
+                    //Sexta condición Comidas
+                    else if ((fHoraInicio < fInicioComida && (fHoraFinal > fInicioComida && fHoraFinal <= fFinComida)) && (oComDia2.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia2.sDestino == dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioCena))
+                    {
+                        if (bEsInterFinal)
+                        {
+                            oCant.iCantComidasInt++;
+                            //oCant.iCantCenasInt++;
+
+                            oComDia2.iComidaInt++;
+                            //oComDia2.iCenaInt++;
+                        }
+                        else
+                        {
+                            oCant.iCantComidas++;
+                            //oCant.iCantCenas++;
+
+                            oComDia2.iComidaNal++;
+                            //oComDia2.iCenaNal++;
+                        }
+                    }
+                    //Septima condición Comidas
+                    else if ((fHoraInicio >= fInicioComida && fHoraInicio <= fFinComida) && (fHoraFinal > fInicioComida && fHoraFinal <= fFinComida) && (oComDia2.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia2.sDestino == dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioCena))
+                    {
+                        if (bEsInterFinal)
+                        {
+                            oCant.iCantComidasInt++;
+                            //oCant.iCantCenasInt++;
+
+                            oComDia2.iComidaInt++;
+                            //oComDia2.iCenaInt++;
+                        }
+                        else
+                        {
+                            oCant.iCantComidas++;
+                            //oCant.iCantCenas++;
+
+                            oComDia2.iComidaNal++;
+                            //oComDia2.iCenaNal++;
+                        }
+                    }
+                    //Octava condición
+                    else if ((fHoraInicio < fInicioComida && (fHoraFinal > fInicioComida && fHoraFinal >= fFinComida)) && (oComDia2.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia2.sDestino == dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioCena))
+                    {
+                        if (bEsInterFinal)
+                        {
+                            oCant.iCantComidasInt++;
+                            //oCant.iCantCenasInt++;
+
+                            oComDia2.iComidaInt++;
+                            //oComDia2.iCenaInt++;
+                        }
+                        else
+                        {
+                            oCant.iCantComidas++;
+                            //oCant.iCantCenas++;
+
+                            oComDia2.iComidaNal++;
+                            //oComDia2.iCenaNal++;
+                        }
+                    }
+                    #endregion
+
+                    #region CENA
+                    //Primera condicion Cenas
+                    if (((fHoraInicio < fInicioCena && fHoraFinal > fInicioCena) && fHoraFinal < fFinCena) && (oComDia2.sDestino != dtLegs.Rows[0]["HomeBase"].S()))
+                    {
+                        if (bEsInterFinal)
+                        {
+                            //oCant.iCantDesayunosInt++;
+                            //oCant.iCantComidasInt++;
+                            oCant.iCantCenasInt++;
+
+                            //oComDia2.iDesayunosInt++;
+                            //oComDia2.iComidaInt++;
+                            oComDia2.iCenaInt++;
+                        }
+                        else
+                        {
+                            //oCant.iCantDesayunos++;
+                            //oCant.iCantComidas++;
+                            oCant.iCantCenas++;
+
+                            //oComDia2.iDesayunosNal++;
+                            //oComDia2.iComidaNal++;
+                            oComDia2.iCenaNal++;
+                        }
+                    }
+                    //Segunda condición Cenas
+                    else if ((fHoraInicio > fInicioCena && fHoraInicio < fFinCena) && (fHoraFinal > fFinCena && fHoraFinal > fInicioCena) && (oComDia2.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                    {
+                        if (bEsInterFinal)
+                        {
+                            //oCant.iCantDesayunosInt++;
+                            //oCant.iCantComidasInt++;
+                            oCant.iCantCenasInt++;
+
+                            //oComDia2.iDesayunosInt++;
+                            //oComDia2.iComidaInt++;
+                            oComDia2.iCenaInt++;
+                        }
+                        else
+                        {
+                            //oCant.iCantDesayunos++;
+                            //oCant.iCantComidas++;
+                            oCant.iCantCenas++;
+
+                            //oComDia2.iDesayunosNal++;
+                            //oComDia2.iComidaNal++;
+                            oComDia2.iCenaNal++;
+                        }
+                    }
+                    //Tercera condición Cenas
+                    else if ((fHoraInicio >= fInicioCena && fHoraFinal > fFinCena) && (oComDia2.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia2.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                    {
+                        if (bEsInterFinal)
+                        {
+                            //oCant.iCantDesayunosInt++;
+                            //oCant.iCantComidasInt++;
+                            oCant.iCantCenasInt++;
+
+                            //oComDia2.iDesayunosInt++;
+                            //oComDia2.iComidaInt++;
+                            oComDia2.iCenaInt++;
+                        }
+                        else
+                        {
+                            //oCant.iCantDesayunos++;
+                            //oCant.iCantComidas++;
+                            oCant.iCantCenas++;
+
+                            //oComDia2.iDesayunosNal++;
+                            //oComDia2.iComidaNal++;
+                            oComDia2.iCenaNal++;
+                        }
+                    }
+                    //Cuarta condición Cenas
+                    else if ((fHoraInicio < fInicioCena && fHoraFinal <= fInicioCena) && (oComDia2.sDestino != dtLegs.Rows[0]["HomeBase"].S()))
+                    {
+                        if (bEsInterFinal)
+                        {
+                            //oCant.iCantDesayunosInt++;
+                            //oCant.iCantComidasInt++;
+                            oCant.iCantCenasInt++;
+
+                            //oComDia2.iDesayunosInt++;
+                            //oComDia2.iComidaInt++;
+                            oComDia2.iCenaInt++;
+                        }
+                        else
+                        {
+                            //oCant.iCantDesayunos++;
+                            //oCant.iCantComidas++;
+                            oCant.iCantCenas++;
+
+                            //oComDia2.iDesayunosNal++;
+                            //oComDia2.iComidaNal++;
+                            oComDia2.iCenaNal++;
+                        }
+                    }
+                    //Quinta condición Cenas
+                    else if ((fHoraInicio < fInicioCena && fHoraFinal < fInicioCena) && (oComDia2.sDestino != dtLegs.Rows[0]["HomeBase"].S()))
+                    {
+                        if (bEsInterFinal)
+                        {
+                            //oCant.iCantDesayunosInt++;
+                            //oCant.iCantComidasInt++;
+                            oCant.iCantCenasInt++;
+
+                            //oComDia2.iDesayunosInt++;
+                            //oComDia2.iComidaInt++;
+                            oComDia2.iCenaInt++;
+                        }
+                        else
+                        {
+                            //oCant.iCantDesayunos++;
+                            //oCant.iCantComidas++;
+                            oCant.iCantCenas++;
+
+                            //oComDia2.iDesayunosNal++;
+                            //oComDia2.iComidaNal++;
+                            oComDia2.iCenaNal++;
+                        }
+                    }
+                    //Sexta condición Cenas
+                    else if ((fHoraInicio < fInicioCena && (fHoraFinal > fInicioCena && fHoraFinal <= fFinCena)) && (oComDia2.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia2.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                    {
+                        if (bEsInterFinal)
+                        {
+                            //oCant.iCantDesayunosInt++;
+                            //oCant.iCantComidasInt++;
+                            oCant.iCantCenasInt++;
+
+                            //oComDia2.iDesayunosInt++;
+                            //oComDia2.iComidaInt++;
+                            oComDia2.iCenaInt++;
+                        }
+                        else
+                        {
+                            //oCant.iCantDesayunos++;
+                            //oCant.iCantComidas++;
+                            oCant.iCantCenas++;
+
+                            //oComDia2.iDesayunosNal++;
+                            //oComDia2.iComidaNal++;
+                            oComDia2.iCenaNal++;
+                        }
+                    }
+                    //Septima condición Cenas
+                    else if ((fHoraInicio >= fInicioCena && fHoraInicio <= fFinCena) && (fHoraFinal > fInicioCena && fHoraFinal <= fFinCena) && (oComDia2.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia2.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                    {
+                        if (bEsInterFinal)
+                        {
+                            //oCant.iCantDesayunosInt++;
+                            //oCant.iCantComidasInt++;
+                            oCant.iCantCenasInt++;
+
+                            //oComDia2.iDesayunosInt++;
+                            //oComDia2.iComidaInt++;
+                            oComDia2.iCenaInt++;
+                        }
+                        else
+                        {
+                            //oCant.iCantDesayunos++;
+                            //oCant.iCantComidas++;
+                            oCant.iCantCenas++;
+
+                            //oComDia2.iDesayunosNal++;
+                            //oComDia2.iComidaNal++;
+                            oComDia2.iCenaNal++;
+                        }
+                    }
+                    //Octava condición Cenas
+                    else if ((fHoraInicio < fInicioCena && (fHoraFinal > fInicioCena && fHoraFinal >= fFinCena)) && (oComDia2.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia2.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                    {
+                        if (bEsInterFinal)
+                        {
+                            //oCant.iCantDesayunosInt++;
+                            //oCant.iCantComidasInt++;
+                            oCant.iCantCenasInt++;
+
+                            //oComDia2.iDesayunosInt++;
+                            //oComDia2.iComidaInt++;
+                            oComDia2.iCenaInt++;
+                        }
+                        else
+                        {
+                            //oCant.iCantDesayunos++;
+                            //oCant.iCantComidas++;
+                            oCant.iCantCenas++;
+
+                            //oComDia2.iDesayunosNal++;
+                            //oComDia2.iComidaNal++;
+                            oComDia2.iCenaNal++;
+                        }
+                    }
+                    #endregion
 
                     oLst.Add(oComDia2);
                 }
@@ -2281,63 +9954,538 @@ namespace ALE_MexJet.Presenter
                         oComDia1.sOrigen = sPODLeg;
                         oComDia1.sDestino = sPOA;
 
-                        if (fHoraInicio < fInicioDesayuno || (fHoraInicio > fInicioDesayuno && fHoraInicio < fFinDesayuno))
+                        #region COMENTADO CONDICIONES ANTERIORES
+                        //if (fHoraInicio < fInicioDesayuno || (fHoraInicio > fInicioDesayuno && fHoraInicio < fFinDesayuno))
+                        //{
+                        //    if (bEsInterFinal)
+                        //    {
+                        //        oCant.iCantDesayunosInt++;
+                        //        oCant.iCantComidasInt++;
+                        //        oCant.iCantCenasInt++;
+
+                        //        oComDia1.iDesayunosInt++;
+                        //        oComDia1.iComidaInt++;
+                        //        oComDia1.iCenaInt++;
+                        //    }
+                        //    else
+                        //    {
+                        //        oCant.iCantDesayunos++;
+                        //        oCant.iCantComidas++;
+                        //        oCant.iCantCenas++;
+
+                        //        oComDia1.iDesayunosNal++;
+                        //        oComDia1.iComidaNal++;
+                        //        oComDia1.iCenaNal++;
+                        //    }
+                        //}
+                        //else if (fHoraInicio < fInicioComida && fHoraInicio > fFinDesayuno && fHoraInicio < fFinComida)
+                        //{
+                        //    if (bEsInterFinal)
+                        //    {
+                        //        oCant.iCantComidasInt++;
+                        //        oCant.iCantCenasInt++;
+
+                        //        oComDia1.iComidaInt++;
+                        //        oComDia1.iCenaInt++;
+                        //    }
+                        //    else
+                        //    {
+                        //        oCant.iCantComidas++;
+                        //        oCant.iCantCenas++;
+
+                        //        oComDia1.iComidaNal++;
+                        //        oComDia1.iCenaNal++;
+                        //    }
+                        //}
+                        //else if (fHoraInicio < fInicioCena && fHoraInicio > fFinComida && fHoraInicio < fFinCena)
+                        //{
+                        //    if (bEsInterFinal)
+                        //    {
+                        //        oCant.iCantCenasInt++;
+
+                        //        oComDia1.iCenaInt++;
+                        //    }
+                        //    else
+                        //    {
+                        //        oCant.iCantCenas++;
+
+                        //        oComDia1.iCenaNal++;
+                        //    }
+                        //}
+                        #endregion
+
+                        #region DESAYUNO
+                        //Primera condicion
+                        if (((fHoraInicio < fInicioDesayuno && fHoraFinal > fInicioDesayuno) && fHoraFinal < fFinDesayuno) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S()))
                         {
                             if (bEsInterFinal)
                             {
                                 oCant.iCantDesayunosInt++;
-                                oCant.iCantComidasInt++;
-                                oCant.iCantCenasInt++;
+                                //oCant.iCantComidasInt++;
+                                //oCant.iCantCenasInt++;
 
                                 oComDia1.iDesayunosInt++;
-                                oComDia1.iComidaInt++;
-                                oComDia1.iCenaInt++;
+                                //oComDia1.iComidaInt++;
+                                //oComDia1.iCenaInt++;
                             }
                             else
                             {
                                 oCant.iCantDesayunos++;
-                                oCant.iCantComidas++;
-                                oCant.iCantCenas++;
+                                //oCant.iCantComidas++;
+                                //oCant.iCantCenas++;
 
                                 oComDia1.iDesayunosNal++;
-                                oComDia1.iComidaNal++;
-                                oComDia1.iCenaNal++;
+                                //oComDia1.iComidaNal++;
+                                //oComDia1.iCenaNal++;
                             }
                         }
-                        else if (fHoraInicio < fInicioComida && fHoraInicio > fFinDesayuno && fHoraInicio < fFinComida)
+                        //Segunda condición
+                        else if ((fHoraInicio > fInicioDesayuno && fHoraInicio < fFinDesayuno) && (fHoraFinal > fFinDesayuno && fHoraFinal > fInicioDesayuno) && (oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioComida)) //Evaluar antes de comida
+                        {
+                            if (bEsInterFinal)
+                            {
+                                oCant.iCantDesayunosInt++;
+                                //oCant.iCantComidasInt++;
+                                //oCant.iCantCenasInt++;
+
+                                oComDia1.iDesayunosInt++;
+                                //oComDia1.iComidaInt++;
+                                //oComDia1.iCenaInt++;
+                            }
+                            else
+                            {
+                                oCant.iCantDesayunos++;
+                                //oCant.iCantComidas++;
+                                //oCant.iCantCenas++;
+
+                                oComDia1.iDesayunosNal++;
+                                //oComDia1.iComidaNal++;
+                                //oComDia1.iCenaNal++;
+                            }
+                        }
+                        //Tercera condición
+                        else if ((fHoraInicio >= fInicioDesayuno && fHoraFinal > fFinDesayuno) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                        {
+                            if (bEsInterFinal)
+                            {
+                                oCant.iCantDesayunosInt++;
+                                //oCant.iCantComidasInt++;
+                                //oCant.iCantCenasInt++;
+
+                                oComDia1.iDesayunosInt++;
+                                //oComDia1.iComidaInt++;
+                                //oComDia1.iCenaInt++;
+                            }
+                            else
+                            {
+                                oCant.iCantDesayunos++;
+                                //oCant.iCantComidas++;
+                                //oCant.iCantCenas++;
+
+                                oComDia1.iDesayunosNal++;
+                                //oComDia1.iComidaNal++;
+                                //oComDia1.iCenaNal++;
+                            }
+                        }
+                        //Cuarta condición
+                        else if ((fHoraInicio < fInicioDesayuno && fHoraFinal <= fInicioDesayuno) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S()))
+                        {
+                            if (bEsInterFinal)
+                            {
+                                oCant.iCantDesayunosInt++;
+                                //oCant.iCantComidasInt++;
+                                //oCant.iCantCenasInt++;
+
+                                oComDia1.iDesayunosInt++;
+                                //oComDia1.iComidaInt++;
+                                //oComDia1.iCenaInt++;
+                            }
+                            else
+                            {
+                                oCant.iCantDesayunos++;
+                                //oCant.iCantComidas++;
+                                //oCant.iCantCenas++;
+
+                                oComDia1.iDesayunosNal++;
+                                //oComDia1.iComidaNal++;
+                                //oComDia1.iCenaNal++;
+                            }
+                        }
+                        //Quinta condición
+                        else if ((fHoraInicio < fInicioDesayuno && fHoraFinal < fInicioDesayuno) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S()))
+                        {
+                            if (bEsInterFinal)
+                            {
+                                oCant.iCantDesayunosInt++;
+                                //oCant.iCantComidasInt++;
+                                //oCant.iCantCenasInt++;
+
+                                oComDia1.iDesayunosInt++;
+                                //oComDia1.iComidaInt++;
+                                //oComDia1.iCenaInt++;
+                            }
+                            else
+                            {
+                                oCant.iCantDesayunos++;
+                                //oCant.iCantComidas++;
+                                //oCant.iCantCenas++;
+
+                                oComDia1.iDesayunosNal++;
+                                //oComDia1.iComidaNal++;
+                                //oComDia1.iCenaNal++;
+                            }
+                        }
+                        //Sexta condición
+                        else if ((fHoraInicio < fInicioDesayuno && (fHoraFinal > fInicioDesayuno && fHoraFinal <= fFinDesayuno)) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                        {
+                            if (bEsInterFinal)
+                            {
+                                oCant.iCantDesayunosInt++;
+                                //oCant.iCantComidasInt++;
+                                //oCant.iCantCenasInt++;
+
+                                oComDia1.iDesayunosInt++;
+                                //oComDia1.iComidaInt++;
+                                //oComDia1.iCenaInt++;
+                            }
+                            else
+                            {
+                                oCant.iCantDesayunos++;
+                                //oCant.iCantComidas++;
+                                //oCant.iCantCenas++;
+
+                                oComDia1.iDesayunosNal++;
+                                //oComDia1.iComidaNal++;
+                                //oComDia1.iCenaNal++;
+                            }
+                        }
+                        //Septima condición
+                        else if ((fHoraInicio >= fInicioDesayuno && fHoraInicio <= fFinDesayuno) && (fHoraFinal > fInicioDesayuno && fHoraFinal <= fFinDesayuno) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                        {
+                            if (bEsInterFinal)
+                            {
+                                oCant.iCantDesayunosInt++;
+                                //oCant.iCantComidasInt++;
+                                //oCant.iCantCenasInt++;
+
+                                oComDia1.iDesayunosInt++;
+                                //oComDia1.iComidaInt++;
+                                //oComDia1.iCenaInt++;
+                            }
+                            else
+                            {
+                                oCant.iCantDesayunos++;
+                                //oCant.iCantComidas++;
+                                //oCant.iCantCenas++;
+
+                                oComDia1.iDesayunosNal++;
+                                //oComDia1.iComidaNal++;
+                                //oComDia1.iCenaNal++;
+                            }
+                        }
+                        //Octava condición
+                        else if ((fHoraInicio < fInicioDesayuno && (fHoraFinal > fInicioDesayuno && fHoraFinal >= fFinDesayuno)) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                        {
+                            if (bEsInterFinal)
+                            {
+                                oCant.iCantDesayunosInt++;
+                                //oCant.iCantComidasInt++;
+                                //oCant.iCantCenasInt++;
+
+                                oComDia1.iDesayunosInt++;
+                                //oComDia1.iComidaInt++;
+                                //oComDia1.iCenaInt++;
+                            }
+                            else
+                            {
+                                oCant.iCantDesayunos++;
+                                //oCant.iCantComidas++;
+                                //oCant.iCantCenas++;
+
+                                oComDia1.iDesayunosNal++;
+                                //oComDia1.iComidaNal++;
+                                //oComDia1.iCenaNal++;
+                            }
+                        }
+                        #endregion
+
+                        #region COMIDA
+                        //Primera condicion Comidas
+                        if (((fHoraInicio < fInicioComida && fHoraFinal > fInicioComida) && fHoraFinal < fFinComida) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioCena))
                         {
                             if (bEsInterFinal)
                             {
                                 oCant.iCantComidasInt++;
-                                oCant.iCantCenasInt++;
+                                //oCant.iCantCenasInt++;
 
                                 oComDia1.iComidaInt++;
-                                oComDia1.iCenaInt++;
+                                //oComDia1.iCenaInt++;
                             }
                             else
                             {
                                 oCant.iCantComidas++;
-                                oCant.iCantCenas++;
+                                //oCant.iCantCenas++;
 
                                 oComDia1.iComidaNal++;
-                                oComDia1.iCenaNal++;
+                                //oComDia1.iCenaNal++;
                             }
                         }
-                        else if (fHoraInicio < fInicioCena && fHoraInicio > fFinComida && fHoraInicio < fFinCena)
+                        //Segunda condición Comidas
+                        else if ((fHoraInicio > fInicioComida && fHoraInicio < fFinComida) && (fHoraFinal > fFinComida && fHoraFinal > fInicioComida) && (oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioCena)) //Evaluar antes de cena
+                        {
+                            if (bEsInterFinal)
+                            {
+                                oCant.iCantComidasInt++;
+                                //oCant.iCantCenasInt++;
+
+                                oComDia1.iComidaInt++;
+                                //oComDia1.iCenaInt++;
+                            }
+                            else
+                            {
+                                oCant.iCantComidas++;
+                                //oCant.iCantCenas++;
+
+                                oComDia1.iComidaNal++;
+                                //oComDia1.iCenaNal++;
+                            }
+                        }
+                        //Tercera condición Comidas
+                        else if ((fHoraInicio >= fInicioComida && fHoraFinal > fFinComida) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioCena))
+                        {
+                            if (bEsInterFinal)
+                            {
+                                oCant.iCantComidasInt++;
+                                //oCant.iCantCenasInt++;
+
+                                oComDia1.iComidaInt++;
+                                //oComDia1.iCenaInt++;
+                            }
+                            else
+                            {
+                                oCant.iCantComidas++;
+                                //oCant.iCantCenas++;
+
+                                oComDia1.iComidaNal++;
+                                //oComDia1.iCenaNal++;
+                            }
+                        }
+                        //Cuarta condición Comidas
+                        else if ((fHoraInicio < fInicioComida && fHoraFinal <= fInicioComida) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioCena))
+                        {
+                            if (bEsInterFinal)
+                            {
+                                oCant.iCantComidasInt++;
+                                //oCant.iCantCenasInt++;
+
+                                oComDia1.iComidaInt++;
+                                //oComDia1.iCenaInt++;
+                            }
+                            else
+                            {
+                                oCant.iCantComidas++;
+                                //oCant.iCantCenas++;
+
+                                oComDia1.iComidaNal++;
+                                //oComDia1.iCenaNal++;
+                            }
+                        }
+                        //Quinta condición Comidas
+                        else if ((fHoraInicio < fInicioComida && fHoraFinal < fInicioComida) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioCena))
+                        {
+                            if (bEsInterFinal)
+                            {
+                                oCant.iCantComidasInt++;
+                                //oCant.iCantCenasInt++;
+
+                                oComDia1.iComidaInt++;
+                                //oComDia1.iCenaInt++;
+                            }
+                            else
+                            {
+                                oCant.iCantComidas++;
+                                //oCant.iCantCenas++;
+
+                                oComDia1.iComidaNal++;
+                                //oComDia1.iCenaNal++;
+                            }
+                        }
+                        //Sexta condición Comidas
+                        else if ((fHoraInicio < fInicioComida && (fHoraFinal > fInicioComida && fHoraFinal <= fFinComida)) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioCena))
+                        {
+                            if (bEsInterFinal)
+                            {
+                                oCant.iCantComidasInt++;
+                                //oCant.iCantCenasInt++;
+
+                                oComDia1.iComidaInt++;
+                                //oComDia1.iCenaInt++;
+                            }
+                            else
+                            {
+                                oCant.iCantComidas++;
+                                //oCant.iCantCenas++;
+
+                                oComDia1.iComidaNal++;
+                                //oComDia1.iCenaNal++;
+                            }
+                        }
+                        //Septima condición Comidas
+                        else if ((fHoraInicio >= fInicioComida && fHoraInicio <= fFinComida) && (fHoraFinal > fInicioComida && fHoraFinal <= fFinComida) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioCena))
+                        {
+                            if (bEsInterFinal)
+                            {
+                                oCant.iCantComidasInt++;
+                                //oCant.iCantCenasInt++;
+
+                                oComDia1.iComidaInt++;
+                                //oComDia1.iCenaInt++;
+                            }
+                            else
+                            {
+                                oCant.iCantComidas++;
+                                //oCant.iCantCenas++;
+
+                                oComDia1.iComidaNal++;
+                                //oComDia1.iCenaNal++;
+                            }
+                        }
+                        //Octava condición
+                        else if ((fHoraInicio < fInicioComida && (fHoraFinal > fInicioComida && fHoraFinal >= fFinComida)) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioCena))
+                        {
+                            if (bEsInterFinal)
+                            {
+                                oCant.iCantComidasInt++;
+                                //oCant.iCantCenasInt++;
+
+                                oComDia1.iComidaInt++;
+                                //oComDia1.iCenaInt++;
+                            }
+                            else
+                            {
+                                oCant.iCantComidas++;
+                                //oCant.iCantCenas++;
+
+                                oComDia1.iComidaNal++;
+                                //oComDia1.iCenaNal++;
+                            }
+                        }
+                        #endregion
+
+                        #region CENA
+                        //Primera condicion Cenas
+                        if (((fHoraInicio < fInicioCena && fHoraFinal > fInicioCena) && fHoraFinal < fFinCena) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S()))
                         {
                             if (bEsInterFinal)
                             {
                                 oCant.iCantCenasInt++;
-
                                 oComDia1.iCenaInt++;
                             }
                             else
                             {
                                 oCant.iCantCenas++;
-
                                 oComDia1.iCenaNal++;
                             }
                         }
+                        //Segunda condición Cenas
+                        else if ((fHoraInicio > fInicioCena && fHoraInicio < fFinCena) && (fHoraFinal > fFinCena && fHoraFinal > fInicioCena) && (oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                        {
+                            if (bEsInterFinal)
+                            {
+                                oCant.iCantCenasInt++;
+                                oComDia1.iCenaInt++;
+                            }
+                            else
+                            {
+                                oCant.iCantCenas++;
+                                oComDia1.iCenaNal++;
+                            }
+                        }
+                        //Tercera condición Cenas
+                        else if ((fHoraInicio >= fInicioCena && fHoraFinal > fFinCena) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                        {
+                            if (bEsInterFinal)
+                            {
+                                oCant.iCantCenasInt++;
+                                oComDia1.iCenaInt++;
+                            }
+                            else
+                            {
+                                oCant.iCantCenas++;
+                                oComDia1.iCenaNal++;
+                            }
+                        }
+                        //Cuarta condición Cenas
+                        else if ((fHoraInicio < fInicioCena && fHoraFinal <= fInicioCena) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S()))
+                        {
+                            if (bEsInterFinal)
+                            {
+                                oCant.iCantCenasInt++;
+                                oComDia1.iCenaInt++;
+                            }
+                            else
+                            {
+                                oCant.iCantCenas++;
+                                oComDia1.iCenaNal++;
+                            }
+                        }
+                        //Quinta condición Cenas
+                        else if ((fHoraInicio < fInicioCena && fHoraFinal < fInicioCena) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S()))
+                        {
+                            if (bEsInterFinal)
+                            {
+                                oCant.iCantCenasInt++;
+                                oComDia1.iCenaInt++;
+                            }
+                            else
+                            {
+                                oCant.iCantCenas++;
+                                oComDia1.iCenaNal++;
+                            }
+                        }
+                        //Sexta condición Cenas
+                        else if ((fHoraInicio < fInicioCena && (fHoraFinal > fInicioCena && fHoraFinal <= fFinCena)) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                        {
+                            if (bEsInterFinal)
+                            {
+                                oCant.iCantCenasInt++;
+                                oComDia1.iCenaInt++;
+                            }
+                            else
+                            {
+                                oCant.iCantCenas++;
+                                oComDia1.iCenaNal++;
+                            }
+                        }
+                        //Septima condición Cenas
+                        else if ((fHoraInicio >= fInicioCena && fHoraInicio <= fFinCena) && (fHoraFinal > fInicioCena && fHoraFinal <= fFinCena) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                        {
+                            if (bEsInterFinal)
+                            {
+                                oCant.iCantCenasInt++;
+                                oComDia1.iCenaInt++;
+                            }
+                            else
+                            {
+                                oCant.iCantCenas++;
+                                oComDia1.iCenaNal++;
+                            }
+                        }
+                        //Octava condición Cenas
+                        else if ((fHoraInicio < fInicioCena && (fHoraFinal > fInicioCena && fHoraFinal >= fFinCena)) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                        {
+                            if (bEsInterFinal)
+                            {
+                                oCant.iCantCenasInt++;
+                                oComDia1.iCenaInt++;
+                            }
+                            else
+                            {
+                                oCant.iCantCenas++;
+                                oComDia1.iCenaNal++;
+                            }
+                        }
+                        #endregion
 
                         oLst.Add(oComDia1);
                     }
@@ -2386,67 +10534,667 @@ namespace ALE_MexJet.Presenter
                         oComDia2.sOrigen = sPODLeg;
                         oComDia2.sDestino = sPOA;
 
-                        if (fHoraFinal > fFinCena || (fHoraFinal > fInicioCena && fHoraFinal < fFinCena))
+                        #region COMENTADO CONDICIONES ANTERIORES
+                        //if (fHoraFinal > fFinCena || (fHoraFinal > fInicioCena && fHoraFinal < fFinCena))
+                        //{
+                        //    if (bEsInterFinal)
+                        //    {
+                        //        oCant.iCantDesayunosInt++;
+                        //        oCant.iCantComidasInt++;
+                        //        oCant.iCantCenasInt++;
+
+                        //        oComDia2.iDesayunosInt++;
+                        //        oComDia2.iComidaInt++;
+                        //        oComDia2.iCenaInt++;
+                        //    }
+                        //    else
+                        //    {
+                        //        oCant.iCantDesayunos++;
+                        //        oCant.iCantComidas++;
+                        //        oCant.iCantCenas++;
+
+                        //        oComDia2.iDesayunosNal++;
+                        //        oComDia2.iComidaNal++;
+                        //        oComDia2.iCenaNal++;
+                        //    }
+                        //}
+                        //else if (fHoraFinal < fInicioCena && fHoraFinal > fInicioComida)
+                        //{
+                        //    if (bEsInterFinal)
+                        //    {
+                        //        oCant.iCantComidasInt++;
+                        //        oCant.iCantCenasInt++;
+
+                        //        oComDia2.iComidaInt++;
+                        //        oComDia2.iCenaInt++;
+                        //    }
+                        //    else
+                        //    {
+                        //        oCant.iCantComidas++;
+                        //        oCant.iCantCenas++;
+
+                        //        oComDia2.iComidaNal++;
+                        //        oComDia2.iCenaNal++;
+                        //    }
+                        //}
+                        //else if (fHoraFinal < fInicioComida && fHoraFinal > fInicioDesayuno)
+                        //{
+                        //    if (bEsInterFinal)
+                        //    {
+                        //        oCant.iCantDesayunosInt++;
+
+                        //        oComDia2.iDesayunosInt++;
+                        //    }
+                        //    else
+                        //    {
+                        //        oCant.iCantDesayunos++;
+
+                        //        oComDia2.iDesayunosNal++;
+                        //    }
+                        //}
+                        #endregion
+
+                        #region DESAYUNO
+                        //Primera condicion
+                        if (((fHoraInicio < fInicioDesayuno && fHoraFinal > fInicioDesayuno) && fHoraFinal < fFinDesayuno) && (oComDia2.sDestino != dtLegs.Rows[0]["HomeBase"].S()))
                         {
                             if (bEsInterFinal)
                             {
                                 oCant.iCantDesayunosInt++;
-                                oCant.iCantComidasInt++;
-                                oCant.iCantCenasInt++;
-
                                 oComDia2.iDesayunosInt++;
-                                oComDia2.iComidaInt++;
-                                oComDia2.iCenaInt++;
                             }
                             else
                             {
                                 oCant.iCantDesayunos++;
-                                oCant.iCantComidas++;
-                                oCant.iCantCenas++;
-
                                 oComDia2.iDesayunosNal++;
-                                oComDia2.iComidaNal++;
-                                oComDia2.iCenaNal++;
                             }
                         }
-                        else if (fHoraFinal < fInicioCena && fHoraFinal > fInicioComida)
-                        {
-                            if (bEsInterFinal)
-                            {
-                                oCant.iCantComidasInt++;
-                                oCant.iCantCenasInt++;
-
-                                oComDia2.iComidaInt++;
-                                oComDia2.iCenaInt++;
-                            }
-                            else
-                            {
-                                oCant.iCantComidas++;
-                                oCant.iCantCenas++;
-
-                                oComDia2.iComidaNal++;
-                                oComDia2.iCenaNal++;
-                            }
-                        }
-                        else if (fHoraFinal < fInicioComida && fHoraFinal > fInicioDesayuno)
+                        //Segunda condición
+                        else if ((fHoraInicio > fInicioDesayuno && fHoraInicio < fFinDesayuno) && (fHoraFinal > fFinDesayuno && fHoraFinal > fInicioDesayuno) && (oComDia2.sDestino == dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioComida)) //Evaluar antes de comida
                         {
                             if (bEsInterFinal)
                             {
                                 oCant.iCantDesayunosInt++;
-
                                 oComDia2.iDesayunosInt++;
                             }
                             else
                             {
                                 oCant.iCantDesayunos++;
-
                                 oComDia2.iDesayunosNal++;
                             }
                         }
+                        //Tercera condición
+                        else if ((fHoraInicio >= fInicioDesayuno && fHoraFinal > fFinDesayuno) && (oComDia2.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia2.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                        {
+                            if (bEsInterFinal)
+                            {
+                                oCant.iCantDesayunosInt++;
+                                oComDia2.iDesayunosInt++;
+                            }
+                            else
+                            {
+                                oCant.iCantDesayunos++;
+                                oComDia2.iDesayunosNal++;
+                            }
+                        }
+                        //Cuarta condición
+                        else if ((fHoraInicio < fInicioDesayuno && fHoraFinal <= fInicioDesayuno) && (oComDia2.sDestino != dtLegs.Rows[0]["HomeBase"].S()))
+                        {
+                            if (bEsInterFinal)
+                            {
+                                oCant.iCantDesayunosInt++;
+                                oComDia2.iDesayunosInt++;
+                            }
+                            else
+                            {
+                                oCant.iCantDesayunos++;
+                                oComDia2.iDesayunosNal++;
+                            }
+                        }
+                        //Quinta condición
+                        else if ((fHoraInicio < fInicioDesayuno && fHoraFinal < fInicioDesayuno) && (oComDia2.sDestino != dtLegs.Rows[0]["HomeBase"].S()))
+                        {
+                            if (bEsInterFinal)
+                            {
+                                oCant.iCantDesayunosInt++;
+                                oComDia2.iDesayunosInt++;
+                            }
+                            else
+                            {
+                                oCant.iCantDesayunos++;
+                                oComDia2.iDesayunosNal++;
+                            }
+                        }
+                        //Sexta condición
+                        else if ((fHoraInicio < fInicioDesayuno && (fHoraFinal > fInicioDesayuno && fHoraFinal <= fFinDesayuno)) && (oComDia2.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia2.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                        {
+                            if (bEsInterFinal)
+                            {
+                                oCant.iCantDesayunosInt++;
+                                oComDia2.iDesayunosInt++;
+                            }
+                            else
+                            {
+                                oCant.iCantDesayunos++;
+                                oComDia2.iDesayunosNal++;
+                            }
+                        }
+                        //Septima condición
+                        else if ((fHoraInicio >= fInicioDesayuno && fHoraInicio <= fFinDesayuno) && (fHoraFinal > fInicioDesayuno && fHoraFinal <= fFinDesayuno) && (oComDia2.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia2.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                        {
+                            if (bEsInterFinal)
+                            {
+                                oCant.iCantDesayunosInt++;
+                                oComDia2.iDesayunosInt++;
+                            }
+                            else
+                            {
+                                oCant.iCantDesayunos++;
+                                oComDia2.iDesayunosNal++;
+                            }
+                        }
+                        //Octava condición
+                        else if ((fHoraInicio < fInicioDesayuno && (fHoraFinal > fInicioDesayuno && fHoraFinal >= fFinDesayuno)) && (oComDia2.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia2.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                        {
+                            if (bEsInterFinal)
+                            {
+                                oCant.iCantDesayunosInt++;
+                                oComDia2.iDesayunosInt++;
+                            }
+                            else
+                            {
+                                oCant.iCantDesayunos++;
+                                oComDia2.iDesayunosNal++;
+                            }
+                        }
+                        #endregion
+
+                        #region COMIDA
+                        //Primera condicion Comidas
+                        if (((fHoraInicio < fInicioComida && fHoraFinal > fInicioComida) && fHoraFinal < fFinComida) && (oComDia2.sDestino != dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioCena))
+                        {
+                            if (bEsInterFinal)
+                            {
+                                oCant.iCantComidasInt++;
+                                oComDia2.iComidaInt++;
+                            }
+                            else
+                            {
+                                oCant.iCantComidas++;
+                                oComDia2.iComidaNal++;
+                            }
+                        }
+                        //Segunda condición Comidas
+                        else if ((fHoraInicio > fInicioComida && fHoraInicio < fFinComida) && (fHoraFinal > fFinComida && fHoraFinal > fInicioComida) && (oComDia2.sDestino == dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioCena)) //Evaluar antes de cena
+                        {
+                            if (bEsInterFinal)
+                            {
+                                oCant.iCantComidasInt++;
+                                oComDia2.iComidaInt++;
+                            }
+                            else
+                            {
+                                oCant.iCantComidas++;
+                                oComDia2.iComidaNal++;
+                            }
+                        }
+                        //Tercera condición Comidas
+                        else if ((fHoraInicio >= fInicioComida && fHoraFinal > fFinComida) && (oComDia2.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia2.sDestino == dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioCena))
+                        {
+                            if (bEsInterFinal)
+                            {
+                                oCant.iCantComidasInt++;
+                                oComDia2.iComidaInt++;
+                            }
+                            else
+                            {
+                                oCant.iCantComidas++;
+                                oComDia2.iComidaNal++;
+                            }
+                        }
+                        //Cuarta condición Comidas
+                        else if ((fHoraInicio < fInicioComida && fHoraFinal <= fInicioComida) && (oComDia2.sDestino != dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioCena))
+                        {
+                            if (bEsInterFinal)
+                            {
+                                oCant.iCantComidasInt++;
+                                oComDia2.iComidaInt++;
+                            }
+                            else
+                            {
+                                oCant.iCantComidas++;
+                                oComDia2.iComidaNal++;
+                            }
+                        }
+                        //Quinta condición Comidas
+                        else if ((fHoraInicio < fInicioComida && fHoraFinal < fInicioComida) && (oComDia2.sDestino != dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioCena))
+                        {
+                            if (bEsInterFinal)
+                            {
+                                oCant.iCantComidasInt++;
+                                oComDia2.iComidaInt++;
+                            }
+                            else
+                            {
+                                oCant.iCantComidas++;
+                                oComDia2.iComidaNal++;
+                            }
+                        }
+                        //Sexta condición Comidas
+                        else if ((fHoraInicio < fInicioComida && (fHoraFinal > fInicioComida && fHoraFinal <= fFinComida)) && (oComDia2.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia2.sDestino == dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioCena))
+                        {
+                            if (bEsInterFinal)
+                            {
+                                oCant.iCantComidasInt++;
+                                oComDia2.iComidaInt++;
+                            }
+                            else
+                            {
+                                oCant.iCantComidas++;
+                                oComDia2.iComidaNal++;
+                            }
+                        }
+                        //Septima condición Comidas
+                        else if ((fHoraInicio >= fInicioComida && fHoraInicio <= fFinComida) && (fHoraFinal > fInicioComida && fHoraFinal <= fFinComida) && (oComDia2.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia2.sDestino == dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioCena))
+                        {
+                            if (bEsInterFinal)
+                            {
+                                oCant.iCantComidasInt++;
+                                oComDia2.iComidaInt++;
+                            }
+                            else
+                            {
+                                oCant.iCantComidas++;
+                                oComDia2.iComidaNal++;
+                            }
+                        }
+                        //Octava condición
+                        else if ((fHoraInicio < fInicioComida && (fHoraFinal > fInicioComida && fHoraFinal >= fFinComida)) && (oComDia2.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia2.sDestino == dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioCena))
+                        {
+                            if (bEsInterFinal)
+                            {
+                                oCant.iCantComidasInt++;
+                                oComDia2.iComidaInt++;
+                            }
+                            else
+                            {
+                                oCant.iCantComidas++;
+                                oComDia2.iComidaNal++;
+                            }
+                        }
+                        #endregion
+
+                        #region CENA
+                        //Primera condicion Cenas
+                        if (((fHoraInicio < fInicioCena && fHoraFinal > fInicioCena) && fHoraFinal < fFinCena) && (oComDia2.sDestino != dtLegs.Rows[0]["HomeBase"].S()))
+                        {
+                            if (bEsInterFinal)
+                            {
+                                //oCant.iCantDesayunosInt++;
+                                //oCant.iCantComidasInt++;
+                                oCant.iCantCenasInt++;
+
+                                //oComDia2.iDesayunosInt++;
+                                //oComDia2.iComidaInt++;
+                                oComDia2.iCenaInt++;
+                            }
+                            else
+                            {
+                                //oCant.iCantDesayunos++;
+                                //oCant.iCantComidas++;
+                                oCant.iCantCenas++;
+
+                                //oComDia2.iDesayunosNal++;
+                                //oComDia2.iComidaNal++;
+                                oComDia2.iCenaNal++;
+                            }
+                        }
+                        //Segunda condición Cenas
+                        else if ((fHoraInicio > fInicioCena && fHoraInicio < fFinCena) && (fHoraFinal > fFinCena && fHoraFinal > fInicioCena) && (oComDia2.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                        {
+                            if (bEsInterFinal)
+                            {
+                                //oCant.iCantDesayunosInt++;
+                                //oCant.iCantComidasInt++;
+                                oCant.iCantCenasInt++;
+
+                                //oComDia2.iDesayunosInt++;
+                                //oComDia2.iComidaInt++;
+                                oComDia2.iCenaInt++;
+                            }
+                            else
+                            {
+                                //oCant.iCantDesayunos++;
+                                //oCant.iCantComidas++;
+                                oCant.iCantCenas++;
+
+                                //oComDia2.iDesayunosNal++;
+                                //oComDia2.iComidaNal++;
+                                oComDia2.iCenaNal++;
+                            }
+                        }
+                        //Tercera condición Cenas
+                        else if ((fHoraInicio >= fInicioCena && fHoraFinal > fFinCena) && (oComDia2.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia2.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                        {
+                            if (bEsInterFinal)
+                            {
+                                //oCant.iCantDesayunosInt++;
+                                //oCant.iCantComidasInt++;
+                                oCant.iCantCenasInt++;
+
+                                //oComDia2.iDesayunosInt++;
+                                //oComDia2.iComidaInt++;
+                                oComDia2.iCenaInt++;
+                            }
+                            else
+                            {
+                                //oCant.iCantDesayunos++;
+                                //oCant.iCantComidas++;
+                                oCant.iCantCenas++;
+
+                                //oComDia2.iDesayunosNal++;
+                                //oComDia2.iComidaNal++;
+                                oComDia2.iCenaNal++;
+                            }
+                        }
+                        //Cuarta condición Cenas
+                        else if ((fHoraInicio < fInicioCena && fHoraFinal <= fInicioCena) && (oComDia2.sDestino != dtLegs.Rows[0]["HomeBase"].S()))
+                        {
+                            if (bEsInterFinal)
+                            {
+                                //oCant.iCantDesayunosInt++;
+                                //oCant.iCantComidasInt++;
+                                oCant.iCantCenasInt++;
+
+                                //oComDia2.iDesayunosInt++;
+                                //oComDia2.iComidaInt++;
+                                oComDia2.iCenaInt++;
+                            }
+                            else
+                            {
+                                //oCant.iCantDesayunos++;
+                                //oCant.iCantComidas++;
+                                oCant.iCantCenas++;
+
+                                //oComDia2.iDesayunosNal++;
+                                //oComDia2.iComidaNal++;
+                                oComDia2.iCenaNal++;
+                            }
+                        }
+                        //Quinta condición Cenas
+                        else if ((fHoraInicio < fInicioCena && fHoraFinal < fInicioCena) && (oComDia2.sDestino != dtLegs.Rows[0]["HomeBase"].S()))
+                        {
+                            if (bEsInterFinal)
+                            {
+                                //oCant.iCantDesayunosInt++;
+                                //oCant.iCantComidasInt++;
+                                oCant.iCantCenasInt++;
+
+                                //oComDia2.iDesayunosInt++;
+                                //oComDia2.iComidaInt++;
+                                oComDia2.iCenaInt++;
+                            }
+                            else
+                            {
+                                //oCant.iCantDesayunos++;
+                                //oCant.iCantComidas++;
+                                oCant.iCantCenas++;
+
+                                //oComDia2.iDesayunosNal++;
+                                //oComDia2.iComidaNal++;
+                                oComDia2.iCenaNal++;
+                            }
+                        }
+                        //Sexta condición Cenas
+                        else if ((fHoraInicio < fInicioCena && (fHoraFinal > fInicioCena && fHoraFinal <= fFinCena)) && (oComDia2.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia2.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                        {
+                            if (bEsInterFinal)
+                            {
+                                //oCant.iCantDesayunosInt++;
+                                //oCant.iCantComidasInt++;
+                                oCant.iCantCenasInt++;
+
+                                //oComDia2.iDesayunosInt++;
+                                //oComDia2.iComidaInt++;
+                                oComDia2.iCenaInt++;
+                            }
+                            else
+                            {
+                                //oCant.iCantDesayunos++;
+                                //oCant.iCantComidas++;
+                                oCant.iCantCenas++;
+
+                                //oComDia2.iDesayunosNal++;
+                                //oComDia2.iComidaNal++;
+                                oComDia2.iCenaNal++;
+                            }
+                        }
+                        //Septima condición Cenas
+                        else if ((fHoraInicio >= fInicioCena && fHoraInicio <= fFinCena) && (fHoraFinal > fInicioCena && fHoraFinal <= fFinCena) && (oComDia2.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia2.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                        {
+                            if (bEsInterFinal)
+                            {
+                                //oCant.iCantDesayunosInt++;
+                                //oCant.iCantComidasInt++;
+                                oCant.iCantCenasInt++;
+
+                                //oComDia2.iDesayunosInt++;
+                                //oComDia2.iComidaInt++;
+                                oComDia2.iCenaInt++;
+                            }
+                            else
+                            {
+                                //oCant.iCantDesayunos++;
+                                //oCant.iCantComidas++;
+                                oCant.iCantCenas++;
+
+                                //oComDia2.iDesayunosNal++;
+                                //oComDia2.iComidaNal++;
+                                oComDia2.iCenaNal++;
+                            }
+                        }
+                        //Octava condición Cenas
+                        else if ((fHoraInicio < fInicioCena && (fHoraFinal > fInicioCena && fHoraFinal >= fFinCena)) && (oComDia2.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia2.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                        {
+                            if (bEsInterFinal)
+                            {
+                                //oCant.iCantDesayunosInt++;
+                                //oCant.iCantComidasInt++;
+                                oCant.iCantCenasInt++;
+
+                                //oComDia2.iDesayunosInt++;
+                                //oComDia2.iComidaInt++;
+                                oComDia2.iCenaInt++;
+                            }
+                            else
+                            {
+                                //oCant.iCantDesayunos++;
+                                //oCant.iCantComidas++;
+                                oCant.iCantCenas++;
+
+                                //oComDia2.iDesayunosNal++;
+                                //oComDia2.iComidaNal++;
+                                oComDia2.iCenaNal++;
+                            }
+                        }
+                        #endregion
 
                         oLst.Add(oComDia2);
                     }
                 }
+
+
+                #region CODIGO CUANDO ES UN DIA AGREGADO TEMPORALMENTE PARA REVISAR FUNCIONAMIENTO PARA MAS DE DOS DÍAS
+                //for (int k = 0; k < rowsD.Length; k++)
+                //{
+                //    ComidasPorDia oComDia1 = new ComidasPorDia();
+                //    oComDia1.sClavePiloto = drP["ClavePiloto"].S();
+                //    oComDia1.dtFechaDia = rowsD[k][FechaInicio].S().Dt();
+                //    oComDia1.dtFechaFin = rowsD[k][FechaFin].S().Dt();
+                //    oComDia1.sduty_type = rowsD[k]["DutyType"].S();
+                //    oComDia1.sOrigen = rowsD[k]["POD"].S();
+                //    oComDia1.sDestino = rowsD[k]["POA"].S();
+
+                //    fHoraInicio = 0;
+                //    fHoraFinal = 0;
+
+                //    bEsInterInicio = false;
+                //    bEsInterFinal = false;
+
+                //    bEsInterInicio = rowsD[k]["PaisPOD"].S() == "MX" ? false : true;
+                //    bEsInterFinal = rowsD[k]["PaisPOA"].S() == "MX" ? false : true;
+
+                //    DateTime dtIniDia = rowsD[0][FechaInicio].S().Dt();
+                //    DateTime dtFinDia = rowsD[k][FechaFin].S().Dt();
+
+                //    fHoraInicio = dtIniDia.Hour + (dtIniDia.Minute / float.Parse("60"));
+                //    fHoraFinal = dtFinDia.Hour + (dtFinDia.Minute / float.Parse("60"));
+
+                //    if (l > 0 && k == 0)
+                //        fHoraInicio = 0;
+
+                //    if (k + 1 == rowsD.Length)
+                //    {
+
+                //        #region DESAYUNO
+                //        //if (fHoraInicio < fInicioDesayuno || (fHoraInicio > fInicioDesayuno && fHoraInicio < fFinDesayuno)) //Linea origen
+
+                //        //Primera condicion
+                //        if (((fHoraInicio < fInicioDesayuno && fHoraFinal > fInicioDesayuno) && fHoraFinal < fFinDesayuno) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S()))
+                //        {
+                //            if (bEsInterFinal) { oCant.iCantDesayunosInt++; oComDia1.iDesayunosInt++; } else { oCant.iCantDesayunos++; oComDia1.iDesayunosNal++; }
+                //        }
+                //        //Segunda condición
+                //        else if ((fHoraInicio > fInicioDesayuno && fHoraInicio < fFinDesayuno) && (fHoraFinal > fFinDesayuno && fHoraFinal > fInicioDesayuno) && (oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioComida)) //Evaluar antes de comida
+                //        {
+                //            if (bEsInterFinal) { oCant.iCantDesayunosInt++; oComDia1.iDesayunosInt++; } else { oCant.iCantDesayunos++; oComDia1.iDesayunosNal++; }
+                //        }
+                //        //Tercera condición
+                //        else if ((fHoraInicio >= fInicioDesayuno && fHoraFinal > fFinDesayuno) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                //        {
+                //            if (bEsInterFinal) { oCant.iCantDesayunosInt++; oComDia1.iDesayunosInt++; } else { oCant.iCantDesayunos++; oComDia1.iDesayunosNal++; }
+                //        }
+                //        //Cuarta condición
+                //        else if ((fHoraInicio < fInicioDesayuno && fHoraFinal <= fInicioDesayuno) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S()))
+                //        {
+                //            if (bEsInterFinal) { oCant.iCantDesayunosInt++; oComDia1.iDesayunosInt++; } else { oCant.iCantDesayunos++; oComDia1.iDesayunosNal++; }
+                //        }
+                //        //Quinta condición
+                //        else if ((fHoraInicio < fInicioDesayuno && fHoraFinal < fInicioDesayuno) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S()))
+                //        {
+                //            if (bEsInterFinal) { oCant.iCantDesayunosInt++; oComDia1.iDesayunosInt++; } else { oCant.iCantDesayunos++; oComDia1.iDesayunosNal++; }
+                //        }
+                //        //Sexta condición
+                //        else if ((fHoraInicio < fInicioDesayuno && (fHoraFinal > fInicioDesayuno && fHoraFinal <= fFinDesayuno)) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                //        {
+                //            if (bEsInterFinal) { oCant.iCantDesayunosInt++; oComDia1.iDesayunosInt++; } else { oCant.iCantDesayunos++; oComDia1.iDesayunosNal++; }
+                //        }
+                //        //Septima condición
+                //        else if ((fHoraInicio >= fInicioDesayuno && fHoraInicio <= fFinDesayuno) && (fHoraFinal > fInicioDesayuno && fHoraFinal <= fFinDesayuno) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                //        {
+                //            if (bEsInterFinal) { oCant.iCantDesayunosInt++; oComDia1.iDesayunosInt++; } else { oCant.iCantDesayunos++; oComDia1.iDesayunosNal++; }
+                //        }
+
+                //        //Octava condición
+                //        else if ((fHoraInicio < fInicioDesayuno && (fHoraFinal > fInicioDesayuno && fHoraFinal >= fFinDesayuno)) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                //        {
+                //            if (bEsInterFinal) { oCant.iCantDesayunosInt++; oComDia1.iDesayunosInt++; } else { oCant.iCantDesayunos++; oComDia1.iDesayunosNal++; }
+                //        }
+                //        #endregion
+
+                //        #region COMIDA
+                //        ////Primera condicion Comidas
+                //        //if (((fHoraInicio < fInicioComida && fHoraFinal > fInicioComida) && fHoraFinal < fFinComida) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S()))
+                //        //{
+                //        //    if (bEsInterFinal) { oCant.iCantComidasInt++; oComDia1.iComidaInt++; } else { oCant.iCantComidas++; oComDia1.iComidaNal++; }
+                //        //}
+                //        ////Segunda condición Comidas
+                //        //else if ((fHoraInicio > fInicioComida && fHoraInicio < fFinComida) && (fHoraFinal > fFinComida && fHoraFinal > fInicioComida) && (oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioCena)) //Evaluar antes de cena
+                //        //{
+                //        //    if (bEsInterFinal) { oCant.iCantComidasInt++; oComDia1.iComidaInt++; } else { oCant.iCantComidas++; oComDia1.iComidaNal++; }
+                //        //}
+                //        ////Tercera condición Comidas
+                //        //else if ((fHoraInicio >= fInicioComida && fHoraFinal > fFinComida) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                //        //{
+                //        //    if (bEsInterFinal) { oCant.iCantComidasInt++; oComDia1.iComidaInt++; } else { oCant.iCantComidas++; oComDia1.iComidaNal++; }
+                //        //}
+                //        ////Cuarta condición Comidas
+                //        //else if ((fHoraInicio < fInicioComida && fHoraFinal <= fInicioComida) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S()))
+                //        //{
+                //        //    if (bEsInterFinal) { oCant.iCantComidasInt++; oComDia1.iComidaInt++; } else { oCant.iCantComidas++; oComDia1.iComidaNal++; }
+                //        //}
+                //        ////Quinta condición Comidas
+                //        //else if ((fHoraInicio < fInicioComida && fHoraFinal < fInicioComida) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S()))
+                //        //{
+                //        //    if (bEsInterFinal) { oCant.iCantComidasInt++; oComDia1.iComidaInt++; } else { oCant.iCantComidas++; oComDia1.iComidaNal++; }
+                //        //}
+                //        ////Sexta condición Comidas
+                //        //else if ((fHoraInicio < fInicioComida && (fHoraFinal > fInicioComida && fHoraFinal <= fFinComida)) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                //        //{
+                //        //    if (bEsInterFinal) { oCant.iCantComidasInt++; oComDia1.iComidaInt++; } else { oCant.iCantComidas++; oComDia1.iComidaNal++; }
+                //        //}
+                //        ////Septima condición Comidas
+                //        //else if ((fHoraInicio >= fInicioComida && fHoraInicio <= fFinComida) && (fHoraFinal > fInicioComida && fHoraFinal <= fFinComida) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                //        //{
+                //        //    if (bEsInterFinal) { oCant.iCantComidasInt++; oComDia1.iComidaInt++; } else { oCant.iCantComidas++; oComDia1.iComidaNal++; }
+                //        //}
+                //        ////Octava condición
+                //        //else if ((fHoraInicio < fInicioComida && (fHoraFinal > fInicioComida && fHoraFinal >= fFinComida)) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                //        //{
+                //        //    if (bEsInterFinal) { oCant.iCantComidasInt++; oComDia1.iComidaInt++; } else { oCant.iCantComidas++; oComDia1.iComidaNal++; }
+                //        //}
+                //        #endregion
+
+                //        #region CENA
+                //        ////Primera condicion Cenas
+                //        //if (((fHoraInicio < fInicioCena && fHoraFinal > fInicioCena) && fHoraFinal < fFinCena) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S()))
+                //        //{
+                //        //    if (bEsInterFinal) { oCant.iCantCenasInt++; oComDia1.iCenaInt++; } else { oCant.iCantCenas++; oComDia1.iCenaNal++; }
+                //        //}
+                //        ////Segunda condición Cenas
+                //        //else if ((fHoraInicio > fInicioCena && fHoraInicio < fFinCena) && (fHoraFinal > fFinCena && fHoraFinal > fInicioCena) && (oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                //        //{
+                //        //    if (bEsInterFinal) { oCant.iCantCenasInt++; oComDia1.iCenaInt++; } else { oCant.iCantCenas++; oComDia1.iCenaNal++; }
+                //        //}
+                //        ////Tercera condición Cenas
+                //        //else if ((fHoraInicio >= fInicioCena && fHoraFinal > fFinCena) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                //        //{
+                //        //    if (bEsInterFinal) { oCant.iCantCenasInt++; oComDia1.iCenaInt++; } else { oCant.iCantCenas++; oComDia1.iCenaNal++; }
+                //        //}
+                //        ////Cuarta condición Cenas
+                //        //else if ((fHoraInicio < fInicioCena && fHoraFinal <= fInicioCena) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S()))
+                //        //{
+                //        //    if (bEsInterFinal) { oCant.iCantCenasInt++; oComDia1.iCenaInt++; } else { oCant.iCantCenas++; oComDia1.iCenaNal++; }
+                //        //}
+                //        ////Quinta condición Cenas
+                //        //else if ((fHoraInicio < fInicioCena && fHoraFinal < fInicioCena) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S()))
+                //        //{
+                //        //    if (bEsInterFinal) { oCant.iCantCenasInt++; oComDia1.iCenaInt++; } else { oCant.iCantCenas++; oComDia1.iCenaNal++; }
+                //        //}
+                //        ////Sexta condición Cenas
+                //        //else if ((fHoraInicio < fInicioCena && (fHoraFinal > fInicioCena && fHoraFinal <= fFinCena)) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                //        //{
+                //        //    if (bEsInterFinal) { oCant.iCantCenasInt++; oComDia1.iCenaInt++; } else { oCant.iCantCenas++; oComDia1.iCenaNal++; }
+                //        //}
+                //        ////Septima condición Cenas
+                //        //else if ((fHoraInicio >= fInicioCena && fHoraInicio <= fFinCena) && (fHoraFinal > fInicioCena && fHoraFinal <= fFinCena) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                //        //{
+                //        //    if (bEsInterFinal) { oCant.iCantCenasInt++; oComDia1.iCenaInt++; } else { oCant.iCantCenas++; oComDia1.iCenaNal++; }
+                //        //}
+                //        ////Octava condición Cenas
+                //        //else if ((fHoraInicio < fInicioCena && (fHoraFinal > fInicioCena && fHoraFinal >= fFinCena)) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                //        //{
+                //        //    if (bEsInterFinal) { oCant.iCantCenasInt++; oComDia1.iCenaInt++; } else { oCant.iCantCenas++; oComDia1.iCenaNal++; }
+                //        //}
+                //        #endregion
+
+                //    }
+
+                //    oLsComDia.Add(oComDia1);
+                //}
+                #endregion
+
+
 
                 return oCant;
             }
