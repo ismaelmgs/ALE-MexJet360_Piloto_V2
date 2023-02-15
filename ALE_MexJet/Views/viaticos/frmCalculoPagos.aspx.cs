@@ -158,23 +158,22 @@ namespace ALE_MexJet.Views.viaticos
                         if (eSearchAjustesPiloto != null)
                             eSearchAjustesPiloto(sender, e);
 
+                        
+                        
                         //-----------------------------------------------------
-
-
-                        pnlDatosPiloto.Visible = true;
-                        pnlBusqueda.Visible = false;
-                        pnlVuelos.Visible = false;
-                        pnlCalcularViaticos.Visible = true;
-                        upaVuelos.Update();
 
                         if (eSearchCalculos != null)
                             eSearchCalculos(sender, e);
 
-                        if (dtCalculos != null && dtCalculos.Rows.Count > 0)
-                        {
-                            CargaViaticos();
-                        }
+                        if (dtCalculos2 != null && dtCalculos2.Rows.Count > 0)
+                            CargaViaticosGuardados();
+
                     }
+                    pnlBusqueda.Visible = false;
+                    pnlVuelos.Visible = false;
+                    pnlCalcularViaticos.Visible = true;
+                    pnlDatosPiloto.Visible = true;
+                    //upaVuelos.Update();
 
                 }
                 else if (e.CommandArgs.CommandName.S() == "Ajustes")
@@ -324,7 +323,7 @@ namespace ALE_MexJet.Views.viaticos
                         pnlBusqueda.Visible = false;
                         pnlVuelos.Visible = false;
                         pnlCalcularViaticos.Visible = true;
-                        upaVuelos.Update();
+                        //upaVuelos.Update();
 
                         if (eSearchCalculos != null)
                             eSearchCalculos(sender, e);
@@ -434,7 +433,7 @@ namespace ALE_MexJet.Views.viaticos
                             if (dtConceptos.Rows[x]["DesConcepto"].S().ToUpper() == dtNal.Rows[i]["CONCEPTO"].S().ToUpper())
                             {
                                 iIdConcepto = dtConceptos.Rows[x]["IdConcepto"].S().I();
-                                dMonto = dtConceptos.Rows[x]["MontoMXN"].S().D();
+                                dMonto = dtConceptos.Rows[x]["MontoMXN"].S().Replace(" MXN", "").D();
                                 break;
                             }
                         }
@@ -462,7 +461,7 @@ namespace ALE_MexJet.Views.viaticos
                             if (dtConceptos.Rows[x]["DesConcepto"].S().ToUpper() == dtInt.Rows[i]["CONCEPTO"].S().ToUpper())
                             {
                                 iIdConcepto = dtConceptos.Rows[x]["IdConcepto"].S().I();
-                                dMonto = dtConceptos.Rows[x]["MontoUSD"].S().D();
+                                dMonto = dtConceptos.Rows[x]["MontoUSD"].S().Replace(" USD", "").D();
                                 break;
                             }
                         }
@@ -568,7 +567,7 @@ namespace ALE_MexJet.Views.viaticos
                         if (dtConceptos.Rows[x]["DesConcepto"].S().ToUpper() == "DESAYUNO")
                         {
                             iIdConcepto = dtConceptos.Rows[x]["IdConcepto"].S().I();
-                            dMonto = dtConceptos.Rows[x]["MontoMXN"].S().D();
+                            dMonto = dtConceptos.Rows[x]["MontoMXN"].S().Replace(" MXN", "").D();
 
                             oCP.IIdConcepto = iIdConcepto;
                             oCP.SDesConcepto = dtConceptos.Rows[x]["DesConcepto"].S();
@@ -581,7 +580,7 @@ namespace ALE_MexJet.Views.viaticos
                         else if (dtConceptos.Rows[x]["DesConcepto"].S().ToUpper() == "COMIDA")
                         {
                             iIdConcepto = dtConceptos.Rows[x]["IdConcepto"].S().I();
-                            dMonto = dtConceptos.Rows[x]["MontoMXN"].S().D();
+                            dMonto = dtConceptos.Rows[x]["MontoMXN"].S().Replace(" MXN", "").D();
 
                             oCP.IIdConcepto = iIdConcepto;
                             oCP.SDesConcepto = dtConceptos.Rows[x]["DesConcepto"].S();
@@ -594,7 +593,7 @@ namespace ALE_MexJet.Views.viaticos
                         else if (dtConceptos.Rows[x]["DesConcepto"].S().ToUpper() == "CENA")
                         {
                             iIdConcepto = dtConceptos.Rows[x]["IdConcepto"].S().I();
-                            dMonto = dtConceptos.Rows[x]["MontoMXN"].S().D();
+                            dMonto = dtConceptos.Rows[x]["MontoMXN"].S().Replace(" MXN", "").D();
 
                             oCP.IIdConcepto = iIdConcepto;
                             oCP.SDesConcepto = dtConceptos.Rows[x]["DesConcepto"].S();
@@ -619,7 +618,7 @@ namespace ALE_MexJet.Views.viaticos
                         if (dtConceptos.Rows[x]["DesConcepto"].S().ToUpper() == "DESAYUNO")
                         {
                             iIdConcepto = dtConceptos.Rows[x]["IdConcepto"].S().I();
-                            dMonto = dtConceptos.Rows[x]["MontoUSD"].S().D();
+                            dMonto = dtConceptos.Rows[x]["MontoUSD"].S().Replace(" USD", "").D();
 
                             oCP.IIdConcepto = iIdConcepto;
                             oCP.SDesConcepto = dtConceptos.Rows[x]["DesConcepto"].S();
@@ -632,7 +631,7 @@ namespace ALE_MexJet.Views.viaticos
                         else if (dtConceptos.Rows[x]["DesConcepto"].S().ToUpper() == "COMIDA")
                         {
                             iIdConcepto = dtConceptos.Rows[x]["IdConcepto"].S().I();
-                            dMonto = dtConceptos.Rows[x]["MontoUSD"].S().D();
+                            dMonto = dtConceptos.Rows[x]["MontoUSD"].S().Replace(" USD", "").D();
 
                             oCP.IIdConcepto = iIdConcepto;
                             oCP.SDesConcepto = dtConceptos.Rows[x]["DesConcepto"].S();
@@ -645,7 +644,7 @@ namespace ALE_MexJet.Views.viaticos
                         else if (dtConceptos.Rows[x]["DesConcepto"].S().ToUpper() == "CENA")
                         {
                             iIdConcepto = dtConceptos.Rows[x]["IdConcepto"].S().I();
-                            dMonto = dtConceptos.Rows[x]["MontoUSD"].S().D();
+                            dMonto = dtConceptos.Rows[x]["MontoUSD"].S().Replace(" USD", "").D();
 
                             oCP.IIdConcepto = iIdConcepto;
                             oCP.SDesConcepto = dtConceptos.Rows[x]["DesConcepto"].S();
@@ -1418,10 +1417,6 @@ namespace ALE_MexJet.Views.viaticos
                     sPeriodoBusqueda = "Del " + date1.Text.Dt().Day.S() + " de " + GetMes(date1.Text.Dt().Month) + " al " + date2.Text.Dt().Day.S() + " de " + GetMes(date2.Text.Dt().Month) + " de " + date2.Text.Dt().Year.S();
                     lblPeriodoBusqueda.Text = sPeriodoBusqueda;
 
-                    //Periodos sin guardar
-                    //gvCalculo.DataSource = dtCalculos;
-                    //gvCalculo.DataBind();
-
                     DataTable dtPendientes = new DataTable();
                     dtPendientes = EliminarPeriodosGuardado(ds.Tables["Calculos2"], 1);
 
@@ -1432,7 +1427,6 @@ namespace ALE_MexJet.Views.viaticos
                     dtCalculos = null;
                     dtCalculos = dtPendientes;
 
-
                     DataTable dtGuardados = new DataTable();
                     dtGuardados = EliminarPeriodosGuardado(ds.Tables["Calculos"], 2);
                     //Periodos guadados
@@ -1441,11 +1435,6 @@ namespace ALE_MexJet.Views.viaticos
 
                     dtCalculos2 = null;
                     dtCalculos2 = dtGuardados;
-
-
-                    //Periodos guardados
-                    //gvPeriodosGuardados.DataSource = dtCalculos;
-                    //gvPeriodosGuardados.DataBind();
 
                 }
                 else
@@ -1625,7 +1614,7 @@ namespace ALE_MexJet.Views.viaticos
 
                 dr2 = dtInt.NewRow();
                 dr2["CONCEPTO"] = "TOTAL";
-                dr2["INTERNACIONAL"] = dtCalculos.Rows[0]["TotalUSD"].S().D().ToString("c");
+                dr2["INTERNACIONAL"] = dtCalculos.Rows[0]["TotalUSD"].S().D().ToString("c") + " " + "USD";
                 dtInt.Rows.Add(dr2);
 
                 gvInternacionales.DataSource = dtInt;
@@ -1658,8 +1647,8 @@ namespace ALE_MexJet.Views.viaticos
 
                 dr3 = dtMXNUSD.NewRow();
                 dr3["CONCEPTO"] = "TOTAL";
-                dr3["NACIONAL"] = dtCalculos.Rows[0]["TotalPesos"].S().D().ToString("c");
-                dr3["INTERNACIONAL"] = dtCalculos.Rows[0]["TotalUSD"].S().D().ToString("c");
+                dr3["NACIONAL"] = dtCalculos.Rows[0]["TotalPesos"].S().D().ToString("c") + " " + "MXN";
+                dr3["INTERNACIONAL"] = dtCalculos.Rows[0]["TotalUSD"].S().D().ToString("c") + " " + "USD";
                 dtMXNUSD.Rows.Add(dr3);
 
                 gvMXNUSD.DataSource = dtMXNUSD;
@@ -1718,10 +1707,10 @@ namespace ALE_MexJet.Views.viaticos
                                 drow = dt.NewRow();
                                 drow["Fecha"] = dtDiasViaticos.Rows[i]["FechaDia"].S().Dt();
                                 drow["Moneda"] = "MXN";
-                                drow["Desayuno"] = dTotalDesNal.ToString("c");
-                                drow["Comida"] = dTotalComNal.ToString("c");
-                                drow["Cena"] = dTotalCenNal.ToString("c");
-                                drow["Total"] = dTotalNal.ToString("c");
+                                drow["Desayuno"] = dTotalDesNal.ToString("c") + " " + "MXN";
+                                drow["Comida"] = dTotalComNal.ToString("c") + " " + "MXN";
+                                drow["Cena"] = dTotalCenNal.ToString("c") + " " + "MXN";
+                                drow["Total"] = dTotalNal.ToString("c") + " " + "MXN";
                             }
                             else
                             {
@@ -1738,10 +1727,256 @@ namespace ALE_MexJet.Views.viaticos
                                 drow = dt.NewRow();
                                 drow["Fecha"] = dtDiasViaticos.Rows[i]["FechaDia"].S().Dt();
                                 drow["Moneda"] = "USD";
-                                drow["Desayuno"] = dTotalDesInt.ToString("c");
-                                drow["Comida"] = dTotalComInt.ToString("c");
-                                drow["Cena"] = dTotalCenInt.ToString("c");
-                                drow["Total"] = dTotalInt.ToString("c");
+                                drow["Desayuno"] = dTotalDesInt.ToString("c") + " " + "USD";
+                                drow["Comida"] = dTotalComInt.ToString("c") + " " + "USD";
+                                drow["Cena"] = dTotalCenInt.ToString("c") + " " + "USD";
+                                drow["Total"] = dTotalInt.ToString("c") + " " + "USD";
+                            }
+                            dt.Rows.Add(drow);
+                        }
+
+
+                    }
+
+                    dtViaticosDiaInsert = null;
+                    dtViaticosDiaInsert = dt;
+                    gvConteoDias.DataSource = dt;
+                    gvConteoDias.DataBind();
+
+                    //Mostrar conteo dias-viaticos
+                    AgruparDiasViaticos(dtDiasViaticos);
+
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        public void CargaViaticosGuardados()
+        {
+            try
+            {
+                #region CÁLCULO
+                decimal dDesNal = 0;
+                decimal dDesInt = 0;
+                decimal dComNal = 0;
+                decimal dComInt = 0;
+                decimal dCenNal = 0;
+                decimal dCenInt = 0;
+
+                foreach (DataRow row in dsParams.Tables[0].Rows)
+                {
+
+                    if (row["Concepto"].S() == "Desayuno")
+                    {
+                        dDesNal = row["MontoMXN"].S().D();
+                        dDesInt = row["MontoUSD"].S().D();
+                    }
+                    if (row["Concepto"].S() == "Comida")
+                    {
+                        dComNal = row["MontoMXN"].S().D();
+                        dComInt = row["MontoUSD"].S().D();
+                    }
+                    if (row["Concepto"].S() == "Cena")
+                    {
+                        dCenNal = row["MontoMXN"].S().D();
+                        dCenInt = row["MontoUSD"].S().D();
+                    }
+                }
+
+                dtCalculos2.Columns.Add("TotalPesos", typeof(decimal));
+                dtCalculos2.Columns.Add("TotalUSD", typeof(decimal));
+
+                dtCalculos2.Columns["TotalPesos"].ReadOnly = false;
+                dtCalculos2.Columns["TotalUSD"].ReadOnly = false;
+
+
+                foreach (DataRow row in dtCalculos2.Rows)
+                {
+                    decimal dTotalNal = 0;
+                    decimal dTotalInt = 0;
+
+                    dTotalNal += row["DesayunosNal"].S().D() * dDesNal;
+                    dTotalNal += row["ComidasNal"].S().D() * dComNal;
+                    dTotalNal += row["CenasNal"].S().D() * dCenNal;
+
+                    dTotalInt += row["DesayunosInt"].S().D() * dDesInt;
+                    dTotalInt += row["ComidasInt"].S().D() * dComInt;
+                    dTotalInt += row["CenasInt"].S().D() * dCenInt;
+
+
+                    row["TotalPesos"] = dTotalNal;
+                    row["TotalUSD"] = dTotalInt;
+                }
+                #endregion
+
+                dtNal = new DataTable();
+                dtNal.Columns.Add("CONCEPTO");
+                dtNal.Columns.Add("NACIONAL");
+
+                DataRow dr = dtNal.NewRow();
+                dr["CONCEPTO"] = "DESAYUNO";
+                dr["NACIONAL"] = dtCalculos2.Rows[0]["DesayunosNal"].S();
+                dtNal.Rows.Add(dr);
+
+                dr = dtNal.NewRow();
+                dr["CONCEPTO"] = "COMIDA";
+                dr["NACIONAL"] = dtCalculos2.Rows[0]["ComidasNal"].S();
+                dtNal.Rows.Add(dr);
+
+                dr = dtNal.NewRow();
+                dr["CONCEPTO"] = "CENA";
+                dr["NACIONAL"] = dtCalculos2.Rows[0]["CenasNal"].S();
+                dtNal.Rows.Add(dr);
+
+                dr = dtNal.NewRow();
+                dr["CONCEPTO"] = "TOTAL";
+                dr["NACIONAL"] = dtCalculos2.Rows[0]["TotalPesos"].S().D().ToString("c");
+                dtNal.Rows.Add(dr);
+
+                gvNacionales.DataSource = dtNal;
+                gvNacionales.DataBind();
+
+
+                dtInt = new DataTable();
+                dtInt.Columns.Add("CONCEPTO");
+                dtInt.Columns.Add("INTERNACIONAL");
+
+                DataRow dr2 = dtInt.NewRow();
+                dr2["CONCEPTO"] = "DESAYUNO";
+                dr2["INTERNACIONAL"] = dtCalculos2.Rows[0]["DesayunosInt"].S();
+                dtInt.Rows.Add(dr2);
+
+                dr2 = dtInt.NewRow();
+                dr2["CONCEPTO"] = "COMIDA";
+                dr2["INTERNACIONAL"] = dtCalculos2.Rows[0]["ComidasInt"].S();
+                dtInt.Rows.Add(dr2);
+
+                dr2 = dtInt.NewRow();
+                dr2["CONCEPTO"] = "CENA";
+                dr2["INTERNACIONAL"] = dtCalculos2.Rows[0]["CenasInt"].S();
+                dtInt.Rows.Add(dr2);
+
+                dr2 = dtInt.NewRow();
+                dr2["CONCEPTO"] = "TOTAL";
+                dr2["INTERNACIONAL"] = dtCalculos2.Rows[0]["TotalUSD"].S().D().ToString("c") + " " + "USD";
+                dtInt.Rows.Add(dr2);
+
+                gvInternacionales.DataSource = dtInt;
+                gvInternacionales.DataBind();
+
+
+                //Llenado general
+                dtMXNUSD = new DataTable();
+                dtMXNUSD.Columns.Add("CONCEPTO");
+                dtMXNUSD.Columns.Add("NACIONAL");
+                dtMXNUSD.Columns.Add("INTERNACIONAL");
+
+                DataRow dr3 = dtMXNUSD.NewRow();
+                dr3["CONCEPTO"] = "DESAYUNO";
+                dr3["NACIONAL"] = dtCalculos2.Rows[0]["DesayunosNal"].S();
+                dr3["INTERNACIONAL"] = dtCalculos2.Rows[0]["DesayunosInt"].S();
+                dtMXNUSD.Rows.Add(dr3);
+
+                dr3 = dtMXNUSD.NewRow();
+                dr3["CONCEPTO"] = "COMIDA";
+                dr3["NACIONAL"] = dtCalculos2.Rows[0]["ComidasNal"].S();
+                dr3["INTERNACIONAL"] = dtCalculos2.Rows[0]["ComidasInt"].S();
+                dtMXNUSD.Rows.Add(dr3);
+
+                dr3 = dtMXNUSD.NewRow();
+                dr3["CONCEPTO"] = "CENA";
+                dr3["NACIONAL"] = dtCalculos2.Rows[0]["CenasNal"].S();
+                dr3["INTERNACIONAL"] = dtCalculos2.Rows[0]["CenasInt"].S();
+                dtMXNUSD.Rows.Add(dr3);
+
+                dr3 = dtMXNUSD.NewRow();
+                dr3["CONCEPTO"] = "TOTAL";
+                dr3["NACIONAL"] = dtCalculos2.Rows[0]["TotalPesos"].S().D().ToString("c") + " " + "MXN";
+                dr3["INTERNACIONAL"] = dtCalculos2.Rows[0]["TotalUSD"].S().D().ToString("c") + " " + "USD";
+                dtMXNUSD.Rows.Add(dr3);
+
+                gvMXNUSD.DataSource = dtMXNUSD;
+                gvMXNUSD.DataBind();
+
+                pnlVuelos.Visible = false;
+
+                //------------------------------------------------------------------------------
+
+                if (dtDiasViaticos != null && dtDiasViaticos.Rows.Count > 0)
+                {
+                    DataRow drow;
+                    DataTable dt = new DataTable();
+                    dt.Columns.Add("Fecha");
+                    dt.Columns.Add("Moneda");
+                    dt.Columns.Add("Desayuno");
+                    dt.Columns.Add("Comida");
+                    dt.Columns.Add("Cena");
+                    dt.Columns.Add("Total");
+
+                    for (int i = 0; i < dtDiasViaticos.Rows.Count; i++)
+                    {
+                        //drow = dt.NewRow();
+                        //if (dtDiasViaticos.Rows[i]["DesNal"].S().I() != 0)
+                        //{
+                        //    drow["Fecha"] = dtDiasViaticos.Rows[i]["FechaDia"].S().Dt();
+                        //    drow["Moneda"] = "MXN";
+                        //    drow["Desayuno"] = dtDiasViaticos.Rows[i]["DesNal"].S().D() * ObtenValorConcepto(1, "MXN");
+                        //}
+
+                        //decimal dTotalDesNal = 0;
+                        //decimal dTotalComNal = 0;
+                        //decimal dTotalCenNal = 0;
+                        //decimal dTotalNal = 0;
+
+                        //decimal dTotalDesInt = 0;
+                        //decimal dTotalComInt = 0;
+                        //decimal dTotalCenInt = 0;
+                        //decimal dTotalInt = 0;
+
+
+                        for (int x = 0; x < 2; x++)
+                        {
+                            if (x == 0)
+                            {
+                                decimal dTotalDesNal = 0;
+                                decimal dTotalComNal = 0;
+                                decimal dTotalCenNal = 0;
+                                decimal dTotalNal = 0;
+
+                                dTotalDesNal = dtDiasViaticos.Rows[i]["DesNal"].S().D() * ObtenValorConcepto(1, "MXN");
+                                dTotalComNal = dtDiasViaticos.Rows[i]["ComNal"].S().D() * ObtenValorConcepto(2, "MXN");
+                                dTotalCenNal = dtDiasViaticos.Rows[i]["CenNal"].S().D() * ObtenValorConcepto(3, "MXN");
+                                dTotalNal = ((dTotalDesNal + dTotalComNal) + dTotalCenNal);
+
+                                drow = dt.NewRow();
+                                drow["Fecha"] = dtDiasViaticos.Rows[i]["FechaDia"].S().Dt();
+                                drow["Moneda"] = "MXN";
+                                drow["Desayuno"] = dTotalDesNal.ToString("c") + " " + "MXN";
+                                drow["Comida"] = dTotalComNal.ToString("c") + " " + "MXN";
+                                drow["Cena"] = dTotalCenNal.ToString("c") + " " + "MXN";
+                                drow["Total"] = dTotalNal.ToString("c") + " " + "MXN";
+                            }
+                            else
+                            {
+                                decimal dTotalDesInt = 0;
+                                decimal dTotalComInt = 0;
+                                decimal dTotalCenInt = 0;
+                                decimal dTotalInt = 0;
+
+                                dTotalDesInt = dtDiasViaticos.Rows[i]["DesInt"].S().D() * ObtenValorConcepto(1, "USD");
+                                dTotalComInt = dtDiasViaticos.Rows[i]["ComInt"].S().D() * ObtenValorConcepto(2, "USD");
+                                dTotalCenInt = dtDiasViaticos.Rows[i]["CenInt"].S().D() * ObtenValorConcepto(3, "USD");
+                                dTotalInt = ((dTotalDesInt + dTotalComInt) + dTotalCenInt);
+
+                                drow = dt.NewRow();
+                                drow["Fecha"] = dtDiasViaticos.Rows[i]["FechaDia"].S().Dt();
+                                drow["Moneda"] = "USD";
+                                drow["Desayuno"] = dTotalDesInt.ToString("c") + " " + "USD";
+                                drow["Comida"] = dTotalComInt.ToString("c") + " " + "USD";
+                                drow["Cena"] = dTotalCenInt.ToString("c") + " " + "USD";
+                                drow["Total"] = dTotalInt.ToString("c") + " " + "USD";
                             }
                             dt.Rows.Add(drow);
                         }
@@ -1877,18 +2112,18 @@ namespace ALE_MexJet.Views.viaticos
                             dTotal = ((((dDesNac + dDesInt) + dComNac) + dComInt) + dCenNac) + dCenInt;
                         }
 
-                        drDias["TipoCambio"] = dTipoCambio.ToString("c");
+                        drDias["TipoCambio"] = dTipoCambio.ToString("c") + " " + "MXN";
                         drDias["Desayuno"] = iCountDesayuno;
                         drDias["Comida"] = iCountComida;
                         drDias["Cena"] = iCountCena;
 
-                        drDias["DesayunoNac"] = dDesNac.ToString("c");
-                        drDias["DesayunoInt"] = dDesInt.ToString("c");
-                        drDias["ComidaNac"] = dComNac.ToString("c");
-                        drDias["ComidaInt"] = dComInt.ToString("c");
-                        drDias["CenaNac"] = dCenNac.ToString("c");
-                        drDias["CenaInt"] = dCenInt.ToString("c");
-                        drDias["Total"] = dTotal.ToString("c");
+                        drDias["DesayunoNac"] = dDesNac.ToString("c") + " " + "MXN";
+                        drDias["DesayunoInt"] = dDesInt.ToString("c") + " " + "MXN";
+                        drDias["ComidaNac"] = dComNac.ToString("c") + " " + "MXN";
+                        drDias["ComidaInt"] = dComInt.ToString("c") + " " + "MXN";
+                        drDias["CenaNac"] = dCenNac.ToString("c") + " " + "MXN";
+                        drDias["CenaInt"] = dCenInt.ToString("c") + " " + "MXN";
+                        drDias["Total"] = dTotal.ToString("c") + " " + "MXN";
                         dt.Rows.Add(drDias);
                     }
 

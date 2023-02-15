@@ -528,11 +528,11 @@
                                     <dx:bootstrapgridviewdatacolumn caption="CONCEPTO" fieldname="DesConcepto" visibleindex="1" horizontalalign="Center" cssclasses-datacell="dataCell" SortOrder="None" Settings-AllowDragDrop="False" Settings-AllowSort="False" />
                                     <dx:bootstrapgridviewdatacolumn caption="HORARIOS" fieldname="Horario" visibleindex="2" horizontalalign="Center" cssclasses-datacell="dataCell" SortOrder="None" Settings-AllowDragDrop="False" Settings-AllowSort="False" />
 
-                                    <dx:BootstrapGridViewTextColumn Caption="NACIONAL" FieldName="MontoMXN" VisibleIndex="3" horizontalalign="Center" CssClasses-DataCell="dataCell" SortOrder="None" Settings-AllowDragDrop="False" Settings-AllowSort="False">
+                                    <dx:BootstrapGridViewTextColumn Caption="NACIONAL (MXN)" FieldName="MontoMXN" VisibleIndex="3" horizontalalign="Center" CssClasses-DataCell="dataCell" SortOrder="None" Settings-AllowDragDrop="False" Settings-AllowSort="False">
                                         <PropertiesTextEdit DisplayFormatString="c"></PropertiesTextEdit>
                                     </dx:BootstrapGridViewTextColumn>
 
-                                    <dx:BootstrapGridViewTextColumn Caption="INTERNACIONAL" FieldName="MontoUSD" VisibleIndex="4" horizontalalign="Center" CssClasses-DataCell="dataCell" SortOrder="None" Settings-AllowDragDrop="False" Settings-AllowSort="False">
+                                    <dx:BootstrapGridViewTextColumn Caption="INTERNACIONAL (USD)" FieldName="MontoUSD" VisibleIndex="4" horizontalalign="Center" CssClasses-DataCell="dataCell" SortOrder="None" Settings-AllowDragDrop="False" Settings-AllowSort="False">
                                         <PropertiesTextEdit DisplayFormatString="c"></PropertiesTextEdit>
                                     </dx:BootstrapGridViewTextColumn>
 
