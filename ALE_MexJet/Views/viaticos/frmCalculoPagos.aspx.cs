@@ -53,6 +53,7 @@ namespace ALE_MexJet.Views.viaticos
 
             if (!IsPostBack)
             {
+                
                 if (string.IsNullOrEmpty(date1.Text))
                     sFechaDesde = DateTime.Now.ToShortDateString();
                 if (string.IsNullOrEmpty(date2.Text))
@@ -68,6 +69,8 @@ namespace ALE_MexJet.Views.viaticos
 
                 if (eGetParams != null)
                     eGetParams(sender, e);
+
+                pnlVuelos.Visible = false;
             }
         }
         protected void btnBuscar_Click(object sender, EventArgs e)
