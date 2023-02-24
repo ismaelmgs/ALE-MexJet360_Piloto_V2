@@ -787,7 +787,7 @@ namespace ALE_MexJet.Views.viaticos
                     if (eSavePeriodos != null)
                         eSavePeriodos(sender, e);
                 }
-                btnExportar.Enabled = true;
+                //btnExportar.Enabled = true;
 
 
 
@@ -807,6 +807,7 @@ namespace ALE_MexJet.Views.viaticos
                 pnlCalcularViaticos.Visible = false;
                 pnlDatosPiloto.Visible = false;
                 hdnIdPeriodo.Value = "0";
+                btnBuscar_Click(sender, e);
             }
             catch (Exception ex)
             {
@@ -2524,18 +2525,18 @@ namespace ALE_MexJet.Views.viaticos
                 {
                     if (ds.Tables[0].Rows.Count > 0)
                     {
-                        btnExportar.Enabled = true;
+                        //btnExportar.Enabled = true;
                         string sContent = CrearReporteGral(ds);
                         if (!string.IsNullOrEmpty(sContent))
                         {
                             divReporte.InnerHtml = sContent;
                         }
                     }
-                    else
-                        btnExportar.Enabled = false;
+                    //else
+                    //    btnExportar.Enabled = false;
                 }
-                else
-                    btnExportar.Enabled = false;
+                //else
+                //    btnExportar.Enabled = false;
             }
             catch (Exception ex)
             {
@@ -3571,6 +3572,11 @@ namespace ALE_MexJet.Views.viaticos
                 dtGuardados = dt;
                 gvCalculo.DataSource = dt;
                 gvCalculo.DataBind();
+
+                if (dt.Rows.Count > 0)
+                    btnExportar.Enabled = true;
+                else
+                    btnExportar.Enabled = false;
             }
             catch (Exception ex)
             {
