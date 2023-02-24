@@ -33,7 +33,9 @@ namespace ALE_MexJet.Presenter
             oIView.eSearchExistePeriodoPic += SearchExistePeriodoPic_Presenter;
             oIView.eSearchReporte += SearchReporte_Presenter;
             oIView.eSearchReporteGral += SearchReporteGral_Presenter;
-        }
+            oIView.eSearchGuardados += SearchGuardados_Presenter;
+            oIView.eSearchViaticosGuardados += SearchViaticosGuardados_Presenter;
+    }
 
         protected void GetAdicionales_Presenter(object sender, EventArgs e)
         {
@@ -373,7 +375,7 @@ namespace ALE_MexJet.Presenter
                                                             if (bEsInterFinal) { oCant.iCantDesayunosInt++; oComDia1.iDesayunosInt++; } else { oCant.iCantDesayunos++; oComDia1.iDesayunosNal++; }
                                                         }
                                                         //Tercera condición
-                                                        else if ((fHoraInicio >= fInicioDesayuno && fHoraFinal > fFinDesayuno) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                        else if ((fHoraInicio >= fInicioDesayuno && fHoraFinal > fFinDesayuno) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioComida))
                                                         {
                                                             if (bEsInterFinal) { oCant.iCantDesayunosInt++; oComDia1.iDesayunosInt++; } else { oCant.iCantDesayunos++; oComDia1.iDesayunosNal++; }
                                                         }
@@ -399,7 +401,7 @@ namespace ALE_MexJet.Presenter
                                                         }
 
                                                         //Octava condición
-                                                        else if ((fHoraInicio < fInicioDesayuno && (fHoraFinal > fInicioDesayuno && fHoraFinal >= fFinDesayuno)) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                        else if ((fHoraInicio < fInicioDesayuno && (fHoraFinal > fInicioDesayuno && fHoraFinal >= fFinDesayuno)) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioComida))
                                                         {
                                                             if (bEsInterFinal) { oCant.iCantDesayunosInt++; oComDia1.iDesayunosInt++; } else { oCant.iCantDesayunos++; oComDia1.iDesayunosNal++; }
                                                         }
@@ -417,7 +419,7 @@ namespace ALE_MexJet.Presenter
                                                             if (bEsInterFinal) { oCant.iCantComidasInt++; oComDia1.iComidaInt++; } else { oCant.iCantComidas++; oComDia1.iComidaNal++; }
                                                         }
                                                         //Tercera condición Comidas
-                                                        else if ((fHoraInicio >= fInicioComida && fHoraFinal > fFinComida) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                        else if ((fHoraInicio >= fInicioComida && fHoraFinal > fFinComida) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioCena))
                                                         {
                                                             if (bEsInterFinal) { oCant.iCantComidasInt++; oComDia1.iComidaInt++; } else { oCant.iCantComidas++; oComDia1.iComidaNal++; }
                                                         }
@@ -442,7 +444,7 @@ namespace ALE_MexJet.Presenter
                                                             if (bEsInterFinal) { oCant.iCantComidasInt++; oComDia1.iComidaInt++; } else { oCant.iCantComidas++; oComDia1.iComidaNal++; }
                                                         }
                                                         //Octava condición
-                                                        else if ((fHoraInicio < fInicioComida && (fHoraFinal > fInicioComida && fHoraFinal >= fFinComida)) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                        else if ((fHoraInicio < fInicioComida && (fHoraFinal > fInicioComida && fHoraFinal >= fFinComida)) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioCena))
                                                         {
                                                             if (bEsInterFinal) { oCant.iCantComidasInt++; oComDia1.iComidaInt++; } else { oCant.iCantComidas++; oComDia1.iComidaNal++; }
                                                         }
@@ -522,7 +524,7 @@ namespace ALE_MexJet.Presenter
                                                     else { oCant.iCantDesayunos++; oComDia.iDesayunosNal++; }
                                                 }
                                                 //Tercera condición
-                                                else if ((fHoraInicio >= fInicioDesayuno && fHoraFinal > fFinDesayuno) && (oComDia.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                else if ((fHoraInicio >= fInicioDesayuno && fHoraFinal > fFinDesayuno) && (oComDia.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia.sDestino == dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioComida))
                                                 {
                                                     if (bEsInterFinal) { oCant.iCantDesayunosInt++; oComDia.iDesayunosInt++; }
                                                     else { oCant.iCantDesayunos++; oComDia.iDesayunosNal++; }
@@ -553,7 +555,7 @@ namespace ALE_MexJet.Presenter
                                                 }
 
                                                 //Octava condición
-                                                else if ((fHoraInicio < fInicioDesayuno && (fHoraFinal > fInicioDesayuno && fHoraFinal >= fFinDesayuno)) && (oComDia.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                else if ((fHoraInicio < fInicioDesayuno && (fHoraFinal > fInicioDesayuno && fHoraFinal >= fFinDesayuno)) && (oComDia.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia.sDestino == dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioComida))
                                                 {
                                                     if (bEsInterFinal) { oCant.iCantDesayunosInt++; oComDia.iDesayunosInt++; }
                                                     else { oCant.iCantDesayunos++; oComDia.iDesayunosNal++; }
@@ -574,7 +576,7 @@ namespace ALE_MexJet.Presenter
                                                     else { oCant.iCantComidas++; oComDia.iComidaNal++; }
                                                 }
                                                 //Tercera condición Comidas
-                                                else if ((fHoraInicio >= fInicioComida && fHoraFinal > fFinComida) && (oComDia.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                else if ((fHoraInicio >= fInicioComida && fHoraFinal > fFinComida) && (oComDia.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia.sDestino == dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioCena))
                                                 {
                                                     if (bEsInterFinal) { oCant.iCantComidasInt++; oComDia.iComidaInt++; }
                                                     else { oCant.iCantComidas++; oComDia.iComidaNal++; }
@@ -604,7 +606,7 @@ namespace ALE_MexJet.Presenter
                                                     else { oCant.iCantComidas++; oComDia.iComidaNal++; }
                                                 }
                                                 //Octava condición
-                                                else if ((fHoraInicio < fInicioComida && (fHoraFinal > fInicioComida && fHoraFinal >= fFinComida)) && (oComDia.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                else if ((fHoraInicio < fInicioComida && (fHoraFinal > fInicioComida && fHoraFinal >= fFinComida)) && (oComDia.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia.sDestino == dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioCena))
                                                 {
                                                     if (bEsInterFinal) { oCant.iCantComidasInt++; oComDia.iComidaInt++; }
                                                     else { oCant.iCantComidas++; oComDia.iComidaNal++; }
@@ -2095,7 +2097,7 @@ namespace ALE_MexJet.Presenter
                                                                 if (bEsInterFinal) { oCant.iCantDesayunosInt++; oComDia1.iDesayunosInt++; } else { oCant.iCantDesayunos++; oComDia1.iDesayunosNal++; }
                                                             }
                                                             //Tercera condición
-                                                            else if ((fHoraInicio >= fInicioDesayuno && fHoraFinal > fFinDesayuno) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                            else if ((fHoraInicio >= fInicioDesayuno && fHoraFinal > fFinDesayuno) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioComida))
                                                             {
                                                                 if (bEsInterFinal) { oCant.iCantDesayunosInt++; oComDia1.iDesayunosInt++; } else { oCant.iCantDesayunos++; oComDia1.iDesayunosNal++; }
                                                             }
@@ -2121,7 +2123,7 @@ namespace ALE_MexJet.Presenter
                                                             }
 
                                                             //Octava condición
-                                                            else if ((fHoraInicio < fInicioDesayuno && (fHoraFinal > fInicioDesayuno && fHoraFinal >= fFinDesayuno)) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                            else if ((fHoraInicio < fInicioDesayuno && (fHoraFinal > fInicioDesayuno && fHoraFinal >= fFinDesayuno)) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioComida))
                                                             {
                                                                 if (bEsInterFinal) { oCant.iCantDesayunosInt++; oComDia1.iDesayunosInt++; } else { oCant.iCantDesayunos++; oComDia1.iDesayunosNal++; }
                                                             }
@@ -2139,7 +2141,7 @@ namespace ALE_MexJet.Presenter
                                                                 if (bEsInterFinal) { oCant.iCantComidasInt++; oComDia1.iComidaInt++; } else { oCant.iCantComidas++; oComDia1.iComidaNal++; }
                                                             }
                                                             //Tercera condición Comidas
-                                                            else if ((fHoraInicio >= fInicioComida && fHoraFinal > fFinComida) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                            else if ((fHoraInicio >= fInicioComida && fHoraFinal > fFinComida) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioCena))
                                                             {
                                                                 if (bEsInterFinal) { oCant.iCantComidasInt++; oComDia1.iComidaInt++; } else { oCant.iCantComidas++; oComDia1.iComidaNal++; }
                                                             }
@@ -2164,7 +2166,7 @@ namespace ALE_MexJet.Presenter
                                                                 if (bEsInterFinal) { oCant.iCantComidasInt++; oComDia1.iComidaInt++; } else { oCant.iCantComidas++; oComDia1.iComidaNal++; }
                                                             }
                                                             //Octava condición
-                                                            else if ((fHoraInicio < fInicioComida && (fHoraFinal > fInicioComida && fHoraFinal >= fFinComida)) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                            else if ((fHoraInicio < fInicioComida && (fHoraFinal > fInicioComida && fHoraFinal >= fFinComida)) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioCena))
                                                             {
                                                                 if (bEsInterFinal) { oCant.iCantComidasInt++; oComDia1.iComidaInt++; } else { oCant.iCantComidas++; oComDia1.iComidaNal++; }
                                                             }
@@ -3366,7 +3368,7 @@ namespace ALE_MexJet.Presenter
                                                                     }
                                                                 }
                                                                 //Tercera condición
-                                                                else if ((fHoraInicio >= fInicioDesayuno && fHoraFinal > fFinDesayuno) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                                else if ((fHoraInicio >= fInicioDesayuno && fHoraFinal > fFinDesayuno) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioComida))
                                                                 {
                                                                     if (bEsInterFinal)
                                                                     {
@@ -3486,7 +3488,7 @@ namespace ALE_MexJet.Presenter
                                                                     }
                                                                 }
                                                                 //Octava condición
-                                                                else if ((fHoraInicio < fInicioDesayuno && (fHoraFinal > fInicioDesayuno && fHoraFinal >= fFinDesayuno)) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                                else if ((fHoraInicio < fInicioDesayuno && (fHoraFinal > fInicioDesayuno && fHoraFinal >= fFinDesayuno)) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioComida))
                                                                 {
                                                                     if (bEsInterFinal)
                                                                     {
@@ -3786,7 +3788,7 @@ namespace ALE_MexJet.Presenter
                                                                     }
                                                                 }
                                                                 //Octava condición
-                                                                else if ((fHoraInicio < fInicioComida && (fHoraFinal > fInicioComida && fHoraFinal >= fFinComida)) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal > fInicioCena))
+                                                                else if ((fHoraInicio < fInicioComida && (fHoraFinal > fInicioComida && fHoraFinal >= fFinComida)) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioCena))
                                                                 {
                                                                     if (bEsInterFinal)
                                                                     {
@@ -4276,7 +4278,7 @@ namespace ALE_MexJet.Presenter
                                                                     iAux = 1;
                                                                 }
                                                                 //Tercera condición
-                                                                else if ((fHoraInicio >= fInicioDesayuno && fHoraFinal > fFinDesayuno) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                                else if ((fHoraInicio >= fInicioDesayuno && fHoraFinal > fFinDesayuno) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioComida))
                                                                 {
                                                                     if (bEsInterFinal)
                                                                     {
@@ -4386,7 +4388,7 @@ namespace ALE_MexJet.Presenter
                                                                     iAux = 1;
                                                                 }
                                                                 //Octava condición
-                                                                else if ((fHoraInicio < fInicioDesayuno && (fHoraFinal > fInicioDesayuno && fHoraFinal >= fFinDesayuno)) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                                else if ((fHoraInicio < fInicioDesayuno && (fHoraFinal > fInicioDesayuno && fHoraFinal >= fFinDesayuno)) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioComida))
                                                                 {
                                                                     if (bEsInterFinal)
                                                                     {
@@ -5193,7 +5195,7 @@ namespace ALE_MexJet.Presenter
                                                             iAux = 1;
                                                         }
                                                         //Tercera condición
-                                                        else if ((fHoraInicio >= fInicioDesayuno && fHoraFinal > fFinDesayuno) && (oCom.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oCom.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                        else if ((fHoraInicio >= fInicioDesayuno && fHoraFinal > fFinDesayuno) && (oCom.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oCom.sDestino == dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioComida))
                                                         {
                                                             if (bEsInterFinal)
                                                             {
@@ -5303,7 +5305,7 @@ namespace ALE_MexJet.Presenter
                                                             iAux = 1;
                                                         }
                                                         //Octava condición
-                                                        else if ((fHoraInicio < fInicioDesayuno && (fHoraFinal > fInicioDesayuno && fHoraFinal >= fFinDesayuno)) && (oCom.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oCom.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                        else if ((fHoraInicio < fInicioDesayuno && (fHoraFinal > fInicioDesayuno && fHoraFinal >= fFinDesayuno)) && (oCom.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oCom.sDestino == dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioComida))
                                                         {
                                                             if (bEsInterFinal)
                                                             {
@@ -6191,7 +6193,7 @@ namespace ALE_MexJet.Presenter
                                                                 }
                                                             }
                                                             //Tercera condición
-                                                            else if ((fHoraInicio >= fInicioDesayuno && fHoraFinal > fFinDesayuno) && (oCom.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oCom.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                                                            else if ((fHoraInicio >= fInicioDesayuno && fHoraFinal > fFinDesayuno) && (oCom.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oCom.sDestino == dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioComida))
                                                             {
                                                                 if (bEsInterFinal)
                                                                 {
@@ -6311,7 +6313,7 @@ namespace ALE_MexJet.Presenter
                                                                 }
                                                             }
                                                             //Octava condición
-                                                            else if ((fHoraInicio < fInicioDesayuno && (fHoraFinal > fInicioDesayuno && fHoraFinal >= fFinDesayuno)) && (oCom.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oCom.sDestino == dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioComida))
+                                                            else if ((fHoraInicio < fInicioDesayuno && (fHoraFinal > fInicioDesayuno && fHoraFinal >= fFinDesayuno)) && (oCom.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oCom.sDestino == dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioComida) && (fHoraFinal < fInicioComida))
                                                             {
                                                                 if (bEsInterFinal)
                                                                 {
@@ -8746,7 +8748,7 @@ namespace ALE_MexJet.Presenter
                             oCant.iCantDesayunos++;
                     }
                     //Tercera condición
-                    else if ((fHoraInicio >= fInicioDesayuno && fHoraFinal > fFinDesayuno) && (sPOD != sBase || sPOD == sBase))
+                    else if ((fHoraInicio >= fInicioDesayuno && fHoraFinal > fFinDesayuno) && (sPOD != sBase || sPOD == sBase) && (fHoraFinal < fInicioComida))
                     {
                         if (bEsInterFinal)
                             oCant.iCantDesayunosInt++;
@@ -8787,7 +8789,7 @@ namespace ALE_MexJet.Presenter
                     }
 
                     //Octava condición
-                    else if ((fHoraInicio < fInicioDesayuno && (fHoraFinal > fInicioDesayuno && fHoraFinal >= fFinDesayuno)) && (sPOD != sBase || sPOD == sBase))
+                    else if ((fHoraInicio < fInicioDesayuno && (fHoraFinal > fInicioDesayuno && fHoraFinal >= fFinDesayuno)) && (sPOD != sBase || sPOD == sBase) && (fHoraFinal < fInicioComida))
                     {
                         if (bEsInterFinal)
                             oCant.iCantDesayunosInt++;
@@ -8822,7 +8824,7 @@ namespace ALE_MexJet.Presenter
                             oCant.iCantComidas++;
                     }
                     //Tercera condición Comidas
-                    else if ((fHoraInicio >= fInicioComida && fHoraFinal > fFinComida) && (sPOD != sBase || sPOD == sBase))
+                    else if ((fHoraInicio >= fInicioComida && fHoraFinal > fFinComida) && (sPOD != sBase || sPOD == sBase) && (fHoraFinal < fInicioCena))
                     {
                         if (bEsInterFinal)
                             oCant.iCantComidasInt++;
@@ -8862,7 +8864,7 @@ namespace ALE_MexJet.Presenter
                             oCant.iCantComidas++;
                     }
                     //Octava condición
-                    else if ((fHoraInicio < fInicioComida && (fHoraFinal > fInicioComida && fHoraFinal >= fFinComida)) && (sPOD != sBase || sPOD == sBase))
+                    else if ((fHoraInicio < fInicioComida && (fHoraFinal > fInicioComida && fHoraFinal >= fFinComida)) && (sPOD != sBase || sPOD == sBase) && (fHoraFinal < fInicioCena))
                     {
                         if (bEsInterFinal)
                             oCant.iCantComidasInt++;
@@ -9036,7 +9038,7 @@ namespace ALE_MexJet.Presenter
                         }
                     }
                     //Tercera condición
-                    else if ((fHoraInicio >= fInicioDesayuno && fHoraFinal > fFinDesayuno) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                    else if ((fHoraInicio >= fInicioDesayuno && fHoraFinal > fFinDesayuno) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioComida))
                     {
                         if (bEsInterFinal)
                         {
@@ -9116,7 +9118,7 @@ namespace ALE_MexJet.Presenter
                         }
                     }
                     //Octava condición
-                    else if ((fHoraInicio < fInicioDesayuno && (fHoraFinal > fInicioDesayuno && fHoraFinal >= fFinDesayuno)) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                    else if ((fHoraInicio < fInicioDesayuno && (fHoraFinal > fInicioDesayuno && fHoraFinal >= fFinDesayuno)) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioComida))
                     {
                         if (bEsInterFinal)
                         {
@@ -9424,7 +9426,7 @@ namespace ALE_MexJet.Presenter
                         }
                     }
                     //Tercera condición
-                    else if ((fHoraInicio >= fInicioDesayuno && fHoraFinal > fFinDesayuno) && (oComDia2.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia2.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                    else if ((fHoraInicio >= fInicioDesayuno && fHoraFinal > fFinDesayuno) && (oComDia2.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia2.sDestino == dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioComida))
                     {
                         if (bEsInterFinal)
                         {
@@ -9494,7 +9496,7 @@ namespace ALE_MexJet.Presenter
                         }
                     }
                     //Octava condición
-                    else if ((fHoraInicio < fInicioDesayuno && (fHoraFinal > fInicioDesayuno && fHoraFinal >= fFinDesayuno)) && (oComDia2.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia2.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                    else if ((fHoraInicio < fInicioDesayuno && (fHoraFinal > fInicioDesayuno && fHoraFinal >= fFinDesayuno)) && (oComDia2.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia2.sDestino == dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioComida))
                     {
                         if (bEsInterFinal)
                         {
@@ -10064,7 +10066,7 @@ namespace ALE_MexJet.Presenter
                             }
                         }
                         //Tercera condición
-                        else if ((fHoraInicio >= fInicioDesayuno && fHoraFinal > fFinDesayuno) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                        else if ((fHoraInicio >= fInicioDesayuno && fHoraFinal > fFinDesayuno) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioComida))
                         {
                             if (bEsInterFinal)
                             {
@@ -10184,7 +10186,7 @@ namespace ALE_MexJet.Presenter
                             }
                         }
                         //Octava condición
-                        else if ((fHoraInicio < fInicioDesayuno && (fHoraFinal > fInicioDesayuno && fHoraFinal >= fFinDesayuno)) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                        else if ((fHoraInicio < fInicioDesayuno && (fHoraFinal > fInicioDesayuno && fHoraFinal >= fFinDesayuno)) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia1.sDestino == dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioComida))
                         {
                             if (bEsInterFinal)
                             {
@@ -10624,7 +10626,7 @@ namespace ALE_MexJet.Presenter
                             }
                         }
                         //Tercera condición
-                        else if ((fHoraInicio >= fInicioDesayuno && fHoraFinal > fFinDesayuno) && (oComDia2.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia2.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                        else if ((fHoraInicio >= fInicioDesayuno && fHoraFinal > fFinDesayuno) && (oComDia2.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia2.sDestino == dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioComida))
                         {
                             if (bEsInterFinal)
                             {
@@ -10694,7 +10696,7 @@ namespace ALE_MexJet.Presenter
                             }
                         }
                         //Octava condición
-                        else if ((fHoraInicio < fInicioDesayuno && (fHoraFinal > fInicioDesayuno && fHoraFinal >= fFinDesayuno)) && (oComDia2.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia2.sDestino == dtLegs.Rows[0]["HomeBase"].S()))
+                        else if ((fHoraInicio < fInicioDesayuno && (fHoraFinal > fInicioDesayuno && fHoraFinal >= fFinDesayuno)) && (oComDia2.sDestino != dtLegs.Rows[0]["HomeBase"].S() || oComDia2.sDestino == dtLegs.Rows[0]["HomeBase"].S()) && (fHoraFinal < fInicioComida))
                         {
                             if (bEsInterFinal)
                             {
@@ -11405,6 +11407,28 @@ namespace ALE_MexJet.Presenter
         protected void SearchReporteGral_Presenter(object sender, EventArgs e)
         {
             oIView.LlenaReporteGral(oIGestCat.ObtieneDatosReporteGral(oIView.sFechaInicio, oIView.sFechaFinal));
+        }
+        protected void SearchGuardados_Presenter(object sender, EventArgs e)
+        {
+            try
+            {
+                oIView.LlenaPeriodosGuardados(oIGestCat.GetPeriodosGuardados(oIView.sFechaInicio, oIView.sFechaFinal, oIView.sCvePiloto));
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        protected void SearchViaticosGuardados_Presenter(object sender, EventArgs e)
+        {
+            try
+            {
+                oIView.LlenaViaticosGuardados(oIGestCat.GetDatosGuardados(oIView.iIdPeriodo));
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

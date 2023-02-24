@@ -51,6 +51,9 @@ namespace ALE_MexJet.Interfaces
         void LlenaReporte(DataSet ds);
         void LlenaReporteGral(DataSet ds);
 
+        void LlenaPeriodosGuardados(DataTable dt);
+        void LlenaViaticosGuardados(DataSet ds);
+
         event EventHandler eSearchConceptos;
         event EventHandler eSearchVuelos;
         event EventHandler eSearchCalculos;
@@ -66,5 +69,7 @@ namespace ALE_MexJet.Interfaces
         event EventHandler eSearchExistePeriodoPic;
         event EventHandler eSearchReporte;
         event EventHandler eSearchReporteGral;
+        event EventHandler eSearchGuardados;
+        event EventHandler eSearchViaticosGuardados;
     }
 }

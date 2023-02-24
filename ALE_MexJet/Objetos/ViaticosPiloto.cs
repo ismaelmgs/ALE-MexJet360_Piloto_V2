@@ -61,6 +61,14 @@ namespace ALE_MexJet.Objetos
         private decimal _dTotal = 0;
 
         private decimal _dTipoCambio = 0;
+        
+        private decimal _dDesNac = 0;
+        private decimal _dDesInt = 0;
+        private decimal _dComNac = 0;
+        private decimal _dComInt = 0;
+        private decimal _dCenNac = 0;
+        private decimal _dCenInt = 0;
+
 
         public int IIdPeriodo { get => _iIdPeriodo; set => _iIdPeriodo = value; }
         public string SMoneda { get => _sMoneda; set => _sMoneda = value; }
@@ -70,6 +78,12 @@ namespace ALE_MexJet.Objetos
         public decimal DCena { get => _dCena; set => _dCena = value; }
         public decimal DTotal { get => _dTotal; set => _dTotal = value; }
         public decimal DTipoCambio { get => _dTipoCambio; set => _dTipoCambio = value; }
+        public decimal DDesNac { get => _dDesNac; set => _dDesNac = value; }
+        public decimal DDesInt { get => _dDesInt; set => _dDesInt = value; }
+        public decimal DComNac { get => _dComNac; set => _dComNac = value; }
+        public decimal DComInt { get => _dComInt; set => _dComInt = value; }
+        public decimal DCenNac { get => _dCenNac; set => _dCenNac = value; }
+        public decimal DCenInt { get => _dCenInt; set => _dCenInt = value; }
     }
 
     [Serializable]

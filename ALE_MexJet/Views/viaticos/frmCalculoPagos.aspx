@@ -1,11 +1,14 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/ALE_Main.Master" AutoEventWireup="true" CodeBehind="frmCalculoPagos.aspx.cs" Inherits="ALE_MexJet.Views.viaticos.frmCalculoPagos"
     UICulture="es" Culture="es-MX" %>
 
-<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
+
 <%@ Register Assembly="DevExpress.Web.Bootstrap.v18.1, Version=18.1.15.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" Namespace="DevExpress.Web.Bootstrap" TagPrefix="dx" %>
 <%@ Register Assembly="DevExpress.Web.v18.1, Version=18.1.15.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" Namespace="DevExpress.Web" TagPrefix="dx" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
+
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    
     <link rel="stylesheet" type="text/css" href="../../Styles/Controls.css" />
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <style>
@@ -217,10 +220,12 @@
                     <div class="row">
                         <div class="col-sm-2">&nbsp;</div>
                         <div class="col-sm-2">
+                            
                             <dx:bootstrapdateedit id="date1" runat="server" editformat="Custom" width="100%" caption="Desde" clientinstancename="Fecha1" displayformatstring="dd/MM/yyyy" editformatstring="dd/MM/yyyy" usemaskbehavior="true">
                                 <calendarproperties showweeknumbers="false"></calendarproperties>
                             </dx:bootstrapdateedit>
                         </div>
+                        
                         <div class="col-sm-2">
                             <dx:bootstrapdateedit id="date2" runat="server" editformat="Custom" width="100%" caption="Hasta" clientinstancename="Fecha2"
                                 displayformatstring="dd/MM/yyyy" editformatstring="dd/MM/yyyy" usemaskbehavior="true">
@@ -261,15 +266,23 @@
                         </div>
                         <br />
                         <div class="col-sm-12">
-                            <dx:bootstrapgridview id="gvPeriodosGuardados" runat="server" keyfieldname="IdFolio"
+                            <dx:bootstrapgridview id="gvPeriodosGuardados" runat="server" keyfieldname="IdFolio" AutoGenerateColumns="False"
                                 onhtmldatacellprepared="gvPeriodosGuardados_HtmlDataCellPrepared"
                                 onrowcommand="gvPeriodosGuardados_RowCommand"
-                                onpageindexchanged="gvPeriodosGuardados_PageIndexChanged">
+                                onpageindexchanged="gvPeriodosGuardados_PageIndexChanged"
+                                ClientInstanceName="gvPeriodosGuardados" OnBeforePerformDataSelect="gvPeriodosGuardados_BeforePerformDataSelect"
+                                OnLoad="gvPeriodosGuardados_Load">
                                 <settingssearchpanel visible="true" showapplybutton="true" />
                                 <settings showgrouppanel="true" showfilterrowmenu="true" showtitlepanel="true" />
                                 <settingsadaptivity adaptivitymode="HideDataCells" allowonlyoneadaptivedetailexpanded="true"></settingsadaptivity>
-                                <settingspager pagesize="10" pagesizeitemsettings-caption="Páginas" nextpagebutton-text="Siguiente" prevpagebutton-text="Anterior"></settingspager>
+                                <%--<settingspager pagesize="10" pagesizeitemsettings-caption="Páginas" nextpagebutton-text="Siguiente" prevpagebutton-text="Anterior"></settingspager>--%>
                                 <settingsbehavior allowdragdrop="true" />
+
+                                <SettingsPager PageSize="10" pagesizeitemsettings-caption="Páginas" nextpagebutton-text="Siguiente" prevpagebutton-text="Anterior">
+                                    <PageSizeItemSettings Items="5, 10, 20, 50" Visible="True" ShowAllItem="true">
+                                    </PageSizeItemSettings>
+                                </SettingsPager>
+
                                 <columns>
 
 
@@ -324,10 +337,16 @@
                                     <dx:bootstrapgridviewdatacolumn fieldname="FechaFin" visible="false" visibleindex="12" cssclasses-datacell="hideColumn" cssclasses-headercell="hideColumn" horizontalalign="Center" />
                                     <dx:bootstrapgridviewdatacolumn fieldname="HomeBase" visible="false" visibleindex="13" cssclasses-datacell="hideColumn" cssclasses-headercell="hideColumn" horizontalalign="Center" />
                                 </columns>
+
+                                <%--<SettingsPager PageSize="20" NumericButtonCount="6">
+                                    <Summary Visible="false" />
+                                    <PageSizeItemSettings Visible="true" ShowAllItem="true" />
+                                </SettingsPager>--%>
+
                                 <settingsbehavior confirmdelete="True" />
-                                <settingspager position="Bottom">
+                                <%--<settingspager position="Bottom">
                                     <pagesizeitemsettings items="20, 50, 100"></pagesizeitemsettings>
-                                </settingspager>
+                                </settingspager>--%>
                                 <settingsediting mode="PopupEditForm"></settingsediting>
                                 <settings showgrouppanel="True" />
                                 <settingspopup>
@@ -363,40 +382,53 @@
 
 
                         <div class="col-sm-12">
-                            <dx:bootstrapgridview id="gvCalculo" runat="server" keyfieldname="IdFolio" onrowcommand="gvCalculo_RowCommand" onhtmldatacellprepared="gvCalculo_HtmlDataCellPrepared"
-                                onpageindexchanged="gvCalculo_PageIndexChanged">
+                            <dx:bootstrapgridview id="gvCalculo" runat="server" keyfieldname="IdPeriodo" AutoGenerateColumns="False"
+                                onrowcommand="gvCalculo_RowCommand" 
+                                onhtmldatacellprepared="gvCalculo_HtmlDataCellPrepared"
+                                onpageindexchanged="gvCalculo_PageIndexChanged"
+                                ClientInstanceName="gvCalculo" 
+                                OnBeforePerformDataSelect="gvCalculo_BeforePerformDataSelect"
+                                OnLoad="gvCalculo_Load">
                                 <settingssearchpanel visible="true" showapplybutton="true" />
                                 <settings showgrouppanel="true" showfilterrowmenu="true" showtitlepanel="true" />
                                 <settingsadaptivity adaptivitymode="HideDataCells" allowonlyoneadaptivedetailexpanded="true"></settingsadaptivity>
-                                <settingspager pagesize="10" pagesizeitemsettings-caption="Páginas" nextpagebutton-text="Siguiente" prevpagebutton-text="Anterior"></settingspager>
+                                <%--<settingspager pagesize="10" pagesizeitemsettings-caption="Páginas" nextpagebutton-text="Siguiente" prevpagebutton-text="Anterior"></settingspager>--%>
                                 <settingsbehavior allowdragdrop="true" />
+                                <SettingsPager PageSize="10" pagesizeitemsettings-caption="Páginas" nextpagebutton-text="Siguiente" prevpagebutton-text="Anterior">
+                                    <PageSizeItemSettings Items="5, 10, 20, 50" Visible="True" ShowAllItem="true">
+                                    </PageSizeItemSettings>
+                                </SettingsPager>
                                 <columns>
 
 
                                     <dx:bootstrapgridviewdatacolumn caption="Clave" fieldname="CrewCode" visibleindex="1" horizontalalign="Center" cssclasses-datacell="dataCell" sortorder="None" settings-allowdragdrop="False" settings-allowsort="False" />
                                     <dx:bootstrapgridviewdatacolumn caption="Piloto" fieldname="Piloto" visibleindex="2" horizontalalign="Left" cssclasses-datacell="dataCell" width="22%" sortorder="None" settings-allowdragdrop="False" settings-allowsort="False" />
 
-                                    <dx:bootstrapgridviewdatacolumn caption="Desayuno Nac." fieldname="DesayunosNal" visibleindex="3" horizontalalign="Center" cssclasses-datacell="dataCell" width="8%" sortorder="None" settings-allowdragdrop="False" settings-allowsort="False" />
+                                    <dx:bootstrapgridviewdatacolumn caption="Fecha Inicio" fieldname="FechaInicio" visibleindex="3" horizontalalign="Center" cssclasses-datacell="dataCell" width="14%" sortorder="None" settings-allowdragdrop="False" settings-allowsort="False" />
+                                    <dx:bootstrapgridviewdatacolumn caption="Fecha Final" fieldname="FechaFin" visibleindex="4" horizontalalign="Center" cssclasses-datacell="dataCell" width="14%" sortorder="None" settings-allowdragdrop="False" settings-allowsort="False" />
+                                    <dx:bootstrapgridviewdatacolumn caption="Base" fieldname="HomeBase" visibleindex="5" horizontalalign="Center" cssclasses-datacell="dataCell" width="8%" sortorder="None" settings-allowdragdrop="False" settings-allowsort="False" />
+
+                                    <%--<dx:bootstrapgridviewdatacolumn caption="Desayuno Nac." fieldname="DesayunosNal" visibleindex="3" horizontalalign="Center" cssclasses-datacell="dataCell" width="8%" sortorder="None" settings-allowdragdrop="False" settings-allowsort="False" />
                                     <dx:bootstrapgridviewdatacolumn caption="Desayuno Int." fieldname="DesayunosInt" visibleindex="4" horizontalalign="Center" cssclasses-datacell="dataCell" width="8%" sortorder="None" settings-allowdragdrop="False" settings-allowsort="False" />
                                     <dx:bootstrapgridviewdatacolumn caption="Comida Nac." fieldname="ComidasNal" visibleindex="5" horizontalalign="Center" cssclasses-datacell="dataCell" width="8%" sortorder="None" settings-allowdragdrop="False" settings-allowsort="False" />
                                     <dx:bootstrapgridviewdatacolumn caption="Comida Int." fieldname="ComidasInt" visibleindex="6" horizontalalign="Center" cssclasses-datacell="dataCell" width="8%" sortorder="None" settings-allowdragdrop="False" settings-allowsort="False" />
                                     <dx:bootstrapgridviewdatacolumn caption="Cena Nac." fieldname="CenasNal" visibleindex="7" horizontalalign="Center" cssclasses-datacell="dataCell" width="8%" sortorder="None" settings-allowdragdrop="False" settings-allowsort="False" />
-                                    <dx:bootstrapgridviewdatacolumn caption="Cena Int." fieldname="CenasInt" visibleindex="8" horizontalalign="Center" cssclasses-datacell="dataCell" width="8%" sortorder="None" settings-allowdragdrop="False" settings-allowsort="False" />
+                                    <dx:bootstrapgridviewdatacolumn caption="Cena Int." fieldname="CenasInt" visibleindex="8" horizontalalign="Center" cssclasses-datacell="dataCell" width="8%" sortorder="None" settings-allowdragdrop="False" settings-allowsort="False" />--%>
 
-                                    <dx:bootstrapgridviewdatacolumn visibleindex="9" caption="Estatus" fieldname="Estatus" horizontalalign="Center" cssclasses-datacell="dataCell" sortorder="None" settings-allowdragdrop="False" settings-allowsort="False">
+                                    <dx:bootstrapgridviewdatacolumn visibleindex="6" caption="Estatus" fieldname="Estatus" horizontalalign="Center" cssclasses-datacell="dataCell" sortorder="None" settings-allowdragdrop="False" settings-allowsort="False">
                                         <dataitemtemplate>
                                             <asp:Label ID="readEstatus" runat="server" Text="" CssClass="dataCell"></asp:Label>
                                         </dataitemtemplate>
                                     </dx:bootstrapgridviewdatacolumn>
 
-                                    <dx:bootstrapgridviewdatacolumn visibleindex="10" caption="Acciones" fieldname="IdFolio" horizontalalign="Center" width="20%" sortorder="None" settings-allowdragdrop="False" settings-allowsort="False">
+                                    <dx:bootstrapgridviewdatacolumn visibleindex="10" caption="Acciones" fieldname="IdPeriodo" horizontalalign="Center" width="20%" sortorder="None" settings-allowdragdrop="False" settings-allowsort="False">
                                         <dataitemtemplate>
 
                                             <div class="row">
                                                 <div class="col-md-12" align="center">
                                                     <asp:UpdatePanel ID="upaReporte" runat="server" ChildrenAsTriggers="false" UpdateMode="Conditional">
                                                         <ContentTemplate>
-                                                            <dx:bootstrapbutton text="Viáticos" id="btnVerViaticos" runat="server" commandargument='<%# Eval("IdFolio") %>' commandname="Ver" autopostback="true"
+                                                            <dx:bootstrapbutton text="Viáticos" id="btnVerViaticos" runat="server" commandargument='<%# Eval("IdPeriodo") %>' commandname="Ver" autopostback="true"
                                                                 tooltip="Calcular viáticos" settingsbootstrap-renderoption="Primary" causesvalidation="false" class="btnSize">
                                                             </dx:bootstrapbutton>
                                                             &nbsp;
@@ -429,9 +461,9 @@
                                     <dx:bootstrapgridviewdatacolumn fieldname="HomeBase" visible="false" visibleindex="13" cssclasses-datacell="hideColumn" cssclasses-headercell="hideColumn" horizontalalign="Center" />
                                 </columns>
                                 <settingsbehavior confirmdelete="True" />
-                                <settingspager position="Bottom">
+                                <%--<settingspager position="Bottom">
                                     <pagesizeitemsettings items="20, 50, 100"></pagesizeitemsettings>
-                                </settingspager>
+                                </settingspager>--%>
                                 <settingsediting mode="PopupEditForm"></settingsediting>
                                 <settings showgrouppanel="True" />
                                 <settingspopup>
@@ -501,10 +533,6 @@
         </div>
 
     </asp:Panel>
-
-
-
-
 
     <asp:Panel ID="pnlCalcularViaticos" runat="server" Visible="false" Style="padding-bottom: 10px;">
 
@@ -775,6 +803,7 @@
             </dx:bootstrapformlayout>
         </div>
     </asp:Panel>
+
 
     <asp:Panel ID="pnlAjuste" runat="server" Visible="false">
 

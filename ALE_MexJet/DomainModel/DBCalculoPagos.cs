@@ -337,7 +337,13 @@ namespace ALE_MexJet.DomainModel
                                                                                                           "@Comida", oLst[i].DComida,
                                                                                                           "@Cena", oLst[i].DCena,
                                                                                                           "@Total", oLst[i].DTotal,
-                                                                                                          "@TipoCambio", oLst[i].DTipoCambio);
+                                                                                                          "@TipoCambio", oLst[i].DTipoCambio,
+                                                                                                          "@DesNac", oLst[i].DDesNac,
+                                                                                                          "@DesInt", oLst[i].DDesInt,
+                                                                                                          "@ComNac", oLst[i].DComNac,
+                                                                                                          "@ComInt", oLst[i].DComInt,
+                                                                                                          "@CenNac", oLst[i].DCenNac,
+                                                                                                          "@CenInt", oLst[i].DCenInt);
                     if (oRes.S().I() == 1)
                         bRes = true;
                 }
@@ -384,6 +390,33 @@ namespace ALE_MexJet.DomainModel
             catch (Exception ex)
             {
                 return 0;
+            }
+        }
+
+        public DataTable GetPeriodosGuardados(string sFechaDesde, string sFechaHasta, string sCvePiloto)
+        {
+            try
+            {
+                DataTable dt = new DataTable();
+                dt = new DBBase().oDB_SP.EjecutarDT("[VB].[spS_MXJ_ConsultaPeriodosGuardados]", "@CvePiloto", sCvePiloto,
+                                                                                                "@FechaInicial", sFechaDesde.Dt().ToString("yyyy-MM-dd"),
+                                                                                                "@FechaFinal", sFechaHasta.Dt().ToString("yyyy-MM-dd"));
+                return dt;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+        public DataSet GetDatosGuardados(int iPeriodo)
+        {
+            try
+            {
+                return new DBBase().oDB_SP.EjecutarDS("[VB].[spS_MXJ_ConsultaPeriodosGuardadosXPiloto]", "@IdPeriodo", iPeriodo);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
         }
     }
