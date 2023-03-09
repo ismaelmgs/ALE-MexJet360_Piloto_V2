@@ -27,12 +27,14 @@ namespace ALE_MexJet.Interfaces
         ConceptosAdicionalesPiloto oAjuste { get; }
 
         List<ConceptosPiloto> oLst { set; get; }
+        List<ConceptosPilotoSave> oLstCon { set; get; }
         List<ConceptosAdicionalesPiloto> oLstAd { set; get; }
         List<VuelosPiernasPiloto> oLstVP { set; get; }
-
+        List<VuelosPiernasPilotoSave> oLstVPil { set; get; }
         List<PeriodoPiloto> oLstPeriodo { set; get; }
 
         List<ConceptosViaticosPorDia> oLstPorDia { set; get; }
+        List<ConceptosViaticosPorDiaSave> oLstPorDiaPil { set; get; }
 
         void LlenaCalculoPilotos(DataTable dt);
         void LlenaVuelosPiloto(DataTable dt);
@@ -53,6 +55,8 @@ namespace ALE_MexJet.Interfaces
 
         void LlenaPeriodosGuardados(DataTable dt);
         void LlenaViaticosGuardados(DataSet ds);
+        PeriodoPiloto oPe { set; get; }
+        DataTable dtResumenViaticos { set; get; }
 
         event EventHandler eSearchConceptos;
         event EventHandler eSearchVuelos;

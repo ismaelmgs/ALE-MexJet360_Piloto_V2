@@ -102,7 +102,6 @@ namespace ALE_MexJet.Presenter
                     string FechaFin = "CheckOut"; //"LocArr";
 
                     //= new List<CantidadComidas>();
-                    #endregion
 
                     List<CantidadComidas> oLstCant = new List<CantidadComidas>();
 
@@ -8438,6 +8437,7 @@ namespace ALE_MexJet.Presenter
                     GC.Collect();
                     oIView.oLstCant = oLstCant;
                     dtComidas = DBGetObtieneTablaCalculos(oLstCant, dtPilotos);
+                    #endregion
 
                 }
                 //Fin de for piloto por piloto
@@ -11333,10 +11333,13 @@ namespace ALE_MexJet.Presenter
                     {
                         if (oIGestCat.SetInsertaVuelosPiernasPiloto(oIView.oLstVP, oIView.iIdPeriodo))
                         {
-                            if(oIGestCat.SetInsertaViaticosPorDia(oIView.oLstPorDia, oIView.iIdPeriodo))
-                                oIView.sOk = "ok";
-                            else
-                                oIView.sOk = "error";
+                            if (oIGestCat.SetInsertaViaticosPorDia(oIView.oLstPorDia, oIView.iIdPeriodo))
+                            {
+                                if(oIGestCat.SetInsertaViaticosXPilotoResumen(oIView.dtResumenViaticos, oIView.iIdPeriodo))
+                                    oIView.sOk = "ok";
+                                else
+                                    oIView.sOk = "error";
+                            }
                         }                            
                     }
                 }
@@ -11344,24 +11347,41 @@ namespace ALE_MexJet.Presenter
         }
         protected void SavePeriodos_Presenter(object sender, EventArgs e)
         {
-            if (oIView.oLstPeriodo.Count > 0)
+            if (oIView.oPe != null)
             {
-                for (int i = 0; i < oIView.oLstPeriodo.Count; i++)
-                {
-                    oIView.iIdPeriodo = oIGestCat.SetInsertaPeriodo(oIView.oLstPeriodo[i]);
+                oIView.iIdPeriodo = oIGestCat.SetInsertaPeriodo(oIView.oPe);
 
-                    if (oIView.iIdPeriodo > 0)
-                    {
-                        if (oIGestCat.SetInsertaConceptosPilotoBitacora(oIView.oLst, oIView.iIdPeriodo))
-                        {
-                            //Inserta piernas
-                            if (oIGestCat.SetInsertaVuelosPiernasPiloto(oIView.oLstVP, oIView.iIdPeriodo))
-                                oIView.sOk = "ok";
-                            else
-                                oIView.sOk = "error";
-                        }
-                    }
+                if (oIView.iIdPeriodo > 0)
+                {
+                    foreach (var item in oIView.oLstCon)
+                        item.IdPeriodo = oIView.iIdPeriodo;
+
+                    foreach (var item in oIView.oLstVPil)
+                        item.IdPeriodo = oIView.iIdPeriodo;
+
+                    foreach (var item in oIView.oLstPorDiaPil)
+                        item.IdPeriodo = oIView.iIdPeriodo;
+
+                    if (oIGestCat.SetInsertaViaticosPeriodo(oIView.oLstCon.ConvertListToDataTable(), oIView.oLstVPil.ConvertListToDataTable(), oIView.oLstPorDiaPil.ConvertListToDataTable(), oIView.dtResumenViaticos))
+                        oIView.sOk = "ok";
+                    else
+                        oIView.sOk = "error";
+
+
+                    //if (oIGestCat.SetInsertaConceptosPilotoBitacora(oIView.oLst, oIView.iIdPeriodo))
+                    //{
+                    //string sBan = "Pasa";
+                    //Inserta piernas
+                    //    if (oIGestCat.SetInsertaVuelosPiernasPiloto(oIView.oLstVP, oIView.iIdPeriodo))
+                    //    {
+                    //        if (oIGestCat.SetInsertaViaticosPorDia(oIView.oLstPorDia, oIView.iIdPeriodo))
+                    //            oIView.sOk = "ok";
+                    //        else
+                    //            oIView.sOk = "error";
+                    //    }
+                    //}
                 }
+                //GC.Collect();
             }
         }
         protected void SearchEstatus_Presenter(object sender, EventArgs e)

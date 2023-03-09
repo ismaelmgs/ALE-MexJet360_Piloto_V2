@@ -30,6 +30,7 @@ namespace ALE_MexJet.Objetos
     [Serializable]
     public class ConceptosPiloto
     {
+        private int _IdViaticos = 0;
         private int _iIdPeriodo = 0;
         private int _iIdConcepto = 0;
         private string _sDesConcepto = string.Empty;
@@ -47,11 +48,26 @@ namespace ALE_MexJet.Objetos
         public decimal DTotal { get => _dTotal; set => _dTotal = value; }
         public string SMoneda { get => _sMoneda; set => _sMoneda = value; }
         public int IEstatus { get => _iEstatus; set => _iEstatus = value; }
+        public int IdViaticos { get => _IdViaticos; set => _IdViaticos = value; }
+    }
+    [Serializable]
+    public class ConceptosPilotoSave
+    {
+        public int IdViaticos { get; set; }
+        public int IdPeriodo { get; set; }
+        public int IdConcepto { get; set; }
+        public string DesConcepto { get; set; }
+        public int Cantidad { get; set; }
+        public decimal MontoConcepto { get; set; }
+        public decimal Total { get; set; }
+        public string Moneda { get; set; }
+        public int Estatus { get; set; }
     }
 
     [Serializable]
     public class ConceptosViaticosPorDia
     {
+        private int _Id = 0;
         private int _iIdPeriodo = 0;
         private string _sMoneda = string.Empty;
         private DateTime _dtFecha;
@@ -84,6 +100,28 @@ namespace ALE_MexJet.Objetos
         public decimal DComInt { get => _dComInt; set => _dComInt = value; }
         public decimal DCenNac { get => _dCenNac; set => _dCenNac = value; }
         public decimal DCenInt { get => _dCenInt; set => _dCenInt = value; }
+        public int Id { get => _Id; set => _Id = value; }
+    }
+    [Serializable]
+    public class ConceptosViaticosPorDiaSave
+    {
+        public int Id { get; set; }
+        public int IdPeriodo { get; set; }
+        public string Moneda { get; set; }
+        public DateTime Fecha { get; set; }
+        public decimal Desayuno { get; set; }
+        public decimal Comida { get; set; }
+        public decimal Cena { get; set; }
+        public decimal DesNac { get; set; }
+        public decimal DesInt { get; set; }
+        public decimal ComNac { get; set; }
+        public decimal ComInt { get; set; }
+        public decimal CenNac { get; set; }
+        public decimal CenInt { get; set; }
+        public decimal Total { get; set; }
+        public int Estatus { get; set; }
+        public decimal TipoCambio { get; set; }
+        
     }
 
     [Serializable]
@@ -109,6 +147,7 @@ namespace ALE_MexJet.Objetos
     [Serializable]
     public class VuelosPiernasPiloto
     {
+        private int _IdVuelo = 0;
         private int _iIdPeriodo = 0;
         private long _lTrip = 0;
         private long _lLegId = 0;
@@ -116,5 +155,14 @@ namespace ALE_MexJet.Objetos
         public int IIdPeriodo { get => _iIdPeriodo; set => _iIdPeriodo = value; }
         public long LTrip { get => _lTrip; set => _lTrip = value; }
         public long LLegId { get => _lLegId; set => _lLegId = value; }
+        public int IdVuelo { get => _IdVuelo; set => _IdVuelo = value; }
+    }
+    [Serializable]
+    public class VuelosPiernasPilotoSave
+    {
+        public int IdVuelo { get; set; }
+        public int IdPeriodo { get; set; }
+        public long Trip { get; set; }
+        public long LegId { get; set; }
     }
 }

@@ -3,6 +3,7 @@ using NucleoBase.Core;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 
@@ -57,7 +58,43 @@ namespace ALE_MexJet.DomainModel
             try
             {
                 DateTime dtFinalAux = new DateTime(dtFin.Year, dtFin.Month, dtFin.Day, 23, 59, 59);
-                return new DBBaseAleSuite().oDB_SP.EjecutarDS("[VB].[spS_MXJ_ObtieneVuelosParaCalculoViaticos]", "@FechaInicio", dtInicio, "@FechaFin", dtFinalAux, "@ClavePil", sClavePiloto);
+                //return new DBBaseAleSuite().oDB_SP.EjecutarDS("[VB].[spS_MXJ_ObtieneVuelosParaCalculoViaticos]", "@FechaInicio", dtInicio, "@FechaFin", dtFinalAux, "@ClavePil", sClavePiloto);
+
+                DataSet ds = new DataSet();
+                SqlConnection cn = new SqlConnection(new DBBaseAleSuite().oDB_SP.sConexionSQL);
+                ////SqlConnection cn = new SqlConnection(Globales.GetConfigConnection("SqlAleSuite"));
+                cn.Open();
+
+                try
+                {
+                    SqlCommand cmd = new SqlCommand("[VB].[spS_MXJ_ObtieneVuelosParaCalculoViaticos]", cn);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@FechaInicio", SqlDbType.DateTime);
+                    cmd.Parameters.Add("@FechaFin", SqlDbType.DateTime);
+                    cmd.Parameters.Add("@ClavePil", SqlDbType.VarChar);
+                    cmd.Parameters["@FechaInicio"].Value = dtInicio;
+                    cmd.Parameters["@FechaFin"].Value = dtFinalAux;
+                    cmd.Parameters["@ClavePil"].Value = sClavePiloto;
+                    cmd.CommandTimeout = 0;
+
+                    SqlDataAdapter da = new SqlDataAdapter(cmd);
+                    da.Fill(ds);
+                    cn.Close();
+                    return ds;
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+                finally
+                {
+                    if (cn != null)
+                    {
+                        cn.Dispose();
+                        cn = null;
+                    }
+                }
+
             }
             catch (Exception ex)
             {
@@ -419,5 +456,46 @@ namespace ALE_MexJet.DomainModel
                 throw ex;
             }
         }
+
+        public bool SetInsertaViaticosPeriodo(DataTable dtLCon, DataTable dtLVue, DataTable dtLVD, DataTable dtResumenViaticos)
+        {
+            try
+            {
+                bool bRes = false;
+                var res = new DBBase().oDB_SP.EjecutarDS("[VB].[spI_MXJ_InsertaViaticosPilotoGral]", "@ConceptosPiloto", dtLCon,
+                                                                                                     "@VuelosPiloto", dtLVue,
+                                                                                                     "@ViaticosXPiloto", dtLVD,
+                                                                                                     "@ViaticosXPilotoResumen", dtResumenViaticos);
+
+                if (res.Tables[0].Rows.Count > 0)
+                    bRes = true;
+
+                return bRes;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        public bool SetInsertaViaticosXPilotoResumen(DataTable dtResumenViaticos, int iIdPeriodo)
+        {
+            try
+            {
+                bool bRes = false;
+                var res = new DBBase().oDB_SP.EjecutarDS("[VB].[spI_MXJ_InsertaViaticosPorDiaResumen]", "@IdPeriodo", iIdPeriodo,
+                                                                                                        "@ViaticosXPilotoResumen", dtResumenViaticos);
+
+                if (res.Tables[0].Rows.Count > 0)
+                    bRes = true;
+
+                return bRes;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
     }
 }
