@@ -130,6 +130,7 @@ namespace ALE_MexJet.Views.viaticos
             try
             {
                 dtDiasViaticos = null;
+                //dtDiasViaticosHoteles = null;
                 oLstCon = null;
                 oLstVPil = null;
                 oLstPorDiaPil = null;
@@ -510,6 +511,16 @@ namespace ALE_MexJet.Views.viaticos
                 List<ConceptosPiloto> oLs = new List<ConceptosPiloto>();
                 List<VuelosPiernasPiloto> oLsV = new List<VuelosPiernasPiloto>();
 
+                List<HotelesPiloto> oLsH = new List<HotelesPiloto>();
+                DataTable dtHoteles = new DataTable();
+
+                if (dsParamsH != null && dsParamsH.Tables.Count > 0)
+                {
+                    dtHoteles = dsParamsH.Tables[0];
+                }
+
+
+
                 for (int i = 0; i < dtNal.Rows.Count; i++)
                 {
                     ConceptosPiloto oP = new ConceptosPiloto();
@@ -620,6 +631,110 @@ namespace ALE_MexJet.Views.viaticos
                     oLsViPorDia.Add(oCD);
                 }
                 oLstPorDia = oLsViPorDia;
+
+
+                #region VIATICOS DE HOTEL y VIATICOS DE HOTEL POR DÍA
+                for (int i = 0; i < dtHotNal.Rows.Count; i++)
+                {
+                    HotelesPiloto oP = new HotelesPiloto();
+                    if (dtHotNal.Rows[i]["CONCEPTO"].S().ToUpper() != "TOTAL")
+                    {
+                        oP.IIdPeriodo = 0;
+                        int iIdHotel = 0;
+                        decimal dMonto = 0;
+
+                        if (dtHoteles != null && dtHoteles.Rows.Count > 0)
+                        {
+                            for (int x = 0; x < dtHoteles.Rows.Count; x++)
+                            {
+                                if (dtHoteles.Rows[x]["DesHotel"].S().ToUpper() == dtHotNal.Rows[i]["CONCEPTO"].S().ToUpper())
+                                {
+                                    iIdHotel = dtHoteles.Rows[x]["IdHotel"].S().I();
+                                    dMonto = dtHoteles.Rows[x]["MontoMXN"].S().Replace(" MXN", "").D();
+                                    break;
+                                }
+                            }
+                        }
+                        oP.IIdHotel = iIdHotel;
+                        oP.SDesHotel = dtHotNal.Rows[i]["CONCEPTO"].S();
+                        oP.ICantidad = dtHotNal.Rows[i]["NACIONAL"].S().I();
+                        oP.DMontoHotel = dMonto;
+                        oP.SMoneda = "MXN";
+                        oP.DTotal = dtHotNal.Rows[i]["NACIONAL"].S().I() * dMonto;
+                        oLsH.Add(oP);
+                    }
+                }
+
+                for (int i = 0; i < dtHotInt.Rows.Count; i++)
+                {
+                    HotelesPiloto oP = new HotelesPiloto();
+                    if (dtHotInt.Rows[i]["CONCEPTO"].S().ToUpper() != "TOTAL")
+                    {
+                        oP.IIdPeriodo = 0;
+                        int iIdHotel = 0;
+                        decimal dMonto = 0;
+
+                        if (dtHoteles != null && dtHoteles.Rows.Count > 0)
+                        {
+                            for (int x = 0; x < dtHoteles.Rows.Count; x++)
+                            {
+                                if (dtHoteles.Rows[x]["DesHotel"].S().ToUpper() == dtHotInt.Rows[i]["CONCEPTO"].S().ToUpper())
+                                {
+                                    iIdHotel = dtHoteles.Rows[x]["IdHotel"].S().I();
+                                    dMonto = dtHoteles.Rows[x]["MontoUSD"].S().Replace(" USD", "").D();
+                                    break;
+                                }
+                            }
+                        }
+                        oP.IIdHotel = iIdHotel;
+                        oP.SDesHotel = dtHotInt.Rows[i]["CONCEPTO"].S();
+                        oP.ICantidad = dtHotInt.Rows[i]["INTERNACIONAL"].S().I();
+                        oP.DMontoHotel = dMonto;
+                        oP.SMoneda = "USD";
+                        oP.DTotal = dtHotInt.Rows[i]["INTERNACIONAL"].S().I() * dMonto;
+                        oLsH.Add(oP);
+                    }
+                }
+                //Enlistamos los hoteles nacionales e internacionales del calculo del piloto
+                oLstHP = oLsH;
+
+                //Viaticos de hotel por día
+                List<ViaticosHotelPorDia> oLsViHPorDia = new List<ViaticosHotelPorDia>();
+                for (int i = 0; i < dtViaticosHotelDiaInsert.Rows.Count; i++)
+                {
+                    ViaticosHotelPorDia oHD = new ViaticosHotelPorDia();
+                    oHD.SMoneda = dtViaticosHotelDiaInsert.Rows[i]["Moneda"].S();
+                    oHD.DtFecha = dtViaticosHotelDiaInsert.Rows[i]["Fecha"].S().Dt();
+                    oHD.DHotNac = dtViaticosHotelDiaInsert.Rows[i]["HotNac"].S().Replace("$", "").Replace(" MXN", "").Replace(" USD", "").D();
+                    oHD.DHotInt = dtViaticosHotelDiaInsert.Rows[i]["HotInt"].S().Replace("$", "").Replace(" MXN", "").Replace(" USD", "").D();
+                    oHD.DTotal = dtViaticosHotelDiaInsert.Rows[i]["Total"].S().Replace("$", "").Replace(" MXN", "").Replace(" USD", "").D();
+
+                    if (dtViaticosHotelDiaInsert.Rows[i]["Moneda"].S() == "USD")
+                        oHD.DTipoCambio = new DBCalculoPagos().ObtenerTipoCambio(dtViaticosHotelDiaInsert.Rows[i]["Fecha"].S());
+                    else
+                        oHD.DTipoCambio = 0;
+
+                    //if (dtViaticosHotelDiaInsert.Rows[i]["Moneda"].S() == "MXN")
+                    //{
+                    //    oHD.DDesNac = dtViaticosHotelDiaInsert.Rows[i]["Desayuno"].S().Replace("$", "").Replace(" MXN", "").Replace(" USD", "").D();
+                    //    oHD.DComNac = dtViaticosHotelDiaInsert.Rows[i]["Comida"].S().Replace("$", "").Replace(" MXN", "").Replace(" USD", "").D();
+                    //    oHD.DCenNac = dtViaticosHotelDiaInsert.Rows[i]["Cena"].S().Replace("$", "").Replace(" MXN", "").Replace(" USD", "").D();
+                    //}
+
+                    //if (dtViaticosHotelDiaInsert.Rows[i]["Moneda"].S() == "USD")
+                    //{
+                    //    oHD.DDesInt = dtViaticosHotelDiaInsert.Rows[i]["Desayuno"].S().Replace("$", "").Replace(" MXN", "").Replace(" USD", "").D();
+                    //    oHD.DComInt = dtViaticosHotelDiaInsert.Rows[i]["Comida"].S().Replace("$", "").Replace(" MXN", "").Replace(" USD", "").D();
+                    //    oHD.DCenInt = dtViaticosHotelDiaInsert.Rows[i]["Cena"].S().Replace("$", "").Replace(" MXN", "").Replace(" USD", "").D();
+                    //}
+
+                    oLsViHPorDia.Add(oHD);
+                }
+                oLstHotelPorDia = oLsViHPorDia;
+
+
+                #endregion
+
 
                 if (eSaveObj != null)
                     eSaveObj(sender, e);
@@ -827,40 +942,185 @@ namespace ALE_MexJet.Views.viaticos
                         //Se llena la lista de viaticos por día
                     }
 
-                    List<ConceptosViaticosPorDiaSave> oLsViPorDia = new List<ConceptosViaticosPorDiaSave>();
-                    for (int b = 0; b < dtViaticosDiaInsert.Rows.Count; b++)
+                    if (dtViaticosHot != null && dtViaticosHot.Rows.Count > 0)
                     {
-                        ConceptosViaticosPorDiaSave oCD = new ConceptosViaticosPorDiaSave();
-                        oCD.Moneda = dtViaticosDiaInsert.Rows[b]["Moneda"].S();
-                        oCD.Fecha = dtViaticosDiaInsert.Rows[b]["Fecha"].S().Dt();
-                        oCD.Desayuno = dtViaticosDiaInsert.Rows[b]["Desayuno"].S().Replace("$", "").Replace(" MXN", "").Replace(" USD", "").D();
-                        oCD.Comida = dtViaticosDiaInsert.Rows[b]["Comida"].S().Replace("$", "").Replace(" MXN", "").Replace(" USD", "").D();
-                        oCD.Cena = dtViaticosDiaInsert.Rows[b]["Cena"].S().Replace("$", "").Replace(" MXN", "").Replace(" USD", "").D();
-                        oCD.Total = dtViaticosDiaInsert.Rows[b]["Total"].S().Replace("$", "").Replace(" MXN", "").Replace(" USD", "").D();
+                        //Se genera el listado de viaticos de hotel
+                        CargaViaticosHotel();
+                        //Se llena la lista de viaticos de hotel por día
+                    }
 
-                        if (dtViaticosDiaInsert.Rows[b]["Moneda"].S() == "USD")
-                            oCD.TipoCambio = new DBCalculoPagos().ObtenerTipoCambio(dtViaticosDiaInsert.Rows[b]["Fecha"].S());
-                        else
-                            oCD.TipoCambio = 0;
-
-                        if (dtViaticosDiaInsert.Rows[b]["Moneda"].S() == "MXN")
+                    List<ConceptosViaticosPorDiaSave> oLsViPorDia = new List<ConceptosViaticosPorDiaSave>();
+                    if (dtViaticosDiaInsert != null && dtViaticosDiaInsert.Rows.Count > 0)
+                    {
+                        for (int b = 0; b < dtViaticosDiaInsert.Rows.Count; b++)
                         {
-                            oCD.DesNac = dtViaticosDiaInsert.Rows[b]["Desayuno"].S().Replace("$", "").Replace(" MXN", "").Replace(" USD", "").D();
-                            oCD.ComNac = dtViaticosDiaInsert.Rows[b]["Comida"].S().Replace("$", "").Replace(" MXN", "").Replace(" USD", "").D();
-                            oCD.CenNac = dtViaticosDiaInsert.Rows[b]["Cena"].S().Replace("$", "").Replace(" MXN", "").Replace(" USD", "").D();
-                        }
+                            ConceptosViaticosPorDiaSave oCD = new ConceptosViaticosPorDiaSave();
+                            oCD.Moneda = dtViaticosDiaInsert.Rows[b]["Moneda"].S();
+                            oCD.Fecha = dtViaticosDiaInsert.Rows[b]["Fecha"].S().Dt();
+                            oCD.Desayuno = dtViaticosDiaInsert.Rows[b]["Desayuno"].S().Replace("$", "").Replace(" MXN", "").Replace(" USD", "").D();
+                            oCD.Comida = dtViaticosDiaInsert.Rows[b]["Comida"].S().Replace("$", "").Replace(" MXN", "").Replace(" USD", "").D();
+                            oCD.Cena = dtViaticosDiaInsert.Rows[b]["Cena"].S().Replace("$", "").Replace(" MXN", "").Replace(" USD", "").D();
+                            oCD.Total = dtViaticosDiaInsert.Rows[b]["Total"].S().Replace("$", "").Replace(" MXN", "").Replace(" USD", "").D();
 
-                        if (dtViaticosDiaInsert.Rows[b]["Moneda"].S() == "USD")
-                        {
-                            oCD.DesInt = dtViaticosDiaInsert.Rows[b]["Desayuno"].S().Replace("$", "").Replace(" MXN", "").Replace(" USD", "").D();
-                            oCD.ComInt = dtViaticosDiaInsert.Rows[b]["Comida"].S().Replace("$", "").Replace(" MXN", "").Replace(" USD", "").D();
-                            oCD.CenInt = dtViaticosDiaInsert.Rows[b]["Cena"].S().Replace("$", "").Replace(" MXN", "").Replace(" USD", "").D();
+                            if (dtViaticosDiaInsert.Rows[b]["Moneda"].S() == "USD")
+                                oCD.TipoCambio = new DBCalculoPagos().ObtenerTipoCambio(dtViaticosDiaInsert.Rows[b]["Fecha"].S());
+                            else
+                                oCD.TipoCambio = 0;
+
+                            if (dtViaticosDiaInsert.Rows[b]["Moneda"].S() == "MXN")
+                            {
+                                oCD.DesNac = dtViaticosDiaInsert.Rows[b]["Desayuno"].S().Replace("$", "").Replace(" MXN", "").Replace(" USD", "").D();
+                                oCD.ComNac = dtViaticosDiaInsert.Rows[b]["Comida"].S().Replace("$", "").Replace(" MXN", "").Replace(" USD", "").D();
+                                oCD.CenNac = dtViaticosDiaInsert.Rows[b]["Cena"].S().Replace("$", "").Replace(" MXN", "").Replace(" USD", "").D();
+                            }
+
+                            if (dtViaticosDiaInsert.Rows[b]["Moneda"].S() == "USD")
+                            {
+                                oCD.DesInt = dtViaticosDiaInsert.Rows[b]["Desayuno"].S().Replace("$", "").Replace(" MXN", "").Replace(" USD", "").D();
+                                oCD.ComInt = dtViaticosDiaInsert.Rows[b]["Comida"].S().Replace("$", "").Replace(" MXN", "").Replace(" USD", "").D();
+                                oCD.CenInt = dtViaticosDiaInsert.Rows[b]["Cena"].S().Replace("$", "").Replace(" MXN", "").Replace(" USD", "").D();
+                            }
+                            oCD.Estatus = 1;
+                            oLsViPorDia.Add(oCD);
                         }
-                        oCD.Estatus = 1;
-                        oLsViPorDia.Add(oCD);
                     }
                     oLstPorDiaPil = oLsViPorDia;
 
+                    #endregion
+
+
+                    #region Llena Hoteles
+                    List<HotelesPilotoSave> oLsHotPiloto = new List<HotelesPilotoSave>();
+                    int iHotelNal = 0;
+                    int iHotelInt = 0;
+                    oLstHPS = null;
+
+                    iHotelNal = dtCalculos1X1.Rows[i]["HotelesNac"].S().I();
+                    iHotelInt = dtCalculos1X1.Rows[i]["HotelesInt"].S().I();
+
+                    #region HOTELES NACIONALES
+                    for (int x = 0; x < dsParamsH.Tables[0].Rows.Count; x++)
+                    {
+                        HotelesPilotoSave oHP = new HotelesPilotoSave();
+                        oHP.IdPeriodo = 0;
+                        int iIdHotel = 0;
+                        decimal dMonto = 0;
+
+                        if (dsParamsH.Tables[0].Rows[x]["DesHotel"].S().ToUpper() == "HOTEL")
+                        {
+                            iIdHotel = dsParamsH.Tables[0].Rows[x]["IdHotel"].S().I();
+                            dMonto = dsParamsH.Tables[0].Rows[x]["MontoMXN"].S().Replace(" MXN", "").D();
+
+                            oHP.IdHotel = iIdHotel;
+                            oHP.DesHotel = dsParamsH.Tables[0].Rows[x]["DesHotel"].S();
+                            oHP.Cantidad = iHotelNal;
+                            oHP.MontoHotel = dMonto;
+                            oHP.Moneda = "MXN";
+                            oHP.Total = iHotelNal * dMonto;
+                            oHP.Estatus = 1;
+                            oLsHotPiloto.Add(oHP);
+                        }
+                        else if (dsParamsH.Tables[0].Rows[x]["DesHotel"].S().ToUpper() == "HOTEL ESPECIAL")
+                        {
+                            iIdHotel = dsParamsH.Tables[0].Rows[x]["IdHotel"].S().I();
+                            dMonto = dsParamsH.Tables[0].Rows[x]["MontoMXN"].S().Replace(" MXN", "").D();
+
+                            oHP.IdHotel = iIdHotel;
+                            oHP.DesHotel = dsParamsH.Tables[0].Rows[x]["DesHotel"].S();
+                            oHP.Cantidad = iHotelNal;
+                            oHP.MontoHotel = dMonto;
+                            oHP.Moneda = "MXN";
+                            oHP.Total = iHotelNal * dMonto;
+                            oHP.Estatus = 1;
+                            oLsHotPiloto.Add(oHP);
+                        }
+                    }
+                    #endregion
+
+                    #region HOTELES INTERNACIONALES
+                    for (int x = 0; x < dsParamsH.Tables[0].Rows.Count; x++)
+                    {
+                        HotelesPilotoSave oHP = new HotelesPilotoSave();
+                        oHP.IdPeriodo = 0;
+                        int iIdHotel = 0;
+                        decimal dMonto = 0;
+
+                        if (dsParamsH.Tables[0].Rows[x]["DesHotel"].S().ToUpper() == "HOTEL")
+                        {
+                            iIdHotel = dsParamsH.Tables[0].Rows[x]["IdHotel"].S().I();
+                            dMonto = dsParamsH.Tables[0].Rows[x]["MontoUSD"].S().Replace(" USD", "").D();
+
+                            oHP.IdHotel = iIdHotel;
+                            oHP.DesHotel = dsParamsH.Tables[0].Rows[x]["DesHotel"].S();
+                            oHP.Cantidad = iHotelInt;
+                            oHP.MontoHotel = dMonto;
+                            oHP.Moneda = "USD";
+                            oHP.Total = iHotelInt * dMonto;
+                            oHP.Estatus = 1;
+                            oLsHotPiloto.Add(oHP);
+                        }
+                        else if (dsParamsH.Tables[0].Rows[x]["DesHotel"].S().ToUpper() == "HOTEL ESPECIAL")
+                        {
+                            iIdHotel = dsParamsH.Tables[0].Rows[x]["IdHotel"].S().I();
+                            dMonto = dsParamsH.Tables[0].Rows[x]["MontoUSD"].S().Replace(" USD", "").D();
+
+                            oHP.IdHotel = iIdHotel;
+                            oHP.DesHotel = dsParamsH.Tables[0].Rows[x]["DesHotel"].S();
+                            oHP.Cantidad = iHotelInt;
+                            oHP.MontoHotel = dMonto;
+                            oHP.Moneda = "USD";
+                            oHP.Total = iHotelInt * dMonto;
+                            oHP.Estatus = 1;
+                            oLsHotPiloto.Add(oHP);
+                        }
+                        
+                    }
+                    oLstHPS = oLsHotPiloto;
+                    #endregion
+
+
+                    #endregion
+
+                    #region Llena Hoteles de piloto por día
+
+                    
+
+                    List<ViaticosHotelPorDiaSave> oLsViHotPorDia = new List<ViaticosHotelPorDiaSave>();
+                    if (dtViaticosHotelDiaInsert != null && dtViaticosHotelDiaInsert.Rows.Count > 0)
+                    {
+                        for (int b = 0; b < dtViaticosHotelDiaInsert.Rows.Count; b++)
+                        {
+                            ViaticosHotelPorDiaSave oHD = new ViaticosHotelPorDiaSave();
+                            oHD.SMoneda = dtViaticosHotelDiaInsert.Rows[b]["Moneda"].S();
+                            oHD.DtFecha = dtViaticosHotelDiaInsert.Rows[b]["Fecha"].S().Dt();
+                            oHD.DHotNac = dtViaticosHotelDiaInsert.Rows[b]["HotNac"].S().Replace("$", "").Replace(" MXN", "").Replace(" USD", "").D();
+                            oHD.DHotInt = dtViaticosHotelDiaInsert.Rows[b]["HotInt"].S().Replace("$", "").Replace(" MXN", "").Replace(" USD", "").D();
+
+                            oHD.DTotal = dtViaticosHotelDiaInsert.Rows[b]["Total"].S().Replace("$", "").Replace(" MXN", "").Replace(" USD", "").D();
+
+                            if (dtViaticosHotelDiaInsert.Rows[b]["Moneda"].S() == "USD")
+                                oHD.DTipoCambio = new DBCalculoPagos().ObtenerTipoCambio(dtViaticosHotelDiaInsert.Rows[b]["Fecha"].S());
+                            else
+                                oHD.DTipoCambio = 0;
+
+                            //if (dtViaticosHotelDiaInsert.Rows[b]["Moneda"].S() == "MXN")
+                            //{
+                            //    oHD.DesNac = dtViaticosHotelDiaInsert.Rows[b]["Desayuno"].S().Replace("$", "").Replace(" MXN", "").Replace(" USD", "").D();
+                            //    oHD.ComNac = dtViaticosHotelDiaInsert.Rows[b]["Comida"].S().Replace("$", "").Replace(" MXN", "").Replace(" USD", "").D();
+                            //    oHD.CenNac = dtViaticosHotelDiaInsert.Rows[b]["Cena"].S().Replace("$", "").Replace(" MXN", "").Replace(" USD", "").D();
+                            //}
+
+                            //if (dtViaticosHotelDiaInsert.Rows[b]["Moneda"].S() == "USD")
+                            //{
+                            //    oHD.DesInt = dtViaticosHotelDiaInsert.Rows[b]["Desayuno"].S().Replace("$", "").Replace(" MXN", "").Replace(" USD", "").D();
+                            //    oHD.ComInt = dtViaticosHotelDiaInsert.Rows[b]["Comida"].S().Replace("$", "").Replace(" MXN", "").Replace(" USD", "").D();
+                            //    oHD.CenInt = dtViaticosHotelDiaInsert.Rows[b]["Cena"].S().Replace("$", "").Replace(" MXN", "").Replace(" USD", "").D();
+                            //}
+
+                            oLsViHotPorDia.Add(oHD);
+                        }
+                    }
+                    oLstHotelPorDiaSave = oLsViHotPorDia;
                     #endregion
 
                     if (eSavePeriodos != null)
@@ -870,6 +1130,9 @@ namespace ALE_MexJet.Views.viaticos
                     oLstCon = null;
                     oLstVPil = null;
                     oLstPorDiaPil = null;
+
+                    oLstHPS = null;
+                    oLstHotelPorDiaSave = null;
                     //GC.Collect();
                 }
 
@@ -1368,6 +1631,21 @@ namespace ALE_MexJet.Views.viaticos
                     ddlConceptoAdicional.ValueField = "IdParametro";
                     ddlConceptoAdicional.TextField = "DesConcepto";
                     ddlConceptoAdicional.DataBind();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        public void LoadsHoteles(DataSet ds)
+        {
+            try
+            {
+                if (ds != null && ds.Tables.Count > 0)
+                {
+                    gvHorariosHotel.DataSource = ds.Tables[0];
+                    gvHorariosHotel.DataBind();
                 }
             }
             catch (Exception ex)
@@ -1977,6 +2255,85 @@ namespace ALE_MexJet.Views.viaticos
                     //Mostrar conteo dias-viaticos
                     AgruparDiasViaticos(dtDiasViaticos);
 
+                    //Mostrar conteo días-hotel
+
+                    if (dtViaticosHot != null && dtViaticosHot.Rows.Count > 0)
+                    {
+
+                        DataRow drowH;
+                        DataTable dtH = new DataTable();
+                        dtH.Columns.Add("Fecha");
+                        dtH.Columns.Add("Moneda");
+                        dtH.Columns.Add("HotNac");
+                        dtH.Columns.Add("HotInt");
+                        dtH.Columns.Add("Total");
+
+                        for (int i = 0; i < dtViaticosHot.Rows.Count; i++)
+                        {
+                            for (int x = 0; x < 2; x++)
+                            {
+                                if (x == 0)
+                                {
+                                    decimal dTotalHotNal = 0;
+                                    decimal dTotalNal = 0;
+
+                                    for (int a = 0; a < dsParamsH.Tables[1].Rows.Count; a++)
+                                    {
+                                        if (dtViaticosHot.Rows[i]["POA"].S() == dsParamsH.Tables[1].Rows[a]["POA"].S())
+                                        {
+                                            dTotalHotNal = dtViaticosHot.Rows[i]["HotNal"].S().D() * ObtenValorHotel(2, "MXN");
+                                            break;
+                                        }
+                                    }
+
+                                    if(dTotalHotNal == 0)
+                                        dTotalHotNal = dtViaticosHot.Rows[i]["HotNal"].S().D() * ObtenValorHotel(1, "MXN");
+
+                                    dTotalNal = dTotalHotNal;
+
+                                    drowH = dtH.NewRow();
+                                    drowH["Fecha"] = dtViaticosHot.Rows[i]["FechaDia"].S().Dt();
+                                    drowH["Moneda"] = "MXN";
+                                    drowH["HotNac"] = dTotalHotNal.ToString("c") + " " + "MXN";
+                                    drowH["HotInt"] = (0).ToString("c") + " " + "USD";
+                                    drowH["Total"] = dTotalNal.ToString("c") + " " + "MXN";
+                                }
+                                else
+                                {
+                                    decimal dTotalHotInt = 0;
+                                    decimal dTotalInt = 0;
+
+                                    for (int a = 0; a < dsParamsH.Tables[1].Rows.Count; a++)
+                                    {
+                                        if (dtViaticosHot.Rows[i]["POA"].S() == dsParamsH.Tables[1].Rows[a]["POA"].S())
+                                        {
+                                            dTotalHotInt = dtViaticosHot.Rows[i]["HotInt"].S().D() * ObtenValorHotel(2, "USD");
+                                            break;
+                                        }
+                                    }
+
+                                    if(dTotalHotInt == 0)
+                                        dTotalHotInt = dtViaticosHot.Rows[i]["HotInt"].S().D() * ObtenValorHotel(1, "USD");
+
+                                    dTotalInt = dTotalHotInt;
+
+                                    drowH = dtH.NewRow();
+                                    drowH["Fecha"] = dtViaticosHot.Rows[i]["FechaDia"].S().Dt();
+                                    drowH["Moneda"] = "USD";
+                                    drowH["HotNac"] = (0).ToString("c") + " " + "MXN";
+                                    drowH["HotInt"] = dTotalHotInt.ToString("c") + " " + "USD";
+                                    drowH["Total"] = dTotalInt.ToString("c") + " " + "USD";
+                                }
+                                dtH.Rows.Add(drowH);
+                            }
+                        }
+
+                        dtViaticosHotelDiaInsert = null;
+                        dtViaticosHotelDiaInsert = dtH;
+
+                        AgruparDiasGastosHotel(dtViaticosHot);
+                    }
+
                 }
             }
             catch (Exception ex)
@@ -2342,13 +2699,13 @@ namespace ALE_MexJet.Views.viaticos
 
                         for (int x = 0; x < dr.Length; x++)
                         {
-                            dDesNac = 0;
-                            dDesInt = 0;
-                            dComNac = 0;
-                            dComInt = 0;
-                            dCenNac = 0;
-                            dCenInt = 0;
-                            dTotal = 0;
+                            //dDesNac = 0;
+                            //dDesInt = 0;
+                            //dComNac = 0;
+                            //dComInt = 0;
+                            //dCenNac = 0;
+                            //dCenInt = 0;
+                            //dTotal = 0;
 
                             iCountDesayuno += dr[x]["DesNal"].S().I() + dr[x]["DesInt"].S().I();
                             iCountComida += dr[x]["ComNal"].S().I() + dr[x]["ComInt"].S().I();
@@ -2365,6 +2722,7 @@ namespace ALE_MexJet.Views.viaticos
 
                             dTotal = ((((dDesNac + dDesInt) + dComNac) + dComInt) + dCenNac) + dCenInt;
                         }
+                        
 
                         drDias["TipoCambio"] = dTipoCambio.ToString("c") + " " + "MXN";
                         drDias["Desayuno"] = iCountDesayuno;
@@ -2402,6 +2760,296 @@ namespace ALE_MexJet.Views.viaticos
                     dtResumenViaticos = dtResumen;
                     gvDiasViaticos.DataSource = dt;
                     gvDiasViaticos.DataBind();
+
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public void AgruparDiasGastosHotel(DataTable dtDiasVia)
+        {
+            try
+            {
+                decimal dHotelMXN = 0;
+                decimal dHotelUSD = 0;
+                decimal dHotelSPMXN = 0;
+                decimal dHotelSPUSD = 0;
+                DataTable dtAeroEspecial = new DataTable();
+
+                if (dsParamsH.Tables[1] != null && dsParamsH.Tables[1].Rows.Count > 0)
+                {
+                    dtAeroEspecial = dsParamsH.Tables[1];
+                }
+
+                if (dsParamsH.Tables[0] != null && dsParamsH.Tables[0].Rows.Count > 0)
+                {
+                    dHotelMXN = dsParamsH.Tables[0].Rows[0]["MontoMXN"].S().D();
+                    dHotelUSD = dsParamsH.Tables[0].Rows[0]["MontoUSD"].S().D();
+
+                    dHotelSPMXN = dsParamsH.Tables[0].Rows[1]["MontoMXN"].S().D();
+                    dHotelSPUSD = dsParamsH.Tables[0].Rows[1]["MontoUSD"].S().D();
+                }
+
+                DataRow dRow;
+                DataTable dtDiasDistinct = new DataTable();
+                DataTable dtDiasFecha = new DataTable();
+                dtDiasFecha.Columns.Add("Dia");
+
+                for (int i = 0; i < dtDiasVia.Rows.Count; i++)
+                {
+                    dRow = dtDiasFecha.NewRow();
+                    dRow["Dia"] = dtDiasVia.Rows[i]["FechaDia"].S().Dt().ToString("dd/MM/yyyy");
+                    dtDiasFecha.Rows.Add(dRow);
+                }
+                dtDiasFecha.AcceptChanges();
+                DataView dv = new DataView(dtDiasFecha);
+                dtDiasDistinct = dv.ToTable(true, "Dia");
+
+                if (dtDiasDistinct != null && dtDiasDistinct.Rows.Count > 0)
+                {
+                    DataRow drDias;
+                    DataTable dt = new DataTable();
+                    dt.Columns.Add("Fecha");
+                    dt.Columns.Add("TipoCambio");
+
+                    dt.Columns.Add("HotelNac");
+                    dt.Columns.Add("HotelInt");
+                    dt.Columns.Add("Total");
+
+                    //Tabla para resumen
+                    DataRow drDiasResumen;
+                    DataTable dtResumen = new DataTable();
+                    dtResumen.Columns.Add("Id");
+                    dtResumen.Columns.Add("IdPeriodo");
+                    dtResumen.Columns.Add("Fecha");
+
+                    dtResumen.Columns.Add("HotelNac");
+                    dtResumen.Columns.Add("HotelInt");
+                    dtResumen.Columns.Add("Total");
+                    dtResumen.Columns.Add("Estatus");
+                    dtResumen.Columns.Add("TipoCambio");
+
+
+                    for (int i = 0; i < dtDiasVia.Rows.Count; i++)
+                    {
+                        dtDiasVia.Rows[i]["FechaDia"] = dtDiasVia.Rows[i]["FechaDia"].S().Dt().ToString("dd/MM/yyyy");
+                    }
+                    dtDiasVia.AcceptChanges();
+
+
+                    //decimal dHotNac = 0;
+                    //decimal dHotInt = 0;
+                    //decimal dTotal = 0;
+
+                    for (int i = 0; i < dtDiasDistinct.Rows.Count; i++)
+                    {
+                        //int iCountDesayuno = 0;
+                        //int iCountComida = 0;
+                        //int iCountCena = 0;
+
+                        decimal dTipoCambio = 0;
+                        decimal dHotNac = 0;
+                        decimal dHotInt = 0;
+                        decimal dTotal = 0;
+
+                        drDias = dt.NewRow();
+                        drDias["Fecha"] = dtDiasDistinct.Rows[i]["Dia"].S().Dt().Day.S() + " " + GetMes(dtDiasDistinct.Rows[i]["Dia"].S().Dt().Month).Substring(0, 3) + " " + dtDiasDistinct.Rows[i]["Dia"].S().Dt().Year.S();
+
+                        string sFechaVuelo = string.Empty;
+                        sFechaVuelo = dtDiasDistinct.Rows[i]["Dia"].S();
+
+                        dTipoCambio = new DBCalculoPagos().ObtenerTipoCambio(sFechaVuelo);
+
+                        DataRow[] dr = dtDiasVia.Select("FechaDia='" + dtDiasDistinct.Rows[i]["Dia"].S() + "'");
+
+                        //dHotNac = 0;
+                        //dHotInt = 0;
+                        //dTotal = 0;
+
+                        for (int x = 0; x < dr.Length; x++)
+                        {
+                            //identifica los hoteles especiales para asignar costos de hotel
+                            for (int a = 0; a < dtAeroEspecial.Rows.Count; a++)
+                            {
+                                //Cuando los aeropuertos son especiales se utilizan distintos costos de hotel nacional
+                                if (dr[x]["POA"].S() == dtAeroEspecial.Rows[a]["POA"].S())
+                                {
+                                    dHotNac += dr[x]["HotNal"].S().I() * dHotelSPMXN;
+                                    break;
+                                }
+                                else if (a == dtAeroEspecial.Rows.Count - 1)
+                                {
+                                    //Si no hay aeropuertos especiales se asigna el costo normal de hotel
+                                    dHotNac += dr[x]["HotNal"].S().I() * dHotelMXN;
+                                }
+                            }
+
+                            for (int b = 0; b < dtAeroEspecial.Rows.Count; b++)
+                            {
+                                //Cuando los aeropuertos son especiales se utilizan distintos costos de hotel internacional
+                                if (dr[x]["POA"].S() == dtAeroEspecial.Rows[b]["POA"].S())
+                                {
+                                    dHotInt += (dr[x]["HotInt"].S().I() * dHotelSPUSD) * dTipoCambio;
+                                    break;
+                                }
+                                else if (b == dtAeroEspecial.Rows.Count - 1)
+                                {
+                                    dHotInt += (dr[x]["HotInt"].S().I() * dHotelUSD) * dTipoCambio;
+                                }
+                            }
+
+                            dTotal = dHotNac + dHotInt;
+                        }
+
+                        drDias["TipoCambio"] = dTipoCambio.ToString("c") + " " + "MXN";
+
+                        drDias["HotelNac"] = dHotNac.ToString("c") + " " + "MXN";
+                        drDias["HotelInt"] = dHotInt.ToString("c") + " " + "MXN";
+                        drDias["Total"] = dTotal.ToString("c") + " " + "MXN";
+                        dt.Rows.Add(drDias);
+
+                        //Tabla de Resumen
+                        drDiasResumen = dtResumen.NewRow();
+                        drDiasResumen["Id"] = 0;
+                        drDiasResumen["IdPeriodo"] = 0;
+                        drDiasResumen["Fecha"] = sFechaVuelo.Dt().ToString("yyyy-MM-dd HH:ss:fff");
+                        drDiasResumen["HotelNac"] = dHotNac;
+                        drDiasResumen["HotelInt"] = dHotInt;
+                        drDiasResumen["Total"] = dTotal;
+                        drDiasResumen["Estatus"] = 1;
+                        drDiasResumen["TipoCambio"] = dTipoCambio;
+                        dtResumen.Rows.Add(drDiasResumen);
+                    }
+                    dtResumenViaticosHotel = dtResumen;
+                    gvViaticosHotelPorDia.DataSource = dt;
+                    gvViaticosHotelPorDia.DataBind();
+
+
+                    #region Llenado viaticos de hotel Nacional e Internacional
+                    int iNac = 0;
+                    int iNacSP = 0;
+                    int iInt = 0;
+                    int iIntSP = 0;
+
+                    for (int i = 0; i < dtViaticosHot.Rows.Count; i++)
+                    {
+                        for (int a = 0; a < dtAeroEspecial.Rows.Count; a++)
+                        {
+                            //Cuando los aeropuertos son especiales se utilizan distintos costos de hotel nacional
+                            if (dtViaticosHot.Rows[i]["POA"].S() == dtAeroEspecial.Rows[a]["POA"].S())
+                            {
+                                iNacSP += dtViaticosHot.Rows[i]["HotNal"].S().I();
+                                break;
+                            }
+                        }
+                        for (int b = 0; b < dtAeroEspecial.Rows.Count; b++)
+                        {
+                            //Cuando los aeropuertos son especiales se utilizan distintos costos de hotel internacional
+                            if (dtViaticosHot.Rows[i]["POA"].S() == dtAeroEspecial.Rows[b]["POA"].S())
+                            {
+                                iIntSP += dtViaticosHot.Rows[i]["HotInt"].S().I();
+                                break;
+                            }
+                        }
+                        //Si no hay aeropuertos especiales se asigna hotel normal
+                        if (iNacSP == 0)
+                            iNac += dtViaticosHot.Rows[i]["HotNal"].S().I();
+
+                        if (iIntSP == 0)
+                            iInt += dtViaticosHot.Rows[i]["HotInt"].S().I();
+
+
+                        //iNac += dtViaticosHot.Rows[i]["HotNal"].S().I();
+                        //iInt += dtViaticosHot.Rows[i]["HotInt"].S().I();
+                    }
+
+                    decimal dTotalHotNac = 0;
+                    decimal dTotalHotInt = 0;
+                    decimal dTotalHotNacSP = 0;
+                    decimal dTotalHotIntSP = 0;
+
+                    dTotalHotNac = iNac * dHotelMXN;
+                    dTotalHotInt = iInt * dHotelUSD;
+                    dTotalHotNacSP = iNacSP * dHotelSPMXN;
+                    dTotalHotIntSP = iIntSP * dHotelSPUSD;
+
+                    decimal dTotalNacional = dTotalHotNac + dTotalHotNacSP;
+                    decimal dTotalInternacional = dTotalHotInt + dTotalHotIntSP;
+
+
+                    #region HOTEL NACIONALES E INTERNACIONALES PARA GUARDAR EN BD
+                    //NACIONAL
+                    dtHotNal = new DataTable();
+                    dtHotNal.Columns.Add("CONCEPTO");
+                    dtHotNal.Columns.Add("NACIONAL");
+
+                    DataRow drN = dtHotNal.NewRow();
+                    drN["CONCEPTO"] = "HOTEL";
+                    drN["NACIONAL"] = iNac.S();
+                    dtHotNal.Rows.Add(drN);
+
+                    drN = dtHotNal.NewRow();
+                    drN["CONCEPTO"] = "HOTEL ESPECIAL";
+                    drN["NACIONAL"] = iNacSP.S();
+                    dtHotNal.Rows.Add(drN);
+
+                    drN = dtHotNal.NewRow();
+                    drN["CONCEPTO"] = "TOTAL";
+                    drN["NACIONAL"] = dTotalNacional.ToString("c") + " " + "MXN";
+                    dtHotNal.Rows.Add(drN);
+
+                    //INTERNACIONAL
+                    dtHotInt = new DataTable();
+                    dtHotInt.Columns.Add("CONCEPTO");
+                    dtHotInt.Columns.Add("INTERNACIONAL");
+
+                    DataRow drI = dtHotInt.NewRow();
+                    drI["CONCEPTO"] = "HOTEL";
+                    drI["INTERNACIONAL"] = iInt.S();
+                    dtHotInt.Rows.Add(drI);
+
+                    drI = dtHotInt.NewRow();
+                    drI["CONCEPTO"] = "HOTEL ESPECIAL";
+                    drI["INTERNACIONAL"] = iIntSP.S();
+                    dtHotInt.Rows.Add(drI);
+
+                    drI = dtHotInt.NewRow();
+                    drI["CONCEPTO"] = "TOTAL";
+                    drI["INTERNACIONAL"] = dTotalInternacional.ToString("c") + " " + "USD";
+                    dtHotInt.Rows.Add(drI);
+
+                    #endregion
+
+
+                    DataTable dtVHotel = new DataTable();
+                    dtVHotel.Columns.Add("CONCEPTO");
+                    dtVHotel.Columns.Add("NACIONAL");
+                    dtVHotel.Columns.Add("INTERNACIONAL");
+
+                    DataRow drH = dtVHotel.NewRow();
+                    drH["CONCEPTO"] = "HOTEL";
+                    drH["NACIONAL"] = iNac.S();
+                    drH["INTERNACIONAL"] = iInt.S();
+                    dtVHotel.Rows.Add(drH);
+
+                    drH = dtVHotel.NewRow();
+                    drH["CONCEPTO"] = "HOTEL ESPECIAL";
+                    drH["NACIONAL"] = iNacSP.S();
+                    drH["INTERNACIONAL"] = iIntSP.S();
+                    dtVHotel.Rows.Add(drH);
+
+                    drH = dtVHotel.NewRow();
+                    drH["CONCEPTO"] = "TOTAL";
+                    drH["NACIONAL"] = dTotalNacional.ToString("c") + " " + "MXN";
+                    drH["INTERNACIONAL"] = dTotalInternacional.ToString("c") + " " + "USD";
+                    dtVHotel.Rows.Add(drH);
+
+                    gvViaticosHotel.DataSource = dtVHotel;
+                    gvViaticosHotel.DataBind();
+                    #endregion
 
                 }
             }
@@ -2821,6 +3469,387 @@ namespace ALE_MexJet.Views.viaticos
                 throw ex;
             }
         }
+
+
+        //Carga viaticos de hotel para guardar todos los pilotos
+        public void CargaViaticosHotel()
+        {
+            try
+            {
+                if (dtViaticosHot != null && dtViaticosHot.Rows.Count > 0)
+                {
+                    DataRow drowH;
+                    DataTable dtH = new DataTable();
+                    dtH.Columns.Add("Fecha");
+                    dtH.Columns.Add("Moneda");
+                    dtH.Columns.Add("HotNac");
+                    dtH.Columns.Add("HotInt");
+                    dtH.Columns.Add("Total");
+
+                    for (int i = 0; i < dtViaticosHot.Rows.Count; i++)
+                    {
+                        for (int x = 0; x < 2; x++)
+                        {
+                            if (x == 0)
+                            {
+                                decimal dTotalHotNal = 0;
+                                decimal dTotalNal = 0;
+
+                                for (int a = 0; a < dsParamsH.Tables[1].Rows.Count; a++)
+                                {
+                                    if (dtViaticosHot.Rows[i]["POA"].S() == dsParamsH.Tables[1].Rows[a]["POA"].S())
+                                    {
+                                        dTotalHotNal = dtViaticosHot.Rows[i]["HotNal"].S().D() * ObtenValorHotel(2, "MXN");
+                                        break;
+                                    }
+                                }
+
+                                if (dTotalHotNal == 0)
+                                    dTotalHotNal = dtViaticosHot.Rows[i]["HotNal"].S().D() * ObtenValorHotel(1, "MXN");
+
+                                dTotalNal = dTotalHotNal;
+
+                                drowH = dtH.NewRow();
+                                drowH["Fecha"] = dtViaticosHot.Rows[i]["FechaDia"].S().Dt();
+                                drowH["Moneda"] = "MXN";
+                                drowH["HotNac"] = dTotalHotNal.ToString("c") + " " + "MXN";
+                                drowH["HotInt"] = (0).ToString("c") + " " + "USD";
+                                drowH["Total"] = dTotalNal.ToString("c") + " " + "MXN";
+                            }
+                            else
+                            {
+                                decimal dTotalHotInt = 0;
+                                decimal dTotalInt = 0;
+
+                                for (int a = 0; a < dsParamsH.Tables[1].Rows.Count; a++)
+                                {
+                                    if (dtViaticosHot.Rows[i]["POA"].S() == dsParamsH.Tables[1].Rows[a]["POA"].S())
+                                    {
+                                        dTotalHotInt = dtViaticosHot.Rows[i]["HotInt"].S().D() * ObtenValorHotel(2, "USD");
+                                        break;
+                                    }
+                                }
+
+                                if (dTotalHotInt == 0)
+                                    dTotalHotInt = dtViaticosHot.Rows[i]["HotInt"].S().D() * ObtenValorHotel(1, "USD");
+
+                                dTotalInt = dTotalHotInt;
+
+                                drowH = dtH.NewRow();
+                                drowH["Fecha"] = dtViaticosHot.Rows[i]["FechaDia"].S().Dt();
+                                drowH["Moneda"] = "USD";
+                                drowH["HotNac"] = (0).ToString("c") + " " + "MXN";
+                                drowH["HotInt"] = dTotalHotInt.ToString("c") + " " + "USD";
+                                drowH["Total"] = dTotalInt.ToString("c") + " " + "USD";
+                            }
+                            dtH.Rows.Add(drowH);
+                        }
+                    }
+
+                    dtViaticosHotelDiaInsert = null;
+                    dtViaticosHotelDiaInsert = dtH;
+                    AgruparDiasGastosHotelSave(dtViaticosHot);
+                }
+
+
+
+
+                    
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        public void AgruparDiasGastosHotelSave(DataTable dtDiasVia)
+        {
+            try
+            {
+                decimal dHotelMXN = 0;
+                decimal dHotelUSD = 0;
+                decimal dHotelSPMXN = 0;
+                decimal dHotelSPUSD = 0;
+                DataTable dtAeroEspecial = new DataTable();
+
+                if (dsParamsH.Tables[1] != null && dsParamsH.Tables[1].Rows.Count > 0)
+                {
+                    dtAeroEspecial = dsParamsH.Tables[1];
+                }
+
+                if (dsParamsH.Tables[0] != null && dsParamsH.Tables[0].Rows.Count > 0)
+                {
+                    dHotelMXN = dsParamsH.Tables[0].Rows[0]["MontoMXN"].S().D();
+                    dHotelUSD = dsParamsH.Tables[0].Rows[0]["MontoUSD"].S().D();
+
+                    dHotelSPMXN = dsParamsH.Tables[0].Rows[1]["MontoMXN"].S().D();
+                    dHotelSPUSD = dsParamsH.Tables[0].Rows[1]["MontoUSD"].S().D();
+                }
+
+                DataRow dRow;
+                DataTable dtDiasDistinct = new DataTable();
+                DataTable dtDiasFecha = new DataTable();
+                dtDiasFecha.Columns.Add("Dia");
+
+                for (int i = 0; i < dtDiasVia.Rows.Count; i++)
+                {
+                    dRow = dtDiasFecha.NewRow();
+                    dRow["Dia"] = dtDiasVia.Rows[i]["FechaDia"].S().Dt().ToString("dd/MM/yyyy");
+                    dtDiasFecha.Rows.Add(dRow);
+                }
+                dtDiasFecha.AcceptChanges();
+                DataView dv = new DataView(dtDiasFecha);
+                dtDiasDistinct = dv.ToTable(true, "Dia");
+
+                if (dtDiasDistinct != null && dtDiasDistinct.Rows.Count > 0)
+                {
+                    DataRow drDias;
+                    DataTable dt = new DataTable();
+                    dt.Columns.Add("Fecha");
+                    dt.Columns.Add("TipoCambio");
+
+                    dt.Columns.Add("HotelNac");
+                    dt.Columns.Add("HotelInt");
+                    dt.Columns.Add("Total");
+
+                    //Tabla para resumen
+                    DataRow drDiasResumen;
+                    DataTable dtResumen = new DataTable();
+                    dtResumen.Columns.Add("Id");
+                    dtResumen.Columns.Add("IdPeriodo");
+                    dtResumen.Columns.Add("Fecha");
+
+                    dtResumen.Columns.Add("HotelNac");
+                    dtResumen.Columns.Add("HotelInt");
+                    dtResumen.Columns.Add("Total");
+                    dtResumen.Columns.Add("Estatus");
+                    dtResumen.Columns.Add("TipoCambio");
+
+
+                    for (int i = 0; i < dtDiasVia.Rows.Count; i++)
+                    {
+                        dtDiasVia.Rows[i]["FechaDia"] = dtDiasVia.Rows[i]["FechaDia"].S().Dt().ToString("dd/MM/yyyy");
+                    }
+                    dtDiasVia.AcceptChanges();
+
+
+                    //decimal dHotNac = 0;
+                    //decimal dHotInt = 0;
+                    //decimal dTotal = 0;
+
+                    for (int i = 0; i < dtDiasDistinct.Rows.Count; i++)
+                    {
+                        //int iCountDesayuno = 0;
+                        //int iCountComida = 0;
+                        //int iCountCena = 0;
+
+                        decimal dTipoCambio = 0;
+                        decimal dHotNac = 0;
+                        decimal dHotInt = 0;
+                        decimal dTotal = 0;
+
+                        drDias = dt.NewRow();
+                        drDias["Fecha"] = dtDiasDistinct.Rows[i]["Dia"].S().Dt().Day.S() + " " + GetMes(dtDiasDistinct.Rows[i]["Dia"].S().Dt().Month).Substring(0, 3) + " " + dtDiasDistinct.Rows[i]["Dia"].S().Dt().Year.S();
+
+                        string sFechaVuelo = string.Empty;
+                        sFechaVuelo = dtDiasDistinct.Rows[i]["Dia"].S();
+
+                        dTipoCambio = new DBCalculoPagos().ObtenerTipoCambio(sFechaVuelo);
+
+                        DataRow[] dr = dtDiasVia.Select("FechaDia='" + dtDiasDistinct.Rows[i]["Dia"].S() + "'");
+
+                        //dHotNac = 0;
+                        //dHotInt = 0;
+                        //dTotal = 0;
+
+                        for (int x = 0; x < dr.Length; x++)
+                        {
+                            //identifica los hoteles especiales para asignar costos de hotel
+                            for (int a = 0; a < dtAeroEspecial.Rows.Count; a++)
+                            {
+                                //Cuando los aeropuertos son especiales se utilizan distintos costos de hotel nacional
+                                if (dr[x]["POA"].S() == dtAeroEspecial.Rows[a]["POA"].S())
+                                {
+                                    dHotNac += dr[x]["HotNal"].S().I() * dHotelSPMXN;
+                                    break;
+                                }
+                                else if (a == dtAeroEspecial.Rows.Count - 1)
+                                {
+                                    //Si no hay aeropuertos especiales se asigna el costo normal de hotel
+                                    dHotNac += dr[x]["HotNal"].S().I() * dHotelMXN;
+                                }
+                            }
+
+                            for (int b = 0; b < dtAeroEspecial.Rows.Count; b++)
+                            {
+                                //Cuando los aeropuertos son especiales se utilizan distintos costos de hotel internacional
+                                if (dr[x]["POA"].S() == dtAeroEspecial.Rows[b]["POA"].S())
+                                {
+                                    dHotInt += (dr[x]["HotInt"].S().I() * dHotelSPUSD) * dTipoCambio;
+                                    break;
+                                }
+                                else if (b == dtAeroEspecial.Rows.Count - 1)
+                                {
+                                    dHotInt += (dr[x]["HotInt"].S().I() * dHotelUSD) * dTipoCambio;
+                                }
+                            }
+                            dTotal = dHotNac + dHotInt;
+                        }
+
+                        drDias["TipoCambio"] = dTipoCambio.ToString("c") + " " + "MXN";
+
+                        drDias["HotelNac"] = dHotNac.ToString("c") + " " + "MXN";
+                        drDias["HotelInt"] = dHotInt.ToString("c") + " " + "MXN";
+                        drDias["Total"] = dTotal.ToString("c") + " " + "MXN";
+                        dt.Rows.Add(drDias);
+
+                        //Tabla de Resumen
+                        drDiasResumen = dtResumen.NewRow();
+                        drDiasResumen["Id"] = 0;
+                        drDiasResumen["IdPeriodo"] = 0;
+                        drDiasResumen["Fecha"] = sFechaVuelo.Dt().ToString("yyyy-MM-dd HH:ss:fff");
+                        drDiasResumen["HotelNac"] = dHotNac;
+                        drDiasResumen["HotelInt"] = dHotInt;
+                        drDiasResumen["Total"] = dTotal;
+                        drDiasResumen["Estatus"] = 1;
+                        drDiasResumen["TipoCambio"] = dTipoCambio;
+                        dtResumen.Rows.Add(drDiasResumen);
+                    }
+                    dtResumenViaticosHotel = dtResumen;
+                    //gvViaticosHotelPorDia.DataSource = dt;
+                    //gvViaticosHotelPorDia.DataBind();
+
+
+                    #region Llenado viaticos de hotel Nacional e Internacional
+                    int iNac = 0;
+                    int iNacSP = 0;
+                    int iInt = 0;
+                    int iIntSP = 0;
+
+                    for (int i = 0; i < dtViaticosHot.Rows.Count; i++)
+                    {
+                        for (int a = 0; a < dtAeroEspecial.Rows.Count; a++)
+                        {
+                            //Cuando los aeropuertos son especiales se utilizan distintos costos de hotel nacional
+                            if (dtViaticosHot.Rows[i]["POA"].S() == dtAeroEspecial.Rows[a]["POA"].S())
+                            {
+                                iNacSP += dtViaticosHot.Rows[i]["HotNal"].S().I();
+                                break;
+                            }
+                        }
+                        for (int b = 0; b < dtAeroEspecial.Rows.Count; b++)
+                        {
+                            //Cuando los aeropuertos son especiales se utilizan distintos costos de hotel internacional
+                            if (dtViaticosHot.Rows[i]["POA"].S() == dtAeroEspecial.Rows[b]["POA"].S())
+                            {
+                                iIntSP += dtViaticosHot.Rows[i]["HotInt"].S().I();
+                                break;
+                            }
+                        }
+                        //Si no hay aeropuertos especiales se asigna hotel normal
+                        if (iNacSP == 0)
+                            iNac += dtViaticosHot.Rows[i]["HotNal"].S().I();
+
+                        if (iIntSP == 0)
+                            iInt += dtViaticosHot.Rows[i]["HotInt"].S().I();
+
+
+                        //iNac += dtViaticosHot.Rows[i]["HotNal"].S().I();
+                        //iInt += dtViaticosHot.Rows[i]["HotInt"].S().I();
+                    }
+
+                    decimal dTotalHotNac = 0;
+                    decimal dTotalHotInt = 0;
+                    decimal dTotalHotNacSP = 0;
+                    decimal dTotalHotIntSP = 0;
+
+                    dTotalHotNac = iNac * dHotelMXN;
+                    dTotalHotInt = iInt * dHotelUSD;
+                    dTotalHotNacSP = iNacSP * dHotelSPMXN;
+                    dTotalHotIntSP = iIntSP * dHotelSPUSD;
+
+                    decimal dTotalNacional = dTotalHotNac + dTotalHotNacSP;
+                    decimal dTotalInternacional = dTotalHotInt + dTotalHotIntSP;
+
+
+                    #region HOTEL NACIONALES E INTERNACIONALES PARA GUARDAR EN BD
+                    //NACIONAL
+                    dtHotNal = new DataTable();
+                    dtHotNal.Columns.Add("CONCEPTO");
+                    dtHotNal.Columns.Add("NACIONAL");
+
+                    DataRow drN = dtHotNal.NewRow();
+                    drN["CONCEPTO"] = "HOTEL";
+                    drN["NACIONAL"] = iNac.S();
+                    dtHotNal.Rows.Add(drN);
+
+                    drN = dtHotNal.NewRow();
+                    drN["CONCEPTO"] = "HOTEL ESPECIAL";
+                    drN["NACIONAL"] = iNacSP.S();
+                    dtHotNal.Rows.Add(drN);
+
+                    drN = dtHotNal.NewRow();
+                    drN["CONCEPTO"] = "TOTAL";
+                    drN["NACIONAL"] = dTotalNacional.ToString("c") + " " + "MXN";
+                    dtHotNal.Rows.Add(drN);
+
+                    //INTERNACIONAL
+                    dtHotInt = new DataTable();
+                    dtHotInt.Columns.Add("CONCEPTO");
+                    dtHotInt.Columns.Add("INTERNACIONAL");
+
+                    DataRow drI = dtHotInt.NewRow();
+                    drI["CONCEPTO"] = "HOTEL";
+                    drI["INTERNACIONAL"] = iInt.S();
+                    dtHotInt.Rows.Add(drI);
+
+                    drI = dtHotInt.NewRow();
+                    drI["CONCEPTO"] = "HOTEL ESPECIAL";
+                    drI["INTERNACIONAL"] = iIntSP.S();
+                    dtHotInt.Rows.Add(drI);
+
+                    drI = dtHotInt.NewRow();
+                    drI["CONCEPTO"] = "TOTAL";
+                    drI["INTERNACIONAL"] = dTotalInternacional.ToString("c") + " " + "USD";
+                    dtHotInt.Rows.Add(drI);
+
+                    #endregion
+
+
+                    DataTable dtVHotel = new DataTable();
+                    dtVHotel.Columns.Add("CONCEPTO");
+                    dtVHotel.Columns.Add("NACIONAL");
+                    dtVHotel.Columns.Add("INTERNACIONAL");
+
+                    DataRow drH = dtVHotel.NewRow();
+                    drH["CONCEPTO"] = "HOTEL";
+                    drH["NACIONAL"] = iNac.S();
+                    drH["INTERNACIONAL"] = iInt.S();
+                    dtVHotel.Rows.Add(drH);
+
+                    drH = dtVHotel.NewRow();
+                    drH["CONCEPTO"] = "HOTEL ESPECIAL";
+                    drH["NACIONAL"] = iNacSP.S();
+                    drH["INTERNACIONAL"] = iIntSP.S();
+                    dtVHotel.Rows.Add(drH);
+
+                    drH = dtVHotel.NewRow();
+                    drH["CONCEPTO"] = "TOTAL";
+                    drH["NACIONAL"] = dTotalNacional.ToString("c") + " " + "MXN";
+                    drH["INTERNACIONAL"] = dTotalInternacional.ToString("c") + " " + "USD";
+                    dtVHotel.Rows.Add(drH);
+
+                    //gvViaticosHotel.DataSource = dtVHotel;
+                    //gvViaticosHotel.DataBind();
+                    #endregion
+
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         //-----------------------------------------------------------------------------------
 
         public decimal ObtenValorConcepto(int IdConcepto, string sMoneda)
@@ -2846,6 +3875,32 @@ namespace ALE_MexJet.Views.viaticos
                 return 0;
             }
         }
+
+        public decimal ObtenValorHotel(int IdHotel, string sMoneda)
+        {
+            try
+            {
+                decimal dValor = 0;
+                dtHoteles = dsParamsH.Tables[0];
+                DataRow[] dr = dtHoteles.Select("IdHotel=" + IdHotel);
+
+                if (sMoneda == "MXN")
+                {
+                    dValor = dr[0]["MontoMXN"].S().D();
+                }
+                else if (sMoneda == "USD")
+                {
+                    dValor = dr[0]["MontoUSD"].S().D();
+                }
+
+                return dValor;
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+        }
+
         public void LlenaVuelosPiloto(DataTable dt)
         {
             dtVuelosPiloto = null;
@@ -4397,6 +5452,11 @@ namespace ALE_MexJet.Views.viaticos
             get { return (List<CantidadComidas>)ViewState["VSCantidadComidas"]; }
             set { ViewState["VSCantidadComidas"] = value; }
         }
+        public List<CantidadHoteles> oLstCantH
+        {
+            get { return (List<CantidadHoteles>)ViewState["VSCantidadHoteles"]; }
+            set { ViewState["VSCantidadHoteles"] = value; }
+        }
         public int iIdPeriodo
         {
             get { return (int)ViewState["VSIdPeriodo"]; }
@@ -4427,6 +5487,11 @@ namespace ALE_MexJet.Views.viaticos
             get { return (DataSet)ViewState["VSParametros"]; }
             set { ViewState["VSParametros"] = value; }
         }
+        public DataSet dsParamsH
+        {
+            get { return (DataSet)ViewState["VSParametrosHotel"]; }
+            set { ViewState["VSParametrosHotel"] = value; }
+        }
         public DataTable dtAjustes
         {
             get { return (DataTable)ViewState["VSAjustes"]; }
@@ -4441,6 +5506,11 @@ namespace ALE_MexJet.Views.viaticos
         {
             get { return (DataTable)ViewState["VSConceptos"]; }
             set { ViewState["VSConceptos"] = value; }
+        }
+        public DataTable dtHoteles
+        {
+            get { return (DataTable)ViewState["VSHoteles"]; }
+            set { ViewState["VSHoteles"] = value; }
         }
         public DataTable dtVuelosXPiloto
         {
@@ -4462,6 +5532,18 @@ namespace ALE_MexJet.Views.viaticos
             get { return (DataTable)ViewState["VSdtInt"]; }
             set { ViewState["VSdtInt"] = value; }
         }
+
+        public DataTable dtHotNal
+        {
+            get { return (DataTable)ViewState["VSdtHotNal"]; }
+            set { ViewState["VSdtHotNal"] = value; }
+        }
+        public DataTable dtHotInt
+        {
+            get { return (DataTable)ViewState["VSdtHotInt"]; }
+            set { ViewState["VSdtHotInt"] = value; }
+        }
+
         public DataTable dtMXNUSD
         {
             get { return (DataTable)ViewState["VSMXNUSD"]; }
@@ -4508,6 +5590,16 @@ namespace ALE_MexJet.Views.viaticos
         {
             get { return (List<ConceptosPilotoSave>)ViewState["VSConceptosPilotoSave"]; }
             set { ViewState["VSConceptosPilotoSave"] = value; }
+        }
+        public List<HotelesPiloto> oLstHP
+        {
+            get { return (List<HotelesPiloto>)ViewState["VSHotelesPiloto"]; }
+            set { ViewState["VSHotelesPiloto"] = value; }
+        }
+        public List<HotelesPilotoSave> oLstHPS
+        {
+            get { return (List<HotelesPilotoSave>)ViewState["VSHotelesPilotoSave"]; }
+            set { ViewState["VSHotelesPilotoSave"] = value; }
         }
         public List<ConceptosAdicionalesPiloto> oLstAd
         {
@@ -4560,10 +5652,20 @@ namespace ALE_MexJet.Views.viaticos
             get { return (DataTable)ViewState["VSdtDiasViaticos"]; }
             set { ViewState["VSdtDiasViaticos"] = value; }
         }
+        public DataTable dtDiasViaticosHoteles
+        {
+            get { return (DataTable)ViewState["VSDiasViaticosHoteles"]; }
+            set { ViewState["VSeDiasViaticosHoteles"] = value; }
+        }
         public DataTable dtViaticosDiaInsert
         {
             get { return (DataTable)ViewState["VSViaticosDiaInsert"]; }
             set { ViewState["VSViaticosDiaInsert"] = value; }
+        }
+        public DataTable dtViaticosHotelDiaInsert
+        {
+            get { return (DataTable)ViewState["VSViaticosHotelDiaInsert"]; }
+            set { ViewState["VSViaticosHotelDiaInsert"] = value; }
         }
         public List<ConceptosViaticosPorDia> oLstPorDia
         {
@@ -4575,6 +5677,19 @@ namespace ALE_MexJet.Views.viaticos
             get { return (List<ConceptosViaticosPorDiaSave>)ViewState["VSConceptosViaticosPorDiaSave"]; }
             set { ViewState["VSConceptosViaticosPorDiaSave"] = value; }
         }
+
+        public List<ViaticosHotelPorDia> oLstHotelPorDia
+        {
+            get { return (List<ViaticosHotelPorDia>)ViewState["VSHotelPorDia"]; }
+            set { ViewState["VSHotelPorDia"] = value; }
+        }
+
+        public List<ViaticosHotelPorDiaSave> oLstHotelPorDiaSave
+        {
+            get { return (List<ViaticosHotelPorDiaSave>)ViewState["VSHotelPorDiaSave"]; }
+            set { ViewState["VSHotelPorDiaSave"] = value; }
+        }
+
         public DataTable dtTotales
         {
             get { return (DataTable)ViewState["VSdtTotales"]; }
@@ -4589,6 +5704,17 @@ namespace ALE_MexJet.Views.viaticos
         {
             get { return (DataTable)ViewState["VSResumenViaticos"]; }
             set { ViewState["VSResumenViaticos"] = value; }
+        }
+        public DataTable dtResumenViaticosHotel
+        {
+            get { return (DataTable)ViewState["VSResumenViaticosHotel"]; }
+            set { ViewState["VSResumenViaticosHotel"] = value; }
+        }
+
+        public DataTable dtViaticosHot
+        {
+            get { return (DataTable)ViewState["VSViaticosHot"]; }
+            set { ViewState["VSViaticosHot"] = value; }
         }
         #endregion
 

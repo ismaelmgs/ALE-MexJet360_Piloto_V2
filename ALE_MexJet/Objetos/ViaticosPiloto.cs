@@ -125,6 +125,49 @@ namespace ALE_MexJet.Objetos
     }
 
     [Serializable]
+    public class ViaticosHotelPorDia
+    {
+        private int _Id = 0;
+        private int _iIdPeriodo = 0;
+        private string _sMoneda = string.Empty;
+        private DateTime _dtFecha;
+        private decimal _dTipoCambio = 0;
+        private decimal _dHotNac = 0;
+        private decimal _dHotInt = 0;
+        private decimal _dTotal = 0;
+
+        public int Id { get => _Id; set => _Id = value; }
+        public int IIdPeriodo { get => _iIdPeriodo; set => _iIdPeriodo = value; }
+        public string SMoneda { get => _sMoneda; set => _sMoneda = value; }
+        public DateTime DtFecha { get => _dtFecha; set => _dtFecha = value; }
+        public decimal DTipoCambio { get => _dTipoCambio; set => _dTipoCambio = value; }
+        public decimal DHotNac { get => _dHotNac; set => _dHotNac = value; }
+        public decimal DHotInt { get => _dHotInt; set => _dHotInt = value; }
+        public decimal DTotal { get => _dTotal; set => _dTotal = value; }
+    }
+    [Serializable]
+    public class ViaticosHotelPorDiaSave
+    {
+        private int _Id = 0;
+        private int _iIdPeriodo = 0;
+        private string _sMoneda = string.Empty;
+        private DateTime _dtFecha;
+        private decimal _dTipoCambio = 0;
+        private decimal _dHotNac = 0;
+        private decimal _dHotInt = 0;
+        private decimal _dTotal = 0;
+
+        public int Id { get => _Id; set => _Id = value; }
+        public int IIdPeriodo { get => _iIdPeriodo; set => _iIdPeriodo = value; }
+        public string SMoneda { get => _sMoneda; set => _sMoneda = value; }
+        public DateTime DtFecha { get => _dtFecha; set => _dtFecha = value; }
+        public decimal DTipoCambio { get => _dTipoCambio; set => _dTipoCambio = value; }
+        public decimal DHotNac { get => _dHotNac; set => _dHotNac = value; }
+        public decimal DHotInt { get => _dHotInt; set => _dHotInt = value; }
+        public decimal DTotal { get => _dTotal; set => _dTotal = value; }
+    }
+
+    [Serializable]
     public class ConceptosAdicionalesPiloto
     {
         private int _iIdPeriodo = 0;
@@ -164,5 +207,43 @@ namespace ALE_MexJet.Objetos
         public int IdPeriodo { get; set; }
         public long Trip { get; set; }
         public long LegId { get; set; }
+    }
+
+
+    [Serializable]
+    public class HotelesPiloto
+    {
+        private int _IdViaticosHotel = 0;
+        private int _iIdPeriodo = 0;
+        private int _iIdHotel = 0;
+        private string _sDesHotel = string.Empty;
+        private int _iCantidad = 0;
+        private decimal _dMontoHotel = 0;
+        private decimal _dTotal = 0;
+        private string _sMoneda = string.Empty;
+        private int _iEstatus = 0;
+
+        public int IdViaticosHotel { get => _IdViaticosHotel; set => _IdViaticosHotel = value; }
+        public int IIdPeriodo { get => _iIdPeriodo; set => _iIdPeriodo = value; }
+        public int IIdHotel { get => _iIdHotel; set => _iIdHotel = value; }
+        public string SDesHotel { get => _sDesHotel; set => _sDesHotel = value; }
+        public int ICantidad { get => _iCantidad; set => _iCantidad = value; }
+        public decimal DMontoHotel { get => _dMontoHotel; set => _dMontoHotel = value; }
+        public decimal DTotal { get => _dTotal; set => _dTotal = value; }
+        public string SMoneda { get => _sMoneda; set => _sMoneda = value; }
+        public int IEstatus { get => _iEstatus; set => _iEstatus = value; }
+    }
+    [Serializable]
+    public class HotelesPilotoSave
+    {
+        public int IdViaticosHotel { get; set; }
+        public int IdPeriodo { get; set; }
+        public int IdHotel { get; set; }
+        public string DesHotel { get; set; }
+        public int Cantidad { get; set; }
+        public decimal MontoHotel { get; set; }
+        public decimal Total { get; set; }
+        public string Moneda { get; set; }
+        public int Estatus { get; set; }
     }
 }

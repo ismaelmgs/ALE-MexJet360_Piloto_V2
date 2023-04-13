@@ -40,6 +40,8 @@ namespace ALE_MexJet.Presenter
         protected void GetAdicionales_Presenter(object sender, EventArgs e)
         {
             oIView.LoadsGrids(oIGestCat.ObtieneConceptosAdicionales());
+            oIView.LoadsHoteles(oIGestCat.ObtieneConfiguracionHoteles());
+            //Cargar horarios de hotel
         }
 
         protected override void SearchObj_Presenter(object sender, EventArgs e)
@@ -58,12 +60,14 @@ namespace ALE_MexJet.Presenter
         }
 
         DataTable dtComidas = new DataTable();
+        DataTable dtHoteles = new DataTable();
         protected void SearchCalculos_Presenter(object sender, EventArgs e)
         {
             string sCve = string.Empty;
             try
             {
                 #region CONSULTA VUELOS
+                dtViaticosDiaHot = null;
                 DataSet ds = oIGestCat.ObtieneVuelosDelPeriodo(oIView.sFechaDesde.Dt(), oIView.sFechaHasta.Dt(), oIView.sParametro);
                 DataTable dtVuelos = ds.Tables[0];
                 //DataTable dtPilotos = ds.Tables[1]; //new DBCalculoPagos().ObtienePilotosFPK;
@@ -72,11 +76,13 @@ namespace ALE_MexJet.Presenter
                 dtComidas = null;
                 //List<ComidasPorDia> oLsComDia;
 
-                //List<CantidadComidas> oLstCant;
-
                 for (int x = 0; x < dtPilotSrc.Rows.Count; x++)
                 {
+                    List<CantidadHoteles> oLstCantH = new List<CantidadHoteles>();
                     sCve = dtPilotSrc.Rows[x]["ClavePiloto"].S();
+
+                    oLstCantH = ObtieneCalculosHotel(dtVuelos, sCve);
+
                     DataRow drPiloto;
                     DataTable dtPilotos = new DataTable();
                     dtPilotos.Columns.Add("Id");
@@ -100,8 +106,6 @@ namespace ALE_MexJet.Presenter
                     string sBase = string.Empty;
                     string FechaInicio = "CheckIn"; //"Locdep";
                     string FechaFin = "CheckOut"; //"LocArr";
-
-                    //= new List<CantidadComidas>();
 
                     List<CantidadComidas> oLstCant = new List<CantidadComidas>();
 
@@ -8436,11 +8440,15 @@ namespace ALE_MexJet.Presenter
                     #region CUARTA PARTE DEL CODIGO
                     GC.Collect();
                     oIView.oLstCant = oLstCant;
-                    dtComidas = DBGetObtieneTablaCalculos(oLstCant, dtPilotos);
+                    oIView.oLstCantH = oLstCantH;
+                    dtComidas = DBGetObtieneTablaCalculos(oLstCant, dtPilotos, oLstCantH);
                     #endregion
 
                 }
                 //Fin de for piloto por piloto
+
+                oIView.dtViaticosHot = dtViaticosDiaHot;
+
                 oIView.LlenaCalculoPilotos(dtComidas);
                 oIView.LlenaVuelosPiloto(ds.Tables[0]);
                 #endregion
@@ -8451,6 +8459,173 @@ namespace ALE_MexJet.Presenter
             }
             
         }
+
+        //Calculo para gastos de Hotel
+        public List<CantidadHoteles> ObtieneCalculosHotel(DataTable dtVuelos, string sCvePiloto)
+        {
+            string sCve = string.Empty;
+            try
+            {
+                List<CantidadHoteles> oLCant = new List<CantidadHoteles>();
+                DataTable dtVuelosH = dtVuelos;
+                DataTable dtGastos = new DataTable();
+                string sBase = string.Empty;
+                string sDescanso = string.Empty;
+                string sFechaInicialNac = string.Empty;
+                string sFechaFinalNac = string.Empty;
+                //DataTable dtPilotosOri = dsVuelos.Tables[1];
+
+                DataTable dt = new DBCalculoPagos().ObtieneConfiguracionHorarioHotel();
+                TimeSpan tsHoraInicialNac;
+                TimeSpan tsHoraFinalNac;
+                TimeSpan tsHoraInicialInt;
+                TimeSpan tsHoraFinalInt;
+
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    //DataTable dtVlos = CreaEstructuraVuelos();
+
+
+                    CantidadHoteles oCant = new CantidadHoteles();
+                    oCant.sCrewCode = sCvePiloto;
+                    oCant.dtFechaInicio = oIView.sFechaDesde.Dt(); //oIView.dtFechaInicio;
+                    oCant.dtFechaFin = oIView.sFechaHasta.Dt(); //oIView.dtFechaFin;
+                    
+
+                    List<HotelesPorDia> oLsHotDia = new List<HotelesPorDia>();
+                    tsHoraInicialNac = TimeSpan.Parse(dt.Rows[0]["HoraInicial"].S());
+                    tsHoraFinalNac = TimeSpan.Parse(dt.Rows[0]["HoraFinal"].S());
+                    tsHoraInicialInt = TimeSpan.Parse(dt.Rows[1]["HoraInicial"].S());
+                    tsHoraFinalInt = TimeSpan.Parse(dt.Rows[1]["HoraFinal"].S());
+
+                    DataRow[] dr = dtVuelos.Select("crewcode='" + sCvePiloto + "'");
+                    int iCantHotelInt = 0;
+                    int iCantHotelNac = 0;
+
+                    //oCant.dtVuelos = dtLegs;
+                    //oCant.iDescanso = i;
+
+                    for (int x = 0; x < dr.Length; x++)
+                    {
+                        string sBasePiloto = dr[x]["HomeBase"].S();
+
+                        #region CALCULO DE HOTEL
+                        TimeSpan tsTiempoDes;
+                        string sPOA = string.Empty;
+                        string sBasePil = string.Empty;
+                        int iEsInternacional = 0;
+
+                        //Aeropuerto de arrivo
+                        sPOA = dr[x]["POA"].S(); //dtVuelosH.Rows[i]["POA"].S();
+                        //Base piloto
+                        sBasePil = sBasePiloto; //rows[0]["HomeBase"].S();
+                        //Vuelo Internacional = 1, Nacional = 0
+                        iEsInternacional = dr[x]["EsInternacional"].S().I();  //dtVuelosH.Rows[i]["EsInternacional"].S().I();
+
+                        DateTime dtHoraInicio;
+                        DateTime dtHoraFinal;
+
+                        if (x < (dr.Length - 1))
+                        {
+                            dtHoraInicio = dr[x]["CheckOut"].S().Dt();
+                            dtHoraFinal = dr[x + 1]["CheckIn"].S().Dt();                            
+                            //oHD.dtFechaFin = dtHoraFinal; //dr[x]["CheckIn"].S().Dt();
+
+                            //Tiempo entre CheckOut y CheckIn
+                            tsTiempoDes = dtHoraFinal - dtHoraInicio;
+
+                            if (sPOA != sBasePil)
+                            {
+                                if (tsTiempoDes >= TimeSpan.Parse("09:00:00"))
+                                {
+                                    //Llenamos objeto por día
+                                    HotelesPorDia oHD = new HotelesPorDia();
+                                    oHD.sCvePiloto = sCvePiloto;
+                                    oHD.dtFechaDia = dtHoraInicio; //dr[x]["CheckOut"].S().Dt();
+                                    oHD.sOrigen = dr[x]["POD"].S();
+                                    oHD.sDestino = dr[x]["POA"].S();
+
+                                    if (iEsInternacional == 0)
+                                    {
+                                        iCantHotelNac += 1;
+                                        oHD.iDesNal++;
+                                    }
+                                    else if (iEsInternacional == 1)
+                                    {
+                                        iCantHotelInt += 1;
+                                        oHD.iDesInt++;
+                                    }
+                                    oLsHotDia.Add(oHD);
+                                }
+                                else if (tsTiempoDes >= TimeSpan.Parse("06:00:00") && tsTiempoDes < TimeSpan.Parse("09:00:00"))
+                                {
+                                    if (iEsInternacional == 0)
+                                    {
+                                        if (TimeSpan.Parse(dtHoraInicio.TimeOfDay.ToString()) >= tsHoraInicialNac && TimeSpan.Parse(dtHoraInicio.TimeOfDay.ToString()) < tsHoraFinalNac
+                                            && (TimeSpan.Parse(dtHoraFinal.TimeOfDay.ToString()) >= tsHoraInicialNac && TimeSpan.Parse(dtHoraFinal.TimeOfDay.ToString()) < tsHoraFinalNac))
+                                        {
+                                            //Llenamos objeto por día
+                                            HotelesPorDia oHD = new HotelesPorDia();
+                                            oHD.sCvePiloto = sCvePiloto;
+                                            oHD.dtFechaDia = dtHoraInicio;
+                                            oHD.sOrigen = dr[x]["POD"].S();
+                                            oHD.sDestino = dr[x]["POA"].S();
+
+                                            iCantHotelNac += 1;
+                                            oHD.iDesNal++;
+
+                                            oLsHotDia.Add(oHD);
+                                        }
+                                    }
+                                    else if (iEsInternacional == 1)
+                                    {
+                                        if (TimeSpan.Parse(dtHoraInicio.TimeOfDay.ToString()) >= tsHoraInicialInt && TimeSpan.Parse(dtHoraInicio.TimeOfDay.ToString()) < tsHoraFinalInt
+                                            && (TimeSpan.Parse(dtHoraFinal.TimeOfDay.ToString()) >= tsHoraInicialInt && TimeSpan.Parse(dtHoraFinal.TimeOfDay.ToString()) < tsHoraFinalInt))
+                                        {
+                                            //Llenamos objeto por día
+                                            HotelesPorDia oHD = new HotelesPorDia();
+                                            oHD.sCvePiloto = sCvePiloto;
+                                            oHD.dtFechaDia = dtHoraInicio;
+                                            oHD.sOrigen = dr[x]["POD"].S();
+                                            oHD.sDestino = dr[x]["POA"].S();
+
+                                            iCantHotelInt += 1;
+                                            oHD.iDesInt++;
+
+                                            oLsHotDia.Add(oHD);
+                                        }
+                                    }
+
+
+                                           
+                                }
+                            }
+                        }
+
+                        
+                        #endregion
+                    }
+
+                    oCant.oLstHotPorDia = oLsHotDia;
+                    ObtieneDiasViaticosHotel(oLsHotDia);
+
+                    CantidadHoteles oH = new CantidadHoteles();
+                    oH.sCrewCode = sCvePiloto; //row["ClavePiloto"].S();
+                    oH.iCantHotelesNac = iCantHotelNac;
+                    oH.iCantHotelesInt = iCantHotelInt;
+                    //Agregando conteos Nac e Int a lista
+                    oLCant.Add(oH);
+                }
+
+                return oLCant;
+            }
+            catch (Exception ex)
+            {
+                string Piloto = sCve;
+                throw ex;
+            }
+        }
+        //Fin de calculos de hotel
 
         public void ObtieneDiasViaticos(List<ComidasPorDia> oLstAlimentos)
         {
@@ -8496,9 +8671,50 @@ namespace ALE_MexJet.Presenter
                         dr["CenInt"] = oCom.iCenaInt;
                         oIView.dtDiasViaticos.Rows.Add(dr);
                     }
-                }
+                }  
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
 
-                
+        public DataTable dtViaticosDiaHot;
+        public void ObtieneDiasViaticosHotel(List<HotelesPorDia> oLstHoteles)
+        {
+            try
+            {
+                for (int i = 0; i < oLstHoteles.Count; i++)
+                {
+                    HotelesPorDia oHot = oLstHoteles[i];
+
+                    if (dtViaticosDiaHot == null)
+                    {
+                        DataRow dr;
+                        dtViaticosDiaHot = new DataTable();
+                        dtViaticosDiaHot.Columns.Add("FechaDia");
+                        dtViaticosDiaHot.Columns.Add("HotNal");
+                        dtViaticosDiaHot.Columns.Add("HotInt");
+                        dtViaticosDiaHot.Columns.Add("POA");
+
+                        dr = dtViaticosDiaHot.NewRow();
+                        dr["FechaDia"] = oHot.dtFechaDia;
+                        dr["HotNal"] = oHot.iDesNal;
+                        dr["HotInt"] = oHot.iDesInt;
+                        dr["POA"] = oHot.sDestino;
+                        dtViaticosDiaHot.Rows.Add(dr);
+                    }
+                    else
+                    {
+                        DataRow dr;
+                        dr = dtViaticosDiaHot.NewRow();
+                        dr["FechaDia"] = oHot.dtFechaDia;
+                        dr["HotNal"] = oHot.iDesNal;
+                        dr["HotInt"] = oHot.iDesInt;
+                        dr["POA"] = oHot.sDestino;
+                        dtViaticosDiaHot.Rows.Add(dr);
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -11206,11 +11422,11 @@ namespace ALE_MexJet.Presenter
             }
         }
 
-        private DataTable DBGetObtieneTablaCalculos(List<CantidadComidas> oLstCant, DataTable dtPilotos)
+        private DataTable DBGetObtieneTablaCalculos(List<CantidadComidas> oLstCant, DataTable dtPilotos, List<CantidadHoteles> oLstCantH)
         {
             try
             {
-                if (oLstCant.Count > 0)
+                if (oLstCant.Count > 0 && oLstCantH.Count > 0)
                 {
                     if (dtComidas == null)
                     {
@@ -11228,9 +11444,13 @@ namespace ALE_MexJet.Presenter
                         dtComidas.Columns.Add("Piloto", typeof(string));
                         dtComidas.Columns.Add("HomeBase", typeof(string));
 
+                        dtComidas.Columns.Add("HotelesNac", typeof(int));
+                        dtComidas.Columns.Add("HotelesInt", typeof(int));
+
                         foreach (DataRow row in dtPilotos.Rows)
                         {
                             var Results = oLstCant.Where(r => r.sCrewCode == row["ClavePiloto"].S()).ToList();
+                            var ResultsH = oLstCantH.Where(r => r.sCrewCode == row["ClavePiloto"].S()).ToList();
 
                             int iDesNal = 0;
                             int iDesInt = 0;
@@ -11238,6 +11458,9 @@ namespace ALE_MexJet.Presenter
                             int iComInt = 0;
                             int iCenNal = 0;
                             int iCenInt = 0;
+
+                            int iHotNal = 0;
+                            int iHotInt = 0;
 
                             foreach (CantidadComidas oCant in Results)
                             {
@@ -11248,6 +11471,14 @@ namespace ALE_MexJet.Presenter
                                 iCenNal += oCant.iCantCenas;
                                 iCenInt += oCant.iCantCenasInt;
                             }
+
+                            foreach (CantidadHoteles oCantH in ResultsH)
+                            {
+                                iHotNal += oCantH.iCantHotelesNac;
+                                iHotInt += oCantH.iCantHotelesInt;
+                            }
+
+
 
                             DataRow dr = dtComidas.NewRow();
                             dr["IdFolio"] = 0;
@@ -11262,6 +11493,8 @@ namespace ALE_MexJet.Presenter
                             dr["CenasINT"] = iCenInt;
                             dr["Piloto"] = row["Piloto"];
                             dr["HomeBase"] = row["HomeBase"];
+                            dr["HotelesNac"] = iHotNal;
+                            dr["HotelesInt"] = iHotInt;
 
                             dtComidas.Rows.Add(dr);
                         }
@@ -11271,6 +11504,7 @@ namespace ALE_MexJet.Presenter
                         foreach (DataRow row in dtPilotos.Rows)
                         {
                             var Results = oLstCant.Where(r => r.sCrewCode == row["ClavePiloto"].S()).ToList();
+                            var ResultsH = oLstCantH.Where(r => r.sCrewCode == row["ClavePiloto"].S()).ToList();
 
                             int iDesNal = 0;
                             int iDesInt = 0;
@@ -11278,6 +11512,9 @@ namespace ALE_MexJet.Presenter
                             int iComInt = 0;
                             int iCenNal = 0;
                             int iCenInt = 0;
+
+                            int iHotNal = 0;
+                            int iHotInt = 0;
 
                             foreach (CantidadComidas oCant in Results)
                             {
@@ -11287,6 +11524,11 @@ namespace ALE_MexJet.Presenter
                                 iComInt += oCant.iCantComidasInt;
                                 iCenNal += oCant.iCantCenas;
                                 iCenInt += oCant.iCantCenasInt;
+                            }
+                            foreach (CantidadHoteles oCantH in ResultsH)
+                            {
+                                iHotNal += oCantH.iCantHotelesNac;
+                                iHotInt += oCantH.iCantHotelesInt;
                             }
 
                             DataRow dr = dtComidas.NewRow();
@@ -11302,6 +11544,8 @@ namespace ALE_MexJet.Presenter
                             dr["CenasINT"] = iCenInt;
                             dr["Piloto"] = row["Piloto"];
                             dr["HomeBase"] = row["HomeBase"];
+                            dr["HotelesNac"] = iHotNal;
+                            dr["HotelesInt"] = iHotInt;
 
                             dtComidas.Rows.Add(dr);
                         }
@@ -11318,6 +11562,7 @@ namespace ALE_MexJet.Presenter
         protected void eGetParams_Presenter(object sender, EventArgs e)
         {
             oIView.dsParams = oIGestCat.ObtieneParametrosViaticos();
+            oIView.dsParamsH = oIGestCat.ObtieneConfiguracionHoteles();
         }
 
         protected override void SaveObj_Presenter(object sender, EventArgs e)
@@ -11335,10 +11580,30 @@ namespace ALE_MexJet.Presenter
                         {
                             if (oIGestCat.SetInsertaViaticosPorDia(oIView.oLstPorDia, oIView.iIdPeriodo))
                             {
-                                if(oIGestCat.SetInsertaViaticosXPilotoResumen(oIView.dtResumenViaticos, oIView.iIdPeriodo))
+                                if (oIGestCat.SetInsertaViaticosXPilotoResumen(oIView.dtResumenViaticos, oIView.iIdPeriodo))
                                     oIView.sOk = "ok";
                                 else
                                     oIView.sOk = "error";
+
+                                if (oIView.sOk == "ok")
+                                {
+                                    if (oIView.oLstHotelPorDia.Count > 0 && oIView.dtResumenViaticosHotel != null && oIView.dtResumenViaticosHotel.Rows.Count > 0)
+                                    {
+                                        if (oIGestCat.SetInsertaHotelesPilotoBitacora(oIView.oLstHP, oIView.iIdPeriodo))
+                                        {
+                                            if (oIGestCat.SetInsertaViaticosHotelPorDia(oIView.oLstHotelPorDia, oIView.iIdPeriodo))
+                                            {
+                                                if (oIGestCat.SetInsertaViaticosHotelXPilotoResumen(oIView.dtResumenViaticosHotel, oIView.iIdPeriodo))
+                                                    oIView.sOk = "ok";
+                                                else
+                                                    oIView.sOk = "error";
+                                            }
+
+                                        }
+                                    }
+                                    
+                                }
+                                    
                             }
                         }                            
                     }
@@ -11362,10 +11627,30 @@ namespace ALE_MexJet.Presenter
                     foreach (var item in oIView.oLstPorDiaPil)
                         item.IdPeriodo = oIView.iIdPeriodo;
 
-                    if (oIGestCat.SetInsertaViaticosPeriodo(oIView.oLstCon.ConvertListToDataTable(), oIView.oLstVPil.ConvertListToDataTable(), oIView.oLstPorDiaPil.ConvertListToDataTable(), oIView.dtResumenViaticos))
+                    //Agregamos litas de gastos de hotel
+                    foreach (var item in oIView.oLstHPS)
+                        item.IdPeriodo = oIView.iIdPeriodo;
+
+                    foreach (var item in oIView.oLstHotelPorDiaSave)
+                        item.IIdPeriodo = oIView.iIdPeriodo;
+
+                    if (oIGestCat.SetInsertaViaticosPeriodo(oIView.oLstCon.ConvertListToDataTable(), oIView.oLstVPil.ConvertListToDataTable(), oIView.oLstPorDiaPil.ConvertListToDataTable(), oIView.dtResumenViaticos, oIView.iIdPeriodo))
                         oIView.sOk = "ok";
                     else
                         oIView.sOk = "error";
+
+                    if (oIView.sOk == "ok")
+                    {
+                        if (oIView.oLstHotelPorDiaSave.Count > 0 && oIView.dtResumenViaticosHotel != null && oIView.dtResumenViaticosHotel.Rows.Count > 0)
+                        {
+                            if (oIGestCat.SetInsertaViaticosHotelPeriodo(oIView.oLstHPS.ConvertListToDataTable(), oIView.oLstHotelPorDiaSave.ConvertListToDataTable(), oIView.dtResumenViaticosHotel, oIView.iIdPeriodo))
+                                oIView.sOk = "ok";
+                            else
+                                oIView.sOk = "error";
+
+                        }
+                        oIView.sOk = "ok";
+                    }
 
 
                     //if (oIGestCat.SetInsertaConceptosPilotoBitacora(oIView.oLst, oIView.iIdPeriodo))

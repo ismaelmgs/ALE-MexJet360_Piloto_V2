@@ -730,6 +730,7 @@
     <Content Include="Views\Rentas\frmPresupuesto.aspx" />
     <Content Include="Views\Reportes\frmReporteTabulado.aspx" />
     <Content Include="Views\test.aspx" />
+    <Content Include="Views\viaticos\frmAeropuertosEspeciales.aspx" />
     <Content Include="Views\viaticos\frmCalculoPagos.aspx" />
     <Content Include="Views\viaticos\frmConsultaVuelos.aspx" />
     <Content Include="Views\viaticos\frmRevenewM.aspx" />
@@ -1967,6 +1968,13 @@
     </Compile>
     <Compile Include="Views\test.aspx.designer.cs">
       <DependentUpon>test.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\viaticos\frmAeropuertosEspeciales.aspx.cs">
+      <DependentUpon>frmAeropuertosEspeciales.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\viaticos\frmAeropuertosEspeciales.aspx.designer.cs">
+      <DependentUpon>frmAeropuertosEspeciales.aspx</DependentUpon>
     </Compile>
     <Compile Include="Views\viaticos\frmCalculoPagos.aspx.cs">
       <DependentUpon>frmCalculoPagos.aspx</DependentUpon>

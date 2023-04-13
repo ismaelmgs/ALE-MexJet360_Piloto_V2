@@ -151,4 +151,33 @@ namespace ALE_MexJet.Objetos
         public int iNoPernoctas { get { return _iNoPernoctas; } set { _iNoPernoctas = value; } }
         public int iDayUse { get { return _iDayUse; } set { _iDayUse = value; } }
     }
+
+    [Serializable]
+    public class CantidadHoteles
+    {
+        public string sCrewCode { get; set; }
+        public DateTime dtFechaInicio { get; set; }
+        public DateTime dtFechaFin { get; set; }
+        public int iDescanso { get; set; }
+        public int iCantHotelesNac { get; set; }
+        public int iCantHotelesInt { get; set; }
+        public DataTable dtVuelos { get; set; }
+        public List<HotelesPorDia> oLstHotPorDia { get; set; }
+    }
+    [Serializable]
+    public class HotelesPorDia
+    {
+        public string sCvePiloto { get; set; }
+        public DateTime dtFechaDia { get; set; }
+        public int iDesNal { get; set; }
+        public int iDesInt { get; set; }
+        public string sOrigen { get; set; }
+        public string sDestino { get; set; }
+    }
+    [Serializable]
+    public class HorarioHoteles
+    {
+        public float fInicioDescanso { set; get; }
+        public float fFinDescanso { set; get; }
+    }
 }

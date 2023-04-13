@@ -296,13 +296,16 @@
                                     <dx:bootstrapgridviewdatacolumn caption="Cena Nac." fieldname="CenasNal" visibleindex="7" horizontalalign="Center" cssclasses-datacell="dataCell" width="8%" sortorder="None" settings-allowdragdrop="False" settings-allowsort="False" />
                                     <dx:bootstrapgridviewdatacolumn caption="Cena Int." fieldname="CenasInt" visibleindex="8" horizontalalign="Center" cssclasses-datacell="dataCell" width="8%" sortorder="None" settings-allowdragdrop="False" settings-allowsort="False" />
 
-                                    <dx:bootstrapgridviewdatacolumn visibleindex="9" caption="Estatus" fieldname="Estatus" horizontalalign="Center" cssclasses-datacell="dataCell" sortorder="None" settings-allowdragdrop="False" settings-allowsort="False">
+                                    <dx:bootstrapgridviewdatacolumn caption="Hoteles Nac." fieldname="HotelesNac" visibleindex="9" horizontalalign="Center" cssclasses-datacell="dataCell" width="8%" sortorder="None" settings-allowdragdrop="False" settings-allowsort="False" />
+                                    <dx:bootstrapgridviewdatacolumn caption="Hoteles Int." fieldname="HotelesInt" visibleindex="10" horizontalalign="Center" cssclasses-datacell="dataCell" width="8%" sortorder="None" settings-allowdragdrop="False" settings-allowsort="False" />
+
+                                    <dx:bootstrapgridviewdatacolumn visibleindex="11" caption="Estatus" fieldname="Estatus" horizontalalign="Center" cssclasses-datacell="dataCell" sortorder="None" settings-allowdragdrop="False" settings-allowsort="False">
                                         <dataitemtemplate>
                                             <asp:Label ID="readEstatusPendientes" runat="server" Text="" CssClass="dataCell"></asp:Label>
                                         </dataitemtemplate>
                                     </dx:bootstrapgridviewdatacolumn>
 
-                                    <dx:bootstrapgridviewdatacolumn visibleindex="10" caption="Acciones" fieldname="IdFolio" horizontalalign="Center" width="10%" sortorder="None" settings-allowdragdrop="False" settings-allowsort="False">
+                                    <dx:bootstrapgridviewdatacolumn visibleindex="12" caption="Acciones" fieldname="IdFolio" horizontalalign="Center" width="10%" sortorder="None" settings-allowdragdrop="False" settings-allowsort="False">
                                         <dataitemtemplate>
 
                                             <div class="row">
@@ -333,9 +336,9 @@
                                         </dataitemtemplate>
                                     </dx:bootstrapgridviewdatacolumn>
 
-                                    <dx:bootstrapgridviewdatacolumn fieldname="FechaInicio" visible="false" visibleindex="11" cssclasses-datacell="hideColumn" cssclasses-headercell="hideColumn" horizontalalign="Center" />
-                                    <dx:bootstrapgridviewdatacolumn fieldname="FechaFin" visible="false" visibleindex="12" cssclasses-datacell="hideColumn" cssclasses-headercell="hideColumn" horizontalalign="Center" />
-                                    <dx:bootstrapgridviewdatacolumn fieldname="HomeBase" visible="false" visibleindex="13" cssclasses-datacell="hideColumn" cssclasses-headercell="hideColumn" horizontalalign="Center" />
+                                    <dx:bootstrapgridviewdatacolumn fieldname="FechaInicio" visible="false" visibleindex="13" cssclasses-datacell="hideColumn" cssclasses-headercell="hideColumn" horizontalalign="Center" />
+                                    <dx:bootstrapgridviewdatacolumn fieldname="FechaFin" visible="false" visibleindex="14" cssclasses-datacell="hideColumn" cssclasses-headercell="hideColumn" horizontalalign="Center" />
+                                    <dx:bootstrapgridviewdatacolumn fieldname="HomeBase" visible="false" visibleindex="15" cssclasses-datacell="hideColumn" cssclasses-headercell="hideColumn" horizontalalign="Center" />
                                 </columns>
 
                                 <%--<SettingsPager PageSize="20" NumericButtonCount="6">
@@ -537,7 +540,7 @@
     <asp:Panel ID="pnlCalcularViaticos" runat="server" Visible="false" Style="padding-bottom: 10px;">
 
         <div class="card_vi" style="margin: 0 auto 0 auto; width: 98%;">
-            <h5 class="card-header_vi" style="font-weight: 700;">VIÁTICOS Y HORARIOS</h5>
+            <h5 class="card-header_vi" style="font-weight: 700;">VIÁTICOS DE ALIMENTOS Y HORARIOS</h5>
             <div class="card-body">
                 <div style="width: 90%; margin: 0 auto 0 auto;">
 
@@ -614,6 +617,54 @@
         </div>
 
 
+        <%--VIATICOS HOTEL--%>
+        <div class="card_vi" style="margin: 0 auto 0 auto; width: 98%;">
+            <h5 class="card-header_vi" style="font-weight: 700;">VIÁTICOS DE HOTEL Y HORARIOS</h5>
+            <div class="card-body">
+                <div style="width: 90%; margin: 0 auto 0 auto;">
+
+                    <div class="row">
+                        <div class="col-md-6">
+
+                            <dx:bootstrapgridview id="gvViaticosHotel" runat="server">
+                                <settingssearchpanel visible="false" showapplybutton="false" />
+                                <settings showgrouppanel="false" showfilterrowmenu="false" />
+                                <settingsadaptivity adaptivitymode="HideDataCells" allowonlyoneadaptivedetailexpanded="true"></settingsadaptivity>
+                                <columns>
+                                    <dx:bootstrapgridviewdatacolumn caption="CONCEPTO" fieldname="CONCEPTO" visibleindex="1" horizontalalign="Center" cssclasses-datacell="dataCell" sortorder="None" settings-allowdragdrop="False" settings-allowsort="False" />
+                                    <dx:bootstrapgridviewdatacolumn caption="NACIONAL" fieldname="NACIONAL" visibleindex="2" horizontalalign="Center" cssclasses-datacell="dataCell" sortorder="None" settings-allowdragdrop="False" settings-allowsort="False" />
+                                    <dx:bootstrapgridviewdatacolumn caption="INTERNACIONAL" fieldname="INTERNACIONAL" visibleindex="3" horizontalalign="Center" cssclasses-datacell="dataCell" sortorder="None" settings-allowdragdrop="False" settings-allowsort="False" />
+                                </columns>
+                            </dx:bootstrapgridview>
+
+                        </div>
+                        <div class="col-md-6">
+                            <dx:bootstrapgridview id="gvHorariosHotel" runat="server" keyfieldname="IdHotel">
+                                <settingssearchpanel visible="false" showapplybutton="false" />
+                                <settings showgrouppanel="false" showfilterrowmenu="false" />
+                                <settingsadaptivity adaptivitymode="HideDataCells" allowonlyoneadaptivedetailexpanded="true"></settingsadaptivity>
+                                <columns>
+                                    <dx:bootstrapgridviewdatacolumn caption="DESCRIPCIÓN" fieldname="DesHotel" visibleindex="1" horizontalalign="Center" cssclasses-datacell="dataCell" sortorder="None" settings-allowdragdrop="False" settings-allowsort="False" />
+                                    <dx:bootstrapgridviewdatacolumn caption="HORARIOS" fieldname="Horario" visibleindex="2" horizontalalign="Center" cssclasses-datacell="dataCell" sortorder="None" settings-allowdragdrop="False" settings-allowsort="False" />
+
+                                    <dx:bootstrapgridviewtextcolumn caption="NACIONAL (MXN)" fieldname="MontoMXN" visibleindex="3" horizontalalign="Center" cssclasses-datacell="dataCell" sortorder="None" settings-allowdragdrop="False" settings-allowsort="False">
+                                        <propertiestextedit displayformatstring="c"></propertiestextedit>
+                                    </dx:bootstrapgridviewtextcolumn>
+
+                                    <dx:bootstrapgridviewtextcolumn caption="INTERNACIONAL (USD)" fieldname="MontoUSD" visibleindex="4" horizontalalign="Center" cssclasses-datacell="dataCell" sortorder="None" settings-allowdragdrop="False" settings-allowsort="False">
+                                        <propertiestextedit displayformatstring="c"></propertiestextedit>
+                                    </dx:bootstrapgridviewtextcolumn>
+
+                                </columns>
+                            </dx:bootstrapgridview>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <%--FIN VIATICOS HOTEL--%>
+
         <div class="card_vi" style="margin: 10px auto 0 auto; width: 98%;">
             <h5 class="card-header_vi" style="font-weight: 700;">VIÁTICOS POR DÍA</h5>
             <div class="card-body">
@@ -652,6 +703,38 @@
                 </div>
             </div>
         </div>
+
+        <%--VIATICOS HOTEL POR DIA--%>
+        <div class="card_vi" style="margin: 10px auto 0 auto; width: 98%;">
+            <h5 class="card-header_vi" style="font-weight: 700;">VIÁTICOS DE HOTEL POR DÍA</h5>
+            <div class="card-body">
+                <div style="width: 90%; margin: 0 auto 0 auto;">
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <dx:bootstrapgridview id="gvViaticosHotelPorDia" runat="server" width="100%">
+                                <settingssearchpanel visible="false" showapplybutton="false" />
+                                <settings showgrouppanel="false" showfilterrowmenu="false" />
+                                <settingsadaptivity adaptivitymode="HideDataCells" allowonlyoneadaptivedetailexpanded="true"></settingsadaptivity>
+                                <columns>
+
+                                    <dx:bootstrapgridviewdatacolumn caption="FECHA" fieldname="Fecha" visibleindex="1" horizontalalign="Center" cssclasses-datacell="dataCell" sortorder="None" settings-allowdragdrop="False" settings-allowsort="False" />
+                                    <dx:bootstrapgridviewdatacolumn caption="TIPO CAMBIO" fieldname="TipoCambio" visibleindex="2" horizontalalign="Center" cssclasses-datacell="dataCell" sortorder="None" settings-allowdragdrop="False" settings-allowsort="False" />
+
+                                    <dx:bootstrapgridviewdatacolumn caption="HOTEL NAC" fieldname="HotelNac" visibleindex="3" horizontalalign="Center" cssclasses-datacell="dataCell" sortorder="None" settings-allowdragdrop="False" settings-allowsort="False" />
+                                    <dx:bootstrapgridviewdatacolumn caption="HOTEL INT" fieldname="HotelInt" visibleindex="4" horizontalalign="Center" cssclasses-datacell="dataCell" sortorder="None" settings-allowdragdrop="False" settings-allowsort="False" />
+                                    <dx:bootstrapgridviewdatacolumn caption="TOTAL" fieldname="Total" visibleindex="5" horizontalalign="Center" cssclasses-datacell="dataCell" sortorder="None" settings-allowdragdrop="False" settings-allowsort="False" />
+
+                                </columns>
+                            </dx:bootstrapgridview>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <%--FIN VIATICOS HOTEL POR DIA--%>
 
         <div class="card_vi" style="margin: 10px auto 0 auto; width: 98%;">
             <h5 class="card-header_vi" style="font-weight: 700;">LISTADO DE AJUSTES</h5>

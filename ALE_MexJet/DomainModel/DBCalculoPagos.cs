@@ -168,6 +168,17 @@ namespace ALE_MexJet.DomainModel
                 throw ex;
             }
         }
+        public DataSet ObtieneConfiguracionHoteles()
+        {
+            try
+            {
+                return new DBBase().oDB_SP.EjecutarDS("[VB].[spS_MXJ_ConsultaConfiguracionHotel]");
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
 
         public int SetInsertaPeriodo(PeriodoPiloto oPer)
         {
@@ -226,6 +237,34 @@ namespace ALE_MexJet.DomainModel
                                                                                                       "@MontoConcepto", oLstCP[i].DMontoConcepto,
                                                                                                       "@Total", oLstCP[i].DTotal,
                                                                                                       "@Moneda", oLstCP[i].SMoneda);
+                    if (oRes.S().I() == 1)
+                        bRes = true;
+                }
+
+                return bRes;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        public bool SetInsertaHotelesPilotoBitacora(List<HotelesPiloto> oLstHP, int iIdPeriodo)
+        {
+            try
+            {
+                bool bRes = false;
+                object oRes;
+
+                for (int i = 0; i < oLstHP.Count; i++)
+                {
+                    oRes = new DBBase().oDB_SP.EjecutarValor("[VB].[spI_MXJ_InsertaHotelesPiloto]", "@IdPeriodo", iIdPeriodo,
+                                                                                                    "@IdHotel", oLstHP[i].IIdHotel,
+                                                                                                    "@DesHotel", oLstHP[i].SDesHotel,
+                                                                                                    "@Cantidad", oLstHP[i].ICantidad,
+                                                                                                    "@MontoHotel", oLstHP[i].DMontoHotel,
+                                                                                                    "@Total", oLstHP[i].DTotal,
+                                                                                                    "@Moneda", oLstHP[i].SMoneda);
                     if (oRes.S().I() == 1)
                         bRes = true;
                 }
@@ -393,6 +432,34 @@ namespace ALE_MexJet.DomainModel
             }
         }
 
+        public bool SetInsertaViaticosHotelPorDia(List<ViaticosHotelPorDia> oLst, int iIdPeriodo)
+        {
+            try
+            {
+                bool bRes = false;
+                object oRes;
+
+                for (int i = 0; i < oLst.Count; i++)
+                {
+                    oRes = new DBBase().oDB_SP.EjecutarValor("[VB].[spI_MXJ_InsertaHotelesPilotoXDia]", "@IdPeriodo", iIdPeriodo,
+                                                                                                        "@Moneda", oLst[i].SMoneda,
+                                                                                                        "@Fecha", oLst[i].DtFecha,
+                                                                                                        "@Total", oLst[i].DTotal,
+                                                                                                        "@TipoCambio", oLst[i].DTipoCambio,
+                                                                                                        "@HotNac", oLst[i].DHotNac,
+                                                                                                        "@HotInt", oLst[i].DHotInt);
+                    if (oRes.S().I() == 1)
+                        bRes = true;
+                }
+
+                return bRes;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
         public DataSet ObtieneDatosReporte(int iPeriodo)
         {
             try
@@ -457,7 +524,7 @@ namespace ALE_MexJet.DomainModel
             }
         }
 
-        public bool SetInsertaViaticosPeriodo(DataTable dtLCon, DataTable dtLVue, DataTable dtLVD, DataTable dtResumenViaticos)
+        public bool SetInsertaViaticosPeriodo(DataTable dtLCon, DataTable dtLVue, DataTable dtLVD, DataTable dtResumenViaticos, int iIdPeriodo)
         {
             try
             {
@@ -465,7 +532,28 @@ namespace ALE_MexJet.DomainModel
                 var res = new DBBase().oDB_SP.EjecutarDS("[VB].[spI_MXJ_InsertaViaticosPilotoGral]", "@ConceptosPiloto", dtLCon,
                                                                                                      "@VuelosPiloto", dtLVue,
                                                                                                      "@ViaticosXPiloto", dtLVD,
-                                                                                                     "@ViaticosXPilotoResumen", dtResumenViaticos);
+                                                                                                     "@ViaticosXPilotoResumen", dtResumenViaticos,
+                                                                                                     "@Periodo", iIdPeriodo);
+
+                if (res.Tables[0].Rows.Count > 0)
+                    bRes = true;
+
+                return bRes;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        public bool SetInsertaViaticosHotelPeriodo(DataTable dtLHPS, DataTable dtViaticosHotelDia, DataTable dtResumenViaticosHotel, int iIdPeriodo)
+        {
+            try
+            {
+                bool bRes = false;
+                var res = new DBBase().oDB_SP.EjecutarDS("[VB].[spI_MXJ_InsertaViaticosHotelPilotoGral]", "@HotelesPiloto", dtLHPS,
+                                                                                                          "@ViaticosHotelPorDia", dtViaticosHotelDia,
+                                                                                                          "@ViaticosHotelPorDiaResumen", dtResumenViaticosHotel,
+                                                                                                          "@Periodo", iIdPeriodo);
 
                 if (res.Tables[0].Rows.Count > 0)
                     bRes = true;
@@ -494,6 +582,37 @@ namespace ALE_MexJet.DomainModel
             catch (Exception ex)
             {
                 return false;
+            }
+        }
+
+        public bool SetInsertaViaticosHotelXPilotoResumen(DataTable dtResumenViaticosH, int iIdPeriodo)
+        {
+            try
+            {
+                bool bRes = false;
+                var res = new DBBase().oDB_SP.EjecutarDS("[VB].[spI_MXJ_InsertaViaticosHotelPorDiaResumen]", "@IdPeriodo", iIdPeriodo,
+                                                                                                             "@ViaticosHotelXPilotoResumen", dtResumenViaticosH);
+
+                if (res.Tables[0].Rows.Count > 0)
+                    bRes = true;
+
+                return bRes;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        public DataTable ObtieneConfiguracionHorarioHotel()
+        {
+            try
+            {
+                return new DBBase().oDB_SP.EjecutarDT("[VB].[spS_MXJ_ObtieneHorariosHotel]");
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
         }
 

@@ -267,6 +267,24 @@ namespace ALE_MexJet.Views.viaticos
         protected global::DevExpress.Web.Bootstrap.BootstrapGridView gvInternacionales;
 
         /// <summary>
+        /// Control gvViaticosHotel.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::DevExpress.Web.Bootstrap.BootstrapGridView gvViaticosHotel;
+
+        /// <summary>
+        /// Control gvHorariosHotel.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::DevExpress.Web.Bootstrap.BootstrapGridView gvHorariosHotel;
+
+        /// <summary>
         /// Control gvDiasViaticos.
         /// </summary>
         /// <remarks>
@@ -274,6 +292,15 @@ namespace ALE_MexJet.Views.viaticos
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.Bootstrap.BootstrapGridView gvDiasViaticos;
+
+        /// <summary>
+        /// Control gvViaticosHotelPorDia.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::DevExpress.Web.Bootstrap.BootstrapGridView gvViaticosHotelPorDia;
 
         /// <summary>
         /// Control gvAjustesPiloto.
