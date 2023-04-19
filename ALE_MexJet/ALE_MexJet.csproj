@@ -766,6 +766,7 @@
       <DependentUpon>ucPizarraElectronica.ascx</DependentUpon>
     </Compile>
     <Compile Include="DomainModel\DBAeronaveRen.cs" />
+    <Compile Include="DomainModel\DBAeropuertosEspeciales.cs" />
     <Compile Include="DomainModel\DBAjuste.cs" />
     <Compile Include="DomainModel\DBAnalisisFerrys.cs" />
     <Compile Include="DomainModel\DBAutorizacionMembresias.cs" />
@@ -878,6 +879,7 @@
     <Compile Include="DomainModel\DBVuelosReasignados.cs" />
     <Compile Include="Interfaces\IViewAeronave.cs" />
     <Compile Include="Interfaces\IViewAeronaveRen.cs" />
+    <Compile Include="Interfaces\IViewAeropuertosEspeciales.cs" />
     <Compile Include="Interfaces\IViewAjuste.cs" />
     <Compile Include="Interfaces\IViewAnalisisFerrys.cs" />
     <Compile Include="Interfaces\IViewAudit.cs" />
@@ -1065,6 +1067,7 @@
     <Compile Include="Objetos\ViaticosPiloto.cs" />
     <Compile Include="Objetos\Vuelo.cs" />
     <Compile Include="Presenter\AeronaveRen_Presenter.cs" />
+    <Compile Include="Presenter\AeropuertosEspeciales_Presenter.cs" />
     <Compile Include="Presenter\Ajuste_Presenter.cs" />
     <Compile Include="Presenter\AnalisisFerrys_Presenter.cs" />
     <Compile Include="Presenter\Audit_Presenter.cs" />
