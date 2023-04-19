@@ -417,6 +417,7 @@
     <Content Include="Views\AtencionClientes\frmTripGuide.aspx" />
     <Content Include="Views\bitacoras\AltaBitacora.aspx" />
     <Content Include="Views\bitacoras\frmBitacoraPeticion.aspx" />
+    <Content Include="Views\bitacoras\frmBitacorasSinRemision.aspx" />
     <Content Include="Views\bitacoras\frmReporteFl3xx.aspx" />
     <Content Include="Views\Catalogos\frmFactoresFijos.aspx" />
     <Content Include="Views\Catalogos\frmListaDifusion.aspx" />
@@ -777,6 +778,7 @@
     <Compile Include="DomainModel\DBBaseFPK.cs" />
     <Compile Include="DomainModel\DBBaseSAP.cs" />
     <Compile Include="DomainModel\DBBitacoras.cs" />
+    <Compile Include="DomainModel\DBBitacorasRemision.cs" />
     <Compile Include="DomainModel\DBCalculoPagos.cs" />
     <Compile Include="DomainModel\DBConsultaBitacoras.cs" />
     <Compile Include="DomainModel\DBConsultaContrato.cs" />
@@ -888,6 +890,7 @@
     <Compile Include="Interfaces\IViewBitacora.cs" />
     <Compile Include="Interfaces\IViewBitacoraAudit.cs" />
     <Compile Include="Interfaces\IViewBitacoras.cs" />
+    <Compile Include="Interfaces\IViewBitacorasRemision.cs" />
     <Compile Include="Interfaces\IViewCalculoPagos.cs" />
     <Compile Include="Interfaces\IViewCasos.cs" />
     <Compile Include="Interfaces\IViewConsultaBitacoras.cs" />
@@ -1075,6 +1078,7 @@
     <Compile Include="Presenter\Autorizacion_Presenter.cs" />
     <Compile Include="Presenter\BitacoraAudit_Presenter.cs" />
     <Compile Include="Presenter\BitacoraPresenter.cs" />
+    <Compile Include="Presenter\BitacorasRemision_Presenter.cs" />
     <Compile Include="Presenter\Bitacoras_Presenter.cs" />
     <Compile Include="Presenter\CalculoPagos_Presenter.cs" />
     <Compile Include="Presenter\Casos_Presenter.cs" />
@@ -1249,6 +1253,13 @@
     </Compile>
     <Compile Include="Views\bitacoras\frmBitacoraPeticion.aspx.designer.cs">
       <DependentUpon>frmBitacoraPeticion.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\bitacoras\frmBitacorasSinRemision.aspx.cs">
+      <DependentUpon>frmBitacorasSinRemision.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\bitacoras\frmBitacorasSinRemision.aspx.designer.cs">
+      <DependentUpon>frmBitacorasSinRemision.aspx</DependentUpon>
     </Compile>
     <Compile Include="Views\bitacoras\frmReporteFl3xx.aspx.cs">
       <DependentUpon>frmReporteFl3xx.aspx</DependentUpon>
