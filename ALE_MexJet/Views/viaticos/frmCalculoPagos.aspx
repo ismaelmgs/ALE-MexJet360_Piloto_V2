@@ -871,19 +871,30 @@
         </div>
 
         <br />
+
         <div class="row" style="margin-top: 10px;">
-            <dx:bootstrapformlayout runat="server">
-                <items>
-                    <dx:bootstraplayoutitem horizontalalign="Right" showcaption="False" colspanmd="12">
-                        <contentcollection>
-                            <dx:contentcontrol>
-                                <dx:bootstrapbutton id="btnGuardarPeriodo" runat="server" text="Guardar Período" settingsbootstrap-renderoption="Primary" autopostback="true" onclick="btnGuardarPeriodo_Click" />
-                                <dx:bootstrapbutton id="btnCancelar" runat="server" text="Regresar" settingsbootstrap-renderoption="Warning" autopostback="false" onclick="btnCancelar_Click" />
-                            </dx:contentcontrol>
-                        </contentcollection>
-                    </dx:bootstraplayoutitem>
-                </items>
-            </dx:bootstrapformlayout>
+            <div class="col-md-11" style="text-align:right;">
+                <%--<dx:bootstrapformlayout runat="server">
+                    <items>
+                        <dx:bootstraplayoutitem horizontalalign="Right" showcaption="False" colspanmd="11">
+                            <contentcollection>
+                                <dx:contentcontrol>
+                                
+                                    <dx:bootstrapbutton id="btnGuardarPeriodo" runat="server" text="Guardar Período" settingsbootstrap-renderoption="Primary" autopostback="true" onclick="btnGuardarPeriodo_Click" />
+                                    <dx:bootstrapbutton id="btnCancelar" runat="server" text="Regresar" settingsbootstrap-renderoption="Warning" autopostback="false" onclick="btnCancelar_Click" />
+                                </dx:contentcontrol>
+                            </contentcollection>
+                        </dx:bootstraplayoutitem>
+                    </items>
+                </dx:bootstrapformlayout>--%>
+                <dx:bootstrapbutton id="btnGuardarPeriodo" runat="server" text="Guardar Período" settingsbootstrap-renderoption="Primary" autopostback="true" onclick="btnGuardarPeriodo_Click" />
+                &nbsp;
+                <dx:bootstrapbutton id="btnCancelar" runat="server" text="Regresar" settingsbootstrap-renderoption="Warning" autopostback="false" onclick="btnCancelar_Click" />
+            </div>
+            <div class="col-md-1" style="text-align:left;">
+                <asp:Button ID="btnPagar" runat="server" Text="Pagar" onClick="btnPagar_OnClick" CssClass="btn btn-success" />
+            </div>
+            
         </div>
     </asp:Panel>
 

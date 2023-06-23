@@ -68,8 +68,10 @@ namespace ALE_MexJet.Presenter
             {
                 #region CONSULTA VUELOS
                 dtViaticosDiaHot = null;
+                GC.Collect();
                 DataSet ds = oIGestCat.ObtieneVuelosDelPeriodo(oIView.sFechaDesde.Dt(), oIView.sFechaHasta.Dt(), oIView.sParametro);
-                DataTable dtVuelos = ds.Tables[0];
+                //DataTable dtVuelos = ds.Tables[0];
+                DataTable dtVuelos = ds.Tables[3]; //Nueva consulta con registros consecutivos
                 //DataTable dtPilotos = ds.Tables[1]; //new DBCalculoPagos().ObtienePilotosFPK;
 
                 DataTable dtPilotSrc = ds.Tables[1];
@@ -228,7 +230,7 @@ namespace ALE_MexJet.Presenter
 
                     foreach (DataRow drP in dtPilotos.Rows)
                     {
-                        if(drP["ClavePiloto"].S() == "CLR")
+                        if(drP["ClavePiloto"].S() == "TOM")
                         {
                             string sCo = "0";
                         }
@@ -276,6 +278,14 @@ namespace ALE_MexJet.Presenter
                                     oCant.dtFechaFin = oIView.sFechaHasta.Dt(); //oIView.dtFechaFin;
                                     oCant.dtVuelos = dtLegs;
                                     oCant.iVuelo = i;
+
+                                    //string sPiloto = drP["ClavePiloto"].S();
+                                    //if (drP["ClavePiloto"].S() == "TOM")
+                                    //{
+                                    //    sPiloto = "TOMAS";
+                                    //}
+
+                                    //Hasta aqui Si esta llegando los vuelos de relleno
 
                                     List<ComidasPorDia> oLsComDia = new List<ComidasPorDia>();
 
@@ -363,6 +373,36 @@ namespace ALE_MexJet.Presenter
 
                                                         fHoraInicio = dtIniDia.Hour + (dtIniDia.Minute / float.Parse("60"));
                                                         fHoraFinal = dtFinDia.Hour + (dtFinDia.Minute / float.Parse("60"));
+
+                                                        //CUANDO EL PILOTO NO TIENE ACTIVIDAD DURANTE VARIOS DIAS Y ESTA EN UN LUGAR FUERA DE SU BASE
+                                                        //if (fHoraInicio > 0 && fHoraFinal < 24)
+                                                        //{
+                                                            //if (oComDia1.sOrigen == oComDia1.sDestino)
+                                                            //{
+                                                            //    if (bEsInterFinal)
+                                                            //    {
+                                                            //        oCant.iCantDesayunosInt++;
+                                                            //        oComDia1.iDesayunosInt++;
+
+                                                            //        oCant.iCantComidasInt++;
+                                                            //        oComDia1.iComidaInt++;
+
+                                                            //        oCant.iCantCenasInt++;
+                                                            //        oComDia1.iCenaInt++;
+                                                            //    }
+                                                            //    else
+                                                            //    {
+                                                            //        oCant.iCantDesayunos++;
+                                                            //        oComDia1.iDesayunosNal++;
+
+                                                            //        oCant.iCantComidas++;
+                                                            //        oComDia1.iComidaNal++;
+
+                                                            //        oCant.iCantCenas++;
+                                                            //        oComDia1.iCenaNal++;
+                                                            //    }
+                                                            //}
+                                                        //}
 
                                                         #region DESAYUNO
                                                         //if (fHoraInicio < fInicioDesayuno || (fHoraInicio > fInicioDesayuno && fHoraInicio < fFinDesayuno)) //Linea origen
@@ -510,6 +550,32 @@ namespace ALE_MexJet.Presenter
                                                 oComDia.sduty_type = dtLegs.Rows[0]["DutyType"].S();
                                                 oComDia.sOrigen = dtLegs.Rows[0]["POD"].S();
                                                 oComDia.sDestino = dtLegs.Rows[dtLegs.Rows.Count - 1]["POA"].S();
+
+                                                //if (oComDia.sOrigen == oComDia.sDestino)
+                                                //{
+                                                //    if (bEsInterFinal)
+                                                //    {
+                                                //        oCant.iCantDesayunosInt++;
+                                                //        oComDia.iDesayunosInt++;
+
+                                                //        oCant.iCantComidasInt++;
+                                                //        oComDia.iComidaInt++;
+
+                                                //        oCant.iCantCenasInt++;
+                                                //        oComDia.iCenaInt++;
+                                                //    }
+                                                //    else
+                                                //    {
+                                                //        oCant.iCantDesayunos++;
+                                                //        oComDia.iDesayunosNal++;
+
+                                                //        oCant.iCantComidas++;
+                                                //        oComDia.iComidaNal++;
+
+                                                //        oCant.iCantCenas++;
+                                                //        oComDia.iCenaNal++;
+                                                //    }
+                                                //}
 
                                                 #region DESAYUNO
                                                 //if (fHoraInicio < fInicioDesayuno || (fHoraInicio > fInicioDesayuno && fHoraInicio < fFinDesayuno)) //Linea origen
@@ -2085,6 +2151,35 @@ namespace ALE_MexJet.Presenter
 
                                                         if (k + 1 == rowsD.Length)
                                                         {
+                                                            //CUANDO EL PILOTO NO TIENE ACTIVIDAD DURANTE VARIOS DIAS Y ESTA EN UN LUGAR FUERA DE SU BASE
+                                                            //if (fHoraInicio > 0 && fHoraFinal < 24)
+                                                            //{
+                                                                //if (oComDia1.sOrigen == oComDia1.sDestino)
+                                                                //{
+                                                                //    if (bEsInterFinal)
+                                                                //    {
+                                                                //        oCant.iCantDesayunosInt++;
+                                                                //        oComDia1.iDesayunosInt++;
+
+                                                                //        oCant.iCantComidasInt++;
+                                                                //        oComDia1.iComidaInt++;
+
+                                                                //        oCant.iCantCenasInt++;
+                                                                //        oComDia1.iCenaInt++;
+                                                                //    }
+                                                                //    else
+                                                                //    {
+                                                                //        oCant.iCantDesayunos++;
+                                                                //        oComDia1.iDesayunosNal++;
+
+                                                                //        oCant.iCantComidas++;
+                                                                //        oComDia1.iComidaNal++;
+
+                                                                //        oCant.iCantCenas++;
+                                                                //        oComDia1.iCenaNal++;
+                                                                //    }
+                                                                //}
+                                                            //}
 
                                                             #region DESAYUNO
                                                             //if (fHoraInicio < fInicioDesayuno || (fHoraInicio > fInicioDesayuno && fHoraInicio < fFinDesayuno)) //Linea origen
@@ -2377,6 +2472,36 @@ namespace ALE_MexJet.Presenter
                                                     //    }
                                                     //}
                                                     #endregion
+
+                                                    //CUANDO EL PILOTO NO TIENE ACTIVIDAD DURANTE VARIOS DIAS Y ESTA EN UN LUGAR FUERA DE SU BASE
+                                                    //if (fHoraInicio > 0 && fHoraFinal < 24)
+                                                    //{
+                                                        //if (oComDia1.sOrigen == oComDia1.sDestino)
+                                                        //{
+                                                        //    if (bEsInterFinal)
+                                                        //    {
+                                                        //        oCant.iCantDesayunosInt++;
+                                                        //        oComDia1.iDesayunosInt++;
+
+                                                        //        oCant.iCantComidasInt++;
+                                                        //        oComDia1.iComidaInt++;
+
+                                                        //        oCant.iCantCenasInt++;
+                                                        //        oComDia1.iCenaInt++;
+                                                        //    }
+                                                        //    else
+                                                        //    {
+                                                        //        oCant.iCantDesayunos++;
+                                                        //        oComDia1.iDesayunosNal++;
+
+                                                        //        oCant.iCantComidas++;
+                                                        //        oComDia1.iComidaNal++;
+
+                                                        //        oCant.iCantCenas++;
+                                                        //        oComDia1.iCenaNal++;
+                                                        //    }
+                                                        //}
+                                                    //}
 
                                                     #region DESAYUNO
                                                     //Primera condicion
@@ -3321,6 +3446,37 @@ namespace ALE_MexJet.Presenter
                                                                 //}
                                                                 #endregion
 
+                                                                //CUANDO EL PILOTO NO TIENE ACTIVIDAD DURANTE VARIOS DIAS Y ESTA EN UN LUGAR FUERA DE SU BASE
+                                                                //if (fHoraInicio > 0 && fHoraFinal < 24)
+                                                                //{
+                                                                    if (oComDia1.sOrigen == oComDia1.sDestino)
+                                                                    {
+                                                                        if (bEsInterFinal)
+                                                                        {
+                                                                            oCant.iCantDesayunosInt++;
+                                                                            oComDia1.iDesayunosInt++;
+
+                                                                            oCant.iCantComidasInt++;
+                                                                            oComDia1.iComidaInt++;
+
+                                                                            oCant.iCantCenasInt++;
+                                                                            oComDia1.iCenaInt++;
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            oCant.iCantDesayunos++;
+                                                                            oComDia1.iDesayunosNal++;
+
+                                                                            oCant.iCantComidas++;
+                                                                            oComDia1.iComidaNal++;
+
+                                                                            oCant.iCantCenas++;
+                                                                            oComDia1.iCenaNal++;
+                                                                        }
+                                                                    }
+                                                                //}
+
+
                                                                 #region DESAYUNO
                                                                 //Primera condicion
                                                                 if (((fHoraInicio < fInicioDesayuno && fHoraFinal > fInicioDesayuno) && fHoraFinal < fFinDesayuno) && (oComDia1.sDestino != dtLegs.Rows[0]["HomeBase"].S()))
@@ -4138,6 +4294,8 @@ namespace ALE_MexJet.Presenter
                                                                 }
                                                                 #endregion
 
+                                                                
+
                                                             }
                                                             else
                                                             {
@@ -4234,6 +4392,36 @@ namespace ALE_MexJet.Presenter
                                                                 //    iAux = 3;
                                                                 //}
                                                                 #endregion
+
+                                                                //CUANDO EL PILOTO NO TIENE ACTIVIDAD DURANTE VARIOS DIAS Y ESTA EN UN LUGAR FUERA DE SU BASE
+                                                                //if (fHoraInicio > 0 && fHoraFinal < 24)
+                                                                //{
+                                                                    if (oComDia1.sOrigen == oComDia1.sDestino)
+                                                                    {
+                                                                        if (bEsInterFinal)
+                                                                        {
+                                                                            oCant.iCantDesayunosInt++;
+                                                                            oComDia1.iDesayunosInt++;
+
+                                                                            oCant.iCantComidasInt++;
+                                                                            oComDia1.iComidaInt++;
+
+                                                                            oCant.iCantCenasInt++;
+                                                                            oComDia1.iCenaInt++;
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            oCant.iCantDesayunos++;
+                                                                            oComDia1.iDesayunosNal++;
+
+                                                                            oCant.iCantComidas++;
+                                                                            oComDia1.iComidaNal++;
+
+                                                                            oCant.iCantCenas++;
+                                                                            oComDia1.iCenaNal++;
+                                                                        }
+                                                                    }
+                                                                //}
 
                                                                 #region DESAYUNO
                                                                 //Primera condicion
@@ -4973,6 +5161,8 @@ namespace ALE_MexJet.Presenter
                                                                 }
                                                                 #endregion
 
+                                                                
+
                                                                 if (iAux == 0)
                                                                 {
                                                                     if (bEsInterInicio)
@@ -4986,11 +5176,44 @@ namespace ALE_MexJet.Presenter
 
                                                                                 oComDia1.iDesayunosInt++;
                                                                                 oComDia1.iComidaInt++;
+
+                                                                                //CUANDO EL PILOTO NO TIENE ACTIVIDAD DURANTE VARIOS DIAS Y ESTA EN UN LUGAR FUERA DE SU BASE
+                                                                                if (oComDia1.sOrigen == oComDia1.sDestino)
+                                                                                {
+                                                                                    if (bEsInterInicio)
+                                                                                    {
+                                                                                        oCant.iCantDesayunosInt++;
+                                                                                        oComDia1.iDesayunosInt++;
+
+                                                                                        oCant.iCantComidasInt++;
+                                                                                        oComDia1.iComidaInt++;
+
+                                                                                        oCant.iCantCenasInt++;
+                                                                                        oComDia1.iCenaInt++;
+                                                                                    }
+                                                                                }
+
                                                                             }
                                                                             else
                                                                             {
                                                                                 oCant.iCantDesayunosInt++;
                                                                                 oComDia1.iDesayunosInt++;
+
+                                                                                //CUANDO EL PILOTO NO TIENE ACTIVIDAD DURANTE VARIOS DIAS Y ESTA EN UN LUGAR FUERA DE SU BASE
+                                                                                if (oComDia1.sOrigen == oComDia1.sDestino)
+                                                                                {
+                                                                                    if (bEsInterInicio)
+                                                                                    {
+                                                                                        oCant.iCantDesayunosInt++;
+                                                                                        oComDia1.iDesayunosInt++;
+
+                                                                                        oCant.iCantComidasInt++;
+                                                                                        oComDia1.iComidaInt++;
+
+                                                                                        oCant.iCantCenasInt++;
+                                                                                        oComDia1.iCenaInt++;
+                                                                                    }
+                                                                                }
                                                                             }
                                                                         }
                                                                     }
@@ -5005,11 +5228,44 @@ namespace ALE_MexJet.Presenter
 
                                                                                 oComDia1.iDesayunosNal++;
                                                                                 oComDia1.iComidaNal++;
+
+                                                                                //CUANDO EL PILOTO NO TIENE ACTIVIDAD DURANTE VARIOS DIAS Y ESTA EN UN LUGAR FUERA DE SU BASE
+                                                                                if (oComDia1.sOrigen == oComDia1.sDestino)
+                                                                                {
+                                                                                    if (bEsInterInicio)
+                                                                                    {
+                                                                                        oCant.iCantDesayunos++;
+                                                                                        oComDia1.iDesayunosNal++;
+
+                                                                                        oCant.iCantComidas++;
+                                                                                        oComDia1.iComidaNal++;
+
+                                                                                        oCant.iCantCenas++;
+                                                                                        oComDia1.iCenaNal++;
+                                                                                    }
+                                                                                }
+
                                                                             }
                                                                             else
                                                                             {
                                                                                 oCant.iCantDesayunos++;
                                                                                 oComDia1.iDesayunosNal++;
+
+                                                                                //CUANDO EL PILOTO NO TIENE ACTIVIDAD DURANTE VARIOS DIAS Y ESTA EN UN LUGAR FUERA DE SU BASE
+                                                                                if (oComDia1.sOrigen == oComDia1.sDestino)
+                                                                                {
+                                                                                    if (bEsInterInicio)
+                                                                                    {
+                                                                                        oCant.iCantDesayunos++;
+                                                                                        oComDia1.iDesayunosNal++;
+
+                                                                                        oCant.iCantComidas++;
+                                                                                        oComDia1.iComidaNal++;
+
+                                                                                        oCant.iCantCenas++;
+                                                                                        oComDia1.iCenaNal++;
+                                                                                    }
+                                                                                }
                                                                             }
                                                                         }
                                                                     }
@@ -5151,6 +5407,36 @@ namespace ALE_MexJet.Presenter
                                                         //    iAux = 3;
                                                         //}
                                                         #endregion
+
+                                                        //CUANDO EL PILOTO NO TIENE ACTIVIDAD DURANTE VARIOS DIAS Y ESTA EN UN LUGAR FUERA DE SU BASE
+                                                        //if (fHoraInicio > 0 && fHoraFinal < 24)
+                                                        //{
+                                                            if (oCom.sOrigen == oCom.sDestino)
+                                                            {
+                                                                if (bEsInterFinal)
+                                                                {
+                                                                    oCant.iCantDesayunosInt++;
+                                                                    oCom.iDesayunosInt++;
+
+                                                                    oCant.iCantComidasInt++;
+                                                                    oCom.iComidaInt++;
+
+                                                                    oCant.iCantCenasInt++;
+                                                                    oCom.iCenaInt++;
+                                                                }
+                                                                else
+                                                                {
+                                                                    oCant.iCantDesayunos++;
+                                                                    oCom.iDesayunosNal++;
+
+                                                                    oCant.iCantComidas++;
+                                                                    oCom.iComidaNal++;
+
+                                                                    oCant.iCantCenas++;
+                                                                    oCom.iCenaNal++;
+                                                                }
+                                                            }
+                                                        //}
 
                                                         #region DESAYUNO
                                                         //Primera condicion
@@ -5889,6 +6175,9 @@ namespace ALE_MexJet.Presenter
                                                         }
                                                         #endregion
 
+                                                        
+ 
+
                                                         if (iAux == 0)
                                                         {
                                                             if (bEsInterInicio)
@@ -5902,11 +6191,43 @@ namespace ALE_MexJet.Presenter
 
                                                                         oCom.iDesayunosInt++;
                                                                         oCom.iComidaInt++;
+
+                                                                        //CUANDO EL PILOTO NO TIENE ACTIVIDAD DURANTE VARIOS DIAS Y ESTA EN UN LUGAR FUERA DE SU BASE
+                                                                        if (oCom.sOrigen == oCom.sDestino)
+                                                                        {
+                                                                            if (bEsInterInicio)
+                                                                            {
+                                                                                oCant.iCantDesayunosInt++;
+                                                                                oCom.iDesayunosInt++;
+
+                                                                                oCant.iCantComidasInt++;
+                                                                                oCom.iComidaInt++;
+
+                                                                                oCant.iCantCenasInt++;
+                                                                                oCom.iCenaInt++;
+                                                                            }
+                                                                        }
                                                                     }
                                                                     else
                                                                     {
                                                                         oCant.iCantDesayunosInt++;
                                                                         oCom.iDesayunosInt++;
+
+                                                                        //CUANDO EL PILOTO NO TIENE ACTIVIDAD DURANTE VARIOS DIAS Y ESTA EN UN LUGAR FUERA DE SU BASE
+                                                                        if (oCom.sOrigen == oCom.sDestino)
+                                                                        {
+                                                                            if (bEsInterInicio)
+                                                                            {
+                                                                                oCant.iCantDesayunosInt++;
+                                                                                oCom.iDesayunosInt++;
+
+                                                                                oCant.iCantComidasInt++;
+                                                                                oCom.iComidaInt++;
+
+                                                                                oCant.iCantCenasInt++;
+                                                                                oCom.iCenaInt++;
+                                                                            }
+                                                                        }
                                                                     }
                                                                 }
                                                             }
@@ -5921,11 +6242,43 @@ namespace ALE_MexJet.Presenter
 
                                                                         oCom.iDesayunosNal++;
                                                                         oCom.iComidaNal++;
+
+                                                                        //CUANDO EL PILOTO NO TIENE ACTIVIDAD DURANTE VARIOS DIAS Y ESTA EN UN LUGAR FUERA DE SU BASE
+                                                                        if (oCom.sOrigen == oCom.sDestino)
+                                                                        {
+                                                                            if (bEsInterInicio)
+                                                                            {
+                                                                                oCant.iCantDesayunos++;
+                                                                                oCom.iDesayunosNal++;
+
+                                                                                oCant.iCantComidas++;
+                                                                                oCom.iComidaNal++;
+
+                                                                                oCant.iCantCenas++;
+                                                                                oCom.iCenaNal++;
+                                                                            }
+                                                                        }
                                                                     }
                                                                     else
                                                                     {
                                                                         oCant.iCantDesayunos++;
                                                                         oCom.iDesayunosNal++;
+
+                                                                        //CUANDO EL PILOTO NO TIENE ACTIVIDAD DURANTE VARIOS DIAS Y ESTA EN UN LUGAR FUERA DE SU BASE
+                                                                        if (oCom.sOrigen == oCom.sDestino)
+                                                                        {
+                                                                            if (bEsInterInicio)
+                                                                            {
+                                                                                oCant.iCantDesayunos++;
+                                                                                oCom.iDesayunosNal++;
+
+                                                                                oCant.iCantComidas++;
+                                                                                oCom.iComidaNal++;
+
+                                                                                oCant.iCantCenas++;
+                                                                                oCom.iCenaNal++;
+                                                                            }
+                                                                        }
                                                                     }
                                                                 }
                                                             }
@@ -6145,6 +6498,36 @@ namespace ALE_MexJet.Presenter
                                                             //    }
                                                             //}
                                                             #endregion
+
+                                                            //CUANDO EL PILOTO NO TIENE ACTIVIDAD DURANTE VARIOS DIAS Y ESTA EN UN LUGAR FUERA DE SU BASE
+                                                            //if (fHoraInicio > 0 && fHoraFinal < 24)
+                                                            //{
+                                                            if (oCom.sOrigen == oCom.sDestino)
+                                                            {
+                                                                if (bEsInterFinal)
+                                                                {
+                                                                    oCant.iCantDesayunosInt++;
+                                                                    oCom.iDesayunosInt++;
+
+                                                                    oCant.iCantComidasInt++;
+                                                                    oCom.iComidaInt++;
+
+                                                                    oCant.iCantCenasInt++;
+                                                                    oCom.iCenaInt++;
+                                                                }
+                                                                else
+                                                                {
+                                                                    oCant.iCantDesayunos++;
+                                                                    oCom.iDesayunosNal++;
+
+                                                                    oCant.iCantComidas++;
+                                                                    oCom.iComidaNal++;
+
+                                                                    oCant.iCantCenas++;
+                                                                    oCom.iCenaNal++;
+                                                                }
+                                                            }
+                                                            //}
 
                                                             #region DESAYUNO
                                                             //Primera condicion
@@ -6963,6 +7346,8 @@ namespace ALE_MexJet.Presenter
                                                             }
                                                             #endregion
 
+                                                            
+
                                                         }
                                                         else
                                                         {
@@ -6985,6 +7370,36 @@ namespace ALE_MexJet.Presenter
                                                             //    oCom.iDesayunosNal++;
                                                             //    oCom.iComidaNal++;
                                                             //    oCom.iCenaNal++;
+                                                            //}
+
+                                                            //CUANDO EL PILOTO NO TIENE ACTIVIDAD DURANTE VARIOS DIAS Y ESTA EN UN LUGAR FUERA DE SU BASE
+                                                            //if (fHoraInicio > 0 && fHoraFinal < 24)
+                                                            //{
+                                                                if (oCom.sOrigen == oCom.sDestino)
+                                                                {
+                                                                    if (bEsInterFinal)
+                                                                    {
+                                                                        oCant.iCantDesayunosInt++;
+                                                                        oCom.iDesayunosInt++;
+
+                                                                        oCant.iCantComidasInt++;
+                                                                        oCom.iComidaInt++;
+
+                                                                        oCant.iCantCenasInt++;
+                                                                        oCom.iCenaInt++;
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        oCant.iCantDesayunos++;
+                                                                        oCom.iDesayunosNal++;
+
+                                                                        oCant.iCantComidas++;
+                                                                        oCom.iComidaNal++;
+
+                                                                        oCant.iCantCenas++;
+                                                                        oCom.iCenaNal++;
+                                                                    }
+                                                                }
                                                             //}
                                                         }
 
@@ -8423,7 +8838,7 @@ namespace ALE_MexJet.Presenter
                                         oCant.oLstPorDia = oLsComDia;
                                         ObtieneDiasViaticos(oLsComDia);
                                     }
-
+                                    
                                     oLstCant.Add(oCant);
                                 }
 
@@ -8441,6 +8856,7 @@ namespace ALE_MexJet.Presenter
                     GC.Collect();
                     oIView.oLstCant = oLstCant;
                     oIView.oLstCantH = oLstCantH;
+
                     dtComidas = DBGetObtieneTablaCalculos(oLstCant, dtPilotos, oLstCantH);
                     #endregion
 
@@ -8450,7 +8866,7 @@ namespace ALE_MexJet.Presenter
                 oIView.dtViaticosHot = dtViaticosDiaHot;
 
                 oIView.LlenaCalculoPilotos(dtComidas);
-                oIView.LlenaVuelosPiloto(ds.Tables[0]);
+                oIView.LlenaVuelosPiloto(ds.Tables[3]);
                 #endregion
             }
             catch (Exception ex)
@@ -8512,11 +8928,13 @@ namespace ALE_MexJet.Presenter
                         #region CALCULO DE HOTEL
                         TimeSpan tsTiempoDes;
                         string sPOA = string.Empty;
+                        string sPOD = string.Empty;
                         string sBasePil = string.Empty;
                         int iEsInternacional = 0;
 
                         //Aeropuerto de arrivo
                         sPOA = dr[x]["POA"].S(); //dtVuelosH.Rows[i]["POA"].S();
+                        sPOD = dr[x]["POD"].S();
                         //Base piloto
                         sBasePil = sBasePiloto; //rows[0]["HomeBase"].S();
                         //Vuelo Internacional = 1, Nacional = 0
@@ -8600,6 +9018,40 @@ namespace ALE_MexJet.Presenter
                                            
                                 }
                             }
+
+
+                            //CUANDO EL PILOTO NO TIENE ACTIVIDAD DURANTE VARIOS DIAS Y ESTA EN UN LUGAR FUERA DE SU BASE
+                            //if (sPOD == sPOA && sPOA != sBasePil)
+                            //{
+                            //    if (iEsInternacional == 1)
+                            //    {
+                            //        //Llenamos objeto por día
+                            //        HotelesPorDia oHD = new HotelesPorDia();
+                            //        oHD.sCvePiloto = sCvePiloto;
+                            //        oHD.dtFechaDia = dtHoraInicio; //dr[x]["CheckOut"].S().Dt();
+                            //        oHD.sOrigen = sPOD;
+                            //        oHD.sDestino = sPOA;
+
+                            //        iCantHotelInt += 1;
+                            //        oHD.iDesInt++;
+                            //        oLsHotDia.Add(oHD);
+
+                            //    }
+                            //    else if (iEsInternacional == 0)
+                            //    {
+                            //        //Llenamos objeto por día
+                            //        HotelesPorDia oHD = new HotelesPorDia();
+                            //        oHD.sCvePiloto = sCvePiloto;
+                            //        oHD.dtFechaDia = dtHoraInicio; //dr[x]["CheckOut"].S().Dt();
+                            //        oHD.sOrigen = sPOD;
+                            //        oHD.sDestino = sPOA;
+
+                            //        iCantHotelNac += 1;
+                            //        oHD.iDesNal++;
+                            //        oLsHotDia.Add(oHD);
+                            //    }
+                            //}
+
                         }
 
                         
@@ -8936,6 +9388,36 @@ namespace ALE_MexJet.Presenter
                     oCom.sOrigen = sPOD;
                     oCom.sDestino = sPOA;
 
+                    //CUANDO EL PILOTO NO TIENE ACTIVIDAD DURANTE VARIOS DIAS Y ESTA EN UN LUGAR FUERA DE SU BASE
+                    //if (fHoraInicio > 0 && fHoraFinal < 24)
+                    //{
+                    if (oCom.sOrigen == oCom.sDestino)
+                    {
+                        if (bEsInterFinal)
+                        {
+                            oCant.iCantDesayunosInt++;
+                            oCom.iDesayunosInt++;
+
+                            oCant.iCantComidasInt++;
+                            oCom.iComidaInt++;
+
+                            oCant.iCantCenasInt++;
+                            oCom.iCenaInt++;
+                        }
+                        else
+                        {
+                            oCant.iCantDesayunos++;
+                            oCom.iDesayunosNal++;
+
+                            oCant.iCantComidas++;
+                            oCom.iComidaNal++;
+
+                            oCant.iCantCenas++;
+                            oCom.iCenaNal++;
+                        }
+                    }
+                    //}
+
                     #region DESAYUNO
                     //if (fHoraInicio < fInicioDesayuno || (fHoraInicio > fInicioDesayuno && fHoraInicio < fFinDesayuno) || (fHoraInicio >= fInicioDesayuno && sPOD != sBase))
                     //{
@@ -9164,6 +9646,9 @@ namespace ALE_MexJet.Presenter
                     }
                     #endregion
 
+                    
+
+
                     oCom.iDesayunosNal = oCant.iCantDesayunos;
                     oCom.iDesayunosInt = oCant.iCantDesayunosInt;
                     oCom.iComidaNal = oCant.iCantComidas;
@@ -9183,42 +9668,72 @@ namespace ALE_MexJet.Presenter
 
                     #region COMENTADO CONDICIONES ANTERIORES
                     // DIA INICIAL
-                    if (fHoraInicio < fInicioDesayuno || (fHoraInicio > fInicioDesayuno && fHoraInicio < fFinDesayuno))
-                    {
-                        if (bEsInterFinal)
-                        {
-                            oCant.iCantDesayunosInt++;
-                            oCant.iCantComidasInt++;
-                            oCant.iCantCenasInt++;
-                        }
-                        else
-                        {
-                            oCant.iCantDesayunos++;
-                            oCant.iCantComidas++;
-                            oCant.iCantCenas++;
-                        }
-                    }
-                    else if (fHoraInicio < fInicioComida && fHoraInicio > fFinDesayuno && fHoraInicio < fFinComida)
-                    {
-                        if (bEsInterFinal)
-                        {
-                            oCant.iCantComidasInt++;
-                            oCant.iCantCenasInt++;
-                        }
-                        else
-                        {
-                            oCant.iCantComidas++;
-                            oCant.iCantCenas++;
-                        }
-                    }
-                    else if (fHoraInicio < fInicioCena && fHoraInicio > fFinComida && fHoraInicio < fFinCena)
-                    {
-                        if (bEsInterFinal)
-                            oCant.iCantCenasInt++;
-                        else
-                            oCant.iCantCenas++;
-                    }
+                    //if (fHoraInicio < fInicioDesayuno || (fHoraInicio > fInicioDesayuno && fHoraInicio < fFinDesayuno))
+                    //{
+                    //    if (bEsInterFinal)
+                    //    {
+                    //        oCant.iCantDesayunosInt++;
+                    //        oCant.iCantComidasInt++;
+                    //        oCant.iCantCenasInt++;
+                    //    }
+                    //    else
+                    //    {
+                    //        oCant.iCantDesayunos++;
+                    //        oCant.iCantComidas++;
+                    //        oCant.iCantCenas++;
+                    //    }
+                    //}
+                    //else if (fHoraInicio < fInicioComida && fHoraInicio > fFinDesayuno && fHoraInicio < fFinComida)
+                    //{
+                    //    if (bEsInterFinal)
+                    //    {
+                    //        oCant.iCantComidasInt++;
+                    //        oCant.iCantCenasInt++;
+                    //    }
+                    //    else
+                    //    {
+                    //        oCant.iCantComidas++;
+                    //        oCant.iCantCenas++;
+                    //    }
+                    //}
+                    //else if (fHoraInicio < fInicioCena && fHoraInicio > fFinComida && fHoraInicio < fFinCena)
+                    //{
+                    //    if (bEsInterFinal)
+                    //        oCant.iCantCenasInt++;
+                    //    else
+                    //        oCant.iCantCenas++;
+                    //}
                     #endregion
+
+                    //CUANDO EL PILOTO NO TIENE ACTIVIDAD DURANTE VARIOS DIAS Y ESTA EN UN LUGAR FUERA DE SU BASE
+                    //if (fHoraInicio > 0 && fHoraFinal < 24)
+                    //{
+                        if (oComDia1.sOrigen == oComDia1.sDestino)
+                        {
+                            if (bEsInterFinal)
+                            {
+                                oCant.iCantDesayunosInt++;
+                                oComDia1.iDesayunosInt++;
+
+                                oCant.iCantComidasInt++;
+                                oComDia1.iComidaInt++;
+
+                                oCant.iCantCenasInt++;
+                                oComDia1.iCenaInt++;
+                            }
+                            else
+                            {
+                                oCant.iCantDesayunos++;
+                                oComDia1.iDesayunosNal++;
+
+                                oCant.iCantComidas++;
+                                oComDia1.iComidaNal++;
+
+                                oCant.iCantCenas++;
+                                oComDia1.iCenaNal++;
+                            }
+                        }
+                    //}
 
                     #region DESAYUNO
                     //Primera condicion
@@ -9533,6 +10048,8 @@ namespace ALE_MexJet.Presenter
                     }
                     #endregion
 
+                    
+
                     oComDia1.dtFechaDia = dtInicial;
                     oComDia1.iDesayunosNal = oCant.iCantDesayunos;
                     oComDia1.iDesayunosInt = oCant.iCantDesayunosInt;
@@ -9611,6 +10128,36 @@ namespace ALE_MexJet.Presenter
                     //    }
                     //}
                     #endregion
+
+                    //CUANDO EL PILOTO NO TIENE ACTIVIDAD DURANTE VARIOS DIAS Y ESTA EN UN LUGAR FUERA DE SU BASE
+                    //if (fHoraInicio > 0 && fHoraFinal < 24)
+                    //{
+                        if (oComDia2.sOrigen == oComDia2.sDestino)
+                        {
+                            if (bEsInterFinal)
+                            {
+                                oCant.iCantDesayunosInt++;
+                                oComDia2.iDesayunosInt++;
+
+                                oCant.iCantComidasInt++;
+                                oComDia2.iComidaInt++;
+
+                                oCant.iCantCenasInt++;
+                                oComDia2.iCenaInt++;
+                            }
+                            else
+                            {
+                                oCant.iCantDesayunos++;
+                                oComDia2.iDesayunosNal++;
+
+                                oCant.iCantComidas++;
+                                oComDia2.iComidaNal++;
+
+                                oCant.iCantCenas++;
+                                oComDia2.iCenaNal++;
+                            }
+                        }
+                    //}
 
                     #region DESAYUNO
                     //Primera condicion
@@ -10085,6 +10632,7 @@ namespace ALE_MexJet.Presenter
                     }
                     #endregion
 
+
                     oLst.Add(oComDia2);
                 }
                 else if (iDif > 1)
@@ -10104,6 +10652,31 @@ namespace ALE_MexJet.Presenter
                         oCom.sOrigen = sPODLeg;
                         oCom.sDestino = sPOA;
 
+                        if (oCom.sOrigen == oCom.sDestino)
+                        {
+                            if (bEsInterFinal)
+                            {
+                                oCant.iCantDesayunosInt++;
+                                oCom.iDesayunosInt++;
+
+                                oCant.iCantComidasInt++;
+                                oCom.iComidaInt++;
+
+                                oCant.iCantCenasInt++;
+                                oCom.iCenaInt++;
+                            }
+                            else
+                            {
+                                oCant.iCantDesayunos++;
+                                oCom.iDesayunosNal++;
+
+                                oCant.iCantComidas++;
+                                oCom.iComidaNal++;
+
+                                oCant.iCantCenas++;
+                                oCom.iCenaNal++;
+                            }
+                        }
 
                         if (bEsInterFinal)
                         {
@@ -10139,6 +10712,33 @@ namespace ALE_MexJet.Presenter
                         oComDia1.sduty_type = sDutyType;
                         oComDia1.sOrigen = sPODLeg;
                         oComDia1.sDestino = sPOA;
+
+                        if (oComDia1.sOrigen == oComDia1.sDestino)
+                        {
+                            if (bEsInterFinal)
+                            {
+                                oCant.iCantDesayunosInt++;
+                                oComDia1.iDesayunosInt++;
+
+                                oCant.iCantComidasInt++;
+                                oComDia1.iComidaInt++;
+
+                                oCant.iCantCenasInt++;
+                                oComDia1.iCenaInt++;
+                            }
+                            else
+                            {
+                                oCant.iCantDesayunos++;
+                                oComDia1.iDesayunosNal++;
+
+                                oCant.iCantComidas++;
+                                oComDia1.iComidaNal++;
+
+                                oCant.iCantCenas++;
+                                oComDia1.iCenaNal++;
+                            }
+                        }
+
 
                         if (bEsInterFinal)
                         {
@@ -10231,6 +10831,36 @@ namespace ALE_MexJet.Presenter
                         //    }
                         //}
                         #endregion
+
+                        //CUANDO EL PILOTO NO TIENE ACTIVIDAD DURANTE VARIOS DIAS Y ESTA EN UN LUGAR FUERA DE SU BASE
+                        //if (fHoraInicio > 0 && fHoraFinal < 24)
+                        //{
+                            if (oComDia1.sOrigen == oComDia1.sDestino)
+                            {
+                                if (bEsInterFinal)
+                                {
+                                    oCant.iCantDesayunosInt++;
+                                    oComDia1.iDesayunosInt++;
+
+                                    oCant.iCantComidasInt++;
+                                    oComDia1.iComidaInt++;
+
+                                    oCant.iCantCenasInt++;
+                                    oComDia1.iCenaInt++;
+                                }
+                                else
+                                {
+                                    oCant.iCantDesayunos++;
+                                    oComDia1.iDesayunosNal++;
+
+                                    oCant.iCantComidas++;
+                                    oComDia1.iComidaNal++;
+
+                                    oCant.iCantCenas++;
+                                    oComDia1.iCenaNal++;
+                                }
+                            }
+                        //}
 
                         #region DESAYUNO
                         //Primera condicion
@@ -10719,6 +11349,32 @@ namespace ALE_MexJet.Presenter
                         oComDia2.sOrigen = sPODLeg;
                         oComDia2.sDestino = sPOA;
 
+                        if (oComDia2.sOrigen == oComDia2.sDestino)
+                        {
+                            if (bEsInterFinal)
+                            {
+                                oCant.iCantDesayunosInt++;
+                                oComDia2.iDesayunosInt++;
+
+                                oCant.iCantComidasInt++;
+                                oComDia2.iComidaInt++;
+
+                                oCant.iCantCenasInt++;
+                                oComDia2.iCenaInt++;
+                            }
+                            else
+                            {
+                                oCant.iCantDesayunos++;
+                                oComDia2.iDesayunosNal++;
+
+                                oCant.iCantComidas++;
+                                oComDia2.iComidaNal++;
+
+                                oCant.iCantCenas++;
+                                oComDia2.iCenaNal++;
+                            }
+                        }
+
                         if (bEsInterFinal)
                         {
                             oCant.iCantDesayunosInt++;
@@ -10811,6 +11467,36 @@ namespace ALE_MexJet.Presenter
                         //    }
                         //}
                         #endregion
+
+                        //CUANDO EL PILOTO NO TIENE ACTIVIDAD DURANTE VARIOS DIAS Y ESTA EN UN LUGAR FUERA DE SU BASE
+                        //if (fHoraInicio > 0 && fHoraFinal < 24)
+                        //{
+                            if (oComDia2.sOrigen == oComDia2.sDestino)
+                            {
+                                if (bEsInterFinal)
+                                {
+                                    oCant.iCantDesayunosInt++;
+                                    oComDia2.iDesayunosInt++;
+
+                                    oCant.iCantComidasInt++;
+                                    oComDia2.iComidaInt++;
+
+                                    oCant.iCantCenasInt++;
+                                    oComDia2.iCenaInt++;
+                                }
+                                else
+                                {
+                                    oCant.iCantDesayunos++;
+                                    oComDia2.iDesayunosNal++;
+
+                                    oCant.iCantComidas++;
+                                    oComDia2.iComidaNal++;
+
+                                    oCant.iCantCenas++;
+                                    oComDia2.iCenaNal++;
+                                }
+                            }
+                        //}
 
                         #region DESAYUNO
                         //Primera condicion
@@ -11451,6 +12137,12 @@ namespace ALE_MexJet.Presenter
                         {
                             var Results = oLstCant.Where(r => r.sCrewCode == row["ClavePiloto"].S()).ToList();
                             var ResultsH = oLstCantH.Where(r => r.sCrewCode == row["ClavePiloto"].S()).ToList();
+
+                            List<CantidadComidas> lista = new List<CantidadComidas>();
+                            if (row["ClavePiloto"].S() == "TOM")
+                            {
+                                lista = Results;
+                            }
 
                             int iDesNal = 0;
                             int iDesInt = 0;

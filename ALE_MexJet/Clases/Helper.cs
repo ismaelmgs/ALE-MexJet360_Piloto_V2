@@ -19,5 +19,7 @@ namespace ALE_MexJet.Clases
         public const string UrlBase = "https://app.fl3xx.us/api/external/"; //prod
         public const string Urlflights = "flight/flights";
         public const string Urlpostflight = "flight/{1}/postflight";
+
+        public const string UrlBroxelTransfer = "https://fincloudqa.broxel.io/obank-services/transferb2b/TransferOnline";
     }
 }

@@ -984,6 +984,7 @@
     <Compile Include="Objetos\BitacoraAudit.cs" />
     <Compile Include="Objetos\Bitacoras.cs" />
     <Compile Include="Objetos\BitacoraVuelo.cs" />
+    <Compile Include="Objetos\Broxel.cs" />
     <Compile Include="Objetos\CalculoPagos.cs" />
     <Compile Include="Objetos\Casos.cs" />
     <Compile Include="Objetos\CombustibleGrupoModelo.cs" />

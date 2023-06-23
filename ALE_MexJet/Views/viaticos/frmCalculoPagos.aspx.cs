@@ -1,4 +1,5 @@
-﻿using ALE_MexJet.DomainModel;
+﻿using ALE_MexJet.Clases;
+using ALE_MexJet.DomainModel;
 using ALE_MexJet.Interfaces;
 using ALE_MexJet.Objetos;
 using ALE_MexJet.Presenter;
@@ -7,6 +8,7 @@ using DevExpress.Web.Bootstrap;
 using DevExpress.XtraPrinting.Export.Web;
 using NucleoBase.Core;
 using Org.BouncyCastle.Utilities.Encoders;
+using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -14,9 +16,11 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Web;
+using System.Web.Script.Serialization;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Xml;
+using static ALE_MexJet.Objetos.Broxel;
 
 namespace ALE_MexJet.Views.viaticos
 {
@@ -129,6 +133,11 @@ namespace ALE_MexJet.Views.viaticos
         {
             try
             {
+                //gvPeriodosGuardados.DataSource = null;
+                gvPeriodosGuardados.DataBind();
+                //gvCalculo.DataSource = null;
+                gvCalculo.DataBind();
+
                 dtDiasViaticos = null;
                 //dtDiasViaticosHoteles = null;
                 oLstCon = null;
@@ -145,10 +154,7 @@ namespace ALE_MexJet.Views.viaticos
                 sFechaHasta = date2.Text;
                 sParametro = txtParametro.Text;
 
-                //gvPeriodosGuardados.DataSource = null;
-                //gvPeriodosGuardados.DataBind();
-                //gvCalculo.DataSource = null;
-                //gvCalculo.DataBind();
+                
 
                 if(dtGuardados != null)
                     dtGuardados.Dispose();
@@ -1941,6 +1947,7 @@ namespace ALE_MexJet.Views.viaticos
                     {
                         btnAprobar.Visible = false;
                         pnlVuelos.Visible = false;
+                        gvPeriodosGuardados.DataSource = null;
                         gvPeriodosGuardados.DataBind();
                     }
                     else
@@ -5748,6 +5755,41 @@ namespace ALE_MexJet.Views.viaticos
         }
         #endregion
 
+        protected void btnPagar_OnClick(object sender, EventArgs e)
+        {
+            try
+            {
+                JavaScriptSerializer ser = new JavaScriptSerializer();
+                //TokenAccess oToken = new TokenAccess();
+                Transfer oLog = new Transfer();
+                oLog.currency = 484; //Código ISO (Pesos)
+                oLog.idClientTransaction = sCvePiloto + DateTime.Now.ToString("yyyyMMdd"); //ALC20230516
+                oLog.sourceReference = "7654321012345678"; //Cuenta Origen (Pesos - Dolares)? Todo sera en Pesos
+                oLog.sourceReferenceType = 1;
+                oLog.targetAmount = 280;
+                oLog.targetReference = "1234567890123456"; //Cuenta destino
+                oLog.targetReferenceType = 1;
+
+                var client = new RestClient(Helper.UrlBroxelTransfer);
+                var request = new RestRequest(Method.POST);
+                request.AddHeader("x-api-key", "5ZEfQKeON5TGPWuI1ipDV7qEimHvyy2ZVxA8oEpAPJ0koQ7N");
+                request.AddJsonBody(oLog);
+
+                IRestResponse response = client.Execute(request);
+
+                if (response.StatusDescription == "OK")
+                {
+                    var resp = response.Content;
+                    DataTransfer resultado = ser.Deserialize<DataTransfer>(resp);
+                    MostrarMensaje("¡Se ha realizado la transferencia exitosamente!", "Transferencia");
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
 
     }
 }
